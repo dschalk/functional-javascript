@@ -1,6 +1,6 @@
   <a name="back"></a>
 
-# JS-monads-stable
+#Monads In Javascript 
 
 PLEAE NOTE: This project is constantly evolving and this README.md file is now out of date. To see what this is all about, go to [http://schalk.net:3055](http://schalk.net:3055)  -- David Schalk
 
