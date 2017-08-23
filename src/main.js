@@ -561,6 +561,12 @@ var forwardAction$ = forwardClick$.map(() => {
       }
   });
 
+function fmap3(x, g, id) {
+  var mon = new Monad(g(x), id);
+  window[id] = mon;
+  return mon;
+}
+
   var solve = function solve () {
      mMZ3.bnd(a => {
      mMquad4.ret('');
@@ -570,7 +576,7 @@ var forwardAction$ = forwardClick$.map(() => {
      mMquad6.ret(b + ' * x ')
      mMZ3.bnd(c => {
      mMtemp.ret([a,b,c])
-    .bnd(fmap, qS4,'mMtemp2')
+    .bnd(fmap3, qS4,'mMtemp2')
     .bnd(result => {
       let x = result[0]
       let y = result[1]
@@ -792,21 +798,25 @@ h('pre.lightGreen', `    function Monad(z = 'default', ID = 'tempMonad') {
       this.id = ID;
     }; ` ),
 h('p', ' Like the >>= (called "bind") operator in the Haskell programming language, bind() operates on functions that take values and return instances of Monad. "ret()", defined below, resembles  Haskell\'s "return" function. It takes any valid JavaScript value, including deeply nested arrays, instances of Monad, etc., and returns that value encapsulated in an instance of Monad. Here\'s the definition: '),
-h('pre.lb', `  function ret (v, id = 'temp_from_ret') {
+h('pre', `  function ret (v, id) {
     return window[id] = new Monad(v, id);
   }; `),
 h('p', ' Now, let\'s see bind() in action. the following code assigns 0 to monad "z0", 3 to z1, 27 to z2, 30 to z3 and 900 to z4, 9 to z5, 7 to z6, and 42 to z7. z1, ... z7 might not have been previously defined. It doesn\t matter. bind() initiates the series of computations with the generic throw-away function returned by ret().' ),
-h('pre.red0', `bind(ret(0,'z1'))(v=>ret(0))(v=>ret(v+3),"$z1")
+h('pre', {style: {color: "rgb(237, 205, 161)"}}, `bind(ret(0,'z1'))(v=>ret(0))(v=>ret(v+3),"$z1")
 (v=>ret(v*v*v),"$z2")(v=>ret(v+3),"$z3")(v=>ret(v*v),"$z4")
 (v=>ret(v/100),"$z5")(x=>ret(x-2),"$z6")(v=>ret(v*6),"$z7")
-(terminate) 
+(terminate).map(v => console.log("Monad instance",v.id,"has value",v.x));
 
-h('div.red0', 'z0.x, z1.x, z2.x, z3.x, z4.x,z5.x, z6.x,z7.x ' ) `), 
+Chrome console display:
+
+Monad instance m has value 3
+Monad instance m2 has value 27
+Monad instance m3 has value 30
+Monad instance m4 has value 900
+Monad instance m5 has value 9
+Monad instance m6 has value 45
+Monad instance m7 has value 42  `), 
   
-h('span.tao', ' Running the above code in the Chrome Scratchpad caused ' ),
-h('span.red0', '0, 3, 27, 30, 900, 9, 7, and 42' ),
-h('span', ' to be displayed in the console ' ),
-
 h('span', ' Reactivity is implemented in the Cycle.js framework. Some developers find that Cycle.js has a steep learning curve. It isn\'t so bad if you start with Andr Staltz\' '),
 h('a', { props: { href: "https://egghead.io/courses/cycle-js-fundamentals", target: "_blank" } }, ' Overview of Cycle.js.'),
 h('span', ' Its sheer elegance might take your breath away, and make you want to implement something in it right away. ' ),
@@ -816,11 +826,52 @@ h('span.tao', 'This project was created by, and is actively maintained by me, Da
 h('a', { props: { href: "https://github.com/dschalk/JS-monads-stable", target: "_blank" } }, 'JS-monads'),
 h('span', ' You can comment at ' ),
 h('a', { props: { href: 'https://redd.it/60c2xx' }}, 'Reddit' ),
-h('span', ' or in the ' ),
-h('a', { props: { href: '#cmment'}}, 'comment' ),
-h('span', ' section below. '),
 h('br' ),
-      h('p', ' Snabbdom, xstream, and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimention and learning. ' ),
+h('p', ' Snabbdom, xstream, and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimention and learning so many supporting files are included as scripts in the index.html page. ' ),
+h('p', ' Here is the definition of bind(): ' ),
+h('pre', {style: {color: "lightBlue"}}, `  function bind (m, ar = []) {
+    if (!(m instanceof Monad)) {
+      console.log('bind operates only on instances of Monad')
+      return;
+    }
+    var m = m;
+    var arr = ar;
+    var inner = function (func, ...args) { 
+      var y = func(m.x, ...args) 
+      if (!(m instanceof Monad)) {
+        console.log(func, 'does not return a monad');
+        return;
+      }
+      y.id = testPrefix(args, m.id)
+      window[y.id] = y;
+      if (func.name === "terminate") {
+        window[m.id] = new Monad (m.x, m.id);
+        arr.push(window[m.id]);
+        return ar
+      }
+      arr.push(window[y.id])
+      return bind(window[y.id], arr); 
+    };
+    return inner
+  } ` ), 
+h('p', ' When using bind(), coders provide only one argument, which must be an instance of Monad. The second argument runs automatically, starting with an empty array and subsequently accumulating the result of each step in a sequence of computations. ' ),
+h('p', ' testPrefix() looks for strings prefixed by "$". If it finds one, y.id is assigned the value of the substring that follows the prefix. If no string beginning with "$" is found, y.id will not change. y.id will never be undefined because functions provided to bind must return instances of Monad. Here is the definition of testPrefix:' ),
+
+h('pre', {style: {color: "rgb(213, 177, 239)"}}, `  function testPrefix (x,y) {
+    var t = y;  // y is the id of the monad calling testPrefix
+    if (Array.isArray(x)) {
+      x.map(v => {
+        if (typeof v == 'string' && v.charAt() == '$') {
+           t = v.slice(1);  // Remove "$"
+        }
+      })
+    }
+   return t;
+ } ` ),
+
+
+
+
       h('span.italic', ' These monads are like the Haskell monads in that they resemble the monads of category theory without actually being mathematical monads. See ' ),
       h('a', { props: { href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/", target: "_blank" } }, 'Hask is not a category.'),
           h('span', ' by Andrej Bauer and the ' ),
@@ -1054,7 +1105,6 @@ h('p', ' execF prepares the Fibonacci series and sends its state, along with the
     t.bnd('add3','Math.sqrt(-1)', '$t2').bnd(cube3, '$t3')
     t.bnd('addd3', 3, '$t2').bnd(cube3, '$t3' ` ),
   h('br'),
-  h('img.image', {props: {src: "error2.png"}}  ),
   h('br'),
   h('p.tao1b', ' The monad laws hold for MonadEr instances. The following relationships were verified in the Chrome console: ' ),
   h('pre', `    ret3(0,'t',[])  // t is now an instance of MonadEr with t.x = 0 and t.e = [].
@@ -1162,7 +1212,8 @@ code.MonadSet,
   h('a#tdList2', { props: { href: '#itterLink' } }, 'release() with arguments'),
   h('br'),
 
-  h('h2', 'COMMENTS' ),
+  h('h2', {style: {color: "red" }}, 'Comming soon: A place to leave, edit, and delete comments' ),
+  /*
   h('div#com2',  { style: { display: abcde} }, ), 
   h('p', ' When this page loads in the browser, a user name is automatically generated in order to establish a unique Websocket connection. This makes it possible to exchange text messages with other group members, play the game, and work on a shared todo list. If you want to leave a comment, you need to log in with a user name and a password of your choice. Each can be a single character or you could use a hard-to-hack combination of alphabet letter, numbers, and special characters. The main requirement is that there be only one comma, and that it be placed between the name and the password. ' ),
   h('p', 'The server will keep your user name and password in a text file. If you use your saved user name and password sometime in the future, you will be able to edit or delete any comments you previously made. '),
@@ -1189,7 +1240,14 @@ code.MonadSet,
   h('br'),
   h('p', ' *************************************************************************************** ' ),
   h('br'),  
+  */
+  h('br'),  
+  h('br'),  
   h('a', { props: { href: '#top' } }, 'Back To The Top'),
+  h('br'),  
+  h('br'),  
+  h('br'),  
+  h('img.image', {props: {src: "error2.png"}}  ),
   h('h2', 'Appendix - Under Construction ' ),
   h('h3', 'The functions that produce the examples' ),
 

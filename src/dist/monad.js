@@ -31,8 +31,6 @@ var m7 = new Monad(7, 'm7');
 var m8 = new Monad(8, 'm8');
 var m9 = new Monad(9, 'm9');
 
-
-
 function makeSequence (n) {
   var a=[];
   var b=n;
@@ -72,21 +70,24 @@ function evaluate (x) {
   };
 
 
-function bind (m) {
+function bind (m, ar = []) {
   if (!(m instanceof Monad)) {
     console.log('bind operates only on instances of Monad')
     return;
   }
   var m = m;
+  var arr = ar;
   var inner = function (func, ...args) { 
     var y = func(m.x, ...args) 
     y.id = testPrefix(args, m.id)
     window[y.id] = y;
     if (func.name === "terminate") {
       window[m.id] = new Monad (m.x, m.id);
-      return window[m.id];
+      arr.push(window[m.id]);
+      return ar
     }
-    return bind(y); 
+    arr.push(window[y.id])
+    return bind(window[y.id], arr); 
   };
   return inner
 } 
@@ -100,6 +101,10 @@ function retrn (m, val = m.x) {
    return window[String(m)] = new Monad(val, String(m)); 
  }
 
+let v = ret(3,'v')
+let v2 = fmap (cube,m)
+console.log(m)
+
 retrn(m,77);
 console.log(m)
 
@@ -108,10 +113,11 @@ function terminate (x) {return x};
 function ret (v, id) {
   return window[id] = new Monad(v, id);
 }
-
-bind(m)(x=>ret(3))(cube,"$m2")(add,3,"$m3")(square,"$m4")(x=>ret(x/100),"$m5")(x=>ret(x*5),"$m6")(add,-3,"$m7")(terminate)
+console.log('*******************************************************************');
+bind(m)(x=>ret(3))(cube,"$m2")(add,3,"$m3")(square,"$m4")(x=>ret(x/100),"$m5")(x=>ret(x*5),"$m6")(add,-3,"$m7")(terminate).map(v => console.log("Monad instance",v.id,"has value",v.x));
 
 console.log(m.x,m2.x,m3.x,m4.x,m5.x,m6.x,m7.x)
+console.log('*******************************************************************');
 
   Monad.prototype.bnd = function (func, ...args) {
     var m = func(this.x, ...args)
@@ -139,6 +145,28 @@ console.log(m.x,m2.x,m3.x,m4.x,m5.x,m6.x,m7.x)
     }
     return t;
   }
+
+function fmap (f, mon1, ...args) {
+  var a;
+  var id;
+  if (mon1 instanceof Monad) {
+    console.log(arguments[0],arguments[1],arguments[2],arguments[3]);
+    if (Array.isArray(mon1.x)) {
+      a = mon1.x.map(f);
+    }
+    else if (arguments.length = 3 && arguments[2] instanceof Monad) {
+      a = f(mon1.x, arguments[2].x)
+    }
+    else if (arguments.length = 4) {
+      id = arguments[3];
+    }
+    else if (arguments.length = 3 && typeof arguments[2] == "string") {
+      id = arguments[2];
+    }
+    else a = "fmap error"
+  }
+  return ret(a,id);
+} 
 
   function square (v) {
     return ret(v*v)
@@ -549,12 +577,6 @@ var cuB = function (v, id = 'default') {
 };
 
 var m = new Monad(3, 'm');
-
-function fmap(x, g, id) {
-  var mon = new Monad(g(x), id);
-  window[id] = mon;
-  return mon;
-}
 
 var isFunc = function isFunc (x) { return eval("typeof(" + x + ") == 'function'")};
 
