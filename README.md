@@ -4,6 +4,91 @@
 
 PLEAE NOTE: This project is constantly evolving and this README.md file is now out of date. To see what this is all about, go to [http://schalk.net:3055](http://schalk.net:3055)  -- David Schalk
 
+
+The two main reasons I am publishing this website are:
+
+(1) To share my "bind()" function with website developers and
+
+(2) To help people who are interested in acclimating their thought processes to functional and reactive ways of programming. In order to feel comfortable with functional, reactive code, I think novices and seasoned programmers alike must grow new synaptic structures in their brains.
+
+bind() works by taking an instance of Monad and returning a function that operates on functions, always returning a function similar to itself.
+
+Instances of Monad are very simple. Here is the definition of Monad:
+
+    function Monad(z = 'default', ID = 'tempMonad') {
+      this.x = z;
+      this.id = ID;
+    }; 
+Like the >>= (called "bind") operator in the Haskell programming language, bind() operates on functions that take values and return instances of Monad. "ret()", defined below, resembles Haskell's "return" function. It takes any valid JavaScript value, including deeply nested arrays, instances of Monad, etc., and returns that value encapsulated in an instance of Monad. Here's the definition:
+
+  function ret (v, id) {
+    return window[id] = new Monad(v, id);
+  }; 
+Now, let's see bind() in action. the following code assigns 0 to monad "z0", 3 to z1, 27 to z2, 30 to z3 and 900 to z4, 9 to z5, 7 to z6, and 42 to z7. z1, ... z7 might not have been previously defined. It doesn	matter. bind() initiates the series of computations with the generic throw-away function returned by ret().
+
+bind(ret(0,'z1'))(v=>ret(0))(v=>ret(v+3),"$z1")
+(v=>ret(v*v*v),"$z2")(v=>ret(v+3),"$z3")(v=>ret(v*v),"$z4")
+(v=>ret(v/100),"$z5")(x=>ret(x-2),"$z6")(v=>ret(v*6),"$z7")
+(terminate).map(v => console.log("Monad instance",v.id,"has value",v.x));
+
+Chrome console display:
+
+Monad instance m has value 3
+Monad instance m2 has value 27
+Monad instance m3 has value 30
+Monad instance m4 has value 900
+Monad instance m5 has value 9
+Monad instance m6 has value 45
+Monad instance m7 has value 42  
+Reactivity is implemented in the Cycle.js framework. Some developers find that Cycle.js has a steep learning curve. It isn't so bad if you start with Andr Staltz' Overview of Cycle.js. Its sheer elegance might take your breath away, and make you want to implement something in it right away. 
+
+This project was created by, and is actively maintained by me, David Schalk. The code repository is at JS-monads You can comment at Reddit
+Snabbdom, xstream, and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimention and learning so many supporting files are included as scripts in the index.html page.
+
+Here is the definition of bind():
+
+  function bind (m, ar = []) {
+    if (!(m instanceof Monad)) {
+      console.log('bind operates only on instances of Monad')
+      return;
+    }
+    var m = m;
+    var arr = ar;
+    var inner = function (func, ...args) { 
+      var y = func(m.x, ...args) 
+      if (!(m instanceof Monad)) {
+        console.log(func, 'does not return a monad');
+        return;
+      }
+      y.id = testPrefix(args, m.id)
+      window[y.id] = y;
+      if (func.name === "terminate") {
+        window[m.id] = new Monad (m.x, m.id);
+        arr.push(window[m.id]);
+        return ar
+      }
+      arr.push(window[y.id])
+      return bind(window[y.id], arr); 
+    };
+    return inner
+  } 
+When using bind(), coders provide only one argument, which must be an instance of Monad. The second argument runs automatically, starting with an empty array and subsequently accumulating the result of each step in a sequence of computations.
+
+testPrefix() looks for strings prefixed by "$". If it finds one, y.id is assigned the value of the substring that follows the prefix. If no string beginning with "$" is found, y.id will not change. y.id will never be undefined because functions provided to bind must return instances of Monad. Here is the definition of testPrefix:
+
+  function testPrefix (x,y) {
+    var t = y;  // y is the id of the monad calling testPrefix
+    if (Array.isArray(x)) {
+      x.map(v => {
+        if (typeof v == 'string' && v.charAt() == '$') {
+           t = v.slice(1);  // Remove "$"
+        }
+      })
+    }
+   return t;
+ } 
+
+
  These monads are like the Haskell monads in that they resemble the monads of category theory while not actually being mathematical monads. See [Hask is not a category](http://math.andrej.com/2016/08/06/hask-is-not-a-category/) by Andrej Bauer. They provide a convenient interface for dealing with uncertainty and side effects in a pure functional manner, assigning new values to identifiers (variables) without mutation. Adherence to the monad laws (see below) helps make the monads robust, versetile, and reliable tools for isolating and chaining sequences of Javascript functions.
 
  This is the open source repository for the application running online at [JS-monads-stable](http://schalk.net:3055). Aside from being a place to share my ideas and techniques with any developers who might be interested, this repository and the online demonstration can serve as a learning tools for people who are getting familiar with the usefulness of functions that take functions as arguments.

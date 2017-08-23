@@ -1,15 +1,11 @@
 
 
+function fmap (f, mon) {
+  return ret((f(mon.x)),mon.id);
+} 
 
-
-
-
-
-
-
-var j = new Monad (4,'j')
-var k = new Monad (7, 'k')
-var ans = j.x + k.x
-console.log(j)
+let v = ret(3,'v')
+let v2 = fmap (cube,m)
+console.log(m)
 
 
