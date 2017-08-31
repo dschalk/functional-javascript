@@ -139,7 +139,7 @@ console.log('*******************************************************************
      if (Array.isArray(x)) {
       x.map(v => {
         if (typeof v == 'string' && v.charAt() == '$') {
-           t = v.slice(1);  // Remove $ from the id of the soon to be instantiated monad.
+           t = v.slice(1);  // Remove "$"
         }
       })
     }
@@ -627,7 +627,7 @@ function MonadArchive(g, state, p) {
 var primesMonad = new MonadState('primesMonad', [3, [2,3], 3, [2,3]]);
 
 function MonadState(g, state) {
-  console.log('someone called with g and state', g, state);
+  console.log(g,'called MonadState with', state);
   this.id = g;
   this.s = state;
   this.bnd = (func, ...args) => func(this.s, ...args);

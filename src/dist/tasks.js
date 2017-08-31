@@ -15,12 +15,15 @@ function MonadState2(g, state) {
 MonadState2.prototype.html = [];
 
 MonadState2.prototype.init = function (str) {
-  console.log('ppppppppppppppppppppppppppp  Entered tasksMonad - - str is', str);
+  console.log('ppppppppppppppppppppppppppp  Entered tasksMonad.init - - str is', str);
+  console.log('str str str', str);
+  this.html = [];
   var task, auth, resp, bool;
   this.s[0] = str;
   console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX >>> this.s[0]", this.s[0]);
   var ar = str.split("<@>");
-  arr = ar.filter(v => v !== "")
+  arr = ar.filter(v => v !== "");
+  arr = arr.filter(v => v != "\n");
   this.s[1] = arr.slice();
   console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX >>> this.s[1]", this.s[1]);
   var n = -1;
@@ -28,17 +31,19 @@ MonadState2.prototype.init = function (str) {
   var showCheck, showUnCheck, showGreen;
   arr.map(q => { 
     console.log("q:", q);
-    let v = q.split(",")
-    console.log('v[0],v[1],v[2],v[3]',v[0],v[1],v[2],v[3]);
+    let v = q.split("<%>")
+    console.log('In init.map - - v[0],v[1],v[2],v[3]',v[0],v[1],v[2],v[3]);
     task = v[0].replace(/<<>>/g, ","); 
     bool = v[1] === "true" ? true : false;
     auth = v[2];
     resp = v[3];
+    console.log('Later inn init.map - - v[0],v[1],v[2],v[3]',v[0],v[1],v[2],v[3]);
     n = parseInt(n,10) + 1;
     showCheck = bool ? "none" : "inline"
     showUnCheck = bool ? "inline" : "none"
     showGreen = bool ? "green" : "yellow"
     showLineThrough = bool ? "line-through" : "none"
+    console.log('Ready to start this.html.push 00000000000000000000000000000000000 ');
     this.html.push(h('div#' + n, [
       h('span.task3', {style: {color: showGreen, textDecoration: showLineThrough }},'Task: ' + task),
       h('br'),
@@ -93,20 +98,16 @@ MonadState2.prototype.edit = function(num, str) {
 MonadState2.prototype.toggle = function(num) {
   var k = parseInt(num,10);
   var arr = this.s[1].slice();
-  var b = arr.map(v => v.split(","));
-  console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-  console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-  console.log("<$><$><$><$><$><$> toggle array start <$><$><$><$><$> ***************************");
+  var b = arr.map(v => v.split("<%>"));
+  console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ In toggle.map -> START')
   b[k][1] = b[k][1] === "true" ? "false" : "true"
-  var newArr = b.map(v => v.join(","))
-  console.log(newArr);
+  var newArr = b.map(v => v.join("<%>"))
+  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! newArr: ', newArr);
   console.log("<$><$><$><$><$><$> toggle array finish <$><$><$><$><$>");
   var newStr = newArr.join("<@>");
-  console.log("<$><$><$><$><$><$> toggle string start<$><$><$><$><$>");
+  console.log("<$><$><$><$><$><$> toggle newString start<$><$><$><$><$>");
   console.log(newStr)
-  console.log("<$><$><$><$><$><$> toggle string finish <$><$><$><$><$> ***************************");
-  console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-  console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+  console.log("<$><$><$><$><$><$> toggle newString finish <$><$><$><$><$> *****");
   this.s[0] = "";
   this.s[1] = [];
   this.html = [];

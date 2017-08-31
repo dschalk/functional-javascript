@@ -386,17 +386,7 @@ var cleanup = h('pre',  `  function cleanup (x) {
   mMZ2.bnd(v => cube(v)
   .bnd(w => mMt3VAL = v + ' cubed is ' + w));  `  )
 
-  var quad = h('pre',  `  const quad$ = sources.DOM
-    .select('#quad').events('keypress')  // Motorcycle way to get user input.
-
-  const quadAction$ = quad$.map((e) => {
-    if( e.keyCode === 13 ) {
-      mMZ3.release(e.target.value)       // Releases mMZ (below).
-      document.getElementById('quad').value = null;
-    }
-  });
-
-  var solve = function solve () {
+  var quadShort = h('pre',  `  var solve = function solve () {
      mMZ3.bnd(a => {
      mMquad4.ret('');
      mMquad6.ret('');
@@ -405,7 +395,7 @@ var cleanup = h('pre',  `  function cleanup (x) {
      mMquad6.ret(b + ' * x ')
      mMZ3.bnd(c => {
      mMtemp.ret([a,b,c])
-    .bnd(fmap, qS4,'mMtemp2')
+    .bnd(gMap, qS4,'mMtemp2')
     .bnd(result => {
       let x = result[0]
       let y = result[1]
@@ -421,40 +411,94 @@ var cleanup = h('pre',  `  function cleanup (x) {
         solve();
         return;
       };
-      mMquad4.ret("Results: " + x + " and  " + y)
+      mMquad4.ret("Solutiions for " + a + ", " + b + " and " + c + " are " + x + " and  " + y)
       mMquad5.ret(p(a).text + " * " + x + " * " + x + " + " + p(b).text +
               " * " + x + " " + p(c).text + " = 0")
       mMquad6.ret(p(a).text + " * " + y + " * " + y + " + " + p(b).text +
               " * " + y + " " + p(c).text + " = 0")
-      solve();
+      solve();   // Continuing the endless loop.
       }) }) }) })
   };
+  solve(); ` )
 
-  var p = function p (x) {
-    if (x >= 0) {return ' + ' + x}
-    if (x < 0 ) {return ' - ' + Math.abs(x)}
-  }
+  var quad = h('pre',  `  var solve = function solve () {
+     mMZ3.bnd(a => {
+     mMquad4.ret('');
+     mMquad6.ret('');
+     mMquad5.ret(a + " * x * x ")
+     mMZ3.bnd(b => {
+     mMquad6.ret(b + ' * x ')
+     mMZ3.bnd(c => {
+     mMtemp.ret([a,b,c])
+    .bnd(gMap, qS4,'mMtemp2')
+    .bnd(result => {
+      let x = result[0]
+      let y = result[1]
+      if (x === 0) {
+        mMquad5.ret('No solution', mMtemp)
+        mMquad6.ret(' ');
+        solve();
+        return;
+      }
+      if (y === 0) {
+        mMquad5.ret('No solution')
+        mMquad6.ret(' ')
+        solve();
+        return;
+      };
+      mMquad4.ret("Solutiions for " + a + ", " + b + " and " + c + " are " + x + " and  " + y)
+      mMquad5.ret(p(a).text + " * " + x + " * " + x + " + " + p(b).text +
+              " * " + x + " " + p(c).text + " = 0")
+      mMquad6.ret(p(a).text + " * " + y + " * " + y + " + " + p(b).text +
+              " * " + y + " " + p(c).text + " = 0")
+      solve();   // Continuing the endless loop.
+      }) }) }) })
+  };
+  solve();
 
-  var qS1 = function qS1 (a, b, c) {
-    let n = (b*(-1)) + (Math.sqrt(b*b - 4*a*c));
-    if (n != n) {
-      return "No solution";
-    }
-    return n/(2*a);
-  }
-
-  var qS2 = function qS2 (a, b, c) {
-    let n = (b*(-1)) - (Math.sqrt(b*b - 4*a*c));
-    if (n != n) {
-      return "No solution";
-    }
-    return n/(2*a);
-
-  function fmap(x, g, id) {
-    var mon = new Monad(g(x), id);
+  function gMap(x, f, id) {
+    var mon = new Monad(f(x), id);
     window[id] = mon;
     return mon;
-  }  `  )
+  }
+
+  var qS1 = function qS1(a, b, c) {
+      var n = (b * (-1)) + (Math.sqrt(b * b - 4 * a * c));
+      if (n != n) {
+          return 0;
+      }
+      return n / (2 * a);
+  };
+  var qS2 = function qS2(a, b, c) {
+      var n = (b * (-1)) - (Math.sqrt(b * b - 4 * a * c));
+      if (n != n) {
+          return 0;
+      }
+      return n / (2 * a);
+  };
+  var qS3 = function qS3(a, b, c) {
+      return [qS1(a, b, c), qS2(a, b, c)];
+  };
+      var qS4 = function qS4 ([x,y,z]) {
+        let [a,b,c] = [numProtect(x),numProtect(y),numProtect(z)]
+        return [qS1(a,b,c), qS2(a,b,c)]
+      }
+
+  var qS4 = function qS4(_a) {
+      var x = _a[0], y = _a[1], z = _a[2];
+      var _b = [x, y, z], a = _b[0], b = _b[1], c = _b[2];
+      return qS3(a, b, c);
+  };
+
+  var quad$ = sources.DOM
+      .select('#quad').events('keypress');
+
+  var quadAction$ = quad$.map(function (e) {
+      if (e.keyCode === 13) {
+          mMZ3.release(e.target.value);
+          document.getElementById('quad').value = null;
+      }
+  }); `  )
 
   var runTest = h('pre',  `  var runTest = function monTest () {
   mM5.bnd( equals,
@@ -2120,4 +2164,4 @@ var monCon5 = h('pre',  `
 
 
 
-  export default { todo1, todo2, sco, calculations, prototypeAdditions, styl, num_op, fetch, gameMonad_2, newRoll, primes3, primes2, primes, variations, MonadEmitter, clicks, bNode, MonadState2, gameMonad, cycle, monad, hardWay, hardWay2, async1, async2, execP, workerD$, fact_workerC, fact2_workerD, primes_state, workerB_Driver, workerC, worker$, errorDemo, monadEr, backAction, tests, mMZ10, test3, monad, equals, fmap, opM, e2, e2x, e3, e4, e4x, e6, e6x, driver, messages, monadIt, MonadSet, updateCalc, arrayFuncs, nums, cleanup, ret, C42, newTask, process, mM$task, colorClick, edit, testZ, quad, runTest, todoStream, inc, seed,  add, MonadState, primesMonad, fibsMonad, primeFibInterface, tr3, fpTransformer, factorsMonad, factorsInput, promise, promiseSnippet, timeout, timeoutSnippet, examples, examples2 }
+  export default { todo1, todo2, sco, calculations, prototypeAdditions, styl, num_op, fetch, gameMonad_2, newRoll, primes3, primes2, primes, variations, MonadEmitter, clicks, bNode, MonadState2, gameMonad, cycle, monad, hardWay, hardWay2, async1, async2, execP, workerD$, fact_workerC, fact2_workerD, primes_state, workerB_Driver, workerC, worker$, errorDemo, monadEr, backAction, tests, mMZ10, test3, monad, equals, fmap, opM, e2, e2x, e3, e4, e4x, e6, e6x, driver, messages, monadIt, MonadSet, updateCalc, arrayFuncs, nums, cleanup, ret, C42, newTask, process, mM$task, colorClick, edit, testZ, quad, quadShort, runTest, todoStream, inc, seed,  add, MonadState, primesMonad, fibsMonad, primeFibInterface, tr3, fpTransformer, factorsMonad, factorsInput, promise, promiseSnippet, timeout, timeoutSnippet, examples, examples2 }
