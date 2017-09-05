@@ -46,7 +46,7 @@ function main(sources) {
      if (sender === pMname.x) {
        gameMonad.run([v[7], v[8], 0, [], [v[3], v[4], v[5], v[6]]]);
      }
-     else gameMonad.run([, , 0, [], [v[3], v[4], v[5], v[6]]]);
+     else gameMonad.run([, , , [], [v[3], v[4], v[5], v[6]]]);
    });
 
    mMZ11.bnd( () => {
@@ -75,12 +75,14 @@ function main(sources) {
    });
 
    mMZ15.bnd( () => {
-  /*    var ar = [];
-     var g = v[3];   // .split('<<>>')
-     g.map(v => {
-       ar.push(h('div', v));
-     });    */ 
-     gameData = v[3];
+     var ar = [];
+     var arr = v[3].slice();
+     var arr2 = arr.split("<$!$>");
+     arr2.map(v => {
+       ar.push(v);
+       ar.push(h('br'));
+     });
+     gameData = ar;
    });
 
    mMZ16.bnd( () => {                          // Prefix RR#$42
@@ -105,9 +107,8 @@ function main(sources) {
    });
 
    mMZ18.bnd( () => {                          // Prefix ZN#$42  NEW COMMENT
-     var a = commentMonad.s[0];
-     var b = a + '<@>' + sender + '<o>' + extra + '<@>'
-     mMcomments.ret(commentMonad.run(b));
+     var a = commentMonad.s[0] + extra;
+     mMcomments.ret(commentMonad.run(a));
    });
 
    mMZ19.bnd( () => {                          // Prefix ZE#$42  EDIT A COMMENT
@@ -126,13 +127,11 @@ function main(sources) {
    });
   // ******************************************************* TASKS
    mMZ21.bnd( () => {        // add a new a task
-     var str = e.data.split("<$>")[1];
-     console.log("In mZ21.bnd - - str is", str);
-     taskMonad.append(str);
+     taskMonad.append(extra);
    });
 
    mMZ22.bnd( () => {        // edit a task
-     taskMonad.edit(v[3],v[4]);
+     taskMonad.edit(v[4],v[6]);
    });
 
    mMZ23.bnd( () => {        
@@ -155,10 +154,10 @@ function main(sources) {
   .bnd(next, 'TD#$42', mMZ14)
   .bnd(next, 'NN#$42', mMZ15)
   .bnd(next, 'RR#$42', mMZ16)
-  .bnd(next, 'ZZ#$42', mMZ17) // Comments automatically arrive after the app loads
-  .bnd(next, 'ZN#$42', mMZ18)
-  .bnd(next, 'ZE#$42', mMZ19)
-  .bnd(next, 'ZD#$42', mMZ20)
+  .bnd(next, 'GZ#$42', mMZ17) // Comments automatically arrive after the app loads
+  .bnd(next, 'GN#$42', mMZ18)
+  .bnd(next, 'GE#$42', mMZ19)
+  .bnd(next, 'GD#$42', mMZ20)
   .bnd(next, 'TA#$42', mMZ21)  // Automatic task list load on group change
   .bnd(next, 'TE#$42', mMZ22)  // edit a task
   .bnd(next, 'TT#$42', mMZ23)  // chechbox
@@ -180,7 +179,8 @@ var commentAction$ = comment$.map(e => {
   if (e.keyCode == 13) {
     var com = e.target.value.replace(/,/g, "<<>>");
     var comm = com.replace(/(\r\n|\n|\r)/gm,"");   // Remove newlines
-    socket.send(`GN#$42,${pMgroup.x},${pMname.x},<@>${pMname.x}<o>${comm}<@>`);
+    var comment = pMname.x + "<o>" + comm
+    socket.send(`GN#$42,${pMgroup.x},${pMname.x},${comment}`);
   }
 });
 
@@ -690,7 +690,7 @@ var prAction$ = pr$.map(function (e) {
 
 
 // Clicking the checkbox to indicate that a task has been finished.
-var cbx$ = sources.DOM.select('.cbx').events('click');
+var cbx$ = sources.DOM.select('#cbx').events('click');
 
 var cbxAction$ = cbx$.map(e => {
   var index = e.target.parentNode.id;
@@ -726,8 +726,15 @@ var editAction$ = edit$.map(function (e) {
   if (e.keyCode === 13) {
     var index = e.target.parentNode.id;
     var st = e.target.value
-    var str = st.replace(/,/g, "<<>>");
-    socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${str} `);
+    var str = st.replace(/,/g, "<%>");
+    var s = taskMonad.s[1].slice();
+    var old = s.splice(index,1);
+    console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOO this is old:", old );
+    var nu = old[0].split("<%>");
+    nu[0] = str
+    var nu2 = nu.join("<%>");
+    s.splice(index,0,nu);
+    socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${nu2}`);
   }
 });
 
@@ -743,20 +750,15 @@ var newTaskAction$ = newTask$.map(function (e) {
       return;
     }
     else {
-      console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ In newTaskAction$ ZZZ  START');
-      var todo = [];
       var index = e.target.parentNode.id;
-      console.log('e',e);
-      console.log('e.target.value',e.target.value);
-      console.log('ar',ar);
-      todo[2] = ar.shift();
-      todo[3] = ar.shift();
-      todo[0] = ar.join('<<>>')
-      todo[1] = false;
-      console.log('todo',todo);
+      var st = e.target.value
+      var arr = st.split(",");
+      var todo = [];
+      todo[0] = arr[2].replace(/,/g, "<<>>");
+      todo[1] = "false"
+      todo[2] = arr[0];
+      todo[3] = arr[1];
       var str = todo.join("<%>");
-      console.log('str',str);
-      console.log('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ In newTaskAction$ ZZZ  END');
       socket.send(`TA#$42,${pMgroup.x},${pMname.x},<$#&#$>${str}<@>`);
       e.target.value = '';
     }
@@ -983,7 +985,7 @@ h('p', ' The demonstrations below include persistent, shared todo lists, text me
 h('h3', 'The Game'),
 h('p', 'People who are in the same group, other than the default group named "solo", share the same todo list, chat messages, and simulated dice game. In order to see any of these, you must establish a unique identity on the server by logging in. The websockets connection terminates if the first message the server receives does not come from the sign in form. You can enter any random numbers, letters, or special characters you like. The server checks only to make sure someone hasn\'t already signed in with the sequence you have selected. If you log in with a name that is already in use, a message will appear and this page will be re-loaded in the browser after a four-second pause. '),
 h('p', ' Data for the traversable game history accumulates until a player scores three goals and wins. The data array is then erased and the application is ready to start accumulating a new history. '),
-h('p', ' Your user name for trying out the game, todo list, and chat demonstrations is a random permutation of the first 14 letters of the alphabet. In the comments section, near the bottom of this page, you can chose your own user name and a password. These facilitate leaving comments which can later be revised or removed.' ),
+h('p', ' Your user name for trying out the game, todo list, and chat demonstrations is a random permutation of the first 14 letters of the alphabet. In the comments section, soon to be near the bottom of this page, you can chose your own persistent user name and password. These facilitate leaving comments which can later be revised or removed.' ),
 h('br') ]),
 h('hr.len90', {style: { display: mMgameDiv2.x }}, ),
 h('br.len90', {style: { display: mMgameDiv2.x }}, ),
@@ -1015,6 +1017,8 @@ h('div#gameDiv2', {style: { display: mMgameDiv2.x }}, [
           h('span', 'Change group: '),
           h('input#group', 'test' ),
       h('p', mMsoloAlert.x ),
+      h('p', ' You can change your name by entering a comma-separated name and password below. The combination will go into a persistent file accessible by the server. You can use this combination to edit or delete saved comments. ' ),
+      h('input.register', ), // style//{style: {display: mMshowRegister.x }} ),
     ])
   ]),
 
@@ -1288,6 +1292,7 @@ code.MonadSet,
   h('br'),
 
   h('h2', {style: {color: "red" }}, 'Comming soon: A place to leave, edit, and delete comments' ),
+ 
   /*
   h('div#com2',  { style: { display: abcde} }, ), 
   h('p', ' When this page loads in the browser, a user name is automatically generated in order to establish a unique Websocket connection. This makes it possible to exchange text messages with other group members, play the game, and work on a shared todo list. If you want to leave a comment, you need to log in with a user name and a password of your choice. Each can be a single character or you could use a hard-to-hack combination of alphabet letter, numbers, and special characters. The main requirement is that there be only one comma, and that it be placed between the name and the password. ' ),
@@ -1315,7 +1320,6 @@ code.MonadSet,
   h('br'),
   h('p', ' *************************************************************************************** ' ),
   h('br'),  
-  */
   h('br'),  
   h('br'),  
   h('a', { props: { href: '#top' } }, 'Back To The Top'),
@@ -1334,6 +1338,8 @@ code.MonadSet,
   h('span.tao', ' When  a MonadEr instance encounters a function or an argument in quotation marks of types "undefined" or "NaN", a string gets pushed into the instance\'s e attribue. After that, the  bnd() method will not process any function other than clean(). It will stop at the' ),
   h('span.turk', 'if (e.length > 0)' ),
   h('span', 'block. clean() resets an instance to normal functioning mode by setting its e attribute back to []. ' ),
+*/
+
 
   h('br'),
   h('p'),

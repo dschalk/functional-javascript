@@ -1,1 +1,1 @@
-400 cats<%>false<%>a<%>b<@>300 goofy lawyers<%>true<%>a<%>b<@>200<<>> 300<<>> 400<<>> 500<<>> BANG!<%>false<%>a<%>b<@>Put out the dog and bring in the cat . ,bar,change(),problem
+100<%>false<%>a<%>b<@>200<%>true<%>a<%>b<@>300 cows<%>false<%>a<%>b<@>400<%>false<%>a<%>b<@>

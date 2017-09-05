@@ -17,6 +17,7 @@ var commentMonad = new MonadState3('commentMonad',   [ '', [], [] ]);
 
 MonadState3.prototype.clear = function () { this.s = [ '', [], [] ]; }
 MonadState3.prototype.html = [];
+
 MonadState3.prototype.run = function (s0) {
   this.html = [];
   console.log('<*><*><*><*><*> In commentMonad.run - - s0, st, str, commentMonad.html');
@@ -29,7 +30,7 @@ MonadState3.prototype.run = function (s0) {
   this.s[0] = str;
   var ar0 = str.split('<@>');
   var ar = ar0.filter(v => v !== "");
-  this.s[1] = ar.map(v => v.split('<%>'));
+  // this.s[1] = ar.map(v => v.split('<%>'));
   var n = -1;
   this.s[1].map(a => {
     var show = showFunc(a[0], pMname.x);
@@ -72,14 +73,37 @@ MonadState3.prototype.append = function (string) {
 }
 
 MonadState3.prototype.edit = function (n,txt) {
-  console.log("WOW 1 2 3 4 5 KAZOOEE! Now in commenMonad.edit");
   var s = this.s[1].slice();
-  s[n][0] = txt;
-  var s2 = s[n].join("<%>");
-  var s3 = s2.join("<@>");
-  this.run(s3);
+  var str = s[n];
+  var ar = str.split('<%>');
+  ar[0] = txt;
+  ar.join("<@>");
+  ar.splice(n,1);
+  ar.splice(n,0,ar);
+  var str2 = ar.join('<%>');
+  this.run(str2);
 };
 
+MonadState3.prototype.process = function (str) {
+  var ar0 = str.split('<@>');
+  var ar = ar0.filter(v => v !== "");
+  // this.s[1] = ar.map(v => v.split('<%>'));
+  var n = -1;
+  this.s[1].map(a => {
+    var show = showFunc(a[0], pMname.x);
+    n+=1;
+    this.html.push(h('div#'+n, [
+      h('div', a[0] + ' commented: ' + a[1]),
+      h('input#editB', { props: { type:'textarea', value: a[1]}, style: {display: show}}),
+      h('button#deleteB', {props: {innerHTML: 'delete'}, style: {display: show, fontSize:14}}),
+      h('br' ),
+      h('span', '***************************************************************')
+    ]))
+  })
+  console.log('commentMonad.html', commentMonad.html );
+  console.log(' - - - <*><*><*>><*> - - - Leaving commentMonad.run');
+  return this.html;
+}
 
 
 

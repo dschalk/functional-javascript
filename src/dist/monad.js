@@ -150,7 +150,6 @@ function fmap (f, mon1, ...args) {
   var a;
   var id;
   if (mon1 instanceof Monad) {
-    console.log(arguments[0],arguments[1],arguments[2],arguments[3]);
     if (Array.isArray(mon1.x)) {
       a = mon1.x.map(f);
     }
