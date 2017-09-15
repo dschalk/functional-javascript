@@ -1,0 +1,18 @@
+
+
+//  3 uses of splice:
+// REMOVE AN ITEM
+var a = "1"
+var b = [1,2,3,4,5]
+b.splice(a,1)
+console.log(b)
+// REPLACE THE ITEM
+b.splice(1,0,2)
+console.log(b)
+// SUBSTITUTE AN ITEM
+b.splice(3,1,"Hellow")
+console.log(b)
+
+
+
+

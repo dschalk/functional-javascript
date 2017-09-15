@@ -77,6 +77,7 @@ function bind (m, ar = []) {
   }
   var m = m;
   var arr = ar;
+  if (ar.length = 0) arr.push(m);
   var inner = function (func, ...args) { 
     var y = func(m.x, ...args) 
     y.id = testPrefix(args, m.id)

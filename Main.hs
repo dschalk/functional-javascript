@@ -104,46 +104,6 @@ remove n a = do
   let d = mappend (fst c) (drop 1 (snd c))
   return $ T.intercalate at d
 
-substitute :: Int -> Text -> Text -> IO Text
-substitute n t revision = do
-  print $!  "<@><>@<><@> bee, be, b, cee, c, d, e, f, f <@><>@<><@> <@><>@<><@> In substitute. BEGIN"
-  print $!  "n, t, revision are:"
-  print $!  n
-  print $!  t
-  print $!  revision
-  let bee = T.splitOn (pack "<@>") t
-  print $!  "bee"
-  print $!  bee
-  let be = filter (\v -> not (v == mempty || v == (pack "\n"))) bee
-  print $!  "be:"
-  print $!  be
-  let b = splitAt n be
-  print $!  "b:"
-  print $!  b
-  let cee = head $ snd b
-  print $!  "cee:"
-  print $!  cee
-  let c = T.splitOn "," cee
-  print $!  "c:"
-  print $!  c
-  let d = drop 1 (snd b)
-  print $!  "d:"
-  print $!  d
-  let eee = change revision d
-  print $!  "eee:"
-  print $!  eee
-  let e = T.intercalate comma2 eee
-  print $!  "e:"
-  print $!  e
-  let f = (fst b) `mappend` (e:d);
-  print $!  "f:"
-  print $!  f
-  let g = T.intercalate at f
-  print $!  "g:"
-  print $!  "<@><>@<><@> <@><>@<><@> <@><>@<><@> In substitute. END"
-  return g
-
-
 head2 :: [Text] -> Text
 head2 [a,b] = a
 head2 _ = pack "Inappropriate head2 argument"
@@ -376,6 +336,7 @@ talk conn state client = forever $ do
   print $! "In talk. The incoming message is " ++ msg2
   hFlush stdout
   let msgArray = T.splitOn "," msg
+  let message = snd $ splitAt 3 msgArray
   let group = msgArray !! 1
   let sender = msgArray !! 2
   let extra = msgArray !! 3
@@ -434,7 +395,7 @@ talk conn state client = forever $ do
              print $! ("GIRLS AND DOGS --- END");
              broadcast ("CA#$42," `mappend` group `mappend` "," `mappend` sender `mappend` "," `mappend` z `mappend` "," `mappend` x ) subSt
 
--- ******************************** Comments are maintained in a file and in a TVar ****** START
+-- ********************** Comments are maintained in a file and in a TVar ****** START
 
      else if "GZ#$42" `T.isPrefixOf` msg               -- FETCH AND BROADCAST ALL COMMENTS
         then                                           -- PERFORM ON LOAD
@@ -458,7 +419,7 @@ talk conn state client = forever $ do
         then
             do
                 a <- TIO.readFile xcomments
-                b <- remove extraNum a
+                b <- remove (extraNum + 1) a
                 TIO.writeFile xcomments b
                 st <- atomically $ readTVar state
                 broadcast ("GD#$42," `mappend` group `mappend` ","
@@ -467,14 +428,21 @@ talk conn state client = forever $ do
      else if "GE#$42" `T.isPrefixOf` msg              -- EDIT A COMMENT
         then
             do
-                a <- atomically $ readTVar comms
-                b <- substitute extraNum a extra
-                TIO.writeFile xcomments b
-                atomically $ writeTVar comms b
+                xcomms <- TIO.readFile xcomments
+                let txt = T.replace extra2 extra3 xcomms
+                print ">>>>>>>>>>>>>>>>>> extra, extra2, extra3, txt in GE:"
+                print extra
+                print extra2
+                print extra3
+                print txt
+                TIO.writeFile xcomments txt
+                atomically $ writeTVar comms txt
                 st <- atomically $ readTVar state
-                broadcast ("GE#$42," `mappend` group `mappend` ","
-                    `mappend` sender `mappend` "," `mappend` extra `mappend` "," `mappend` extra2) st
-
+                broadcast ("GE#$42," `mappend` group `mappend` com
+                  `mappend` sender `mappend` com `mappend` extra `mappend` com
+                     `mappend` extra3) st
+-- ********************** Comments are maintained in a file and in a TVar ****** END
+   
      else if "RR#$42" `T.isPrefixOf` msg              -- Name and password change
        then
          do
@@ -669,49 +637,51 @@ talk conn state client = forever $ do
             do
                 st <- atomically $ readTVar state
                 let subSt = subState sender group st
-                print $!  "<$> & <@><@><@>  In TI#$42 - - taskFile and tFile are below"
-                print $!  "<$> & <@><@><@>  In TI#$42 - - taskFile and tFile are above"
+                let tFile = T.replace nl mempty taskFile
+                let tkFile = T.replace (pack "<@><@>") at tFile
+                save tsks tkFile
+                atomically $ writeTVar taskTVar tkFile
                 broadcast ("TI#$42," `mappend` group `mappend` ","
-                    `mappend` sender `mappend` com `mappend` taskFile) subSt
+                    `mappend` sender `mappend` com `mappend` tkFile) subSt
 
      else if "TA#$42" `T.isPrefixOf` msg  -- add a new task
         then
             do
                 st <- atomically $ readTVar state
                 let subSt = subState sender group st
-                let newTask = head.drop 1 $ T.splitOn (pack "<$#&#$>") msg
-                let a = newTask `mappend` taskFile
-                save tsks $ T.replace nl T.empty a
-                atomically $ writeTVar taskTVar a
+                let w = taskFile `mappend` extra
+                let z = T.replace nl mempty w
+                let x = T.replace (pack "<@><@>") at z
+                save tsks x
+                atomically $ writeTVar taskTVar x
                 broadcast ("TA#$42," `mappend` group `mappend` com
-                    `mappend` sender `mappend` com `mappend` newTask) subSt
+                    `mappend` sender `mappend` com `mappend` extra) subSt
                     
 
      else if "TE#$42" `T.isPrefixOf` msg          -- edit a task
         then
             do
                 let txt = T.replace extra2 extra3 taskFile
-                print $!  "Here come extra, extra2, extra3, and txt"
-                print $!  extra
-                print $!  extra2
-                print $!  extra3
-                print $!  txt
-                print $!  "END"
                 save tsks txt
                 atomically $ writeTVar taskTVar txt
                 let subSt = subState sender group st
-                print $!  "In TE#$42 - - txt is"
-                print $!  txt
                 broadcast ("TE#$42," `mappend` group `mappend` com
-                  `mappend` sender `mappend` com `mappend` com `mappend` extra
-                     `mappend` com `mappend` extra2 `mappend` com `mappend` extra3) subSt
+                  `mappend` sender `mappend` com `mappend` extra `mappend` com 
+                      `mappend` extra3) subSt
 
      else if "TT#$42" `T.isPrefixOf` msg   -- toggle the checkbox 
         then
             do
                 st <- atomically $ readTVar state
-                print $!  "**<*><*><*><@#$%$#@><*><*><*>** In TT#$42 WOWEE >>>>>"
                 let subSt = subState sender group st
+                let txt = T.replace extra2 extra3 taskFile
+                save tsks txt
+                atomically $ writeTVar taskTVar txt
+                broadcast ("TT#$42," `mappend` group `mappend` ","
+                    `mappend` sender `mappend` "," `mappend` extra) subSt
+                
+                
+               {- 
                 let pair = splitAt extraNum (T.splitOn at taskFile)
                 let txt = P.head (snd pair)
                 let list2 = T.splitOn (pack "<%>") txt
@@ -732,29 +702,19 @@ talk conn state client = forever $ do
                 let list4 = (fst pair) ++ txt2:(drop 1 (snd pair))
                 let taskList = T.intercalate at list4
                 atomically $ writeTVar taskTVar taskList
-                save tsks taskList
-                broadcast ("TT#$42," `mappend` group `mappend` ","
-                    `mappend` sender `mappend` "," `mappend` extra) subSt
+                save tsks taskList  -}
  
      else if "TX#$42" `T.isPrefixOf` msg  -- Delete a task
         then
             do
-                let b = T.splitOn at taskFile
-                let c = splitAt extraNum b
-                let d = fst c ++ (tail (snd c))
-                let e = T.intercalate at d
-                atomically $ writeTVar taskTVar e
-                TIO.writeFile tsks e
-                st <- atomically $ readTVar state
+                let txt = T.replace extra2 mempty taskFile
+                print txt
+                save tsks txt
+                atomically $ writeTVar taskTVar txt
                 let subSt = subState sender group st
-                broadcast ("TX#$42," `mappend` group `mappend` ","
-                    `mappend` sender `mappend` "," `mappend` (pack $ show extraNum)) st
-                    
+                broadcast ("TX#$42," `mappend` group `mappend` com
+                  `mappend` sender `mappend` com `mappend` extra) subSt
 
--- ****************************************************************************** START COMMENTS
-
---
--- ****************************************************************************** END COMMENTS
 
 
     else do

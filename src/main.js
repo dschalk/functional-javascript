@@ -10,11 +10,11 @@ socket.addEventListener('message', function (event) {
   console.log('<$><$><$><$><$><$><$><$><$> $$ Message from server: event.data ', event.data);
 });
 
-function login () { setTimeout(function () {
+function login () {setTimeout(function () {
   if (socket.readyState === 1) {
-    var v = rand();
-    var v2 = rand();
-    mMshowRegister.ret('inline');
+    var v = Math.random().toString().substring(5);
+    var v2 = v.toString().substring(2);
+    var v2 = "password"
     pMname.ret(v);
     pMoldName.ret(v);
     pMgroup.ret('solo');
@@ -101,41 +101,42 @@ function main(sources) {
      }
    });
 
-   mMZ17.bnd( () => {                          // Prefix ZZ#$42
-     var a = extra.replace(/(\r\n|\n|\r)/gm,"");   // Remove newlines
-     mMcomments.ret(commentMonad.run(extra));
+   mMZ17.bnd( () => {                          // Prefix GZ#$42
+     var newStr = extra.substring(0, extra.length-2);
+     console.log('Message from server, caught in mMZ17. newStr is', newStr);
+     mMcomments.ret(commentMonad.run(newStr));
    });
 
-   mMZ18.bnd( () => {                          // Prefix ZN#$42  NEW COMMENT
+   mMZ18.bnd( () => {                          // Prefix GN#$42  NEW COMMENT
      var a = commentMonad.s[0] + extra;
      mMcomments.ret(commentMonad.run(a));
    });
 
-   mMZ19.bnd( () => {                          // Prefix ZE#$42  EDIT A COMMENT
-     var ar = commentMonad.s[1].slice().map(v => v = v.join('<o>'));
-     ar[extra] = extra2;
-     var str = ar.join('<@>');
-     mMcomments.ret(commentMonad.run(str));
+   mMZ19.bnd( () => {                          // Prefix GE#$42  EDIT A COMMENT
+     mMcomments.ret(commentMonad.edit(extra, extra2));
+     console.log('>>>> from mMZ19 - - extra and extra2', extra, extra2 );
    });
 
    mMZ20.bnd( () => {                          
      var c = commentMonad.s[0];
      var ar = c.split('<@>');
+     ar.pop();
      ar.splice(extra,1);
      c = ar.join('<@>');
      mMcomments.ret(commentMonad.run(c));
    });
   // ******************************************************* TASKS
    mMZ21.bnd( () => {        // add a new a task
+     console.log('ooooooooooooooooooo New task from the server', extra);
      taskMonad.append(extra);
    });
 
    mMZ22.bnd( () => {        // edit a task
-     taskMonad.edit(v[4],v[6]);
+     taskMonad.edit(v[3],v[4]);
    });
 
    mMZ23.bnd( () => {        
-     taskMonad.toggle(v[3]);
+     taskMonad.toggle(v[3]+1);
    });
 
    mMZ24.bnd( () => {        //Delete a task
@@ -143,7 +144,7 @@ function main(sources) {
    });
 
    mMZ25.bnd( () => {        // Receive tasks when group changes
-     taskMonad.init(v[3]);
+     taskMonad.init(v[3].substring(0,v[3].length-1));
    });
 
  ret(v[0])
@@ -177,8 +178,9 @@ var comment$ = sources.DOM.select('#comment').events('keydown');
 
 var commentAction$ = comment$.map(e => {
   if (e.keyCode == 13) {
+    console.log('>>>> FLASH BOING FLASH BOING In commentAction$ -- e is', e );
     var com = e.target.value.replace(/,/g, "<<>>");
-    var comm = com.replace(/(\r\n|\n|\r)/gm,"");   // Remove newlines
+    var comm = com.replace(/newLine/g, "<**>");
     var comment = pMname.x + "<o>" + comm
     socket.send(`GN#$42,${pMgroup.x},${pMname.x},${comment}`);
   }
@@ -188,22 +190,24 @@ var deleteClick2$ = sources.DOM
     .select('#deleteB').events('click');
 
 var deleteAction2$ = deleteClick2$.map(function (e) {
-    var i = e.target.parentNode.id;
+    var i = parseInt(e.target.parentNode.id,10);
     console.log('In deleteAction2  ***   ***   ***   ***   ***   *** i is', i );
-    socket.send(`GD#$42,${pMgroup.x},${pMname.x},${i}`);
+    socket.send(`GD#$42,${pMgroup.x},${pMname.x},${i+1}`);
 });
 
 var editB$ = sources.DOM
-    .select('input#editB').events('keydown');
+    .select('button#commit').events('click');
 
 var editBAction$ = editB$.map( function (e) {
-  if (e.keyCode == 13) {
-    console.log('Editing a comment. Here is e', e);
-    var i = e.target.parentNode.id;
-    var comment = e.target.value.replace(/,/g, "<<>>");
-    console.log('Still in edit. Here is comment:', comment);
-    socket.send('GE#$42,' + pMgroup.x + ',' + pMname.x + ',' + i + ',' + pMname.x + "<o>" + comment);
-  }
+    console.log("FLASH ALERT ... HOLY COW !!! we are in editBAction$");
+    console.log('Here is e',e);
+    var index = e.target.parentNode.id;
+    var nunu = e.target.parentElement.childNodes[1].value;
+    var nu = pMname.x + "<o>" + nunu 
+    var s = commentMonad.s[1];
+    var old = s.slice().splice(index,1)[0];
+    console.log('This goes to the server from editBAction$',index,old,nu);
+    socket.send(`GE#$42,${pMgroup.x},${pMname.x},${index},${old},${nu}`);
 })
 
 var abcde = 'inline';
@@ -693,26 +697,46 @@ var prAction$ = pr$.map(function (e) {
 var cbx$ = sources.DOM.select('#cbx').events('click');
 
 var cbxAction$ = cbx$.map(e => {
-  var index = e.target.parentNode.id;
-  socket.send(`TT#$42,${pMgroup.x},${pMname.x},${index}`);
+  var arr;
+  var str;
+  if (e.keyCode === 13) {
+    var index = parseInt(e.target.parentNode.id, 10);
+    var task = taskMonad.s[1].slice(index,index+1)[0];
+    var old = task;
+    ar = task.split("<$>");
+    ar[1] = !ar[1];
+    var newTask = ar.join("<$>");
+    socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
+  }
 });
 
 var cbx2$ = sources.DOM.select('.cbx2').events('click');
 
 var cbx2Action$ = cbx2$.map(e => {
-  var index = e.target.parentNode.id;
-  socket.send(`TT#$42,${pMgroup.x},${pMname.x},${index}`);
+  var arr;
+  var str;
+  if (e.keyCode === 13) {
+    var index = parseInt(e.target.parentNode.id, 10);
+    var task = taskMonad.s[1].slice(index,index+1)[1];
+    var old = task;
+    ar = task.split("<$>");
+    ar[1] = !ar[1];
+    var newTask = ar.join("<$>");
+    socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
+  }
 });
 
 
 // Clicking the DELETE button.
+
+
 var deleteClick$ = sources.DOM
     .select('#deleteTask').events('click');
 
 var deleteAction$ = deleteClick$.map(function (e) {
-  var s = taskMonad.s.slice();
-  var index = e.target.parentNode.id;
-  socket.send(`TX#$42,${get(pMgroup)},${get(pMname)},${index}`);
+  var index = parseInt(e.target.parentNode.id, 10);
+  var old = taskMonad.s[1].slice(index,index+1)[0];
+  socket.send(`TX#$42,${pMgroup.x},${pMname.x},${index},${old}`);
 });
 
 // Editing a task.
@@ -724,17 +748,19 @@ var editAction$ = edit$.map(function (e) {
   var arr;
   var str;
   if (e.keyCode === 13) {
-    var index = e.target.parentNode.id;
-    var st = e.target.value
-    var str = st.replace(/,/g, "<%>");
-    var s = taskMonad.s[1].slice();
-    var old = s.splice(index,1);
-    console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOO this is old:", old );
-    var nu = old[0].split("<%>");
-    nu[0] = str
-    var nu2 = nu.join("<%>");
-    s.splice(index,0,nu);
-    socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${nu2}`);
+    var index = parseInt(e.target.parentElement.id, 10);
+    var old = taskMonad.s[1].slice(index,index+1)[0];
+    var ar = old.split("<$>");
+    var newAr = e.target.value.split(',');
+    var newString = newAr.join("<<>>");
+    console.log('()()()()()()()() In editAction$. ar is', ar);
+    ar.shift();
+    console.log('()()()()()()()() In editAction$. ar is', ar);
+    ar.unshift(newString);
+    console.log('()()()()()()()() In editAction$. ar is', ar);
+    var newTask = ar.join("<$>");
+    console.log('4.3.2.1. >> In editAction$.index, old and newTask are',index,old,newTask);
+    socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
   }
 });
 
@@ -742,25 +768,20 @@ var newTask$ = sources.DOM
     .select('input.newTask').events('keydown');
 
 var newTaskAction$ = newTask$.map(function (e) {
+  console.log("-------------ONE TWO THREE In newTaskAction$. e is",e);
   if (e.keyCode === 13) {
   var alert = '';
-    var ar = e.target.value.split(',');
+      var ar = e.target.value.split(',');
     if (ar.length < 2) {
-      mMalert.ret('You should enter "author, responsible party, task" separated by commas');
+      mMalert.ret('You should enter responsible party then a comma then a task');
       return;
     }
     else {
-      var index = e.target.parentNode.id;
-      var st = e.target.value
-      var arr = st.split(",");
-      var todo = [];
-      todo[0] = arr[2].replace(/,/g, "<<>>");
-      todo[1] = "false"
-      todo[2] = arr[0];
-      todo[3] = arr[1];
-      var str = todo.join("<%>");
-      socket.send(`TA#$42,${pMgroup.x},${pMname.x},<$#&#$>${str}<@>`);
-      e.target.value = '';
+      var x = ar.shift();
+      var y = ar.shift();
+      var z = ar.join("<<>>")
+      var result = z + '<$>' + 'false' +'<$>' + x + '<$>' + y
+      socket.send(`TA#$42,${pMgroup.x},${pMname.x},${result}<@>`) 
     }
   }
 });
@@ -779,21 +800,28 @@ var chatClick$ = sources.DOM
   return {
   DOM: calcStream$.map(function () {
   return h('div.main', [
-    h('div.preContent', [
+
+    h('div.image_3', [
+    h('img.image_2', {props: {src: "logo.svg" }}  ),
+    h('span', ' ' ),
+    h('a', { props: { href: "https://cycle.js.org/", target: "_blank" } }, 'A Cycle.js application') ]),
+    h('div', {style: {textAlign:"center", fontWeight: "bold"}}, [
     h('br'),
+    h('div', [  h('br') , '1,2,3,', h('br'), ',4,5,', h('br'), ',6,7,8,9,', h('br'), ',1', h('br'), ',11,12' ]),
       h('br'),
-      h('div', 'FUNCTIONAL REACTIVE PROGRAMMING'),
-      h('div', 'WITH CUSTOM MONADS AND CYCLE.JS') ]),
+      h('div', {style: {fontSize: "20px", color: "#f7f700"}}, 'FUNCTIONAL REACTIVE PROGRAMMING'),
       h('br'),
-      h('div.image_3', [
-      h('img.image_2', {props: {src: "logo.svg" }}  ),
-      h('span', ' ' ),
-      h('a', { props: { href: "https://cycle.js.org/", target: "_blank" } }, 'A Cycle.js application') ]),
+      h('div', {style: {fontSize: "18px", fontStyle: "italic", color: "#07f7f7"}},'WITH CUSTOM MONADS AND CYCLE.JS' ) ]),
+      h('br'),
 h('div.content', [
 h('p', ' I am publishing this website mainly: ' ),
 h('p', ' (1) To share my "bind()" function along with a few other inventions with website developers and ' ),
-h('p', ' (2) To help people who are interested in acclimating their thought processes to functional and reactive ways of programming. In order to feel comfortable with functional, reactive code, I think novices and seasoned programmers alike must grow new synaptic structures in their brains. This comes with practice. Understanding without practice leaves one adrift in a sea of confusion.' ),
-h('p', ' bind() works by taking an instance of Monad and returning a function that operates on functions, returning functions similar to itself untill it encounters the "terminate" flag instead of another function. ' ),
+h('p', ' (2) To help people who are interested in acclimating their thought processes to functional and reactive ways of programming. In order to feel comfortable with functional, reactive code, I think novices and seasoned programmers alike must grow new synaptic structures in their brains. This comes with practice. ' ),
+h('pre', {style: {fontStyle: "italic", color: "#f7f700" }},`      Understanding without practice
+      adrift in a sea of confusion. 
+      understanding with practice
+      smooth sailing through every challenge ` ),
+h('p', ' bind() works by taking an instance of Monad and returning a function that operates on functions, returning functions similar to itself untill it encounters the "terminate" flag instead of another function. In practice, this looks like bind(m)(function1)(function2)(function3) ... where m is a monad and the functions return monads. Anything can be the x value of a monad. The result of any computation can easily be wrapped in a monad, so the restriction on return values does not restrict what you can do. ' ),
 h('p', ' Instances of Monad are very simple. Here is the definition of Monad: ' ),
 h('pre', {style: { color: "rgb(181, 244, 240)" }},   `    function Monad(z = 'default', ID = 'tempMonad') {
       this.x = z;
@@ -803,28 +831,24 @@ h('p', ' Like the >>= (called "bind") operator in the Haskell programming langua
 h('pre', `  function ret (v, id) {
     return window[id] = new Monad(v, id);
   }; `),
-h('p', ' Now, let\'s see bind() in action. the following code assigns 0 to monad "z0", 3 to z1, 27 to z2, 30 to z3 and 900 to z4, 9 to z5, 7 to z6, and 42 to z7. z1, ... z7 might not have been previously defined. It doesn\t matter. bind() initiates the series of computations with the generic throw-away function returned by ret().' ),
-h('pre', {style: {color: "rgb(237, 205, 161)"}}, `bind(ret(0,'z1'))(v=>ret(0))(v=>ret(v+3),"$z1")
-(v=>ret(v*v*v),"$z2")(v=>ret(v+3),"$z3")(v=>ret(v*v),"$z4")
-(v=>ret(v/100),"$z5")(x=>ret(x-2),"$z6")(v=>ret(v*6),"$z7")
-(terminate).map(v => console.log("Monad instance",v.id,"has value",v.x));
+h('p', ' Now, let\'s see bind() in action. the following code assigns 0 to monad "z1", 3 to z2, 27 to z3, 30 to z4 and 27000 to z4, and 900 to z6. The z\'s were created on the fly if they did not already exist. Note that prior computation results are available along the chain.' ),
+h('pre', {style: {color: "rgb(237, 205, 161)"}}, `bind(ret(0,'z1'))(add,3,"$z2")(cube,"$z3")(add,z2.x,"$z4")
+(cube,"$z5")(x=>ret(x/z4.x),"$z6")(terminate)
+console.log(z1,z2,z3,z4,z5,z6) ` ),
 
-Chrome console display:
+h('span', 'The Chrome console displays: '),
+h('br'),
 
-Monad instance m has value 3
-Monad instance m2 has value 27
-Monad instance m3 has value 30
-Monad instance m4 has value 900
-Monad instance m5 has value 9
-Monad instance m6 has value 45
-Monad instance m7 has value 42  `), 
+h('pre', `Monad {x: 0, id: "z1"} Monad {x: 3, id: "z2"} 
+Monad {x: 27, id: "z3"} Monad {x: 30, id: "z4"} 
+Monad {x: 27000, id: "z5"} Monad {x: 900, id: "z6"}  `), 
   
-h('span', ' Reactivity is implemented in the Cycle.js framework. Some developers find that Cycle.js has a steep learning curve. It isn\'t so bad if you start with Andr Staltz\' '),
+h('span.tao', ' Reactivity occurs naturally in the Cycle.js framework. Some developers find that Cycle.js has a steep learning curve. It isn\'t so bad if you start with Andr Staltz\' '),
 h('a', { props: { href: "https://egghead.io/courses/cycle-js-fundamentals", target: "_blank" } }, ' Overview of Cycle.js.'),
-h('span', ' Its sheer elegance might take your breath away, and make you want to implement something in it right away. ' ),
+h('span', ' Its sheer elegance might take your breath away. ' ),
 h('br' ),
 h('br' ),
-h('span.tao', 'This project was created by, and is actively maintained by me, David Schalk. The code repository is at '),
+h('span.tao', 'This project was created by and is actively maintained by me, David Schalk. The code repository is at '),
 h('a', { props: { href: "https://github.com/dschalk/JS-monads-stable", target: "_blank" } }, 'JS-monads'),
 h('span', ' You can comment at ' ),
 h('a', { props: { href: 'https://redd.it/60c2xx' }}, 'Reddit' ),
@@ -856,7 +880,7 @@ h('pre', {style: {color: "lightBlue"}}, `  function bind (m, ar = []) {
     };
     return inner
   } ` ), 
-h('p', ' When using bind(), coders provide only one argument, which must be an instance of Monad. The second argument runs automatically, starting with an empty array and subsequently accumulating the result of each step in a sequence of computations. ' ),
+h('p', ' When using bind(), coders provide only one argument, which must be an instance of Monad. The funtions provided to bind(m) run sequentially from left to right, using the value returned by the previous function. Apart from that, an array is built starting with the empty array and subsequently accumulating the result of each step in a sequence of computations. When "terminate" is provided as the final argument in a sequence, the array is returned.' ),
 h('p', ' testPrefix() looks for strings prefixed by "$". If it finds one, y.id is assigned the value of the substring that follows the prefix. If no string beginning with "$" is found, y.id will not change. y.id will never be undefined because functions provided to bind must return instances of Monad. Here is the definition of testPrefix:' ),
 
 h('pre', {style: {color: "rgb(213, 177, 239)"}}, `  function testPrefix (x,y) {
@@ -877,7 +901,7 @@ h('pre', {style: {color: "rgb(213, 177, 239)"}}, `  function testPrefix (x,y) {
       h('a', { props: { href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/", target: "_blank" } }, 'Hask is not a category.'),
           h('span', ' by Andrej Bauer and the ' ),
           h('a', { props: { href: '#discussion' } }, 'Discussion'),
-          h('span', ' below. They provide a convenient interface for dealing with uncertainty and side effects in a purely functional manner. Adherence to the monad laws (see below) helps instill confidence that the monads are robust, versatile, and reliable tools for isolating and chaining sequences of javascript functions. ' ),
+          h('span', ' below. They provide a convenient interface for dealing with uncertainty and side effects in a purely functional manner. Adherence to the monad laws (see below) helps instill confidence that the monads are robust, versatile, and reliable tools for isolatin?g and chaining sequences of javascript functions. ' ),
 h('h2', 'Alternative Monad Functionality' ),
 h('p', ' Chaining of JavaScript procedures usually occurs by means of methods inside of linked objects. rather than by means of external functions like bind(). Instances of Monad can also link by means of a method. It is called "bnd()" and it, along with "ret()", were made available as follows: ' ),
 h('pre',  {style: {color: "rgb(236, 242, 186)"   }}, `  Monad.prototype.bnd = function (func, ...args) {
@@ -1017,8 +1041,10 @@ h('div#gameDiv2', {style: { display: mMgameDiv2.x }}, [
           h('span', 'Change group: '),
           h('input#group', 'test' ),
       h('p', mMsoloAlert.x ),
-      h('p', ' You can change your name by entering a comma-separated name and password below. The combination will go into a persistent file accessible by the server. You can use this combination to edit or delete saved comments. ' ),
-      h('input.register', ), // style//{style: {display: mMshowRegister.x }} ),
+      h('p', ' You can change your name by entering a comma-separated name and password below. The combination will go into a persistent file accessible by the server. You can use this combination to edit or delete your saved comments now or in the future after you log in. ' ),
+      h('span.red', mMregister.x ),
+      h('label', {style: {display: mMshowRegister.x }}, 'Register or log in here:'),
+      h('input.register', {style: {display: mMshowRegister.x }},),
     ])
   ]),
 
@@ -1037,10 +1063,10 @@ h('div#gameDiv2', {style: { display: mMgameDiv2.x }}, [
     h('br'),
     h('br'),
     h('br'),
-    h('div.game', 'Name: ' + pMname.x ),
-    h('div.game', 'Group: ' + pMgroup.x ),
+    h('div', {style: {fontSize: "14 px"}}, 'Name: ' + pMname.x ),
+    h('div', {style: {fontSize: "14 px"}}, 'Group: ' + pMgroup.x ),
     h('br'),
-    h('div', gameData ),
+    h('div', {style: {fontSize: "14 px"}}, gameData),
     h('br'),
     h('div#a100', ' _________________________________________________ ' ),
     h('p.italic', ' Join group "t" if you want to see some previously created tasks. ' ),
@@ -1293,7 +1319,6 @@ code.MonadSet,
 
   h('h2', {style: {color: "red" }}, 'Comming soon: A place to leave, edit, and delete comments' ),
  
-  /*
   h('div#com2',  { style: { display: abcde} }, ), 
   h('p', ' When this page loads in the browser, a user name is automatically generated in order to establish a unique Websocket connection. This makes it possible to exchange text messages with other group members, play the game, and work on a shared todo list. If you want to leave a comment, you need to log in with a user name and a password of your choice. Each can be a single character or you could use a hard-to-hack combination of alphabet letter, numbers, and special characters. The main requirement is that there be only one comma, and that it be placed between the name and the password. ' ),
   h('p', 'The server will keep your user name and password in a text file. If you use your saved user name and password sometime in the future, you will be able to edit or delete any comments you previously made. '),
@@ -1327,6 +1352,8 @@ code.MonadSet,
   h('br'),  
   h('br'),  
   h('img.image', {props: {src: "error2.png"}}  ),
+
+  /*
   h('h2', 'Appendix - Under Construction ' ),
   h('h3', 'Appendix A - The Quadratic Formula' ),
   code.quad,
