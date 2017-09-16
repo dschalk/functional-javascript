@@ -136,7 +136,7 @@
 	      var ar = [];
 	      var arr = v[3].slice();
 	      var arr2 = arr.split("<$!$>");
-	      arr2.map(function (v) {
+	      var arr3 = arr2.map(function (v) {
 	        ar.push(v);
 	        ar.push((0, _dom.h)('br'));
 	      });
@@ -164,28 +164,21 @@
 	      // Prefix GZ#$42
 	      var newStr = extra.substring(0, extra.length - 2);
 	      console.log('Message from server, caught in mMZ17. newStr is', newStr);
-	      mMcomments.ret(commentMonad.run(newStr));
+	      mMcomments.ret(commentMonad.init(newStr));
 	    });
 
 	    mMZ18.bnd(function () {
 	      // Prefix GN#$42  NEW COMMENT
-	      var a = commentMonad.s[0] + extra;
-	      mMcomments.ret(commentMonad.run(a));
+	      mMcomments.ret(commentMonad.append(extra));
 	    });
 
 	    mMZ19.bnd(function () {
 	      // Prefix GE#$42  EDIT A COMMENT
 	      mMcomments.ret(commentMonad.edit(extra, extra2));
-	      console.log('>>>> from mMZ19 - - extra and extra2', extra, extra2);
 	    });
 
 	    mMZ20.bnd(function () {
-	      var c = commentMonad.s[0];
-	      var ar = c.split('<@>');
-	      ar.pop();
-	      ar.splice(extra, 1);
-	      c = ar.join('<@>');
-	      mMcomments.ret(commentMonad.run(c));
+	      mMcomments.ret(commentMonad.remove(extra));
 	    });
 	    // ******************************************************* TASKS
 	    mMZ21.bnd(function () {
@@ -234,34 +227,34 @@
 
 	  var commentAction$ = comment$.map(function (e) {
 	    if (e.keyCode == 13) {
-	      console.log('>>>> FLASH BOING FLASH BOING In commentAction$ -- e is', e);
-	      var com = e.target.value.replace(/,/g, "<<>>");
-	      var comm = com.replace(/newLine/g, "<**>");
-	      var comment = pMname.x + "<o>" + comm;
-	      socket.send('GN#$42,' + pMgroup.x + ',' + pMname.x + ',' + comment);
+	      var comment = e.target.value.replace(/,/g, "<<>>");
+	      comment = pMname.x + "<o>" + comment;
+	      socket.send('GN#$42,' + pMgroup.x + ',' + pMname.x + ',' + comment + '<@>');
 	    }
 	  });
 
 	  var deleteClick2$ = sources.DOM.select('#deleteB').events('click');
 
 	  var deleteAction2$ = deleteClick2$.map(function (e) {
-	    var i = parseInt(e.target.parentNode.id, 10);
-	    console.log('In deleteAction2  ***   ***   ***   ***   ***   *** i is', i);
-	    socket.send('GD#$42,' + pMgroup.x + ',' + pMname.x + ',' + (i + 1));
+	    var index = parseInt(e.target.parentElement.id, 10);
+	    var old = commentMonad.s[1].slice(index, index + 1)[0];
+	    socket.send('GD#$42,' + pMgroup.x + ',' + pMname.x + ',' + index + ',' + old);
 	  });
 
-	  var editB$ = sources.DOM.select('button#commit').events('click');
+	  var editB$ = sources.DOM.select('textarea#commit').events('keydown');
 
 	  var editBAction$ = editB$.map(function (e) {
 	    console.log("FLASH ALERT ... HOLY COW !!! we are in editBAction$");
 	    console.log('Here is e', e);
-	    var index = e.target.parentNode.id;
-	    var nunu = e.target.parentElement.childNodes[1].value;
-	    var nu = pMname.x + "<o>" + nunu;
-	    var s = commentMonad.s[1];
-	    var old = s.slice().splice(index, 1)[0];
-	    console.log('This goes to the server from editBAction$', index, old, nu);
-	    socket.send('GE#$42,' + pMgroup.x + ',' + pMname.x + ',' + index + ',' + old + ',' + nu);
+	    if (e.keyCode == 13) {
+	      var index = parseInt(e.target.parentElement.id, 10);
+	      var w = e.target.value.split(",");
+	      var x = w.join('<<>>');
+	      var nu = pMname.x + "<o>" + x + "<@>";
+	      var old = commentMonad.s[1].slice(index, index + 1)[0];
+	      console.log('This goes to the server from editBAction$', index, old, nu);
+	      socket.send('GE#$42,' + pMgroup.x + ',' + pMname.x + ',' + index + ',' + old + ',' + nu);
+	    }
 	  });
 
 	  var abcde = 'inline';

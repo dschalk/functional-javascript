@@ -97,13 +97,6 @@ change8 x y (a,b,c,d,e,f,g,h) | x == a = (y,b,c,d,e,f,g,h)
 change888 :: Text -> Text -> ServerState -> ServerState
 change888 x y s = map (change8 x y) s
 
-remove :: Int -> Text -> IO Text
-remove n a = do
-  let b = T.splitOn at a
-  let c = splitAt n b
-  let d = mappend (fst c) (drop 1 (snd c))
-  return $ T.intercalate at d
-
 head2 :: [Text] -> Text
 head2 [a,b] = a
 head2 _ = pack "Inappropriate head2 argument"
@@ -357,7 +350,8 @@ talk conn state client = forever $ do
   print $!  "<$><$><><@><@><> tsks"
   cos <- TIO.readFile xcomments
   comms <- atomically $ newTVar cos
-  comments <- atomically $ readTVar comms
+  commens <- atomically $ readTVar comms
+  let comments = T.replace (pack "\n") mempty commens
   ns <- TIO.readFile namesFile
   tks <- read2 tsks
   taskTVar <- atomically $ newTVar tks
@@ -375,8 +369,6 @@ talk conn state client = forever $ do
      then
          do
              old <- atomically $ readTVar state
-             print $! ("GIRLS AND DOGS CA#$53 -> name, score, goals");
-             st <- atomically $ readTVar state
              let status = [[a,pack $ show b,pack $ show c] | (a,b,c,_,_,_,_,_) <- st]
              print $!  status
              print $! ("GIRLS AND DOGS --- END");
@@ -410,7 +402,7 @@ talk conn state client = forever $ do
             do
                 old <- atomically $ readTVar comms
                 TIO.writeFile xcomments (old `mappend` extra )
-                atomically $ writeTVar comms extra
+                atomically $ writeTVar comms $ old `mappend` extra
                 st <- atomically $ readTVar state
                 broadcast ("GN#$42," `mappend` group `mappend` ","
                     `mappend` sender `mappend` "," `mappend` extra `mappend` at) st
@@ -419,7 +411,7 @@ talk conn state client = forever $ do
         then
             do
                 a <- TIO.readFile xcomments
-                b <- remove (extraNum + 1) a
+                let b = T.replace extra2 mempty a
                 TIO.writeFile xcomments b
                 st <- atomically $ readTVar state
                 broadcast ("GD#$42," `mappend` group `mappend` ","
@@ -452,12 +444,10 @@ talk conn state client = forever $ do
            nams <- read2 namesFile
            let namses = T.splitOn (T.pack "<&>") nams
            let nmAr = map (T.splitOn (T.pack "<o>")) namses
-           -- let nm = extractHead name_pw
            let pw = extractTail name_pw
            print "nm and pw"
            print nm
            print pw
-           nams <- read2 namesFile
            let namses = T.splitOn (T.pack "<&>") nams
            let res_1 = show (extra `elem` namses)
            let nmAr = map (T.splitOn (T.pack "<o>")) namses
@@ -596,11 +586,9 @@ talk conn state client = forever $ do
                 atomically $ writeTVar state new
                 let new2 = changeGroup sender extra new
                 atomically $ writeTVar state new2
-                print $! ("GIRLS AND DOGS name, score, goals");
                 st <- atomically $ readTVar state
                 let status = [[a,pack $ show b,pack $ show c] | (a,b,c,_,_,_,_,_) <- st]
                 print $!  status
-                print $! ("GIRLS AND DOGS --- END");
                 let subSt = subState sender extra new2
                 broadcast ("NN#$42," `mappend` group `mappend` "," `mappend` sender `mappend` "," `mappend` T.concat (textState subSt)) subSt
 
@@ -615,19 +603,15 @@ talk conn state client = forever $ do
         then
             mask_ $ do
                 old <- atomically $ readTVar state
-                print $! ("GIRLS AND DOGS CG#$53 -> name, score, goals");
                 st <- atomically $ readTVar state
                 let status = [[a,pack $ show b,pack $ show c] | (a,b,c,_,_,_,_,_) <- st]
                 print $!  status
-                print $! ("GIRLS AND DOGS --- END");
                 let new = chgScore sender extraNum extraNum2 old
                 atomically $ writeTVar state new
                 let subSt = subState sender group new
-                print $! ("GIRLS AND DOGS name, score, goals");
                 st <- atomically $ readTVar state
                 let status = [[a,pack $ show b,pack $ show c] | (a,b,c,_,_,_,_,_) <- st]
                 print $!  status
-                print $! ("GIRLS AND DOGS CG#$42 --- END");
                 broadcast ("NN#$42," `mappend` group `mappend` "," `mappend` sender `mappend` "," `mappend` T.concat (textState subSt)) subSt
 
 -- ****************************************** TASKS
