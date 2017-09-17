@@ -1340,14 +1340,85 @@ code.MonadSet,
   h('p', ' The processes of adding a new comment or revising an existing one are initiated by entering text in the browser. The process of deleting a comment is set in motion by clicking a button. ' ),
   h('p', ' These operations are designed to send and receive a minamal amount of information. A new comment is sent to the server and the server saves it and broadcasts it to all online browsers. A revised comment is sent to and from the server with no other information. Revising a comment involves sending the new version, along the index number of the comment in the array in commentMonad.s[1], to and from the server. Only the index number is sent and broadcast when a comment is deleted. ' ),
   h('p', ' Since the history of comment section is not being preserved, the functions that make it work mutate commentMonad.s. Functions never mutate primitive values outside of their scopes. When they change the value of a monad residing in the global space, the old monad is left behind and a fresh one is instantiated with the new value. the ret() function and method, the bind() function, and the bnd() method all do this. Mutating expressions such as m.x = v for some monad m and value v is discouraged. In some earlier versions, I hid the x attribute in a closure. The getter "get()" is still available. The values of monads are currently exposed because, for example, "m.x[3].filter ..." is clearer and more esthetically pleasing (to me, anyway) than "get(m)[3].filter ...". ' ), 
-  h('br'),
+  h('p', ' When a comment is created, modified, or deleted, a websockets message goes to the server which performs some of its own housekeeping and broadcasts a message to all online browsers. It is received and forwarded acted upon by functions contained in a file named comments.js. This is a script contained in index.html, so the functions are available in the Chrome and Firefox developer consoles.' ),
+  h('p', ' Here is the entire Comments.js file: ' ),
+  h('pre', `function showFunc (name, name2) {return name == name2 ? 'inline-block' : 'none'}
+
+var MonadState3 = function MonadState3(g, state) {
+  this.id = g;
+  this.s = state;
+  this.bnd = (func, ...args) => func(this.s, ...args);
+  this.ret = function (a) {
+    return window[this.id] = new MonadState(this.id, a);
+  };
+};
+
+var commentMonad = new MonadState3('commentMonad',   [ '', [] ]);
+
+MonadState3.prototype.html = [];
+
+MonadState3.prototype.init = function (str) { // All comments delivered on load.
+  this.s[0] = str;
+  this.s[1] = this.s[0].split("<@>");
+  this.s[1] = this.s[1].filter(v => (v != ""));
+  this.html = process(this.s[1]);
+  return this.html
+}
+
+MonadState3.prototype.append = function (str) {
+  this.s[0] = this.s[0] + str;
+  this.s[1] = this.s[0].split('<@>');
+  this.s[1] = this.s[1].filter(v => (v != ""));
+  this.html = process(this.s[1]);
+  return this.html;
+}
+
+MonadState3.prototype.edit = function (num,txt) {
+  this.s[1].splice(num,1,txt)
+  this.s[0] = this.s[1].join("<@>");
+  this.html = process(this.s[1]);
+  return this.html;
+};
+
+MonadState3.prototype.remove = function (num) {
+  this.s[1].splice(num,1);
+  this.s[0] = this.s[1].join("<@>");
+  this.html = process(this.s[1]);
+  return this.html;
+};
+
+function process (arr) { //Assembles the HTML for display.
+  var n = -1;
+  var html = [];
+  arr.map(a => { 
+    var x = a.split("<o>");
+    x[1] = x[1]
+    show = showFunc(x[0], pMname.x);
+    console.log('<><><><> in process. x[0],pMname.x, show', x[0],pMname.x,show);
+    n+=1;
+    html.push(h('div#'+n, [
+      h('span', x[0] + ' commented: ' + x[1].replace(/<<>>/g, ",")),
+      h('br'),
+      h('textarea#commit', {props: {cols: 55, rows: 2},
+         style: {display: show }}, x[1]),
+      h('button#deleteB', {props: {innerHTML: 'delete'}, style: 
+          {display: show, fontSize:14}}),
+      h('br' ),
+      h('span', '***************************************************************')
+    ]))
+  })
+  return html;
+} ` ),
+
+  
+
   h('p', ' *************************************************************************************** ' ),
   h('br'),  
   h('br'),  
   h('br'),  
   h('a', { props: { href: '#top' } }, 'Back To The Top'),
   h('br'),  
-  h('br'),  
+  h('h3', 'Feedback From the Error Monad' ),  
   h('br'),  
   h('img.image', {props: {src: "error2.png"}}  ),
 

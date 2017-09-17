@@ -2056,6 +2056,7 @@ function rand () {
 };
 
 var rand$ = xs.of(rand());
+
 function cloneMonad (m, val, f) {
   var preserve = m.x;
   var clone = m;
