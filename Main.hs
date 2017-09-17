@@ -326,7 +326,7 @@ talk conn state client = forever $ do
   msg <- WS.receiveData conn
   let msg2 = T.unpack msg
   let mArr = splitOn "," msg2
-  print $! "In talk. The incoming message is " ++ msg2
+  print $! "<%>-<%>********************<$>*******************<%>-<%> In talk. The incoming message is " ++ msg2
   hFlush stdout
   let msgArray = T.splitOn "," msg
   let message = snd $ splitAt 3 msgArray
@@ -352,6 +352,10 @@ talk conn state client = forever $ do
   comms <- atomically $ newTVar cos
   commens <- atomically $ readTVar comms
   let comments = T.replace (pack "\n") mempty commens
+  print "comments"
+  print comments
+  print "comments"
+  TIO.writeFile xcomments comments 
   ns <- TIO.readFile namesFile
   tks <- read2 tsks
   taskTVar <- atomically $ newTVar tks
@@ -394,18 +398,26 @@ talk conn state client = forever $ do
             do
                 st <- atomically $ readTVar state
                 broadcast ("GZ#$42," `mappend` group `mappend` "," 
-                    `mappend` sender `mappend` "," `mappend` comments) st
+                  `mappend` sender `mappend` "," `mappend` comments
+                    `mappend` at) st
 
      else if "GN#$42" `T.isPrefixOf` msg -- RECEIVE A NEW COMMENT, UPDATE THE FILE AND THE TVAR,
                                          --  AND BROADCAST THE NEW COMMENT 
         then
             do
                 old <- atomically $ readTVar comms
-                TIO.writeFile xcomments (old `mappend` extra )
-                atomically $ writeTVar comms $ old `mappend` extra
+                let car = old `mappend` (T.replace nl empty extra) `mappend` at
+                TIO.writeFile xcomments car
+                atomically $ writeTVar comms car
                 st <- atomically $ readTVar state
                 broadcast ("GN#$42," `mappend` group `mappend` ","
                     `mappend` sender `mappend` "," `mappend` extra `mappend` at) st
+
+     else if "GG#$42" `T.isPrefixOf` msg              
+        then
+            do
+                TIO.writeFile xcomments extra
+                atomically $ writeTVar comms extra
 
      else if "GD#$42" `T.isPrefixOf` msg              -- DELETE A COMMENT
         then
@@ -415,7 +427,8 @@ talk conn state client = forever $ do
                 TIO.writeFile xcomments b
                 st <- atomically $ readTVar state
                 broadcast ("GD#$42," `mappend` group `mappend` ","
-                    `mappend` sender `mappend` "," `mappend` extra) st
+                  `mappend` sender `mappend` "," `mappend` extra
+                    `mappend` at) st
                     
      else if "GE#$42" `T.isPrefixOf` msg              -- EDIT A COMMENT
         then
@@ -432,7 +445,7 @@ talk conn state client = forever $ do
                 st <- atomically $ readTVar state
                 broadcast ("GE#$42," `mappend` group `mappend` com
                   `mappend` sender `mappend` com `mappend` extra `mappend` com
-                     `mappend` extra3) st
+                     `mappend` extra3 `mappend` at) st
 -- ********************** Comments are maintained in a file and in a TVar ****** END
    
      else if "RR#$42" `T.isPrefixOf` msg              -- Name and password change

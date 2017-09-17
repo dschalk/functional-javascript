@@ -102,8 +102,15 @@ function main(sources) {
    });
 
    mMZ17.bnd( () => {                          // Prefix GZ#$42
-     var newStr = extra.substring(0, extra.length-2);
-     console.log('Message from server, caught in mMZ17. newStr is', newStr);
+     var newStr = extra.substring(0, extra.length-3);
+     newStr = newStr.replace(/<@><@>/g, "<@>");
+     newStr = newStr.replace(/↵/g, '');
+     var ar = newStr.split("<@>");
+     ar.filter(v => v.split('<o>')[1] !== '');
+     ar.map(v => v[0] + "<o>" + v[1]);
+     newStr = ar.join("<@>");
+     socket.send(`GG#$42,${group},${sender},${newStr}`);
+     console.log('Sent the repaired file to GG#$42 ******************************');
      mMcomments.ret(commentMonad.init(newStr));
    });
 
@@ -173,7 +180,7 @@ var commentAction$ = comment$.map(e => {
   if (e.keyCode == 13) {
     var comment = e.target.value.replace(/,/g, "<<>>");
     comment = pMname.x + "<o>" + comment
-    socket.send(`GN#$42,${pMgroup.x},${pMname.x},${comment}<@>`);
+    socket.send(`GN#$42,${pMgroup.x},${pMname.x},${comment}`);
   }
 });
 
@@ -195,8 +202,8 @@ var editBAction$ = editB$.map( function (e) {
   if (e.keyCode == 13) {
     var index = parseInt(e.target.parentElement.id, 10);
     var w = e.target.value.split(",");
-    var x = w.join('<<>>');
-    var nu = pMname.x + "<o>" + x + "<@>" 
+    var comment = w.join('<<>>');
+    var nu = pMname.x + "<o>" + comment 
     var old = commentMonad.s[1].slice(index,index+1)[0];
     console.log('This goes to the server from editBAction$',index,old,nu);
     socket.send(`GE#$42,${pMgroup.x},${pMname.x},${index},${old},${nu}`);
@@ -799,15 +806,12 @@ var chatClick$ = sources.DOM
     h('span', ' ' ),
     h('a', { props: { href: "https://cycle.js.org/", target: "_blank" } }, 'A Cycle.js application') ]),
     h('div', {style: {textAlign:"center", fontWeight: "bold"}}, [
-    h('br'),
-    h('div', [  h('br') , '1,2,3,', h('br'), ',4,5,', h('br'), ',6,7,8,9,', h('br'), ',1', h('br'), ',11,12' ]),
-      h('br'),
       h('div', {style: {fontSize: "20px", color: "#f7f700"}}, 'FUNCTIONAL REACTIVE PROGRAMMING'),
       h('br'),
       h('div', {style: {fontSize: "18px", fontStyle: "italic", color: "#07f7f7"}},'WITH CUSTOM MONADS AND CYCLE.JS' ) ]),
       h('br'),
 h('div.content', [
-h('p', ' I am publishing this website mainly: ' ),
+h('p', ' I am publishing this page mainly: ' ),
 h('p', ' (1) To share my "bind()" function along with a few other inventions with website developers and ' ),
 h('p', ' (2) To help people who are interested in acclimating their thought processes to functional and reactive ways of programming. In order to feel comfortable with functional, reactive code, I think novices and seasoned programmers alike must grow new synaptic structures in their brains. This comes with practice. ' ),
 h('pre', {style: {fontStyle: "italic", color: "#f7f700" }},`      Understanding without practice
@@ -1310,13 +1314,13 @@ code.MonadSet,
   h('a#tdList2', { props: { href: '#itterLink' } }, 'release() with arguments'),
   h('br'),
 
-  h('h2', {style: {color: "red" }}, 'Comming soon: A place to leave, edit, and delete comments' ),
+  h('h2', {style: {color: "red" }}, 'Comments' ),
  
   h('div#com2',  { style: { display: abcde} }, ), 
   h('p', ' When this page loads in the browser, a user name is automatically generated in order to establish a unique Websocket connection. This makes it possible to exchange text messages with other group members, play the game, and work on a shared todo list. If you want to leave a comment, you need to log in with a user name and a password of your choice. Each can be a single character or you could use a hard-to-hack combination of alphabet letter, numbers, and special characters. The main requirement is that there be only one comma, and that it be placed between the name and the password. ' ),
   h('p', 'The server will keep your user name and password in a text file. If you use your saved user name and password sometime in the future, you will be able to edit or delete any comments you previously made. '),
   h('p', ' If you enter a user name that has not been recorded, you will be logged in as that user. The user name and password will be saved. This means that you do not need to first register and then log in. This is an all-in-one process. If you enter a recognized user name but the passord does not match the password in the record, you will be asked to try again. ' ),
-  h('p', ' Comments are stored on the server in a TVar. The TVar blocks access while an addition, modification, or delete action takes place. Attempts to access the comments in the MVar at such times do not result in error. Processes attempting to gain access que up. They gain access on a first in first out basis, so no process attempting to add, modify, or delete a comment will hang indefinitely. Soon, the registered names and passwords will be in an MVar. ' ),
+  h('p', ' Comments are stored in a text file on the server in memory in a TVar. The TVar blocks access while an addition, modification, or delete action takes place. Attempts to access the comments in the MVar at such times do not result in error. Processes attempting to gain access que up. They gain access on a first in first out basis, so no process attempting to add, modify, or delete a comment will hang indefinitely. Soon, the registered names and passwords will be in an MVar. ' ),
   h('br'),  
   h('h3', 'Register' ),
   h('span.red', mMregister.x ),
@@ -1334,7 +1338,8 @@ code.MonadSet,
   h('br'),  
   h('p', ' When this website loads, it receives from the server a string containing all of the comments. The string is saved in commentMonad.s[0]. The string is transformed into an array of comments which is saved in commentMonad.s]1]. An HTML string of comments goes in commentMonad.[2]. '), 
   h('p', ' The processes of adding a new comment or revising an existing one are initiated by entering text in the browser. The process of deleting a comment is set in motion by clicking a button. ' ),
-  h('p', ' These operations are designed to send and receive a minamal amount of information. A new comment is sent to the server and the server saves it and broadcasts it to all online browsers. A revised comment is sent to and from the server with no other information. Revising a comment involves sending the new version, along the index number of the comment in the array in commentMonad.s[1], to and from the server. Only the index number is sent and broadcast when a comment is deleted. The code is available in the Github repository.' ),
+  h('p', ' These operations are designed to send and receive a minamal amount of information. A new comment is sent to the server and the server saves it and broadcasts it to all online browsers. A revised comment is sent to and from the server with no other information. Revising a comment involves sending the new version, along the index number of the comment in the array in commentMonad.s[1], to and from the server. Only the index number is sent and broadcast when a comment is deleted. ' ),
+  h('p', ' Since the history of comment section is not being preserved, the functions that make it work mutate commentMonad.s. Functions never mutate primitive values outside of their scopes. When they change the value of a monad residing in the global space, the old monad is left behind and a fresh one is instantiated with the new value. the ret() function and method, the bind() function, and the bnd() method all do this. Mutating expressions such as m.x = v for some monad m and value v is discouraged. In some earlier versions, I hid the x attribute in a closure. The getter "get()" is still available. The values of monads are currently exposed because, for example, "m.x[3].filter ..." is clearer and more esthetically pleasing (to me, anyway) than "get(m)[3].filter ...". ' ), 
   h('br'),
   h('p', ' *************************************************************************************** ' ),
   h('br'),  

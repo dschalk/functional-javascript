@@ -54,14 +54,14 @@ MonadState3.prototype.remove = function (num) {
 function process (arr) {
   var n = -1;
   var html = [];
-  console.log('<O>-<O>-<O> In process. arr is',arr);
   arr.map(a => { 
     var x = a.split("<o>");
+    x[1] = x[1]
     show = showFunc(x[0], pMname.x);
     console.log('<><><><> in process. x[0],pMname.x, show', x[0],pMname.x,show);
     n+=1;
     html.push(h('div#'+n, [
-      h('span', x[0] + ' commented: ' + x[1]),
+      h('span', x[0] + ' commented: ' + x[1].replace(/<<>>/g, ",")),
       h('br'),
       h('textarea#commit', {props: {cols: 55, rows: 2},
          style: {display: show }}, x[1]),

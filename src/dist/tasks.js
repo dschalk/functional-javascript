@@ -16,8 +16,8 @@ MonadState2.prototype.html = [];
 
 MonadState2.prototype.init = function (str) {
   this.s[0] = str;
-  var ar = str.split("<@>");
-  this.s[1] = ar.filter(v => (v != ""));
+  this.s[0] = this.s[0].split("<@>");
+  this.s[1] = this.s[1].filter(v => (v != ""));
   this.html = bp(this.s[1]);
   return this.html;
 }
@@ -30,20 +30,16 @@ MonadState2.prototype.delete = function (k) {
 }
 
 MonadState2.prototype.append = function (str) {
-  console.log('In taskMonad.append. this.s is',this.s);
   this.s[0] = this.s[0] + str;
   this.s[1] = this.s[0].split("<@>");
   this.html = bp(this.s[1]);
-  console.log('1.2.3.4.5. In taskMonad.append. this.s[0], s[1], and this.html',this.s[0],this.s[1],this.html);
   return this.html
 }
 
 MonadState2.prototype.edit = function(k, s) {
-  console.log('In taskMonad.edit. this.s is',this.s);
   this.s[1] = this.s[1].filter(v => (v != ''));
   this.s[1].splice(k,1,s);
   this.s[0] = this.s[1].join("<@>");
-  console.log('In taskMonad.edit. this.s is',this.s);
   this.html = bp(this.s[1]);
   return this.html;
 }
