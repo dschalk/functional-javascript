@@ -1,11 +1,6 @@
 
 function showFunc (name, name2) {return name == name2 ? 'inline-block' : 'none'}
 
-function extract ([x]) {return x};
-
-newLine = "↵";
-newLine2 = " ↵";
-
 var MonadState3 = function MonadState3(g, state) {
   this.id = g;
   this.s = state;
@@ -17,10 +12,9 @@ var MonadState3 = function MonadState3(g, state) {
 
 var commentMonad = new MonadState3('commentMonad',   [ '', [] ]);
 
-MonadState3.prototype.clear = function () { return this.s = [ '', []] }
 MonadState3.prototype.html = [];
 
-MonadState3.prototype.init = function (str) {
+MonadState3.prototype.init = function (str) { // All comments delivered on load.
   this.s[0] = str;
   this.s[1] = this.s[0].split("<@>");
   this.s[1] = this.s[1].filter(v => (v != ""));
@@ -51,7 +45,7 @@ MonadState3.prototype.remove = function (num) {
   return this.html;
 };
 
-function process (arr) {
+function process (arr) { //Assembles the HTML for display.
   var n = -1;
   var html = [];
   arr.map(a => { 

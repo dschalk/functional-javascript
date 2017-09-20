@@ -15,10 +15,16 @@ function MonadState2(g, state) {
 MonadState2.prototype.html = [];
 
 MonadState2.prototype.init = function (str) {
+  console.log('Progression of init --------------------------------- str', str);
   this.s[0] = str;
-  this.s[0] = this.s[0].split("<@>");
+  console.log(this.s[0]);
+  this.s[1] = this.s[0].split("<@>");
+  console.log(this.s[1]);
   this.s[1] = this.s[1].filter(v => (v != ""));
+  console.log(this.s[1]);
   this.html = bp(this.s[1]);
+  console.log(this.html);
+  console.log('Progression of init --------------------------------- END');
   return this.html;
 }
 

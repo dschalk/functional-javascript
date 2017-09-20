@@ -30,6 +30,7 @@ var m6 = new Monad(6, 'm6');
 var m7 = new Monad(7, 'm7');
 var m8 = new Monad(8, 'm8');
 var m9 = new Monad(9, 'm9');
+var stateArray = [];
 
 function makeSequence (n) {
   var a=[];
@@ -69,37 +70,26 @@ function evaluate (x) {
     this.id = ID;
   };
 
-
-function bind (m, ar = []) {
-  if (!(m instanceof Monad)) {
-    console.log('bind operates only on instances of Monad')
-    return;
-  }
-  var m = m;
-  var arr = ar;
-  if (ar.length = 0) arr.push(m);
-  var inner = function (func, ...args) { 
+function bind (m) {
+  var b2 =  function (func, ...args) {
     var y = func(m.x, ...args) 
     y.id = testPrefix(args, m.id)
     window[y.id] = y;
     if (func.name === "terminate") {
       window[m.id] = new Monad (m.x, m.id);
-      arr.push(window[m.id]);
-      return ar
+      return window[m.id];
     }
-    arr.push(window[y.id])
-    return bind(window[y.id], arr); 
-  };
-  return inner
-} 
+    return bind(y);
+  }
+  return b2; 
+};
 
-function retrn (m, val = m.x) {
+function retrn (m, val=m.x) {
    if (m instanceof Monad) {
      window[m.id] = new Monad(val, m.id);
      return window[m.id];
    }
-   console.log('m is not a monad in retrn')
-   return window[String(m)] = new Monad(val, String(m)); 
+   return new Monad(m, val); 
  }
 
 let v = ret(3,'v')
@@ -115,7 +105,7 @@ function ret (v, id) {
   return window[id] = new Monad(v, id);
 }
 console.log('*******************************************************************');
-bind(m)(x=>ret(3))(cube,"$m2")(add,3,"$m3")(square,"$m4")(x=>ret(x/100),"$m5")(x=>ret(x*5),"$m6")(add,-3,"$m7")(terminate).map(v => console.log("Monad instance",v.id,"has value",v.x));
+//bind(m)(x=>ret(3))(cube,"$m2")(add,3,"$m3")(square,"$m4")(x=>ret(x/100),"$m5")(x=>ret(x*5),"$m6")(add,-3,"$m7")(terminate).map(v => console.log("Monad instance",v.id,"has value",v.x));
 
 console.log(m.x,m2.x,m3.x,m4.x,m5.x,m6.x,m7.x)
 console.log('*******************************************************************');
@@ -172,12 +162,12 @@ function fmap (f, mon1, ...args) {
     return ret(v*v)
   };
 
-  function cube (v) {
-    return ret(v*v*v);
+  function cube (v, id) {
+    return ret(v*v*v, id);
   };
 
-  function add (a, b) {
-    return ret((parseInt(a,10) + parseInt(b,10)));
+  function add (a, b, id) {
+    return ret((parseInt(a,10) + parseInt(b,10)), id);
   };
 
   var double = function double(v) {
@@ -485,6 +475,7 @@ var pMgroup = new Monad('solo', 'pMgroup');
 var pMscore = new Monad(0, 'pMscore');
 var pMgoals = new Monad(0, 'pMgoals');
 var pMnums = new Monad([8,8,8,8], 'pMnums');
+var pMstate = new Monad([],'pMstate');
 var pMindex = new Monad(0, 'pMindex');
 var pMdata = new Monad([], 'pMdata');
 var pMelms = new Monad( [0,0,0,0], 'pMelms' );
