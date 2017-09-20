@@ -152,6 +152,7 @@ function main(sources) {
    mMZ26.bnd( () => {
      stateArray = [];
      var ar = extra.split("<@>")
+     console.log('------- ar is',ar);
      ar.forEach(v => stateArray.push(h('div', v )))
    })
 
@@ -880,13 +881,13 @@ h('p', ' Snabbdom, xstream, and most of the monads and functions presented here 
 h('p', ' Here is the definition of bind(): ' ),
 h('pre', {style: {color: "lightBlue"}}, `  function bind (m) {
     var b2 =  function (func, ...args) {
-      var y = func(m.x, ...args) 
-      y.id = testPrefix(args, m.id)
-      window[y.id] = y;
       if (func.name === "terminate") {
         window[m.id] = new Monad (m.x, m.id);
         return window[m.id];
       }
+      var y = func(m.x, ...args) 
+      y.id = testPrefix(args, m.id)
+      window[y.id] = y;
       return bind(y);
     }
     return b2; 
