@@ -71,17 +71,12 @@ function evaluate (x) {
   };
 
 function bind (m) {
-  var b2 =  function (func, ...args) {
-    if (func.name === "terminate") {
-      window[m.id] = new Monad (m.x, m.id);
-      return window[m.id];
-    }
+  return function (func, ...args) {
+    if (func.name === "terminate") return m; 
     var y = func(m.x, ...args) 
-    y.id = testPrefix(args, m.id)
-    window[y.id] = y;
-    return bind(y);
+    y.id = testPrefix(args, y.id)
+    return bind(retrn(y));
   }
-  return b2; 
 };
 
 function retrn (m, val=m.x) {

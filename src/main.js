@@ -880,19 +880,14 @@ h('br' ),
 h('p', ' Snabbdom, xstream, and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimention and learning so many supporting files are included as scripts in the index.html page. ' ),
 h('p', ' Here is the definition of bind(): ' ),
 h('pre', {style: {color: "lightBlue"}}, `  function bind (m) {
-    var b2 =  function (func, ...args) {
-      if (func.name === "terminate") {
-        window[m.id] = new Monad (m.x, m.id);
-        return window[m.id];
-      }
+    return function (func, ...args) {
+      if (func.name === "terminate") return m; 
       var y = func(m.x, ...args) 
-      y.id = testPrefix(args, m.id)
-      window[y.id] = y;
-      return bind(y);
+      y.id = testPrefix(args, y.id)
+      return bind(retrn(y));
     }
-    return b2; 
-  }; ` ),
-h('p', ' When using bind(), coders provide only one argument, which must be an instance of Monad. The funtions provided to bind(m) run sequentially from left to right, using the value returned by the previous function. Apart from that, an array is built starting with the empty array and subsequently accumulating the result of each step in a sequence of computations. When "terminate" is provided as the final argument in a sequence, the array is returned.' ),
+  };  ` ),
+h('p', ' When using bind(), coders provide only one argument, which must be an instance of Monad. The funtions provided to bind(m) run sequentially from left to right, using the value returned by the previous function. When "terminate" flag is provided as the final argument in a sequence, the result of the most recent computation is returned.' ),
 h('p', ' testPrefix() looks for strings prefixed by "$". If it finds one, y.id is assigned the value of the substring that follows the prefix. If no string beginning with "$" is found, y.id will not change. y.id will never be undefined because functions provided to bind must return instances of Monad. Here is the definition of testPrefix:' ),
 
 h('pre', {style: {color: "rgb(213, 177, 239)"}}, `  function testPrefix (x,y) {
@@ -905,15 +900,31 @@ h('pre', {style: {color: "rgb(213, 177, 239)"}}, `  function testPrefix (x,y) {
       })
     }
    return t;
- } ` ),
+ } 
+  
+  function retrn (m, val=m.x) {
+     if (m instanceof Monad) {
+       window[m.id] = new Monad(val, m.id);
+       return window[m.id];
+     }
+     return new Monad(m, val); 
+  } ` ),
 
+h('p', 'retrn() is similar to ret(), but unlike ret(), which creates monads, retrn() only accepts pre-existing monads as arguments. For an existing monad, say m = new Monad(3,"m"), the following identities hold: '),
+h('pre',  `    retrn(m) === m
+    ret(m.x,m.id) === m ` ),
+h('p', ' Elementary logic might lead to the erroneous conclusion that the two identities shown above imply that retrn(m) === ret(m.x,m.id). retrn(m) === ret(m.x,m.id) would return true but for the fact that the "===" operator tests not only for identity of the x and id attributes, but also for identity of locations in memory. Every time a fresh monad is created, it is assigned a previously unassigned location in memory. This implies the verifiable (in the browser console) fact that the following expressions are correct: '),
+h('pre', `    retrn(m) !== ret(m.x,m.id)          // false
+    retrn(m).x === ret(m.x,m.x).x       // true
+    retrn(m).id === ret(m.x,m.x).id     // true
+    retrn(m) === retrn(m)               // false
+    ret(m.x,m.id) === ret(m.x,m.id)     // false  ` ), 
 
-
-      h('span.italic', ' These monads are like the Haskell monads in that they resemble the monads of category theory without actually being mathematical monads. See ' ),
-      h('a', { props: { href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/", target: "_blank" } }, 'Hask is not a category.'),
-          h('span', ' by Andrej Bauer and the ' ),
-          h('a', { props: { href: '#discussion' } }, 'Discussion'),
-          h('span', ' below. They provide a convenient interface for dealing with uncertainty and side effects in a purely functional manner. Adherence to the monad laws (see below) helps instill confidence that the monads are robust, versatile, and reliable tools for isolatin?g and chaining sequences of javascript functions. ' ),
+h('span', ' All values v that satisfy "v instanceOf Monad" (We call them "monads" in this discussion) are very different from the Haskell monads, but they are similar in that both behave like the monads of category theory without actually being category theory monads. See ' ),
+h('a', { props: { href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/", target: "_blank" } }, 'Hask is not a category.'),
+    h('span', ' by Andrej Bauer and the ' ),
+    h('a', { props: { href: '#discussion' } }, 'Discussion'),
+    h('span', ' below. They provide a convenient interface for dealing with uncertainty and side effects in a purely functional manner. Adherence to the monad laws (see below) helps instill confidence that the monads are robust, versatile, and reliable tools for isolatin?g and chaining sequences of javascript functions. ' ),
 h('h2', 'Alternative Monad Functionality' ),
 h('p', ' Chaining of JavaScript procedures usually occurs by means of methods inside of linked objects. rather than by means of external functions like bind(). Instances of Monad can also link by means of a method. It is called "bnd()" and it, along with "ret()", were made available as follows: ' ),
 h('pre',  {style: {color: "rgb(236, 242, 186)"   }}, `  Monad.prototype.bnd = function (func, ...args) {
