@@ -31,9 +31,9 @@ Instances of Monad are very simple. Here is the definition of Monad:
 ```
 Like the >>= (called "bind") operator in the Haskell programming language, bind() operates on functions that take values and return instances of Monad. "ret()", defined below, resembles Haskell's "return" function. It takes any valid JavaScript value, including deeply nested arrays, instances of Monad, etc., and returns that value encapsulated in an instance of Monad. Here's the definition:
 ```js
-  function ret (v, id) {
-    return window[id] = new Monad(v, id);
-  }; 
+    function ret (v, id) {
+      return window[id] = new Monad(v, id);
+    }; 
 ```js  
 Now, let's see bind() in action. the following code assigns 0 to monad "z1", 3 to z2, 27 to z3, 30 to z4 and 27000 to z4, and 900 to z6. The z's were created on the fly if they did not already exist. Note that prior computation results are available along the chain.
 ```js
@@ -81,7 +81,7 @@ Here is the definition of bind():
 When using bind(), coders provide only one argument, which must be an instance of Monad. The funtions provided to bind(m) run sequentially from left to right, using the value returned by the previous function. When "terminate" flag is provided as the final argument in a sequence, the result of the most recent computation is returned.
 
 testPrefix() looks for strings prefixed by "$". If it finds one, y.id is assigned the value of the substring that follows the prefix. If no string beginning with "$" is found, y.id will not change. y.id will never be undefined because functions provided to bind must return instances of Monad. Here is the definition of testPrefix:
-
+```js
   function testPrefix (x,y) {
     var t = y;  // y is the id of the monad calling testPrefix
     if (Array.isArray(x)) {
@@ -101,6 +101,7 @@ testPrefix() looks for strings prefixed by "$". If it finds one, y.id is assigne
      }
      return new Monad(m, val); 
   } 
+```
 retrn() is similar to ret(), but unlike ret(), which creates monads, retrn() only accepts pre-existing monads as arguments. For an existing monad, say m = new Monad(3,"m"), the following identities hold:
 
     retrn(m) === m
@@ -183,57 +184,17 @@ Game, Todo List, Text Messages
 RULES: If clicking two numbers and an operator (in any order) results in 20 or 18, the score increases by 1 or 3, respectively. If the score becomes 0 or is evenly divisible by 5, 5 points are added. A score of 25 results in one goal. That can only be achieved by arriving at a score of 20, which jumps the score to 25. Directly computing 25 results in a score of 30, and no goal. Each time RL is clicked, one point is deducted. Three goals wins the game.
 
 
-addsubtractmultdivconcat
-
-ROLLBACKFORWARD
-Selected numbers:
-Operator: 0
-Index: 1
-Clear selected numbers
 When traversing the game history, any time there are two selected numbers you can click any operator to obtain a result; or you can clear the selected numbers and click numbers of your choice. You can do anything you want with displayed numbers, but if there is a previously selected operater and you click a second number (shown after "Selected numbers:"), a computation will be performed using the previously selected operator. If that happens and it isn't what you want, you can back up and select a different operater before clicking a second number.
 
-Change group: 
 You can change your name by entering a comma-separated name and password below. The combination will go into a persistent file accessible by the server. You can use this combination to edit or delete your saved comments now or in the future after you log in.
 
-Register or log in here:
-
-
-
-
-
-
-TOGGLE TODO_LIST
-
-TOGGLE CHAT
-
-User Data Currently Held in the Server's State TVar
-
-0422700799529-1
-
-*****************************************************
-Name: 0422700799529
-Group: solo
-
-nobody 0 | 0 judy 0 | 0
-
-_________________________________________________
-Join group "t" if you want to see some previously created tasks.
-
-Enter author, responsible person, and task here:
-
-
-
-
-Message: 
-
-____________________________________________________________________________________________________________
 A Few Words About Cycle.js
 
 Opinionated frameworks tend to annoy and frustrate me. Cycle, on the other hand, is easy on my mind. I love it.
 
-In the early stages of developing this website, I had functions that mutated global variables. Sometimes, I directly mutated values in the DOM with statements like "document.getElementById('id').innerHTML = newValue". Cycle didn't object. Over time, mutating variables and manhandling the DOM gave way to gentler techniques that I developed in conjunction with the "proof of concept" features that I was in a hurry to get up and running.
+In the early stages of developing this website, I had functions that mutated global variables. Sometimes, I directly mutated values in the DOM with statements like "document.getElementById('id').innerHTML = newValue". Cycle didn't object. Over time, mutating global variables and manhandling the DOM gave way to going with the flow of the framework. 
 
-Handling events is a breeze. Drivers eliminate the need to name event emitters or observers. Driver output in main() is available to any function or block of code that is interested. The result of any callback is in an event in a stream of events that automatically merge with the other streams that define main's return value, a blueprint for the updated user interface. This is breathtakingly elegant. main() is called only once, when the application loads. After that, the application hums like an enchanted perpetual motion machine.
+In Cycle.js, handling events is a breeze. Drivers eliminate the need to name event emitters or observers. Driver output in main() is available to any function or block of code that is interested. The result of any callback is in an event in a stream of events that automatically merge with the other streams that define main's return value, a blueprint for the updated user interface. This is breathtakingly elegant. main() is called only once, when the application loads. After that, the application hums like an enchanted perpetual motion machine.
 
 function workerDriver () {
   return xs.create({
@@ -268,11 +229,9 @@ The demonstrations do not block the main execution thread. Computations are perf
 According to the The On-Line Encyclopedia of Integer Sequences these are the first eleven proven prime Fibonacci numbers: 2, 3, 5, 13, 89, 233, 1597, 28657, 514229, 433494437, 2971215073, and 99194853094755497. The eleventh number, 2971215073, is as far as you can go on an ordinary desktop computer. 
 The circles below are red during the computation of A. Fibonacci numbers, B. Prime numbers, and C. prime fibonacci numbers. A, B, and C are shown from left to right. On my desktop computer, the middle circle in the red state starts bcoming briefly discernable a 10,000,000, which is where the largest attainable prime Fibonacci number (2971215073), first appears. The lag time in the Chrome browser at 1,000,000,000,000,000 was a little over thirty-five seconds. After deleting and then replacing the last 0, the delay was under five seconds, demonstrating a significant benefit derived from retrieving previously generated prime numbers instead of computing them again. But once a large array of primes has been generated, lookup times for small number exceeds the time it would take to generate a fresh array of primes. When the square root of the number in the box is less than the largest prime number in primesMonad.s[3], the only circle that turns red is the right one, corresponding to picking out the prime Fibonacci numbers.
 
-
+These are displayed in the [online demonstration](http://schalk.net:3055):
 
 The elapsed time is 0 milliseconds.
-
-
 
 Fibonacci Numbers
 
@@ -280,31 +239,24 @@ Prime Fibonacci Numbers
 
 The largest generated prime number.
 
-The second demonstration in this series decomposes numbers into its their prime factors. Testing with sequences of 9's, the first substantial lag occurs at 9,999,999 - unless a large array of prime numbers has already been generated in the previous demonstration or elsewhere. Here it is:
-
-
-
+The second demonstration in this series decomposes numbers into its their prime factors. Testing with sequences of 9's, the first substantial lag occurs at 9,999,999 - unless a large array of prime numbers has already been generated in the previous demonstration or elsewhere. 
 
 Next, two comma-separated numbers are decomposed into arrays of their prime factors, and those arrays are used to compute their lowest common multiple (lcm). For example, the lcm of 6 and 9 is 18 because 3*6 and 2*9 are both 18. The lcm of the denominators of two fractions is useful in fraction arithmetic; specifically, addition and subtraction. On my desktop computer, two seven digit numbers resulted in a lag of a few seconds when prime numbers had not been previously generated.
-
-
-
 
 The least common multiple of undefined and undefined is undefined
 The largest common factor of undefined and undefined is undefined
 TEST: undefined * undefined === undefined * undefined
 RESULT: false
-Doing Things The Hard Way
+
+###Doing Things The Hard Way
 
 The next two demonstration generate the same results as the previous two; but in doing so, they also generate and add to a shared and persistent (for the duration of the browser session) array of arrays of prime decompositions of the positive integers. The array is the value of decompMonad.s. It is re-used as the starting point for generating larger arrays, or as a sort of lookup table if a required prime decomposition has already been computed. The index of an array is the number whose decomposition is in the array so, for example, array-of-arrays[12] is [2,2,3]. The actual code will be shown later and is also available at the Github repository.
 
-Enter a number here: 
-
-
 The next demonstration shares the array of arrays of prime decompositions with the previous demonstration. That array is kept in a MonadState instance named "decompMonad". Computing prime decompositions of numbers that end up being ignored is clearly inefficient, so please bear in mind that a demonstration of a JS-monads way to keep mutable state in immutable, composable, globally accessable objects.
 
-Enter two comma-separated integers here: 
+The online demonstration contains the following text.
 
+Enter two comma-separated integers here: 
 
 The least common multiple of undefined and undefined is undefined
 The largest common factor of undefined and undefined is undefined
@@ -313,9 +265,6 @@ RESULT: false
 The Easy Way
 
 This has been a demonstration of MonadState and MonadState transformers. If you really want the least common multiple or the largest common factor of two positive integers, there is no need to generate prime numbers. The next and final demonstration in this section does not use a web worker. The computations block the main thread, but only for a few microseconds.
-
-
-
 
 The least common multiple of undefined and undefined is undefined
 The largest common factor of undefined and undefined is undefined
