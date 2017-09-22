@@ -74,8 +74,8 @@ function bind (m) {
   return function (func, ...args) {
     if (func.name === "terminate") return m; 
     var y = func(m.x, ...args) 
-    y.id = testPrefix(args, y.id)
-    return bind(retrn(y));
+    var id = testPrefix(args, y.id)
+    return bind(ret(y.x,id));
   }
 };
 
@@ -84,7 +84,7 @@ function retrn (m, val=m.x) {
      window[m.id] = new Monad(val, m.id);
      return window[m.id];
    }
-   return new Monad(m, val); 
+   return window[m] = new Monad(val,String(m)); 
  }
 
 let v = ret(3,'v')
@@ -96,9 +96,14 @@ console.log(m)
 
 function terminate (x) {return x};
 
-function ret (v, id) {
-  return window[id] = new Monad(v, id);
+function ret (val, id = "default") {
+  if (val instanceof Monad && arguments.length === 2)
+    return window[val.id] = new Monad(id, val.id) 
+  if (val instanceof Monad)
+    return window[val.id] = new Monad(val.x, val.id)
+  return window[id] = new Monad(val, id);
 }
+
 console.log('*******************************************************************');
 //bind(m)(x=>ret(3))(cube,"$m2")(add,3,"$m3")(square,"$m4")(x=>ret(x/100),"$m5")(x=>ret(x*5),"$m6")(add,-3,"$m7")(terminate).map(v => console.log("Monad instance",v.id,"has value",v.x));
 
@@ -543,9 +548,9 @@ var a = 3;
 var b = 4;
 var c = a + b;
 
-var equals = function equals (mon1, mon2) {
-  if (mon1.id === mon2.id && get(mon1) === get(mon2)) return true;
-  else return false
+function eq (mon1, mon2) {
+  if (mon1.id === mon2.id && mon1.x === mon2.x) return true;
+  return false;
 }
 
 var mMtemp5 = new Monad(0, 'mMtemp5')

@@ -20,29 +20,44 @@ I am publishing this page mainly:
       understanding with practice
       smooth sailing through every challenge 
 ```
-bind() works by taking an instance of Monad and returning a function that operates on functions, returning functions similar to itself untill it encounters the "terminate" flag instead of another function. In practice, this looks like bind(m)(function1)(function2)(function3) ... where m is a monad and the functions return monads. Anything can be the x value of a monad. The result of any computation can easily be wrapped in a monad, so the restriction on return values does not restrict what you can do.
+What I call "monads" here are objects which respond affirmatively to "typeof object === Monad". They have two attributes, id and x. monad.x is what I sometimes call the "value" of the monad.
+
+bind() takes a monad as its argument and returns a function that operates on functions, returning functions similar to itself untill it encounters the "terminate" flag. This looks like bind(m)(function1)(function2)(function3) ... where m is a monad and the functions operate on the values of the monads returned by the previous function and ruturn monads. Any JavaScript value can be the value of a monad. It is easy to wrap anything in a monad, so the restriction on return values does not restrict what you can do.
 
 Instances of Monad are very simple. Here is the definition of Monad:
-```js
+
     function Monad(z = 'default', ID = 'tempMonad') {
       this.x = z;
       this.id = ID;
-    };
-```
-Like the >>= (called "bind") operator in the Haskell programming language, bind() operates on functions that take values and return instances of Monad. "ret()", defined below, resembles Haskell's "return" function. It takes any valid JavaScript value, including deeply nested arrays, instances of Monad, etc., and returns that value encapsulated in an instance of Monad. Here's the definition:
-```js
-    function ret (v, id) {
-      return window[id] = new Monad(v, id);
     }; 
-```js  
-Now, let's see bind() in action. the following code assigns 0 to monad "z1", 3 to z2, 27 to z3, 30 to z4 and 27000 to z4, and 900 to z6. The z's were created on the fly if they did not already exist. Note that prior computation results are available along the chain.
+Like the >>= (called "bind") operator in the Haskell programming language, bind() operates on functions that take values and return instances of Monad. "ret()", defined below, resembles Haskell's "return" function in that it is the left and right identity function on monads, and it takes a value as an argument and returns a monad containing that value.
+
+    var m = ret(v)
+    m.x === v  
+Here are the definitions of Monad and ret:
+
+  function ret (v, id) {
+    return window[id] = new Monad(v, id);
+  )
+
+  function ret (val, id = "default") {
+    if (val instanceof Monad && arguments.length === 2)
+      return window[val.id] = new Monad(id, val.id) 
+    if (val instanceof Monad)
+      return window[val.id] = new Monad(val.x, val.id)
+    return window[id] = new Monad(val, id);
+} 
+As you see, ret() encapsulates values that are not monads but does not return monads containing monads. Nesting can be accomplished. For example, monad m1 becomes the value of m2 when you write:
+    var m2 = new Monad(m1, "m2") 
+
+Before seeing the potentially confusing definition of bind(), let's take a look at bind() in action. The following code assigns 0 to monad "z1", 3 to z2, 27 to z3, 30 to z4 and 27000 to z4, and 900 to z6. The z's were created on the fly if they did not already exist. Note that prior computation results are available along the chain.
 ```js
 bind(ret(0,'z1'))(add,3,"$z2")(cube,"$z3")(add,z2.x,"$z4")
 (cube,"$z5")(x=>ret(x/z4.x),"$z6")(terminate)
 console.log(z1,z2,z3,z4,z5,z6) 
 ```
 The Chrome console displays: 
-```
+```txt
 Monad {x: 0, id: "z1"} Monad {x: 3, id: "z2"} 
 Monad {x: 27, id: "z3"} Monad {x: 30, id: "z4"} 
 Monad {x: 27000, id: "z5"} Monad {x: 900, id: "z6"}  
@@ -73,8 +88,8 @@ Here is the definition of bind():
     return function (func, ...args) {
       if (func.name === "terminate") return m; 
       var y = func(m.x, ...args) 
-      y.id = testPrefix(args, y.id)
-      return bind(retrn(y));
+      var id = testPrefix(args, y.id)
+      return bind(ret(y.x, id));
     }
   };  
 ```
@@ -93,31 +108,12 @@ testPrefix() looks for strings prefixed by "$". If it finds one, y.id is assigne
     }
    return t;
  } 
-  
-  function retrn (m, val=m.x) {
-     if (m instanceof Monad) {
-       window[m.id] = new Monad(val, m.id);
-       return window[m.id];
-     }
-     return new Monad(m, val); 
-  } 
-```
-retrn() is similar to ret(), but unlike ret(), which creates monads, retrn() only accepts pre-existing monads as arguments. For an existing monad, say m = new Monad(3,"m"), the following identities hold:
-
-    retrn(m) === m
-    ret(m.x,m.id) === m 
-Elementary logic might lead to the erroneous conclusion that the two identities shown above imply that retrn(m) === ret(m.x,m.id). retrn(m) === ret(m.x,m.id) would return true but for the fact that the "===" operator tests not only for identity of the x and id attributes, but also for identity of locations in memory. Every time a fresh monad is created, it is assigned a previously unassigned location in memory. This implies the verifiable (in the browser console) fact that the following expressions are correct:
-
-    retrn(m) !== ret(m.x,m.id)          // false
-    retrn(m).x === ret(m.x,m.x).x       // true
-    retrn(m).id === ret(m.x,m.x).id     // true
-    retrn(m) === retrn(m)               // false
-    ret(m.x,m.id) === ret(m.x,m.id)     // false  
+``` 
 All values v that satisfy "v instanceOf Monad" (We call them "monads" in this discussion) are very different from the Haskell monads, but they are similar in that both behave like the monads of category theory without actually being category theory monads. See Hask is not a category. by Andrej Bauer and the Discussion below. They provide a convenient interface for dealing with uncertainty and side effects in a purely functional manner. Adherence to the monad laws (see below) helps instill confidence that the monads are robust, versatile, and reliable tools for isolatin?g and chaining sequences of javascript functions.
-Alternative Monad Functionality
 
+##Alternative Monad Functionality
 Chaining of JavaScript procedures usually occurs by means of methods inside of linked objects. rather than by means of external functions like bind(). Instances of Monad can also link by means of a method. It is called "bnd()" and it, along with "ret()", were made available as follows:
-
+```js
   Monad.prototype.bnd = function (func, ...args) {
     var m = func(this.x, ...args)
     var ID;
@@ -132,19 +128,30 @@ Chaining of JavaScript procedures usually occurs by means of methods inside of l
   Monad.prototype.ret = function (a) {
     return window[this.id] = new Monad(a, this.id);
   }; 
+```  
 The monad methods (above) are still being used to support legacy code on this site. Demonstrations showing that m.ret is the left and right identity on monads, and showing that m.bnd is cummutative are in the Appendix.
 
-In a monadic space, category theory morphisms (functions by analogy here) are commutative and have a left and right identity morphism. retrn() is our left and right identity function. For all monads m:
-
-    retrn(m) = m
+##Comparison with Haskell monads
+By the definition of "monad" in category theory, all morphisms (functions by analogy here) are commutative and have a left and right identity morphism. retrn() is our left and right identity function. For all monads m:
+```js
+    retrn(m) === m
     bind(m)(retrn)(terminate) === m 
-    bind(retrn(7,'m'))(cube)(terminate).id === cube(7,'m').id 
-    bind(retrn(7,'m'))(cube)(terminate).x === cube(7,'m').x 
+    bind(retrn(7,m))(cube)(terminate).id === cube(7,'m').id 
+    bind(retrn(7,m))(cube)(terminate).x === cube(7,'m').x 
+```
 Haskell is very different from Javascript. The Haskell identity laws are:
-
-    m >>= return ≡ m 
-    m >>= return ≡ m 
-The commutivity of the monadic functions can be expressed as follows:
+```
+    m >>= return ≡ m   // Left identity
+    m >>= return ≡ m   // Right identity
+    (m >>= f) >>= g ≡ m >>= ( \x -> (f x >>= g) ) // Commutivity 
+```
+  bind(ret(3,'m'))(f, ...args)(g, ...args)(terminate).x ===
+  bind(ret(3,'m'))(x => f(x, ...args))(g, ...args)(terminate).x
+  
+  bind(ret(3,'m'))(f, ...args)(g, ...args)(terminate).id ===
+  bind(ret(3,'m'))(x => f(x, ...args))(g, ...args)(terminate).id
+  
+  EXAMPLE:
 
   bind(ret(3,'m'))(add,1)(cube)(terminate).x ===
   bind(ret(3,'m'))(x => add(1,x))(cube)(terminate).x
@@ -155,7 +162,6 @@ Note: Non-mutating computations are assigned unique places in memory, so we comp
 
 In Haskell, commutivity is expressed like this:
 
-  (m >>= f) >>= g ≡ m >>= ( \x -> (f x >>= g) ) 
 
 The Haskell programming language borrowed the term "monad" from the branch of mathematics known as category theory. This was apropriate because Haskell monads, along with the function return and the operator >>=, behave quite a bit like category theory monads, and the inspiration for them came out of category theory. For Haskell monads to actually be category theory monads, they would need to reside in a category-theory category. They don't, although the Haskell mystique tends to give newcommers to the language the impression that they do. See Hask is not a category.
 Research into ways of defining a Haskell category appears to be ongoing. This research involves tinkering with special constraints, omitted features, and definitions of morphisms that are not Haskell functions. When a definition of the category is established, Haskell monads are then shown to be, in some contrived context, category-theory monads. Devising such schemes are instructive academic exercises, but I think application developers will always want and need tools which lie outside of the closed space of any category.
