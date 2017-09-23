@@ -39,6 +39,8 @@ function makeSequence (n) {
   return a
 }
 
+function terminate(x) {return x};
+
 console.log(makeSequence(5))
 
 function evaluate (x) {  
@@ -69,7 +71,7 @@ function evaluate (x) {
     this.x = z;
     this.id = ID;
   };
-
+/*
 function bind (m) {
   return function (func, ...args) {
     if (func.name === "terminate") return m; 
@@ -78,23 +80,18 @@ function bind (m) {
     return bind(ret(y.x,id));
   }
 };
+*/
 
-function retrn (m, val=m.x) {
-   if (m instanceof Monad) {
-     window[m.id] = new Monad(val, m.id);
-     return window[m.id];
-   }
-   return window[m] = new Monad(val,String(m)); 
- }
-
-let v = ret(3,'v')
-let v2 = fmap (cube,m)
-console.log(m)
-
-retrn(m,77);
-console.log(m)
-
-function terminate (x) {return x};
+function bind (x, ar = []) {
+  this.ar = ar;
+  return function (func, ...args) {
+    if (func.name === "terminate") return ar;
+    var y = func(x, ...args) 
+    y.id = testPrefix(args, y.id)
+    ar.push(y.x);
+    return bind(y.x, ar);
+  }
+};
 
 function ret (val, id = "default") {
   if (val instanceof Monad && arguments.length === 2)
@@ -103,12 +100,6 @@ function ret (val, id = "default") {
     return window[val.id] = new Monad(val.x, val.id)
   return window[id] = new Monad(val, id);
 }
-
-console.log('*******************************************************************');
-//bind(m)(x=>ret(3))(cube,"$m2")(add,3,"$m3")(square,"$m4")(x=>ret(x/100),"$m5")(x=>ret(x*5),"$m6")(add,-3,"$m7")(terminate).map(v => console.log("Monad instance",v.id,"has value",v.x));
-
-console.log(m.x,m2.x,m3.x,m4.x,m5.x,m6.x,m7.x)
-console.log('*******************************************************************');
 
   Monad.prototype.bnd = function (func, ...args) {
     var m = func(this.x, ...args)
@@ -137,6 +128,55 @@ console.log('*******************************************************************
     return t;
   }
 
+inc = add.bind(undefined, 1)
+inc(4) === 5
+
+  function square (v) {
+    return ret(v*v)
+  };
+
+  var cubeC = v => ret(v*v*v);
+
+  function cube (v, id) {
+    return ret(v*v*v, id);
+  };
+
+  function add (a, b, id) {
+    return ret((parseInt(a,10) + parseInt(b,10)),id);
+  };
+
+  const addC = a => b => ret(a+b);
+  const multC = a => b => ret(a*b);
+
+  const addC2 = a => b => c => ret(a+b,c);
+
+  var double = function double(v) {
+      return ret(v + v);
+  };
+
+  function mult(x, y, id) {
+    if (arguments.length = 1) {
+      this.x = x;
+      return function (z,id = "multDefault") {
+        return ret(this.x*z, id)}
+    }
+    return ret(x * y, id);
+  }
+
+  function pi (k) {
+    var a = (2*k)*(2*k);
+    var b = (k+2)*(k)
+    return ret(a/b)
+  }
+
+function retrn (m, val=m.x) {
+   if (m instanceof Monad) {
+     window[m.id] = new Monad(val, m.id);
+     return window[m.id];
+   }
+   return window[m] = new Monad(val,String(m)); 
+ }
+
 function fmap (f, mon1, ...args) {
   var a;
   var id;
@@ -157,32 +197,6 @@ function fmap (f, mon1, ...args) {
   }
   return ret(a,id);
 } 
-
-  function square (v) {
-    return ret(v*v)
-  };
-
-  function cube (v, id) {
-    return ret(v*v*v, id);
-  };
-
-  function add (a, b, id) {
-    return ret((parseInt(a,10) + parseInt(b,10)), id);
-  };
-
-  var double = function double(v) {
-      return ret(v + v);
-  };
-
-  function mult(x, y) {
-    return ret(x * y);
-    }
-
-  function pi (k) {
-    var a = (2*k)*(2*k);
-    var b = (k+2)*(k)
-    return ret(a/b)
-  }
 
 
 var m0 = new Monad (0, "m0")
