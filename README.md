@@ -2,14 +2,14 @@
 
 ###This project is in flux. see [http:schalk.net:3055](http://schalk.net:3055) for more up-to-date commentary and working demonstrations.
 
- A Cycle.js application
-FUNCTIONAL REACTIVE PROGRAMMING
+## A Cycle.js application
+#FUNCTIONAL REACTIVE PROGRAMMING
 
-WITH CUSTOM MONADS AND CYCLE.JS
+#WITH CUSTOM MONADS AND CYCLE.JS
 
 I am publishing this page mainly:
 
-(1) To share my "bind()" function along with a few other inventions with website developers and
+(1) To show how the bind() and ret() functions and the bnd() and ret() operators, features of the monads presented here, facilitate the development of front-end web applications. The game, todo list, chat, comments, and mathematical procedures are demonstrations of the monads in action.
 
 (2) To help people who are interested in acclimating their thought processes to functional and reactive ways of programming. In order to feel comfortable with functional, reactive code, I think novices and seasoned programmers alike must grow new synaptic structures in their brains. This comes with practice.
 
@@ -25,21 +25,34 @@ Here is the definition of Monad:
     }; 
 What I call "monads" here are objects which respond affirmatively to "typeof object === Monad". They have two attributes, id and x. monad.x is what I sometimes call the "value" of a monad.
 
-bind() takes a monad as its argument and returns a function that operates on functions, returning functions similar to itself untill it encounters the "terminate" flag. This looks like bind(m)(function1)(function2)(function3) ... where m is a monad and the functions operate on the values of the monads returned by the function to their immediate left.
+The functions bind() and ret() are similar in many ways to >>= (known as "bind") and return in the Haskell programming language. Only here, in this astonishingly chaotic world of JavaScript, there is only one type of monad and the functions (bind and ret) and methods (bnd() and ret()) on which they depend operate on only one type: every possible JavaScript value. All of them return monads. A monad can be a wrapper for a primitive value, and array, a monad, or anything else.
 
-This can be confusing. You know the functions that you are chaining. They all return monads. But what are the invisable functions that stand ready to operate on the next function you provide?
+We begin with a discussion of bind() and ret(). The bnd() and ret() were added to the Monad prototype and will be discussed later.
 
-The invisible functions that stand ready to operate on the next function you provide are the return values of bind(m.x) where m is the return value of the previous function. Yes, bind is executed all along the chain, you just don	see it.
+bind accepts any javascript value as its argument and returns a function that operates on functions, always returning a similar function until it encounters the "terminate" flag. There is one restriction of the values returned by the functions that come after a call to bind: They must return monads.
 
-Here's another way of saying essentially the same thing: If m is returned by the last function you put on the chain, the return value of bind(m.x) is what awaits your next addition. You don	see it, but it's there. When you are done, make (terminate) the final link. The return value of the final function, a monad, will be returned.
+ret() accepts any JavaScript value and returns that value wrapped in a monad.
 
-Any JavaScript value can be the value of a monad. It is easy to wrap anything in a monad, so the restriction on return values does not restrict what you can do.
+  ret(v) = m where m.x = v 
+A chain of computations returns an array of each succeeding computation. Here's an example:
 
-Like the >>= operator (called "bind") in the Haskell programming language, bind() operates on functions that take values and return monads. "ret()", defined below, resembles Haskell's "return" function in that it is the left and right identity function on monads, and it takes a value as an argument and returns a monad containing that value.
+  bind(0)(v => ret(v+3))(v => ret(v*v*v))(terminate) // [3,27] 
+Despite the way it looks, (v => ret(v+3)) doesn't take (v => ret(v*v*v)) as its argument. bind(0) obviously affects the expressions that follow it. Here how:
 
-As you see, ret() encapsulates values that are not monads but does not return monads containing monads. There are ways to next monads within monads; for example, monad m1 becomes the value of m2 when you write:
-    var m2 = new Monad(m1, "m2") 
-Here is the definition of ret(), which was used in the definitions of add() and cube():
+  function bind (x, ar = []) {
+    this.ar = ar;
+    return function (func, ...args) {
+      if (func.name === "terminate") return ar;
+      var y = func(x, ...args) 
+      ar.push(y.x);
+      return bind(y.x, ar);
+    }
+  };  
+The invisible functions that stand ready to operate on the next function you provide are the return values of bind(m.x) where m is the return value of the previous function. bind is coded only once, at the beginning, but it executes repeatedly along a chain of computations until it reaches the "terminate" flag.
+
+Here's another way of saying essentially the same thing: If m is returned by the most recent function you have added to the chain, the return value of bind(m.x) awaits your next addition.
+
+Here is the definition of ret():
 
   function ret (val, id = "default") {
     if (val instanceof Monad && arguments.length === 2)
@@ -48,24 +61,24 @@ Here is the definition of ret(), which was used in the definitions of add() and 
       return window[val.id] = new Monad(val.x, val.id)
     return window[id] = new Monad(val, id);
   } 
-    var m = ret(v)
-    m.x === v  
-Here is the definition of bind():
+As you see, ret() encapsulates values that are not monads but does not return monads containing monads. There are ways to next monads within monads; for example, monad m1 becomes the value of m2 when you write:
+    var m2 = new Monad(m1, "m2") 
+But using ret() on non-monad value v and using it again on the result we see:
 
-  function bind (x, ar = []) {
-    return function (func, ...args) {
-      if (func.name === "terminate") return ar;
-      var y = func(x, ...args) 
-      y.id = testPrefix(args, y.id)
-      ar.push(y.x);
-      return bind(y.x, ar);
-    }
-  };  
-The following function uses "ar" in three places, illustrating the fact that the result of each computation in a chain is available to every computation that follows. If you only want the final result, just put ".pop()" after terminate.
+    let m = ret(v)
+    then m.x === v 
+    but ret(m) === m 
+    and m.x === v  nothing changed. 
+Let's examine bind more closely. By using "ar" in three places, the following example illustrates the fact that the result of every computation in a chain is available to every computation that comes after it.
 
   bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[0]))(multC(ar[0]))
   (addC(30))(multC(1/ar[2]))(terminate)
     // [3, 27, 30, 90, 270, 300, 10] 
+Or to get only the final result:
+
+  bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[0]))(multC(ar[0]))
+  (addC(30))(multC(1/ar[2]))(terminate).pop()
+    // 10  
 addC, cube and multC (above) are defined as follows:
 
     const addC = a => b => ret(a+b);
@@ -73,32 +86,17 @@ addC, cube and multC (above) are defined as follows:
     const multC = a => b => ret(a*b);
 
     const cubeC = a => ret(a*a*a);  
-When using bind(), coders provide only one argument, which can be any javascript value, icluding function, object, etc. bind()'s second argument is an array that is automatically provided. You can substitute any array you like for the default starting array.
+bind()'s second argument is an array that is automatically provided. It is possible to substitute any array you like for the default starting array [].
 
-The funtions provided to bind(m) run sequentially from left to right, using the value returned by the previous function. When "terminate" flag is provided as the final argument ar is returned.
-
-testPrefix() looks for strings prefixed by "$". If it finds one, y.id is assigned the value of the substring that follows the prefix. If no string beginning with "$" is found, y.id will not change. y.id will never be undefined because functions provided to bind must return instances of Monad. Here is the definition of testPrefix:
-
-  function testPrefix (x,y) {
-    var t = y;  // y is the id of the monad calling testPrefix
-    if (Array.isArray(x)) {
-      x.map(v => {
-        if (typeof v == 'string' && v.charAt() == '$') {
-           t = v.slice(1);  // Remove "$"
-        }
-      })
-    }
-   return t;
- }  
-Values v that satisfy "v instanceOf Monad" (called "monads" in this discussion) are very different from the Haskell monads, but they are similar in that both behave like the monads of category theory without actually being category theory monads. See Hask is not a category. by Andrej Bauer and the Discussion below. They provide a convenient interface for dealing with uncertainty and side effects in a purely functional manner. Adherence to the monad laws (see below) helps instill confidence that the monads are robust, versatile, and reliable tools for isolatin?g and chaining sequences of javascript functions. 
+Values v that satisfy "v instanceof Monad" (called "monads" in this discussion) are very different from the Haskell monads, but they are similar in that both behave like the monads of category theory without actually being category theory monads. See Hask is not a category. by Andrej Bauer and the Discussion below. They provide a convenient interface for dealing with uncertainty and side effects in a purely functional manner. Adherence to the monad laws (see below) helps instill confidence that the monads are robust, versatile, and reliable tools for isolating and chaining sequences of javascript functions. 
 
 Reactivity occurs naturally in the Cycle.js framework. Some developers find that Cycle.js has a steep learning curve. It isn't so bad if you start with Andr Staltz' Overview of Cycle.js. Its sheer elegance might take your breath away. 
 
 The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with my Haskell websockets server. 
 
-This project was created by and is actively maintained by me, David Schalk. The code repository is at JS-monads You can comment at Reddit or in the Comments section near the end of this page 
-Snabbdom, xstream, and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimention and learning so many supporting files are included as scripts in the index.html page.
+This project was created by and is actively maintained by me, David Schalk. The code repository is at monads-for-javascript You can comment at Reddit or in the Comments section near the end of this page 
 
+Snabbdom xstream, and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimentation and learning so many supporting files are included as scripts in the index.html page. 
 Alternative Monad Functionality
 
 Chaining of JavaScript procedures usually occurs by means of methods inside of linked objects. rather than by means of external functions like bind(). Instances of Monad can also link by means of a method. It is called "bnd()" and it, along with "ret()", were made available as follows:
@@ -117,7 +115,7 @@ Chaining of JavaScript procedures usually occurs by means of methods inside of l
   Monad.prototype.ret = function (a) {
     return window[this.id] = new Monad(a, this.id);
   }; 
-This seems less functional, less like Haskell. It doesn't pass functions down the chain but rather objects with exposed methods. But is has endearing features. Look how values move along the chain until, at the end they combine to yield 42. This would be impossible with bind(), which is why bind() has ar.
+This seems less functional, less like Haskell. It doesn't pass functions down the chain but rather objects with exposed methods. But is has endearing features. Look how values move along the chain until, at the end they combine to yield 42. This would be impossible with bind(), which is why bind() has ar. The code below looks a bit like the lambda calculus, the essence of functional programming.
 
   ret(2).bnd(v => add(v,1).bnd(cube).bnd(p => add(p,3)
   .bnd(() => ret(p/3).bnd(add,3).bnd(z => [v,p,z,v*p-z]))))
@@ -166,12 +164,12 @@ Examples demonstrating commutivity
   eq(m.ret(3).bnd(ret).bnd(cube).
     bnd(ret),m.ret(3).bnd(cube)) 
 Back To The Top
-Disussion
+Discussion
 
-The Haskell statement f ≡ g means that f x == g x for all Haskell values x in the domain of f. That is the test applied to Javascript expressions in the "Monad Laws" section (above). Neither the == nor the === operator would provide useful information about the behavior of instances of Monad. Those operators test objects for location in memory. If the left and right sides of predicates create new instances of m, then the left side m and the right side m wind up in different locations in memory. So we expect m.ret(3) === m.ret(3) to return false, and it does. We want to answer the question ≡ answers in Haskell: Can the left and right sides be substituted for one another and still yield the same results.
+The Haskell statement f ≡ g means that f x == g x for all Haskell values x in the domain of f. That is the test applied to JavaScript expressions in the "Monad Laws" section (above). Neither the == nor the === operator would provide useful information about the behavior of instances of Monad. Those operators test objects for location in memory. If the left and right sides of predicates create new instances of m, then the left side m and the right side m wind up in different locations in memory. So we expect m.ret(3) === m.ret(3) to return false, and it does. We want to answer the question ≡ answers in Haskell: Can the left and right sides be substituted for one another and still yield the same results.
 Comparison With Haskell Monads
 
-By the definition of "monad" in category theory, all morphisms (functions by analogy here) are commutative and have a left and right identity morphism. ret() is our left and right identity function. The expression eq(m1,m2) returns true if and only if m1.x === m2.x and m1.id === m2.id. m1 === m2 returns false if m1 and m2 are in different locations in memory. The Haskell "≡" operator provides information simular to eq().
+By the definition of "monad" in category theory, all morphisms (functions by analogy here) are commutative and have a left and right identity morphism. ret() is our left and right identity function. The expression eq(m1,m2) returns true if and only if m1.x === m2.x and m1.id === m2.id. m1 === m2 returns false if m1 and m2 are in different locations in memory. The Haskell "≡" operator provides information similar to eq().
 
   function eq (mon1, mon2) {
     if (mon1.id === mon2.id && mon1.x === mon2.x) return true;
@@ -202,15 +200,15 @@ And here it is in terms of our JavaScript monads:
 
   eq(bind(ret(3,'m'))(add,1)(cube)(terminate),
      bind(ret(3,'m'))(x => add(1,x))(cube)(terminate)) 
-The Haskell programming language borrowed the term "monad" from the branch of mathematics known as category theory. This was apropriate because Haskell monads, along with the function return and the "bind" operator >>=, behave quite a bit like category theory monads, and the inspiration for them came out of category theory. For Haskell monads to actually be category theory monads, they would need to reside in a category-theory category. They don't, although the Haskell mystique tends to give newcommers to the language the impression that they do. See Hask is not a category.
+The Haskell programming language borrowed the term "monad" from the branch of mathematics known as category theory. This was appropriate because Haskell monads, along with the function return and the "bind" operator >>=, behave quite a bit like category theory monads, and the inspiration for them came out of category theory. For Haskell monads to actually be category theory monads, they would need to reside in a category-theory category. They don't, although the Haskell mystique tends to give newcomers to the language the impression that they do. See Hask is not a category.
 Research into ways of defining a Haskell category appears to be ongoing. This research involves tinkering with special constraints, omitted features, and definitions of morphisms that are not Haskell functions. When a definition of the category is established, Haskell monads are then shown to be, in some contrived context, category-theory monads. Devising such schemes are instructive academic exercises, but I think application developers will always want and need tools which lie outside of the closed space of any category.
 
 However, imitating definitions and patterns found in category theory, as Haskell does in defining the functor, monoid, and monad type classes, was a stroke of genius that vastly enriched the Haskell programming language and brought it into the mainstream as a viable alternative to java, c++, etc. This website runs efficiently on a Haskell websockets server. The modified Haskell Wai Websockets server has proven to be extraordinarily easy to maintain as new requirements become necessary. For example, modifying the server to send chat messages and shared todo lists only to members of the same group was a trivial task. It required just a few lines of no-brainer pattern-matching code.
 
-Other JavaScript monad schemes mirror type theory and Haskell with their type constructors and monads that operate on types. Examples include Curiosity-Driven and Fantasy Land. For me, superimposing such abstractions over Javascript diminishes it. It is easy to include some type checking code in function definitions where it is thought to be helpful. For example, if someone enters inappropriate data in a form, a message explaining the mistake can be displayed. I enjoy the freedom and versitility of JavaScript as it is.
+Other JavaScript monad schemes mirror type theory and Haskell with their type constructors and monads that operate on types. Examples include Curiosity-Driven and Fantasy Land. For me, superimposing such abstractions over JavaScript diminishes it. It is easy to include some type checking code in function definitions where it is thought to be helpful. For example, if someone enters inappropriate data in a form, a message explaining the mistake can be displayed. I enjoy the freedom and versatility of JavaScript as it is.
 Monad Demonstrations
 
-The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history (all group members see your score decrease or increase as you navegate backwards and forwards). Monads are shown performing lengthy mathematical computations asycronously in web workers. Variations on the Monad theme encapsulate state. The error checking monad carries occurances of NaN and runtime errors through sequences of computations much like the Haskell Maybe monad.
+The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history (all group members see your score decrease or increase as you navigate backwards and forwards). Monads are shown performing lengthy mathematical computations asycronously in web workers. Variations on the Monad theme encapsulate state. The error checking monad carries occurrences of NaN and runtime errors through sequences of computations much like the Haskell Maybe monad.
 
 The game code is fairly concise and intuitive. A quick walk-through is presented at.here. To see monadic functionality at work, I suggest that you take a look at the section captioned Asynchronous Processes
 But it might be best to first proceed down the page and see the examples of Monad instances manipulating data. If you are trying to wrap you head around the concept of pure, chainable functions, such as the functions in the Underscore and Jquery libraries, understanding our monads might elevate you to the comfort zone you seek.
@@ -237,7 +235,7 @@ Selected numbers:
 Operator: 0
 Index: 1
 Clear selected numbers
-When traversing the game history, any time there are two selected numbers you can click any operator to obtain a result; or you can clear the selected numbers and click numbers of your choice. You can do anything you want with displayed numbers, but if there is a previously selected operater and you click a second number (shown after "Selected numbers:"), a computation will be performed using the previously selected operator. If that happens and it isn't what you want, you can back up and select a different operater before clicking a second number.
+When traversing the game history, any time there are two selected numbers you can click any operator to obtain a result; or you can clear the selected numbers and click numbers of your choice. You can do anything you want with displayed numbers, but if there is a previously selected operator and you click a second number (shown after "Selected numbers:"), a computation will be performed using the previously selected operator. If that happens and it isn't what you want, you can back up and select a different operator before clicking a second number.
 
 Change group: 
 You can change your name by entering a comma-separated name and password below. The combination will go into a persistent file accessible by the server. You can use this combination to edit or delete your saved comments now or in the future after you log in.
@@ -255,10 +253,10 @@ TOGGLE CHAT
 
 User Data Currently Held in the Server's State TVar
 
-07528656934913-1
+4603461045102-1
 
 *****************************************************
-Name: 07528656934913
+Name: 4603461045102
 Group: solo
 
 nobody 0 | 0 judy 0 | 0
@@ -368,7 +366,7 @@ The least common multiple of undefined and undefined is undefined
 The largest common factor of undefined and undefined is undefined
 TEST: undefined * undefined === undefined * undefined
 RESULT: false
-The code for the previous demonstrations is available at the Github repository, and will soon be available here in an appendex. primesMonad and the functions primarily involved in its transformation are shown below:
+The code for the previous demonstrations is available at the Github repository, and will soon be available here in an appendix. primesMonad and the functions primarily involved in its transformation are shown below:
 
     function MonadState(g, state) {
       this.id = g;
@@ -413,7 +411,7 @@ The code for the previous demonstrations is available at the Github repository, 
         return [newP[newP.length - 1], newP, x, primes];
       }
     }  
-primesMonad state updates are generated in workerB.js and stored in the main thread. Users set new upper bounds on the size of the largest Fibonacci number in the series to be considered by entering a number in a browser input box. Here is the rele2ant code:
+primesMonad state updates are generated in workerB.js and stored in the main thread. Users set new upper bounds on the size of the largest Fibonacci number in the series to be considered by entering a number in a browser input box. Here is the relevant code:
 
     var fibKeyPress5$ = sources.DOM
         .select('input#fib92').events('keyup');
@@ -467,7 +465,7 @@ When this page loads in the browser, a user name is automatically generated in o
 
 The server will keep your user name and password in a text file. If you use your saved user name and password sometime in the future, you will be able to edit or delete any comments you previously made.
 
-If you enter a user name that has not been recorded, you will be logged in as that user. The user name and password will be saved. This means that you do not need to first register and then log in. This is an all-in-one process. If you enter a recognized user name but the passord does not match the password in the record, you will be asked to try again.
+If you enter a user name that has not been recorded, you will be logged in as that user. The user name and password will be saved. This means that you do not need to first register and then log in. This is an all-in-one process. If you enter a recognized user name but the password does not match the password in the record, you will be asked to try again.
 
 Comments are stored in a text file on the server in memory in a TVar. The TVar blocks access while an addition, modification, or delete action takes place. Attempts to access the comments in the MVar at such times do not result in error. Processes attempting to gain access que up. They gain access on a first in first out basis, so no process attempting to add, modify, or delete a comment will hang indefinitely. Soon, the registered names and passwords will be in an MVar.
 
@@ -485,22 +483,7 @@ COMMENTS
 mary commented: How about a video presentation, David?
 
 ***************************************************************
-david commented: Yes. I plan to make a series of them.
-
-***************************************************************
-ann commented: Cool beans. May I suck your cock?
-
-***************************************************************
-david commented: Yes, but 0nly if you take it up your ass. I want to finish in your rectum.
-
-***************************************************************
-ann commented: I'm excited now. Of course you may.
-
-***************************************************************
 mary commented: You guys shouldn't talk like that. It's inappropriate in a comments section.
-
-***************************************************************
-0277778636912 commented: pete,1
 
 ***************************************************************
 
@@ -509,9 +492,9 @@ When this website loads, it receives from the server a string containing all of 
 
 The processes of adding a new comment or revising an existing one are initiated by entering text in the browser. The process of deleting a comment is set in motion by clicking a button.
 
-These operations are designed to send and receive a minamal amount of information. A new comment is sent to the server and the server saves it and broadcasts it to all online browsers. A revised comment is sent to and from the server with no other information. Revising a comment involves sending the new version, along the index number of the comment in the array in commentMonad.s[1], to and from the server. Only the index number is sent and broadcast when a comment is deleted.
+These operations are designed to send and receive a minimal amount of information. A new comment is sent to the server and the server saves it and broadcasts it to all online browsers. A revised comment is sent to and from the server with no other information. Revising a comment involves sending the new version, along the index number of the comment in the array in commentMonad.s[1], to and from the server. Only the index number is sent and broadcast when a comment is deleted.
 
-Since the history of comment section is not being preserved, the functions that make it work mutate commentMonad.s. Functions never mutate primitive values outside of their scopes. When they change the value of a monad residing in the global space, the old monad is left behind and a fresh one is instantiated with the new value. the ret() function and method, the bind() function, and the bnd() method all do this. Mutating expressions such as m.x = v for some monad m and value v is discouraged. In some earlier versions, I hid the x attribute in a closure. The getter "get()" is still available. The values of monads are currently exposed because, for example, "m.x[3].filter ..." is clearer and more esthetically pleasing (to me, anyway) than "get(m)[3].filter ...".
+Since the history of comment section is not being preserved, the functions that make it work mutate commentMonad.s. Functions never mutate primitive values outside of their scopes. When they change the value of a monad residing in the global space, the old monad is left behind and a fresh one is instantiated with the new value. the ret() function and method, the bind() function, and the bnd() method all do this. Mutating expressions such as m.x = v for some monad m and value v is discouraged. In some earlier versions, I hid the x attribute in a closure. The getter "get()" is still available. The values of monads are currently exposed because, for example, "m.x[3].filter ..." is clearer and more aesthetically pleasing (to me, anyway) than "get(m)[3].filter ...".
 
 When a comment is created, modified, or deleted, a websockets message goes to the server which performs some of its own housekeeping and broadcasts a message to all online browsers. It is received and forwarded acted upon by functions contained in a file named comments.js. This is a script contained in index.html, so the functions are available in the Chrome and Firefox developer consoles.
 
@@ -632,11 +615,9 @@ Examples demonstrating commutivity
   bind(ret(0))(add,3)(cube)(terminate).pop().x === 
     bind(ret(0))(v=>add(v,3))(cube)(terminate).pop().x 
 Back To The Top
-Disussion
+Discussion
 
-The Haskell statement f ≡ g means that f x == g x for all Haskell values x in the domain of f. That is the test applied to Javascript expressions in the "Monad Laws" section (above). Neither the == nor the === operator would provide useful information about the behavior of instances of Monad. Those operators test objects for location in memory. If the left and right sides of predicates create new instances of m, then the left side m and the right side m wind up in different locations in memory. So we expect m.ret(3) === m.ret(3) to return false, and it does. We want to answer the question ≡ answers in Haskell: Can the left and right sides be substituted for one another and still yield the same results.
-
-.
+The Haskell statement f ≡ g means that f x == g x for all Haskell values x in the domain of f. That is the test applied to JavaScript expressions in the "Monad Laws" section (above). Neither the == nor the === operator would provide useful information about the behavior of instances of Monad. Those operators test objects for location in memory. If the left and right sides of predicates create new instances of m, then the left side m and the right side m wind up in different locations in memory. So we expect m.ret(3) === m.ret(3) to return false, and it does. We want to answer the question ≡ answers in Haskell: Can the left and right sides be substituted for one another and still yield the same results.
 
 .
 
@@ -645,3 +626,11 @@ The Haskell statement f ≡ g means that f x == g x for all Haskell values x in 
 .
 
 .
+
+.
+
+
+
+
+
+

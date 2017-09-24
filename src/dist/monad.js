@@ -134,7 +134,6 @@ inc(4) === 5
     return ret(v*v)
   };
 
-  var cubeC = v => ret(v*v*v);
 
   function cube (v, id) {
     return ret(v*v*v, id);
@@ -145,10 +144,11 @@ inc(4) === 5
   };
 
   const addC = a => b => ret(a+b);
+  const cubeC = v => ret(v*v*v);
   const multC = a => b => ret(a*b);
+  const doubleC = a => ret(a+a);
 
   const addC2 = a => b => c => ret(a+b,c);
-
   var double = function double(v) {
       return ret(v + v);
   };
