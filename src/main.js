@@ -861,15 +861,15 @@ h('pre', `    var m = ret(v)
     m.x === v  ` ),
 h('p', ' Here is the definition of bind(): ' ),
 h('pre', {style: {color: "lightBlue"}}, `  function bind (x, ar = []) {
+    this.ar = ar;
     return function (func, ...args) {
       if (func.name === "terminate") return ar;
       var y = func(x, ...args) 
-      y.id = testPrefix(args, y.id)
       ar.push(y.x);
       return bind(y.x, ar);
     }
   };  ` ),
-h('p', ' The following function uses "ar" in three places, illustrating the fact that the result of each computation in a chain is available to every computation that follows. If you only want the final result, just put ".pop()" after terminate. ' ),  
+h('p', ' The following expression uses "ar" in three places, illustrating the fact that the result of each computation in a chain is available to every computation that follows. If you only want the final result, just put ".pop()" after terminate. ' ),  
   
 h('pre', `  bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[0]))(multC(ar[0]))
   (addC(30))(multC(1/ar[2]))(terminate)
@@ -880,21 +880,8 @@ h('pre', `    const addC = a => b => ret(a+b);
     const multC = a => b => ret(a*b);
 
     const cubeC = a => ret(a*a*a);  ` ), 
-h('p', ' When using bind(), coders provide only one argument, which can be any javascript value, icluding function, object, etc. bind()\'s second argument is an array that is automatically provided. You can substitute any array you like for the default starting array. ' ),
+h('p', ' When using bind(), coders provide only one argument, which can be any javascript value, icluding functions, objects, etc. bind()\'s second argument is an array that is automatically provided. You can substitute any array you like for the default starting array. ' ),
 h('p', ' The funtions provided to bind(m) run sequentially from left to right, using the value returned by the previous function. When "terminate" flag is provided as the final argument ar is returned.' ),
-h('p', ' testPrefix() looks for strings prefixed by "$". If it finds one, y.id is assigned the value of the substring that follows the prefix. If no string beginning with "$" is found, y.id will not change. y.id will never be undefined because functions provided to bind must return instances of Monad. Here is the definition of testPrefix:' ),
-
-h('pre', {style: {color: "rgb(213, 177, 239)"}}, `  function testPrefix (x,y) {
-    var t = y;  // y is the id of the monad calling testPrefix
-    if (Array.isArray(x)) {
-      x.map(v => {
-        if (typeof v == 'string' && v.charAt() == '$') {
-           t = v.slice(1);  // Remove "$"
-        }
-      })
-    }
-   return t;
- }  ` ),
 
 h('span.tao', ' Values v that satisfy "v instanceOf Monad" (called "monads" in this discussion) are very different from the Haskell monads, but they are similar in that both behave like the monads of category theory without actually being category theory monads. See ' ),
 h('a', { props: { href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/", target: "_blank" } }, 'Hask is not a category.'),
@@ -918,6 +905,8 @@ h('a', { props: { href: 'https://redd.it/60c2xx' }}, 'Reddit' ),
 h('span', ' or in the Comments section near the end of this page ' ),
 h('br' ),
 h('p', ' Snabbdom, xstream, and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimention and learning so many supporting files are included as scripts in the index.html page. ' ),
+
+
 h('h2', 'Alternative Monad Functionality' ),
 h('p', ' Chaining of JavaScript procedures usually occurs by means of methods inside of linked objects. rather than by means of external functions like bind(). Instances of Monad can also link by means of a method. It is called "bnd()" and it, along with "ret()", were made available as follows: ' ),
 h('pre',  {style: {color: "rgb(236, 242, 186)"   }}, `  Monad.prototype.bnd = function (func, ...args) {
@@ -934,7 +923,7 @@ h('pre',  {style: {color: "rgb(236, 242, 186)"   }}, `  Monad.prototype.bnd = fu
   Monad.prototype.ret = function (a) {
     return window[this.id] = new Monad(a, this.id);
   }; ` ),
-h('p', ' This seems less functional, less like Haskell. It doesn\'t pass functions down the chain but rather objects with exposed methods. But is has endearing features. Look how values move along the chain until, at the end they combine to yield 42. This would be impossible with bind(), which is why bind() has ar. ' ),
+h('p', ' This seems less functional, less like Haskell. It doesn\'t pass functions down the chain but rather objects with exposed methods. But is has endearing features. Look how values move along the chain until, at the end they combine to yield 42. This would be impossible with bind(), which is why bind() has ar. The code below looks a bit like the lambda calculus, the essence of functional programming.' ),
 h('pre', `  ret(2).bnd(v => add(v,1).bnd(cube).bnd(p => add(p,3)
   .bnd(() => ret(p/3).bnd(add,3).bnd(z => [v,p,z,v*p-z]))))
     // [1,27,12,42] ` ),

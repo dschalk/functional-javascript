@@ -87,7 +87,6 @@ function bind (x, ar = []) {
   return function (func, ...args) {
     if (func.name === "terminate") return ar;
     var y = func(x, ...args) 
-    y.id = testPrefix(args, y.id)
     ar.push(y.x);
     return bind(y.x, ar);
   }
