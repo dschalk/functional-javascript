@@ -1246,7 +1246,6 @@ h('p', ' execF prepares the Fibonacci series and sends its state, along with the
   h('p', ' When this page loads in the browser, a user name is automatically generated in order to establish a unique Websocket connection. This makes it possible to exchange text messages with other group members, play the game, and work on a shared todo list. If you want to leave a comment, you need to log in with a user name and a password of your choice. Each can be a single character or you could use a hard-to-hack combination of alphabet letter, numbers, and special characters. The main requirement is that there be only one comma, and that it be placed between the name and the password. ' ),
   h('p', 'The server will keep your user name and password in a text file. If you use your saved user name and password sometime in the future, you will be able to edit or delete any comments you previously made. '),
   h('p', ' If you enter a user name that has not been recorded, you will be logged in as that user. The user name and password will be saved. This means that you do not need to first register and then log in. This is an all-in-one process. If you enter a recognized user name but the password does not match the password in the record, you will be asked to try again. ' ),
-  h('p', ' Comments are stored in a text file on the server in memory in a TVar. The TVar blocks access while an addition, modification, or delete action takes place. Attempts to access the comments in the MVar at such times do not result in error. Processes attempting to gain access que up. They gain access on a first in first out basis, so no process attempting to add, modify, or delete a comment will hang indefinitely. Soon, the registered names and passwords will be in an MVar. ' ),
   h('br'),  
   h('h3', 'Register' ),
   h('span.red', mMregister.x ),
@@ -1260,11 +1259,8 @@ h('p', ' execF prepares the Fibonacci series and sends its state, along with the
   h('div', mMcomments.x ),
   h('br'),
   h('br'),  
-  h('p', ' When this website loads, it receives from the server a string containing all of the comments. The string is saved in commentMonad.s[0]. The string is transformed into an array of comments which is saved in commentMonad.s]1]. An HTML string of comments goes in commentMonad.html. '), 
-  h('p', ' The processes of adding a new comment or revising an existing one are initiated by entering text in the browser. The process of deleting a comment is set in motion by clicking a button. ' ),
-  h('p', ' These operations are designed to send and receive a minimal amount of information. A new comment is sent to the server and the server saves it and broadcasts it to all online browsers. A revised comment is sent to and from the server with no other information. Revising a comment involves sending the new version, along the index number of the comment in the array in commentMonad.s[1], to and from the server. Only the index number is sent and broadcast when a comment is deleted. ' ),
-  h('p', ' Since the history of comment section is not being preserved, the functions that make it work mutate commentMonad.s. Functions never mutate primitive values outside of their scopes. When they change the value of a monad residing in the global space, the old monad is left behind and a fresh one is instantiated with the new value. the ret() function and method, the bind() function, and the bnd() method all do this. Mutating expressions such as m.x = v for some monad m and value v is discouraged. In some earlier versions, I hid the x attribute in a closure. The getter "get()" is still available. The values of monads are currently exposed because, for example, "m.x[3].filter ..." is clearer and more aesthetically pleasing (to me, anyway) than "get(m)[3].filter ...". ' ), 
-  h('p', ' When a comment is created, modified, or deleted, a websockets message goes to the server which performs some of its own housekeeping and broadcasts a message to all online browsers. It is received and forwarded acted upon by functions contained in a file named comments.js. This is a script contained in index.html, so the functions are available in the Chrome and Firefox developer consoles.' ),
+  h('p', ' When this website loads, it receives from the server a string containing all of the comments. The string is saved in commentMonad.s[0]. The string is transformed into an array of comments which is saved in commentMonad.s]1]. '), 
+  h('p', ' When a comment is created, modified, or deleted, a websockets message goes to the server which performs some of its own housekeeping and broadcasts a message to all online browsers. It is received in messages$ and forwarded comments.js. ' ),
   h('p', ' Here is the entire Comments.js file: ' ),
   h('pre', `function showFunc (name, name2) {return name == name2 ? 'inline-block' : 'none'}
 
@@ -1285,53 +1281,62 @@ MonadState3.prototype.init = function (str) { // All comments delivered on load.
   this.s[0] = str;
   this.s[1] = this.s[0].split("<@>");
   this.s[1] = this.s[1].filter(v => (v != ""));
-  this.html = process(this.s[1]);
-  return this.html
+  process(this.s[1]);
 }
 
 MonadState3.prototype.append = function (str) {
   this.s[0] = this.s[0] + str;
-  this.s[1] = this.s[0].split('<@>');
-  this.s[1] = this.s[1].filter(v => (v != ""));
-  this.html = process(this.s[1]);
-  return this.html;
+  this.s[1] = this.s[0].split('<@>').filter(v => (v != ""));
+  process(this.s[1]);
 }
 
 MonadState3.prototype.edit = function (num,txt) {
-  this.s[1].splice(num,1,txt)
+  console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedit in edit');
+  this.s[1].splice(num,1,txt);
   this.s[0] = this.s[1].join("<@>");
-  this.html = process(this.s[1]);
-  return this.html;
+  this.s[1] = this.s[0].split('<@>').filter(v => (v != ""));
+  console.log('this.s[1]',this.s[1]);  
+  console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedit in edit');
+  process(this.s[1]);
 };
 
 MonadState3.prototype.remove = function (num) {
+  console.log('QQQQQQQQQQQQQQQQQQQQQQQQQQ In remove. this.s[1]')
+  console.log(this.s[1]);
+  this.s[1] = this.s[1].filter(v => v!== '');
+  console.log(this.s[1]);
   this.s[1].splice(num,1);
+  console.log(this.s[1]);
+  console.log('QQQQQQQQQQQQQQQQQQQQQQQQQQ In remove. this.s[1]')
   this.s[0] = this.s[1].join("<@>");
   this.html = process(this.s[1]);
   return this.html;
 };
 
-function process (arr) { //Assembles the HTML for display.
+function process (a) { //Assembles the HTML for display.
+  var arr = a;
+  mMcomments.ret([]);
+  console.log('In process in comments.js. ************************ arr is', arr);
   var n = -1;
-  var html = [];
   arr.map(a => { 
+    console.log('In arr.map - - - - - - - a is ', a );
     var x = a.split("<o>");
-    x[1] = x[1]
+    if (x.length != 2) x = ['malfunction', '8888']
+    console.log('In arr.map o o o o o o o x is ', x );  
+    x[1] = x[1].replace(/<<>>/g, ',');
     show = showFunc(x[0], pMname.x);
     console.log('<><><><> in process. x[0],pMname.x, show', x[0],pMname.x,show);
     n+=1;
-    html.push(h('div#'+n, [
+    mMcomments.bnd(push, h('div#'+n, [
       h('span', x[0] + ' commented: ' + x[1].replace(/<<>>/g, ",")),
       h('br'),
       h('textarea#commit', {props: {cols: 55, rows: 2},
          style: {display: show }}, x[1]),
-      h('button#deleteB', {props: {innerHTML: 'delete'}, style: 
-          {display: show, fontSize:14}}),
+      h('button#deleteB', {props: {innerHTML: 'delete'}, style: {display: show, fontSize:14}}),
       h('br' ),
       h('span', '***************************************************************')
     ]))
   })
-  return html;
 } ` ),
 
   h('p', ' *************************************************************************************** ' ),
