@@ -27,7 +27,7 @@ What I call "monads" here are objects which respond affirmatively to "typeof obj
 
 The functions bind() and ret() are similar in many ways to >>= (known as "bind") and return in the Haskell programming language. Only here, in this astonishingly chaotic world of JavaScript, there is only one type of monad and the functions (bind and ret) and methods (bnd() and ret()) on which they depend operate on only one type: every possible JavaScript value. All of them return monads. A monad can be a wrapper for a primitive value, and array, a monad, or anything else.
 
-We begin with a discussion of bind() and ret(). The bnd() and ret() were added to the Monad prototype and will be discussed later.
+We begin with a discussion of bind() and ret(). The bnd() and ret() methods were added to the Monad prototype and will be discussed later.
 
 bind accepts any javascript value as its argument and returns a function that operates on functions, always returning a similar function until it encounters the "terminate" flag. There is one restriction of the values returned by the functions that come after a call to bind: They must return monads.
 

@@ -78,6 +78,15 @@ type ServerState = [Client]
 newServerState :: ServerState
 newServerState = []
 
+removeOne _ []                 = []
+removeOne x (y:ys) | x == y    = ys
+                   | otherwise = y : removeOne x ys
+
+changeOne :: Text -> Text -> [Text] -> [Text]
+changeOne _ _ []                 = []
+changeOne z x (y:ys) | x == y    = z : ys
+                     | otherwise = y : changeOne z x ys
+
 toggle :: Text -> Text
 toggle text | text ==true = false | text == false = true
 
@@ -388,54 +397,56 @@ talk conn state client = forever $ do
             do
                 st <- atomically $ readTVar state
                 broadcast ("GZ#$42," `mappend` group `mappend` "," 
-                  `mappend` sender `mappend` "," `mappend` comments
-                    `mappend` at) st
+                  `mappend` sender `mappend` "," `mappend` comments ) st
 
      else if "GN#$42" `T.isPrefixOf` msg -- RECEIVE A NEW COMMENT, UPDATE THE FILE AND THE TVAR,
                                          --  AND BROADCAST THE NEW COMMENT 
         then
             do
                 old <- atomically $ readTVar comms
-                let car = old `mappend` (T.replace nl empty extra) `mappend` at
-                TIO.writeFile xcomments car
-                atomically $ writeTVar comms car
+                let car = old `mappend` (T.replace (at `mappend` at) at extra) 
+                print "This is car <c><c><c> <><><><><><><><><><>"
+                print car
+                let carbon = T.replace (at `mappend` at) at car
+                TIO.writeFile xcomments carbon
+                atomically $ writeTVar comms carbon
                 st <- atomically $ readTVar state
                 broadcast ("GN#$42," `mappend` group `mappend` ","
-                    `mappend` sender `mappend` "," `mappend` extra `mappend` at) st
-
-     else if "GG#$42" `T.isPrefixOf` msg              
-        then
-            do
-                TIO.writeFile xcomments extra
-                atomically $ writeTVar comms extra
+                    `mappend` sender `mappend` "," `mappend` extra) st
 
      else if "GD#$42" `T.isPrefixOf` msg              -- DELETE A COMMENT
         then
             do
                 a <- TIO.readFile xcomments
-                let b = T.replace extra2 mempty a
-                TIO.writeFile xcomments b
+                let b = T.splitOn at a
+                let c = removeOne extra2 b
+                let d = T.intercalate at c
+                TIO.writeFile xcomments d
+                atomically $ writeTVar comms d
                 st <- atomically $ readTVar state
                 broadcast ("GD#$42," `mappend` group `mappend` ","
-                  `mappend` sender `mappend` "," `mappend` extra
-                    `mappend` at) st
+                  `mappend` sender `mappend` "," `mappend` extra) st
                     
      else if "GE#$42" `T.isPrefixOf` msg              -- EDIT A COMMENT
         then
             do
-                xcomms <- TIO.readFile xcomments
-                let txt = T.replace extra2 extra3 xcomms
-                print ">>>>>>>>>>>>>>>>>> extra, extra2, extra3, txt in GE:"
-                print extra
-                print extra2
-                print extra3
+                a <- TIO.readFile xcomments
+                print "EEEEEEEEE In GE#$42 edit comment EEEEEEEEEE start"
+                print a
+                let b = T.splitOn at a
+                print b
+                let c = changeOne extra3 extra2 b
+                print c
+                let txt = T.intercalate at c
                 print txt
                 TIO.writeFile xcomments txt
                 atomically $ writeTVar comms txt
                 st <- atomically $ readTVar state
+                print "EEEEEEEEE In GE#$42 edit comment EEEEEEEEEE end"
+                print "In GE#$42 UUUUUUUUUUUUUUUUUUUUUU Leaving"
                 broadcast ("GE#$42," `mappend` group `mappend` com
                   `mappend` sender `mappend` com `mappend` extra `mappend` com
-                     `mappend` extra3 `mappend` at) st
+                     `mappend` extra3) st
 -- ********************** Comments are maintained in a file and in a TVar ****** END
    
      else if "RR#$42" `T.isPrefixOf` msg              -- Name and password change

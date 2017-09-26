@@ -31,6 +31,7 @@ var m7 = new Monad(7, 'm7');
 var m8 = new Monad(8, 'm8');
 var m9 = new Monad(9, 'm9');
 var stateArray = [];
+var nl = '\n';
 
 function makeSequence (n) {
   var a=[];
@@ -92,11 +93,7 @@ function bind (x, ar = []) {
   }
 };
 
-function ret (val, id = "default") {
-  if (val instanceof Monad && arguments.length === 2)
-    return window[val.id] = new Monad(id, val.id) 
-  if (val instanceof Monad)
-    return window[val.id] = new Monad(val.x, val.id)
+function ret (val = 0, id = "retDefault") {
   return window[id] = new Monad(val, id);
 }
 

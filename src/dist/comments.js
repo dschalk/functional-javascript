@@ -18,43 +18,53 @@ MonadState3.prototype.init = function (str) { // All comments delivered on load.
   this.s[0] = str;
   this.s[1] = this.s[0].split("<@>");
   this.s[1] = this.s[1].filter(v => (v != ""));
-  this.html = process(this.s[1]);
-  return this.html
+  process(this.s[1]);
 }
 
 MonadState3.prototype.append = function (str) {
-  var st = str.replace(/(\r\n|\n|\r)/gm,"");   // Remove newlines
   this.s[0] = this.s[0] + str;
-  this.s[1] = this.s[0].split('<@>');
-  this.s[1] = this.s[1].filter(v => (v != ""));
-  this.html = process(this.s[1]);
-  return this.html;
+  this.s[1] = this.s[0].split('<@>').filter(v => (v != ""));
+  process(this.s[1]);
 }
 
 MonadState3.prototype.edit = function (num,txt) {
-  this.s[1].splice(num,1,txt)
+  console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedit in edit');
+  this.s[1].splice(num,1,txt);
   this.s[0] = this.s[1].join("<@>");
-  this.html = process(this.s[1]);
-  return this.html;
+  this.s[1] = this.s[0].split('<@>').filter(v => (v != ""));
+  console.log('this.s[1]',this.s[1]);  
+  console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedit in edit');
+  process(this.s[1]);
 };
 
 MonadState3.prototype.remove = function (num) {
+  console.log('QQQQQQQQQQQQQQQQQQQQQQQQQQ In remove. this.s[1]')
+  console.log(this.s[1]);
+  this.s[1] = this.s[1].filter(v => v!== '');
+  console.log(this.s[1]);
   this.s[1].splice(num,1);
+  console.log(this.s[1]);
+  console.log('QQQQQQQQQQQQQQQQQQQQQQQQQQ In remove. this.s[1]')
   this.s[0] = this.s[1].join("<@>");
   this.html = process(this.s[1]);
   return this.html;
 };
 
-function process (arr) { //Assembles the HTML for display.
+function process (a) { //Assembles the HTML for display.
+  var arr = a;
+  mMcomments.ret([]);
+  console.log('In process in comments.js. ************************ arr is', arr);
   var n = -1;
-  var html = [];
   arr.map(a => { 
+    console.log('In arr.map - - - - - - - a is ', a );
     var x = a.split("<o>");
-    x[1] = x[1]
+    if (x.length != 2) x = ['malfunction', '8888']
+    console.log('In arr.map o o o o o o o x is ', x );  
+    x[1] = x[1].replace(/<<>>/g, ',');
     show = showFunc(x[0], pMname.x);
     console.log('<><><><> in process. x[0],pMname.x, show', x[0],pMname.x,show);
     n+=1;
-    html.push(h('div#'+n, [
+    mMcomments.bnd(push, h('div#'+n, [
       h('span', x[0] + ' commented: ' + x[1].replace(/<<>>/g, ",")),
       h('br'),
       h('textarea#commit', {props: {cols: 55, rows: 2},
@@ -64,7 +74,6 @@ function process (arr) { //Assembles the HTML for display.
       h('span', '***************************************************************')
     ]))
   })
-  return html;
 }
 
 
