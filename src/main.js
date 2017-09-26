@@ -942,19 +942,17 @@ h('pre', `  m.ret(v).bnd(f, ...args).x === f(v, ...args).x
 
   ret(v).bnd(f, ...args).x === f(v, ...args).x
 
-  ret(m) === m
+  bind(a)(ret)(func, ...args)(terminate).pop() === f(a, ...args).x
 
   Haskell monad law: (return x) >>= f \u2261 f x  ` ),
 h('div#discussion', ' Right Identity  ' ),
 h('pre', `  m.bnd(m.ret) === m  For all m where 
     (m.constructor === Monad) === true    
 
-  m.bnd(ret) === m  For all m where 
-    (m.constructor === Monad) === true
+  bind(a)(func, ...args)(ret)(terminate).pop() === func(a, ...args).x
+  // (ret) has no effect on either side of the function.
+  bind(3)(ret)(add,5)(ret)(terminate).pop() === add(3,5).x
 
-  bind(m)(retrn)(terminate) === m  For all m where 
-    (m.constructor === Monad) === true
-    
   Haskell monad law: m >>= return \u2261 m `  ),
 
 
@@ -968,23 +966,13 @@ h('pre', `  eq(m.bnd(f, ...args).bnd(g, ...args),
 
   Haskell: (m >>= f) >>= g \u2261 m >>= ( \\x -> (f x >>= g) ) `),
 
-h('span',  {style: {fontSize: "18px", fontStyle: "italic"}}, 'Additional expressions showing "ret" is the left and right identity function. ' ),
-
-h('pre', `  m.ret(3).bnd(ret).bnd(cube).bnd(ret).x === 
-    m.ret(3).bnd(cube).x
-
-  bind(ret(3))(ret)(cube)(ret)(terminate).pop().x === 
-    bind(ret(3))(cube)(terminate).pop().x ` ),
-
-
 h('span',  {style: {fontSize: "18px", fontStyle: "italic"}}, 'Examples demonstrating commutivity' ),
 h('pre', `  eq(bind(ret(3))(ret)(cube)(ret)(terminate),
     bind(ret(3))(cube)(terminate)) 
   
   eq(m.ret(3).bnd(ret).bnd(cube).
     bnd(ret),m.ret(3).bnd(cube)) ` ),  
-
-
+h('p', ' The above relationships prove nothing, but they do suggest that the monads will turn out to be flexible and robust. The demonstrations below bear this out. ' ),
 h('a', { props: { href: '#top' } }, 'Back To The Top'),
 h('h3', ' Discussion ' ),
 h('span.tao', ' The Haskell statement ' ),
@@ -1013,7 +1001,7 @@ h('p', ' The demonstrations below include persistent, shared todo lists, text me
 h('h3', 'The Game'),
 h('p', 'People who are in the same group, other than the default group named "solo", share the same todo list, chat messages, and simulated dice game. In order to see any of these, you must establish a unique identity on the server by logging in. The websockets connection terminates if the first message the server receives does not come from the sign in form. You can enter any random numbers, letters, or special characters you like. The server checks only to make sure someone hasn\'t already signed in with the sequence you have selected. If you log in with a name that is already in use, a message will appear and this page will be re-loaded in the browser after a four-second pause. '),
 h('p', ' Data for the traversable game history accumulates until a player scores three goals and wins. The data array is then erased and the application is ready to start accumulating a new history. '),
-h('p', ' Your user name for trying out the game, todo list, and chat demonstrations is a random permutation of the first 14 letters of the alphabet. In the comments section, soon to be near the bottom of this page, you can chose your own persistent user name and password. These facilitate leaving comments which can later be revised or removed.' ),
+h('p', ' Your user name for trying out the game, todo list, and chat demonstrations and for leaving comments is a thirteen digit random number. In the game section and in the comments section near the bottom of this page, you can chose your own persistent user name and password. Knowing your password facilitates leaving comments which you can later revise or remove.' ),
 h('br') ]),
 h('hr.len90', {style: { display: mMgameDiv2.x }}, ),
 h('br.len90', {style: { display: mMgameDiv2.x }}, ),
