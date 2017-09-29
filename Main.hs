@@ -1,6 +1,7 @@
 {-# LANGUAGE DataKinds, FlexibleContexts, GeneralizedNewtypeDeriving, OverloadedStrings, TemplateHaskell #-}
 import           System.IO
 import           Control.Concurrent             (forkIO)
+import qualified Control.Concurrent.STM.Lock as L
 import           Data.Tuple.Select
 import           Data.Data
 import           Data.Typeable
@@ -26,7 +27,6 @@ import qualified Network.Wai.Handler.WebSockets as WaiWS
 import           Network.WebSockets             (sendClose)
 import qualified Network.WebSockets             as WS
 import           System.Directory
-import           Tasks                          hiding (main)
 import           Prelude as P                   hiding (readFile, writeFile, appendFile, log)
 -- import System.Environment (getEnv)a
 --
@@ -82,7 +82,6 @@ removeOne _ []                 = []
 removeOne x (y:ys) | x == y    = ys
                    | otherwise = y : removeOne x ys
 
-changeOne :: Text -> Text -> [Text] -> [Text]
 changeOne _ _ []                 = []
 changeOne z x (y:ys) | x == y    = z : ys
                      | otherwise = y : changeOne z x ys
@@ -94,18 +93,6 @@ newId :: Int
 newId = 0
 
 counter = newTVar 0
-
-change z [a,b,c,d] = [z,b,c,d]
-change _ [] = ["$","$","$","$"]
-change _ _ = ["foo","bar","change()","problem"]
-stringify [a,b,c,d] = "a,b,c,d"
-
-change8 :: Text -> Text -> Client -> Client
-change8 x y (a,b,c,d,e,f,g,h) | x == a = (y,b,c,d,e,f,g,h)
-                              | otherwise = (a,b,c,d,e,f,g,h)
-
-change888 :: Text -> Text -> ServerState -> ServerState
-change888 x y s = map (change8 x y) s
 
 head2 :: [Text] -> Text
 head2 [a,b] = a
@@ -123,21 +110,10 @@ tail3 :: [String] -> String
 tail3 [a,b] = b
 tail3 _ = "Inappropriate tail2 argument"
 
-head4 :: [Text] -> Text
-head4 [] = empty
-head4 xs = head xs
-
-head5 [[(a,b,c,d,e,f,g,h)]] = [(a,b,c,d,e,f,g,h)]
-head5 _ = [("a","b","c","d","e","f","g","h")]
-
-safeTail [] = []
-safeTail v  = tail v
-
 getName = sel1
 
 getCli name cli | sel1 cli == name  = True
                 | otherwise = False
-
 
 getClient name state = filter (getCli name) state
 
@@ -367,7 +343,7 @@ talk conn state client = forever $ do
   let comments = T.replace (pack "\n") mempty commens
   TIO.writeFile xcomments comments 
   ns <- TIO.readFile namesFile
-  tks <- read2 tsks
+  tks <- TIO.readFile tsks
   taskTVar <- atomically $ newTVar tks
   taskFile <- atomically $ readTVar taskTVar
   print "<><><> - 2"
@@ -404,12 +380,11 @@ talk conn state client = forever $ do
         then
             do
                 old <- atomically $ readTVar comms
-                let car = old `mappend` (T.replace (at `mappend` at) at extra) 
-                print "This is car <c><c><c> <><><><><><><><><><>"
-                print car
-                let carbon = T.replace (at `mappend` at) at car
-                TIO.writeFile xcomments carbon
-                atomically $ writeTVar comms carbon
+                lk <- atomically L.new
+                let c = old `mappend` (T.replace (at `mappend` at) at extra) 
+                let new = T.replace (at `mappend` at) at c -- cleanup
+                L.with lk $ TIO.writeFile xcomments new -- lock on writing
+                atomically $ writeTVar comms new
                 st <- atomically $ readTVar state
                 broadcast ("GN#$42," `mappend` group `mappend` ","
                     `mappend` sender `mappend` "," `mappend` extra) st
@@ -418,10 +393,11 @@ talk conn state client = forever $ do
         then
             do
                 a <- TIO.readFile xcomments
+                lk <- atomically L.new
                 let b = T.splitOn at a
                 let c = removeOne extra2 b
                 let d = T.intercalate at c
-                TIO.writeFile xcomments d
+                L.with lk $ TIO.writeFile xcomments d
                 atomically $ writeTVar comms d
                 st <- atomically $ readTVar state
                 broadcast ("GD#$42," `mappend` group `mappend` ","
@@ -431,6 +407,7 @@ talk conn state client = forever $ do
         then
             do
                 a <- TIO.readFile xcomments
+                lk <- atomically L.new
                 print "EEEEEEEEE In GE#$42 edit comment EEEEEEEEEE start"
                 print a
                 let b = T.splitOn at a
@@ -439,7 +416,7 @@ talk conn state client = forever $ do
                 print c
                 let txt = T.intercalate at c
                 print txt
-                TIO.writeFile xcomments txt
+                L.with lk $ TIO.writeFile xcomments txt
                 atomically $ writeTVar comms txt
                 st <- atomically $ readTVar state
                 print "EEEEEEEEE In GE#$42 edit comment EEEEEEEEEE end"
@@ -455,7 +432,7 @@ talk conn state client = forever $ do
            coms1 <- TIO.readFile xcomments
            let name_pw = T.splitOn (T.pack "<o>") extra
            let nm = head2 name_pw
-           nams <- read2 namesFile
+           nams <- TIO.readFile namesFile
            let namses = T.splitOn (T.pack "<&>") nams
            let nmAr = map (T.splitOn (T.pack "<o>")) namses
            let pw = extractTail name_pw
@@ -512,7 +489,8 @@ talk conn state client = forever $ do
                  print "In RR again. In False, False --- names are"
                  print names
                  print $ length st
-                 Tasks.append namesFile (extra `mappend` (T.pack "<&>"))
+                 names <- TIO.readFile namesFile
+                 TIO.writeFile namesFile (names `mappend` extra `mappend` (T.pack "<&>"))
                  s <- atomically $ readTVar state
                  let (a,b,c,d,e,f,g,h) = head (getClient sender s)
                  let new = (nm,b,c,d,e,pw,g,h):s 
@@ -611,7 +589,8 @@ talk conn state client = forever $ do
                 old <- atomically $ readTVar state
                 st <- atomically $ readTVar state
                 let status = [[a,pack $ show b,pack $ show c] | (a,b,c,_,_,_,_,_) <- st]
-                print $!  status
+                print status
+                print $ typeOf status
                 let new = chgScore sender extraNum extraNum2 old
                 atomically $ writeTVar state new
                 let subSt = subState sender group new
@@ -629,7 +608,7 @@ talk conn state client = forever $ do
                 let subSt = subState sender group st
                 let tFile = T.replace nl mempty taskFile
                 let tkFile = T.replace (pack "<@><@>") at tFile
-                save tsks tkFile
+                TIO.writeFile tsks tkFile
                 atomically $ writeTVar taskTVar tkFile
                 broadcast ("TI#$42," `mappend` group `mappend` ","
                     `mappend` sender `mappend` com `mappend` tkFile) subSt
@@ -638,11 +617,12 @@ talk conn state client = forever $ do
         then
             do
                 st <- atomically $ readTVar state
+                lk <- atomically L.new
                 let subSt = subState sender group st
                 let w = taskFile `mappend` extra
                 let z = T.replace nl mempty w
                 let x = T.replace (pack "<@><@>") at z
-                save tsks x
+                L.with lk $ TIO.writeFile tsks x
                 atomically $ writeTVar taskTVar x
                 broadcast ("TA#$42," `mappend` group `mappend` com
                     `mappend` sender `mappend` com `mappend` extra) subSt
@@ -651,7 +631,8 @@ talk conn state client = forever $ do
         then
             do
                 let txt = T.replace extra2 extra3 taskFile
-                save tsks txt
+                lk <- atomically L.new
+                L.with lk $ TIO.writeFile tsks txt
                 atomically $ writeTVar taskTVar txt
                 let subSt = subState sender group st
                 broadcast ("TE#$42," `mappend` group `mappend` com
@@ -662,8 +643,9 @@ talk conn state client = forever $ do
         then
             do
                 let txt = T.replace extra2 mempty taskFile
+                lk <- atomically L.new
                 print txt
-                save tsks txt
+                L.with lk $ TIO.writeFile tsks txt
                 atomically $ writeTVar taskTVar txt
                 let subSt = subState sender group st
                 broadcast ("TX#$42," `mappend` group `mappend` com

@@ -1,6 +1,15 @@
 flags: {}
 extra-package-dbs: []
-packages:
-- '.'
-extra-deps: []
-resolver: lts-6.2
+packages: null
+extra-deps:
+- aeson-1.2.2.0
+- blaze-html-0.9.0.1
+- blaze-markup-0.8.0.0
+- concurrent-extra-0.7.0.11
+- directory-1.2.7.1
+- mmorph-1.1.0
+- primitive-0.6.2.0
+- vector-0.12.0.1
+compiler-check: newer-minor
+resolver: lts-8.21
+

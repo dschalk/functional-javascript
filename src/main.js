@@ -828,8 +828,13 @@ var chatClick$ = sources.DOM
       h('br'),
 h('div.content', [
 h('p', ' I am publishing this page mainly: ' ),
-h('p', ' (1) To show how the bind() and ret() functions and the bnd() and ret() operators, features of the monads presented here, facilitate the development of front-end web applications. The game, todo list, chat, comments, and mathematical procedures are demonstrations of the monads in action. ' ),
-h('p', ' (2) To help people who are interested in acclimating their thought processes to functional and reactive ways of programming. In order to feel comfortable with functional, reactive code, I think novices and seasoned programmers alike must grow new synaptic structures in their brains. This comes with practice. ' ),
+h('span', ' (1) To show how "monads", which are objects x for which ' ),
+h('span', {style: {color: '#ef7732'}}, 'x instanceof Monad' ),
+h('span', ' returns ' ),
+h('span', {style: {color: '#ef7732'}}, 'true,'),
+h('span', ' can promote efficiency, maintainability, and robustness in front-end web applications. The game, todo list, chat, comments, and mathematical procedures are demonstrations of the monads in action. ' ),
+h('br'),
+h('p', ' (2) To help people who are interested in acclimating their thought processes to functional and reactive ways of programming. In order to feel comfortable with functional, reactive code, I think novices and seasoned programmers alike need to grow new synaptic connections in their brains. This comes with practice. ' ),
 h('pre', {style: {fontStyle: "italic", color: "#f7f700" }},`      Understanding without practice
       adrift in a sea of confusion. 
       understanding with practice
@@ -839,10 +844,10 @@ h('pre', {style: { color: "rgb(181, 244, 240)" }},   `    function Monad(z = 'de
       this.x = z;
       this.id = ID;
     }; ` ),
-  h('p', ' What I call "monads" here are objects which respond affirmatively to "typeof object === Monad". They have two attributes, id and x. monad.x is what I sometimes call the "value" of a monad. ' ),
-h('p', ' The functions bind() and ret() are similar in many ways to >>= (known as "bind") and return in the Haskell programming language. Only here, in this astonishingly chaotic world of JavaScript, there is only one type of monad and the functions (bind and ret) and methods (bnd() and ret()) on which they depend operate on only one type: every possible JavaScript value. All of them return monads. A monad can be a wrapper for a primitive value, and array, a monad, or anything else. ' ),
+  h('p', ' As mentioned above, "monads" are objects "m" which respond affirmatively to "m instanceof Monad". They have two attributes, id and x. monad.x is what I sometimes call the "value" of a monad. ' ),
+h('p', ' The functions bind() and ret() are similar in many ways to >>= (known as "bind") and return in the Haskell programming language. Only here, in this astonishingly chaotic world of JavaScript, there is only one type of monad and the functions (bind and ret) and methods (bnd() and ret()) on which they depend operate on only one type: every possible JavaScript value. All of them return monads. A monad can be a wrapper for a primitive value, and array, a monad, or anything else so returning a monad does not limit what can be accomplished. ' ),
 h('p', ' We begin with a discussion of bind() and ret(). The bnd() and ret() methods were added to the Monad prototype and will be discussed later. '),
-h('p', ' bind accepts any javascript value as its argument and returns a function that operates on functions, always returning a similar function until it encounters the "terminate" flag. There is one restriction of the values returned by the functions that come after a call to bind: They must return monads. This is not a limitation since any value can be wrapped in a monad. ' ),
+h('p', ' bind accepts any JavaScript value as its argument and returns a function that operates on functions, always returning a similar function until it encounters the "terminate" flag. There is one restriction on the values returned by the functions that come after a call to bind: They must return monads. This is not a substantive restriction since any value can be wrapped in a monad. ' ),
 h('p', ' ret() wraps values in monads.'), 
 h('pre', `  ret(v) = m where m.x = v `),
 h('p', ' Here is the definition of ret(): ' ),
@@ -903,7 +908,7 @@ h('span.tao', ' The monads do not depend on Cycle.js. They can be used in React,
 h('br'),
 h('br'),
 h('span.tao', 'This project was created by and is actively maintained by me, David Schalk. The code repository is at '),
-h('a', { props: { href: "https://github.com/dschalk/monads-for-javascript", target: "_blank" } }, 'monads-for-javascript'),
+h('a', { props: { href: "https://github.com/dschalk/monads-for-JavaScript", target: "_blank" } }, 'monads-for-JavaScript'),
 h('span', ' You can comment at ' ),
 h('a', { props: { href: 'https://redd.it/60c2xx' }}, 'Reddit' ),
 h('span', ' or in the Comments section near the end of this page ' ),
@@ -989,9 +994,9 @@ h('span.tao', ' Other JavaScript monad schemes mirror type theory and Haskell wi
 h('a', {props: {href: "https://curiosity-driven.org/monads-in-javascript"}}, "Curiosity-Driven" ),
 h('span', ' and ' ),  
 h('a', {props: {href: "https://github.com/fantasyland/fantasy-land"}}, "Fantasy Land." ),
-h('span', ' For me, superimposing such abstractions over JavaScript takes too much versitility away from it. It is easy to include some type checking code in function definitions where it is thought to be helpful. For example, if someone enters inappropriate data in a form, a message explaining the mistake can be displayed. I enjoy the freedom and built-in polymorphism of JavaScript as it is. Call me an anarchist. ' ),
+h('span', ' For me, superimposing such abstractions over JavaScript takes too much versatility away from it. It is easy to include some type checking code in function definitions where it is thought to be helpful. For example, if someone enters inappropriate data in a form, a message explaining the mistake can be displayed. I enjoy the freedom and built-in polymorphism of JavaScript as it is. Call me an anarchist. ' ),
 h('h2', ' Monad Demonstrations ' ),
-h('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history (all group members see your score decrease or increase as you navigate backwards and forwards). Monads are shown performing lengthy mathematical computations asycronously in web workers. Variations on the Monad theme encapsulate state. The error checking monad carries occurrences of NaN and runtime errors through sequences of computations much like the Haskell Maybe monad. ' ),
+h('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history (all group members see your score decrease or increase as you navigate backwards and forwards). Monads are shown performing lengthy mathematical computations asyncronously in web workers. Variations on the Monad theme encapsulate state. The error checking monad carries occurrences of NaN and runtime errors through sequences of computations much like the Haskell Maybe monad. ' ),
       h('span.tao', ' The game code is fairly concise and intuitive. A quick walk-through is presented at.' ),
       h('a', { props: { href: '#gameExplanation' } }, 'here'),
       h('span', '. To see monadic functionality at work, I suggest that you take a look at the section captioned ' ),
@@ -1249,7 +1254,7 @@ h('p', ' execF prepares the Fibonacci series and sends its state, along with the
   h('br'),  
   h('p', ' When this website loads, it receives from the server a string containing all of the comments. The string is saved in commentMonad.s[0]. The string is transformed into an array of comments which is saved in commentMonad.s]1]. '), 
   h('p', ' When a comment is created, modified, or deleted, a websockets message goes to the server which performs some of its own housekeeping and broadcasts a message to all online browsers. It is received in messages$ and forwarded comments.js. ' ),
-  h('p', ' Here is the entire Comments.js file: ' ),
+  h('p', ' The functions in the comments.js file mutate commentsMonad. There is no reason to create fresh instances of commentMonad, other than out of devout devotion to the doctrine of non-mutation. How silly that would be! Nothing touches commentMonad outside of the comments.js file; there is no danger. Here is the entire Comments.js file: ' ),
   h('pre', `function showFunc (name, name2) {return name == name2 ? 'inline-block' : 'none'}
 
 var MonadState3 = function MonadState3(g, state) {
@@ -1279,23 +1284,15 @@ MonadState3.prototype.append = function (str) {
 }
 
 MonadState3.prototype.edit = function (num,txt) {
-  console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedit in edit');
   this.s[1].splice(num,1,txt);
   this.s[0] = this.s[1].join("<@>");
   this.s[1] = this.s[0].split('<@>').filter(v => (v != ""));
-  console.log('this.s[1]',this.s[1]);  
-  console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedit in edit');
   process(this.s[1]);
 };
 
 MonadState3.prototype.remove = function (num) {
-  console.log('QQQQQQQQQQQQQQQQQQQQQQQQQQ In remove. this.s[1]')
-  console.log(this.s[1]);
   this.s[1] = this.s[1].filter(v => v!== '');
-  console.log(this.s[1]);
   this.s[1].splice(num,1);
-  console.log(this.s[1]);
-  console.log('QQQQQQQQQQQQQQQQQQQQQQQQQQ In remove. this.s[1]')
   this.s[0] = this.s[1].join("<@>");
   this.html = process(this.s[1]);
   return this.html;
@@ -1304,7 +1301,6 @@ MonadState3.prototype.remove = function (num) {
 function process (a) { //Assembles the HTML for display.
   var arr = a;
   mMcomments.ret([]);
-  console.log('In process in comments.js. ************************ arr is', arr);
   var n = -1;
   arr.map(a => { 
     console.log('In arr.map - - - - - - - a is ', a );
@@ -1329,8 +1325,70 @@ function process (a) { //Assembles the HTML for display.
 
   h('p', ' *************************************************************************************** ' ),
   h('br'),  
-  h('br'),  
-  h('br'),  
+  h('h3', 'Haskell Time'),
+  h('p', ' This page is for front end developers, but in case anyone is interested, here are the server functions responsible for deleting or amending a comment: ' ),
+  h('pre', `  removeOne _ []                 = []
+  removeOne x (y:ys) | x == y    = ys
+                     | otherwise = y : removeOne x ys
+
+  changeOne :: Text -> Text -> [Text] -> [Text]
+  changeOne _ _ []                 = []
+  changeOne z x (y:ys) | x == y    = z : ys
+                       | otherwise = y : changeOne z x ys ` ),
+
+  h('a', ' Every message sent to the server is a comma separated string beginning with a prefex, then a group, and then a name. Comma separated items after that are named extra and extra2. ' ),
+  h('p', ' The code below is responsible for dealing with comments. As in the browser, websockets messages are dealt with according to their six charachter prefixes. extra and extra2 are the only pertinent data since comments go to all groups ' ),  
+  h('pre', `else if "GZ#$42" \`T.isPrefixOf\` msg              
+                  -- FETCH AND BROADCAST ALL COMMENTS ON BROWSER LOAD
+   then                                
+       do
+           st <- atomically $ readTVar state
+           broadcast ("GZ#$42," \`mappend\` group \`mappend\` "," 
+             \`mappend\` sender \`mappend\` "," \`mappend\` comments ) st
+
+else if "GN#$42" \`T.isPrefixOf\` msg 
+                  -- RECEIVE A NEW COMMENT, UPDATE THE FILE AND THE TVAR,
+                  --  AND BROADCAST THE NEW COMMENT 
+   then
+       do
+           old <- atomically $ readTVar comms
+           lk <- atomically L.new
+           let c = old \`mappend\` (T.replace (at \`mappend\` at) at extra) 
+           let new = T.replace (at \`mappend\` at) at c -- cleanup
+           L.with lk $ TIO.writeFile xcomments new -- lock on writing
+           atomically $ writeTVar comms new
+           st <- atomically $ readTVar state
+           broadcast ("GN#$42," \`mappend\` group \`mappend\` ","
+               \`mappend\` sender \`mappend\` "," \`mappend\` extra) st
+
+ else if "GD#$42" \`T.isPrefixOf\` msg      -- DELETE A COMMENT
+    then
+        do
+            a <- TIO.readFile xcomments
+            lk <- atomically L.new
+            let b = T.splitOn at a
+            let c = removeOne extra2 b
+            let d = T.intercalate at c
+            L.with lk $ TIO.writeFile xcomments d
+            atomically $ writeTVar comms d
+            st <- atomically $ readTVar state
+            broadcast ("GD#$42," \`mappend\` group \`mappend\` ","
+              \`mappend\` sender \`mappend\` "," \`mappend\` extra) st
+                
+ else if "GE#$42" \`T.isPrefixOf\` msg      -- EDIT A COMMENT
+    then
+        do
+            a <- TIO.readFile xcomments
+            lk <- atomically L.new
+            let b = T.splitOn at a
+            let c = changeOne extra3 extra2 b
+            let txt = T.intercalate at c
+            L.with lk $ TIO.writeFile xcomments txt
+            atomically $ writeTVar comms txt
+            st <- atomically $ readTVar state
+            broadcast ("GE#$42," \`mappend\` group \`mappend\` com
+              \`mappend\` sender \`mappend\` com \`mappend\` extra \`mappend\` com
+                 \`mappend\` extra3) st   ` ),
   h('a', { props: { href: '#top' } }, 'Back To The Top'),
   h('br'),  
   h('h3', 'Feedback From the Error Monad' ),  
