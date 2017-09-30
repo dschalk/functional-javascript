@@ -1,10 +1,10 @@
 
 ==================== FINAL INTERFACE ====================
-2017-09-28 16:47:36.849959 UTC
+2017-09-29 16:58:45.081401 UTC
 
 interface main@main:Main 8002
-  interface hash: 2ba5a5ff244e88e5b50a0ea2c22c12ea
-  ABI hash: 803a62340a6f75182dc1c2de5b5b9e2d
+  interface hash: a013b8f78646d1c9e9771a7d87e3132a
+  ABI hash: a7b604fd244c087534f9e4a3d3c56ee0
   export-list hash: 245591083a8d89024fd778e797a25555
   orphan hash: a4dfecebc79ce60b10f861f4f94aea44
   flag hash: 0cb6be4af1fc43c4909ad696e186b423
@@ -153,6 +153,7 @@ import  -/  base-4.9.1.0:Data.Monoid 51cc9cd8c130d49ba96b7c2c2406022b
 import  -/  base-4.9.1.0:Data.OldList 27987919d8da2f92e3f472ca81f730f8
 import  -/  base-4.9.1.0:Data.Tuple 7dc4bbb45d2e69c991ffac438beeca11
 import  -/  base-4.9.1.0:Data.Typeable 9257e47d10882145c67c5b489965cfb7
+import  -/  base-4.9.1.0:Data.Typeable.Internal 0e9bdefa4325a0112d8e73b5e1e1f85d
 import  -/  base-4.9.1.0:GHC.Base c4231c43c07e46080a26bf94094c7aa1
 import  -/  base-4.9.1.0:GHC.Conc.Sync 8d0a228e5fc4d8c110495066f4d52ea1
 import  -/  base-4.9.1.0:GHC.IO eb504c57b397cf133849f8586f15dafb
@@ -313,6 +314,96 @@ addDependentFile "./src/dist/cycle-dom.js"
                  Data.Text.Show.$fShowText_$cshowList
                    x
                    (GHC.Types.[] @ GHC.Types.Char)) -}
+e3527e21b0807bce466c7c6e1cf0dd26
+  $stypeOf10 :: GHC.Fingerprint.Type.Fingerprint
+  {- HasNoCafRefs,
+     Unfolding: (GHC.Fingerprint.Type.Fingerprint
+                   17730107610217102821##
+                   9866972337190828755##) -}
+c1f3ae6bc0d2c0764a2571ef12f756c6
+  $stypeOf3 :: Data.Typeable.Internal.TypeRep
+  {- Unfolding: (case Main.$stypeOf9 of wild { Data.Typeable.Internal.TypeRep dt dt1 tc ks trs ->
+                 let {
+                   types :: [Data.Typeable.Internal.TypeRep]
+                   = GHC.Base.++ @ Data.Typeable.Internal.TypeRep trs Main.$stypeOf4
+                 } in
+                 case Data.Typeable.Internal.typeRepFingerprints
+                        ks
+                        types of kt_fps { DEFAULT ->
+                 case GHC.Fingerprint.fingerprintFingerprints
+                        (GHC.Types.:
+                           @ GHC.Fingerprint.Type.Fingerprint
+                           (Data.Typeable.Internal.tyConFingerprint tc)
+                           kt_fps) of dt2 { GHC.Fingerprint.Type.Fingerprint dt3 dt4 ->
+                 Data.Typeable.Internal.TypeRep dt3 dt4 tc ks types } } }) -}
+c3fb2417195fb6dc3b63627736733d8a
+  $stypeOf4 :: [Data.Typeable.Internal.TypeRep]
+  {- Unfolding: (GHC.Types.:
+                   @ Data.Typeable.Internal.TypeRep
+                   Main.$stypeOf5
+                   (GHC.Types.[] @ Data.Typeable.Internal.TypeRep)) -}
+2403f8f27bd1b38897d86db524109aa1
+  $stypeOf5 :: Data.Typeable.Internal.TypeRep
+  {- Unfolding: (case Main.$stypeOf9 of wild { Data.Typeable.Internal.TypeRep dt dt1 tc ks trs ->
+                 let {
+                   types :: [Data.Typeable.Internal.TypeRep]
+                   = GHC.Base.++ @ Data.Typeable.Internal.TypeRep trs Main.$stypeOf6
+                 } in
+                 case Data.Typeable.Internal.typeRepFingerprints
+                        ks
+                        types of kt_fps { DEFAULT ->
+                 case GHC.Fingerprint.fingerprintFingerprints
+                        (GHC.Types.:
+                           @ GHC.Fingerprint.Type.Fingerprint
+                           (Data.Typeable.Internal.tyConFingerprint tc)
+                           kt_fps) of dt2 { GHC.Fingerprint.Type.Fingerprint dt3 dt4 ->
+                 Data.Typeable.Internal.TypeRep dt3 dt4 tc ks types } } }) -}
+e21596d02e80a8091e94fd0dd50b5e61
+  $stypeOf6 :: [Data.Typeable.Internal.TypeRep]
+  {- Unfolding: (GHC.Types.:
+                   @ Data.Typeable.Internal.TypeRep
+                   Main.$stypeOf7
+                   (GHC.Types.[] @ Data.Typeable.Internal.TypeRep)) -}
+2014355ac86170378fe7a0e55c5ef4a0
+  $stypeOf7 :: Data.Typeable.Internal.TypeRep
+  {- Unfolding: (case Data.Typeable.Internal.typeRepFingerprints
+                        (GHC.Types.[] @ Data.Typeable.Internal.TypeRep)
+                        (GHC.Types.[]
+                           @ Data.Typeable.Internal.TypeRep) of kt_fps { DEFAULT ->
+                 case GHC.Fingerprint.fingerprintFingerprints
+                        (GHC.Types.:
+                           @ GHC.Fingerprint.Type.Fingerprint
+                           Main.$stypeOf8
+                           kt_fps) of dt { GHC.Fingerprint.Type.Fingerprint dt1 dt2 ->
+                 Data.Typeable.Internal.TypeRep
+                   dt1
+                   dt2
+                   Data.Text.Internal.$tcText
+                   (GHC.Types.[] @ Data.Typeable.Internal.TypeRep)
+                   (GHC.Types.[] @ Data.Typeable.Internal.TypeRep) } }) -}
+7273ccac180c5c7784cc542567e6e7d1
+  $stypeOf8 :: GHC.Fingerprint.Type.Fingerprint
+  {- HasNoCafRefs,
+     Unfolding: (GHC.Fingerprint.Type.Fingerprint
+                   12296881940790406170##
+                   15333654663109173907##) -}
+3bd2592bd041b6cef40d89ebbcb303dd
+  $stypeOf9 :: Data.Typeable.Internal.TypeRep
+  {- Unfolding: (case Data.Typeable.Internal.typeRepFingerprints
+                        (GHC.Types.[] @ Data.Typeable.Internal.TypeRep)
+                        (GHC.Types.[]
+                           @ Data.Typeable.Internal.TypeRep) of kt_fps { DEFAULT ->
+                 case GHC.Fingerprint.fingerprintFingerprints
+                        (GHC.Types.:
+                           @ GHC.Fingerprint.Type.Fingerprint
+                           Main.$stypeOf10
+                           kt_fps) of dt { GHC.Fingerprint.Type.Fingerprint dt1 dt2 ->
+                 Data.Typeable.Internal.TypeRep
+                   dt1
+                   dt2
+                   GHC.Types.$tc[]
+                   (GHC.Types.[] @ Data.Typeable.Internal.TypeRep)
+                   (GHC.Types.[] @ Data.Typeable.Internal.TypeRep) } }) -}
 d6831ef04cb9301b090dfae6f7bb7ec7
   $trModule :: GHC.Types.Module
   {- HasNoCafRefs, Strictness: m,

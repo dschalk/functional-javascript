@@ -337,13 +337,14 @@ talk conn state client = forever $ do
   broadcast ("ST#$42," `mappend` group `mappend` com
     `mappend` sender `mappend` com `mappend` tState) st
   let tsks = (T.unpack group) :: FilePath
+  TIO.appendFile tsks mempty
+  tks <- TIO.readFile tsks
   cos <- TIO.readFile xcomments
   comms <- atomically $ newTVar cos
   commens <- atomically $ readTVar comms
   let comments = T.replace (pack "\n") mempty commens
   TIO.writeFile xcomments comments 
   ns <- TIO.readFile namesFile
-  tks <- TIO.readFile tsks
   taskTVar <- atomically $ newTVar tks
   taskFile <- atomically $ readTVar taskTVar
   print "<><><> - 2"
