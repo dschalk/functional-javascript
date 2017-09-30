@@ -566,12 +566,9 @@ talk conn state client = forever $ do
      else if "CO#$42" `T.isPrefixOf` msg
         then
             mask_ $ do
-                old <- atomically $ readTVar state
-                let new = chgScore sender 0 0 old
-                atomically $ writeTVar state new
-                let new2 = changeGroup sender extra new
-                atomically $ writeTVar state new2
                 st <- atomically $ readTVar state
+                let new = changeGroup sender extra st
+                atomically $ writeTVar state new
                 let status = [[a,pack $ show b,pack $ show c] | (a,b,c,_,_,_,_,_) <- st]
                 print $!  status
                 let subSt = subState sender extra new2
