@@ -155,7 +155,7 @@ function main(sources) {
    })
 
  ret(v[0])
-  .bnd(next, 'CA#$42', mMZ10)
+  .bnd(next, 'CA#$42', mMZ10) // Dice roll
   .bnd(next, 'CD#$42', mMZ11)
   .bnd(next, 'CE#$42', mMZ12)
   .bnd(next, 'EE#$42', mMZ13)
@@ -257,7 +257,7 @@ var fghij = 'inline';
     if (e.keyCode === 13) {
       taskMonad.s = ["",[]];
       socket.send(`CO#$42,${pMgroup.x},${pMname.x},${e.target.value}`);
-      bind(pMgroup)(v => ret(e.target.value))(terminate)
+      pMgroup.ret(e.target.value);
       socket.send(`TI#$42,${e.target.value},${pMname.x}`);
     }
   });
@@ -646,23 +646,7 @@ function gMap(x, f, id) {
         socket.send(`TD#$42,${get(pMgroup)},${get(pMname)},@${str}`)
     };
 
-  var process2 = function (str, index) {
-    var ar = str.split(',');
-    var task;
-    if (ar.length === 1) {
-        task = ar;
-    }
-    if (ar.length > 1) {
-        task = ar.reduce(function (a, b) { return a + '$*$*$' + b; });
-    }
-    console.log('In process2. str, ar and task are', str, ar, task );
-    var a = mMcurrentList.x.split(',');
-    a[6 * index] = task;
-    var b = a.reduce(function (a, b) { return a + ',' + b; });
-    console.log('Still in process2. task, a and b are', task, a, b );
-    task2(b);
-  };
-
+ 
 // **********************************************************************END TODO LIST
      var captionClick$ = sources.DOM
         .select('#caption').events('click');
@@ -828,11 +812,9 @@ var chatClick$ = sources.DOM
       h('br'),
 h('div.content', [
 h('p', ' I am publishing this page mainly: ' ),
-h('span', ' (1) To show how "monads", which are objects x for which ' ),
-h('span', {style: {color: '#ef7732'}}, 'x instanceof Monad' ),
-h('span', ' returns ' ),
-h('span', {style: {color: '#ef7732'}}, 'true,'),
-h('span', ' can promote efficiency, maintainability, and robustness in front-end web applications. The game, todo list, chat, comments, and mathematical procedures are demonstrations of the monads in action. ' ),
+h('span', ' (1) To show how "monads", which are objects created by expressions such as ' ),
+h('span', {style: {color: '#ef7732'}}, '\"m = new Monad(a,b).\"' ),
+h('span', ' can promote efficiency, maintainability, and robustness in front-end web applications. ' ),
 h('br'),
 h('p', ' (2) To help people who are interested in acclimating their thought processes to functional and reactive ways of programming. In order to feel comfortable with functional, reactive code, I think novices and seasoned programmers alike need to grow new synaptic connections in their brains. This comes with practice. ' ),
 h('pre', {style: {fontStyle: "italic", color: "#f7f700" }},`      Understanding without practice
@@ -1254,7 +1236,8 @@ h('p', ' execF prepares the Fibonacci series and sends its state, along with the
   h('br'),  
   h('p', ' When this website loads, it receives from the server a string containing all of the comments. The string is saved in commentMonad.s[0]. The string is transformed into an array of comments which is saved in commentMonad.s]1]. '), 
   h('p', ' When a comment is created, modified, or deleted, a websockets message goes to the server which performs some of its own housekeeping and broadcasts a message to all online browsers. It is received in messages$ and forwarded comments.js. ' ),
-  h('p', ' The functions in the comments.js file mutate commentsMonad. There is no reason to create fresh instances of commentMonad, other than out of devout devotion to the doctrine of non-mutation. How silly that would be! Nothing touches commentMonad outside of the comments.js file; there is no danger. Here is the entire Comments.js file: ' ),
+  h('p', ' The functions in the comments.js file mutate commentsMonad. There is no reason to create fresh instances of commentMonad, other than out of devout devotion to the doctrine of non-mutation. How silly that would be! Nothing touches commentMonad outside of the comments.js file; there is no danger. ' ),
+  h('p', ' commentMonad stands in stark contrast to the gameMonad, which is never mutated although it sees much action during game play. Here he entire Comments.js file: ' ),
   h('pre', `function showFunc (name, name2) {return name == name2 ? 'inline-block' : 'none'}
 
 var MonadState3 = function MonadState3(g, state) {
@@ -1324,7 +1307,6 @@ function process (a) { //Assembles the HTML for display.
 } ` ),
 
   h('p', ' *************************************************************************************** ' ),
-  h('br'),  
   h('h3', 'Haskell Time'),
   h('p', ' This page is for front end developers, but in case anyone is interested, here are the server functions responsible for deleting or amending a comment: ' ),
   h('pre', `  removeOne _ []                 = []

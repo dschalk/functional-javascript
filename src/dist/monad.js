@@ -1875,10 +1875,6 @@ function score(result) {
 
 
 
-
-
-
-
 var gameMonad = new MonadState('gameMonad', [[[0,0,0,[],[1,2,3,4]], [0,0,0,[],[0,0,0,0]]],1 ]);
 
 MonadState.prototype.dec = function () {
