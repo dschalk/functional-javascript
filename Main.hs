@@ -330,7 +330,7 @@ talk conn state client = forever $ do
   let extraNum2 = read (mArr !! 4) :: Int
   let mes = "<><><><><> Outgoing message from Main.hs " 
   st <- atomically $ readTVar state
-  let currentState = [a `mappend` dash `mappend` (pack.show $ g) | (a,_,_,_,_,_,g,_) <- st]
+  let currentState = [a `mappend` dash `mappend` (pack.show $ b)  `mappend` dash `mappend`  (pack.show $ c)  `mappend` dash `mappend` d  `mappend` dash `mappend` (pack.show $ g) | (a,b,c,d,_,_,g,_) <- st]
   print "<!><@><#>$ currentState OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
   print currentState
   let tState = T.intercalate at currentState
@@ -571,7 +571,7 @@ talk conn state client = forever $ do
                 atomically $ writeTVar state new
                 let status = [[a,pack $ show b,pack $ show c] | (a,b,c,_,_,_,_,_) <- st]
                 print $!  status
-                let subSt = subState sender extra new2
+                let subSt = subState sender extra new
                 broadcast ("NN#$42," `mappend` group `mappend` "," `mappend` sender `mappend` "," `mappend` T.concat (textState subSt)) subSt
 
      else if "XX#$42" `T.isPrefixOf` msg

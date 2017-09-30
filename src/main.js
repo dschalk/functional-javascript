@@ -255,9 +255,13 @@ var fghij = 'inline';
 
   var groupPressAction$ = groupPress$.map(e => {
     if (e.keyCode === 13) {
-      taskMonad.s = ["",[]];
+      gameMonad.s[0] = [];
+      gameMonad.s[1] = -1;
+      pMscore.ret(0);
+      pMgoals.ret(0);
       socket.send(`CO#$42,${pMgroup.x},${pMname.x},${e.target.value}`);
       pMgroup.ret(e.target.value);
+      gameMonad.run([0,0,0,[],[0,0,0,0]]);
       socket.send(`TI#$42,${e.target.value},${pMname.x}`);
     }
   });
@@ -304,14 +308,11 @@ var fghij = 'inline';
 
   var numClickAction$ = numClick$.map(e => {
     if (gameMonad.fetch3().length < 2)  {
-      var score = gameMonad.fetch0();
-      var goals = gameMonad.fetch1();
-      var op = gameMonad.fetch2();
       var a = gameMonad.fetch3();
       var b = gameMonad.fetch4();
       a.push(b.splice(e.target.id, 1)[0]);
       console.log('In numClickAction$ - - - gameMonad.index and gameMonad.s ', gameMonad.index, gameMonad.s );
-      gameMonad.run([score,goals,op,a,b]);
+      gameMonad.run([,,,a,b]);
       if (a.length === 2 && gameMonad.fetch2() != 0) {
         updateCalc(a, gameMonad.fetch2())
       }
@@ -323,15 +324,11 @@ var fghij = 'inline';
 
   var opClickAction$ = opClick$.map(e => {
     var s3 = gameMonad.fetch3();
-      var score = gameMonad.fetch0();
-      var goals = gameMonad.fetch1();
-      var a = gameMonad.fetch3().slice();
-      var b = gameMonad.fetch4().slice();
     if (s3.length === 2) {
       updateCalc(s3, e.target.innerHTML);
     }
     else {
-      gameMonad.run([score,goals,e.target.innerHTML,a,b]);
+      gameMonad.run([,,e.target.innerHTML,,]);
     }
   });
 
