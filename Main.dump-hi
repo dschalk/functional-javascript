@@ -1,13 +1,13 @@
 
 ==================== FINAL INTERFACE ====================
-2017-09-29 16:58:45.081401 UTC
+2017-09-30 22:22:58.467875 UTC
 
 interface main@main:Main 8002
-  interface hash: a013b8f78646d1c9e9771a7d87e3132a
+  interface hash: 0e8071b8ec08134188ae10400bca9eaa
   ABI hash: a7b604fd244c087534f9e4a3d3c56ee0
   export-list hash: 245591083a8d89024fd778e797a25555
   orphan hash: a4dfecebc79ce60b10f861f4f94aea44
-  flag hash: 0cb6be4af1fc43c4909ad696e186b423
+  flag hash: 708bea01082c3d6a344fde6223ad392d
   sig of: Nothing
   used TH splices: True
   where
