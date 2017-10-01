@@ -1847,12 +1847,10 @@ function updateCalc(ar, op) {
     score(result);
   }
   else {
-    var sco = gameMonad.fetch0();
-    var goals = gameMonad.fetch1();
     var a = gameMonad.fetch4().slice();
     console.log('OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO in update calc. a is', a);
     a.push(result);
-    gameMonad.run([sco,goals,0,[],a]);
+    gameMonad.run([,,0,[],a]);
   }
 };
 
@@ -1868,7 +1866,7 @@ function score(result) {
         newRoll(0,0);
     }
     else if (scor === 25) {
-      newRoll(0, goals*1 + 1);
+      newRoll(0, parseInt(goals,10) + 1);
     }
     else newRoll(scor, goals);
 };

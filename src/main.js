@@ -887,7 +887,7 @@ h('span.tao', ' The monads do not depend on Cycle.js. They can be used in React,
 h('br'),
 h('br'),
 h('span.tao', 'This project was created by and is actively maintained by me, David Schalk. The code repository is at '),
-h('a', { props: { href: "https://github.com/dschalk/monads-for-JavaScript", target: "_blank" } }, 'monads-for-JavaScript'),
+h('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript", target: "_blank" } }, 'monads-in-JavaScript'),
 h('span', ' You can comment at ' ),
 h('a', { props: { href: 'https://redd.it/60c2xx' }}, 'Reddit' ),
 h('span', ' or in the Comments section near the end of this page ' ),
@@ -994,7 +994,7 @@ h('div.heading',  {style: { display: mMgameDiv2.x }}, 'Game, Todo List, Text Mes
 h('div#gameDiv2', {style: { display: mMgameDiv2.x }}, [
   h('br'),
   h('div#leftPanel', {style: { display: mMgameDiv2.x }}, [
-    h('p', 'RULES: If clicking two numbers and an operator (in any order) results in 20 or 18, the score increases by 1 or 3, respectively. If the score becomes 0 or is evenly divisible by 5, 5 points are added. A score of 25 results in one goal. That can only be achieved by arriving at a score of 20, which jumps the score to 25. Directly computing 25 results in a score of 30, and no goal. Each time RL is clicked, one point is deducted. Three goals wins the game. '),
+    h('p', 'RULES: If clicking two numbers and an operator (in any order) results in 20 or 18, the score increases by 1 or 3, respectively. If the score becomes 0 or is evenly divisible by 5, 5 points are added. A score of 25 results in one goal. That can only be achieved by arriving at a score of 20, which jumps the score to 25. Directly computing 25 results in a score of 30, and no goal. Each time RL is clicked, one point is deducted. Three goals wins the game. The code is in an appendix.'),
     h('p', {style: {color:'red', fontSize:  '20px'}}, mMgoals2.x ),
     buttonNode,
     h('br'),
@@ -1013,11 +1013,11 @@ h('div#gameDiv2', {style: { display: mMgameDiv2.x }}, [
       h('div.tao', `Operator: ${gameMonad.fetch2()} ` ),
       h('div.tao', 'Index: ' + gameMonad.s[1] ),
       h('button#clear', 'Clear selected numbers' ),
-      h('p', ' When traversing the game history, any time there are two selected numbers you can click any operator to obtain a result; or you can clear the selected numbers and click numbers of your choice. You can do anything you want with displayed numbers, but if there is a previously selected operator and you click a second number (shown after "Selected numbers:"), a computation will be performed using the previously selected operator. If that happens and it isn\'t what you want, you can back up and select a different operator before clicking a second number.'),
+      h('p', ' When traversing the game history, any time there are two selected numbers and a selected operator, a computation will be performed. You can clear the selected numbers and substitute others, and if you don\'t want a selected operator you can select another one.'),
           h('span', 'Change group: '),
           h('input#group', 'test' ),
       h('p', mMsoloAlert.x ),
-      h('p', ' You can change your name by entering a comma-separated name and password below. The combination will go into a persistent file accessible by the server. You can use this combination to edit or delete your saved comments now or in the future after you log in. ' ),
+      h('p', ' You can change your name by entering a comma-separated name and password below. The combination will go into a persistent file. You can use this combination in the future to edit or delete your saved comments. ' ),
       h('span.red', mMregister.x ),
       h('label', {style: {display: mMshowRegister.x }}, 'Register or log in here:'),
       h('input.register', {style: {display: mMshowRegister.x }},),
@@ -1375,12 +1375,98 @@ else if "GN#$42" \`T.isPrefixOf\` msg
   h('img.image', {props: {src: "error2.png"}}  ),
 
   h('br'),
+  h('h2', 'Appendix A - The Game Code' ),
+  h('pre', `function MonadState(g, state) {
+  console.log(g,'called MonadState with', state);
+  this.id = g;
+  this.s = state;
+  this.bnd = (func, ...args) => func(this.s, ...args);
+  this.ret = function (a) {
+    return window[this.id] = new MonadState(this.id, a);
+  };
+}; ` ),
   h('p'),
-  h('p'),
-  h('p', '.'),
-  h('p', '.'),
-  h('p', '.'),
-  h('p', '.'),
+  h('pre', `MonadState.prototype.run = function ([
+  score = this.s[0][this.s[1]][0],
+  goals = this.s[0][this.s[1]][1],
+  operator = this.s[0][this.s[1]][2],
+  picked = this.s[0][this.s[1]][3].slice(),
+  display = this.s[0][this.s[1]][4].slice()
+]) {
+  this.s[1] += 1;
+  var newState = this.s.slice();
+  newState[0].splice(this.s[1], 0, [score, goals, operator, picked, display])
+   console.log("[score, goals, operator, picked, display]",
+     [score, goals, operator, picked, display]);
+  this.s = newState;
+  buttonNode = bNode(display);
+  return window['gameMonad'] = new MonadState('gameMonad', newState);
+}
+
+var gameMonad = new MonadState('gameMonad', [[[0,0,0,[],[1,2,3,4]],
+      [0,0,0,[],[0,0,0,0]]],1 ]);  ` ),
+  h('p', ' Here is the code that controls what happens when a player clicks a number or an operator: '),
+  h('pre', `  var numClickAction$ = numClick$.map(e => {
+    if (gameMonad.fetch3().length < 2)  {
+      var a = gameMonad.fetch3();
+      var b = gameMonad.fetch4();
+      a.push(b.splice(e.target.id, 1)[0]);
+      gameMonad.run([,,,a,b]);
+      if (a.length === 2 && gameMonad.fetch2() != 0) {
+        updateCalc(a, gameMonad.fetch2())
+      }
+    }
+  }).startWith([0, 0, 0, 0]);
+
+  var opClick$ = sources.DOM
+      .select('.op').events('click');
+
+  var opClickAction$ = opClick$.map(e => {
+    var s3 = gameMonad.fetch3();
+    if (s3.length === 2) {
+      updateCalc(s3, e.target.innerHTML);
+    }
+    else {
+      gameMonad.run([,,e.target.innerHTML,,]);
+    }
+  });  `),
+  h('p', ' Notice the empty spaces in the arguments to gameMonad.run(). gameMonad.run()\'s argument is an array to facilitate calling it with default values. In numClickAction$ we are not changing the score, goals, or operator. The default values of these parameters are their current values. In opClickAction$, we are changing only one thing, the operator. Everything else stays as it is. ' ),
+  h('p', ' When two numbers and an operator have been selected, control passes to updateCalc(). Here\'s the code: ' ),
+
+
+  h('pre', `function updateCalc(ar, op) {
+  var result = calc(ar[0], op, ar[1]);ar
+  if (result === 18 || result === 20) {
+    score(result);
+  }
+  else {
+    var a = gameMonad.fetch4().slice();
+    a.push(result);
+    gameMonad.run([,,0,[],a]);  // Display the result and 
+                                // reset the operator and selected values.
+  }
+};
+
+function score(result) {
+    var sc = parseInt(gameMonad.fetch0());
+    var sco = result === 18 ? sc + 3 : sc + 1;
+    var scor = sco % 5 === 0 ? sco + 5 : sco;
+    var goals = gameMonad.fetch1();
+    if (scor === 25 && gameMonad.fetch1() === "2") {  // The player wins.
+        mMindex.ret(0);
+        gameMonad = new MonadState('gameMonad', 
+           [[[0,0,0,[],[0,0,0,0]],[0,0,0,[][0,0,0,0]]],0]);
+        socket.send(\`CE#$42,${pMgroup.x},${pMname.x}\`);  
+                    // Ask the server to announce the winner to the entire group
+        newRoll(0,0);
+    }
+    else if (scor === 25) {
+      newRoll(0, parseInt(goals,10) + 1);
+    }
+    else newRoll(scor, goals);   // No increase in the number of goals.
+};   ` ),
+ h('span.tao', ' Additional code is available at' ),
+ h('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript", target: "_blank" } }, 'monads-in-JavaScript.'),
   h('p', '.'),
   h('p'),
   h('p'),

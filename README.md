@@ -1,6 +1,7 @@
   <a name="back"></a>
 
-###This project is in flux. see [http:schalk.net:3055](http://schalk.net:3055) for more up-to-date commentary and working demonstrations.
+I have been experimenting with this project for a couple of years. It was recently renamed to "monads-in-javascript" See [http:schalk.net:3055](http://schalk.net:3055) for up-to-date code, commentary, and working demonstrations. This README is stale, and when I refresh it I just cut and paste the browser display at  [http:schalk.net:3055](http://schalk.net:3055). I hope you will take a look and leave a comment. 
+-- David Schalk
 
 ## A Cycle.js application
 #FUNCTIONAL REACTIVE PROGRAMMING
