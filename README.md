@@ -19,11 +19,12 @@ I am publishing this page mainly:
       understanding with practice
       smooth sailing through every challenge 
 Here is the definition of Monad:
-
+```js
     function Monad(z = 'default', ID = 'tempMonad') {
       this.x = z;
       this.id = ID;
-    }; 
+    };
+```    
 What I call "monads" here are objects which respond affirmatively to "typeof object === Monad". They have two attributes, id and x. monad.x is what I sometimes call the "value" of a monad.
 
 The functions bind() and ret() are similar in many ways to >>= (known as "bind") and return in the Haskell programming language. Only here, in this astonishingly chaotic world of JavaScript, there is only one type of monad and the functions (bind and ret) and methods (bnd() and ret()) on which they depend operate on only one type: every possible JavaScript value. All of them return monads. A monad can be a wrapper for a primitive value, and array, a monad, or anything else.
@@ -39,7 +40,7 @@ A chain of computations returns an array of each succeeding computation. Here's 
 
   bind(0)(v => ret(v+3))(v => ret(v*v*v))(terminate) // [3,27] 
 Despite the way it looks, (v => ret(v+3)) doesn't take (v => ret(v*v*v)) as its argument. bind(0) obviously affects the expressions that follow it. Here how:
-
+```js
   function bind (x, ar = []) {
     this.ar = ar;
     return function (func, ...args) {
@@ -49,12 +50,13 @@ Despite the way it looks, (v => ret(v+3)) doesn't take (v => ret(v*v*v)) as its 
       return bind(y.x, ar);
     }
   };  
+```
 The invisible functions that stand ready to operate on the next function you provide are the return values of bind(m.x) where m is the return value of the previous function. bind is coded only once, at the beginning, but it executes repeatedly along a chain of computations until it reaches the "terminate" flag.
 
 Here's another way of saying essentially the same thing: If m is returned by the most recent function you have added to the chain, the return value of bind(m.x) awaits your next addition.
 
 Here is the definition of ret():
-
+```js
   function ret (val, id = "default") {
     if (val instanceof Monad && arguments.length === 2)
       return window[val.id] = new Monad(id, val.id) 
@@ -62,16 +64,18 @@ Here is the definition of ret():
       return window[val.id] = new Monad(val.x, val.id)
     return window[id] = new Monad(val, id);
   } 
+```
 As you see, ret() encapsulates values that are not monads but does not return monads containing monads. There are ways to next monads within monads; for example, monad m1 becomes the value of m2 when you write:
     var m2 = new Monad(m1, "m2") 
 But using ret() on non-monad value v and using it again on the result we see:
-
+```js
     let m = ret(v)
     then m.x === v 
     but ret(m) === m 
     and m.x === v  nothing changed. 
+```    
 Let's examine bind more closely. By using "ar" in three places, the following example illustrates the fact that the result of every computation in a chain is available to every computation that comes after it.
-
+```js
   bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[0]))(multC(ar[0]))
   (addC(30))(multC(1/ar[2]))(terminate)
     // [3, 27, 30, 90, 270, 300, 10] 
@@ -80,13 +84,15 @@ Or to get only the final result:
   bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[0]))(multC(ar[0]))
   (addC(30))(multC(1/ar[2]))(terminate).pop()
     // 10  
+```    
 addC, cube and multC (above) are defined as follows:
-
+```js
     const addC = a => b => ret(a+b);
       
     const multC = a => b => ret(a*b);
 
     const cubeC = a => ret(a*a*a);  
+```
 bind()'s second argument is an array that is automatically provided. It is possible to substitute any array you like for the default starting array [].
 
 Values v that satisfy "v instanceof Monad" (called "monads" in this discussion) are very different from the Haskell monads, but they are similar in that both behave like the monads of category theory without actually being category theory monads. See Hask is not a category. by Andrej Bauer and the Discussion below. They provide a convenient interface for dealing with uncertainty and side effects in a purely functional manner. Adherence to the monad laws (see below) helps instill confidence that the monads are robust, versatile, and reliable tools for isolating and chaining sequences of javascript functions. 
@@ -101,7 +107,7 @@ Snabbdom xstream, and most of the monads and functions presented here are availa
 Alternative Monad Functionality
 
 Chaining of JavaScript procedures usually occurs by means of methods inside of linked objects. rather than by means of external functions like bind(). Instances of Monad can also link by means of a method. It is called "bnd()" and it, along with "ret()", were made available as follows:
-
+```js
   Monad.prototype.bnd = function (func, ...args) {
     var m = func(this.x, ...args)
     var ID;
@@ -112,7 +118,7 @@ Chaining of JavaScript procedures usually occurs by means of methods inside of l
     }
     else return m;
   };
-
+```
   Monad.prototype.ret = function (a) {
     return window[this.id] = new Monad(a, this.id);
   }; 

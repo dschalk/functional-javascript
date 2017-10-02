@@ -851,11 +851,10 @@ h('p', ' Let\'s examine bind more closely. By using "ar" in three places, the fo
   
 h('pre', `  bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[0]))(multC(ar[0]))
   (addC(30))(multC(1/ar[2]))(terminate)
-    // [3, 27, 30, 90, 270, 300, 10] `),
+  returns [3, 27, 30, 90, 270, 300, 10] `),
 h('p', ' Or to get only the final result: ' ),
 h('pre', `  bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[0]))(multC(ar[0]))
-  (addC(30))(multC(1/ar[2]))(terminate).pop()
-    // 10  ` ),
+  (addC(30))(multC(1/ar[2]))(terminate).pop()  returns 10  ` ),
 h('p', ' addC, cube and multC (above) are defined as follows: ' ), 
 h('pre', `    const addC = a => b => ret(a+b);
       
@@ -914,8 +913,20 @@ h('pre',  {style: {color: "rgb(236, 242, 186)"   }}, `  Monad.prototype.bnd = fu
 
   Monad.prototype.ret = function (a) {
     return window[this.id] = new Monad(a, this.id);
+  };
+     
+  function testPrefix (x,y) {
+     var t = y;  // y is the id of the monad calling testPrefix
+     if (Array.isArray(x)) {
+      x.map(v => {
+        if (typeof v == 'string' && v.charAt() == '$') {
+           t = v.slice(1);  // Remove "$"
+        }
+      })
+    }
+    return t;
   }; ` ),
-h('p', ' This seems less functional, less like Haskell. It doesn\'t pass functions down the chain but rather objects with exposed methods. But is has appealing features. Look how values move along the chain until, at the end they combine to yield 42. This would be impossible with bind(), which is why bind() has ar. The code below resembles a lambda calculus expression, and the lambda calculus is at the source of functional programming, close to the eternal Tao.' ),
+h('p', ' This seems less functional, less like Haskell. It doesn\'t pass functions down the chain but rather objects with exposed methods. But is has appealing features. Look how values move along the chain until, at the end they combine to yield 42. This would be impossible with bind(), which is why bind() has ar. The code below resembles a lambda calculus expression, and the lambda calculus is the essence of functional programming, resting close to the eternal Tao.' ),
 h('pre', `  ret(2).bnd(v => add(v,1).bnd(cube).bnd(p => add(p,3)
   .bnd(() => ret(p/3).bnd(add,3).bnd(z => [v,p,z,v*p-z]))))
     // [1,27,12,42] ` ),
@@ -938,7 +949,6 @@ h('pre', `  m.bnd(m.ret) === m  For all m where
   bind(3)(ret)(add,5)(ret)(terminate).pop() === add(3,5).x
 
   Haskell monad law: m >>= return \u2261 m `  ),
-
 
 h('div', ' Commutivity  ' ),
 
