@@ -10,8 +10,23 @@ socket.addEventListener('message', function (event) {
   console.log('<$><$><$><$><$><$><$><$><$> $$ Message from server: event.data ', event.data);
 });
 
-function login () {setTimeout(function () {
+/*
+async function getProcessedData(url) {
+  let v;
+  try {
+    v = await downloadData(url); 
+  } catch(e) {
+    v = await downloadFallbackData(url);
+  }
+  return processDataInWorker(v);
+}
+*/
+
+function login () {
+  console.log('000000000000000000000000000000000000000000000 Entering login', socket.readyState);
+  setTimeout(function () {
   if (socket.readyState === 1) {
+    console.log('readyState is',socket.readyState);
     var v = Math.random().toString().substring(5);
     var v2 = v.toString().substring(2);
     var v2 = "password"
@@ -24,8 +39,10 @@ function login () {setTimeout(function () {
     pMclicked.ret([]);
     socket.send(`GZ#$42,solo,${v}`);
   }
-  else login();
-  },1500 );
+  else {
+    login();
+  }
+  },2 );
 }
 
 login();
@@ -687,10 +704,10 @@ var prAction$ = pr$.map(function (e) {
 
 
 // Clicking the checkbox to indicate that a task has been finished.
-var cbx$ = sources.DOM.select('#cbx').events('click');
+var box$ = sources.DOM.select('.box').events('click');
 
-var cbxAction$ = cbx$.map(e => {
-  console.log('+++++++ PROGRESS OF cbxAction$ ++++++ #cbx was clicked');
+var boxAction$ = box$.map(e => {
+  console.log('+++++++ PROGRESS OF boxAction$ ++++++ .box was clicked');
   var index = parseInt(e.target.parentNode.id, 10);
   console.log(index);
   console.log(taskMonad.s[1].slice(index,index+1) );
@@ -701,14 +718,14 @@ var cbxAction$ = cbx$.map(e => {
   ar = ar.filter(v => v !== "");
   ar[1] = ar[1] === "false" ? "true" : "false"
   var newTask = ar.join("<$>");
-  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ In cbxAction$. newTask is',newTask);
+  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ In boxAction$. newTask is',newTask);
   socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
 });
 
 var cbx2$ = sources.DOM.select('.cbx2').events('click');
 
 var cbx2Action$ = cbx2$.map(e => {
-  console.log('+++++++ PROGRESS OF cbx2Action$ ++++++ #cbx was clicked');
+  console.log('+++++++ PROGRESS OF cbx2Action$ ++++++ .cbx2 was clicked');
   var index = parseInt(e.target.parentNode.id, 10);
   console.log(index);
   console.log(taskMonad.s[1].slice(index,index+1) );
@@ -719,7 +736,7 @@ var cbx2Action$ = cbx2$.map(e => {
   ar = ar.filter(v => v !== "");
   ar[1] = ar[1] === "false" ? "true" : "false"
   var newTask = ar.join("<$>");
-  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ In cbxAction$. newTask is',newTask);
+  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ In cbx2Action$. newTask is',newTask);
   socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
 });
 
@@ -793,7 +810,7 @@ var chatClick$ = sources.DOM
     .select('#todoButton').events('click')
     .map(() => showTodoDiv = showTodoDiv === "none" ? "block" : "none")
 
-  var calcStream$ = xs.merge( commentAction$, cbxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearAction$, factorsAction$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
+  var calcStream$ = xs.merge( commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearAction$, factorsAction$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
   return {
   DOM: calcStream$.map(function () {
   return h('div.main', [

@@ -249,6 +249,7 @@ main :: IO ()
 main = do
     -- por <- getEnv "PORT"
     -- let port = read por
+    print "In main"
     state <- atomically $ newTVar newServerState
     Warp.runSettings
      (Warp.setPort 3055 $

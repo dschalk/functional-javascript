@@ -10,17 +10,8 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js$/,
-      loaders: ['babel'],
-      exclude: /node_modules/,
-      include: __dirname
-    }, {
-      test: /\.elm$/,
-      loaders: ['elm-simple-loader'],
+      loaders: ['babel-loader'],
       exclude: /node_modules/
-    }
-    ],
-    query: {
-      presets: ['es2015']
-    }
+    }],
   }
 }

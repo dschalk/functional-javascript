@@ -19,10 +19,6 @@
     padding: 3px 0px 3px 3px;
   }
 
-.editB {
-    -webkit-appearance: textarea
-}
-
 #wrapper {
   width: 500px;
   height: 500px;
@@ -40,7 +36,7 @@
   height: 100%;
 }
 
-
+/*
   input, textarea {
     background-color: #efe1a7;
     color: #000000;
@@ -68,20 +64,7 @@
     box-shadow:         0px 0px 20px 0px rgb(255, 215, 0);
     padding: 3px 0px 3px 3px;
   }
-
-  input, checkbox: {
-    background-color: #efe1a7;
-    color: #00AADD;
-    border-radius: 5px;
-    outline: none;
-    -webkit-box-shadow: 0px 0px 20px 0px rgb(255, 215, 0);
-    -moz-box-shadow:    0px 0px 20px 0px rgb(255, 215, 0);
-    box-shadow:         0px 0px 20px 0px rgb(255, 215, 0);
-    padding: 3px 0px 3px 3px;
-    margin: 5px 1px 3px 0px;
-    border: 3px solid #DDDDDD;
-  }
-
+*/
   pre {
     font-size:15px;
     color: #efe302;
