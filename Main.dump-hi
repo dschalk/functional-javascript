@@ -1,0 +1,470 @@
+
+==================== FINAL INTERFACE ====================
+2017-10-04 15:55:31.364694 UTC
+
+interface main@main:Main 8002
+  interface hash: b6fd27cd4f4f02ee6ed39419849806cb
+  ABI hash: a7b604fd244c087534f9e4a3d3c56ee0
+  export-list hash: 245591083a8d89024fd778e797a25555
+  orphan hash: a4dfecebc79ce60b10f861f4f94aea44
+  flag hash: 708bea01082c3d6a344fde6223ad392d
+  sig of: Nothing
+  used TH splices: True
+  where
+exports:
+  Main.main
+module dependencies: Fm
+package dependencies: OneTuple-0.2.1@OneTuple-0.2.1-7xFCZYYP3bD3K0JO3QlNLg
+                      SHA-1.6.4.2@SHA-1.6.4.2-6ZuKopcglGG4yoCGsd9koJ
+                      appar-0.1.4@appar-0.1.4-DGWHHt2WRn9FI49prcwO9
+                      array-0.5.1.1@array-0.5.1.1
+                      async-2.1.1.1@async-2.1.1.1-8yywY4inVGRLJSCg60gBXj
+                      attoparsec-0.13.1.0@attoparsec-0.13.1.0-HpOtgbsIjejLeWC6hUiQm7
+                      auto-update-0.1.4@auto-update-0.1.4-EmUvNdmhEju51bHrtaEMpz
+                      base-4.9.1.0
+                      base64-bytestring-1.0.0.1@base64-bytestring-1.0.0.1-4O9TExPPz6eI82Yj7L4SIj
+                      binary-0.8.3.0@binary-0.8.3.0
+                      blaze-builder-0.4.0.2@blaze-builder-0.4.0.2-CGB8BvrFgghHy5bLy0SFOg
+                      blaze-html-0.9.0.1@blaze-html-0.9.0.1-4kecX1uC5fD26R1DO8L5SI
+                      blaze-markup-0.8.0.0@blaze-markup-0.8.0.0-G4TIbeeI0NH4aZjf2jyzLM
+                      byteorder-1.0.4@byteorder-1.0.4-9NlNHkBVdo7F1prFVKrkcH
+                      bytestring-0.10.8.1@bytestring-0.10.8.1
+                      case-insensitive-1.2.0.10@case-insensitive-1.2.0.10-Fiik8BUGIOz3LnHv8R26NC
+                      concurrent-extra-0.7.0.11@concurrent-extra-0.7.0.11-7WfVlgwxQwBHzH2h3r2DUs
+                      containers-0.5.7.1@containers-0.5.7.1
+                      cryptonite-0.21@cryptonite-0.21-6DUWxYlG9H9Utxel12se
+                      deepseq-1.4.2.0@deepseq-1.4.2.0
+                      directory-1.2.7.1@directory-1.2.7.1-DOyhgu4vxbbAQspqYmf91J
+                      entropy-0.3.8@entropy-0.3.8-14HIw40nRRY968j6AdY1H4
+                      file-embed-0.0.10@file-embed-0.0.10-40tLjH059SRBiIzoRTdztJ
+                      filepath-1.4.1.1@filepath-1.4.1.1
+                      foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2
+                      ghc-boot-th-8.0.2@ghc-boot-th-8.0.2 ghc-prim-0.5.0.0
+                      hashable-1.2.6.1@hashable-1.2.6.1-I8TtfTMw8kCEo1q1h2BgxU
+                      http-date-0.0.6.1@http-date-0.0.6.1-Gvexquq8nwKASDokUiQrzm
+                      http-types-0.9.1@http-types-0.9.1-Qy5Ex19QlZ74tBRRG3v2y
+                      http2-1.6.3@http2-1.6.3-BoCxUiiFc2tH4hJF735cAi integer-gmp-1.0.0.1
+                      integer-logarithms-1.0.1@integer-logarithms-1.0.1-IEHCuEd5sG4JjSjlx7m5JF
+                      iproute-1.7.1@iproute-1.7.1-EJjAtfniBUorobFQnk7lR
+                      memory-0.14.6@memory-0.14.6-EdXACCmRmoq1ttEsBcU2AW
+                      mime-types-0.1.0.7@mime-types-0.1.0.7-31dnC2ifQ9r5TApUZagLPk
+                      network-2.6.3.2@network-2.6.3.2-IsLM4TXcLoRI0fmmBYVyQz
+                      pretty-1.1.3.3@pretty-1.1.3.3
+                      primitive-0.6.2.0@primitive-0.6.2.0-4578caNkWQ54Gt1mxLF2Yh
+                      psqueues-0.2.2.3@psqueues-0.2.2.3-4IrNMRSEBLYmrQJDfQ34q
+                      random-1.1@random-1.1-9tceXaeYIMZ4JrKq20Egog
+                      scientific-0.3.4.15@scientific-0.3.4.15-AEh2nwsy6If4jDZ5mqF0ee
+                      simple-sendfile-0.2.25@simple-sendfile-0.2.25-4uYtK5a0djFILo2ePfLs47
+                      split-0.2.3.2@split-0.2.3.2-CJl40zTyCIV16Pr60nb7CT
+                      stm-2.4.4.1@stm-2.4.4.1-JQn4hNPyYjP5m9AcbI88Ve
+                      streaming-commons-0.1.17@streaming-commons-0.1.17-ABnnso7ENQ01e0Ei8og4Hz
+                      template-haskell-2.11.1.0
+                      text-1.2.2.1@text-1.2.2.1-Ji7hMs2U4BkBwavd4taEVR
+                      time-1.6.0.1@time-1.6.0.1 transformers-0.5.2.0@transformers-0.5.2.0
+                      tuple-0.3.0.2@tuple-0.3.0.2-fw19c2mVE4S4kTOAA0LW
+                      unix-2.7.2.1@unix-2.7.2.1
+                      unix-compat-0.4.3.1@unix-compat-0.4.3.1-Ausmw6d7KIwA7sl52mzqxC
+                      unordered-containers-0.2.8.0@unordered-containers-0.2.8.0-6txQagwbKwSESVNJVBgwqv
+                      vault-0.3.0.7@vault-0.3.0.7-H4kfNuSlFqmKLHmBSHcOfT
+                      vector-0.12.0.1@vector-0.12.0.1-692PQMDMB6pIQ1uGwefDcQ
+                      wai-3.2.1.1@wai-3.2.1.1-2ORFowrqBlw8LrI3bTChZy
+                      wai-app-static-3.1.6.1@wai-app-static-3.1.6.1-gjoDM6OMaB4g955Uv7SL8
+                      wai-websockets-3.0.1.1@wai-websockets-3.0.1.1-JjgAxAV5c0yFK2OAuUmPg6
+                      warp-3.2.12@warp-3.2.12-AnsWFn69Lu69AhAbT5JR91
+                      websockets-0.10.0.0@websockets-0.10.0.0-4qOXSq0006bG3ijMKQ7qoF
+                      word8-0.1.2@word8-0.1.2-9WDPGCTpW7JJnsiAQavtd1
+                      zlib-0.6.1.2@zlib-0.6.1.2-7negTfm2ujt1gW4wr40MUp
+orphans: attoparsec-0.13.1.0@attoparsec-0.13.1.0-HpOtgbsIjejLeWC6hUiQm7:Data.Attoparsec.ByteString.Char8
+         base-4.9.1.0:GHC.Base base-4.9.1.0:GHC.Float
+         binary-0.8.3.0@binary-0.8.3.0:Data.Binary.Generic
+         bytestring-0.10.8.1@bytestring-0.10.8.1:Data.ByteString.Builder
+         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Collection.Collection
+         hashable-1.2.6.1@hashable-1.2.6.1-I8TtfTMw8kCEo1q1h2BgxU:Data.Hashable.Generic
+         network-2.6.3.2@network-2.6.3.2-IsLM4TXcLoRI0fmmBYVyQz:Network.Socket
+         stm-2.4.4.1@stm-2.4.4.1-JQn4hNPyYjP5m9AcbI88Ve:Control.Monad.STM
+         text-1.2.2.1@text-1.2.2.1-Ji7hMs2U4BkBwavd4taEVR:Data.Text
+         text-1.2.2.1@text-1.2.2.1-Ji7hMs2U4BkBwavd4taEVR:Data.Text.Lazy
+         text-1.2.2.1@text-1.2.2.1-Ji7hMs2U4BkBwavd4taEVR:Data.Text.Show
+         time-1.6.0.1@time-1.6.0.1:Data.Time.Calendar.Gregorian
+         time-1.6.0.1@time-1.6.0.1:Data.Time.Format.Parse
+         time-1.6.0.1@time-1.6.0.1:Data.Time.LocalTime.LocalTime
+         transformers-0.5.2.0@transformers-0.5.2.0:Control.Monad.Trans.Error
+         vector-0.12.0.1@vector-0.12.0.1-692PQMDMB6pIQ1uGwefDcQ:Data.Vector.Fusion.Bundle
+family instance modules: attoparsec-0.13.1.0@attoparsec-0.13.1.0-HpOtgbsIjejLeWC6hUiQm7:Data.Attoparsec.Internal.Types
+                         base-4.9.1.0:Control.Applicative base-4.9.1.0:Data.Complex
+                         base-4.9.1.0:Data.Either base-4.9.1.0:Data.Functor.Compose
+                         base-4.9.1.0:Data.Functor.Const base-4.9.1.0:Data.Functor.Identity
+                         base-4.9.1.0:Data.Functor.Product base-4.9.1.0:Data.Functor.Sum
+                         base-4.9.1.0:Data.List.NonEmpty base-4.9.1.0:Data.Monoid
+                         base-4.9.1.0:Data.Semigroup base-4.9.1.0:Data.Type.Equality
+                         base-4.9.1.0:Data.Version base-4.9.1.0:Data.Void
+                         base-4.9.1.0:GHC.Exts base-4.9.1.0:GHC.Generics
+                         base-4.9.1.0:GHC.IO.Exception base-4.9.1.0:GHC.TypeLits
+                         containers-0.5.7.1@containers-0.5.7.1:Data.IntMap.Base
+                         containers-0.5.7.1@containers-0.5.7.1:Data.IntSet.Base
+                         containers-0.5.7.1@containers-0.5.7.1:Data.Map.Base
+                         containers-0.5.7.1@containers-0.5.7.1:Data.Sequence
+                         containers-0.5.7.1@containers-0.5.7.1:Data.Set.Base
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Array.Bitmap
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Array.Boxed
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Array.Chunked.Unboxed
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Array.Unboxed
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Boot.Builder
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Collection.Buildable
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Collection.Collection
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Collection.Element
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Collection.Keyed
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Collection.Mutable
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Monad.Exception
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Numerical.Subtractive
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Primitive.Block.Base
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Primitive.Monad
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Primitive.Types.OffsetSize
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Primitive.UTF8.Base
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.String.Encoding.ASCII7
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.String.Encoding.ISO_8859_1
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.String.Encoding.UTF16
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.String.Encoding.UTF32
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.String.UTF8
+                         foundation-0.0.12@foundation-0.0.12-HTBj2GpsvJMKesmmsrFuU2:Foundation.Tuple
+                         ghc-boot-th-8.0.2@ghc-boot-th-8.0.2:GHC.LanguageExtensions.Type
+                         iproute-1.7.1@iproute-1.7.1-EJjAtfniBUorobFQnk7lR:Data.IP.Addr
+                         iproute-1.7.1@iproute-1.7.1-EJjAtfniBUorobFQnk7lR:Data.IP.Range
+                         pretty-1.1.3.3@pretty-1.1.3.3:Text.PrettyPrint.Annotated.HughesPJ
+                         pretty-1.1.3.3@pretty-1.1.3.3:Text.PrettyPrint.HughesPJ
+                         primitive-0.6.2.0@primitive-0.6.2.0-4578caNkWQ54Gt1mxLF2Yh:Control.Monad.Primitive
+                         primitive-0.6.2.0@primitive-0.6.2.0-4578caNkWQ54Gt1mxLF2Yh:Data.Primitive.Array
+                         template-haskell-2.11.1.0:Language.Haskell.TH.Syntax
+                         text-1.2.2.1@text-1.2.2.1-Ji7hMs2U4BkBwavd4taEVR:Data.Text
+                         text-1.2.2.1@text-1.2.2.1-Ji7hMs2U4BkBwavd4taEVR:Data.Text.Lazy
+                         unordered-containers-0.2.8.0@unordered-containers-0.2.8.0-6txQagwbKwSESVNJVBgwqv:Data.HashMap.Base
+                         vector-0.12.0.1@vector-0.12.0.1-692PQMDMB6pIQ1uGwefDcQ:Data.Vector
+                         zlib-0.6.1.2@zlib-0.6.1.2-7negTfm2ujt1gW4wr40MUp:Codec.Compression.Zlib.Stream
+import  -/  base-4.9.1.0:Control.Concurrent 2ee6a0a58489520b9a96d8fef10380fa
+import  -/  base-4.9.1.0:Control.Concurrent.MVar 1e4f68fc63da1d1a554d5258431dd0c6
+import  -/  base-4.9.1.0:Control.Exception a76dd9666251322fe34dbcca3a0817bf
+import  -/  base-4.9.1.0:Control.Exception.Base 1e106916283856f4d9caeddab92cd861
+import  -/  base-4.9.1.0:Control.Monad a6784c5dab0d75c63dabec5a37843f98
+import  -/  base-4.9.1.0:Control.Monad.IO.Class 1a4384f66ee999caf5366398edb6ca7b
+import  -/  base-4.9.1.0:Data.Data da440c60016500822a3d4307ca5dea66
+import  -/  base-4.9.1.0:Data.Foldable 3e0b6967a1da89945d0e2d47266337a2
+import  -/  base-4.9.1.0:Data.List 07ae2acca6538aa0800bd0a993ac6ac1
+import  -/  base-4.9.1.0:Data.Monoid 51cc9cd8c130d49ba96b7c2c2406022b
+import  -/  base-4.9.1.0:Data.OldList 27987919d8da2f92e3f472ca81f730f8
+import  -/  base-4.9.1.0:Data.Tuple 7dc4bbb45d2e69c991ffac438beeca11
+import  -/  base-4.9.1.0:Data.Typeable 9257e47d10882145c67c5b489965cfb7
+import  -/  base-4.9.1.0:Data.Typeable.Internal 0e9bdefa4325a0112d8e73b5e1e1f85d
+import  -/  base-4.9.1.0:GHC.Base c4231c43c07e46080a26bf94094c7aa1
+import  -/  base-4.9.1.0:GHC.Conc.Sync 8d0a228e5fc4d8c110495066f4d52ea1
+import  -/  base-4.9.1.0:GHC.IO eb504c57b397cf133849f8586f15dafb
+import  -/  base-4.9.1.0:GHC.IO.Handle ba98a5b34d78cbf48b41fe58a3735c69
+import  -/  base-4.9.1.0:GHC.IO.Handle.FD dbf0d0d4f42ab1465129a88ccf7880ff
+import  -/  base-4.9.1.0:GHC.IO.Unsafe 1c057c642b0e201f55a24585d3d94564
+import  -/  base-4.9.1.0:GHC.List ab8c4e523e6c479c549d3bcd5fc4a439
+import  -/  base-4.9.1.0:GHC.Num 00bfaa7b2f9d6084913c0697a8a49ec8
+import  -/  base-4.9.1.0:GHC.Show a027f5ac24879eaba752f44aa90fe511
+import  -/  base-4.9.1.0:Prelude 22dd289b8469a8fa8dc81cab7b237771
+import  -/  base-4.9.1.0:System.IO e4a64a8e3dce8616da54f0ee7104f7db
+import  -/  base-4.9.1.0:Text.Read 75c59863e882ebaec4532e9465e2ee9b
+import  -/  bytestring-0.10.8.1@bytestring-0.10.8.1:Data.ByteString.Internal 89cda42ec946d9d6577dd41ab95d523e
+import  -/  bytestring-0.10.8.1@bytestring-0.10.8.1:Data.ByteString.Unsafe 92abac213725a8649f9818f4f4aca9b8
+import  -/  concurrent-extra-0.7.0.11@concurrent-extra-0.7.0.11-7WfVlgwxQwBHzH2h3r2DUs:Control.Concurrent.STM.Lock 5ed76e68b370634c9f6c4e3010cda842
+import  -/  directory-1.2.7.1@directory-1.2.7.1-DOyhgu4vxbbAQspqYmf91J:System.Directory 1b91ed85a5bea49a23ca3dd73b09b027
+import  -/  file-embed-0.0.10@file-embed-0.0.10-40tLjH059SRBiIzoRTdztJ:Data.FileEmbed 0f1d70ab2bb20f6a32f8cb59745cb1f2
+import  -/  ghc-prim-0.5.0.0:GHC.Classes 0bdf3d057a415ec1b84a7b1994efbe47
+import  -/  ghc-prim-0.5.0.0:GHC.Types 89f8de4f08018c9177c98d979eae0e45
+import  -/  Fm 9bed13eba422a6dcfa0904c04506eeff
+  exports: 6bbb9d350dc6396d0e7045faa67747d7
+  rText aa556dd9f485a89cdb3e6b58f399283a
+import  -/  split-0.2.3.2@split-0.2.3.2-CJl40zTyCIV16Pr60nb7CT:Data.List.Split 272c5cfa667e04d85d90f02a3d135474
+import  -/  split-0.2.3.2@split-0.2.3.2-CJl40zTyCIV16Pr60nb7CT:Data.List.Split.Internals be3228c161b442fb4a76d9ed8518c1ed
+import  -/  stm-2.4.4.1@stm-2.4.4.1-JQn4hNPyYjP5m9AcbI88Ve:Control.Concurrent.STM 3662559905a40ae5adbc3e935ac706c8
+import  -/  text-1.2.2.1@text-1.2.2.1-Ji7hMs2U4BkBwavd4taEVR:Data.Text 9ba4693a108b74a0b1eb8f7d38f1abee
+import  -/  text-1.2.2.1@text-1.2.2.1-Ji7hMs2U4BkBwavd4taEVR:Data.Text.IO d1ddb4c76b86ec795cc5ee286ec187f5
+import  -/  text-1.2.2.1@text-1.2.2.1-Ji7hMs2U4BkBwavd4taEVR:Data.Text.Internal a2f6f66c5bb1247458d9fa25257ab188
+import  -/  text-1.2.2.1@text-1.2.2.1-Ji7hMs2U4BkBwavd4taEVR:Data.Text.Show 638b4149d86790151d6d4eeca215be94
+import  -/  tuple-0.3.0.2@tuple-0.3.0.2-fw19c2mVE4S4kTOAA0LW:Data.Tuple.Select 405e4c165e81b4fa47e7a29436c65100
+import  -/  wai-3.2.1.1@wai-3.2.1.1-2ORFowrqBlw8LrI3bTChZy:Network.Wai e06eab6966c3fc7f5e173fa58d96c79e
+import  -/  wai-app-static-3.1.6.1@wai-app-static-3.1.6.1-gjoDM6OMaB4g955Uv7SL8:Network.Wai.Application.Static 62a93db51fc99dafa04c4678c68140e7
+import  -/  wai-app-static-3.1.6.1@wai-app-static-3.1.6.1-gjoDM6OMaB4g955Uv7SL8:WaiAppStatic.Storage.Embedded.Runtime 707b5470a087cad1e7fa0e0ff0ef18e4
+import  -/  wai-websockets-3.0.1.1@wai-websockets-3.0.1.1-JjgAxAV5c0yFK2OAuUmPg6:Network.Wai.Handler.WebSockets 90d30ab8493fb11ef0e90dda70163448
+import  -/  warp-3.2.12@warp-3.2.12-AnsWFn69Lu69AhAbT5JR91:Network.Wai.Handler.Warp 7882063660430e4b8eff4623a135777e
+import  -/  warp-3.2.12@warp-3.2.12-AnsWFn69Lu69AhAbT5JR91:Network.Wai.Handler.Warp.Run 7763b413c4f022cd46acb2a872e733b8
+import  -/  warp-3.2.12@warp-3.2.12-AnsWFn69Lu69AhAbT5JR91:Network.Wai.Handler.Warp.Settings fd980da70c89daba2506675caeed3510
+import  -/  websockets-0.10.0.0@websockets-0.10.0.0-4qOXSq0006bG3ijMKQ7qoF:Network.WebSockets 6c6db55a4906a904845cbbee03c20505
+import  -/  websockets-0.10.0.0@websockets-0.10.0.0-4qOXSq0006bG3ijMKQ7qoF:Network.WebSockets.Connection 6e4ec444728cb783881e570414197d65
+import  -/  websockets-0.10.0.0@websockets-0.10.0.0-4qOXSq0006bG3ijMKQ7qoF:Network.WebSockets.Server 87385010e0296663258e98a8df679c3b
+import  -/  websockets-0.10.0.0@websockets-0.10.0.0-4qOXSq0006bG3ijMKQ7qoF:Network.WebSockets.Types 38fc850932be22bacc111e5f2dded163
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-props.js"
+addDependentFile "./src/dist/snabbdom/dist/tovnode.min.js"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-attributes.js"
+addDependentFile "./src/dist/snabbdom/dist/h.min.js"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-props.min.js.map"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-style.min.js.map"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-eventlisteners.min.js.map"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-class.min.js"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-style.js"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-patch.js"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-class.min.js.map"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-patch.min.js"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-class.js"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-style.min.js"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom.min.js"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-attributes.min.js"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-attributes.min.js.map"
+addDependentFile "./src/dist/snabbdom/dist/h.min.js.map"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-patch.min.js.map"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-eventlisteners.min.js"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-props.min.js"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom-eventlisteners.js"
+addDependentFile "./src/dist/snabbdom/dist/snabbdom.min.js.map"
+addDependentFile "./src/dist/snabbdom/dist/tovnode.min.js.map"
+addDependentFile "./src/dist/snabbdom/perf/benchmarks.js"
+addDependentFile "./src/dist/snabbdom/perf/index.html"
+addDependentFile "./src/dist/snabbdom/src/helpers/attachto.ts"
+addDependentFile "./src/dist/snabbdom/src/modules/class.ts"
+addDependentFile "./src/dist/snabbdom/src/modules/module.ts"
+addDependentFile "./src/dist/snabbdom/src/modules/props.ts"
+addDependentFile "./src/dist/snabbdom/src/modules/style.ts"
+addDependentFile "./src/dist/snabbdom/src/modules/eventlisteners.ts"
+addDependentFile "./src/dist/snabbdom/src/modules/dataset.ts"
+addDependentFile "./src/dist/snabbdom/src/modules/attributes.ts"
+addDependentFile "./src/dist/snabbdom/src/modules/hero.ts"
+addDependentFile "./src/dist/snabbdom/src/thunk.ts"
+addDependentFile "./src/dist/snabbdom/src/vnode.ts"
+addDependentFile "./src/dist/snabbdom/src/tovnode.ts"
+addDependentFile "./src/dist/snabbdom/src/hooks.ts"
+addDependentFile "./src/dist/snabbdom/src/is.ts"
+addDependentFile "./src/dist/snabbdom/src/snabbdom.ts"
+addDependentFile "./src/dist/snabbdom/src/htmldomapi.ts"
+addDependentFile "./src/dist/snabbdom/src/snabbdom.bundle.ts"
+addDependentFile "./src/dist/snabbdom/src/h.ts"
+addDependentFile "./src/dist/snabbdom/examples/carousel-svg/build.js"
+addDependentFile "./src/dist/snabbdom/examples/carousel-svg/index.html"
+addDependentFile "./src/dist/snabbdom/examples/carousel-svg/script.js"
+addDependentFile "./src/dist/snabbdom/examples/carousel-svg/README.md"
+addDependentFile "./src/dist/snabbdom/examples/hero/build.js"
+addDependentFile "./src/dist/snabbdom/examples/hero/index.html"
+addDependentFile "./src/dist/snabbdom/examples/hero/script.js"
+addDependentFile "./src/dist/snabbdom/examples/reorder-animation/build.js"
+addDependentFile "./src/dist/snabbdom/examples/reorder-animation/index.html"
+addDependentFile "./src/dist/snabbdom/examples/reorder-animation/script.js"
+addDependentFile "./src/dist/snabbdom/examples/svg/build.js"
+addDependentFile "./src/dist/snabbdom/examples/svg/index.html"
+addDependentFile "./src/dist/snabbdom/examples/svg/script.js"
+addDependentFile "./src/dist/snabbdom/test/style.js"
+addDependentFile "./src/dist/snabbdom/test/dataset.js"
+addDependentFile "./src/dist/snabbdom/test/core.js"
+addDependentFile "./src/dist/snabbdom/test/attributes.js"
+addDependentFile "./src/dist/snabbdom/test/attachto.js"
+addDependentFile "./src/dist/snabbdom/test/eventlisteners.js"
+addDependentFile "./src/dist/snabbdom/test/index.js"
+addDependentFile "./src/dist/snabbdom/testem.json"
+addDependentFile "./src/dist/snabbdom/gulpfile.js"
+addDependentFile "./src/dist/snabbdom/tsconfig.json"
+addDependentFile "./src/dist/snabbdom/LICENSE"
+addDependentFile "./src/dist/snabbdom/package.json"
+addDependentFile "./src/dist/snabbdom/README.md"
+addDependentFile "./src/dist/xcomments"
+addDependentFile "./src/dist/workerF.js"
+addDependentFile "./src/dist/david_favicon.ico"
+addDependentFile "./src/dist/unchecked.jpg"
+addDependentFile "./src/dist/cycle.png"
+addDependentFile "./src/dist/xstream.js"
+addDependentFile "./src/dist/unchecked.png"
+addDependentFile "./src/dist/logo.jpg"
+addDependentFile "./src/dist/h.js"
+addDependentFile "./src/dist/monadB.js"
+addDependentFile "./src/dist/saveTask.js"
+addDependentFile "./src/dist/monad.js"
+addDependentFile "./src/dist/score.js"
+addDependentFile "./src/dist/script2.js"
+addDependentFile "./src/dist/workerC.js"
+addDependentFile "./src/dist/A.jpg"
+addDependentFile "./src/dist/cycle.js"
+addDependentFile "./src/dist/error2.png"
+addDependentFile "./src/dist/EventEmitter.min.js"
+addDependentFile "./src/dist/xnames"
+addDependentFile "./src/dist/monad_B.js"
+addDependentFile "./src/dist/string.js"
+addDependentFile "./src/dist/style.css"
+addDependentFile "./src/dist/cycle-run.js"
+addDependentFile "./src/dist/index.html"
+addDependentFile "./src/dist/bundle.js"
+addDependentFile "./src/dist/worker.js"
+addDependentFile "./src/dist/demo_000.png"
+addDependentFile "./src/dist/commentsB.js"
+addDependentFile "./src/dist/checked.jpg"
+addDependentFile "./src/dist/A.ico"
+addDependentFile "./src/dist/tasks2.js"
+addDependentFile "./src/dist/workerE.js"
+addDependentFile "./src/dist/snabbdom.js"
+addDependentFile "./src/dist/comments.js"
+addDependentFile "./src/dist/script3.js"
+addDependentFile "./src/dist/tasks.js"
+addDependentFile "./src/dist/logo.svg"
+addDependentFile "./src/dist/workerB.js"
+addDependentFile "./src/dist/primesMonad.png"
+addDependentFile "./src/dist/sources.js"
+addDependentFile "./src/dist/workerD.js"
+addDependentFile "./src/dist/cycle-dom.js"
+8ed030b012e2d2875da949b79d91bc57
+  $s$fShow[]_$s$fShow[]_$cshow ::
+    [Data.Text.Internal.Text] -> GHC.Base.String
+  {- Arity: 1, Strictness: <S,1*U>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (x :: [Data.Text.Internal.Text]) ->
+                 Data.Text.Show.$fShowText_$cshowList
+                   x
+                   (GHC.Types.[] @ GHC.Types.Char)) -}
+e3527e21b0807bce466c7c6e1cf0dd26
+  $stypeOf10 :: GHC.Fingerprint.Type.Fingerprint
+  {- HasNoCafRefs,
+     Unfolding: (GHC.Fingerprint.Type.Fingerprint
+                   17730107610217102821##
+                   9866972337190828755##) -}
+c1f3ae6bc0d2c0764a2571ef12f756c6
+  $stypeOf3 :: Data.Typeable.Internal.TypeRep
+  {- Unfolding: (case Main.$stypeOf9 of wild { Data.Typeable.Internal.TypeRep dt dt1 tc ks trs ->
+                 let {
+                   types :: [Data.Typeable.Internal.TypeRep]
+                   = GHC.Base.++ @ Data.Typeable.Internal.TypeRep trs Main.$stypeOf4
+                 } in
+                 case Data.Typeable.Internal.typeRepFingerprints
+                        ks
+                        types of kt_fps { DEFAULT ->
+                 case GHC.Fingerprint.fingerprintFingerprints
+                        (GHC.Types.:
+                           @ GHC.Fingerprint.Type.Fingerprint
+                           (Data.Typeable.Internal.tyConFingerprint tc)
+                           kt_fps) of dt2 { GHC.Fingerprint.Type.Fingerprint dt3 dt4 ->
+                 Data.Typeable.Internal.TypeRep dt3 dt4 tc ks types } } }) -}
+c3fb2417195fb6dc3b63627736733d8a
+  $stypeOf4 :: [Data.Typeable.Internal.TypeRep]
+  {- Unfolding: (GHC.Types.:
+                   @ Data.Typeable.Internal.TypeRep
+                   Main.$stypeOf5
+                   (GHC.Types.[] @ Data.Typeable.Internal.TypeRep)) -}
+2403f8f27bd1b38897d86db524109aa1
+  $stypeOf5 :: Data.Typeable.Internal.TypeRep
+  {- Unfolding: (case Main.$stypeOf9 of wild { Data.Typeable.Internal.TypeRep dt dt1 tc ks trs ->
+                 let {
+                   types :: [Data.Typeable.Internal.TypeRep]
+                   = GHC.Base.++ @ Data.Typeable.Internal.TypeRep trs Main.$stypeOf6
+                 } in
+                 case Data.Typeable.Internal.typeRepFingerprints
+                        ks
+                        types of kt_fps { DEFAULT ->
+                 case GHC.Fingerprint.fingerprintFingerprints
+                        (GHC.Types.:
+                           @ GHC.Fingerprint.Type.Fingerprint
+                           (Data.Typeable.Internal.tyConFingerprint tc)
+                           kt_fps) of dt2 { GHC.Fingerprint.Type.Fingerprint dt3 dt4 ->
+                 Data.Typeable.Internal.TypeRep dt3 dt4 tc ks types } } }) -}
+e21596d02e80a8091e94fd0dd50b5e61
+  $stypeOf6 :: [Data.Typeable.Internal.TypeRep]
+  {- Unfolding: (GHC.Types.:
+                   @ Data.Typeable.Internal.TypeRep
+                   Main.$stypeOf7
+                   (GHC.Types.[] @ Data.Typeable.Internal.TypeRep)) -}
+2014355ac86170378fe7a0e55c5ef4a0
+  $stypeOf7 :: Data.Typeable.Internal.TypeRep
+  {- Unfolding: (case Data.Typeable.Internal.typeRepFingerprints
+                        (GHC.Types.[] @ Data.Typeable.Internal.TypeRep)
+                        (GHC.Types.[]
+                           @ Data.Typeable.Internal.TypeRep) of kt_fps { DEFAULT ->
+                 case GHC.Fingerprint.fingerprintFingerprints
+                        (GHC.Types.:
+                           @ GHC.Fingerprint.Type.Fingerprint
+                           Main.$stypeOf8
+                           kt_fps) of dt { GHC.Fingerprint.Type.Fingerprint dt1 dt2 ->
+                 Data.Typeable.Internal.TypeRep
+                   dt1
+                   dt2
+                   Data.Text.Internal.$tcText
+                   (GHC.Types.[] @ Data.Typeable.Internal.TypeRep)
+                   (GHC.Types.[] @ Data.Typeable.Internal.TypeRep) } }) -}
+7273ccac180c5c7784cc542567e6e7d1
+  $stypeOf8 :: GHC.Fingerprint.Type.Fingerprint
+  {- HasNoCafRefs,
+     Unfolding: (GHC.Fingerprint.Type.Fingerprint
+                   12296881940790406170##
+                   15333654663109173907##) -}
+3bd2592bd041b6cef40d89ebbcb303dd
+  $stypeOf9 :: Data.Typeable.Internal.TypeRep
+  {- Unfolding: (case Data.Typeable.Internal.typeRepFingerprints
+                        (GHC.Types.[] @ Data.Typeable.Internal.TypeRep)
+                        (GHC.Types.[]
+                           @ Data.Typeable.Internal.TypeRep) of kt_fps { DEFAULT ->
+                 case GHC.Fingerprint.fingerprintFingerprints
+                        (GHC.Types.:
+                           @ GHC.Fingerprint.Type.Fingerprint
+                           Main.$stypeOf10
+                           kt_fps) of dt { GHC.Fingerprint.Type.Fingerprint dt1 dt2 ->
+                 Data.Typeable.Internal.TypeRep
+                   dt1
+                   dt2
+                   GHC.Types.$tc[]
+                   (GHC.Types.[] @ Data.Typeable.Internal.TypeRep)
+                   (GHC.Types.[] @ Data.Typeable.Internal.TypeRep) } }) -}
+d6831ef04cb9301b090dfae6f7bb7ec7
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module Main.$trModule2 Main.$trModule1) -}
+847d9fc3b8e6f0b424199f36b4999bb2
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "Main"#) -}
+24ef6042833e75ffd7aa98b83ecca98d
+  $trModule2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "main"#) -}
+83284d9edeac754215ab5311a8f52f16
+  type Client =
+    (Main.Name, Main.Score, Main.Goal, Main.Group,
+     Network.WebSockets.Connection.Connection, Main.Password,
+     GHC.Types.Int, Main.Comments)
+3e554f2544a708666c7020cd4b0c6b25
+  type Comments = Data.Text.Internal.Text
+e0a653c8f41be3b5f5620075239f54b1
+  type Goal = GHC.Types.Int
+f2f6db132ebdc048fc48856c590a97c0
+  type Group = Data.Text.Internal.Text
+a472a99a7c04ebf46d5224dd5363d131
+  type Name = Data.Text.Internal.Text
+ce714252b9a8b67688a6cca5416e6019
+  type Password = Data.Text.Internal.Text
+8a579b4cda4f4111cce24c2863ec8597
+  type Score = GHC.Types.Int
+9758f2fa6f56fc6be715538de512dc1b
+  type ServerState = [Main.Client]
+d9c0dee8a685c5ed422401aaa63f23bf
+  main :: GHC.Types.IO ()
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: InlineRule (0, True, True)
+                Main.main1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
+01d62c2c484918d4b5d94b688c90c90e
+  main1 ::
+    GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 1, Strictness: <S,U> -}
+129a1a814fa667791781f32a098e848d
+  main2 ::
+    GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 1,
+     Unfolding: (GHC.TopHandler.runMainIO1
+                   @ ()
+                   Main.main1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R))) -}
+"SPEC/Main $fShow[]_$cshow @ Text" [ALWAYS] forall ($dShow :: GHC.Show.Show
+                                                                Data.Text.Internal.Text)
+  GHC.Show.$fShow[]_$cshow @ Data.Text.Internal.Text $dShow
+  = Main.$s$fShow[]_$s$fShow[]_$cshow
+vectorised variables:
+vectorised tycons:
+vectorised reused tycons:
+parallel variables:
+parallel tycons:
+trusted: none
+require own pkg trusted: False
+
