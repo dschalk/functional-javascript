@@ -1,0 +1,14 @@
+Configuring concurrent-extra-0.7.0.11...
+Building concurrent-extra-0.7.0.11...
+Preprocessing library concurrent-extra-0.7.0.11...
+[1 of 8] Compiling Utils            ( Utils.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.2.0/build/Utils.o )
+[2 of 8] Compiling Control.Concurrent.STM.Lock ( Control/Concurrent/STM/Lock.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.2.0/build/Control/Concurrent/STM/Lock.o )
+[3 of 8] Compiling Control.Concurrent.Lock ( Control/Concurrent/Lock.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.2.0/build/Control/Concurrent/Lock.o )
+[4 of 8] Compiling Control.Concurrent.RLock ( Control/Concurrent/RLock.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.2.0/build/Control/Concurrent/RLock.o )
+[5 of 8] Compiling Control.Concurrent.ReadWriteLock ( Control/Concurrent/ReadWriteLock.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.2.0/build/Control/Concurrent/ReadWriteLock.o )
+[6 of 8] Compiling Control.Concurrent.ReadWriteVar ( Control/Concurrent/ReadWriteVar.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.2.0/build/Control/Concurrent/ReadWriteVar.o )
+[7 of 8] Compiling Control.Concurrent.Broadcast ( Control/Concurrent/Broadcast.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.2.0/build/Control/Concurrent/Broadcast.o )
+[8 of 8] Compiling Control.Concurrent.Event ( Control/Concurrent/Event.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.2.0/build/Control/Concurrent/Event.o )
+Installing library in
+/home/e/MonadState/monads-in-javascript/.stack-work/install/x86_64-linux/lts-8.21/8.0.2/lib/x86_64-linux-ghc-8.0.2/concurrent-extra-0.7.0.11-7WfVlgwxQwBHzH2h3r2DUs
+Registering concurrent-extra-0.7.0.11...

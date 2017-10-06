@@ -1,9 +1,9 @@
 
 ==================== FINAL INTERFACE ====================
-2017-10-04 15:55:31.364694 UTC
+2017-10-04 22:22:59.072362 UTC
 
 interface main@main:Main 8002
-  interface hash: b6fd27cd4f4f02ee6ed39419849806cb
+  interface hash: 0380e9d3e15aa87494d5d5f7c0d691f3
   ABI hash: a7b604fd244c087534f9e4a3d3c56ee0
   export-list hash: 245591083a8d89024fd778e797a25555
   orphan hash: a4dfecebc79ce60b10f861f4f94aea44

@@ -1,0 +1,21 @@
+[1 of 2] Compiling Main             ( /tmp/stack10676/concurrent-extra-0.7.0.10/Setup.hs, /tmp/stack10676/concurrent-extra-0.7.0.10/.stack-work/dist/x86_64-linux/Cabal-1.22.5.0/setup/Main.o )
+[2 of 2] Compiling StackSetupShim   ( /home/e/.stack/setup-exe-src/setup-shim-mPHDZzAJ.hs, /tmp/stack10676/concurrent-extra-0.7.0.10/.stack-work/dist/x86_64-linux/Cabal-1.22.5.0/setup/StackSetupShim.o )
+Linking /tmp/stack10676/concurrent-extra-0.7.0.10/.stack-work/dist/x86_64-linux/Cabal-1.22.5.0/setup/setup ...
+Configuring concurrent-extra-0.7.0.10...
+Building concurrent-extra-0.7.0.10...
+Preprocessing library concurrent-extra-0.7.0.10...
+[1 of 8] Compiling Utils            ( Utils.hs, .stack-work/dist/x86_64-linux/Cabal-1.22.5.0/build/Utils.o )
+[2 of 8] Compiling Control.Concurrent.STM.Lock ( Control/Concurrent/STM/Lock.hs, .stack-work/dist/x86_64-linux/Cabal-1.22.5.0/build/Control/Concurrent/STM/Lock.o )
+
+Control/Concurrent/STM/Lock.hs:4:14: Warning:
+    ‘Control.Concurrent.STM.Lock’ is marked as Trustworthy but has been inferred as safe!
+[3 of 8] Compiling Control.Concurrent.Broadcast ( Control/Concurrent/Broadcast.hs, .stack-work/dist/x86_64-linux/Cabal-1.22.5.0/build/Control/Concurrent/Broadcast.o )
+[4 of 8] Compiling Control.Concurrent.Event ( Control/Concurrent/Event.hs, .stack-work/dist/x86_64-linux/Cabal-1.22.5.0/build/Control/Concurrent/Event.o )
+[5 of 8] Compiling Control.Concurrent.Lock ( Control/Concurrent/Lock.hs, .stack-work/dist/x86_64-linux/Cabal-1.22.5.0/build/Control/Concurrent/Lock.o )
+[6 of 8] Compiling Control.Concurrent.RLock ( Control/Concurrent/RLock.hs, .stack-work/dist/x86_64-linux/Cabal-1.22.5.0/build/Control/Concurrent/RLock.o )
+[7 of 8] Compiling Control.Concurrent.ReadWriteLock ( Control/Concurrent/ReadWriteLock.hs, .stack-work/dist/x86_64-linux/Cabal-1.22.5.0/build/Control/Concurrent/ReadWriteLock.o )
+[8 of 8] Compiling Control.Concurrent.ReadWriteVar ( Control/Concurrent/ReadWriteVar.hs, .stack-work/dist/x86_64-linux/Cabal-1.22.5.0/build/Control/Concurrent/ReadWriteVar.o )
+In-place registering concurrent-extra-0.7.0.10...
+Installing library in
+/home/e/.stack/snapshots/x86_64-linux/lts-6.2/7.10.3/lib/x86_64-linux-ghc-7.10.3/concurrent-extra-0.7.0.10-IBLJj0LvtIPERwjjq7R2S0
+Registering concurrent-extra-0.7.0.10...

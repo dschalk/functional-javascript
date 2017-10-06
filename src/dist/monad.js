@@ -72,16 +72,6 @@ function evaluate (x) {
     this.x = z;
     this.id = ID;
   };
-/*
-function bind (m) {
-  return function (func, ...args) {
-    if (func.name === "terminate") return m; 
-    var y = func(m.x, ...args) 
-    var id = testPrefix(args, y.id)
-    return bind(ret(y.x,id));
-  }
-};
-*/
 
 function bind (x, ar = []) {
   this.ar = ar;
@@ -196,9 +186,6 @@ function fmap (f, mon1, ...args) {
 
 
 var m0 = new Monad (0, "m0")
-//retrn(m,2)(square)(square,"$m")(v => ret(console.log(v)).x)
-
-//retrn(m,2)(v => square(v))(square,"$m")(v => ret(console.log(v)).x)
 
   var M = function M(a, b) {
     var mon = new Monad(a, b);
@@ -503,28 +490,6 @@ var workerC = new Worker("workerC.js");
 var workerD = new Worker("workerD.js");
 var workerE = new Worker("workerE.js");
 var workerF = new Worker("workerF.js");
-
-
-function MonadEvents(z = 'default', ID = 'temp') {
-  var _this = this;
-  this.x = z;
-  this.id = ID;
-  this.bnd = function (func, ...args) {
-    var m = func(this.x, ...args)
-    var ID;
-    if (m instanceof MonadEvents) {
-      ID = testPrefix(args, _this.id);
-      window[ID] = new MonadEvents(m.x, ID);
-      return window[ID];
-    }
-    else return m;
-  };
-  this.ret = function (a) {
-    return window[_this.id] = new MonadEvent(a,_this.id);
-  };
-  this.stream = new EventEmitter();
-  this.stream.on(1, v => _this.bnd(v[0], ...[1]));
-};
 
 var pMop = new Monad (0, 'pMop');
 
@@ -1148,22 +1113,9 @@ var getIndex2 = function getIndex2(e) {
         }
     }
 };
+
 var tempstyle = { display: 'inline' };
 var tempstyle2 = { display: 'none' };
-/*
-var timeout = function timeout(x, t, m, args) {
-    setTimeout(function () {
-        m.bnd.apply(m, args);
-    }, t * 1000);
-    return m;
-};
-var timeout2 = function timeout(x, t, m, args) {
-    setTimeout(function () {
-        mMZ9.release();
-    }, t * 1000);
-    return mMZ9.bnd(function () { return m.bnd.apply(m, args); });
-};
-*/
 var mMdisplay = new Monad('display', 'mMdisplay');
 
 function refresh () {
@@ -1261,148 +1213,9 @@ function MonadEr (val, ID, er = []) {
     return window[this.id];
   }
 };
-/*
-console.log('.');
-console.log('.');
-console.log('.');
-console.log('.');
-console.log('.');
-var t = new MonadEr(0,'t', []);
-var t2 = new MonadEr(0,'t2', []);
-var t3 = new MonadEr(0,'t3', []);
-console.log('Values of t, t2, and t3', t.x,t2.x,t3.x)
-console.log("executing t.bnd(\'add3\',3,\'$t2\').bnd(cube3, \'$t3\') ");
-t.bnd('add3',3,'$t2').bnd(cube3, '$t3')
-console.log('Values of t, t2, and t3', t.x,t2.x,t3.x)
-var t = new MonadEr(0,'t', []);
-var t2 = new MonadEr(0,'t2', []);
-var t3 = new MonadEr(0,'t3', []);
-console.log('Values of t, t2, and t3', t.x,t2.x,t3.x)
-console.log("executing t.bnd('add3','three', '$t2').bnd(cube3, '$t3') " );
-t.bnd('add3','three','$t2').bnd(cube3, '$t3')
-console.log('Values of t, t2, and t3', t.x,t2.x,t3.x)
 
-console.log( 't.bnd(clean3)' );
-t.bnd(clean3);
-
-console.log("executing t.bnd('add3', 'Math.sqrt(-1)', '$t2').bnd(cube3, '$t3') " );
-t.bnd('add3','Math.sqrt(-1)','$t2').bnd(cube3, '$t3'); console.log('Values of t, t2, and t3', t.x,t2.x,t3.x)
-console.log( 't.bnd(clean3)' );
-t.bnd(clean3);
-console.log("executing t.bnd(\'addd3\',3,\'$t2\').bnd(cube3, \'$t3\') ");
-t.bnd('addd3',3,'$t2').bnd(cube3, '$t3')
-console.log('Values of t, t2, and t3', t.x,t2.x,t3.x)
-console.log('.');
-console.log('.');
-console.log('.');
-ret(5,'a');ret(5,'b');ret(5,'c');ret(5,'d');ret(5,'e');ret(5,'f');ret(5,'g')
-console.log('Current values of the monads:',a.x,b.x,c.x,d.x,e.x,f.x,g.x);
-console.log('.');
-console.log("ret(0,'a').bnd(add,3,'$b').bnd(mult,100,'$c').bnd(v1 => d, v1*v1)");
-console.log(".bnd(add, v1 - d.x + 100,'$e').bnd(v2 => f, v2*v2)");
-console.log(".bnd(add, d.x,'$g').bnd(sqroot,'$f')");
-console.log(".bnd(v3 => console.log('The sum of',v1,'squared and',v2,'squared is',v3) )" );
-ret(0,'a').bnd(add,3,'$b').bnd(mult,100,'$c').bnd(v1 => d, v1*v1)
-.bnd(add, v1 - d.x + 100,'$e').bnd(v2 => f, v2*v2).bnd(add, d.x,'$g').bnd(sqroot,'$f')
-.bnd(v3 => console.log('The square root of the sum of',v1,'squared and',v2,'squared is',v3))));
-console.log('.');
-console.log('Current values of the monads:', a.x,b.x,c.x,d.x,e.x,f.x,g.x);
-var testArray = [a.x,b.x,c.x,d.x,e.x,f.x,g.x];
-console.log('testArray:',testArray.join(', '));
-console.log("a, 7); b, 7); c, 7); d, 7); e, 7); f, 7); g, 7);");
-a, 7); b, 7); c, 7); d, 7); e, 7); f, 7); g, 7);
-console.log('Current values of the monads:',a.x,b.x,c.x,d.x,e.x,f.x,g.x);
-console.log("'testArray:',testArray.join(', ')");
-console.log('testArray:',testArray.join(', '));
-console.log('.');
-console.log('The monads in testArray were not replaced or mutated when the x attributes of a, b, c, d, e, f and g were were assigned the value of 7.');
-console.log('.');
-console.log('.');
-console.log('.');
-console.log('When monads call their ret() methods, new instances of Monad are created.' );
-console.log('.');
-console.log('.');
-*/
-
-// ***************************************************************************
-
-// I can find no use for monad emitters and listeners in the Cycle.js application.
 
 var mMindex2 = new Monad(0,'mMindex2');
-
-class MonadEmitter extends EventEmitter {};
-
-function monadConstructor (v,b) {
-  var c = new MonadEmitter();
-  c.x = v;
-  c.id = b;
-  c.bnd = function (func, ...args) {
-    console.log(func);
-    var m = func(c.x, ...args)
-    console.log(m);
-    var ID;
-    if (m instanceof MonadEmitter) {
-      ID = testPrefix(args, c.id);
-      window[ID] = monadConstructor(m.x, ID);
-      return window[ID];
-    }
-    else return m;
-  }
-  c.on(0, v => {
-    console.log(v)
-    return v
-  });
-  c.on(1, v => {
-      var mon = monadConstructor(v, c.id);
-      return window[c.id] = mon;
-  })
-  console.log(v);
-  c.on(2, v => c.bnd(v))
-  return c;
-};
-
- function MonadState2(g, state) {
-  this.id = g;
-  this.s = state;
-  this.c = new EventEmitter();
-  this.bnd = (func, ...args) => func(this.s, ...args);
-  this.ret = function (a) {
-    return window[this.id] = new MonadState(this.id, a);
-  };
-  this.c.on(1, st => {
-    retrn( mMindex2,(mMindex2.x + 1) );
-    var a = this.s.slice();
-    a.splice(mMindex2.x, 0, st);
-    window[this.id] = new MonadState2(this.id, a);
-  })
-};
-
-var mMstream = monadConstructor(0, 'mMstream')
-
-var mMstream2 = new MonadState2('mMstream2', [ [ 0, 0, 0, [], [] ] ] );
-
-
-
-// mMstream.emitEvent(1, ["Hello world. What a beautiful life. Joy and deep satisfaction. Yes",'$mM33'])
-
-setTimeout( function () {
-console.log('************************ Here is mMstream.x', mMstream.x)
-},500 );
-
-/*function mMstreamDriver () {
-  return xs.create({
-    start: listener => { mMstream.x.on(1,msg) = msg => listener.next(msg)},
-    stop: () => { mMstream.removeAllListeners() }
-  });
-};
-
-function mMstream2Driver () {
-  return xs.create({
-    start: listener => { mMstream2.x.on(1,msg) = msg => listener.next(msg)},
-    stop: () => { mMstream.removeAllListeners() }
-  });
-};*/
-
 
 // ***************************************************************************
 
@@ -1422,20 +1235,6 @@ class G extends Polygon {
 var ops = ['+','-','*','/', 'concat'];
 var nums = [3,4,5,6];
 
-var eM1 = monadConstructor(0,'eM1') ;
-var eM2 = monadConstructor(0,'eM2');
-var eM3 = monadConstructor(0,'eM3');
-var eM4 = monadConstructor(0,'eM4');
-// eM2.on('EC42', (...args) => console.log('Here is a received message:', args.join(', ')));
-eM2.bnd(v => ['Hello girls', 'Here is the value of eM2', v, 256000 - 245997, 'you bet.'])
-//eM2.emitEvent(1,[888]);
-//console.log(eM2.emitEvent(1,[444]));
-//console.log('2()()()()()()() Here is eM2.x:', eM2.x);
-// eM3.on('3', (x,y,z) => m, z*z*z).bnd((a) => console.log(a,x,y)))
-eM3.bnd(v => ret(['em3.x squared is', v*v, 'Here are more numbers:', 23, 44, 3]));
-var a = 'a';
-console.log('3()()()()()()() Here is eM2.x:', eM2.x);
-
 var mMregister = new Monad('', 'mMregister');
 
 var f7 = function f7 () {
@@ -1453,40 +1252,6 @@ return ar
 
 var x = f7();
 console.log(x)
-
-var em = new EventEmitter;
-var eventEmitter = new EventEmitter;
-var em2 = new EventEmitter;
-em2.on('42',x => console.log(x));
-
-var producer = {
-  start: function (listener) {
-    this.id = em.emit('cow',45)
-  },
-
-  stop: function () {
-  },
-
-  id: 0
-}
-
-var listener = {
-  next: (x) => {
-    em.on(1, x => console.log('Yes sir.',x))
-  },
-  error: (err) => {
-    console.error('The Stream gave me an error: ', err);
-  },
-  complete: () => {
-    console.log('The Stream told me it is done.');
-  },
-}
-
-var stream$ = xs.of(producer)
-
-stream$.addListener(listener)
-
-// em.emit(1,'Whatever you say, sir.');
 
 console.log('Almost at the bottom of monad.js primesMonad is', primesMonad );
 

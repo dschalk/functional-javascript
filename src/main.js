@@ -21,7 +21,6 @@ async function getProcessedData(url) {
   return processDataInWorker(v);
 }
 */
-
 function login () {
   console.log('000000000000000000000000000000000000000000000 Entering login', socket.readyState);
   setTimeout(function () {
@@ -101,7 +100,7 @@ function main(sources) {
      });
      gameData = ar;
    });
-
+    
    mMZ16.bnd( () => {                          // Prefix RR#$42
      var str = mMcommentStr.x;
      if (extra2 === "code1") {
@@ -835,19 +834,15 @@ h('pre', {style: {fontStyle: "italic", color: "#f7f700" }},`      Understanding 
       adrift in a sea of confusion. 
       understanding with practice
       smooth sailing through every challenge ` ),
-h('p', ' Here is the definition of Monad: ' ),
+h('p', ' This is the definition of Monad: ' ),
 h('pre', {style: { color: "rgb(181, 244, 240)" }},   `    function Monad(z = 'default', ID = 'tempMonad') {
       this.x = z;
       this.id = ID;
     }; ` ),
-h('p', ' "monads" in this discussion are objects m where for which "m instanceOf Monad" returns "true". Before expounding upon the power and versatility monads used in combination with the function "bind()", I first present the game, task, chat, group change, and name/password change demonstrations: '), 
-
-
-
-
+h('p', ' Before explaining how the monads work, I invite you to try out some examples of monads in action.'), 
 
 h('h2', ' A Few Monad Demonstrations ' ),
-h('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history (all group members see your score decrease or increase as you navigate backwards and forwards). Monads are shown performing lengthy mathematical computations asyncronously in web workers. Variations on the Monad theme encapsulate state. The error checking monad carries occurrences of NaN and runtime errors through sequences of computations much like the Haskell Maybe monad. ' ),
+h('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history. All group members see your score decrease or increase as you navigate backwards and forwards. ' ),
       h('span.tao', ' The game code is fairly concise and intuitive. A quick walk-through is presented at.' ),
       h('a', { props: { href: '#gameExplanation' } }, 'here'),
       h('span', '. To see monadic functionality at work, I suggest that you take a look at the section captioned ' ),
@@ -910,13 +905,13 @@ h('div#gameDiv2', {style: { display: mMgameDiv2.x }}, [
     h('br'),
     h('br'),
     h('br'),
-    h('span', '*****************************************************'),
+    h('span', '__________________________________________ ' ),
     h('div', {style: {fontSize: "14 px"}}, 'Name: ' + pMname.x ),
     h('div', {style: {fontSize: "14 px"}}, 'Group: ' + pMgroup.x ),
     h('br'),
     h('div', {style: {fontSize: "14 px"}}, gameData),
     h('br'),
-    h('div#a100', ' _________________________________________________ ' ),
+    h('div#a100', ' _____________________________________ ' ),
     h('p.italic', ' Join group "t" if you want to see some previously created tasks. ' ),
     h('div',  { style: { display: showTodoDiv } }, [
       h('div', taskMonad.html ),
@@ -936,30 +931,31 @@ h('div#gameDiv2', {style: { display: mMgameDiv2.x }}, [
         h('br'),
       ])
     ])
-  ])
 ]),
 h('br'),  
 h('br'),  
 h('br'),  
-
+h('br'),  
+h('span', '_____________________________________________________________________________________'),  
+h('br'),  
+h('br'),  
+h('div.content', [
 h('h2', 'Monads' ),  
 
 
 
 
-  h('p', ' As mentioned above, "monads" are objects "m" for which m "instanceof Monad" returns true. Using "instance" in the JavaScript sense of the word, monads are are instances of Monad. x is a monad where x = new Monad(0,"x"). The monads presented here are created with two attributes, id and x, and no methods. For any monad mon, mon.x and mon.id are what I often refer to as its "value" and the "name" respectively. ' ),
-h('p', ' The functions bind() and ret() are similar in many ways to >>= (known as "bind") and return in the Haskell programming language. Only here, in this astonishingly chaotic world of JavaScript, there is only one type of monad and the functions (bind and ret) and methods (bnd() and ret()) on which they depend operate on only one type: every possible JavaScript value. All of them return monads. A monad can be a wrapper for a primitive value, and array, a monad, or anything else so returning a monad does not limit what can be accomplished. ' ),
-h('p', ' We begin with a discussion of bind() and ret(). The bnd() and ret() methods were added to the Monad prototype and will be discussed later. '),
-h('p', ' bind accepts any JavaScript value as its argument and returns a function that operates on functions, always returning a similar function until it encounters the "terminate" flag. There is one restriction on the values returned by the functions that come after a call to bind: They must return monads. This is not a substantive restriction since any value can be wrapped in a monad. ' ),
-h('p', ' ret() wraps values in monads.'), 
-h('pre', `  ret(v) = m where m.x = v `),
-h('p', ' Here is the definition of ret(): ' ),
+  h('p', ' As mentioned above, "monads" are objects "m" for which m "instanceof Monad" returns true. Using "instance" in the JavaScript sense of the word, monads are are instances of Monad. var x = new Monad(0,"x") instantiates a monad named "x" whose value (x attribute) is 0. '),
+h('p', ' Later, I will show you the two methods that I added to Monad.prototype. They facilitate chaining computations in the traditional JavaScript way, using internal methods rather than external functions. But first I will present the less object oriented, more Haskell-like way to link computations. ' ),
+h('p', ' The functions bind() and ret() are similar in many ways to >>= (known as "bind") and return in the Haskell programming language. Only here, in this astonishingly chaotic world of JavaScript, there is only one type of monad. Functions used in chains of computations operate on only one type: every possible JavaScript value. They are required to return monads, but since any JavaScript value can be wrapped in a monad, this requirement is not a restriction. ' ),
+h('p', ' By the way, I don\'t write code completely oblivious to types. I do build type checking into functions sometimes. If a user inserts the wrong type of data, I want a message explaining the situation to appear, and I certainly don\'t want the application to crash. Another alternative is to code with Typescript. The monads don\'t force type checking on you, but it certainly is an option. ' ),
+h('p', ' Arguments provided to bind() can be any JavaScript value optionally followed by an array. If no array is provided, the default empty array [] is used. bind() returns a function that accepts functions with no restrictions on what arguments they accept but, as mentioned above, which must return monads. ret() is a convenient function for wrapping values in monads. Here is its definition: ' ),
 h('pre', `  function ret (val = 0, id = "retDefault") {
     return window[id] = new Monad(val, id);
   } ` ),
-h('p', ' A chain of computations returns an array of each succeeding computation. Here\'s an example: '),
+h('p', ' A chain of computations ends when it encounters the "terminate" flag. An array containing the value of every monad returned by the linked computations is then returned. Here\'s an example: '),
 h('pre', `  bind(0)(v => ret(v+3))(v => ret(v*v*v))(terminate) // [3,27] `),
-h('p', ' Despite the way it looks, (v => ret(v+3)) doesn\'t take (v => ret(v*v*v)) as its argument. bind(0) obviously affects the expressions that follow it. Here how: '),
+h('p', ' Despite the way it looks, (v => ret(v+3)) doesn\'t take (v => ret(v*v*v)) as its argument. The function returned by bind(v => ret(v+3).x) operates on (v => ret(v+3)). '),
 h('pre', {style: {color: "lightBlue"}}, `  function bind (x, ar = []) {
     this.ar = ar;
     return function (func, ...args) {
@@ -969,9 +965,9 @@ h('pre', {style: {color: "lightBlue"}}, `  function bind (x, ar = []) {
       return bind(y.x, ar);
     }
   };  ` ),
-h('p', ' The invisible functions that stand ready to operate on the next function you provide are the return values of bind(m.x) where m is the return value of the previous function. bind is coded only once, at the beginning, but it executes repeatedly along a chain of computations until it reaches the "terminate" flag. ' ),
+h('p', ' As you see in the definition above, the invisible functions that stand ready to operate on the next function you provide are the return values of bind(m.x) where m is the return value of the previous function. bind is coded only once, at the beginning, but it executes repeatedly along a chain of computations until it reaches the "terminate" flag. ' ),
 h('p', ' Here\'s another way of saying essentially the same thing: If m is returned by the most recent function you have added to the chain, the return value of bind(m.x) awaits your next addition. ' ),
-h('p', ' Let\'s examine bind more closely. By using "ar" in three places, the following example illustrates the fact that the result of every computation in a chain is available to every computation that comes after it. ' ),  
+h('p', ' The result of every computation in a chain is available to every computation that comes after it. Here\'s an example:' ),  
   
 h('pre', `  bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[0]))(multC(ar[0]))
   (addC(30))(multC(1/ar[2]))(terminate)
@@ -987,18 +983,16 @@ h('pre', `    const addC = a => b => ret(a+b);
     const cubeC = a => ret(a*a*a);  ` ), 
 h('p', ' addC() and multC() return curried function when given one argument. For example: ' ),
 h('pre', `  eq((b => ret(3+b)),addC(3))   // true  ` ),
-h('p',' Indeed, lambda expressions can be substituted for addC, multC, and cubeC above as shown below: '), 
+h('p',' Lambda expressions can be substituted for addC, multC, and cubeC. '), 
 h('pre', `  bind(1)(v=>ret(v+2))(v=>ret(v*v*v))(v=>ret(v+3))
   (v=>ret(v*(ar[0])))(v=>ret(v*(ar[0])))(v=>ret(v+30))
   (v=>ret(v*(1/ar[2])))(terminate)
    // [3, 27, 30, 90, 270, 300, 10] `),
-h('p', ' bind()\'s second argument is an array that is automatically provided. It is possible to substitute any array you like for the default starting array []. ' ),
-
-h('span.tao', ' Values v that satisfy "v instanceof Monad" (called "monads" in this discussion) are very different from the Haskell monads, but they are similar in that both behave like the monads of category theory without actually being category theory monads. See ' ),
+h('span.tao', ' Values v that satisfy "v instanceof Monad" (what I call "monads" in this discussion) are very different from the Haskell monads, but they are similar in that both behave like the monads of category theory without actually being category theory monads. See ' ),
 h('a', { props: { href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/", target: "_blank" } }, 'Hask is not a category.'),
     h('span', ' by Andrej Bauer and the ' ),
     h('a', { props: { href: '#discussion' } }, 'Discussion'),
-    h('span', ' below. They provide a convenient interface for dealing with uncertainty and side effects in a purely functional manner. Adherence to the monad laws (see below) helps instill confidence that the monads are robust, versatile, and reliable tools for isolating and chaining sequences of javascript functions. ' ),
+    h('span', ' below. They provide a convenient interface for dealing with uncertainty and side effects in a purely functional manner. Adherence to the monad laws (see below) helps instill confidence that the monads are robust, versatile, and reliable tools for isolating and chaining sequences of JavaScript functions. ' ),
 h('br'),
 h('br'),
 h('span.tao', ' Reactivity occurs naturally in the Cycle.js framework. Some developers find that Cycle.js has a steep learning curve. It isn\'t so bad if you start with Andr Staltz\' '),
@@ -1006,7 +1000,7 @@ h('a', { props: { href: "https://egghead.io/courses/cycle-js-fundamentals", targ
 h('span', ' Its sheer elegance might take your breath away. ' ),
 h('br' ),
 h('br' ),
-h('span.tao', ' The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with my Haskell websockets server. ' ),
+h('span.tao', ' The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with a Haskell websockets server. ' ),
 h('br'),
 h('br'),
 h('span.tao', 'This project was created by and is actively maintained by me, David Schalk. The code repository is at '),
@@ -1023,7 +1017,7 @@ h('span', ' and most of the monads and functions presented here are available in
 h('br' ),
 
 h('h2', 'Alternative Monad Functionality' ),
-h('p', ' Chaining of JavaScript procedures usually occurs by means of methods inside of linked objects. rather than by means of external functions like bind(). Instances of Monad can also link by means of a method. It is called "bnd()" and it, along with "ret()", were made available as follows: ' ),
+h('p', ' Instances of Monad can also link by means of the method "bnd()". It, along with the method "ret()", were made available as follows: ' ),
 h('pre',  {style: {color: "rgb(236, 242, 186)"   }}, `  Monad.prototype.bnd = function (func, ...args) {
     var m = func(this.x, ...args)
     var ID;
@@ -1050,7 +1044,8 @@ h('pre',  {style: {color: "rgb(236, 242, 186)"   }}, `  Monad.prototype.bnd = fu
     }
     return t;
   }; ` ),
-h('p', ' This seems less functional, less like Haskell. It doesn\'t pass functions down the chain but rather objects with exposed methods. But is has appealing features. Look how values move along the chain until, at the end they combine to yield 42. This would be impossible with bind(), which is why bind() has ar. The code below resembles a lambda calculus expression, and the lambda calculus is the essence of functional programming, resting close to the eternal Tao.' ),
+h('p', ' This seems less functional, less like Haskell. It doesn\'t pass functions down the chain but instead, it passes monads with exposed methods. But is has appealing features. Look how values move along the chain until, at the end they combine to yield 42. Explicitly passing values down the line is impossible with bind(); but with bind(), all functions have access to ar where they can find the values of every monad returned by previous functions. '),
+h('p', 'The code below resembles a lambda calculus expression, and the lambda calculus is the essence of functional programming, resting close to the eternal Tao. But intermediate functions along a linked chain of computations can instantiate monads in the global space, a feature which can be convenient and which doesn\'t have to be dangerous; but a function that uses this feature is not pure and impure functions are anathema to functional programming. ' ),
 h('pre', `  ret(2).bnd(v => add(v,1).bnd(cube).bnd(p => add(p,3)
   .bnd(() => ret(p/3).bnd(add,3).bnd(z => [v,p,z,v*p-z]))))
     // [1,27,12,42] ` ),
@@ -1109,8 +1104,6 @@ h('span', ' and ' ),
 h('a', {props: {href: "https://github.com/fantasyland/fantasy-land"}}, "Fantasy Land." ),
 h('div#a100', ' ____________________________________________________________________________________________________________ ' ),
 h('span', ' For me, superimposing such abstractions over JavaScript takes too much versatility away from it. It is easy to include some type checking code in function definitions where it is thought to be helpful. For example, if someone enters inappropriate data in a form, a message explaining the mistake can be displayed. I enjoy the freedom and built-in polymorphism of JavaScript as it is. Call me an anarchist. ' ),
-h('div.content', [
-
 
  // **************************************************************************** START MONAD
  // **************************************************************************** END MONAD
@@ -1501,6 +1494,7 @@ function score(result) {
   h('p'),
   h('p'),
   h('p')
+          ])
         ])
       ])
     })
