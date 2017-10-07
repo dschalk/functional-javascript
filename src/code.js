@@ -1441,7 +1441,6 @@ h('pre', `
     function MonadState(g, state) {
       this.id = g;
       this.s = state;
-      this.bnd = (func, ...args) => func(this.s, ...args);
     }    ` ),
 
 h('p', ' The first demonstration displays the Fibonacci series up to an upper bound entered in the browser by a user. It also displays a list of the prime Fibonacci numbers in the list of Fibonacci numbers, along with the largest prime number that was generated during a computation. ' ),

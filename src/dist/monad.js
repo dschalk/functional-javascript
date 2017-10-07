@@ -593,13 +593,8 @@ function MonadArchive(g, state, p) {
 var primesMonad = new MonadState('primesMonad', [3, [2,3], 3, [2,3]]);
 
 function MonadState(g, state) {
-  console.log(g,'called MonadState with', state);
   this.id = g;
   this.s = state;
-  this.bnd = (func, ...args) => func(this.s, ...args);
-  this.ret = function (a) {
-    return window[this.id] = new MonadState(this.id, a);
-  };
 };
 
 var mMg = new Monad([], 'mMg');
