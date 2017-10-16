@@ -53,11 +53,10 @@ MonadState2.prototype.edit = function(k, s) {
 }
 
 MonadState2.prototype.toggle = function(k) {
-  var el = this.s[1].slice(k,k+1);
-  var ar = el.split("<$>");
-  ar[1] = ar[1] === "true" ? "false" : "true"
-  var str = ar.join("<$>");
-  this.s[1].splice(k,1,str);
+  var a  = taskMonad.s[1][1].split("<$>")[1] === "true" ? "false" : "true"
+  var b = taskMonad.s[1][1]
+  var c = b.split("<$>");
+  taskMonad.s[1][1] = c[0]+"<$>"+a+"<$>"+c[2]+"<$>"+c[3]
   this.html = bp2(this.s[1]);
   return this.html;
 }

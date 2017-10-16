@@ -1,0 +1,21 @@
+bind(v) returns a function f1 that takes argument func amd optional arguments.
+
+f2 operates on v as follows: f1(func,args) = bind(func(v, ...args).x, ar) a/k/a bind(v2)
+
+bind(v2) returns a function f2 that takes argument func2 and optional arguments. 
+
+What is func2(v2, ...args) if v2 is a promise?
+
+func2 would have to be a function that operates on promises. 
+
+var f = promise => g => {
+  var a;
+  promise.then(v => a = v)
+  return g(a);
+}
+
+
+
+
+
+

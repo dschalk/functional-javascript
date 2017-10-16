@@ -73,19 +73,134 @@ function evaluate (x) {
     this.id = ID;
   };
 
-function bind (x, ar = []) {
-  this.ar = ar;
-  return function (func, ...args) {
-    if (func.name === "terminate") return ar;
-    var y = func(x, ...args) 
-    ar.push(y.x);
-    return bind(y.x, ar);
-  }
+var bindResult = new Monad(0,'bindResult');
+
+var lock = false;
+
+async function lockBind (x,ar) {
+  await wait(500)
+  bind(x,ar);
+}
+
+async function squareP (x) {
+  await wait(2000) 
+  return x*x;
+}
+
+async function cubeP (x) {
+  await wait(2000) 
+  return x*x*x;
+}
+
+function wait(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
+async function safety (x,ar) {await wait(200); bind(x,ar)};
+
+async function sleep (t) {
+  setTimeout(function () { return "done" }, t);
 };
+
+function testMon(f,v,...args) {
+  if (f(v,...args) instanceof Monad) return true;
+  else return false;
+}
+
+function testProm(f,v,args) {
+  if (f(v,...args) instanceof Promise) return true;
+  else return false;
+}
+
+async function bindPromise(f,x,args) {
+  var d;
+  console.log('<1> In bindPromise. d is',d);
+  await ((f(x, ...args).then(function (v) {
+    d = v;
+    console.log('<2> Still in bindPromise. d is',d);
+  })));
+  console.log('<3> <><><><> d is', d);
+  return d;
+}
+
+ function bind (x, ar = []) {
+    this.ar = ar;
+    if (ar.length === 0) ar = [x];
+    return function (func, ...args) {
+      if (func.name === "terminate") return ar;
+      var y = func(x, ...args) 
+      ar.push(y.x);
+      return bind(y.x, ar);
+    }
+  };  
+/*
+function bind2 (x, args, ar = []) {
+  return async function (func, ...args) {
+    await 
+   
+      if (func.name === "terminate") return ar;
+      var y = func(x, ...args) 
+      ar.push(y);
+      return bind2(y.x, ar);
+    }
+  };  
+*/
+/*
+function bind (x, ar = []) {
+  safety();
+  var that = this;
+  if (lock === true) { 
+    console.log('lock === true', lock === true);
+    lockBind(x, ar) 
+  }
+  lock = true;
+  this.ar = ar;
+  if (ar.length === 0) this.ar.push(x);
+  lock = false;
+  return function (func, ...args) {
+    console.log('this.ar',this.ar);
+    console.log('that.ar',that.ar);
+    var value;
+    if (func.name === "terminate") return ar;
+    if (testMon(func,x,args,that.ar)) {
+      var y = func(x, ...args);
+      this.ar.push(y.x)
+      console.log('<@><$><@> POW <@><$><@> WOW <@><$><@> y instanceof Monad -- ar is',ar);
+      return bind(y.x,that.ar);
+    }
+
+    if (testProm(func,x,args)) {
+       return bindPromise(func,x,args);
+    }
+  }
+}     */ 
+
+(async function hello() {
+  await wait(4000);
+  console.log( 'Hello Nurse, you awesome woman.' );
+  return ret('Oh Nurse, you tear me up');
+})()
+
+ async function trylock () { 
+   await wait(1000);
+   console.log('<%><>%<%><><%><><%><><%><><%> in tryLock');
+   if (this.lock === true) { 
+     console.log('this.lock = true');
+     return trylock()
+   }
+   else { this.lock = true } 
+  };
 
 function ret (val = 0, id = "retDefault") {
   return window[id] = new Monad(val, id);
 }
+
+async function bindWait (x) {
+  await wait(2000)
+  return bind(x(id));
+}
+
+function id (x) {return x}
 
   Monad.prototype.bnd = function (func, ...args) {
     var m = func(this.x, ...args)
@@ -95,11 +210,22 @@ function ret (val = 0, id = "retDefault") {
       window[ID] = new Monad(m.x, ID);
       return window[ID];
     }
+    if (m instanceof Promise) {
+      this.getVal(func,this.x,args);
+      return this;
+    }
     else return m;
   };
 
   Monad.prototype.ret = function (a) {
     return window[this.id] = new Monad(a, this.id);
+  };
+  
+  Monad.prototype.getVal = async function fg (f,v,args = []) {
+    var g = "Fish";
+    await f(v, ...args).then(v => (g = v))
+    window[this.id] = new Monad(g, this.id);
+    return window[this.id];
   };
 
   function testPrefix (x,y) {
@@ -978,13 +1104,13 @@ function primes(n, ar) {
       }, time);
       return mon2;
   };
-  var wait = function wait(x, y, mon) {
+ /* var wait = function wait(x, y, mon) {
       if (mon === void 0) { mon = mMtemp5; }
       if (x === y) {
           mon.release();
       }
       return mon;
-  };
+  }; */
 
   var toFloat = function toFloat(x) {
       return ret(parseFloat(x));
@@ -1881,7 +2007,9 @@ function solve2 () {
     }) 
   }) 
 } 
-  
+ 
 
-
-
+  console.log('*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*');
+  console.log( 'Hello Nurse' );
+  console.log('*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*');
+ 

@@ -10,17 +10,13 @@ socket.addEventListener('message', function (event) {
   console.log('<$><$><$><$><$><$><$><$><$> $$ Message from server: event.data ', event.data);
 });
 
-/*
-async function getProcessedData(url) {
-  let v;
-  try {
-    v = await downloadData(url); 
-  } catch(e) {
-    v = await downloadFallbackData(url);
-  }
-  return processDataInWorker(v);
-}
-*/
+(async function hello() {
+  await wait(2000);
+  console.log('*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*');
+  console.log( 'Hello Nurse, you beautiful woman.' );
+  console.log('*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*');
+})()
+
 function login () {
   console.log('000000000000000000000000000000000000000000000 Entering login', socket.readyState);
   setTimeout(function () {
@@ -954,7 +950,7 @@ h('pre', `  function ret (val = 0, id = "retDefault") {
     return window[id] = new Monad(val, id);
   } ` ),
 h('p', ' A chain of computations ends when it encounters the "terminate" flag. An array containing the value of every monad returned by the linked computations is then returned. Here\'s an example: '),
-h('pre', `  bind(0)(v => ret(v+3))(v => ret(v*v*v))(terminate) // [3,27] `),
+h('pre', `  bind(0)(v => ret(v+3))(v => ret(v*v*v))(terminate) // [0,3,27] `),
 h('p', ' Despite the way it looks, (v => ret(v+3)) doesn\'t take (v => ret(v*v*v)) as its argument. The function returned by bind(v => ret(v+3).x) operates on (v => ret(v+3)). '),
 h('pre', {style: {color: "lightBlue"}}, `  function bind (x, ar = []) {
     this.ar = ar;
@@ -969,12 +965,12 @@ h('p', ' As you see in the definition above, the invisible functions that stand 
 h('p', ' Here\'s another way of saying essentially the same thing: If m is returned by the most recent function you have added to the chain, the return value of bind(m.x) awaits your next addition. ' ),
 h('p', ' The result of every computation in a chain is available to every computation that comes after it. Here\'s an example:' ),  
   
-h('pre', `  bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[0]))(multC(ar[0]))
-  (addC(30))(multC(1/ar[2]))(terminate)
-  returns [3, 27, 30, 90, 270, 300, 10] `),
+h('pre', `  bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[1]))(multC(ar[1]))
+  (addC(30))(multC(1/ar[3]))(terminate)
+  returns [1, 3, 27, 30, 90, 270, 300, 10] `),
 h('p', ' Or to get only the final result: ' ),
-h('pre', `  bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[0]))(multC(ar[0]))
-  (addC(30))(multC(1/ar[2]))(terminate).pop()  returns 10  ` ),
+h('pre', `  bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[1]))(multC(ar[1]))
+  (addC(30))(multC(1/ar[3]))(terminate).pop()  returns 10  ` ),
 h('p', ' addC, cube and multC (above) are defined as follows: ' ), 
 h('pre', `    const addC = a => b => ret(a+b);
       
@@ -985,9 +981,9 @@ h('p', ' addC() and multC() return curried function when given one argument. For
 h('pre', `  eq((b => ret(3+b)),addC(3))   // true  ` ),
 h('p',' Lambda expressions can be substituted for addC, multC, and cubeC. '), 
 h('pre', `  bind(1)(v=>ret(v+2))(v=>ret(v*v*v))(v=>ret(v+3))
-  (v=>ret(v*(ar[0])))(v=>ret(v*(ar[0])))(v=>ret(v+30))
-  (v=>ret(v*(1/ar[2])))(terminate)
-   // [3, 27, 30, 90, 270, 300, 10] `),
+  (v=>ret(v*(ar[1])))(v=>ret(v*(ar[1])))(v=>ret(v+30))
+  (v=>ret(v*(1/ar[3])))(terminate)
+   // [1, 3, 27, 30, 90, 270, 300, 10] `),
 h('span.tao', ' Values v that satisfy "v instanceof Monad" (what I call "monads" in this discussion) are very different from the Haskell monads, but they are similar in that both behave like the monads of category theory without actually being category theory monads. See ' ),
 h('a', { props: { href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/", target: "_blank" } }, 'Hask is not a category.'),
     h('span', ' by Andrej Bauer and the ' ),
@@ -1090,7 +1086,7 @@ h('a', { props: { href: '#top' } }, 'Back To The Top'),
 h('h3', ' Discussion ' ),
 h('span.tao', ' The Haskell statement ' ),
 h('span.turk6', `f \u2261 g` ),
-h('span', ' means that f x == g x for all Haskell values x in the domain of f. That is what eq() tests for, in addition to identity of id attributes. In JavaScript, "==" and "===" return false for identical objects that are in different locations in memory.' ),
+h('span', ' returns True if and only if f x == g x for all Haskell values x in the domains of f and g. That is what eq() tests for, in addition to identity of id attributes. In JavaScript, "==" and "===" return false for identical objects that are in different locations in memory.' ),
 h('br'),
 h('br'),
 h('span.tao',' The Haskell programming language borrowed the term "monad" from the branch of mathematics known as category theory. This was appropriate because Haskell monads, along with the function return and the "bind" operator >>=, behave quite a bit like category theory monads, and the inspiration for them came out of category theory. For Haskell monads to actually be category theory monads, they would need to reside in a category-theory category. They don\'t, although the Haskell mystique tends to give newcomers to the language the impression that they do. See ' ),
@@ -1164,7 +1160,8 @@ h('span#PF_21.red6', 'The largest generated prime number.'),
 h('br'),
 h('span#PF_22.turk', mMres.x[1]  ),
 h('br'),
-
+h('h3', ' Promises and async/await are not needed ' ),
+h('p', ' Because this code is running in Cycle.js, waiting for websockets messages to come in and waiting for time consuming procedures to complete without blocking is easily accomplished without using promises or async/await. Drivers stand ready to process websockets and web worker messages. '),   
 
 h('p', ' The second demonstration in this series decomposes numbers into its their prime factors. Testing with sequences of 9\'s, the first substantial lag occurs at 9,999,999 - unless a large array of prime numbers has already been generated in the previous demonstration or elsewhere. Here it is:' ),
 h('input#factors_1'),
