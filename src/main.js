@@ -953,7 +953,7 @@ h('pre', `  function ret (val = 0, id = "retDefault") {
 h('p', ' A chain of computations ends when it encounters the "terminate" flag. An array containing the value of every monad returned by the linked computations is then returned. Here\'s an example: '),
 h('pre', `  bind(0)(v => ret(v+3))(v => ret(v*v*v))(terminate) // [0,3,27] `),
 h('p', ' Despite the way it looks, (v => ret(v+3)) doesn\'t take (v => ret(v*v*v)) as its argument. The function returned by bind(v => ret(v+3).x) operates on (v => ret(v+3)). '),
-h('p', '  The following definition of bind() handles promises and monads. I retained the console.log lines so I could better demonstrate what happens in the asynchronous example.'), 
+h('p', '  The following definition of bind() handles promises and monads. I retained the console.log lines so I could better demonstrate what happens in the examples.'), 
 h('pre', {style: {color: "lightBlue"}}, `  function bind (x, ar = [], args) {
     this.ar = ar;
     var xano = "Charles"
@@ -1017,7 +1017,7 @@ h('pre', `  bind(1)(v=>ret(v+2))(v=>ret(v*v*v))(v=>ret(v+3))
    // [1, 3, 27, 30, 90, 270, 300, 10] `),
 h('p', ' Now we take a look at an asychronous sequence, one using the delayed addition function addP. bind\'s argument is 2 and addP\'s argument is 3 hence a promise with value 5 is returned. The functions cube(), addC(-25)(), and square() perform computations inside of the promise created by "bind(3)(addC(2)).then()" '),
 h('p', ' No side effects occur until the "terminate" flag ends the computations. At that point, the monad m7 receives the result [5,125,100,10000]. m7.x.pop() === 10000, the final result.'),
-h('pre', `bind(3)(addP(2)).then(v => bind(v.x)(cube)
+h('pre', {style: {fontSize: "12px"}}, `bind(3)(addP(2)).then(v => bind(v.x)(cube)
 (addC(-25))(square)(terminate))
 .then(v => {m7.ret(v); console.log(m7.x)})
 
@@ -1031,7 +1031,7 @@ h('pre', `bind(3)(addP(2)).then(v => bind(v.x)(cube)
 12:51:43.138 monad.js:127 Entering bind. x and ar are 100 (3) [5, 125, 100]
 12:51:43.138 monad.js:142 bind y.x and ar 10000 (4) [5, 125, 100, 10000]
 12:51:43.139 monad.js:127 Entering bind. x and ar are 10000 (4) [5, 125, 100, 10000]
-12:51:43.140 VM4189:1 (4) [5, 125, 100, 10000] ` ),
+12:51:43.140 VM4189:1 (4) [5, 125, 100, 10000]  // The return value ` ),
 h('p', ' Notice the 2-second lapse between the third and fourth lines. The definition of addP is as follows: '),
 h('pre', `  const addP = x => async y => {
     await wait(2000) 
