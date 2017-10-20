@@ -1032,7 +1032,11 @@ h('pre', `bind(3)(addP(2)).then(v => bind(v.x)(cube)
 12:51:43.138 monad.js:142 bind y.x and ar 10000 (4) [5, 125, 100, 10000]
 12:51:43.139 monad.js:127 Entering bind. x and ar are 10000 (4) [5, 125, 100, 10000]
 12:51:43.140 VM4189:1 (4) [5, 125, 100, 10000] ` ),
-
+h('p', ' Notice the 2-second lapse between the third and fourth lines. The definition of addP is as follows: '),
+h('pre', `  const addP = x => async y => {
+    await wait(2000) 
+    return ret(x + y);
+  } ` ),
 h('span.tao', ' Values v that satisfy "v instanceof Monad" (what I call "monads" in this discussion) are very different from the Haskell monads, but they are similar in that both behave like the monads of category theory without actually being category theory monads. See ' ),
 h('a', { props: { href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/", target: "_blank" } }, 'Hask is not a category.'),
     h('span', ' by Andrej Bauer and the ' ),
