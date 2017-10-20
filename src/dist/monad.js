@@ -96,6 +96,16 @@ function wait(ms) {
   return new Promise(r => setTimeout(r, ms));
 }
 
+const addP = x => async y => {
+  await wait(2000) 
+  return ret(x + y);
+}
+
+async function cubeP (x) {
+  await wait(2000) 
+  return x*x*x;
+}
+
 async function safety (x,ar) {await wait(200); bind(x,ar)};
 
 async function sleep (t) {
@@ -123,61 +133,35 @@ async function bindPromise(f,x,args) {
   return d;
 }
 
- function bind (x, ar = []) {
+ function bind (x, ar = [], args) {
     this.ar = ar;
+    var xano = "Charles"
     if (ar.length === 0) ar = [x];
-    return function (func, ...args) {
+    console.log('Entering bind. x and ar are',x,ar);
+    return function f08 (func, args=[]) {
       if (func.name === "terminate") return ar;
       var y = func(x, ...args) 
-      ar.push(y.x);
-      return bind(y.x, ar);
+      if (y instanceof Promise) {
+        console.log('bind: y instanceof Promise, x is',x);
+        ar.push(y); // Lost unless this is the end of a chain.
+        return y;
+      }
+      if (y instanceof Monad) {
+        console.log('bind: y is a monad. y.x and ar',y.x,ar);
+        ar.push(y.x);
+        return bind(y.x, ar);
+      }
+      else {
+        console.log('bind: y is not a Monad or a Promise. y',y);
+        ar.push(y);
+        return bind(y);
+      }
     }
-  };  
-/*
-function bind2 (x, args, ar = []) {
-  return async function (func, ...args) {
-    await 
-   
-      if (func.name === "terminate") return ar;
-      var y = func(x, ...args) 
-      ar.push(y);
-      return bind2(y.x, ar);
-    }
-  };  
-*/
-/*
-function bind (x, ar = []) {
-  safety();
-  var that = this;
-  if (lock === true) { 
-    console.log('lock === true', lock === true);
-    lockBind(x, ar) 
-  }
-  lock = true;
-  this.ar = ar;
-  if (ar.length === 0) this.ar.push(x);
-  lock = false;
-  return function (func, ...args) {
-    console.log('this.ar',this.ar);
-    console.log('that.ar',that.ar);
-    var value;
-    if (func.name === "terminate") return ar;
-    if (testMon(func,x,args,that.ar)) {
-      var y = func(x, ...args);
-      this.ar.push(y.x)
-      console.log('<@><$><@> POW <@><$><@> WOW <@><$><@> y instanceof Monad -- ar is',ar);
-      return bind(y.x,that.ar);
-    }
-
-    if (testProm(func,x,args)) {
-       return bindPromise(func,x,args);
-    }
-  }
-}     */ 
+ };
 
 (async function hello() {
   await wait(4000);
-  console.log( 'Hello Nurse, you awesome woman.' );
+  console.log( 'Hello Nurse, you sure are a fine-looking woman.' );
   return ret('Oh Nurse, you tear me up');
 })()
 
@@ -203,16 +187,15 @@ async function bindWait (x) {
 function id (x) {return x}
 
   Monad.prototype.bnd = function (func, ...args) {
+    if (func instanceof Promise) {
+      this.getVal(func,this.x,args);
+    }
     var m = func(this.x, ...args)
     var ID;
     if (m instanceof Monad) {
       ID = testPrefix(args, this.id);
       window[ID] = new Monad(m.x, ID);
       return window[ID];
-    }
-    if (m instanceof Promise) {
-      this.getVal(func,this.x,args);
-      return this;
     }
     else return m;
   };
@@ -221,11 +204,8 @@ function id (x) {return x}
     return window[this.id] = new Monad(a, this.id);
   };
   
-  Monad.prototype.getVal = async function fg (f,v,args = []) {
-    var g = "Fish";
-    await f(v, ...args).then(v => (g = v))
-    window[this.id] = new Monad(g, this.id);
-    return window[this.id];
+  Monad.prototype.getVal = async function fg (f) {
+    this.ret(await(f));
   };
 
   function testPrefix (x,y) {

@@ -943,47 +943,96 @@ h('h2', 'Monads' ),
 
   h('p', ' As mentioned above, "monads" are objects "m" for which m "instanceof Monad" returns true. Using "instance" in the JavaScript sense of the word, monads are are instances of Monad. var x = new Monad(0,"x") instantiates a monad named "x" whose value (x attribute) is 0. '),
 h('p', ' Later, I will show you the two methods that I added to Monad.prototype. They facilitate chaining computations in the traditional JavaScript way, using internal methods rather than external functions. But first I will present the less object oriented, more Haskell-like way to link computations. ' ),
-h('p', ' The functions bind() and ret() are similar in many ways to >>= (known as "bind") and return in the Haskell programming language. Only here, in this astonishingly chaotic world of JavaScript, there is only one type of monad. Functions used in chains of computations operate on only one type: every possible JavaScript value. They are required to return monads, but since any JavaScript value can be wrapped in a monad, this requirement is not a restriction. ' ),
-h('p', ' By the way, I don\'t write code completely oblivious to types. I do build type checking into functions sometimes. If a user inserts the wrong type of data, I want a message explaining the situation to appear, and I certainly don\'t want the application to crash. Another alternative is to code with Typescript. The monads don\'t force type checking on you, but it certainly is an option. ' ),
-h('p', ' Arguments provided to bind() can be any JavaScript value optionally followed by an array. If no array is provided, the default empty array [] is used. bind() returns a function that accepts functions with no restrictions on what arguments they accept but, as mentioned above, which must return monads. ret() is a convenient function for wrapping values in monads. Here is its definition: ' ),
+h('p', ' The functions bind() and ret() are similar in many ways to >>= (known as "bind") and return in the Haskell programming language. Only here, in this astonishingly chaotic world of JavaScript, there is only one type of monad. Functions used in chains of computations operate on only one type: every possible JavaScript value. Add to that the fact that values returned by chained functions can be any JavaScript value and you see the anarchy that I find so refreshing in JavaScript. JavaScript is inherently flexible, and that is where I see method in the madness. JavaScript is crazy like a fox. You are limited only by your imagination. ' ),
+h('p', ' But don\'t get me wrong, I write code with a keen awareness of types. I build type checking into functions for various reasons. If a user inserts the wrong type of data, I like to display a message explaining the situation, and I certainly don\'t want the application to crash. The polymorphic function bind() differentiates among Promises, Monads, and everything else. '),
+h('p', 'In this "anything goes" environment, writing code in Typescript is a viable option. The monads don\'t force type checking, but if your project can benefit from pervasive type checking, Typescript is available to you. Re-writing the definition of Monad is another option. ' ),
+h('p', ' Here is a convenient funtion for wrapping any value in a monad. Later we will see that it is the left and right identity function in the context of the function bind() and the method bnd() (discussed later). '),
 h('pre', `  function ret (val = 0, id = "retDefault") {
     return window[id] = new Monad(val, id);
   } ` ),
 h('p', ' A chain of computations ends when it encounters the "terminate" flag. An array containing the value of every monad returned by the linked computations is then returned. Here\'s an example: '),
 h('pre', `  bind(0)(v => ret(v+3))(v => ret(v*v*v))(terminate) // [0,3,27] `),
 h('p', ' Despite the way it looks, (v => ret(v+3)) doesn\'t take (v => ret(v*v*v)) as its argument. The function returned by bind(v => ret(v+3).x) operates on (v => ret(v+3)). '),
-h('pre', {style: {color: "lightBlue"}}, `  function bind (x, ar = []) {
+h('p', '  The following definition of bind() handles promises and monads. I retained the console.log lines so I could better demonstrate what happens in the asynchronous example.'), 
+h('pre', {style: {color: "lightBlue"}}, `  function bind (x, ar = [], args) {
     this.ar = ar;
-    return function (func, ...args) {
+    var xano = "Charles"
+    if (ar.length === 0) ar = [x];
+    console.log('Entering bind. x and ar are',x,ar);
+    return function f08 (func, args=[]) {
       if (func.name === "terminate") return ar;
       var y = func(x, ...args) 
-      ar.push(y.x);
-      return bind(y.x, ar);
-    }
+      if (y instanceof Promise) {
+        console.log('bind: y instanceof Promise, x is',x);
+        ar.push(y); // Lost unless this is the end of a chain.
+        return y;
+      }
+      if (y instanceof Monad) {
+        console.log('bind: y is a monad. y.x and ar',y.x,ar);
+        ar.push(y.x);
+        return bind(y.x, ar);
+      }
+      else {
+        console.log('bind: y is not a Monad or a Promise. y',y);
+        ar.push(y);
+        return bind(y);
+      }
+    };
   };  ` ),
-h('p', ' As you see in the definition above, the invisible functions that stand ready to operate on the next function you provide are the return values of bind(m.x) where m is the return value of the previous function. bind is coded only once, at the beginning, but it executes repeatedly along a chain of computations until it reaches the "terminate" flag. ' ),
-h('p', ' Here\'s another way of saying essentially the same thing: If m is returned by the most recent function you have added to the chain, the return value of bind(m.x) awaits your next addition. ' ),
-h('p', ' The result of every computation in a chain is available to every computation that comes after it. Here\'s an example:' ),  
+h('p', ' As you see in the definition above, the invisible functions that stand ready to operate on the next function you provide are the return values of bind(m.x) where m is the return value of the previous function; or, if the argument to bind is a promise, an invisible promise is returned instead. bind() is explicitely coded only at the start and after promises, but it executes repeatedly along a chain of computations until it reaches the "terminate" flag. ' ),
+h('p', ' Here\'s another way of saying essentially the same thing: If a monad "m" is returned by the most recent function you have added to the chain, the return value of bind(m.x) awaits your next addition. If a promise "p" is returned by the previous function, that promise awaits your next action, which must begin with "p.then".' ),
+h('p', ' The result of every computation in a chain of synchronous functions is available to every computation that comes after it. All information prior to a promise is lost.  Here\'s the Chrome browser log generated by a sequence without promises:' ),  
   
-h('pre', `  bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[1]))(multC(ar[1]))
+h('pre', {style: {fontSize: "12px"}}, `  bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[1]))(multC(ar[1]))
   (addC(30))(multC(1/ar[3]))(terminate)
-  returns [1, 3, 27, 30, 90, 270, 300, 10] `),
+
+  16:37:49.987 monad.js:140 Entering bind. x and ar are 1 [1]
+  16:37:49.988 monad.js:150 bind: y is a monad. y.x and ar 3 [1]
+  16:37:49.988 monad.js:140 Entering bind. x and ar are 3 (2) [1, 3]
+  16:37:49.988 monad.js:150 bind: y is a monad. y.x and ar 27 (2) [1, 3]
+  16:37:49.989 monad.js:140 Entering bind. x and ar are 27 (3) [1, 3, 27]
+  16:37:49.989 monad.js:150 bind: y is a monad. y.x and ar 30 (3) [1, 3, 27]
+  16:37:49.989 monad.js:140 Entering bind. x and ar are 30 (4) [1, 3, 27, 30]
+  16:37:49.990 monad.js:150 bind: y is a monad. y.x and ar 90 (4) [1, 3, 27, 30]
+  16:37:49.990 monad.js:140 Entering bind. x and ar are 90 (5) [1, 3, 27, 30, 90]
+  16:37:49.991 monad.js:150 bind: y is a monad. y.x and ar 270 (5) [1, 3, 27, 30, 90]
+  16:37:49.991 monad.js:140 Entering bind. x and ar are 270 (6) [1, 3, 27, 30, 90, 270]
+  16:37:49.992 monad.js:150 bind: y is a monad. y.x and ar 300 (6) [1, 3, 27, 30, 90, 270]
+  16:37:49.992 monad.js:140 Entering bind. x and ar are 300 (7) [1, 3, 27, 30, 90, 270, 300]
+  16:37:49.993 monad.js:150 bind: y is a monad. y.x and ar 10 (7) [1, 3, 27, 30, 90, 270, 300]
+  16:37:49.993 monad.js:140 Entering bind. x and ar are 10 (8) [1, 3, 27, 30, 90, 270, 300 10]
+  16:37:49.993 (8) [1, 3, 27, 30, 90, 270, 300, 10]  // The returned value `),
 h('p', ' Or to get only the final result: ' ),
 h('pre', `  bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[1]))(multC(ar[1]))
   (addC(30))(multC(1/ar[3]))(terminate).pop()  returns 10  ` ),
-h('p', ' addC, cube and multC (above) are defined as follows: ' ), 
+h('p', ' addC, and multC (above) are curried functions defined as follows: ' ), 
 h('pre', `    const addC = a => b => ret(a+b);
-      
-    const multC = a => b => ret(a*b);
-
-    const cubeC = a => ret(a*a*a);  ` ), 
-h('p', ' addC() and multC() return curried function when given one argument. For example: ' ),
-h('pre', `  eq((b => ret(3+b)),addC(3))   // true  ` ),
-h('p',' Lambda expressions can be substituted for addC, multC, and cubeC. '), 
+    const multC = a => b => ret(a*b); ` ),
+h('p', ' They return functions when given one argument. For example: ' ),
+h('pre', `  eq((b => ret(3+b)),addC(3)) ` ),  // returns true  
+h('p',' Next, we substitute lambda expressions for addC, multC, and cubeC. '), 
 h('pre', `  bind(1)(v=>ret(v+2))(v=>ret(v*v*v))(v=>ret(v+3))
   (v=>ret(v*(ar[1])))(v=>ret(v*(ar[1])))(v=>ret(v+30))
   (v=>ret(v*(1/ar[3])))(terminate)
    // [1, 3, 27, 30, 90, 270, 300, 10] `),
+h('p', ' Now we take a look at an asychronous sequence, one using the delayed addition function addP. bind\'s argument is 2 and addP\'s argument is 3 hence a promise with value 5 is returned. The functions cube(), addC(-25)(), and square() perform computations inside of the promise created by "bind(3)(addC(2)).then()" '),
+h('p', ' No side effects occur until the "terminate" flag ends the computations. At that point, the monad m7 receives the result [5,125,100,10000]. m7.x.pop() === 10000, the final result.'),
+h('pre', `bind(3)(addP(2)).then(v => bind(v.x)(cube)
+(addC(-25))(square)(terminate))
+.then(v => {m7.ret(v); console.log(m7.x)})
+
+12:51:41.133 monad.js:127 Entering bind. x and ar are 3 []
+12:51:41.134 monad.js:135 bind: y instanceof Promise, x is 3
+12:51:41.134 Promise {[[PromiseStatus]]: "pending", [[PromiseValue]]: undefined}
+12:51:43.135 monad.js:127 Entering bind. x and ar are 5 []
+12:51:43.135 monad.js:142 bind y.x and ar 125 (2) [5, 125]
+12:51:43.136 monad.js:127 Entering bind. x and ar are 125 (2) [5, 125]
+12:51:43.137 monad.js:142 bind y.x and ar 100 (3) [5, 125, 100]
+12:51:43.138 monad.js:127 Entering bind. x and ar are 100 (3) [5, 125, 100]
+12:51:43.138 monad.js:142 bind y.x and ar 10000 (4) [5, 125, 100, 10000]
+12:51:43.139 monad.js:127 Entering bind. x and ar are 10000 (4) [5, 125, 100, 10000]
+12:51:43.140 VM4189:1 (4) [5, 125, 100, 10000] ` ),
+
 h('span.tao', ' Values v that satisfy "v instanceof Monad" (what I call "monads" in this discussion) are very different from the Haskell monads, but they are similar in that both behave like the monads of category theory without actually being category theory monads. See ' ),
 h('a', { props: { href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/", target: "_blank" } }, 'Hask is not a category.'),
     h('span', ' by Andrej Bauer and the ' ),
@@ -1098,7 +1147,8 @@ h('span.tao', ' Other JavaScript monad schemes mirror type theory and Haskell wi
 h('a', {props: {href: "https://curiosity-driven.org/monads-in-javascript"}}, "Curiosity-Driven" ),
 h('span', ' and ' ),  
 h('a', {props: {href: "https://github.com/fantasyland/fantasy-land"}}, "Fantasy Land." ),
-h('div#a100', ' ____________________________________________________________________________________________________________ ' ),
+h('br' ),
+h('br' ),
 h('span', ' For me, superimposing such abstractions over JavaScript takes too much versatility away from it. It is easy to include some type checking code in function definitions where it is thought to be helpful. For example, if someone enters inappropriate data in a form, a message explaining the mistake can be displayed. I enjoy the freedom and built-in polymorphism of JavaScript as it is. Call me an anarchist. ' ),
 
  // **************************************************************************** START MONAD
