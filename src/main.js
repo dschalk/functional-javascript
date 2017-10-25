@@ -9,7 +9,13 @@ var formA = h('form#horses', 'You bet!' );
 socket.addEventListener('message', function (event) {
   console.log('<$><$><$><$><$><$><$><$><$> $$ Message from server: event.data ', event.data);
 });
-
+console.log(xs);
+/*
+var stream = xs.periodic(1000)
+  .filter(i => i % 2 === 0)
+  .map(i => i * i)
+  .endWhen(xs.periodic(5000).take(1))
+*/
 (async function hello() {
   await wait(2000);
   console.log('*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*');
@@ -193,6 +199,49 @@ function next(x, y, instance, z) {
   }
   return ret(x);
 };
+ 
+/*
+async function waitP (f, args) {
+  var z = await (p);
+  m80.ret(z);
+  console.log(m80.x);
+  return m80.x;
+}
+
+console.log('m80.x',m80.x);
+
+ function bind (x, ar = [], args) {
+    this.ar = ar;
+    var xano = "Charles"
+    ar.push(x);
+    if (ar.length === 0) ar = [x];
+    console.log('Entering bind. x and ar are',x,ar);
+    return function debug8 (func, args=[]) {
+
+      if (func.name === "terminate") return ar;
+       
+      if (func(x, ...args) instanceof Promise) {
+        console.log('bind: func(x, ...args) instanceof Promise');
+        return async () => {
+          await waitP(func(x, ...args))
+          return bind(m80, ar);
+        }
+      }
+      
+      var y = func(x, ...args) 
+      
+      if (func(x, ...args) instanceof Monad) {
+        console.log('bind: y is a monad. y.x and ar',y.x,ar);
+        return bind(y.x, ar);
+      }
+
+      else {
+        console.log('bind: func(x, ...args) is not a Monad or a Promise. y',y);
+        return bind(y, ar);
+      }
+    };
+  };  
+*/
 
 var comment$ = sources.DOM.select('#comment').events('keydown');
 
@@ -305,6 +354,13 @@ var fghij = 'inline';
     };
     return g
   };
+
+  var m80Change$ = sources.DOM
+    .select('#m80').events('change');
+
+  var m80Action$ = m80Change$.map(() => {
+    console.log('Hot dog, we got a live one. m80.x is', m80.x);
+  });
 
   var rollClick$ = sources.DOM
     .select('#roll').events('click');
@@ -805,7 +861,7 @@ var chatClick$ = sources.DOM
     .select('#todoButton').events('click')
     .map(() => showTodoDiv = showTodoDiv === "none" ? "block" : "none")
 
-  var calcStream$ = xs.merge( commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearAction$, factorsAction$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
+  var calcStream$ = xs.merge( m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearAction$, factorsAction$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
   return {
   DOM: calcStream$.map(function () {
   return h('div.main', [
@@ -930,6 +986,7 @@ h('div#gameDiv2', {style: { display: mMgameDiv2.x }}, [
 ]),
 h('br'),  
 h('br'),  
+h('span#m80', m80.x),
 h('br'),  
 h('br'),  
 h('span', '_____________________________________________________________________________________'),  
@@ -943,8 +1000,22 @@ h('h2', 'Monads' ),
 
   h('p', ' As mentioned above, "monads" are objects "m" for which m "instanceof Monad" returns true. Using "instance" in the JavaScript sense of the word, monads are are instances of Monad. var x = new Monad(0,"x") instantiates a monad named "x" whose value (x attribute) is 0. '),
 h('p', ' Later, I will show you the two methods that I added to Monad.prototype. They facilitate chaining computations in the traditional JavaScript way, using internal methods rather than external functions. But first I will present the less object oriented, more Haskell-like way to link computations. ' ),
-h('p', ' The functions bind() and ret() are similar in many ways to >>= (known as "bind") and return in the Haskell programming language. Only here, in this astonishingly chaotic world of JavaScript, there is only one type of monad. Functions used in chains of computations operate on only one type: every possible JavaScript value. Add to that the fact that values returned by chained functions can be any JavaScript value and you see the anarchy that I find so refreshing in JavaScript. JavaScript is inherently flexible, and that is where I see method in the madness. JavaScript is crazy like a fox. You are limited only by your imagination. ' ),
-h('p', ' But don\'t get me wrong, I write code with a keen awareness of types. I build type checking into functions for various reasons. If a user inserts the wrong type of data, I like to display a message explaining the situation, and I certainly don\'t want the application to crash. The polymorphic function bind() differentiates among Promises, Monads, and everything else. '),
+h('p', ' The functions bind() and ret() are similar in some ways to >>= (known as "bind") and return in the Haskell programming language. But here, in this astonishingly chaotic world of JavaScript, there is only one type of monad. Functions used in chains of computations operate on only one type: every possible JavaScript value. Add to that the fact that values returned by chained functions can be any JavaScript value and you see an example of the potential for creativity and confusion of plain vanilla JavaScript. '), h('p', ' JavaScript is inherently flexible, and that is where I see method in the madness. JavaScript is crazy like a fox. You are limited only by your imagination. ' ),
+h('p', ' The function bind() facilitates the linking of synchronous functions and promises in the same chain. Check this out: '),
+h('pre', `bind(cubeP(2))(multC(3))(doubleC)(addP(-6))(terminate).pop().then(v => console.log(v))
+20:57:35.724 monad.js:173 Entering bind. x and ar are Promise {[[PromiseStatus]]: "pending", [[PromiseValue]]: undefined} [Promise]
+20:57:35.725 monad.js:173 Entering bind. x and ar are Promise {[[PromiseStatus]]: "pending", [[PromiseValue]]: undefined} (3) [Promise, Promise, Promise]
+20:57:35.725 monad.js:173 Entering bind. x and ar are Promise {[[PromiseStatus]]: "pending", [[PromiseValue]]: undefined} (5) [Promise, Promise, Promise, Promise, Promise]
+20:57:35.726 monad.js:173 Entering bind. x and ar are Promise {[[PromiseStatus]]: "pending", [[PromiseValue]]: undefined} (7) [Promise, Promise, Promise, Promise, Promise, Promise, Promise]
+20:57:35.783 Promise {[[PromiseStatus]]: "pending", [[PromiseValue]]: undefined}
+20:57:39.724 VM5167:1 42  `),
+h('p', ' cubeP at the beginning and addP in the fourth procedure have two-second delays. Notice how the chain runs to completion in two microseconds and the result, 42, appears approximately four seconds later. And see how these short lines of code are all it takes to make this work: '),
+h('pre.lightblue', `    if (x instanceof Promise) {
+      var p = x.then(v => func(v));
+      ar.push(p);
+      return bind(p,ar)
+    } ` ),   
+h('p', ' But don\'t get me wrong, I write code with a keen awareness of types, when I am mixing them together and when I need to check types to avoid problems. If a user inserts the wrong type of data, I like to display a message explaining the situation, and I certainly don\'t want the application to crash.  '),
 h('p', 'In this "anything goes" environment, writing code in Typescript is a viable option. The monads don\'t force type checking, but if your project can benefit from pervasive type checking, Typescript is available to you. Re-writing the definition of Monad is another option. ' ),
 h('p', ' Here is a convenient funtion for wrapping any value in a monad. Later we will see that it is the left and right identity function in the context of the function bind() and the method bnd() (discussed later). '),
 h('pre', `  function ret (val = 0, id = "retDefault") {
@@ -956,26 +1027,24 @@ h('p', ' Despite the way it looks, (v => ret(v+3)) doesn\'t take (v => ret(v*v*v
 h('p', '  The following definition of bind() handles promises and monads. I retained the console.log lines so I could better demonstrate what happens in the examples.'), 
 h('pre', {style: {color: "lightBlue"}}, `  function bind (x, ar = [], args) {
     this.ar = ar;
-    var xano = "Charles"
+    ar.push(x);
     if (ar.length === 0) ar = [x];
     console.log('Entering bind. x and ar are',x,ar);
-    return function f08 (func, args=[]) {
+    return function debug8 (func, args=[]) {
       if (func.name === "terminate") return ar;
-      var y = func(x, ...args) 
-      if (y instanceof Promise) {
-        console.log('bind: y instanceof Promise, x is',x);
-        ar.push(y); // Lost unless this is the end of a chain.
-        return y;
+      if (x instanceof Promise) {
+        var p = x.then(v => func(v));
+        ar.push(p);
+        return bind(p,ar)
       }
+      var y = func(x, ...args) 
       if (y instanceof Monad) {
         console.log('bind: y is a monad. y.x and ar',y.x,ar);
-        ar.push(y.x);
         return bind(y.x, ar);
       }
       else {
-        console.log('bind: y is not a Monad or a Promise. y',y);
-        ar.push(y);
-        return bind(y);
+        console.log('bind: func(x, ...args) is not a Monad or a Promise. y',y);
+        return bind(y, ar);
       }
     };
   };  ` ),

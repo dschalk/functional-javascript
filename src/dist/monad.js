@@ -40,7 +40,16 @@ function makeSequence (n) {
   return a
 }
 
+var tr = x => p => async f => {
+  return await f(await p(x))
+}
+
+var tr2 = p => async f => {
+  return await f(await p(x))
+}
+
 function terminate(x) {return x};
+function germinate(x) {return x};
 
 console.log(makeSequence(5))
 
@@ -73,24 +82,40 @@ function evaluate (x) {
     this.id = ID;
   };
 
-var bindResult = new Monad(0,'bindResult');
+  function Monad2(z = 'generic', ID = 'temp') {
+    this.x = z;
+    this.id = ID;
+  };
 
-var lock = false;
 
-async function lockBind (x,ar) {
-  await wait(500)
-  bind(x,ar);
-}
+var m52 = new Monad2 (52, 'm52');
+console.log('m52',m52);
+
+  Monad2.prototype.bnd = function (func, ...args) {
+    if (func instanceof Promise) {
+      this.getVal(func,this.x,args);
+    }
+    var m = func(this.x, ...args)
+    var ID;
+    if (m instanceof Monad2) {
+      ID = testPrefix(args, this.id);
+      window[ID] = new Monad2(m.x, ID);
+      return window[ID];
+    }
+    else return m;
+  };
+
+  Monad2.prototype.ret = function (a) {
+    return window[this.id] = new Monad2(a, this.id);
+  };
+
+var m52 = new Monad2 (52, 'm52');
 
 async function squareP (x) {
   await wait(2000) 
   return x*x;
 }
 
-async function cubeP (x) {
-  await wait(2000) 
-  return x*x*x;
-}
 
 function wait(ms) {
   return new Promise(r => setTimeout(r, ms));
@@ -98,15 +123,18 @@ function wait(ms) {
 
 const addP = x => async y => {
   await wait(2000) 
-  return ret(x + y);
+  return x + y;
+}
+
+const multP = x => async y => {
+  await wait(2000) 
+  return x * y;
 }
 
 async function cubeP (x) {
   await wait(2000) 
   return x*x*x;
 }
-
-async function safety (x,ar) {await wait(200); bind(x,ar)};
 
 async function sleep (t) {
   setTimeout(function () { return "done" }, t);
@@ -122,42 +150,44 @@ function testProm(f,v,args) {
   else return false;
 }
 
-async function bindPromise(f,x,args) {
-  var d;
-  console.log('<1> In bindPromise. d is',d);
-  await ((f(x, ...args).then(function (v) {
-    d = v;
-    console.log('<2> Still in bindPromise. d is',d);
-  })));
-  console.log('<3> <><><><> d is', d);
-  return d;
+var promise = pinkySwear();
+promise(true,[42]);
+console.log('pinky promise()', promise() );
+
+var m80 = new Monad("Amanda", 'm80');
+
+async function waitP (f, args) {
+  var z = await (p);
+  m80.ret(z);
+  console.log(m80.x);
+  return m80.x;
 }
+
+console.log('m80.x',m80.x);
 
  function bind (x, ar = [], args) {
     this.ar = ar;
-    var xano = "Charles"
+    ar.push(x);
     if (ar.length === 0) ar = [x];
     console.log('Entering bind. x and ar are',x,ar);
-    return function f08 (func, args=[]) {
+    return function debug8 (func, args=[]) {
       if (func.name === "terminate") return ar;
-      var y = func(x, ...args) 
-      if (y instanceof Promise) {
-        console.log('bind: y instanceof Promise, x is',x);
-        ar.push(y); // Lost unless this is the end of a chain.
-        return y;
+      if (x instanceof Promise) {
+        var p = x.then(v => func(v));
+        ar.push(p);
+        return bind(p,ar)
       }
+      var y = func(x, ...args) 
       if (y instanceof Monad) {
         console.log('bind: y is a monad. y.x and ar',y.x,ar);
-        ar.push(y.x);
         return bind(y.x, ar);
       }
       else {
-        console.log('bind: y is not a Monad or a Promise. y',y);
-        ar.push(y);
-        return bind(y);
+        console.log('bind: func(x, ...args) is not a Monad or a Promise. y',y);
+        return bind(y, ar);
       }
-    }
- };
+    };
+  };  
 
 (async function hello() {
   await wait(4000);
@@ -179,9 +209,8 @@ function ret (val = 0, id = "retDefault") {
   return window[id] = new Monad(val, id);
 }
 
-async function bindWait (x) {
-  await wait(2000)
-  return bind(x(id));
+function ret_2 (val = 0, id = "retDefault") {
+  return window[id] = new Monad2(val, id);
 }
 
 function id (x) {return x}
@@ -220,9 +249,6 @@ function id (x) {return x}
     return t;
   }
 
-inc = add.bind(undefined, 1)
-inc(4) === 5
-
   function square (v) {
     return ret(v*v)
   };
@@ -236,14 +262,16 @@ inc(4) === 5
     return ret((parseInt(a,10) + parseInt(b,10)),id);
   };
 
-  const addC = a => b => ret(a+b);
-  const cubeC = v => ret(v*v*v);
-  const multC = a => b => ret(a*b);
-  const doubleC = a => ret(a+a);
+  const addC = a => b => a+b;
+  const cubeC = v => v*v*v;
+  const multC = a => b => a*b;
+  const doubleC = a => a+a;
+  const squareC = a => a*a;
+  const sqrt = a => Math.sqrt(a);
 
   const addC2 = a => b => c => ret(a+b,c);
   var double = function double(v) {
-      return ret(v + v);
+      return v + v;
   };
 
   function mult(x, y, id) {
@@ -602,20 +630,6 @@ var pMop = new Monad (0, 'pMop');
 var mMfactors = new Monad ([], 'mMfactors');
 
 var mMfactors_b = new Monad ([], 'mMfactors_b');
-
-function Monad2 (z, ID = 'default') {
-    var x = z;
-    var ob = {
-    id: ID,
-    bnd: function (func, ...args) {
-      return window[func](x, ...args)
-    },
-    ret: function (a) {
-      return window[ob.id] = new Monad2(a, ob.id);
-    }
-  };
-  return ob;
-}
 
 function get (m) {
   return m.x;
@@ -1918,78 +1932,10 @@ function rand () {
 
 var rand$ = xs.of(rand());
 
-function cloneMonad (m, val, f) {
-  var preserve = m.x;
-  var clone = m;
-  bind(clone)(()=>val)(f,"$c");
-  retrn("m",preserve);
-  return c
-}
-
-function series (n, func, base) {
-    var str;
-    var ar = [];
-    var start = bind(m)(()=>ret(base))
-    makeSequence(n).map(k => {
-      ar.push(start(terminate))
-      start = start(func)
-      ar.push(start)
-    }) 
-    var art = ar.filter(v => typeof v == "number");
-    return art;
-  } 
-
-function series2 (base) {
-  return function (func) {
-    return function (n) {
-      var str;
-      var ar = [];
-      var start = bind(m)(()=>ret(base))
-      makeSequence(n).map(k => {
-        ar.push(start(terminate).x);
-        start = start(func)
-      }) 
-      //var art = ar.filter(v => typeof v == "number");
-      var a = ar.join(", ");
-      return a;
-    }
-  }
-}
-
-console.log('<$<$<$<$<$>$>$>$> begin series');
-
-console.log('<$<$<$<$<$>$>$>$> end series');
-
-solve2();
-
-retrn(m22, "Enter the first number in the series.")
-
-function solve2 () {
-  var result; 
-  mMZ4.bnd(a => { 
-    retrn(m22, "Enter a function to recursively call");
-    var a2 = parseInt(a,10);
-    console.log('typeof a2', typeof a2);
-    mMZ4.bnd(b => {
-      retrn(m22,"Enter the number of terms in the sequence.")
-      var b2 = eval(b);
-      console.log('typeof b2', typeof b2);
-      mMZ4.bnd(c => {
-        retrn(m22, "Enter the first number in the series")
-        var c2 = parseInt(c,10);
-        console.log('typeof c2', typeof c2);
-        console.log('In solve2. a2, b2, and c2 are', a2, b2, c2);
-        var x = series2(a2)(b2)(c2)
-        console.log('In solve2. series2(a2)(b2)(c2) is', x);
-        retrn(mMseries,x);
-        solve2()
-      }) 
-    }) 
-  }) 
-} 
- 
-
   console.log('*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*');
   console.log( 'Hello Nurse' );
   console.log('*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*');
  
+
+
+
