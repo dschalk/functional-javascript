@@ -999,8 +999,8 @@ h('h2', 'Monads' ),
 
 
 
-  h('p', ' As mentioned above, "monads" are objects "m" for which m "instanceof Monad" returns true. Using "instance" in the JavaScript sense of the word, monads are are instances of Monad. var x = new Monad(0,"x") instantiates a monad named "x" whose value (x attribute) is 0. '),
-h('p', ' Later, I will show you the two methods that I added to Monad.prototype. They facilitate chaining computations in the traditional JavaScript way, using internal methods rather than external functions. But first I will present the less object oriented, more Haskell-like way to link computations. ' ),
+  h('p', ' As mentioned above, "monads" are objects "m" for which "m instanceof Monad" returns true. Using "instance" in the JavaScript sense of the word, monads are are instances of Monad. var x = new Monad(0,"x") instantiates a monad named "x" whose value (x attribute) is 0. '),
+h('p', ' Later, there will be a discussion of the two functioons that were added to Monad.prototype. They facilitate chaining computations in the traditional JavaScript way: using internal methods rather than external functions. But first I will present the less object oriented, more Haskell-like way to link computations. ' ),
 h('p#chain', ' The functions bind() and ret() are similar in some ways to >>= (known as "bind") and return in the Haskell programming language. But here, in this astonishingly chaotic world of JavaScript, there is only one type of monad. Functions used in chains of computations operate on only one type: every possible JavaScript value. Add to that the fact that values returned by chained functions can be any JavaScript value and you see an example of the potential for creativity and confusion of plain vanilla JavaScript. '),
   
 h('p', ' bind() facilitates the linking of synchronous functions and promises in the same chain. In the functions below, the suffix "C" designates curried functions that return ordinary values. The suffixes M and P are for curried functions that return monads and curried functions that return promises respectively. The definitions are in Appendix B. All three varieties are used in the sequence below along with "pause" which returns whatever it is given after two seconds. '),
@@ -1043,9 +1043,9 @@ h('pre', {style: {color: "lightBlue"}}, `  function bind (x, arr=[]) {
       return bind(func(x),ar);
     };
   };   ` ),
-h('p', ' As the definition of bind() reveals, the invisible function that stands ready to operate on the function ahead of it in a chain is the return value of bind() (which is a function) applied to the return value of the previous function. "bind(x)" for some value "x" is explicitly coded only at the beginning of a chain, but bind() executes on each link until it reaches the "terminate" flag. ' ),
-h('p', ' Here\'s another way of saying essentially the same thing: If "x" is the most recent argument to bind() and "func" is the most recent argument to the function returned by bind(x,ar), the return value of bind(func(x)) - or bind(func(x.x) when x is a monad -  stands ready to operate on the next function you add to the chain. ' ),
-h('p', ' I did my best to plainly describe what bind does and it still looks mind boggling. The beauty of it is that a developer does not need to write the voluminous, error-prone, hard-to-follow code that would be necessary without a higher-order function like bind(). When you look at a chain of functions following a call to bind, you can easily predict the result you will get unless an asynchronous function in the chain receives user input, Websockets messages, or some other kind of unpredictable data. You could also generate random numbers in the chain. Whatever the case may be, the code could not be easier to understand, unless you peek under the hood that is. ' ), 
+h('p', ' As is apparent from the definition of bind(), the invisible function that stands ready to operate on the function ahead of it in a chain is the return value of bind() (which is a function) applied to the return value of the previous function. "bind(x)" for some value "x" is explicitly coded only at the beginning of a chain, but bind() executes on each link, all the way to the "terminate" flag. ' ),
+h('p', ' Here\'s another way of saying essentially the same thing: If "x" is the most recent argument to bind() and "func" is the most recent argument to the function returned by bind(x,ar), the return value of bind(func(x)) - or bind(func(x.x) if x is a monad - stands ready to operate on the next function you add to the chain. ' ),
+h('p', ' I did my best to plainly describe what bind does and it still looks like a head scrather. The beauty of it is that a developer does not need to write the voluminous, error-prone, hard-to-follow code that would be necessary without a higher-order function like bind(). When you look at a chain of functions following a call to bind, you can easily predict the result you will get unless an asynchronous function in the chain receives user input, Websockets messages, or some other kind of unpredictable data. You could also generate random numbers in the chain. Whatever the case may be, the code could not be easier to understand, unless you peek under the hood that is. ' ), 
 h('p', ' The result of every computation in a chain of synchronous functions is available to every computation that comes after it. Here\'s an example: ' ),  
   
 h('pre', {style: {fontSize: "12px"}},`bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[1]))(multC(ar[1]))
@@ -1568,56 +1568,72 @@ function score(result) {
  h('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript", target: "_blank" } }, 'monads-in-JavaScript.'),
   h('p', '.'),
   h('p'),
+
   h('h3', 'Appendix B - Curried Functions Used In Several Demonstrations'),
-  h('pre', `  const divCinverse = a => b => a/b;
- 
-  async function squareP (x) {
-    await wait(2000) 
-    return x*x;
-  }
+  h('pre', `  function square (v) {
+    return ret(v*v)
+  };
 
-  function wait(ms) {
-    return new Promise(r => setTimeout(r, ms));
-  }
+  function cube (v, id) {
+    return ret(v*v*v, id);
+  };
 
-  const divPinverse = a => async b => {
-    await wait (2000)
-    return a/b;
-  }
+  function add (a, b, id) {
+    return ret((parseInt(a,10) + parseInt(b,10)),id);
+  };
 
-  const divP = a => async b => {
-    await wait (2000)
-    return b/a;
-  }
+  const divCinverse = a => b => ret(e/b);
+  const divC = a => b => ret(b/a);
+  const addC = a => b => ret(a+b);
+  const cubeC = v => ret(v*v*v);
+  const multC = a => b => ret(a*b);
+  const doubleC = a => ret(a+a);
+  const squareC = a => ret(a*a);
+  const sqrtC = a => ret(Math.sqrt(a));
 
-  const addP = x => async y => {
-    await wait(2000) 
-    return x + y;
-  }
+async function squareP (x) {
+  await wait(2000) 
+  return ret(x*x);
+}
 
-  const multP = x => async y => {
-    await wait(2000) 
-    return x * y;
-  }
+function wait(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
 
-  async function cubeP (x) {
-    await wait(2000) 
-    return x*x*x;
-  }
+const divPinverse = a => async b => {
+  await wait (2000)
+  return ret(a/b);
+}
 
-  const divMinverse = a => b => ret(a/b);
-  const divM = a => b => ret(b/a);
-  const addM = a => b => ret(a+b);
-  const cubeM = v => ret(v*v*v);
-  const multM = a => b => ret(a*b);
-  const doubleM = a => ret(a+a);
-  const squareM = a => ret(a*a);
-  const sqrtM = a => ret(Math.sqrt(a));
+const divP = a => async b => {
+  await wait (2000)
+  return ret(b/a);
+}
 
-  const addC2 = a => b => c => ret(a+b,c);
-  var double = function double(v) {
-      return v + v;
-  }; `),
+const sqrtP = async a => {
+  await wait (2000)
+  return ret(Math.sqrt(a));
+}
+
+const doubleP = async a => {
+  await wait (2000)
+  return ret(a+a);
+}
+
+const addP = x => async y => {
+  await wait(2000) 
+  return ret(x + y);
+}
+
+const multP = x => async y => {
+  await wait(2000) 
+  return ret(x * y);
+}
+
+async function cubeP (x) {
+  await wait(2000) 
+  return ret(x*x*x);
+} `),
 
   h('p'),
   h('p'),
