@@ -110,36 +110,6 @@ console.log('m52',m52);
   };
 
 var m52 = new Monad2 (52, 'm52');
-
-async function squareP (x) {
-  await wait(2000) 
-  return x*x;
-}
-
-
-function wait(ms) {
-  return new Promise(r => setTimeout(r, ms));
-}
-
-const addP = x => async y => {
-  await wait(2000) 
-  return x + y;
-}
-
-const multP = x => async y => {
-  await wait(2000) 
-  return x * y;
-}
-
-async function cubeP (x) {
-  await wait(2000) 
-  return x*x*x;
-}
-
-async function sleep (t) {
-  setTimeout(function () { return "done" }, t);
-};
-
 function testMon(f,v,...args) {
   if (f(v,...args) instanceof Monad) return true;
   else return false;
@@ -163,29 +133,44 @@ async function waitP (f, args) {
   return m80.x;
 }
 
-console.log('m80.x',m80.x);
+  function pause(x) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(x);
+      }, 2000);
+    });
+  }
 
- function bind (x, ar = [], args) {
-    this.ar = ar;
-    ar.push(x);
+  function pauseCube(x) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(x*x*x);
+      }, 2000);
+    });
+  }
+
+const wait2 = x => {
+  setTimeout( function (x) {return x},2000 )
+}
+
+  function bind (x, arr=[]) {
+    this.ar = arr;
+    var ar = arr;
+    ar.push(x instanceof Monad ? x.x : x)
     if (ar.length === 0) ar = [x];
-    console.log('Entering bind. x and ar are',x,ar);
-    return function debug8 (func, args=[]) {
+    console.log('bind: x.x is', x);
+    console.log('bind: ar is', ar);
+    console.log(' ');
+    return function debug8 (func) {
       if (func.name === "terminate") return ar;
       if (x instanceof Promise) {
-        var p = x.then(v => func(v));
-        ar.push(p);
+        var p = x.then(v => func(v instanceof Monad ? v.x : v));
         return bind(p,ar)
       }
-      var y = func(x, ...args) 
-      if (y instanceof Monad) {
-        console.log('bind: y is a monad. y.x and ar',y.x,ar);
-        return bind(y.x, ar);
+      if (x instanceof Monad) {
+        return bind(func(x.x),ar);
       }
-      else {
-        console.log('bind: func(x, ...args) is not a Monad or a Promise. y',y);
-        return bind(y, ar);
-      }
+      return bind(func(x),ar);
     };
   };  
 
@@ -193,7 +178,7 @@ console.log('m80.x',m80.x);
   await wait(4000);
   console.log( 'Hello Nurse, you sure are a fine-looking woman.' );
   return ret('Oh Nurse, you tear me up');
-})()
+})();
 
  async function trylock () { 
    await wait(1000);
@@ -262,12 +247,67 @@ function id (x) {return x}
     return ret((parseInt(a,10) + parseInt(b,10)),id);
   };
 
-  const addC = a => b => a+b;
-  const cubeC = v => v*v*v;
-  const multC = a => b => a*b;
-  const doubleC = a => a+a;
-  const squareC = a => a*a;
-  const sqrt = a => Math.sqrt(a);
+  const divCinverse = a => b => ret(e/b);
+  const divC = a => b => ret(b/a);
+  const addC = a => b => ret(a+b);
+  const cubeC = v => ret(v*v*v);
+  const multC = a => b => ret(a*b);
+  const doubleC = a => ret(a+a);
+  const squareC = a => ret(a*a);
+  const sqrtC = a => ret(Math.sqrt(a));
+
+async function squareP (x) {
+  await wait(2000) 
+  return ret(x*x);
+}
+
+function wait(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
+const divPinverse = a => async b => {
+  await wait (2000)
+  return ret(a/b);
+}
+
+const divP = a => async b => {
+  await wait (2000)
+  return ret(b/a);
+}
+
+const sqrtP = async a => {
+  await wait (2000)
+  return ret(Math.sqrt(a));
+}
+
+const doubleP = async a => {
+  await wait (2000)
+  return ret(a+a);
+}
+
+const addP = x => async y => {
+  await wait(2000) 
+  return ret(x + y);
+}
+
+const multP = x => async y => {
+  await wait(2000) 
+  return ret(x * y);
+}
+
+async function cubeP (x) {
+  await wait(2000) 
+  return ret(x*x*x);
+}
+
+  const divMinverse = a => b => ret(a/b);
+  const divM = a => b => ret(b/a);
+  const addM = a => b => ret(a+b);
+  const cubeM = v => ret(v*v*v);
+  const multM = a => b => ret(a*b);
+  const doubleM = a => ret(a+a);
+  const squareM = a => ret(a*a);
+  const sqrtM = a => ret(Math.sqrt(a));
 
   const addC2 = a => b => c => ret(a+b,c);
   var double = function double(v) {
@@ -1091,24 +1131,9 @@ function primes(n, ar) {
     return s;
   }
 
-   var pause = function (x, t, mon2) {
-      var time = t * 1000;
-      setTimeout(function () {
-          mon2.release();
-      }, time);
-      return mon2;
-  };
- /* var wait = function wait(x, y, mon) {
-      if (mon === void 0) { mon = mMtemp5; }
-      if (x === y) {
-          mon.release();
-      }
-      return mon;
-  }; */
-
-  var toFloat = function toFloat(x) {
-      return ret(parseFloat(x));
-  };
+var toFloat = function toFloat(x) {
+  return ret(parseFloat(x));
+};
 
   var par = function par(x) {
       var ar = x.slice();
