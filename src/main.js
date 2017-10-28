@@ -999,9 +999,8 @@ h('h2', 'Monads' ),
 
 
 
-  h('p', ' As mentioned above, "monads" are objects "m" for which "m instanceof Monad" returns true. Using "instance" in the JavaScript sense of the word, monads are are instances of Monad. var x = new Monad(0,"x") instantiates a monad named "x" whose value (x attribute) is 0. '),
-h('p', ' Later, there will be a discussion of the two functioons that were added to Monad.prototype. They facilitate chaining computations in the traditional JavaScript way: using internal methods rather than external functions. But first I will present the less object oriented, more Haskell-like way to link computations. ' ),
-h('p#chain', ' The functions bind() and ret() are similar in some ways to >>= (known as "bind") and return in the Haskell programming language. But here, in this astonishingly chaotic world of JavaScript, there is only one type of monad. Functions used in chains of computations operate on only one type: every possible JavaScript value. Add to that the fact that values returned by chained functions can be any JavaScript value and you see an example of the potential for creativity and confusion of plain vanilla JavaScript. '),
+  h('p', ' As mentioned above, "monads" are objects "m" for which "m instanceof Monad" returns true. Using "instance" in the JavaScript sense of instantiate, var mon = new Monad(0,"mon") instantiates a monad named "mon" which encapsulates the value x. In other words, mon.id === "mon" and mon.x === 0 both return true'),
+h('p#chain', ' The functions bind() and ret() are similar in some ways to >>= (known as "bind") and return in the Haskell programming language. But here, in this astonishingly chaotic world of JavaScript, there is only one type of monad and that type is any JavaScript value. Functions used in chains of computations operate on only one type: every possible JavaScript value. Add to that the fact that values returned by chained functions can be any JavaScript value and you see an example of the potential for creativity and confusion of plain vanilla JavaScript. '),
   
 h('p', ' bind() facilitates the linking of synchronous functions and promises in the same chain. In the functions below, the suffix "C" designates curried functions that return ordinary values. The suffixes M and P are for curried functions that return monads and curried functions that return promises respectively. The definitions are in Appendix B. All three varieties are used in the sequence below along with "pause" which returns whatever it is given after two seconds. '),
 
@@ -1061,15 +1060,6 @@ h('pre', `bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[1]))(multC(ar[1]))
 h('p', ' addC, and multC (above) are curried functions defined as follows: ' ), 
 h('pre', `    const addC = a => b => ret(a+b);
     const multC = a => b => ret(a*b); ` ),
-h('p', ' They return functions when given one argument. For example: ' ),
-h('pre', `  eq((b => ret(3+b)),addC(3)) ` ),  // true  Tested in Firefox, Chrome, and node.  
-h('span.tao',' Are you surprised to see the above expression return true when no argument has been specified. JavaScript ascertained that the equality of x and id would hold for all of the infinite number of possible arguments. I\'m impressed. I wonder if Kyle Simpson will politely say something like "Duh. what else did you think it might do?". I haven\'t met Mr. Simpson. His book, '),
-h('a',   {props: {href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" }},  'You Don\'t Know Javascript by Kyle Simpson'),  
-h('span', ' is very impressive. You can support the book with Patreon at the above address or purchase hard copies from O\Reily, Amazon, etc. ' ),
-h('a',   {props: {href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" }},  'You Don\'t Know Javascript'),  
-h('span', ' is the thinking developer\'s answer to ' ),
-h('a',   {props: {href: "http://shop.oreilly.com/product/9780596517748.do", target: "_blank" }},  ' "JavaScript: The Good Parts" by Douglas Crockford ' ),
-h('span', ', which has long been revered as a "must read" JavaScript book. Kyle Simpson recommends learning to use potentially dangerous code intelligently while Douglas Crockford advocates never using such code. I think the phrase "eval is evil" stems from Crockford\'s book. I find eval() to be very useful from time to time. Kyle Simpson teaches programmers how to safely tap the full potential of JavaScript. ' ),  
 
 h('h3', 'Comparison With Haskell'),
 h('span.tao', ' Values v that satisfy "v instanceof Monad" (what I call "monads" in this discussion) are very different from the Haskell monads, but they are similar in that both behave like the monads of category theory without actually being category theory monads. See ' ),
@@ -1636,6 +1626,16 @@ async function cubeP (x) {
 } `),
 
   h('p'),
+
+
+h('h3', 'Appendix C - Further Reading ' ),
+h('p', ' Here is a good resource: '),
+h('a',   {props: {href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" }},  'You Don\'t Know Javascript by Kyle Simpson'),  
+h('span', ' You can support the open-source digital version of this book with Patreon at the above address or purchase hard copies from O\Reily, Amazon, etc. ' ),
+h('a',   {props: {href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" }},  'You Don\'t Know Javascript'),  
+h('span', ' is the thinking developer\'s answer to ' ),
+h('a',   {props: {href: "http://shop.oreilly.com/product/9780596517748.do", target: "_blank" }},  ' "JavaScript: The Good Parts" by Douglas Crockford ' ),
+h('span', ', which has long been revered as a "must read" JavaScript book. Kyle Simpson recommends learning to use potentially dangerous code intelligently while Douglas Crockford advocates never using it at all. I think the phrase "eval is evil" stems from Crockford\'s book. I find eval() to be very useful from time to time. Kyle Simpson teaches programmers how to safely tap the full potential of JavaScript. ' ),  
   h('p'),
   h('p')
           ])
