@@ -1,5 +1,4 @@
 //'use strict';
-
 var todoData
 var mMt3VAL;
 var taskL = [];
@@ -28,7 +27,7 @@ var m4 = new Monad(4, 'm4');
 var m5 = new Monad(5, 'm5');
 var m6 = new Monad(6, 'm6');
 var m7 = new Monad(7, 'm7');
-var m8 = new Monad(8, 'm8');
+var m8 = new Monad({hello: 8}, 'm8');
 var m9 = new Monad(9, 'm9');
 var stateArray = [];
 var nl = '\n';
@@ -53,29 +52,11 @@ function germinate(x) {return x};
 
 console.log(makeSequence(5))
 
-function evaluate (x) {  
-  var x = x;
-  var b = eval("typeof x")
-  console.log('In evaluate. b is', b);
-  if (b === "unidentified") {
-    var a = String(x);
-    return new Monad(a,a);
-  }
-  if (b === "object") {
-    if (eval(x) instanceof Monad) {
-      window[x.id] = new Monad(x.x, x.id)
-      return window[x.id];
-    } 
-  }
-  if (b === "string") {
-    if (eval(x) instanceof Monad) {
-      let monad = eval(x);
-      window[monad.id] = new Monad(monad.x, monad.id);
-      return window[monad.id];
-    }
-  }
-  console.log('ERROR inappropriate argumnet');
-}
+var arf = async p => { 
+  var jim = await p; 
+  console.log('arf',jim)
+  return jim                     ;
+}; 
 
   function Monad(z = 'default', ID = 'tempMonad') {
     this.x = z;
@@ -134,6 +115,7 @@ async function waitP (f, args) {
 }
 
   function pause(x) {
+    console.log('<W><W><W> In pause. ar is',ar);
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(x);
@@ -543,6 +525,34 @@ var m0 = new Monad (0, "m0")
   var backupMonad = new Monad('', 'backupMonad')
   var mMshowRegister = new Monad('inline', 'mMshowRegister')
 
+function prm () {
+  return new Promise( (resolve, reject) => {
+     mMZ39.bnd((y) => resolve(y)) 
+ })                          
+}
+
+function prm1 (x) {
+  return new Promise( (resolve, reject) => {
+     mMZ39.bnd((y) => resolve(x*y)) 
+ })                          
+}
+
+function prm2 (f) {
+  return new Promise( (resolve, reject) => {
+     mMZ39.bnd((y) => resolve(f(y))) 
+ })                          
+}
+
+var prm4 = x => {
+  setTimeout(function () {workerC.postMessage([primesMonad.s, [x]])},30 )
+  return new Promise( (resolve, reject) => {
+     mMZ39.bnd((y) => resolve(y)) 
+ })                          
+}
+
+function foo (x) {bind(x)(prm4)(split2)(terminate).pop().then(v => console.log(v.pop(),"Is the largest prime factor of",x,"."))}
+
+function split2(str) {return str.split(',')}
 
 var MonadItter = function MonadItter() {
   this.p = function () {};
@@ -1961,6 +1971,116 @@ var rand$ = xs.of(rand());
   console.log( 'Hello Nurse' );
   console.log('*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*');
  
+
+
+function MonadEvents(z = 'default', ID = 'temp') {
+  var _this = this;
+  this.x = z;
+  this.id = ID;
+  this.bnd = function (func, ...args) {
+    var m = func(this.x, ...args)
+    var ID;
+    if (m instanceof MonadEvents) {
+      ID = testPrefix(args, _this.id);
+      window[ID] = new MonadEvents(m.x, ID);
+      return window[ID];
+    }
+    else return m;
+  };
+  this.ret = function (a) {
+    return window[_this.id] = new MonadEvent(a,_this.id);
+  };
+  this.stream = new EventEmitter();
+  this.stream.on(1, v => _this.bnd(v[0], ...[1]));
+  this.stream.on(2, v => _this.ret(v));
+};
+
+
+
+class MonadEmitter extends EventEmitter {};
+
+function monadConstructor (v,b) {
+  var c = new MonadEmitter();
+  c.x = v;
+  c.id = b;
+  c.bnd = function (func, ...args) {
+    console.log(func);
+    var m = func(c.x, ...args)
+    console.log(m);
+    var ID;
+    if (m instanceof MonadEmitter) {
+      ID = testPrefix(args, c.id);
+      window[ID] = monadConstructor(m.x, ID);
+      return window[ID];
+    }
+    else return m;
+  }
+  c.on(0, v => {
+    console.log(v)
+    return v
+  });
+  c.on(1, v => {
+      var mon = monadConstructor(v, c.id);
+      return window[c.id] = mon;
+  })
+  console.log(v);
+  c.on(2, v => c.bnd(v))
+  return c;
+};
+
+var em = new EventEmitter;
+var eventEmitter = new EventEmitter;
+var em2 = new EventEmitter;
+em2.on('42',x => console.log(x));
+
+var producer = {
+  start: function (listener) {
+    this.id = em.emit('cow',45)
+  },
+
+  stop: function () {
+  },
+
+  id: 0
+}
+
+var listener = {
+  next: (x) => {
+    em.on(1, x => console.log('Yes sir.',x))
+  },
+  error: (err) => {
+    console.error('The Stream gave me an error: ', err);
+  },
+  complete: () => {
+    console.log('The Stream told me it is done.');
+  },
+}
+
+var stream$ = xs.of(producer)
+
+stream$.addListener(listener)
+
+
+
+
+
+em.on(142, v => console.log('142',v ));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

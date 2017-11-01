@@ -23,30 +23,29 @@ var stream = xs.periodic(1000)
   console.log('*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*');
 })()
 
+login();
 function login () {
   console.log('000000000000000000000000000000000000000000000 Entering login', socket.readyState);
   setTimeout(function () {
-  if (socket.readyState === 1) {
-    console.log('readyState is',socket.readyState);
-    var v = Math.random().toString().substring(5);
-    var v2 = v.toString().substring(2);
-    var v2 = "password"
-    pMname.ret(v);
-    pMoldName.ret(v);
-    pMgroup.ret('solo');
-    var combo = v + '<o>' + v2;
-    socket.send('CC#$42' + combo );
-    pMcombo.ret(combo);
-    pMclicked.ret([]);
-    socket.send(`GZ#$42,solo,${v}`);
-  }
-  else {
-    login();
-  }
-  },500 );
+    if (socket.readyState === 1) {
+      console.log('readyState is',socket.readyState);
+      var v = Math.random().toString().substring(5);
+      var v2 = v.toString().substring(2);
+      var v2 = "password"
+      pMname.ret(v);
+      pMoldName.ret(v);
+      pMgroup.ret('solo');
+      var combo = v + '<o>' + v2;
+      socket.send('CC#$42' + combo );
+      pMcombo.ret(combo);
+      pMclicked.ret([]);
+      socket.send(`GZ#$42,solo,${v}`);
+    }
+    else {
+      login();
+    }
+  },100 )
 }
-
-login();
 
 function main(sources) {
  console.log('0^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ got this far');
@@ -207,9 +206,7 @@ async function waitP (f, args) {
   console.log(m80.x);
   return m80.x;
 }
-
 console.log('m80.x',m80.x);
-
  function bind (x, ar = [], args) {
     this.ar = ar;
     var xano = "Charles"
@@ -217,7 +214,6 @@ console.log('m80.x',m80.x);
     if (ar.length === 0) ar = [x];
     console.log('Entering bind. x and ar are',x,ar);
     return function debug8 (func, args=[]) {
-
       if (func.name === "terminate") return ar;
        
       if (func(x, ...args) instanceof Promise) {
@@ -234,7 +230,6 @@ console.log('m80.x',m80.x);
         console.log('bind: y is a monad. y.x and ar',y.x,ar);
         return bind(y.x, ar);
       }
-
       else {
         console.log('bind: func(x, ...args) is not a Monad or a Promise. y',y);
         return bind(y, ar);
@@ -477,8 +472,9 @@ var forwardAction$ = forwardClick$.map(() => {
 
   var factorsPress$ = sources.DOM
       .select('input#factors_1').events('keydown');
+
   var factorsAction$ = factorsPress$.map(function (e) {
-  console.log('&&&&&>>> ^ ^ ^   * * *   >>Cordial greetings from factorsAction$. e is', e );
+  console.log('&&&&&>>> >> Cordial greetings from factorsAction$. e is', e );
     var factors = [];
     mMfactors3.ret('');
     if (e.keyCode === 13) {
@@ -488,7 +484,7 @@ var forwardAction$ = forwardClick$.map(() => {
       }
       else {
         var n = parseInt(num, 10);
-        workerC.postMessage([primesMonad.s, n]);
+        workerC.postMessage([primesMonad.s, [n]]);
       }
     }
   });
@@ -497,9 +493,23 @@ var forwardAction$ = forwardClick$.map(() => {
     console.log('Back in the main thread. m is', m );
     mMfactors.ret(m.data[0]);
     mMfactors23.ret(m.data[1]);
+    // em.emit(143, m.data[1].length)
+    mMZ39.release(m.data[1]);
     window['primesMonad'] = new MonadState('primesMonad', m.data[2]);
   });
 
+  function prom (n) {
+    setTimeout(() => {workerC.postMessage([primesMonad.s, [n]])},20 );
+    return new Promise ((resolve,reject) => {
+      resolve ( sources.WWC.map(e => console.log(e.data[1]))) 
+    });
+  };
+
+  prom(66);
+  prom(66);
+  prom(66);
+  prom(66);
+  prom(66);
 
   var factorsP$ = sources.DOM
     .select('input#factors_5').events('keyup');
@@ -861,7 +871,7 @@ var chatClick$ = sources.DOM
     .select('#todoButton').events('click')
     .map(() => showTodoDiv = showTodoDiv === "none" ? "block" : "none")
 
-  var calcStream$ = xs.merge( m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearAction$, factorsAction$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
+  var calcStream$ = xs.merge(  m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearAction$, factorsAction$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
   return {
   DOM: calcStream$.map(function () {
   return h('div.main', [
@@ -957,6 +967,8 @@ h('div#gameDiv2', {style: { display: mMgameDiv2.x }}, [
     h('button#chat2.cow', 'TOGGLE CHAT'),
     h('br'),
     h('br'),
+    h('p#display', `${mMfactors23.x.split(",").length}` ),
+    h('input#display2', 'Message: ' ),
     h('br'),
     h('span', '__________________________________________ ' ),
     h('div', {style: {fontSize: "14 px"}}, 'Name: ' + pMname.x ),
@@ -1009,7 +1021,7 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(pause)(cubeP)(squareC)(pause
   .pop().then(v => console.log(v.x))`),
   
 h('p', ' The sequence ran almost to completion in 69 microseconds and then waited 6 seconds; 2 for pause, 2 for cubeP and 2 more for the second occurrence of pause before displaying "4", which is the square of (3*3*3)*(3*3*3)-727.  Under the hood, bind() linked the promises with the Promises "then" method, which always returns a promise. When all functions in a sequence are synchronous, bind does not use Promises. '),
-h('p', ' Working in a Haskell-like mode, bind() operates on functions that return monads, but bind() does more than that. Arguments to bind() can be maps of monads or values of any kind to monads or values of any kind, and maps of promises to promises that resolve to monads or anything else. '),
+h('p', ' Working in a Haskell-like mode, bind() operates on functions that return monads, but bind() can do more than that. Arguments to bind() can be maps of monads or values of any kind to monads or values of any kind, and maps of promises to promises that resolve to monads or anything else. Another chain of computations is shown below in the "Web Workers With bind()" section.'),
 h('h3', {style: {color: "yellow"}}, 'CAUTION'),
 h('p', ' Functions provided to bind() must be single-argumnet functions. That is not a substantial restriction because any function can be curried and thereby become a function of one argument. Suppose you have a function "f" that takes three arguments. In that case, f(a)(b) is a function that takes one argument.  So instead of bind(f,a,b) or bind(f(a,b)), write bind(f(a)(b)). bind(x)(f(a)(b)) will return a function that calls f(a)(b)(x) or, if x is a monad, f(a)(b)(x.x).'),
 h('p', ' All functions defined by f(a,b) {do things} have an equivalent curried alternative; namely, const f = a => b => {do things}. For example, the curried version of "function mult (a,b) {return a*b}" is "const mult = a => b => a*b". With the curried definition, mult(3) is a function that triples any numeric argument it receives. This is how all Haskell functions are designed. Curried functions have more potential uses than ordinary functions, and they require less syntactical clutter. '), 
@@ -1060,6 +1072,50 @@ h('pre', `bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[1]))(multC(ar[1]))
 h('p', ' addC, and multC (above) are curried functions defined as follows: ' ), 
 h('pre', `    const addC = a => b => ret(a+b);
     const multC = a => b => ret(a*b); ` ),
+h('h3', 'Web Workers With bind()' ),
+h('p', ' There will be a discussion of MonadItter further down this page. It is used to parse incoming Websockets messages. Here, it prevents the functions that follow it from executing before data arrives from a Web Worker. ' ),
+h('p', ' I am presenting this example now to supplement the examples of more contrived asynchronous functions like CubeP and AddP, functions that wait two seconds before doing some arithmetic. Here is the definition of foo();' ),
+h('pre', `function foo (x) {bind(x)(prm4)(split2)(terminate)
+.pop()
+.then(v => console.log(v.pop(),"Is the largest prime factor of",x,"."))} `),
+h('p', ' Here are the results of running foo on 1992 ,1234567, and 1234568: ' ), 
+h('pre', `16:06:33.838 foo(1992)
+16:06:33.890 VM4757:1  83 Is the largest prime factor of 1992
+
+16:13:03.082 foo(1234567)
+16:13:13.503 VM4757:1  9721 Is the largest prime factor of 1234567
+
+16:15:53.400 foo(1234568)
+16:15:54.368 VM4757:1  154321 Is the largest prime factor of 1234568 `),
+
+h('p', ' It took almost ten seconds for foo(1234567) to get its result from the worker, but foo(1234568) ran in under one second. That is because primesMonad (discussed later) caches computed prime numbers. '),
+h('p', ' Here are the definitions of the unfamiliar functions in bind(x)(prm4)(split2) '),
+h('pre', `const prm4 = x => {
+  setTimeout(function () {workerC.postMessage([primesMonad.s, [x]])},30 )
+  return new Promise( (resolve, reject) => {
+     mMZ39.bnd((y) => resolve(y)) 
+ })                          
+}
+
+function split2(str) {return str.split(',')}  `),
+h('h', ' This is how mMZ39 was created: ' ),
+h('pre', `  var MonadItter = function MonadItter() {
+    this.p = function () {};
+    this.release = function () {
+      return this.p.apply(this, arguments);
+    };
+    this.bnd = function (func) {
+      return this.p = func;
+    }; 
+  }
+
+  var MI = function MI() {
+    return new MonadItter();
+  };
+
+  var mMZ39 = MI(); ` ),
+h('p', ' The result is caught in the applications main() function where mMZ39.release(result) is called, allowing the functions in bind(x)(prm4)(split2) to finish their work useing the result from the worker. ' ),
+
 
 h('h3', 'Comparison With Haskell'),
 h('span.tao', ' Values v that satisfy "v instanceof Monad" (what I call "monads" in this discussion) are very different from the Haskell monads, but they are similar in that both behave like the monads of category theory without actually being category theory monads. See ' ),

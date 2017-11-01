@@ -10,7 +10,7 @@
 
 
 onmessage = function(ar) {
-  console.log('Cordial greetings from workerD.js --- ar is', ar );
+  console.log('Cordial greetings from workerC.js --- ar is', ar );
   console.log('In workerC.js.  ar is ', ar );  
   importScripts('script2.js');
   var primes = execP(ar.data[0], ar.data[1] + 1)

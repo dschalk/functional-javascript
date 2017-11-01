@@ -32,7 +32,7 @@ author:              David Schalk
 
 -- An email address to which users can send suggestions, bug reports, and 
 -- patches.
-maintainer:          schalkbox@gmail.com:
+maintainer:          David Schalk, schalkbox@gmail.com
 
 -- A copyright notice.
 -- copyright:           
@@ -43,13 +43,13 @@ build-type:          Simple
 
 -- Extra files to be distributed with the package, such as examples or a 
 -- README.
-extra-source-files:  README.md
+extra-source-files:  README.md, Fm.hs
 
 -- Constraint on the version of Cabal needed to build this package.
 cabal-version:       >=1.10
 
 
-executable monads-in-javascript
+executable server
   -- .hs or .lhs file containing the Main module.
   main-is:             Main.hs
   
@@ -65,3 +65,5 @@ executable monads-in-javascript
   -- Base language which the package is written in.
   default-language:    Haskell2010
   
+  other-modules: Fm
+

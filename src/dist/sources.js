@@ -31,7 +31,7 @@ function workerBDriver () {
 
 function workerCDriver () {
   return xs.create({
-    start: listener => { workerC.onmessage = msg => listener.next(msg)},
+    start: w23 => { workerC.onmessage = msg => w23.next(msg)},
     stop: () => { workerC.terminate() }
   });
 };
@@ -64,16 +64,8 @@ function workerDriver () {
   });
 };
 
-socket.onmessage = function (event) {
-    console.log('Socket message',event);
-};
-
-socket.onmessage = function (event) {
-    console.log(event);
-};
-
 socket.onclose = function (event) {
-    console.log('<><><> New message <><><> ', event);
+    console.log('<><><> ALERT - socket is closing. <><><> ', event);
 };
 
 
@@ -94,6 +86,15 @@ function mMstreamDriver () {
 
 
 
+const sources = {
+  WS: websocketsDriver,
+  WWB: workerBDriver,
+  WWC: workerCDriver,
+  WWD: workerDDriver,
+  WWE: workerEDriver,
+  WWF: workerFDriver,
+  WW: workerDriver
+}
 
 
 

@@ -1,19 +1,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 onmessage = function(ar) {
   var [prState, nums, decompState] = ar.data;
   var n = 0;
