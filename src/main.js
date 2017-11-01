@@ -1114,7 +1114,7 @@ h('pre', `  var MonadItter = function MonadItter() {
   };
 
   var mMZ39 = MI(); ` ),
-h('p', ' The result is caught in the applications main() function where mMZ39.release(result) is called, allowing the functions in bind(x)(prm4)(split2) to finish their work useing the result from the worker. ' ),
+h('p', ' The result is caught in the application\'s main() function where mMZ39.release(result) is called, allowing the functions in bind(x)(prm4)(split2) to finish their work useing the result from the worker. ' ),
 
 
 h('h3', 'Comparison With Haskell'),
