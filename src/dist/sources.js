@@ -31,7 +31,7 @@ function workerBDriver () {
 
 function workerCDriver () {
   return xs.create({
-    start: w23 => { workerC.onmessage = msg => w23.next(msg)},
+    start: listener => { workerC.onmessage = msg => listener.next(msg)},
     stop: () => { workerC.terminate() }
   });
 };

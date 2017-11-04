@@ -44,7 +44,7 @@ function login () {
     else {
       login();
     }
-  },100 )
+  },300 )
 }
 
 function main(sources) {
@@ -485,7 +485,9 @@ var forwardAction$ = forwardClick$.map(() => {
       else {
         var n = parseInt(num, 10);
         workerC.postMessage([primesMonad.s, [n]]);
-      }
+        bind(n)(prm5)(split2)(pop)(largest)(terminate).pop().then(x => m777.ret(x)); 
+        // console.log('In factorsAction$ ... LARGEST is', LARGEST ),
+      }   
     }
   });
 
@@ -539,7 +541,7 @@ var forwardAction$ = forwardClick$.map(() => {
 
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  End Easy
-
+  const largestFactor = x => bind(1111111)(prm5)(split2)(largest)(terminate).pop()
   var factorsPress_b$ = sources.DOM
       .select('input#factors_1b').events('keydown');
 
@@ -966,10 +968,7 @@ h('div#gameDiv2', {style: { display: mMgameDiv2.x }}, [
     h('button#chat2.cow', 'TOGGLE CHAT'),
     h('br'),
     h('br'),
-    h('p#display', `${mMfactors23.x.split(",").length}` ),
-    h('input#display2', 'Message: ' ),
     h('br'),
-    h('span', '__________________________________________ ' ),
     h('div', {style: {fontSize: "14 px"}}, 'Name: ' + pMname.x ),
     h('div', {style: {fontSize: "14 px"}}, 'Group: ' + pMgroup.x ),
     h('br'),
@@ -997,8 +996,6 @@ h('div#gameDiv2', {style: { display: mMgameDiv2.x }}, [
     ])
 ]),
 h('br'),  
-h('br'),  
-h('span#m80', m80.x),
 h('br'),  
 h('br'),  
 h('span', '_____________________________________________________________________________________'),  
@@ -1096,7 +1093,7 @@ h('pre', `  var prm5 = x => {
   }
 
   function split2(str) {return str.split(',')}  `),
-h('h', ' The timeout in prm5 assures that the promise is returned before the message goes to the web worker. Here is the code involved in creating mMZ39: ' ),
+h('h', ' Here is the code involved in creating mMZ39: ' ),
 h('pre', `  var MonadItter = function MonadItter() {
     this.p = function () {};
     this.release = function () {
@@ -1107,11 +1104,11 @@ h('pre', `  var MonadItter = function MonadItter() {
     }; 
   }
 
+  var mMZ39 = MI(); 
+
   var MI = function MI() {
     return new MonadItter();
-  };
-
-  var mMZ39 = MI(); ` ),
+  };  ` ),
 h('p', ' A driver (Cycle.js terminology) puts messages sent by workerC into an xstream stream of messages.  The stream is transformed "main", the main application function, into another xstream stream that merges with other streams that together trigger Snabbdom\'s diff and render routine. ' ),
 h('p', ' The content of the trigger streams is ignored. Side effects of the transformation processes are all that matter. One of those side effects provides a string of comma separated numbers arriving from workerC to mM39.release() in pmr4.js. This is the driver: ' ),
 h('pre', `  function workerCDriver () {
@@ -1120,23 +1117,27 @@ h('pre', `  function workerCDriver () {
       stop: () => { workerC.terminate() }
     });
   };` ),
-h('p', ' Here is the code that receives numbers and requests their prime factors from workerC: ' ),
+h('h3', 'The Cycle.js User Interface ' ),
+h('p', ' The monads do not depend on Cycle.js. For those who are interested in Cycle.js, here is the code in this application that receives numbers and requests their prime factors from workerC: ' ),
 h('pre', `var factorsPress$ = sources.DOM
   .select('input#factors_1').events('keydown');
 
- var factorsAction$ = factorsPress$.map(function (e) {
+
+  var factorsAction$ = factorsPress$.map(function (e) {
   console.log('&&&&&>>> >> Cordial greetings from factorsAction$. e is', e );
     var factors = [];
     mMfactors3.ret('');
     if (e.keyCode === 13) {
       var num = e.target.value;
       if (!num.match(/^[0-9]+$/)) {
-        mMfactors3.ret('You can try again. num + ' is not a number');
+        mMfactors3.ret('This works only if you enter a number. ' + num + ' is not a number');
       }
       else {
         var n = parseInt(num, 10);
         workerC.postMessage([primesMonad.s, [n]]);
-      }
+        bind(n)(prm5)(split2)(pop)(largest)(terminate).pop().then(x => m777.ret(x)); 
+        console.log('In factorsAction$ ... LARGEST is', LARGEST ),
+      }   
     }
   }); `),
 h('p', ' Whenever a message, say "m", is added to the stream of messages coming out of workerC, it is mapped to methods and a constructor cause, among other things, mMZ39.release(m.data[1]) to execute. Here\'s the code: '),
@@ -1144,7 +1145,9 @@ h('p', ' Whenever a message, say "m", is added to the stream of messages coming 
 h('pre', `  const workerC$ = sources.WWC.map(m => {  // sources.WWC a/k/a workerCDriver
     mMfactors.ret(m.data[0]);
     mMfactors23.ret(m.data[1]);
-    mMZ39.release(m.data[1]);    // This line lets largestPrime proceed
+    mMZ39.release(m.data[1]);    // This line lets bind(n)(prm5)
+        // (split2)(pop)(largest)(terminate)
+        // .pop(.then(x => m777.ret(x)) proceed to completion.
     window['primesMonad'] = new MonadState('primesMonad', m.data[2]);
   });
 
@@ -1163,8 +1166,10 @@ h('pre', `  const workerC$ = sources.WWC.map(m => {  // sources.WWC a/k/a worker
 h('input#factors_1'),
 h('br'),
 h('br'),
-h('span', mMfactors.x ),
-h('span.tao3', mMfactors23.x ),
+h('span', `${m777.x()}` ),
+h('br'),
+h('br'),
+h('p', ' m777.x() is displayed above. \`${m777.x()}\` is a permanent fixture of the vnode that is the substance of the return value of main(); in other words, the Snabbdom code that determines the changes that are made in each diff and render. m777.x() can be displayed in React, Node, and all other JavaScript framewords.   '),
 
 
 

@@ -348,6 +348,7 @@ var m0 = new Monad (0, "m0")
     return mon;
   };
 
+  var m777 = ret(function() {},'m777');
   var count = 0;
   var mM0 = M(0, 'mM0');
   var mM1 = M([], 'mM1');
@@ -543,24 +544,24 @@ function prm2 (f) {
  })                          
 }
 
-var prm4 = x => {
-  setTimeout(function () {workerC.postMessage([primesMonad.s, [x]])},30 )
-  return new Promise( (resolve, reject) => {
-     mMZ39.bnd((y) => resolve(y)) 
- })                          
-}
+const pop = ar => ret(ar.pop())
 
-var prm5 = x => {
+const prm5 = x => {
   return new Promise( (resolve, reject) => {
      mMZ39.bnd((y) => resolve(y)) 
  }).then(workerC.postMessage([primesMonad.s, [x]]));                         
 }
 
+  
 function largestPrime (x) {bind(x)(prm5)(split2)(terminate)
 .pop()
 .then(v => console.log(v.pop(),"Is the largest prime factor of",x))} 
 
 function split2(str) {return str.split(',')}
+
+var LARGEST = 0;
+var ar = [function () {}];
+const largest = x => ( () => x + " is the largest prime factor of " + ar[0]); 
 
 var MonadItter = function MonadItter() {
   this.p = function () {};
@@ -575,7 +576,6 @@ var MonadItter = function MonadItter() {
   var MI = function MI() {
     return new MonadItter();
   };
-
   var mMZ1 = MI();
   var mMZ2 = MI();
   var mMZ3 = MI();
@@ -2074,8 +2074,8 @@ stream$.addListener(listener)
 
 em.on(142, v => console.log('142',v ));
 
-
-
+bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[1]))(multC(ar[1]))
+(addC(30))(multC(1/ar[3]))(() => ar)(terminate).pop()
 
 
 
