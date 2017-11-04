@@ -493,7 +493,6 @@ var forwardAction$ = forwardClick$.map(() => {
     console.log('Back in the main thread. m is', m );
     mMfactors.ret(m.data[0]);
     mMfactors23.ret(m.data[1]);
-    // em.emit(143, m.data[1].length)
     mMZ39.release(m.data[1]);
     window['primesMonad'] = new MonadState('primesMonad', m.data[2]);
   });
@@ -888,7 +887,7 @@ var chatClick$ = sources.DOM
 h('div.content', [
 h('p', ' I am publishing this page mainly: ' ),
 h('span.tao', ' (1) To show how "monads", which are objects created by expressions such as ' ),
-h('span', {style: {color: '#ef7732'}}, '\"m = new Monad(a,b).\"' ),
+h('span', {style: {color: '#ef7732'}}, 'm = new Monad(a,"m").' ),
 h('span', ' can promote efficiency, maintainability, and robustness in front-end web applications. Functions that return promises, monads, and other values can be linked with one another in a single chain of encapsulated procedures that produce only one side effect: the final result. ' ),
 h('a', { props: { href: '#chain' } }, 'Linked Procedures.'),
 h('br'),
@@ -1074,31 +1073,30 @@ h('pre', `    const addC = a => b => ret(a+b);
     const multC = a => b => ret(a*b); ` ),
 h('h3', 'Web Workers With bind()' ),
 h('p', ' There will be a discussion of MonadItter further down this page. It is used to parse incoming Websockets messages. Here, it prevents the functions that follow it from executing before data arrives from a Web Worker. ' ),
-h('p', ' I am presenting this example now to supplement the examples of more contrived asynchronous functions like CubeP and AddP, functions that wait two seconds before doing some arithmetic. Here is the definition of foo();' ),
-h('pre', `function foo (x) {bind(x)(prm4)(split2)(terminate)
+h('p', ' I am presenting this example now to supplement the examples of more contrived asynchronous functions like CubeP and AddP, functions that wait two seconds before doing some arithmetic. Here is the definition of largestPrime();' ),
+h('pre', `function largestPrime (x) {bind(x)(prm5)(split2)(terminate)
 .pop()
-.then(v => console.log(v.pop(),"Is the largest prime factor of",x,"."))} `),
-h('p', ' Here are the results of running foo on 1992 ,1234567, and 1234568: ' ), 
-h('pre', `16:06:33.838 foo(1992)
+.then(v => console.log(v.pop(),"Is the largest prime factor of",x))} `),
+h('p', ' Here are the results of running largestPrime on 1992 ,1234567, and 1234568: ' ), 
+h('pre', `16:06:33.838 largestPrime(1992)
 16:06:33.890 VM4757:1  83 Is the largest prime factor of 1992
 
-16:13:03.082 foo(1234567)
+16:13:03.082 largestPrime(1234567)
 16:13:13.503 VM4757:1  9721 Is the largest prime factor of 1234567
 
-16:15:53.400 foo(1234568)
+16:15:53.400 largestPrime(1234568)
 16:15:54.368 VM4757:1  154321 Is the largest prime factor of 1234568 `),
 
-h('p', ' It took almost ten seconds for foo(1234567) to get its result from the worker, but foo(1234568) ran in under one second. That is because primesMonad (discussed later) caches computed prime numbers. '),
-h('p', ' Here are the definitions of the unfamiliar functions in bind(x)(prm4)(split2) '),
-h('pre', `const prm4 = x => {
-  setTimeout(function () {workerC.postMessage([primesMonad.s, [x]])},30 )
-  return new Promise( (resolve, reject) => {
-     mMZ39.bnd((y) => resolve(y)) 
- })                          
-}
+h('p', ' It took almost ten seconds for largestPrime(1234567) to get its result from the worker, but largestPrime(1234568) ran in under one second. That is because primesMonad (discussed later) caches computed prime numbers. '),
+h('p', ' Here are the definitions of the unfamiliar functions in bind(x)(prm5)(split2). '),
+h('pre', `  var prm5 = x => {
+    return new Promise( (resolve, reject) => {
+       mMZ39.bnd((y) => resolve(y)) 
+   }).then(workerC.postMessage([primesMonad.s, [x]]));                         
+  }
 
-function split2(str) {return str.split(',')}  `),
-h('h', ' This is how mMZ39 was created: ' ),
+  function split2(str) {return str.split(',')}  `),
+h('h', ' The timeout in prm5 assures that the promise is returned before the message goes to the web worker. Here is the code involved in creating mMZ39: ' ),
 h('pre', `  var MonadItter = function MonadItter() {
     this.p = function () {};
     this.release = function () {
@@ -1114,7 +1112,62 @@ h('pre', `  var MonadItter = function MonadItter() {
   };
 
   var mMZ39 = MI(); ` ),
-h('p', ' The result is caught in the application\'s main() function where mMZ39.release(result) is called, allowing the functions in bind(x)(prm4)(split2) to finish their work useing the result from the worker. ' ),
+h('p', ' A driver (Cycle.js terminology) puts messages sent by workerC into an xstream stream of messages.  The stream is transformed "main", the main application function, into another xstream stream that merges with other streams that together trigger Snabbdom\'s diff and render routine. ' ),
+h('p', ' The content of the trigger streams is ignored. Side effects of the transformation processes are all that matter. One of those side effects provides a string of comma separated numbers arriving from workerC to mM39.release() in pmr4.js. This is the driver: ' ),
+h('pre', `  function workerCDriver () {
+    return xs.create({
+      start: listener => { workerC.onmessage = msg => listener.next(msg)},
+      stop: () => { workerC.terminate() }
+    });
+  };` ),
+h('p', ' Here is the code that receives numbers and requests their prime factors from workerC: ' ),
+h('pre', `var factorsPress$ = sources.DOM
+  .select('input#factors_1').events('keydown');
+
+ var factorsAction$ = factorsPress$.map(function (e) {
+  console.log('&&&&&>>> >> Cordial greetings from factorsAction$. e is', e );
+    var factors = [];
+    mMfactors3.ret('');
+    if (e.keyCode === 13) {
+      var num = e.target.value;
+      if (!num.match(/^[0-9]+$/)) {
+        mMfactors3.ret('You can try again. num + ' is not a number');
+      }
+      else {
+        var n = parseInt(num, 10);
+        workerC.postMessage([primesMonad.s, [n]]);
+      }
+    }
+  }); `),
+h('p', ' Whenever a message, say "m", is added to the stream of messages coming out of workerC, it is mapped to methods and a constructor cause, among other things, mMZ39.release(m.data[1]) to execute. Here\'s the code: '),
+  
+h('pre', `  const workerC$ = sources.WWC.map(m => {  // sources.WWC a/k/a workerCDriver
+    mMfactors.ret(m.data[0]);
+    mMfactors23.ret(m.data[1]);
+    mMZ39.release(m.data[1]);    // This line lets largestPrime proceed
+    window['primesMonad'] = new MonadState('primesMonad', m.data[2]);
+  });
+
+  const sources = {
+    DOM: makeDOMDriver('#main-container'),
+    WS: websocketsDriver,
+    WWB: workerBDriver,
+    WWC: workerCDriver,
+    WWD: workerDDriver,
+    WWE: workerEDriver,
+    WWF: workerFDriver,
+    WW: workerDriver
+  }
+  run(main, sources);  // Sends and receives data to and from main. ` ),
+
+h('input#factors_1'),
+h('br'),
+h('br'),
+h('span', mMfactors.x ),
+h('span.tao3', mMfactors23.x ),
+
+
+
 
 
 h('h3', 'Comparison With Haskell'),
@@ -1342,6 +1395,56 @@ h('p', ' The user\'s selected number along with the current state of primesMonad
     code.primes4,
 h('p', ' execF prepares the Fibonacci series and sends its state, along with the state of primesMonad that it received from workerB.js, to fpTransformer. execP is called with the current state and the largest Fibonacci number that had been recently produced by execF as arguments. The updated state is an array with four elements, [new upper bound, new series, largest prime produced in the current browser session, largest series]. If the new result is larger than any previous one, the first and second elements of the state array are identical to the third and fourth. Otherwise, they are smaller. As is apparent in the following code, primesMonad is re-created in the main thread using the state array that was posted by workerB. ' ),
     code.primes2,
+
+
+
+
+
+
+
+
+
+h('h2', 'MonadItter'),
+h('p', ' As shown in the "Monads" section (above), the definition of MonadItter is: ' ),  
+code.monadIt,
+h('p', ' MonadItter instances don\'t link to one another. They exist to facilitate the work of instances of Monad, MonadState, etc. Here\'s how they work: '),
+h('p', 'For any instance of MonadItter, say "it", "it.bnd(func)" causes it.p === func. Calling the method "it.release(...args)" causes p(...args) to run, possibly with arguments supplied by the caller. '),
+h('p',' MonadItter instances control the routing of incoming websockets messages. In one of the demonstrations below, they behave much like ES2015 iterators.'),
+h('h3', ' A Basic Itterator '),
+h('p', 'The following example illustrates the use of release() with an argument. It also shows a lambda expressions being provided as an argument for the method mMZ1.bnd() (thereby becoming the value of mMZ1.p), and then mMZ1.release providing an arguments for the function mMZ1.p. The code is shown beneith the following two buttons. '),
+h('button#testZ', 'mMZ1.release(1)'),
+h('p.code2', mMt3.x  ) ,
+h('span', 'Refresh button: '),
+h('button#testQ', 'mMt1.ret(0) '),
+h('br'),
+    code.testZ,
+h('span.tao', ' The expression mMt3.x sits permanently in the Motorcycle virtual DOM description. You can call '),
+h('span.green', 'mMZ2.release(v)'),
+h('span', ' by entering a value for v below: '),
+h('br'),
+h('span', 'Please enter an integer here: '),
+h('input#testW'),
+h('p', ' cube() is defined in the Monad section (above). If you click "mMZ1.release(1)" several times, the code (above) will run several times, each time with v === 1. The result, mMt3.x, is shown below the button. mMZ1.p (bnd()\'s argument) remains constant while mMZ1.release(1) is repeatedly called, incrementing the number being cubed each time. '),
+                  h('p', ' Here is another example. It demonstrates lambda expressions passing values to a remote location for use in a computation. If you enter three numbers consecutively below, call them a, b, and c, then the quadratic equation will be used to find solutions for a*x**2 + b*x + c = 0. The a, b, and c you select might not have a solution. If a and b are positive numbers, you are likely to see solutions if c is a negative number. For example, 12, 12, and -24 yields the solutions 1 and -2. '),
+h('p#quad4.red2', mMquad4.x  ),
+h('p#quad5.red2', mMquad5.x  ),
+h('p#quad6.red2', mMquad6.x  ),
+h('p', 'Run mMZ3.release(v) three times for three numbers. The numbers are a, b, and c in ax*x + b*x + c = 0. Remember to press <ENTER> after each number. '),
+h('input#quad'),
+h('p', 'Here is the code:'),
+code.quad,
+h('p', ' fmap (above) facilitated using qS4 in a monadic sequence. qS4 returns an array, not an instance of Monad, but fmap lifts qS4 into the monadic sequence. '),
+h('p', ' The function solve() is recursive. It invokes itself after release() executes three times. The expression "solve()" resets solve to the top, where mMZ3.p becomes a function containing two nested occurrances of mMZ3.bnd. After mMZ3.release() executes, mMZ3.p becomes the function that is the argument to the next occurrance of mMZ3.bnd. That function contains yet another occurrance of mMZ3.bnd. MonadItter is syntactic sugar for nested callbacks. ' ),
+
+
+
+
+
+
+
+
+
+
   h('h2', ' MonadEr - An Error-Catching Monad ' ),
   h('p', ' Instances of MonadEr function much the same as instances of Monad, but when an instance of MonadEr encounters an error, it ceases to perform any further computations. Instead, it passes through every subsequent stage of a sequence of MonadEr expressions, reporting where it is and repeating the error message. It will continue to do this until it is re-instantiated or until its bnd() method runs on the function clean(). ' ),
   h('p', 'Functions used as arguments to the MonadEr bnd() method can be placed in quotation marks to prevent the browser engine from throwing reference errors. Arguments can be protected in the same manner. Using MonadEr can prevent the silent proliferation of NaN results in math computations, and can prevent browser crashes due to attempts to evaluate undefined variables. ' ),
@@ -1681,9 +1784,7 @@ async function cubeP (x) {
   return ret(x*x*x);
 } `),
 
-  h('p'),
-
-
+h('p'),
 h('h3', 'Appendix C - Further Reading ' ),
 h('p', ' Here is a good resource: '),
 h('a',   {props: {href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" }},  'You Don\'t Know Javascript by Kyle Simpson'),  

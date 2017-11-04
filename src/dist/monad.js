@@ -550,7 +550,15 @@ var prm4 = x => {
  })                          
 }
 
-function foo (x) {bind(x)(prm4)(split2)(terminate).pop().then(v => console.log(v.pop(),"Is the largest prime factor of",x,"."))}
+var prm5 = x => {
+  return new Promise( (resolve, reject) => {
+     mMZ39.bnd((y) => resolve(y)) 
+ }).then(workerC.postMessage([primesMonad.s, [x]]));                         
+}
+
+function largestPrime (x) {bind(x)(prm5)(split2)(terminate)
+.pop()
+.then(v => console.log(v.pop(),"Is the largest prime factor of",x))} 
 
 function split2(str) {return str.split(',')}
 
