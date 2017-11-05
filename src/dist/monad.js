@@ -1,4 +1,3 @@
-//'use strict';
 var todoData
 var mMt3VAL;
 var taskL = [];
@@ -31,6 +30,7 @@ var m8 = new Monad({hello: 8}, 'm8');
 var m9 = new Monad(9, 'm9');
 var stateArray = [];
 var nl = '\n';
+const red = {style: {color: "red"}} 
 
 function makeSequence (n) {
   var a=[];
@@ -550,6 +550,12 @@ const prm5 = x => {
   return new Promise( (resolve, reject) => {
      mMZ39.bnd((y) => resolve(y)) 
  }).then(workerC.postMessage([primesMonad.s, [x]]));                         
+}
+
+const prm6 = x => {
+  return new Promise( (resolve, reject) => {
+     mMZ38.bnd((y) => resolve(y)) 
+ }).then(socket.send('BB#$42,pMgroup,pMname')); 
 }
 
   

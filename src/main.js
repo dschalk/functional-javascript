@@ -1018,12 +1018,26 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(pause)(cubeP)(squareC)(pause
   
 h('p', ' The sequence ran almost to completion in 69 microseconds and then waited 6 seconds; 2 for pause, 2 for cubeP and 2 more for the second occurrence of pause before displaying "4", which is the square of (3*3*3)*(3*3*3)-727.  Under the hood, bind() linked the promises with the Promises "then" method, which always returns a promise. When all functions in a sequence are synchronous, bind does not use Promises. '),
 h('p', ' Working in a Haskell-like mode, bind() operates on functions that return monads, but bind() can do more than that. Arguments to bind() can be maps of monads or values of any kind to monads or values of any kind, and maps of promises to promises that resolve to monads or anything else. Another chain of computations is shown below in the "Web Workers With bind()" section.'),
-h('h3', {style: {color: "yellow"}}, 'CAUTION'),
-h('p', ' Functions provided to bind() must be single-argumnet functions. That is not a substantial restriction because any function can be curried and thereby become a function of one argument. Suppose you have a function "f" that takes three arguments. In that case, f(a)(b) is a function that takes one argument.  So instead of bind(f,a,b) or bind(f(a,b)), write bind(f(a)(b)). bind(x)(f(a)(b)) will return a function that calls f(a)(b)(x) or, if x is a monad, f(a)(b)(x.x).'),
-h('p', ' All functions defined by f(a,b) {do things} have an equivalent curried alternative; namely, const f = a => b => {do things}. For example, the curried version of "function mult (a,b) {return a*b}" is "const mult = a => b => a*b". With the curried definition, mult(3) is a function that triples any numeric argument it receives. This is how all Haskell functions are designed. Curried functions have more potential uses than ordinary functions, and they require less syntactical clutter. '), 
+h('p', {style: {color: "yellow"}}, 'USE FUNCTIONS THAT TAKE ONLY ONE ARGUMENT'),
+h('p', ' addC is an example of a function that takes only one argument and returns a function. This is demonstrated in the Chrome console with pairs of statements followed by results as follows: '),
+h('pre', `  addC(3)
+  b => ret(a+b) 
   
+  addC(3)(" cows")
+  Monad {x: "3 cows", id: "retDefault"}"
+  
+  addC(3)(4).x
+  7 `),
+h('span.tao', ' In functional programming, the pattern f = a => b => c => d is prefered over f(a,b,c) {return d}. All Haskell functions follow this pattern, not even needing parentheses. Define add() by '), h('span', red, 'add a b = a+b'), h('span', ' and run '),h('span', red, 'add 3 4.'), h('span', ' You get '), h('span', red, '7.'),
+h('span', ' This is the functional way. It is the only sensible way to use the monads presented on this page. '),
+h('br'),  
+h('br'),  
 h('a', {props: {href: '#top'}}, 'Back to the top'),  
-h('p', ' When writing code, I pay attention to types and sometimes type-check to avoid crashes and for the convenience people using my websites. For example, if a user enters the wrong type of data it is helpful to display a message explaining why nothing is happening. This is a good way to prevent sockets from disconnecting in Websockets applications. I prefer ad hoc type checking over converting JavaScript into a strongly typed language with libraries like Typescript. '),
+h('br'),  
+h('br'),  
+h('span.tao', {style: {color: "#d8ef7c", fontSize: "17px" }},   'Types:'),
+h('span.tao', ' When writing code, I pay attention to types and sometimes type-check to avoid crashes and for the convenience people using my websites. For example, if a user enters the wrong type of data it is helpful to display a message explaining why nothing is happening. This is a good way to prevent sockets from disconnecting in Websockets applications. I prefer ad hoc type checking over converting JavaScript into a strongly typed language with libraries like Typescript. '),
+h('br'),  
 h('h3', 'More about monads'),   
 h('p', ' ret() is a convenient function for wrapping values in monads. It is also the left and right identity function for monads as is discussed further down the page in the Haskel Monad Laws section. '),
 h('pre', `  function ret (val = 0, id = "retDefault") {
