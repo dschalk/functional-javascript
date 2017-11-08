@@ -20,8 +20,6 @@ function websocketsDriver() {
   });
 };
 
-
-
 function workerBDriver () {
   return xs.create({
     start: listener => { workerB.onmessage = msg => listener.next(msg)},
@@ -54,6 +52,13 @@ function workerFDriver () {
   return xs.create({
     start: listener => { workerF.onmessage = msg => listener.next(msg)},
     stop: () => { workerF.terminate() }
+  });
+};
+
+function workerGDriver () {
+  return xs.create({
+    start: listener => { workerG.onmessage = msg => listener.next(msg)},
+    stop: () => { workerG.terminate() }
   });
 };
 
@@ -93,6 +98,7 @@ const sources = {
   WWD: workerDDriver,
   WWE: workerEDriver,
   WWF: workerFDriver,
+  WWG: workerGDriver,
   WW: workerDriver
 }
 

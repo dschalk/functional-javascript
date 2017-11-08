@@ -1,3 +1,4 @@
+
 var todoData
 var mMt3VAL;
 var taskL = [];
@@ -28,9 +29,11 @@ var m6 = new Monad(6, 'm6');
 var m7 = new Monad(7, 'm7');
 var m8 = new Monad({hello: 8}, 'm8');
 var m9 = new Monad(9, 'm9');
+var m38 = new Monad(0, 'm38');
 var stateArray = [];
 var nl = '\n';
 const red = {style: {color: "red"}} 
+var m778_RESULT = "pending"
 
 function makeSequence (n) {
   var a=[];
@@ -101,10 +104,6 @@ function testProm(f,v,args) {
   else return false;
 }
 
-var promise = pinkySwear();
-promise(true,[42]);
-console.log('pinky promise()', promise() );
-
 var m80 = new Monad("Amanda", 'm80');
 
 async function waitP (f, args) {
@@ -114,53 +113,76 @@ async function waitP (f, args) {
   return m80.x;
 }
 
-  function pause(x) {
-    console.log('<W><W><W> In pause. ar is',ar);
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(x);
-      }, 2000);
-    });
-  }
-
-  function pauseCube(x) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(x*x*x);
-      }, 2000);
-    });
-  }
-
 const wait2 = x => {
   setTimeout( function (x) {return x},2000 )
 }
 
-  function bind (x, arr=[]) {
-    this.ar = arr;
+/*  function bind (x, arr=[]) {
     var ar = arr;
-    ar.push(x instanceof Monad ? x.x : x)
     if (ar.length === 0) ar = [x];
-    console.log('bind: x.x is', x);
+    console.log('bind: x is', x);
     console.log('bind: ar is', ar);
     console.log(' ');
     return function debug8 (func) {
+      var y = func(x);
+      if (func.name === "terminate") return ar;
+      if (y instanceof Promise) {
+        y.then(v => {
+          ar.push(v);
+          return bind(y,ar)
+        })
+      }
+      else if (y instanceof Monad) {
+        ar.push(y.x);
+        return bind(func(y.x),ar);
+      }
+      else {
+        ar.push(y);
+        return bind(y,ar);
+      }
+    };
+  };  */  
+
+ 
+  function bind (x, arr=[]) {
+    this.ar = arr;
+    var that = this;
+    this.ar.push(x instanceof Monad ? x.x : x)
+    console.log('this.ar is',this.ar);
+    if (this.ar.length === 0) this.ar = [x];
+    console.log('In bind <<>><<>><<>> x is', x);
+    return function debug8 (func) {
       if (func.name === "terminate") return ar;
       if (x instanceof Promise) {
-        var p = x.then(v => func(v instanceof Monad ? v.x : v));
-        return bind(p,ar)
+        var p = x.then(v => func(v.x));
+        return bind(p,this.ar)
       }
-      if (x instanceof Monad) {
-        return bind(func(x.x),ar);
-      }
-      return bind(func(x),ar);
+      if (x instanceof Monad) return bind(func(x.x),this.ar);
+      return bind(func(x),this.ar);
     };
   };  
 
-(async function hello() {
-  await wait(4000);
+const prm4 = x => {
+  socket.send('BB#$42,pMgroup,pMname,' + x);
+  return new Promise( (resolve, reject) => {
+     mMZ37.bnd((y) => {
+       console.log('In prm4 - <><><><><> - y is',y);  
+       resolve(ret(y));
+     }) 
+  })                         
+}
+
+const prm6 = x => {
+  workerG.postMessage([primesMonad.s, [x]]);
+  return "Done"
+}
+
+var apolox = (async function hello() {
+  await wait(3000);
   console.log( 'Hello Nurse, you sure are a fine-looking woman.' );
   return ret('Oh Nurse, you tear me up');
 })();
+console.log('apolox is', apolox);
 
  async function trylock () { 
    await wait(1000);
@@ -237,6 +259,11 @@ function id (x) {return x}
   const doubleC = a => ret(a+a);
   const squareC = a => ret(a*a);
   const sqrtC = a => ret(Math.sqrt(a));
+
+async function  pause (x) {
+  await wait(2000) 
+  return ret(x);
+}
 
 async function squareP (x) {
   await wait(2000) 
@@ -349,6 +376,9 @@ var m0 = new Monad (0, "m0")
   };
 
   var m777 = ret(function() {},'m777');
+  var m778 = ret(function() {},'m778');
+  var m779 = ret(function() {},'m779');
+  var m778 = ret(function() {},'m778');
   var count = 0;
   var mM0 = M(0, 'mM0');
   var mM1 = M([], 'mM1');
@@ -537,13 +567,6 @@ function prm1 (x) {
      mMZ39.bnd((y) => resolve(x*y)) 
  })                          
 }
-
-function prm2 (f) {
-  return new Promise( (resolve, reject) => {
-     mMZ39.bnd((y) => resolve(f(y))) 
- })                          
-}
-
 const pop = ar => ret(ar.pop())
 
 const prm5 = x => {
@@ -552,22 +575,21 @@ const prm5 = x => {
  }).then(workerC.postMessage([primesMonad.s, [x]]));                         
 }
 
-const prm6 = x => {
-  return new Promise( (resolve, reject) => {
-     mMZ38.bnd((y) => resolve(y)) 
- }).then(socket.send('BB#$42,pMgroup,pMname')); 
-}
-
-  
 function largestPrime (x) {bind(x)(prm5)(split2)(terminate)
 .pop()
 .then(v => console.log(v.pop(),"Is the largest prime factor of",x))} 
 
 function split2(str) {return str.split(',')}
 
+var fx = async () => {await ar[1].then(x => m779.ret(x)); return m779.x}
+
 var LARGEST = 0;
+
 var ar = [function () {}];
+
 const largest = x => ( () => x + " is the largest prime factor of " + ar[0]); 
+
+const factorsF = x => ( () => "the prime factors of " + ar[1] + " are " + x); 
 
 var MonadItter = function MonadItter() {
   this.p = function () {};
@@ -688,6 +710,7 @@ var workerC = new Worker("workerC.js");
 var workerD = new Worker("workerD.js");
 var workerE = new Worker("workerE.js");
 var workerF = new Worker("workerF.js");
+var workerG = new Worker("workerG.js");
 
 var pMop = new Monad (0, 'pMop');
 
@@ -2074,16 +2097,7 @@ var stream$ = xs.of(producer)
 
 stream$.addListener(listener)
 
-
-
-
-
 em.on(142, v => console.log('142',v ));
-
-bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[1]))(multC(ar[1]))
-(addC(30))(multC(1/ar[3]))(() => ar)(terminate).pop()
-
-
 
 
 

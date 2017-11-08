@@ -21,6 +21,7 @@ import           Data.Text                      (Text, pack, unpack)
 import qualified Data.Text                      as T
 import qualified Data.Text.IO                   as TIO
 import           Fm                             (rText, truck)
+import qualified Fm                             as Fm 
 import qualified Network.Wai
 import qualified Network.Wai.Application.Static as Static
 import qualified Network.Wai.Handler.Warp       as Warp
@@ -377,6 +378,17 @@ talk conn state client = forever $ do
                 st <- atomically $ readTVar state
                 broadcast ("GZ#$42," `mappend` group `mappend` "," 
                   `mappend` sender `mappend` "," `mappend` comments ) st
+
+     else if "BB#$42" `T.isPrefixOf` msg               -- FETCH AND BROADCAST ALL COMMENTS
+        then                                           -- PERFORM ON LOAD
+            do
+                print "extraNum:"
+                print extraNum
+                z <- Fm.rM extraNum 
+                print z
+                st <- atomically $ readTVar state
+                broadcast ("BB#$42," `mappend` group `mappend` "," 
+                  `mappend` sender `mappend` "," `mappend` (pack $ show z) ) st
 
      else if "GN#$42" `T.isPrefixOf` msg -- RECEIVE A NEW COMMENT, UPDATE THE FILE AND THE TVAR,
                                          --  AND BROADCAST THE NEW COMMENT 

@@ -40,6 +40,7 @@ function login () {
       pMcombo.ret(combo);
       pMclicked.ret([]);
       socket.send(`GZ#$42,solo,${v}`);
+      prm6(124999);
     }
     else {
       login();
@@ -170,8 +171,11 @@ function main(sources) {
      console.log('------- ar is',ar);
      ar.forEach(v => stateArray.push(h('div', v )))
    })
-
- ret(v[0])
+   mMZ27.bnd( () => {        
+     console.log('In mMZ27 --- v[3] is', v[3])
+     mMZ37.release(v[3]);
+   });
+   ret(v[0])
   .bnd(next, 'CA#$42', mMZ10) // Dice roll
   .bnd(next, 'CD#$42', mMZ11)
   .bnd(next, 'CE#$42', mMZ12)
@@ -189,6 +193,7 @@ function main(sources) {
   .bnd(next, 'TX#$42', mMZ24)  // delete button
   .bnd(next, 'TI#$42', mMZ25)  // group change
   .bnd(next, 'ST#$42', mMZ26)  // server state
+  .bnd(next, 'BB#$42', mMZ27)  // works in conjunction with prm4
  });
 
  console.log('1^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ got this far');
@@ -474,7 +479,7 @@ var forwardAction$ = forwardClick$.map(() => {
       .select('input#factors_1').events('keydown');
 
   var factorsAction$ = factorsPress$.map(function (e) {
-  console.log('&&&&&>>> >> Cordial greetings from factorsAction$. e is', e );
+  console.log('&&&&&>>> >>  factorsAction$. e is', e );
     var factors = [];
     mMfactors3.ret('');
     if (e.keyCode === 13) {
@@ -486,10 +491,34 @@ var forwardAction$ = forwardClick$.map(() => {
         var n = parseInt(num, 10);
         workerC.postMessage([primesMonad.s, [n]]);
         bind(n)(prm5)(split2)(pop)(largest)(terminate).pop().then(x => m777.ret(x)); 
-        // console.log('In factorsAction$ ... LARGEST is', LARGEST ),
       }   
     }
   });
+
+
+
+//******************************************************************* workerG
+  var factors2Press$ = sources.DOM
+      .select('button#factors_P').events('click');
+
+  var factors2Action$ = factors2Press$.map(function (e) {
+    console.log('&&&&&>>> >> In factors2Action$. e is', e );
+    var factors = [];
+    mMfactors3.ret('');
+    bind(50)(cubeC)(prm4)(prm6)
+  });
+
+  const workerG$ = sources.WWG.map(m => {
+    var display = m.data[0] + m.data[1];
+    console.log('WorkerG$ --- Back in the main thread. m is', m );
+    console.log('In workerG$ --- >>> >> > ',display);
+    m778_RESULT = display;
+    window['primesMonad'] = new MonadState('primesMonad', m.data[2]);
+  });
+
+// **********************************************************************
+  
+  
 
   const workerC$ = sources.WWC.map(m => {
     console.log('Back in the main thread. m is', m );
@@ -872,9 +901,9 @@ var chatClick$ = sources.DOM
     .select('#todoButton').events('click')
     .map(() => showTodoDiv = showTodoDiv === "none" ? "block" : "none")
 
-  var calcStream$ = xs.merge(  m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearAction$, factorsAction$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
+  var calcStream$ = xs.merge(  m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerG$, clearAction$, factorsAction$, factors2Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
   return {
-  DOM: calcStream$.map(function () {
+  DOM: calcStream$.map(() => {
   return h('div.main', [
 
     h('div.image_3', [
@@ -1014,10 +1043,14 @@ h('p', ' bind() facilitates the linking of synchronous functions and promises in
 
 h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(pause)(cubeP)(squareC)(pause)
   (addC(-727))(square)(terminate)
-  .pop().then(v => console.log(v.x))`),
+  .pop().then(v => console.log(v.x))`),  // 4
   
-h('p', ' The sequence ran almost to completion in 69 microseconds and then waited 6 seconds; 2 for pause, 2 for cubeP and 2 more for the second occurrence of pause before displaying "4", which is the square of (3*3*3)*(3*3*3)-727.  Under the hood, bind() linked the promises with the Promises "then" method, which always returns a promise. When all functions in a sequence are synchronous, bind does not use Promises. '),
-h('p', ' Working in a Haskell-like mode, bind() operates on functions that return monads, but bind() can do more than that. Arguments to bind() can be maps of monads or values of any kind to monads or values of any kind, and maps of promises to promises that resolve to monads or anything else. Another chain of computations is shown below in the "Web Workers With bind()" section.'),
+h('p', ' The sequence ran almost to completion in 69 microseconds and then waited almost 6 seconds before displaying "4" - 2 seconds for pause, another 2 for cubeP, and 2 more for the second occurrence of pause. That is the expected number since the square of (3*3*3)*(3*3*3)-727 is 4.  Under the hood, bind() linked the promises with the Promises "then" method, which always returns a promise. When all functions in a sequence are synchronous, bind does not use Promises. '),
+h('p', ' Below, there is an interactive demonstration of an asynchronous sequence that fetches a random number from the server through a websocket and then requests its prime decomposition from a web worker.'),
+
+h('p', ' Working in a Haskell-like mode, bind() operates on functions that accept values that might be monads (but probably not) and return monads, but bind() is more versatile than that. Here how bind() works on synchronous sequences: '),
+h('p', ' For any value "a", bind(a) returns a function named "debug8" that operates on functions func(). bind(a)(func) returns debug8, only now it operates on functions func2() that accept func(a) as their arguments. bind(a)(func)(func2) operates on functions ... and on and on until "terminate" is encountered.'), 
+h('p', ' If anyone new to functional programming wraps their head around the way bind() works, they will have moved closer to being able to write their own functional code. See the definition of bind() below. By they way, the first sentence in this paragraph would have represented atrocious grammar back in the day, but now I view it as a good way to get around having to repeatedly write "his or her".'),
 h('p', {style: {color: "yellow"}}, 'USE FUNCTIONS THAT TAKE ONLY ONE ARGUMENT'),
 h('p', ' addC is an example of a function that takes only one argument and returns a function. This is demonstrated in the Chrome console with pairs of statements followed by results as follows: '),
 h('pre', `  addC(3)
@@ -1039,7 +1072,7 @@ h('span.tao', {style: {color: "#d8ef7c", fontSize: "17px" }},   'Types:'),
 h('span.tao', ' When writing code, I pay attention to types and sometimes type-check to avoid crashes and for the convenience people using my websites. For example, if a user enters the wrong type of data it is helpful to display a message explaining why nothing is happening. This is a good way to prevent sockets from disconnecting in Websockets applications. I prefer ad hoc type checking over converting JavaScript into a strongly typed language with libraries like Typescript. '),
 h('br'),  
 h('h3', 'More about monads'),   
-h('p', ' ret() is a convenient function for wrapping values in monads. It is also the left and right identity function for monads as is discussed further down the page in the Haskel Monad Laws section. '),
+h('p', ' ret() is a convenient function for wrapping values in monads. It is also the left and right identity function for monads as is discussed further down the page in the Haskell Monad Laws section. '),
 h('pre', `  function ret (val = 0, id = "retDefault") {
     return window[id] = new Monad(val, id);
   } ` ),
@@ -1049,143 +1082,102 @@ h('p', ' Despite the way it looks, (v => ret(v+3)) doesn\'t take (v => ret(v*v*v
 h('p', '  The following definition of bind() handles promises and monads. I retained the console.log lines so I could better demonstrate what happens in the examples.'), 
 h('pre', {style: {color: "lightBlue"}}, `  function bind (x, arr=[]) {
     this.ar = arr;
-    var ar = arr;
-    ar.push(x instanceof Monad ? x.x : x)
-    if (ar.length === 0) ar = [x];
+    var that = this;
+    this.ar.push(x instanceof Monad ? x.x : x)
+    if (this.ar.length === 0) this.ar = [x];
     return function debug8 (func) {
       if (func.name === "terminate") return ar;
       if (x instanceof Promise) {
-        var p = x.then(v => func(v instanceof Monad ? v.x : v));
-        return bind(p,ar)
+        var p = x.then(v => func(v.x));
+        return bind(p,this.ar)
       }
-      if (x instanceof Monad) {
-        return bind(func(x.x),ar);
-      }
-      return bind(func(x),ar);
+      if (x instanceof Monad) return bind(func(x.x),this.ar);
+      return bind(func(x),this.ar);
     };
-  };   ` ),
+  };  ` ),
 h('p', ' As is apparent from the definition of bind(), the invisible function that stands ready to operate on the function ahead of it in a chain is the return value of bind() (which is a function) applied to the return value of the previous function. "bind(x)" for some value "x" is explicitly coded only at the beginning of a chain, but bind() executes on each link, all the way to the "terminate" flag. ' ),
 h('p', ' Here\'s another way of saying essentially the same thing: If "x" is the most recent argument to bind() and "func" is the most recent argument to the function returned by bind(x,ar), the return value of bind(func(x)) - or bind(func(x.x) if x is a monad - stands ready to operate on the next function you add to the chain. ' ),
-h('p', ' I did my best to plainly describe what bind does and it still looks like a head scrather. The beauty of it is that a developer does not need to write the voluminous, error-prone, hard-to-follow code that would be necessary without a higher-order function like bind(). When you look at a chain of functions following a call to bind, you can easily predict the result you will get unless an asynchronous function in the chain receives user input, Websockets messages, or some other kind of unpredictable data. You could also generate random numbers in the chain. Whatever the case may be, the code could not be easier to understand, unless you peek under the hood that is. ' ), 
+h('p', ' I did my best to plainly describe what bind does and it still looks like a head scratcher. The beauty of it is that a developer does not need to write the voluminous, error-prone, hard-to-follow code that would be necessary without a higher-order function like bind(). When you look at a chain of functions following a call to bind, you can easily predict the result you will get unless an asynchronous function in the chain receives user input, Websockets messages, or some other kind of unpredictable data. You could also generate random numbers in the chain. Whatever the case may be, the code could not be easier to understand, unless you peek under the hood that is. ' ), 
 h('p', ' The result of every computation in a chain of synchronous functions is available to every computation that comes after it. Here\'s an example: ' ),  
   
-h('pre', {style: {fontSize: "12px"}},`bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[1]))(multC(ar[1]))
-(addC(30))(multC(1/ar[3]))(terminate) // [1,3,27,30,90,270,300,10]  `),
+h('pre', {style: {fontSize: "12px"}}, `  bind(1)(addC(2))(cubeC)(addC(3))
+  (multC(this.ar[1]))(multC(this.ar[1]))
+  (addC(30))(multC(1/ar[3]))(terminate)
+   // [1, 3, 27, 30, 90, 270, 300, 10] `),
 h('p', ' Or, equivalently: ' ),
-h('pre', `  bind(1)(v=>ret(v+2))(v=>ret(v*v*v))(v=>ret(v+3))
+h('pre', {style: {fontSize: "12px"}}, `  bind(1)(v=>ret(v+2))(v=>ret(v*v*v))(v=>ret(v+3))
   (v=>ret(v*(ar[1])))(v=>ret(v*(ar[1])))(v=>ret(v+30))
   (v=>ret(v*(1/ar[3])))(terminate)
    // [1, 3, 27, 30, 90, 270, 300, 10] `),
 h('p', ' Or to get only the final result: ' ),
-h('pre', `bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[1]))(multC(ar[1]))
-(addC(30))(multC(1/ar[3]))(terminate).pop()  // 10  ` ),
-h('p', ' addC, and multC (above) are curried functions defined as follows: ' ), 
+h('pre', {style: {fontSize: "12px"}},  `  bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[1]))(multC(ar[1]))
+  (addC(30))(multC(1/ar[3]))(terminate).pop()  // 10  ` ),
+h('p', {style: {fontSize: "12px"}}, 'addC, and multC (above) are curried functions defined as follows: ' ), 
 h('pre', `    const addC = a => b => ret(a+b);
     const multC = a => b => ret(a*b); ` ),
-h('h3', 'Web Workers With bind()' ),
-h('p', ' There will be a discussion of MonadItter further down this page. It is used to parse incoming Websockets messages. Here, it prevents the functions that follow it from executing before data arrives from a Web Worker. ' ),
-h('p', ' I am presenting this example now to supplement the examples of more contrived asynchronous functions like CubeP and AddP, functions that wait two seconds before doing some arithmetic. Here is the definition of largestPrime();' ),
-h('pre', `function largestPrime (x) {bind(x)(prm5)(split2)(terminate)
-.pop()
-.then(v => console.log(v.pop(),"Is the largest prime factor of",x))} `),
-h('p', ' Here are the results of running largestPrime on 1992 ,1234567, and 1234568: ' ), 
-h('pre', `16:06:33.838 largestPrime(1992)
-16:06:33.890 VM4757:1  83 Is the largest prime factor of 1992
-
-16:13:03.082 largestPrime(1234567)
-16:13:13.503 VM4757:1  9721 Is the largest prime factor of 1234567
-
-16:15:53.400 largestPrime(1234568)
-16:15:54.368 VM4757:1  154321 Is the largest prime factor of 1234568 `),
-
-h('p', ' It took almost ten seconds for largestPrime(1234567) to get its result from the worker, but largestPrime(1234568) ran in under one second. That is because primesMonad (discussed later) caches computed prime numbers. '),
-h('p', ' Here are the definitions of the unfamiliar functions in bind(x)(prm5)(split2). '),
-h('pre', `  var prm5 = x => {
-    return new Promise( (resolve, reject) => {
-       mMZ39.bnd((y) => resolve(y)) 
-   }).then(workerC.postMessage([primesMonad.s, [x]]));                         
-  }
-
-  function split2(str) {return str.split(',')}  `),
-h('h', ' Here is the code involved in creating mMZ39: ' ),
-h('pre', `  var MonadItter = function MonadItter() {
-    this.p = function () {};
-    this.release = function () {
-      return this.p.apply(this, arguments);
-    };
-    this.bnd = function (func) {
-      return this.p = func;
-    }; 
-  }
-
-  var mMZ39 = MI(); 
-
-  var MI = function MI() {
-    return new MonadItter();
-  };  ` ),
-h('p', ' A driver (Cycle.js terminology) puts messages sent by workerC into an xstream stream of messages.  The stream is transformed "main", the main application function, into another xstream stream that merges with other streams that together trigger Snabbdom\'s diff and render routine. ' ),
-h('p', ' The content of the trigger streams is ignored. Side effects of the transformation processes are all that matter. One of those side effects provides a string of comma separated numbers arriving from workerC to mM39.release() in pmr4.js. This is the driver: ' ),
-h('pre', `  function workerCDriver () {
+h('h3', 'Asynchronous Functions' ),
+h('h3', 'Cycle.js Time ' ),
+h('p', ' As stated above, the monads do not depend on Cycle.js. This section is for anyone who happens to be interested in how the monads achieve reactivity in this Cycle.js application.' ),
+h('p', ' A driver (Cycle.js terminology) puts messages sent by workerC into an xstream stream of messages. That stream is transformed in the main application function (named "main") into another stream which is merged with other streams to form the stream that triggers Snabbdom\'s diff and render routine. ' ),
+h('p', ' The trigger stream causes Snabbdom to implement the side effects of each individual stream transformation process. For example, the stream of arrays emanating from workerC is listened for by the WWC driver. A new stream named workerG$ containing instructions for updating 778_RESULT and primesMonad is merged into the stream that is returned by main(). Here is the definition of workerGDriver:  ' ),
+h('pre', `  function workerGDriver () {
     return xs.create({
-      start: listener => { workerC.onmessage = msg => listener.next(msg)},
-      stop: () => { workerC.terminate() }
+      start: listener => { workerG.onmessage = msg => listener.next(msg)},
+      stop: () => { workerG.terminate() }
     });
   };` ),
-h('h3', 'The Cycle.js User Interface ' ),
-h('p', ' The monads do not depend on Cycle.js. For those who are interested in Cycle.js, here is the code in this application that receives numbers and requests their prime factors from workerC: ' ),
-h('pre', `var factorsPress$ = sources.DOM
-  .select('input#factors_1').events('keydown');
+h('p', ' The code that responds to user input by sending a websockets message to the server and sending the returned data to workerG and then processing the data returned by workerG is shown below.  '),
+  
 
+h('pre', `  var factors2Press$ = sources.DOM
+    .select('button#factors_P').events('click');
 
-  var factorsAction$ = factorsPress$.map(function (e) {
-  console.log('&&&&&>>> >> Cordial greetings from factorsAction$. e is', e );
+  var factors2Action$ = factors2Press$.map(function (e) {
+    console.log('&&&&&>>> >> In factors2Action$. e is', e );
     var factors = [];
     mMfactors3.ret('');
-    if (e.keyCode === 13) {
-      var num = e.target.value;
-      if (!num.match(/^[0-9]+$/)) {
-        mMfactors3.ret('This works only if you enter a number. ' + num + ' is not a number');
-      }
-      else {
-        var n = parseInt(num, 10);
-        workerC.postMessage([primesMonad.s, [n]]);
-        bind(n)(prm5)(split2)(pop)(largest)(terminate).pop().then(x => m777.ret(x)); 
-        console.log('In factorsAction$ ... LARGEST is', LARGEST ),
-      }   
-    }
-  }); `),
-h('p', ' Whenever a message, say "m", is added to the stream of messages coming out of workerC, it is mapped to methods and a constructor cause, among other things, mMZ39.release(m.data[1]) to execute. Here\'s the code: '),
-  
-h('pre', `  const workerC$ = sources.WWC.map(m => {  // sources.WWC a/k/a workerCDriver
-    mMfactors.ret(m.data[0]);
-    mMfactors23.ret(m.data[1]);
-    mMZ39.release(m.data[1]);    // This line lets bind(n)(prm5)
-        // (split2)(pop)(largest)(terminate)
-        // .pop(.then(x => m777.ret(x)) proceed to completion.
-    window['primesMonad'] = new MonadState('primesMonad', m.data[2]);
+    bind(50)(cubeC)(prm4)(prm6)
   });
 
-  const sources = {
-    DOM: makeDOMDriver('#main-container'),
-    WS: websocketsDriver,
-    WWB: workerBDriver,
-    WWC: workerCDriver,
-    WWD: workerDDriver,
-    WWE: workerEDriver,
-    WWF: workerFDriver,
-    WW: workerDriver
+  const workerG$ = sources.WWG.map(m => {
+    var display = m.data[0] + m.data[1];
+    console.log('WorkerG$ --- Back in the main thread. m is', m );
+    console.log('In workerG$ --- >>> >> > ',display);
+    m778_RESULT = display;
+    window['primesMonad'] = new MonadState('primesMonad', m.data[2]);
+  }); 
+
+  const prm4 = x => {
+    socket.send('BB#$42,pMgroup,pMname,' + x);
+    return new Promise( (resolve, reject) => {
+       mMZ37.bnd((y) => {
+         console.log('In prm4 - <><><><><> - y is',y);  
+         resolve(ret(y));
+       }) 
+    })                         
   }
-  run(main, sources);  // Sends and receives data to and from main. ` ),
 
-h('input#factors_1'),
+  mMZ27.bnd( () => {       // code in messages$ 
+    mMZ37.release(v[3]);
+  });
+   
+  const prm6 = x => {  // x is the random number returned by the server.
+    workerG.postMessage([primesMonad.s, [x]]); 
+    return "Done";  // The returned data is processed in workerG$ (above).
+     }  ` ),
+h('span', ' Click the button below to execute '),
+h('pre', {style: {color: "#f9e284"  }}, `bind(50)(cubeC)(prm4)(prm6) `),
+h('br'),
+h('button#factors_P', {style: {fontSize: '12px'}},  'decompose a random number'), h('br'),
+h('br'),
+h('span', {style: {color: "#ffff3a", fontSize: '18px'}}, m778_RESULT ),
 h('br'),
 h('br'),
-h('span', `${m777.x()}` ),
-h('br'),
-h('br'),
-h('p', ' m777.x() is displayed above. \`${m777.x()}\` is a permanent fixture of the vnode that is the substance of the return value of main(); in other words, the Snabbdom code that determines the changes that are made in each diff and render. m777.x() can be displayed in React, Node, and all other JavaScript framewords.   '),
-
-
+h('p', ' m777.x() is displayed above. \`${m777.x()}\` is a permanent fixture of the vnode that is the substance of the return value of main(); in other words, the Snabbdom code that determines the changes that are made in each diff and render. m777.x() can be displayed in React, Node, and all other JavaScript frameworks.   '),
+h('p', ' The code for the asynchronous function prm4() that fetches a random six figure number from the server is a modified version of prm5. Likewise, factors() is very similar to largest() and is self executing. The end result goes in the monad m778. \`${m778.x()}\` resides in the vnode that is created when main() returns. '),
+h('p', ' When the following code runs, a random six figure number is obtained from the server and then its prime decomposition is obtained from workerC, the web worker used in the previous example. factors() formats the result which ends up in m778. '),
+h('pre', `  bind(1000000)(prm4)(fx)(prm5)(factors)
+  (terminate).pop().then(v => m38.ret(v)) `),
 
 
 
@@ -1257,8 +1249,7 @@ h('div', 'Left Identity ' ),
 h('pre', `  m.ret(v).bnd(f, ...args).x === f(v, ...args).x
 
   ret(v).bnd(f, ...args).x === f(v, ...args).x
-
-  bind(a)(ret)(func, ...args)(terminate).pop() === f(a, ...args).x
+bind(a)(ret)(func, ...args)(terminate).pop() === f(a, ...args).x
 
   Haskell monad law: (return x) >>= f \u2261 f x  ` ),
 h('div#discussion', ' Right Identity  ' ),
@@ -1829,6 +1820,7 @@ const sources = {
   WWD: workerDDriver,
   WWE: workerEDriver,
   WWF: workerFDriver,
+  WWG: workerGDriver,
   WW: workerDriver
 }
 run(main, sources);
