@@ -32,7 +32,12 @@ var m9 = new Monad(9, 'm9');
 var m38 = new Monad(0, 'm38');
 var stateArray = [];
 var nl = '\n';
+const orange = {style: {color: "#f98043", fontSize: "17px"}} 
+const orangetao = {style: {color: "#f98043", marginLeft: "3%", fontSize: "17px"}} 
+const blue = {style: {color: "#96f9ff", fontSize: "17px"}} 
+const bluetao = {style: {color: "#96f9ff", marginLeft: "3%", fontSize: "17px"}} 
 const red = {style: {color: "red"}} 
+
 var m778_RESULT = "pending"
 
 function makeSequence (n) {

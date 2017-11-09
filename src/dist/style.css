@@ -454,12 +454,13 @@ a {
   color: #e6d0f2;
 }
 
-.blue {
-  color: #c9f2c6;
-}
-
 .tao {
   margin-left: 3%;
+}
+
+.tao_red {
+  margin-left: 3%;
+  color: red;
 }
 
 .tao15 {
@@ -621,12 +622,14 @@ h3 {
 
 .red0 {
   color: #f76565;
+  font-size: 17px;
 }
 
 .lightGreen {color:lightgreen};
 
-.lb {
-  color: #97b9ef;
+.blue {
+  color: #96f9ff;
+  font-size: 17px;
 };
 
 .red {
@@ -677,7 +680,6 @@ h3 {
 }
 
 .red9 {
-  margin: 3%;
   color:#db8e8e;
   font-size:17px;
 }
