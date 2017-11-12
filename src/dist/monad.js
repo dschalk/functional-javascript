@@ -44,7 +44,7 @@ const green = {style: {color: "#7fffb4"}}
 const bigGreen = {style: {color: "#7fffb4", fontSize: "17"}}
 const greentao = {style: {color:"#7fffb4", marginLeft: "3%"}}
 
-var m778_RESULT = ["horse","shit"]
+var m778_RESULT = h('div', "" );
 
 function makeSequence (n) {
   var a=[];

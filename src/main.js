@@ -498,11 +498,16 @@ var forwardAction$ = forwardClick$.map(() => {
 
 
 //******************************************************************* workerG
+
+  var clearClick$ = sources.DOM
+      .select('button#clear_P').events('click')
+      .map(() => m778_RESULT = h('div', ""));
+
   var factors2Press$ = sources.DOM
       .select('button#factors_P').events('click');
 
   const factorsRecursion = n => bind(50)(cubeC)(prm4)
-  (prm6)(pause)(() => { if (n < 15) factorsRecursion(n+1)});
+  (prm6)(() => { if (n < 15) factorsRecursion(n+1)});
   
   var factors2Action$ = factors2Press$.map(function (e) {
     console.log('&&&&&>>> >> in factors2action$. e is', e );
@@ -512,10 +517,20 @@ var forwardAction$ = forwardClick$.map(() => {
   });
 
   const workerG$ = sources.WWG.map(m => {
-    console.log('In workerG$ <E><E><E><E><E><E><E><E><E> m is', m );
-    m778_RESULT = m.data;
+    m778_RESULT = result778(m.data);
     primesMonad = new MonadState('primesMonad', m.data[2]);
   });
+var result778 = x => h('div', [
+m778_RESULT,  
+h('br'),
+h('span', bigBlue, x[3] ),
+h('span', bigGreen, x[0] ),
+h('span', bigBlue, x[4] ),
+h('span', bigRed, x[5] ),
+]);
+
+
+
 
 // **********************************************************************
   
@@ -903,7 +918,7 @@ var chatClick$ = sources.DOM
     .map(() => showTodoDiv = showTodoDiv === "none" ? "block" : "none")
 
 
-  var calcStream$ = xs.merge(  m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerG$, clearAction$, factorsAction$, factors2Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
+  var calcStream$ = xs.merge(  m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, clearAction$, factorsAction$, factors2Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
   return {
   DOM: calcStream$.map(() => {
   return h('div.main', [
@@ -938,7 +953,7 @@ h('p', ' Before explaining how the monads work, I invite you to try out some exa
 
 h('h2', ' A Few Monad Demonstrations ' ),
 h('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history. All group members see your score decrease or increase as you navigate backwards and forwards. ' ),
-h('h', ' You are automatically logged in with randomly generated sequences of digits as your user name and password. Your group is the non-group "solo". '),
+h('h', ' You are automatically logged in with randomly generated s as your user name and password. Your group is the non-group "solo". '),
 h('p', ' You can select a persistent name and password. These will make it possible for you to return later to delete or edit comments that you might have saved. '),
 h('p#gameIntro', ' The demonstration section also has a text box where you can create or join groups. Changing groups resets your game score and goal tally to zeros. ' ),
       h('span.tao', ' The game code is fairly concise and intuitive. A quick walk-through is presented at.' ),
@@ -1138,19 +1153,34 @@ h('h2', 'Asynchronous Functions' ),
 h('h3', 'Cycle.js Time ' ),
 h('p', ' As stated above, the monads do not depend on Cycle.js. This section is for anyone who happens to be interested in how the monads achieve reactivity in this Cycle.js application.' ),
 h('p', ' Here\'s the sequence four linked functions that we will analyze and then execute in the live demonstration below:'),
-h('pre', `  bind(50)(cubeC)(pause)(prm4)(prm6)  `)  ,
-h('p', ' When the code runs, a websockets socket requests and obtains a random five or six-figure number from the server. Then a web worker message requests the prime decompensation of the number obtained through the socket. When the data arrives, a variable in the virtual DOM is modified to point to the new result. That triggers the Snabbdom diff and render routine and the result is displayed in the browser. '),
+h('pre', `  bind(50)(cubeC)(prm4)(prm6)  `)  ,
+h('p', ' When the code runs, a websockets socket requests and obtains a random five or six-figure number from the server. Then a web worker message requests the prime decompensation of the number obtained through the socket. When the data arrives, Snabbdom is prompted to modify the DOM to reflect the current value of vnode 778_RESULT. '),
 h('p', ' A driver (Cycle.js terminology) puts messages sent by workerC into an xstream stream of messages. That stream is transformed in the main application function (named "main") into another stream which is merged with other streams to form the stream that triggers Snabbdom\'s diff and render routine. ' ),
-h('p', ' The trigger stream causes Snabbdom to implement the side effects of each individual stream transformation process. One of those streams is workerG$, the stream that listens for messages from the WWC driver. Each time a message from workerG arrives, workerG$ is aumented, adding the next instructions for updating 778_RESULT and primesMonad, and calls bind(50)(cubeC)(pause)(prm4)(prm6), starting the process over again. Here is the definition of workerGDriver:  ' ),
+h('p', ' The trigger stream causes Snabbdom to implement the side effects of each individual stream transformation process. One of those streams is workerG$, the stream that listens for messages from the WWC driver. Each time a message from workerG arrives, workerG$ is aumented, adding the next instructions for updating 778_RESULT. Here is the definition of workerGDriver:  ' ),
 h('pre', `  function workerGDriver () {
     return xs.create({
       start: listener => { workerG.onmessage = msg => listener.next(msg)},
       stop: () => { workerG.terminate() }
     });
-  };` ),
-h('p', ' The code that responds to user input by sending a websockets message to the server and sending the returned data to workerG and then processing the data returned by workerG is shown below.  '),
-  
-
+  }; `),
+h('p', ' Clicking the button causes factorsRecursion(0) to execute. Here\'s the code: '),  
+h('pre', blue,  `  const factorsRecursion = n => bind(50)(cubeC)(prm4)
+  (prm6)(() => { if (n < 15) factorsRecursion(n+1)}); `),
+h('p', 'result778(m.data) is called each time a message from workerG arrives. The definition of result778 is:   ' ),
+h('pre', blue, `var result778 = x => h('div', [
+    m778_RESULT,  
+    h('br'),
+    h('span', bigBlue, x[3] ),
+    h('span', bigGreen, x[0] ),
+    h('span', bigBlue, x[4] ),
+    h('span', bigRed, x[5] ),
+]); `),
+h('p', ' The stream that listens for workerG messages adds to the vnode m778_RESULT as follows: '),
+h('pre', `const workerG$ = sources.WWG.map(m => {
+    m778_RESULT = result778(m.data);
+    primesMonad = new MonadState('primesMonad', m.data[2]);
+}); `),
+h('p', ' Here are some of the other functions that make this work: '),
 h('pre', `  var factors2Press$ = sources.DOM
     .select('button#factors_P').events('click');
 
@@ -1159,11 +1189,6 @@ h('pre', `  var factors2Press$ = sources.DOM
     mMfactors3.ret('');
     bind(50)(cubeC)(prm4)(prm6)
   });
-
-  const workerG$ = sources.WWG.map(m => {
-    m778_RESULT = m.data;  // Modifies the virtual DOM.
-    primesMonad = new MonadState('primesMonad', m.data[2]);
-  }); 
 
   const prm4 = x => {
     socket.send('BB#$42,pMgroup,pMname,' + x);
@@ -1189,12 +1214,16 @@ h('span', bigRed, 'factorsRecursion(0)' ),
 h('br'),
 h('br'),
 h('button#factors_P', {style: {fontSize: '12px'}},  'decompose fifteen random numbers'), h('br'),
+h('button#clear_P', {style: {fontSize: '12px'}},  'clear results'), h('br'),
 h('br'),
+m778_RESULT,  
+  /*
 h('span', bigBlue, m778_RESULT[3] ),
 h('span', bigGreen, m778_RESULT[0] ),
 h('span', bigBlue, m778_RESULT[4] ),
 h('span', bigRed, m778_RESULT[5] ),
 h('br'),
+*/
 h('br'),
 h('p', ' m777_RESULT is a permanent fixture of the virtual DOM. workerG$ is merged into the stream that triggers Snabbdom\'s diff and render routine, so when a mew message from workerG triggers augmentation of workerG$, the resulting side effects have a visual representation in the browser. '),
 
