@@ -36,6 +36,7 @@ xcomments = "xcomments" :: FilePath
 xnames = "xnames" :: FilePath
 namesFile = "namesFile" :: FilePath
 log = "log" :: FilePath
+count_2 = "count_2" :: FilePath
 
 unify :: String -> String
 unify = filter (\v -> v /= '\n')
@@ -269,6 +270,7 @@ application state pending = do
     count <- atomically counter
     id0 <- atomically $ readTVar count
     let id = id0 + 1
+    print id
     atomically $ writeTVar count id
     clients <- atomically $ readTVar state
     case msg of
@@ -379,8 +381,8 @@ talk conn state client = forever $ do
                 broadcast ("GZ#$42," `mappend` group `mappend` "," 
                   `mappend` sender `mappend` "," `mappend` comments ) st
 
-     else if "BB#$42" `T.isPrefixOf` msg               -- FETCH AND BROADCAST ALL COMMENTS
-        then                                           -- PERFORM ON LOAD
+     else if "BB#$42" `T.isPrefixOf` msg     -- Generate a random number          
+        then                                          
             do
                 print "extraNum:"
                 print extraNum

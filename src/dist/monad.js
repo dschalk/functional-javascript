@@ -32,13 +32,19 @@ var m9 = new Monad(9, 'm9');
 var m38 = new Monad(0, 'm38');
 var stateArray = [];
 var nl = '\n';
-const orange = {style: {color: "#f98043", fontSize: "17px"}} 
-const orangetao = {style: {color: "#f98043", marginLeft: "3%", fontSize: "17px"}} 
-const blue = {style: {color: "#96f9ff", fontSize: "17px"}} 
-const bluetao = {style: {color: "#96f9ff", marginLeft: "3%", fontSize: "17px"}} 
-const red = {style: {color: "red"}} 
+var blue = {style: {color: "#96f9ff"}} 
+var bigBlue = {style: {color: "#96f9ff",fontSize: "17"}} 
+var bluetao = {style: {color: "#96f9ff", marginLeft: "3%"}} 
+const orange = {style: {color: "#f98043"}} 
+const orangetao = {style: {color: "#f98043", marginLeft: "3%"}} 
+const red = {style: {color: "#ff5b5b"}}
+const bigRed = {style: {color: "#ff5b5b", fontSize: "17"}}
+const redtao = {style: {color: "#ff5b5b", marginLeft: "3%"}}
+const green = {style: {color: "#7fffb4"}}
+const bigGreen = {style: {color: "#7fffb4", fontSize: "17"}}
+const greentao = {style: {color:"#7fffb4", marginLeft: "3%"}}
 
-var m778_RESULT = "pending"
+var m778_RESULT = ["horse","shit"]
 
 function makeSequence (n) {
   var a=[];
@@ -260,13 +266,19 @@ function id (x) {return x}
   const divC = a => b => ret(b/a);
   const addC = a => b => ret(a+b);
   const cubeC = v => ret(v*v*v);
+  const idC = v => v;
   const multC = a => b => ret(a*b);
   const doubleC = a => ret(a+a);
   const squareC = a => ret(a*a);
   const sqrtC = a => ret(Math.sqrt(a));
 
-async function  pause (x) {
+async function pause (x) {
   await wait(2000) 
+  return ret(x);
+}
+
+async function pause1 (x) {
+  await wait(1000) 
   return ret(x);
 }
 
