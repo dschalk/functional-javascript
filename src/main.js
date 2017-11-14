@@ -532,7 +532,6 @@ const workerG$ = sources.WWG.map(m => {
 });
 
 const ping$ = sources.PP.map(x => {
-  console.log("Thank you. Here is ping$ x",x);
   m66_RESULT = x;
 })
 
@@ -1257,15 +1256,36 @@ m66_RESULT,
 h('h', ' The key to making this work was defining a driver to listen for changes in m66_RESULT and specify side effects resulting in the demonstration. Here is that driver along with the variable and two functions upon which it depends. ' ),
 h('pre', blue, `  function pingpongDriver () {
     return xs.create({
-      start: listener => { PINGPONG = msg => listener.next(pingpongTog(msg))},
+      start: listener => { PINGPONG = msg => listener
+      .next(pingpongTog(msg))},
       stop: () => { workerB.terminate() }
     });
   };   
-  var ppStyle = true;
+
+  const ping$ = sources.PP.map(x => {  // sources.PP is pingpongDriver.
+    m66_RESULT = x;
+  })
+
+  var pingpong$ = sources.DOM
+    .select('button#pingpong').events('click').map(() => ping(-5));
+
+  var ping = mMZ32.bnd((n) => {  // Button click causes ping(-5) to run.
+    setTimeout(() => {
+      ppStyle = !ppStyle;        // ppStyle is toggled here.
+      PINGPONG(n);
+      if (n < 10) {  
+        ping(n+1); 
+      }  
+    },500 )
+  })
+
+  var PINGPONG = n => xs.of(pingpongTog(n)); 
+
+  var ppStyle = false;
+
   var pingpongTog = n => ppStyle === true ? 
     h('p', {style: {color: 'red', marginLeft: '0px'}}, 'ping ' + n) : 
-    h('p', {style: {color: 'yellow', marginLeft: '42%'}}, 'PONG ' + n) 
-  var PINGPONG = n => xs.of(pingpongTog(n)); ` ),
+    h('p', {style: {color: 'yellow', marginLeft: '42%'}}, 'PONG ' + n) ` ),
 
 h('span.tao', ' The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with a Haskell Websockets server. ' ),
 h('br'),
