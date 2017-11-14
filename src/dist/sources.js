@@ -69,6 +69,19 @@ function workerDriver () {
   });
 };
 
+var ppStyle = true;
+var pingpongTog;
+var pingpongTog = n => ppStyle === true ? h('p', {style: {color: 'red', marginLeft: '0px'}}, 'ping ' + n) : h('p', {style: {color: 'yellow', marginLeft: '42%'}}, 'PONG ' + n) 
+
+var PINGPONG = n => xs.of(pingpongTog(n));
+
+function pingpongDriver () {
+  return xs.create({
+    start: listener => { PINGPONG = msg => listener.next(pingpongTog(msg))},
+    stop: () => { workerB.terminate() }
+  });
+};
+
 socket.onclose = function (event) {
     console.log('<><><> ALERT - socket is closing. <><><> ', event);
 };

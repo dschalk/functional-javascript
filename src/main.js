@@ -503,12 +503,12 @@ var forwardAction$ = forwardClick$.map(() => {
       .select('button#clear_P').events('click')
       .map(() => m778_RESULT = h('div', ""));
 
-  var factors2Press$ = sources.DOM
-      .select('button#factors_P').events('click');
-
   const factorsRecursion = n => bind(50)(cubeC)(prm4)
   (prm6)(() => { if (n < 15) factorsRecursion(n+1)});
   
+  var factors2Press$ = sources.DOM
+      .select('button#factors_P').events('click');
+
   var factors2Action$ = factors2Press$.map(function (e) {
     console.log('&&&&&>>> >> in factors2action$. e is', e );
     var factors = [];
@@ -516,20 +516,45 @@ var forwardAction$ = forwardClick$.map(() => {
     factorsRecursion(0);
   });
 
-  const workerG$ = sources.WWG.map(m => {
-    m778_RESULT = result778(m.data);
-    primesMonad = new MonadState('primesMonad', m.data[2]);
-  });
 var result778 = x => h('div', [
-m778_RESULT,  
-h('br'),
-h('span', bigBlue, x[3] ),
-h('span', bigGreen, x[0] ),
-h('span', bigBlue, x[4] ),
-h('span', bigRed, x[5] ),
+  m778_RESULT,  
+  h('br'),
+  h('span', bigBlue, x[3] ),
+  h('span', bigGreen, x[0] ),
+  h('span', bigBlue, x[4] ),
+  h('span', bigRed, x[5] ),
 ]);
 
+var m778_RESULT = h('div', '' );
 
+const workerG$ = sources.WWG.map(m => {
+  m778_RESULT = result778(m.data);
+});
+
+const ping$ = sources.PP.map(x => {
+  console.log("Thank you. Here is ping$ x",x);
+  m66_RESULT = x;
+})
+
+var ppFna = n => h('p', {style: {color: 'red', marginLeft: '0px'}}, 'ping' + n);
+var ppFnb = n => h('p', {style: {color: 'yellow', marginLeft: '12%'}}, 'PONG' + n);
+
+var pingpong$ = sources.DOM
+    .select('button#pingpong').events('click').map(() => ping(-5));
+
+var pingpongRecursion = n => ar => bind(n,ar)(ppFna)(pause)(ppFnb)(() => {
+  if (n < 15) pingpongRecursion(n+1,ar)
+  bind(n+1,ar)(ppFna)(pause)(ppFnb)(terminate)
+});
+
+var result66 = async n => {}
+  
+  
+var pingpongAction$ = pingpong$.map(function (e) {
+/*  console.log('&&&&&>>> >> in pingpongAction$. e is', e );
+  m66_RESULT = result66(-5);
+  console.log('&&&&&>>> >> in pingpongAction$. m66_RESULT is', m66_RESULT ); */
+});
 
 
 // **********************************************************************
@@ -918,7 +943,8 @@ var chatClick$ = sources.DOM
     .map(() => showTodoDiv = showTodoDiv === "none" ? "block" : "none")
 
 
-  var calcStream$ = xs.merge(  m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, clearAction$, factorsAction$, factors2Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
+  var calcStream$ = xs.merge( ping$, pingpongAction$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, clearAction$, factorsAction$, factors2Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
+    factorsRecursion(0);
   return {
   DOM: calcStream$.map(() => {
   return h('div.main', [
@@ -1213,25 +1239,34 @@ h('span', ' Click the button below to execute '),
 h('span', bigRed, 'factorsRecursion(0)' ),
 h('br'),
 h('br'),
-h('button#factors_P', {style: {fontSize: '12px'}},  'decompose fifteen random numbers'), h('br'),
-h('button#clear_P', {style: {fontSize: '12px'}},  'clear results'), h('br'),
+h('button#factors_P', {style: {fontSize: '12px'}},  'decompose fifteen random numbers'),
+h('span', "~~~~~"),  
+h('button#clear_P', {style: {fontSize: '12px', marginLeft: "0"}},  'clear results'), h('br'),
 h('br'),
 m778_RESULT,  
-  /*
-h('span', bigBlue, m778_RESULT[3] ),
-h('span', bigGreen, m778_RESULT[0] ),
-h('span', bigBlue, m778_RESULT[4] ),
-h('span', bigRed, m778_RESULT[5] ),
-h('br'),
-*/
-h('br'),
 h('p', ' m777_RESULT is a permanent fixture of the virtual DOM. workerG$ is merged into the stream that triggers Snabbdom\'s diff and render routine, so when a mew message from workerG triggers augmentation of workerG$, the resulting side effects have a visual representation in the browser. '),
 
 h('span.tao', ' Reactivity occurs naturally in the Cycle.js framework. Some developers find that Cycle.js has a steep learning curve. It isn\'t so bad if you start with Andr Staltz\' '),
 h('a', { props: { href: "https://egghead.io/courses/cycle-js-fundamentals", target: "_blank" } }, ' Overview of Cycle.js.'),
 h('span', ' Its elegance might take your breath away. ' ),
 h('br' ),
-h('br' ),
+h('p', ' JavaScript\'s mutable variables come in handy sometimes. The variable "m66_RESULT" is a permanent fixture of the virtual DOM returned by main(). Click the button below and see what happens while its value changes fifteen times. '),
+
+h('button#pingpong', {style: {fontSize: '12px', marginLeft: "0"}}, 'start pingpong' ),
+m66_RESULT,  
+h('h', ' The key to making this work was defining a driver to listen for changes in m66_RESULT and specify side effects resulting in the demonstration. Here is that driver along with the variable and two functions upon which it depends. ' ),
+h('pre', blue, `  function pingpongDriver () {
+    return xs.create({
+      start: listener => { PINGPONG = msg => listener.next(pingpongTog(msg))},
+      stop: () => { workerB.terminate() }
+    });
+  };   
+  var ppStyle = true;
+  var pingpongTog = n => ppStyle === true ? 
+    h('p', {style: {color: 'red', marginLeft: '0px'}}, 'ping ' + n) : 
+    h('p', {style: {color: 'yellow', marginLeft: '42%'}}, 'PONG ' + n) 
+  var PINGPONG = n => xs.of(pingpongTog(n)); ` ),
+
 h('span.tao', ' The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with a Haskell Websockets server. ' ),
 h('br'),
 h('br'),
@@ -1871,7 +1906,8 @@ const sources = {
   WWE: workerEDriver,
   WWF: workerFDriver,
   WWG: workerGDriver,
-  WW: workerDriver
+  WW: workerDriver,
+  PP: pingpongDriver
 }
 run(main, sources);
 

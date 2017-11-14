@@ -32,7 +32,7 @@ function Monad(z = 19, g = 'generic') {
 };
 
 var primesMonad = new MonadState('primesMonad', [3, [], 3, [2,3]]);
-Object.freeze(primesMonad);
+// Object.freeze(primesMonad);
 
 //*************************************** BEGIN prime Fibonacci numbers
 

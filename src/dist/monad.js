@@ -174,7 +174,7 @@ const wait2 = x => {
   };  
 
 const prm4 = x => {
-  socket.send('BB#$42,pMgroup,pMname,' + x);
+  if (socket.readyState === 1) socket.send('BB#$42,pMgroup,pMname,' + x);
   return new Promise( (resolve, reject) => {
      mMZ37.bnd((y) => {
        console.log('In prm4 - <><><><><> - y is',y);  
@@ -279,7 +279,7 @@ async function pause (x) {
 
 async function pause1 (x) {
   await wait(1000) 
-  return ret(x);
+  return x;
 }
 
 async function squareP (x) {
@@ -2116,10 +2116,74 @@ stream$.addListener(listener)
 
 em.on(142, v => console.log('142',v ));
 
+/*
+var ping = () => mMZ32.bnd((n) => {
+  setTimeout(() => {
+    console.log("ping",n)
+    PINGPONG = "ping " + n;
+    pong()    
+    mMZ33.release(n+=1); 
+  },500)
+});
+
+var pong = () => mMZ33.bnd((n) => {
+  setTimeout(() => {console.log("pong",n)
+    if (n < 10) {
+      ping()
+      PINGPONG = "PONG " + n;
+      mMZ32.release(n+=1)
+    }
+  },500 )
+})
+*/
+
+var ppStyle = true;
+var pingpongTog;
+var pingpongTog = n => ppStyle === true ? h('p', {style: {color: 'red', marginLeft: '0px'}}, 'ping ' + n) : h('p', {style: {color: 'yellow', marginLeft: '42%'}}, 'PONG ' + n) 
+
+
+var PINGPONG = n => xs.of(pingpongTog(n));
+
+function pingpongDriver () {
+  return xs.create({
+    start: listener => { PINGPONG = msg => listener.next(pingpongTog(msg))},
+    stop: () => { workerB.terminate() }
+  });
+};
+
+
+var m66_RESULT = "pending";
+
+
+var ping = mMZ32.bnd((n) => {
+  setTimeout(() => {
+    ppStyle = !ppStyle;
+    // pingpongTog(n);
+    PINGPONG(n);
+    // m66_RESULT = PINGPONG(n);
+    if (n < 10) {  
+      ping(n+1); 
+    }  
+  },500 )
+})
+
+ping(-5);
+
+var fn2 = async n => {
+  ppStyle = !ppStyle; 
+  var ax = pingpongTog(n); 
+  await wait(500)
+  if(n<10) {
+    fn(n+1)
+    console.log(ax);
+    return ax;
+  }
+}
 
 
 
 
+mMZ33.bnd(n => fn2(n));
 
 
 
