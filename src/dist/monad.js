@@ -2116,44 +2116,20 @@ stream$.addListener(listener)
 
 em.on(142, v => console.log('142',v ));
 
-/*
-var ping = () => mMZ32.bnd((n) => {
-  setTimeout(() => {
-    console.log("ping",n)
-    PINGPONG = "ping " + n;
-    pong()    
-    mMZ33.release(n+=1); 
-  },500)
-});
-
-var pong = () => mMZ33.bnd((n) => {
-  setTimeout(() => {console.log("pong",n)
-    if (n < 10) {
-      ping()
-      PINGPONG = "PONG " + n;
-      mMZ32.release(n+=1)
-    }
-  },500 )
-})
-*/
-
 var ppStyle = false;
-var pingpongTog;
-var pingpongTog = n => ppStyle === true ? h('p', {style: {color: 'red', marginLeft: '0px'}}, 'ping ' + n) : h('p', {style: {color: 'yellow', marginLeft: '42%'}}, 'PONG ' + n) 
 
+var pingpongTog;
+
+var pingpongTog = n => ppStyle === true ? h('p', {style: {color: 'red', marginLeft: '0px'}}, 'ping ' + n) : h('p', {style: {color: 'yellow', marginLeft: '42%'}}, 'PONG ' + n) 
 
 var PINGPONG = n => xs.of(pingpongTog(n));
 
-
 var m66_RESULT = "pending";
-
 
 var ping = mMZ32.bnd((n) => {
   setTimeout(() => {
     ppStyle = !ppStyle;
-    // pingpongTog(n);
     PINGPONG(n);
-    // m66_RESULT = PINGPONG(n);
     if (n < 10) {  
       ping(n+1); 
     }  

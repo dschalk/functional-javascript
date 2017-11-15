@@ -78,9 +78,10 @@ var PINGPONG = n => xs.of(pingpongTog(n));
 function pingpongDriver () {
   return xs.create({
     start: listener => { PINGPONG = msg => listener.next(pingpongTog(msg))},
-    stop: () => { workerB.terminate() }
+    stop: () => {}
   });
 };
+
 
 socket.onclose = function (event) {
     console.log('<><><> ALERT - socket is closing. <><><> ', event);
