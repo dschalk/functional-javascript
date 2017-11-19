@@ -2,6 +2,8 @@ import {run} from '@cycle/xstream-run';
 import {h, p, span, h1, h2, h3, pre, br, div, label, input, hr, makeDOMDriver} from '@cycle/dom';
 import code from './code.js';
 // import {EventEmitter} from 'events'
+
+
 console.log('If you can read this you are in main.js <@><@><@><@><@><@><@><@>');
 var textA = h('textarea', 'You bet!' );
 var formA = h('form#horses', 'You bet!' );
@@ -16,16 +18,9 @@ var stream = xs.periodic(1000)
   .map(i => i * i)
   .endWhen(xs.periodic(5000).take(1))
 */
-(async function hello() {
-  await wait(2000);
-  console.log('*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*');
-  console.log( 'Hello Nurse, you beautiful woman.' );
-  console.log('*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*');
-})()
-
 login();
 function login () {
-  console.log('000000000000000000000000000000000000000000000 Entering login', socket.readyState);
+  console.log('00000000000000000000000000000000 Entering login', socket.readyState);
   setTimeout(function () {
     if (socket.readyState === 1) {
       console.log('readyState is',socket.readyState);
@@ -40,7 +35,6 @@ function login () {
       pMcombo.ret(combo);
       pMclicked.ret([]);
       socket.send(`GZ#$42,solo,${v}`);
-      prm6(124999);
     }
     else {
       login();
@@ -333,8 +327,6 @@ var fghij = 'inline';
   var messagePressAction$ = messagePress$.map(function (e) {
       if (e.keyCode === 13) {
           socket.send(`CD#$42,${pMgroup.x},${pMname.x},${e.target.value}`);
-          console.log('In messagePressAction$ pMname.x is', pMname.x );
-          console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
           e.target.value = '';
       }
   });
@@ -440,6 +432,7 @@ var forwardAction$ = forwardClick$.map(() => {
       }
   });
   // *******************************************n****************************** ENDOM iginal Fibonacci END
+
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START PRIME FIB
 
   const workerB$ = sources.WWB.map(m => {
@@ -531,31 +524,37 @@ const workerG$ = sources.WWG.map(m => {
   m778_RESULT = result778(m.data);
 });
 
+
+
+//************************************************** pingpong
+
   const ping$ = sources.PP.map(x => {
-    m66_RESULT = x;
+    m66_RESULT = pingpongTog(x);
   })
-
-  var ppFna = n => h('p', {style: {color: 'red', marginLeft: '0px'}}, 'ping' + n);
-  var ppFnb = n => h('p', {style: {color: 'yellow', marginLeft: '12%'}}, 'PONG' + n);
-
   var pingpong$ = sources.DOM
-      .select('button#pingpong').events('click').map(() => ping(-5));
+      .select('button#pingpong').events('click').map(() => ping(0)([0,0]));
+  
+
+      
+//******************************************* END pingpong END
+
+/*
+const redStyle = {style: {color: 'red', marginLeft: '20%', fontSize: '25px'}}
+const yellowStyle = {style: {color: 'yellow', marginLeft: '20%', fontSize:'25px'}}
 
   var pingpongRecursion = n => ar => bind(n,ar)(ppFna)(pause)(ppFnb)(() => {
     if (n < 15) pingpongRecursion(n+1,ar)
     bind(n+1,ar)(ppFna)(pause)(ppFnb)(terminate)
   });
 
-  var result66 = async n => {}
+  var ppFna = n => h('p', redStyle, 'ping' + n);
+  var ppFnb = n => h('div', [h('br'),h('p', yellowStyle, 'PONG' + n)]);
+
     
     
-  var pingpongAction$ = pingpong$.map(function (e) {
-  /*  console.log('&&&&&>>> >> in pingpongAction$. e is', e );
-    m66_RESULT = result66(-5);
-    console.log('&&&&&>>> >> in pingpongAction$. m66_RESULT is', m66_RESULT ); */
-  });
+  var pingpongAction$ = pingpong$.map(function (e) {  });
 
-
+*/
   // **********************************************************************
     
     
@@ -941,9 +940,8 @@ const workerG$ = sources.WWG.map(m => {
       .select('#todoButton').events('click')
       .map(() => showTodoDiv = showTodoDiv === "none" ? "block" : "none")
 
-    factorsRecursion(0);
 
-    var calcStream$ = xs.merge( ping$, pingpongAction$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, clearAction$, factorsAction$, factors2Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
+    var calcStream$ = xs.merge( ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, clearAction$, factorsAction$, factors2Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
     return { DOM: calcStream$.map(() => {
     return h('div.main', [
 
@@ -1171,68 +1169,14 @@ const workerG$ = sources.WWG.map(m => {
   h('pre', {style: {fontSize: "12px"}},  `  bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[1]))(multC(ar[1]))
     (addC(30))(multC(1/ar[3]))(terminate).pop()  // 10  ` ),
   h('p', {style: {fontSize: "12px"}}, 'addC, and multC (above) pass anonymous monads along linked sequences of computations. They are defined as follows: ' ), 
-  h('pre', `    const addC = a => b => ret(a+b);
+  h('pre#cyclet', `    const addC = a => b => ret(a+b);
       const multC = a => b => ret(a*b); ` ),
   h('h2', 'Asynchronous Functions' ),
-  h('h3', 'Cycle.js Time ' ),
-  h('p', ' As stated above, the monads do not depend on Cycle.js. This section is for anyone who happens to be interested in how the monads achieve reactivity in this Cycle.js application.' ),
-  h('p', ' Here\'s the sequence four linked functions that we will analyze and then execute in the live demonstration below:'),
-  h('pre', `  bind(50)(cubeC)(prm4)(prm6)  `)  ,
-  h('p', ' When the code runs, a websockets socket requests and obtains a random five or six-figure number from the server. Then a web worker message requests the prime decompensation of the number obtained through the socket. When the data arrives, Snabbdom is prompted to modify the DOM to reflect the current value of vnode 778_RESULT. '),
-  h('p', ' A driver (Cycle.js terminology) puts messages sent by workerC into an xstream stream of messages. That stream is transformed in the main application function (named "main") into another stream which is merged with other streams to form the stream that triggers Snabbdom\'s diff and render routine. ' ),
-  h('p', ' The trigger stream causes Snabbdom to implement the side effects of each individual stream transformation process. One of those streams is workerG$, the stream that listens for messages from the WWC driver. Each time a message from workerG arrives, workerG$ is aumented, adding the next instructions for updating 778_RESULT. Here is the definition of workerGDriver:  ' ),
-  h('pre', `  function workerGDriver () {
-      return xs.create({
-        start: listener => { workerG.onmessage = msg => listener.next(msg)},
-        stop: () => { workerG.terminate() }
-      });
-    }; `),
-  h('p', ' Clicking the button causes factorsRecursion(0) to execute. Here\'s the code: '),  
-  h('pre', blue,  `  const factorsRecursion = n => bind(50)(cubeC)(prm4)
-    (prm6)(() => { if (n < 15) factorsRecursion(n+1)}); `),
-  h('p', 'result778(m.data) is called each time a message from workerG arrives. The definition of result778 is:   ' ),
-  h('pre', blue, `var result778 = x => h('div', [
-      m778_RESULT,  
-      h('br'),
-      h('span', bigBlue, x[3] ),
-      h('span', bigGreen, x[0] ),
-      h('span', bigBlue, x[4] ),
-      h('span', bigRed, x[5] ),
-  ]); `),
-  h('p', ' The stream that listens for workerG messages adds to the vnode m778_RESULT as follows: '),
-  h('pre', `const workerG$ = sources.WWG.map(m => {
-      m778_RESULT = result778(m.data);
-      primesMonad = new MonadState('primesMonad', m.data[2]);
-  }); `),
-  h('p', ' Here are some of the other functions that make this work: '),
-  h('pre', `  var factors2Press$ = sources.DOM
-      .select('button#factors_P').events('click');
-
-    var factors2Action$ = factors2Press$.map(function (e) {
-      var factors = [];
-      mMfactors3.ret('');
-      bind(50)(cubeC)(prm4)(prm6)
-    });
-
-    const prm4 = x => {
-      socket.send('BB#$42,pMgroup,pMname,' + x);
-      return new Promise( (resolve, reject) => {
-         mMZ37.bnd((y) => {  // Released by incoming websockets message 
-           resolve(ret(y));
-         }) 
-      })                         
-    }
-
-    mMZ27.bnd( () => {       // Incoming message prefix is BB#$42 
-      mMZ37.release(v[3]);   // releases prm6 (below)
-    });
-     
-    const prm6 = x => {  // x is the random number returned by the server.
-      workerG.postMessage([primesMonad.s, [x]]); 
-      return "Done";  // The returned data is processed in workerG$ (above).
-       }  ` ),
-  h('pre', bigGreen, `const factorsRecursion = n => bind(50)(cubeC)(prm4)
-  (prm6)(pause)(() => { if (n < 15) factorsRecursion(n+1)}); `),
+  h('span.tao', ' A lengthy discussion of factorsRecursion() and its dependencies can be found in '),
+  h('a', {props: {href: '#cycletime'}}, 'Async Procedures in this Cycle.js App' ),
+  h('span', '. It starts with "bind(1 It runs "bind(50)(cubeC)(prm4)" fifteen times where prm4(125000) fetches a random number less than 125000 from the Haskell server and prm6 fetches the random number\'s prime decompensation from a web worker. '), 
+  h('br'),
+  h('br'),
   h('span', ' Click the button below to execute '),
   h('span', bigRed, 'factorsRecursion(0)' ),
   h('br'),
@@ -1253,46 +1197,87 @@ h('h3', 'Reactivity in Cycle.js'),
   h('br' ),
   h('p', ' Let\'s take a look at how the ping pong example works in this Cycle.js application. JavaScript\'s mutable variables come in handy here. The variable "m66_RESULT" is a permanent fixture in the Snabbdom description of the virtual DOM. Click the button below and see what happens while its value changes fifteen times. '),
 
-  h('button#pingpong', {style: {fontSize: '14px', marginLeft: "0"}}, 'start pingpong' ),
-  m66_RESULT,  
+  h('div', [  
+  h('button#pingpong', {style: {fontSize: '17px'}}, 'start pingpong'), 
+  m66_RESULT ]),
 
     
-h('p', ' pingpongDriver() (defined below) makes this work. '),
+h('p', ' The stream incF$ and the driver pingpongDriver() (both defined below) make this work. '),
 
-h('pre', blue, `  function pingpongDriver () {
+h('pre', blue, `  var incF$ = n => xs.of(n);
+
+  function pingpongDriver () {
     return xs.create({
-      start: listener => { PINGPONG = msg => listener
-        .next(pingpongTog(msg))},
+      start: listener => { 
+        incF$ = k => listener.next(k)
+      },
       stop: () => {}
-    });
-  };
-        
-  var PINGPONG = n => xs.of(pingpongTog(n)); 
+    })
+  };  `),
+h('p', ' Whenever the stream incF$() is called, the stream returned by pingpongDriver is augmented and that causes main() to return an object whose only element is a map from the stream calcStream to a virtual DOM node with many children. calcStream$ is produced by merging 48 streams together including ping$ resulting from ping(n) where "n" is the number supplied by pingpongDriver (a/k/a "sources.PP"). The first to lines of main()\'s return value are shown below. ' ),
+h('pre', `    return { DOM: calcStream$.map(() => {
+    return h('div.main', [  ` ),
+
+  
+h('p', ' merged into it. Each time main returns, Snabbdom\'s diff and render routine and run(sources,main) execute. run(sources,main) calls main() and furnighes it with the listeners provided by the drivers. New events cause the cycle to repeat. ' ),  
+h('p', ' ping(-5)([0,0]) is called when the pingpong button is clicked. Here\'s the relevant code:'),
+h('pre', `  var pingpong$ = sources.DOM
+    .select('button#pingpong').events('click').map(() => ping(0)([0,0]));
+  
+  var ppR = {style: {color: 'red', 
+    marginLeft: '5%', fontSize: "26"}};
+  var ppY = {style: {color: 'yellow', 
+    marginLeft: '42%', fontSize: "26"}};
+  var ppRY = {style: {color: 'yellow', 
+    marginLeft: '5%', fontSize: "26"}};
 
   var ppStyle = false;
 
-  var pingpongTog = n => ppStyle === true ? 
-    h('p', {style: {color: 'red', marginLeft: '0px'}}, 'ping ' + n) : 
-    h('p', {style: {color: 'yellow', marginLeft: '42%'}}, 'PONG ' + n) ` ), 
+  var pingpongTog = n => ppStyle ?
+    h('span', ppR, ' ping ' +  n + ' ~~~> ') :
+    h('span', ppY , 'PONG! ' + n) 
 
-  h('p', 'run(main, sources) is the crucial Cycle.js application function. sources contains the drivers. sources.PP = pingpongDriver is one of the drivers consumed by run() and made available in main() so information can be sent back to run. Round and round it goes. Here is the definition of ping$. ' ),
+  var m66_RESULT = h('span', ppR, ' -- start -- ' );
+
+  var ping = n => ar => {
+    var k = Math.floor(Math.random() * 4) + 3;
+    if(ar[0] > 10 || ar[1] > 10) { 
+      m66_RESULT = h('span', ppR, \`ping  ${ar[0]}    pong: ${ar[1]}\` );
+      console.log("<><>-><ping>-><><>-> n and k",n,k);
+      return
+    }
+    console.log("<><>-><ping>-><><>-> n and k",n,k);
+    setTimeout(() => {
+      if (n <= k) {  
+        ppStyle = !ppStyle;
+        incF$(n);
+        ping(n+1)(ar); 
+        document.getElementById("testQ").click()
+      }
+      else if (n % 2 === 0) {
+        ar[0]+=1;
+        console.log("In ping - even number - ar is", ar);
+        m66_RESULT = h('span', ppR, \`ping  ${ar[0]}    pong: ${ar[1]}  \` );
+        document.getElementById("testQ").click();
+        ping(0)(ar); 
+      }
+      else {
+        ar[1]+=1
+        console.log("In ping - odd number - ar is", ar);
+        m66_RESULT = h('span', ppRY, \`ping  ${ar[0]}    pong: ${ar[1]}  \` );
+        document.getElementById("testQ").click()
+        ping(0)(ar); 
+      }
+    }, 500 )
+  }  ` ),
+
+
+
+
+  h('p', ' The stream incF$ and the driver pingpongDrirun(main, sources) are the crucial Cycle.js application functions. sources contains the drivers. sources.PP = pingpongDriver is one of the drivers consumed by run() and made available in main() so information can be sent back to run. Round and round it goes. Here is the definition of ping$. ' ),
   h('pre', `  const ping$ = sources.PP.map(x => {  
     m66_RESULT = x;
   }) ` ),
-h('p', ' In the demonstration, ping$ mutates m66_RESULT fifteen times thereby altering the virtual DOM fifteen times. Each change prompts Snabbdom to execute its diff and render procedure, updating what is shown in the browser fifteen times. ' ), 
-h('p', ' When a user clicks the pingpong buttom, the DOM driver responds by calling ping(-5) as follows: '),
- h('pre', `  var pingpong$ = sources.DOM.select('button#pingpong').
-   events('click').map(() => ping(-5)); ` ),
-h('p', ' And here\'s ping(): ' ),
-h('pre', `  var ping = mMZ32.bnd((n) => {  // Button click causes ping(-5) to run.
-    setTimeout(() => {
-      ppStyle = !ppStyle;        // ppStyle is toggled here.
-      PINGPONG(n);
-      if (n < 10) {  
-        ping(n+1); 
-      }  
-    },500 )
-  }) ` ), 
 
   h('span.tao', ' The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with a Haskell Websockets server. ' ),
   h('br'),
@@ -1342,7 +1327,7 @@ h('pre', `  var ping = mMZ32.bnd((n) => {  // Button click causes ping(-5) to ru
   h('p', 'The code below resembles a lambda calculus expression, and the lambda calculus is the essence of functional programming, residing close to the eternal Tao. But intermediate functions along a linked chain of computations can instantiate monads in the global space, a feature which can be convenient and which doesn\'t have to be dangerous; but a function that uses this feature is not pure and impure functions are anathema to functional programming. ' ),
   h('pre', `  ret(2).bnd(v => add(v,1).bnd(cube).bnd(p => add(p,3)
     .bnd(() => ret(p/3).bnd(add,3).bnd(z => [v,p,z,v*p-z]))))
-      // [1,27,12,42] ` ),
+      // [2,27,12,42] ` ),
   h('h2', 'Comparison With Haskell'),
   h('span.tao', ' Values v that satisfy "v instanceof Monad" (called "monads" in this discussion) are very different from the Haskell monads, but they are similar in that both behave like the monads of category theory without actually being category theory monads. See ' ),
   h('a', { props: { href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/", target: "_blank" } }, 'Hask is not a category.'),
@@ -1404,11 +1389,9 @@ h('pre', `  var ping = mMZ32.bnd((n) => {  // Button click causes ping(-5) to ru
   h('a', {props: {href: "https://github.com/fantasyland/fantasy-land"}}, "Fantasy Land." ),
   h('br' ),
   h('br' ),
-  h('span', ' For me, superimposing such abstractions over JavaScript takes too much versatility away from it. It is easy to include some type checking code in function definitions where it is thought to be helpful. For example, if someone enters inappropriate data in a form, a message explaining the mistake can be displayed. I enjoy the freedom and built-in polymorphism of JavaScript as it is. Call me an anarchist. ' ),
 
    // ***************************************** START MONAD
    // ***************************************** END MONAD
-     code.cycle,
   h('p', ' ' ),
   h('p', ' ' ),
   h('p', ' ' ),
@@ -1914,8 +1897,70 @@ h('span', ' You can support the open-source digital version of this book with Pa
 h('a',   {props: {href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" }},  'You Don\'t Know Javascript'),  
 h('span', ' is the thinking developer\'s answer to ' ),
 h('a',   {props: {href: "http://shop.oreilly.com/product/9780596517748.do", target: "_blank" }},  ' "JavaScript: The Good Parts" by Douglas Crockford ' ),
-h('span', ', which has long been revered as a "must read" JavaScript book. Kyle Simpson recommends learning to use potentially dangerous code intelligently while Douglas Crockford advocates never using it at all. I think the phrase "eval is evil" stems from Crockford\'s book. I find eval() to be very useful from time to time. Kyle Simpson teaches programmers how to safely tap the full potential of JavaScript. ' ),  
-  h('p'),
+h('span#cycletime', ', which has long been revered as a "must read" JavaScript book. Kyle Simpson recommends learning to use potentially dangerous code intelligently while Douglas Crockford advocates never using it at all. I think the phrase "eval is evil" stems from Crockford\'s book. I find eval() to be very useful from time to time. Kyle Simpson teaches programmers how to safely tap the full potential of JavaScript. ' ),  
+  h('br'),
+  h('br'),
+  h('a', {props: {href: '#cyclet'}}, 'Return to the demonstration' ),
+  h('h2', 'Asynchronous Processes' ),
+  h('h3', 'Cycle.js Time ' ),
+  h('p', ' As stated above, the monads do not depend on Cycle.js. This section is for anyone who happens to be interested in how the monads achieve reactivity in this Cycle.js application.' ),
+  h('p', ' Here\'s the sequence four linked functions that we will analyze and then execute in the live demonstration below:'),
+  h('pre', `  bind(50)(cubeC)(prm4)(prm6)  `)  ,
+  h('p', ' When the code runs, a websockets socket requests and obtains a random five or six-figure number from the server. Then a web worker message requests the prime decompensation of the number obtained through the socket. When the data arrives, Snabbdom is prompted to modify the DOM to reflect the current value of vnode 778_RESULT. '),
+  h('p', ' A driver (Cycle.js terminology) puts messages sent by workerC into an xstream stream of messages. That stream is transformed in the main application function (named "main") into another stream which is merged with other streams to form the stream that triggers Snabbdom\'s diff and render routine. ' ),
+  h('p', ' The trigger stream causes Snabbdom to implement the side effects of each individual stream transformation process. One of those streams is workerG$, the stream that listens for messages from the WWC driver. Each time a message from workerG arrives, workerG$ is aumented, adding the next instructions for updating 778_RESULT. Here is the definition of workerGDriver:  ' ),
+  h('pre', `  function workerGDriver () {
+      return xs.create({
+        start: listener => { workerG.onmessage = msg => listener.next(msg)},
+        stop: () => { workerG.terminate() }
+      });
+    }; `),
+  h('p', ' Clicking the button causes factorsRecursion(0) to execute. Here\'s the code: '),  
+  h('pre', blue,  `  const factorsRecursion = n => bind(50)(cubeC)(prm4)
+    (prm6)(() => { if (n < 15) factorsRecursion(n+1)}); `),
+  h('p', 'result778(m.data) is called each time a message from workerG arrives. The definition of result778 is:   ' ),
+  h('pre', blue, `var result778 = x => h('div', [
+      m778_RESULT,  
+      h('br'),
+      h('span', bigBlue, x[3] ),
+      h('span', bigGreen, x[0] ),
+      h('span', bigBlue, x[4] ),
+      h('span', bigRed, x[5] ),
+  ]); `),
+  h('p', ' The stream that listens for workerG messages adds to the vnode m778_RESULT as follows: '),
+  h('pre', `const workerG$ = sources.WWG.map(m => {
+      m778_RESULT = result778(m.data);
+      primesMonad = new MonadState('primesMonad', m.data[2]);
+  }); `),
+  h('p', ' Here are some of the other functions that make this work: '),
+  h('pre', `  var factors2Press$ = sources.DOM
+      .select('button#factors_P').events('click');
+
+    var factors2Action$ = factors2Press$.map(function (e) {
+      var factors = [];
+      mMfactors3.ret('');
+      bind(50)(cubeC)(prm4)(prm6)
+    });
+
+    const prm4 = x => {
+      socket.send('BB#$42,pMgroup,pMname,' + x);
+      return new Promise( (resolve, reject) => {
+         mMZ37.bnd((y) => {  // Released by incoming websockets message 
+           resolve(ret(y));
+         }) 
+      })                         
+    }
+
+    mMZ27.bnd( () => {       // Incoming message prefix is BB#$42 
+      mMZ37.release(v[3]);   // releases prm6 (below)
+    });
+     
+    const prm6 = x => {  // x is the random number returned by the server.
+      workerG.postMessage([primesMonad.s, [x]]); 
+      return "Done";  // The returned data is processed in workerG$ (above).
+       }  ` ),
+  h('pre', bigGreen, `const factorsRecursion = n => bind(50)(cubeC)(prm4)
+  (prm6)(pause)(() => { if (n < 15) factorsRecursion(n+1)}); `),
   h('p')
           ])
         ])

@@ -266,6 +266,9 @@ application state pending = do
     print $!  "App is fired up"
     conn <- WS.acceptRequest pending
     msg <- WS.receiveData conn
+    print "<*>*<*>*<*>--------------> msg"
+    print msg
+    print "<*>*<*>*<*>--------------> msg"
     hFlush stdout
     count <- atomically counter
     id0 <- atomically $ readTVar count
@@ -274,9 +277,7 @@ application state pending = do
     atomically $ writeTVar count id
     clients <- atomically $ readTVar state
     case msg of
-        _   | not (prefix `T.isPrefixOf` msg) ->
-                WS.sendTextData conn ("Wrong announcement" :: Text)
-            | any ($ getName client)
+        _   | any ($ getName client)
                 [T.null] ->
                     WS.sendTextData conn ("Name cannot be empty" :: Text)
             | clientExists (getName client) clients ->
@@ -291,7 +292,7 @@ application state pending = do
                     WS.sendTextData conn ("CC#$42,solo," `mappend` name `mappend` " ,joined" :: Text)
                     talk conn state client
          where
-                prefix = "CC#$42"
+                prefix = (pack "CC#$42")
                 id = (+1) $ maximum $ ((0 :: Int):[ g | (_,_,_,_,_,_,g,_) <- clients ])
                 namePword = T.splitOn oh $ T.drop (T.length prefix) msg
                 client = (head namePword, 0, 0, solo, conn, last namePword, id, (pack "david<o>Still testing"))

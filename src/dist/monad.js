@@ -2115,44 +2115,59 @@ var stream$ = xs.of(producer)
 stream$.addListener(listener)
 
 em.on(142, v => console.log('142',v ));
+mMZ33.bnd(n => fn2(n));
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+var ppR = {style: {color: 'red', 
+  marginLeft: '5%', fontSize: "26"}};
+var ppY = {style: {color: 'yellow', 
+  marginLeft: '42%', fontSize: "26"}};
+var ppRY = {style: {color: 'yellow', 
+  marginLeft: '5%', fontSize: "26"}};
 
 var ppStyle = false;
 
-var pingpongTog;
+var pingpongTog = n => ppStyle ?
+  h('span', ppR, ' ping ' +  n + ' ~~~> ') :
+  h('span', ppY , 'PONG! ' + n) 
 
-var pingpongTog = n => ppStyle === true ? h('p', {style: {color: 'red', marginLeft: '0px'}}, 'ping ' + n) : h('p', {style: {color: 'yellow', marginLeft: '42%'}}, 'PONG ' + n) 
+var m66_RESULT = h('span', ppR, ' -- start -- ' );
 
-var PINGPONG = n => xs.of(pingpongTog(n));
-
-var m66_RESULT = "pending";
-
-var ping = mMZ32.bnd((n) => {
-  setTimeout(() => {
-    ppStyle = !ppStyle;
-    PINGPONG(n);
-    if (n < 10) {  
-      ping(n+1); 
-    }  
-  },500 )
-})
-
-ping(-5);
-
-var fn2 = async n => {
-  ppStyle = !ppStyle; 
-  var ax = pingpongTog(n); 
-  await wait(500)
-  if(n<10) {
-    fn(n+1)
-    console.log(ax);
-    return ax;
+var ping = n => ar => {
+  var k = Math.floor(Math.random() * 4) + 3;
+  if(ar[0] > 10 || ar[1] > 10) { 
+    m66_RESULT = h('span', ppR, `ping  ${ar[0]}    pong: ${ar[1]}` );
+    console.log("<><>-><ping>-><><>-> n and k",n,k);
+    return
   }
+  console.log("<><>-><ping>-><><>-> n and k",n,k);
+  setTimeout(() => {
+    if (n <= k) {  
+      ppStyle = !ppStyle;
+      incF$(n);
+      ping(n+1)(ar); 
+      document.getElementById("testQ").click()
+    }
+    else if (n % 2 === 0) {
+      ar[0]+=1;
+      console.log("In ping - even number - ar is", ar);
+      m66_RESULT = h('span', ppR, `ping  ${ar[0]}    pong: ${ar[1]}  ` );
+      document.getElementById("testQ").click();
+      ping(0)(ar); 
+    }
+    else {
+      ar[1]+=1
+      console.log("In ping - odd number - ar is", ar);
+      m66_RESULT = h('span', ppRY, `ping  ${ar[0]}    pong: ${ar[1]}  ` );
+      document.getElementById("testQ").click()
+      ping(0)(ar); 
+    }
+  }, 500 )
 }
 
-
-
-
-mMZ33.bnd(n => fn2(n));
+ping(0)([0,0]);
 
 
 

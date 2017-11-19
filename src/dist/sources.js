@@ -1,4 +1,3 @@
-
 var connection;
 
 function createWebSocket(path) {
@@ -69,25 +68,18 @@ function workerDriver () {
   });
 };
 
-var ppStyle = true;
-var pingpongTog;
-var pingpongTog = n => ppStyle === true ? h('p', {style: {color: 'red', marginLeft: '0px'}}, 'ping ' + n) : h('p', {style: {color: 'yellow', marginLeft: '42%'}}, 'PONG ' + n) 
-
-var PINGPONG = n => xs.of(pingpongTog(n));
-
-function pingpongDriver () {
-  return xs.create({
-    start: listener => { PINGPONG = msg => listener.next(pingpongTog(msg))},
-    stop: () => {}
-  });
-};
-
-
 socket.onclose = function (event) {
     console.log('<><><> ALERT - socket is closing. <><><> ', event);
 };
 
+var incF$ = n => xs.of(n);
 
+function pingpongDriver () {
+  return xs.create({
+    start: listener => { incF$ = k => listener.next(k)},
+    stop: () => {}
+  })
+};
 
 /*function eM2Driver () {
   return xs.create({
@@ -104,17 +96,6 @@ function mMstreamDriver () {
 };*/
 
 
-
-const sources = {
-  WS: websocketsDriver,
-  WWB: workerBDriver,
-  WWC: workerCDriver,
-  WWD: workerDDriver,
-  WWE: workerEDriver,
-  WWF: workerFDriver,
-  WWG: workerGDriver,
-  WW: workerDriver
-}
 
 
 
