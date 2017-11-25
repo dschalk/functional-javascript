@@ -101,7 +101,7 @@ console.log('m52',m52);
   };
 
   Monad2.prototype.ret = function (a) {
-    return window[this.id] = new Monad2(a, this.id);
+    return id = new Monad2(a, this.id);
   };
 
 var m52 = new Monad2 (52, 'm52');
@@ -154,8 +154,41 @@ const wait2 = x => {
     };
   };  */  
 
- 
   function bind (x, arr=[]) {
+    this.ar = arr;
+    var that = this;
+    this.ar.push(x instanceof Monad ? x.x : x)
+    if (this.ar.length === 0) this.ar = [x];
+    console.log('In bond <<>><<>><<>> x is', x);
+    return function debug8 (func) {
+      if (func.name === "terminate") return ar;
+      if (x instanceof Promise) {
+        var p = x.then(v => func(v.x));
+        return bind(p,this.ar);
+      }  
+      if (x instanceof Monad) return bind(func(x.x),this.ar);
+      // Asynchronous functionality without Promises. Begin:
+      if (typeof func === 'string' && func.slice(0,3) === "mMZ") { 
+        var p = eval(func(x));
+        return bind(p, this.ar);
+      }
+      if (typeof x === 'string' && x.slice(0,3) === "mMZ") { 
+        var p = func(eval(x));
+        return bind(p, this.ar);
+      }
+      // Asynchronous functionality without Promises. End.
+      return bind(func(x),this.ar);
+    };
+  };  
+
+var it4 = x => {
+  if (socket.readyState === 1) socket.send('BB#$42,pMgroup,pMname,' + x);
+  return "mMZ37.bnd(mMZ37.bnd(y => y))"
+}
+
+var it6 = x => mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]))
+
+/*  function bind (x, arr=[]) {
     this.ar = arr;
     var that = this;
     this.ar.push(x instanceof Monad ? x.x : x)
@@ -171,7 +204,7 @@ const wait2 = x => {
       if (x instanceof Monad) return bind(func(x.x),this.ar);
       return bind(func(x),this.ar);
     };
-  };  
+  };  */
 
 const prm4 = x => {
   if (socket.readyState === 1) socket.send('BB#$42,pMgroup,pMname,' + x);
@@ -181,7 +214,7 @@ const prm4 = x => {
        resolve(ret(y));
      }) 
   })                         
-}
+}  
 
 const prm6 = x => {
   workerG.postMessage([primesMonad.s, [x]]);
@@ -2126,42 +2159,39 @@ var ppY = {style: {color: 'yellow',
   marginLeft: '42%', fontSize: "26"}};
 var ppRY = {style: {color: 'yellow', 
   marginLeft: '5%', fontSize: "26"}};
+var ppYR = {style: {color: 'red', 
+  marginLeft: '42%', fontSize: "26"}};
 
 var ppStyle = false;
+
+var m66_RESULT = h('span', ppR, ' -- start -- ' );
+var m67_RESULT = h('pre', ppR, '                          -- NO SCORE -- ' );
 
 var pingpongTog = n => ppStyle ?
   h('span', ppR, ' ping ' +  n + ' ~~~> ') :
   h('span', ppY , 'PONG! ' + n) 
 
-var m66_RESULT = h('span', ppR, ' -- start -- ' );
-
 var ping = n => ar => {
-  var k = Math.floor(Math.random() * 4) + 3;
+  var k = Math.floor(Math.random() * 5)+1;
   if(ar[0] > 10 || ar[1] > 10) { 
-    m66_RESULT = h('span', ppR, `ping  ${ar[0]}    pong: ${ar[1]}` );
-    console.log("<><>-><ping>-><><>-> n and k",n,k);
+    m67_RESULT = h('pre', ppY, `     FINAL SCORE   ping: ${ar[0]} pong: ${ar[1]}` );
+    document.getElementById("testQ").click();
     return
   }
-  console.log("<><>-><ping>-><><>-> n and k",n,k);
   setTimeout(() => {
     if (n <= k) {  
       ppStyle = !ppStyle;
       incF$(n);
       ping(n+1)(ar); 
-      document.getElementById("testQ").click()
     }
     else if (n % 2 === 0) {
       ar[0]+=1;
-      console.log("In ping - even number - ar is", ar);
-      m66_RESULT = h('span', ppR, `ping  ${ar[0]}    pong: ${ar[1]}  ` );
-      document.getElementById("testQ").click();
+      m67_RESULT = h('pre', ppYR, `     SCORE: ping  ${ar[0]} pong: ${ar[1]}  ` );
       ping(0)(ar); 
     }
     else {
       ar[1]+=1
-      console.log("In ping - odd number - ar is", ar);
-      m66_RESULT = h('span', ppRY, `ping  ${ar[0]}    pong: ${ar[1]}  ` );
-      document.getElementById("testQ").click()
+      m67_RESULT = h('pre', ppY, `     SCORE: ping  ${ar[0]} pong: ${ar[1]}  ` );
       ping(0)(ar); 
     }
   }, 500 )
