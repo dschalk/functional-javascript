@@ -1,6 +1,6 @@
 
 function showFunc (name, name2) {return name == name2 ? 'inline-block' : 'none'}
-
+var result444;
 var MonadState3 = function MonadState3(g, state) {
   this.id = g;
   this.s = state;
@@ -10,15 +10,15 @@ var MonadState3 = function MonadState3(g, state) {
   };
 };
 
-var commentMonad = new MonadState3('commentMonad',   [ '', [] ]);
-
 MonadState3.prototype.html = [];
+
+var commentMonad = new MonadState3('commentMonad',   [ '', [] ]);
 
 MonadState3.prototype.init = function (str) { // All comments delivered on load.
   this.s[0] = str;
   this.s[1] = this.s[0].split("<@>");
   this.s[1] = this.s[1].filter(v => (v != ""));
-  process(this.s[1]);
+  result444 = process(this.s[1]);
 }
 
 MonadState3.prototype.append = function (str) {
@@ -50,6 +50,7 @@ MonadState3.prototype.remove = function (num) {
   return this.html;
 };
 
+
 function process (a) { //Assembles the HTML for display.
   var arr = a;
   mMcomments.ret([]);
@@ -64,7 +65,7 @@ function process (a) { //Assembles the HTML for display.
     show = showFunc(x[0], pMname.x);
     console.log('<><><><> in process. x[0],pMname.x, show', x[0],pMname.x,show);
     n+=1;
-    mMcomments.bnd(push, h('div#'+n, [
+    commentMonad.html.push(h('div#'+n, [
       h('span', x[0] + ' commented: ' + x[1].replace(/<<>>/g, ",")),
       h('br'),
       h('textarea#commit', {props: {cols: 55, rows: 2},

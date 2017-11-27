@@ -951,12 +951,13 @@ h('a', { props: { href: "https://cycle.js.org/", target: "_blank" } }, 'A Cycle.
 h('div', {style: {textAlign:"center", fontWeight: "bold"}}, [
 h('div', {style: {fontSize: "20px", color: "#f7f700"}}, 'FUNCTIONAL REACTIVE PROGRAMMING'),
 h('br'),
-h('div', {style: {fontSize: "18px", fontStyle: "italic", color: "#07f7f7"}},'WITH CUSTOM MONADS AND CYCLE.JS' ) ]),
+h('div', {style: {fontSize: "18px", fontStyle: "italic", color: "#07f7f7"}},'WITH CYCLE.JS' ) ]),
 h('br'),
 h('div.content', [
 h('h3', 'Polymorphic Function Composition ' ), 
-h('p', ' Using "bind()", functions that are not constrained to accept arguments or return values of particular types can be composed. The demonstrations show chains of functions in which some perform computations, some parse data, some fetch data from a WebSocket server, some fetch data from a web worker, and so on. The functions in the chains have access to all of the previous results and there are no restrictions on the types of data the functions can return. Promises can be linked without explicitely invoking the "then()" method, and with access to previous results.'),
-h('p', ' Not having to return objects with certain methods is liberating. Having access to prior return values is empowering. ' ),
+h('p', ' Functions can be conveniently composed regardless of what they return or what arguments they take. The demonstrations below show chains of functions in which one performs a computations, one fetches data from a WebSocket server, and one fetches data from a web worker - all without Promises. '),
+h('p', 'Promises can be linked without explicitely invoking the "then()" method, and with access to all previous results. All you need to do is begin a sequence of functions with the function "bind()". '),
+h('p', ' Not having to return specialized objects, as other JavaScript chaining algorithms require, is liberating. Having access to prior return values is empowering. ' ),
 h('p', ' Nothing prevents coders from imposing strict type constraints on the functions they compose. They can even modify bind() to be strictly typed in whatever way serves their purposes.  '),
 h('span', ' Examples and discussion of linked computations can be found '), 
 h('a', { props: { href: '#chain' } }, 'here.'),
@@ -968,16 +969,11 @@ h('pre', {style: { color: "rgb(181, 244, 240)" }},   `    function Monad(z = 'de
       this.x = z;
       this.id = ID;
     }; ` ),
-h('p', ' This website can help people who are interested in acclimating their thought processes to functional and reactive ways of programming. In order to feel comfortable with functional, reactive code, I think novices and seasoned programmers alike need to grow new synaptic connections in their brains. This comes with practice. ' ),
-h('pre', {style: {fontStyle: "italic", color: "#f7f700" }},`      Understanding without practice
-      adrift in a sea of confusion. 
-      understanding with practice
-      smooth sailing through every challenge ` ),
-h('p', ' Before explaining how the monads work, I invite you to try out some examples of monads in action.'), 
-
+h('p', ' Two methods, bnd() and ret(), were added to Monad.prototype. Monads created on the fly by ret() don\'t have "id" properties and corresponding pointers. Thay do their work securely insulated from their outer scope. '),
+h('p', ' Before explaining how the monads work, I invite you to try out some interactive demonstrations.'), 
 h('h2', ' A Few Monad Demonstrations ' ),
 h('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history. All group members see your score decrease or increase as you navigate backwards and forwards. ' ),
-h('h', ' You are automatically logged in with randomly generated s as your user name and password. Your group is the non-group "solo". '),
+h('h', ' You are automatically logged in with randomly generated numbers as your user name and password. Your group is the non-group "solo". '),
 h('p', ' You can select a persistent name and password. These will make it possible for you to return later to delete or edit comments that you might have saved. '),
 h('p#gameIntro', ' The demonstration section also has a text box where you can create or join groups. Changing groups resets your game score and goal tally to zeros. ' ),
       h('span.tao', ' The game code is fairly concise and intuitive. A quick walk-through is presented at.' ),
@@ -985,7 +981,7 @@ h('a', { props: { href: '#gameCode' } }, 'here'),
 h('span', '. To see monadic functionality at work, I suggest that you take a look at the section captioned ' ),
 h('a', { props: { href: '#asyncExplanation' } }, 'Asynchronous Processes'),
 h('br'),
-h('p', ' But it might be best to first proceed down the page and see the examples of Monad instances manipulating data. If you are trying to wrap you head around the concept of pure, chainable functions, such as the functions in the Underscore and Jquery libraries, understanding our monads might elevate you to the comfort zone you seek. ' ),
+h('p', ' But it might be best to first proceed down the page and see the examples of Monad instances manipulating data. If you are trying to wrap you head around the concept of functional programming, playing with bind() and the monads in the browser console might lift you into the comfort zone you seek. ' ),
 h('h3', 'The Game'),
 h('p', 'People who are in the same group, other than the default non-group named "solo", share the same todo list, chat messages, and simulated dice game. '),
 h('p', ' Data for the traversable game history accumulates until a player scores three goals and wins. The data array is then emptied and the application is ready to start accumulating a new history. '),
@@ -1082,7 +1078,7 @@ h('h2', 'Monads' ),
 
 h('p', ' For purposes of this discussion, "monads" are objects "m" for which "m instanceof Monad" returns true. The statement "var mon = new Monad(7,\'mon\')" creates a monad named "mon" which encapsulates the value 7. The expressions "mon.id === \'mon\'", mon.x === 7, and "mon instanceof Monad" all return true'),
 h('h', ' The functions bind() and ret() make the monads useful. Here are their definitions: '),
-h('pre', {style: {color: "lightBlue"}}, `  function bind (x, arr=[]) {
+h('pre', {style: {color: "lightBlue"}}, `function bind (x, arr=[]) {
   this.ar = arr;
   var that = this;
   this.ar.push(x instanceof Monad ? x.x : x)
@@ -1109,10 +1105,11 @@ h('pre', {style: {color: "lightBlue"}}, `  function bind (x, arr=[]) {
   };
 };  
      
-function ret (val = 0, id = "retDefault") {
-    return window[id] = new Monad(val, id);
-  } ` ),
-h('p', ' As is apparent from the definition, bind() is recursive and completely polymorphic. If bind()\'s argument is not a promise or a monad, bind() returns "bind(func(x),this.ar)". The array "ar" accumulates results along a sequence of computations. "terminate" causes "ar" to be returned at the end of a chain.'), 
+function ret (val) {
+    return new Monad2(val);
+} ` ),
+h('p', ' As is apparent from the definition, bind() is recursive and completely polymorphic. If bind()\'s argument is not a promise, an instance of Monad, an instance of Monad2, or a string, bind() returns "bind(func(x),this.ar)". The array "ar" accumulates results along a sequence of computations. "terminate" returns "ar".'), 
+h('p', ' Monad2 is Monad without "id". Anonymous Monad2 instances are insulated from their outer scopes, eliminating the possibility of clashes with other processes. '),
 h('p', ' The definition of bind() speaks for itself more articulately the following description, but for what it\'s worth, here it is:  For any value "p" and arrays "ar", "ar2", and "ar3", the invisible function that stands ready to operate on the function ahead of bind(p,ar) in a chain is named "debug8". In the simple case of synchronous code, if the function ahead of bind(p,ar) - in other words, debug8\'s argument - is "func", bind(p,ar)(func) returns debug8 which returns bind(func(p,ar2)) which returns debug8, ready to continue the chain. If the next link is func2, bind(func2(func(p,ar),ar2),ar3) is called, returning debug8, ready to accept the next function in the chain. ' ),
 h('p', ' A description of what bind() does with promises isn\'t likely to be helpful. Too many words would be needed. Some examples below show it in action, waiting for websocket messages and web worker messages in a single chain. '),
 
@@ -1123,7 +1120,7 @@ h('p', ' bind() facilitates the linking of synchronous functions and promises in
 h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
     (squareP)(cubeC)(x => console.log(x))  // 64  `),
       
-    h('p', ' The sequence ran almost to completion in 67 microseconds and then waited 4 seconds before displaying "64" - 2 seconds for bind(3)(cubeP)(squareC)(addC(-727)) to execute then an additional 2-seconds (waiting for squareP to resolve) before running to completion. Under the hood, bind() linked the promises by using the Promises "then" method, which always returns a promise. bind() does not use promises until the first promise is encountered. '),
+    h('p', ' The sequence ran almost to completion in 67 microseconds and then waited 4 seconds before displaying "64" - 2 seconds for bind(3)(cubeP)(squareC)(addC(-727)) to execute then an additional 2-seconds (waiting for squareP to resolve) before running to completion. Under the hood, bind() linked the promises by using the Promises "then" method, which always returns a promise. bind() does not use promises until the first promise is encountered. The definitions of the functions are in an appendix.'),
     h('p', ' Here is bind()\'s fundamental requirement: '),
     h('p', {style: {color: "yellow"}}, 'USE FUNCTIONS THAT TAKE ONLY ONE ARGUMENT'),
     h('p', ' The function add(), defined below, takes only one argument and returns a function. Here\'s how it works: '),
@@ -1158,7 +1155,7 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
     h('span', 'returns:' ),  
     h('pre', red,  `  Monad {x: 1005, id: "myMonad"} `),  
     h('span.tao', ' In functional programming, the pattern f = a => b => c => d is prefered over f(a,b,c) {return d}. All Haskell functions follow this pattern, not even needing parentheses. Define add() by '), h('span', green, 'add a b = a+b'), h('span', ' and run '),h('span', green, 'add 3 4.'), h('span', ' Haskell compilers return '), h('span', red, '7'), h('span', '.' ),
-    h('span', ' This is the functional way. It is the only sensible way to use the monads presented on this page. '),
+    h('span', ' This is the functional way. It is the only sensible way to use bind() and the monads presented on this page. '),
     h('br'),  
     h('br'),  
     h('a', {props: {href: '#top'}}, 'Back to the top'),  
@@ -1179,16 +1176,20 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
       (v=>ret(v*(ar[1])))(v=>ret(v*(ar[1])))(v=>ret(v+30))
       (v=>ret(v*(1/ar[3])))(terminate)
        // [1, 3, 27, 30, 90, 270, 300, 10] `),
-    h('p', ' Or to get only the final result: ' ),
-    h('pre', {style: {fontSize: "12px"}},  `  bind(1)(addC(2))(cubeC)(addC(3))(multC(ar[1]))(multC(ar[1]))
-      (addC(30))(multC(1/ar[3]))(terminate).pop()  // 10  ` ),
-    h('p', {style: {fontSize: "12px"}}, 'addC, and multC (above) pass anonymous monads along linked sequences of computations. They are defined as follows: ' ), 
-    h('pre#cyclet', `    const addC = a => b => ret(a+b);
-        const multC = a => b => ret(a*b); ` ),
+    h('p', ' Better yet, FORGET ABOUT MONADS! What? I developed bind in order to link monads only to find that bind does quite well without them. This is more efficient: '),
+    h('pre', `  bind(1)(v=>v+2)(v=>v*v*v)(v=>v+3)
+      (v=>v*ar[1])(v=>v*ar[1])(v=>v+30)
+      (v=>v*1/ar[3])(terminate)  
+       // [1, 3, 27, 30, 90, 270, 300, 10] `),
+    h('p#cycletime', ' Or if you want just the final result '),
+    h('pre', `  bind(1)(v=>v+2)(v=>v*v*v)(v=>v+3)
+      (v=>v*ar[1])(v=>v*ar[1])(v=>v+30)
+      (v=>v*1/ar[3])(terminate).pop()  // 10] `),
     h('h2', 'Asynchronous Functions' ),
-    h('span.tao', ' A lengthy discussion of factorsRecursion() and its dependencies can be found in '),
-    h('a', {props: {href: '#cycletime'}}, 'Async Procedures in this Cycle.js App' ),
-    h('span#asyncChain', '. It starts with "bind(1 It runs "bind(50)(cubeC)(prm4)" fifteen times where prm4(125000) fetches a random number less than 125000 from the Haskell server and prm6 fetches the random number\'s prime decompensation from a web worker. '), 
+    
+    h('span.tao', ' A lengthy discussion of factorsRecursion() (below) and its dependencies can be found in '),
+    h('a', {props: {href: '#cyclet'}}, 'Async Procedures' ),
+    h('span#asyncChain', '. In the upcoming demonstration, bind(50)(cubeC)(it4)(it6) runs fifteen times where prm4(50*50*50) fetches a random number less than 125000 from the Haskell server and prm6 fetches the random number\'s prime factors from a web worker. This is done without promises or any other feature introduced in ecmascript 2015 and beyond. Developers who feel cramped by Promise\'s limitations will appreciate this way of handling asynchronous code. ' ), 
     h('br'),
     h('br'),
     h('span', ' Click the button below to execute '),
@@ -1583,7 +1584,7 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
       h('textarea#comment', '' ),
       h('br' ),
       h('br' ),
-      h('div', mMcomments.x ),
+      h('div', commentMonad.html ),
       h('br'),
       h('br'),  
       h('p', ' When this website loads, it receives from the server a string containing all of the comments. The string is saved in commentMonad.s[0]. The string is transformed into an array of comments which is saved in commentMonad.s]1]. '), 
@@ -1897,10 +1898,10 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
   h('a',   {props: {href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" }},  'You Don\'t Know Javascript'),  
   h('span', ' is the thinking developer\'s answer to ' ),
   h('a',   {props: {href: "http://shop.oreilly.com/product/9780596517748.do", target: "_blank" }},  ' "JavaScript: The Good Parts" by Douglas Crockford ' ),
-  h('span#cycletime', ', which has long been revered as a "must read" JavaScript book. Kyle Simpson recommends learning to use potentially dangerous code intelligently while Douglas Crockford advocates never using it at all. I think the phrase "eval is evil" stems from Crockford\'s book. I find eval() to be very useful from time to time. Kyle Simpson teaches programmers how to safely tap the full potential of JavaScript. ' ),  
+  h('span#cyclet', ', which has long been revered as a "must read" JavaScript book. Kyle Simpson recommends learning to use potentially dangerous code intelligently while Douglas Crockford advocates never using it at all. I think the phrase "eval is evil" stems from Crockford\'s book. I find eval() to be very useful from time to time. Kyle Simpson teaches programmers how to safely tap the full potential of JavaScript. ' ),  
     h('br'),
     h('br'),
-    h('a', {props: {href: '#cyclet'}}, 'Return to the demonstration' ),
+    h('a', {props: {href: '#cycletime'}}, 'Return to the demonstration' ),
     h('h2', 'Asynchronous Processes' ),
     h('h3', 'Cycle.js Time ' ),
     h('p', ' As stated above, the monads do not depend on Cycle.js. This section is for anyone who happens to be interested in how the monads achieve reactivity in this Cycle.js application.' ),

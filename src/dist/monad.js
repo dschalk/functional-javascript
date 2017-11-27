@@ -77,38 +77,17 @@ var arf = async p => {
     this.id = ID;
   };
 
-  function Monad2(z = 'generic', ID = 'temp') {
+  function Monad2(z = 'generic') {
     this.x = z;
-    this.id = ID;
+    this.ret = a => new Monad2(a);
+    this.bnd = function (func, ...args) {
+      return func(this.x, ...args)
+    }
   };
 
 
-var m52 = new Monad2 (52, 'm52');
+var m52 = new Monad2 (52);
 console.log('m52',m52);
-
-  Monad2.prototype.bnd = function (func, ...args) {
-    if (func instanceof Promise) {
-      this.getVal(func,this.x,args);
-    }
-    var m = func(this.x, ...args)
-    var ID;
-    if (m instanceof Monad2) {
-      ID = testPrefix(args, this.id);
-      window[ID] = new Monad2(m.x, ID);
-      return window[ID];
-    }
-    else return m;
-  };
-
-  Monad2.prototype.ret = function (a) {
-    return id = new Monad2(a, this.id);
-  };
-
-var m52 = new Monad2 (52, 'm52');
-function testMon(f,v,...args) {
-  if (f(v,...args) instanceof Monad) return true;
-  else return false;
-}
 
 function testProm(f,v,args) {
   if (f(v,...args) instanceof Promise) return true;
@@ -157,7 +136,7 @@ const wait2 = x => {
   function bind (x, arr=[]) {
     this.ar = arr;
     var that = this;
-    this.ar.push(x instanceof Monad ? x.x : x)
+    this.ar.push(x instanceof Monad || x instanceof Monad2 ? x.x : x)
     if (this.ar.length === 0) this.ar = [x];
     console.log('In bond <<>><<>><<>> x is', x);
     return function debug8 (func) {
@@ -166,6 +145,7 @@ const wait2 = x => {
         var p = x.then(v => func(v.x));
         return bind(p,this.ar);
       }  
+      if (x instanceof Monad2) return bind(func(x.x),this.ar);
       if (x instanceof Monad) return bind(func(x.x),this.ar);
       // Asynchronous functionality without Promises. Begin:
       if (typeof func === 'string' && func.slice(0,3) === "mMZ") { 
@@ -238,7 +218,11 @@ console.log('apolox is', apolox);
    else { this.lock = true } 
   };
 
-function ret (val = 0, id = "retDefault") {
+function ret (val = 0) {
+  return new Monad2(val);
+}
+
+function retLegacy (val = 0, id = "retDefault") {
   return window[id] = new Monad(val, id);
 }
 
@@ -251,6 +235,7 @@ function id (x) {return x}
   Monad.prototype.bnd = function (func, ...args) {
     if (func instanceof Promise) {
       this.getVal(func,this.x,args);
+
     }
     var m = func(this.x, ...args)
     var ID;
@@ -2198,6 +2183,7 @@ var ping = n => ar => {
 }
 
 ping(0)([0,0]);
+
 
 
 
