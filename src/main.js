@@ -1111,9 +1111,9 @@ function ret (val) {
 h('p', ' As is apparent from the definition, bind() is recursive and completely polymorphic. If bind()\'s argument is not a promise, an instance of Monad, an instance of Monad2, or a string, bind() returns "bind(func(x),this.ar)". The array "ar" accumulates results along a sequence of computations. "terminate" returns "ar".'), 
 h('p', ' Monad2 is Monad without "id". Anonymous Monad2 instances are insulated from their outer scopes, eliminating the possibility of clashes with other processes. '),
 h('p', ' The definition of bind() speaks for itself more articulately the following description, but for what it\'s worth, here it is:  For any value "p" and arrays "ar", "ar2", and "ar3", the invisible function that stands ready to operate on the function ahead of bind(p,ar) in a chain is named "debug8". In the simple case of synchronous code, if the function ahead of bind(p,ar) - in other words, debug8\'s argument - is "func", bind(p,ar)(func) returns debug8 which returns bind(func(p,ar2)) which returns debug8, ready to continue the chain. If the next link is func2, bind(func2(func(p,ar),ar2),ar3) is called, returning debug8, ready to accept the next function in the chain. ' ),
-h('p', ' A description of what bind() does with promises isn\'t likely to be helpful. Too many words would be needed. Some examples below show it in action, waiting for websocket messages and web worker messages in a single chain. '),
+h('p', ' A description of what bind() does with promises isn\'t likely to be helpful. Too many words would be needed. Some examples below show it in action, waiting for WebSocket messages and web worker messages in a single chain. '),
 
-h('p#chain', ' The functions bind() and ret() are similar in some ways to >>= (pronounced "bind") and "return" in the Haskell programming language. Functions used in chains of computations can take a JavaScript value and return a monad, the way Haskell does. But when computations are linked using the JavaScript bind(), there is no restriction on what can be returned by the functions in each succeeding link. This is an example of unharnessed JavaScript\'s potential for creativity and confusion.  '),
+h('p', ' The functions bind() and ret() are similar in some ways to >>= (pronounced "bind") and "return" in the Haskell programming language. Functions used in chains of computations can take a JavaScript value and return a monad, the way Haskell does. But when computations are linked using the JavaScript bind(), there is no restriction on what can be returned by the functions in each succeeding link. This is an example of unharnessed JavaScript\'s potential for creativity and confusion.  '),
   
 h('p', ' bind() facilitates the linking of synchronous functions and promises in the same chain. In the functions below, the suffix "C" is for curried functions that return ordinary values and "P" if for functions that return promises. '),
 
@@ -1145,7 +1145,7 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
     h('span', red, ' 7'),
     h('br'),
     h('br'),
-    h('span.tao', ' In functional programming, the pattern f = a => b => c => d is prefered over f(a,b,c) {return d}. All Haskell functions follow this pattern, not even needing parentheses. Define add() by '), h('span', green, 'add a b = a+b'), h('span', ' and run '),h('span', green, 'add 3 4.'), h('span', ' Haskell compilers return '), h('span', red, '7'), h('span', '.' ),
+    h('span.tao', ' In functional programming, the pattern f = a => b => c => d is preferred over f(a,b,c) {return d}. All Haskell functions follow this pattern, not even needing parentheses. Define add() by '), h('span', green, 'add a b = a+b'), h('span', ' and run '),h('span', green, 'add 3 4.'), h('span', ' Haskell compilers return '), h('span', red, '7'), h('span', '.' ),
     h('span', ' This is the functional way. It is the only sensible way to use bind() and the monads presented on this page. '),
     h('br'),  
     h('br'),  
@@ -1153,34 +1153,38 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
     h('br'),  
     h('br'),  
     h('span.tao', {style: {color: "#d8ef7c", fontSize: "17px" }},   'Types:'),
-    h('span.tao', ' When writing code, I pay attention to types and sometimes type-check to avoid crashes and for the convenience people using my websites. For example, if a user enters the wrong type of data it is helpful to display a message explaining why nothing is happening. This is a good way to prevent sockets from disconnecting in Websockets applications. I like exploring the possibilities of JavaScript, so I prefer ad hoc type checking over writing code in a strongly typed language that compiles to JavaScript.  '),
+    h('span.tao', ' When writing code, I pay attention to types and sometimes type-check to avoid crashes and for the convenience people using my websites. For example, if a user enters the wrong type of data it is helpful to display a message explaining why nothing is happening. This is a good way to prevent sockets from disconnecting in WebSocket applications. I like exploring the possibilities of JavaScript, so I prefer ad hoc type checking over writing code in a strongly typed language that compiles to JavaScript.  '),
     h('br'),  
-    h('h3', 'More about monads'),   
+    h('h3#chain', 'More about monads'),   
     h('p', ' The result of every computation in a chain of synchronous functions is available to every computation that comes after it. This can be seen in the next example: ' ),  
       
     h('pre', {style: {fontSize: "12px"}}, `  bind(1)(addC(2))(cubeC)(addC(3))
       (multC(this.ar[1]))(multC(this.ar[1]))
-      (addC(30))(multC(1/ar[3]))(terminate)
-       // [1, 3, 27, 30, 90, 270, 300, 10] `),
+      (addC(30))(multC(1/(ar[3]*2)))(terminate)
+       // [1, 3, 27, 30, 90, 270, 300, 5] `),
     h('p', ' Or, equivalently: ' ),
     h('pre', {style: {fontSize: "12px"}}, `  bind(1)(v=>ret(v+2))(v=>ret(v*v*v))(v=>ret(v+3))
       (v=>ret(v*(ar[1])))(v=>ret(v*(ar[1])))(v=>ret(v+30))
-      (v=>ret(v*(1/ar[3])))(terminate)
-       // [1, 3, 27, 30, 90, 270, 300, 10] `),
-    h('p', ' Better yet, FORGET ABOUT MONADS! What? I developed bind in order to link monads only to find that bind does quite well without them. This is more efficient: '),
-    h('pre', `  bind(1)(v=>v+2)(v=>v*v*v)(v=>v+3)
+      (v=>ret(v*(1/(ar[3]*2))))(terminate)
+       // [1, 3, 27, 30, 90, 270, 300, 5] `),
+    h('span.tao', ' Better yet, '),h('span', orange, 'FORGET ABOUT ANONYMOUS MONADS!'),h('span', ' What? I developed bind in order to link monads only to find that bind does quite well without them. This is more efficient: '),
+    h('br'),
+    h('pre', orange, `  bind(1)(v=>v+2)(v=>v*v*v)(v=>v+3)
       (v=>v*ar[1])(v=>v*ar[1])(v=>v+30)
-      (v=>v*1/ar[3])(terminate)  
-       // [1, 3, 27, 30, 90, 270, 300, 10] `),
+      (v=>v*1/(ar[3]*2))(terminate)  
+       // [1, 3, 27, 30, 90, 270, 300, 5] `),
     h('p#cycletime', ' Or if you want just the final result '),
     h('pre', `  bind(1)(v=>v+2)(v=>v*v*v)(v=>v+3)
       (v=>v*ar[1])(v=>v*ar[1])(v=>v+30)
-      (v=>v*1/ar[3])(terminate).pop()  // 10] `),
+      (v=>v*1/(ar[3]*2))(terminate).pop()  // 5] `),
+    h('p', ' Realizing that there is no good reason to thread anonymous monads through an insulated pipeline of procedures was something of an epiphany for me. While writing this commentary, I suddenly realized that JavaScript can link procedures in a chain that has no side effects until the final link, as the Haskell programming language famously does, in a very straightforward manner without a Monad crutch. '),
+    h('p', ' Many examples on this page depend on named monads with "id" properties and constructs such as MonadState. It is the anonymous monads that turned out to be superfluous. '), 
+    
     h('h2', 'Asynchronous Functions' ),
     
     h('span.tao', ' A lengthy discussion of factorsRecursion() (below) and its dependencies can be found in '),
     h('a', {props: {href: '#cyclet'}}, 'Async Procedures' ),
-    h('span#asyncChain', '. In the upcoming demonstration, bind(50)(cubeC)(it4)(it6) runs fifteen times where prm4(50*50*50) fetches a random number less than 125000 from the Haskell server and prm6 fetches the random number\'s prime factors from a web worker. This is done without promises or any other feature introduced in ecmascript 2015 and beyond. Developers who feel cramped by Promise\'s limitations will appreciate this way of handling asynchronous code. ' ), 
+    h('span#asyncChain', '. In the upcoming demonstration, bind(50)(cubeC)(it4)(it6) runs fifteen times where prm4(50*50*50) fetches a random number less than 125000 from the Haskell server and prm6 fetches the random number\'s prime factors from a web worker. This is done without promises or any other feature introduced in ECMAScript 2015 and beyond. Developers who feel cramped by Promise\'s limitations will appreciate this way of handling asynchronous code. ' ), 
     h('br'),
     h('br'),
     h('span', ' Click the button below to execute '),
@@ -1226,7 +1230,7 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
       return h('div.main', [  ` ),
 
     
-  h('p', ' merged into it. Each time main returns, Snabbdom\'s diff and render routine and run(sources,main) execute. run(sources,main) calls main() and furnighes it with the listeners provided by the drivers. New events cause the cycle to repeat. ' ),  
+  h('p', ' merged into it. Each time main returns, Snabbdom\'s diff and render routine and run(sources,main) execute. run(sources,main) calls main() and furnishes it with the listeners provided by the drivers. New events cause the cycle to repeat. ' ),  
   h('p', ' ping(-5)([0,0]) is called when the pingpong button is clicked. Here\'s the relevant code:'),
   h('pre', `  var pingpong$ = sources.DOM
       .select('button#pingpong').events('click').map(() => ping(0)([0,0]));
@@ -1276,7 +1280,7 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
       m66_RESULT = x;
     }) ` ),
 
-    h('span.tao', ' The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with a Haskell Websockets server. ' ),
+    h('span.tao', ' The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with a Haskell WebSockets server. ' ),
     h('br'),
     h('br'),
     h('span.tao', 'This project was created by and is actively maintained by me, David Schalk. The code repository is at '),
@@ -1379,7 +1383,7 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
     h('a', { props: { href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/", target: "_blank" } }, 'Hask is not a category.'),
     h('br' ),
     h('p', ' Research into ways of defining a Haskell category appears to be ongoing. This research involves tinkering with special constraints, omitted features, and definitions of morphisms that are not Haskell functions. When a definition of the category is established, Haskell monads are then shown to be, in some contrived context, category-theory monads. Devising such schemes are instructive academic exercises, but I think application developers will always want and need tools which lie outside of the closed space of any category. ' ),
-    h('p', ' However, imitating definitions and patterns found in category theory, as Haskell does in defining the functor, monoid, and monad type classes, was a stroke of genius that vastly enriched the Haskell programming language and brought it into the mainstream as a viable alternative to java, c++, etc.  This website runs efficiently on a Haskell websockets server. The modified Haskell Wai Websockets server has proven to be extraordinarily easy to maintain as new requirements become necessary. For example, modifying the server to send chat messages and shared todo lists only to members of the same group was a trivial task. It required just a few lines of no-brainer pattern-matching code. ' ),
+    h('p', ' However, imitating definitions and patterns found in category theory, as Haskell does in defining the functor, monoid, and monad type classes, was a stroke of genius that vastly enriched the Haskell programming language and brought it into the mainstream as a viable alternative to java, c++, etc.  This website runs efficiently on a Haskell WebSocket server. The modified Haskell Wai WebSocket server has proven to be extraordinarily easy to maintain as new requirements become necessary. For example, modifying the server to send chat messages and shared todo lists only to members of the same group was a trivial task. It required just a few lines of no-brainer pattern-matching code. ' ),
     h('span.tao', ' Other JavaScript monad schemes mirror type theory and Haskell with their type constructors and monads that operate on types. Examples include '),
     h('a', {props: {href: "https://curiosity-driven.org/monads-in-javascript"}}, "Curiosity-Driven" ),
     h('span', ' and ' ),  
@@ -1448,7 +1452,7 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
     h('span#PF_22.turk', mMres.x[1]  ),
     h('br'),
     h('h3', ' Promises and async/await are not needed ' ),
-    h('p', ' Because this code is running in Cycle.js, waiting for websockets messages to come in and waiting for time consuming procedures to complete without blocking is easily accomplished without using promises or async/await. Drivers stand ready to process websockets and web worker messages. '),   
+    h('p', ' Because this code is running in Cycle.js, waiting for WebSocket messages to come in and waiting for time consuming procedures to complete without blocking is easily accomplished without using promises or async/await. Drivers stand ready to process WebSocket and web worker messages. '),   
 
     h('p', ' The second demonstration in this series decomposes numbers into its their prime factors. Testing with sequences of 9\'s, the first substantial lag occurs at 9,999,999 - unless a large array of prime numbers has already been generated in the previous demonstration or elsewhere. Here it is:' ),
     h('input#factors_1'),
@@ -1508,7 +1512,7 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
     code.monadIt,
     h('p', ' MonadItter instances don\'t link to one another. They exist to facilitate the work of instances of Monad, MonadState, etc. Here\'s how they work: '),
     h('p', 'For any instance of MonadItter, say "it", "it.bnd(func)" causes it.p === func. Calling the method "it.release(...args)" causes p(...args) to run, possibly with arguments supplied by the caller. '),
-    h('p',' MonadItter instances control the routing of incoming websockets messages. In one of the demonstrations below, they behave much like ES2015 iterators.'),
+    h('p',' MonadItter instances control the routing of incoming WebSocket messages. In one of the demonstrations below, they behave much like ES2015 iterators.'),
     h('h3', ' A Basic Itterator '),
     h('p', 'The following example illustrates the use of release() with an argument. It also shows a lambda expressions being provided as an argument for the method mMZ1.bnd() (thereby becoming the value of mMZ1.p), and then mMZ1.release providing an arguments for the function mMZ1.p. The code is shown beneith the following two buttons. '),
     h('button#testZ', 'mMZ1.release(1)'),
@@ -1562,7 +1566,7 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
       h('h2', {style: {color: "red" }}, 'Comments' ),
      
       h('div#com2',  { style: { display: abcde} }, ), 
-      h('p', ' When this page loads in the browser, a user name is automatically generated in order to establish a unique Websocket connection. This makes it possible to exchange text messages with other group members, play the game, and work on a shared todo list. If you want to leave a comment, you need to log in with a user name and a password of your choice. Each can be a single character or you could use a hard-to-hack combination of alphabet letter, numbers, and special characters. The main requirement is that there be only one comma, and that it be placed between the name and the password. ' ),
+      h('p', ' When this page loads in the browser, a user name is automatically generated in order to establish a unique WebSocket connection. This makes it possible to exchange text messages with other group members, play the game, and work on a shared todo list. If you want to leave a comment, you need to log in with a user name and a password of your choice. Each can be a single character or you could use a hard-to-hack combination of alphabet letter, numbers, and special characters. The main requirement is that there be only one comma, and that it be placed between the name and the password. ' ),
       h('p', 'The server will keep your user name and password in a text file. If you use your saved user name and password sometime in the future, you will be able to edit or delete any comments you previously made. '),
       h('p', ' If you enter a user name that has not been recorded, you will be logged in as that user. The user name and password will be saved. This means that you do not need to first register and then log in. This is an all-in-one process. If you enter a recognized user name but the password does not match the password in the record, you will be asked to try again. ' ),
       h('br'),  
@@ -1579,7 +1583,7 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
       h('br'),
       h('br'),  
       h('p', ' When this website loads, it receives from the server a string containing all of the comments. The string is saved in commentMonad.s[0]. The string is transformed into an array of comments which is saved in commentMonad.s]1]. '), 
-      h('p', ' When a comment is created, modified, or deleted, a websockets message goes to the server which performs some of its own housekeeping and broadcasts a message to all online browsers. It is received in messages$ and forwarded comments.js. ' ),
+      h('p', ' When a comment is created, modified, or deleted, a WebSocket message goes to the server which performs some of its own housekeeping and broadcasts a message to all online browsers. It is received in messages$ and forwarded comments.js. ' ),
     h('p', ' The functions in the comments.js file mutate commentsMonad. There is no reason to create fresh instances of commentMonad, other than out of devout devotion to the doctrine of non-mutation. How silly that would be! Nothing touches commentMonad outside of the comments.js file; there is no danger. ' ),
     h('p', ' commentMonad stands in stark contrast to the gameMonad, which is never mutated although it sees much action during game play. Here he entire Comments.js file: ' ),
     h('pre', `function showFunc (name, name2) 
@@ -1664,7 +1668,7 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
                          | otherwise = y : changeOne z x ys ` ),
 
     h('a', ' Every message sent to the server is a comma separated string beginning with a prefex, then a group, and then a name. Comma separated items after that are named extra and extra2. ' ),
-    h('p', ' The code below is responsible for dealing with comments. As in the browser, websockets messages are dealt with according to their six charachter prefixes. extra and extra2 are the only pertinent data since comments go to all groups ' ),  
+    h('p', ' The code below is responsible for dealing with comments. As in the browser, WebSocket messages are dealt with according to their six charachter prefixes. extra and extra2 are the only pertinent data since comments go to all groups ' ),  
     h('pre', `else if "GZ#$42" \`T.isPrefixOf\` msg              
                     -- FETCH AND BROADCAST ALL COMMENTS ON BROWSER LOAD
      then                                
@@ -1900,9 +1904,9 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
     h('pre', `  bind(50)(cubeC)(it4)(it6) // Does not use Promises 
   bind(50)(cubeC)(prm4)(prm6) // Uses Promises     `)  ,
     h('p', ' The first sequence is used in the live demonstration below. Both sequences fetch a random number from the server and then fetch the number\'s prime decomposition from a web worker. The sequence without promises seems to run slightly faster.  '),
-    h('p', ' When the code runs, a websockets socket requests and obtains a pseudo random number between 0 and 125,000 from the server. The number is then sent a web worker that computes its prime components. When the data arrives, Snabbdom is prompted to modify the DOM to reflect the current value of 778_RESULT. '),
+    h('p', ' When the code runs, a WebSocket socket requests and obtains a pseudo random number between 0 and 125,000 from the server. The number is then sent a web worker that computes its prime components. When the data arrives, Snabbdom is prompted to modify the DOM to reflect the current value of 778_RESULT. '),
     h('p', ' These two drivers (Cycle.js terminology) are involved in the procedure: '),
-    h('pre', `  function websocketsDriver() {
+    h('pre', `  function WebSocketDriver() {
     return xs.create({
       start: listener => { socket.onmessage = msg => listener.next(msg)},
       stop: () => { socket.close() }
@@ -1918,7 +1922,7 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
     h('p', ' These driver streams, among others, are located in an object named "sources" (shown below) ' ),
     h('pre', `  const sources = {
     DOM: makeDOMDriver('#main-container'),
-    WS: websocketsDriver,
+    WS: WebSocketDriver,
     WWB: workerBDriver,
     WWC: workerCDriver,
     WWD: workerDDriver,
