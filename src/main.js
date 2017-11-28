@@ -1202,7 +1202,7 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
     h('a', { props: { href: "https://egghead.io/courses/cycle-js-fundamentals", target: "_blank" } }, ' Overview of Cycle.js.'),
     h('span', ' Its elegance might take your breath away. ' ),
     h('br' ),
-    h('p', ' Let\'s take a look at how the ping pong example works in this Cycle.js application. JavaScript\'s mutable variables come in handy here. The variables "m66_RESULT" and "m67_RESULT" are permanent fixtures in the Snabbdom description of the virtual DOM that is returned by main(). Click the button below observe their values changing until ping or pong achieves a score of 11. '),
+    h('p#reactivity2', ' Let\'s take a look at how the ping pong example works in this Cycle.js application. JavaScript\'s mutable variables come in handy here. The variables "m66_RESULT" and "m67_RESULT" are permanent fixtures in the Snabbdom description of the virtual DOM that is returned by main(). Click the button below observe their values changing until ping or pong achieves a score of 11. '),
 
     h('div', [  
     h('button#pingpong', {style: {fontSize: '17px'}}, 'start pingpong'), 
@@ -1499,7 +1499,6 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
 
     h('h3', 'Feedback From the Error Monad' ),  
     h('img.image', {props: {src: "error2.png"}}  ),
-    h('div#reactivity', ),
     h('br'),
       h('h2', {style: {color: "red" }}, 'Comments' ),
      
@@ -1661,7 +1660,9 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
     h('a', { props: { href: '#top' } }, 'Back To The Top'),
     h('br'),  
 
-
+  h('div#reactivity', ),
+  h('br'),  
+  h('a', {props: {href: "#reactivity2"}}, 'Back to the pingpong demo' ),
 
   h('h3', 'Reactivity in Cycle.js'),
 
