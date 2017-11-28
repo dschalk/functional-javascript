@@ -1196,92 +1196,26 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
     h('button#clear_P', {style: {fontSize: '12px', marginLeft: "0"}},  'clear results'), 
     h('br'),
     m778_RESULT,  
-    h('p', ' m777_RESULT is a permanent fixture of the virtual DOM. workerG$ is merged into the stream that triggers Snabbdom\'s diff and render routine, so when a mew message from workerG triggers augmentation of workerG$, the resulting side effects seen and heard in the browser. '),
-    
-
-  h('h3', 'Reactivity in Cycle.js'),
+    h('p', ' m777_RESULT is a permanent fixture of the virtual DOM. workerG$ is merged into the stream that triggers Snabbdom\'s diff and render routine, so when a mew message from workerG triggers augmentation of workerG$, the resulting side effects appear in the browser. '),
 
     h('span.tao', ' Reactivity occurs naturally in the Cycle.js framework. Many developers find that Cycle.js has an unusually steep learning curve. It isn\'t so bad if you start with Andr Staltz\' '),
     h('a', { props: { href: "https://egghead.io/courses/cycle-js-fundamentals", target: "_blank" } }, ' Overview of Cycle.js.'),
     h('span', ' Its elegance might take your breath away. ' ),
     h('br' ),
-    h('p', ' Let\'s take a look at how the ping pong example works in this Cycle.js application. JavaScript\'s mutable variables come in handy here. The variable "m66_RESULT" is a permanent fixture in the Snabbdom description of the virtual DOM. Click the button below and see what happens while its value changes fifteen times. '),
+    h('p', ' Let\'s take a look at how the ping pong example works in this Cycle.js application. JavaScript\'s mutable variables come in handy here. The variables "m66_RESULT" and "m67_RESULT" are permanent fixtures in the Snabbdom description of the virtual DOM that is returned by main(). Click the button below observe their values changing until ping or pong achieves a score of 11. '),
 
     h('div', [  
     h('button#pingpong', {style: {fontSize: '17px'}}, 'start pingpong'), 
     m66_RESULT ]),
     m67_RESULT,
 
-      
-  h('p', ' The stream incF$ and the driver pingpongDriver() (both defined below) make this work. '),
+    h('span.tao', ' To see how this works, click '),
+    h('a', {props: {href: "#reactivity"}}, 'Reactivity in Cycle.js' ),
 
-  h('pre', blue, `  var incF$ = n => xs.of(n);
 
-    function pingpongDriver () {
-      return xs.create({
-        start: listener => { 
-          incF$ = k => listener.next(k)
-        },
-        stop: () => {}
-      })
-    };  `),
-  h('p', ' Whenever the stream incF$() is called, the stream returned by pingpongDriver is augmented and that causes main() to return an object whose only element is a map from the stream calcStream to a virtual DOM node with many children. calcStream$ is produced by merging 48 streams together including ping$ resulting from ping(n) where "n" is the number supplied by pingpongDriver (a/k/a "sources.PP"). The first to lines of main()\'s return value are shown below. ' ),
-  h('pre', `    return { DOM: calcStream$.map(() => {
-      return h('div.main', [  ` ),
 
-    
-  h('p', ' merged into it. Each time main returns, Snabbdom\'s diff and render routine and run(sources,main) execute. run(sources,main) calls main() and furnishes it with the listeners provided by the drivers. New events cause the cycle to repeat. ' ),  
-  h('p', ' ping(-5)([0,0]) is called when the pingpong button is clicked. Here\'s the relevant code:'),
-  h('pre', `  var pingpong$ = sources.DOM
-      .select('button#pingpong').events('click').map(() => ping(0)([0,0]));
-    
-    var ppR = {style: {color: 'red', 
-      marginLeft: '5%', fontSize: "26"}};
-    var ppY = {style: {color: 'yellow', 
-      marginLeft: '42%', fontSize: "26"}};
-    var ppRY = {style: {color: 'yellow', 
-      marginLeft: '5%', fontSize: "26"}};
-    var ppYR = {style: {color: 'red', 
-      marginLeft: '42%', fontSize: "26"}};
 
-    var ppStyle = false;
 
-    var m66_RESULT = h('span', ppR, ' -- start -- ' );
-    var m67_RESULT = h('pre', ppR, '                          -- NO SCORE -- ' );
-
-    var ping = n => ar => {
-      var k = Math.floor(Math.random() * 5)+1;
-      if(ar[0] > 10 || ar[1] > 10) { 
-        m67_RESULT = h('pre', ppY, \`     FINAL SCORE: ping  ${ar[0]} pong: ${ar[1]}\` );
-        document.getElementById("testQ").click();
-        return
-      }
-      setTimeout(() => {
-        if (n <= k) {  
-          ppStyle = !ppStyle;
-          incF$(n);
-          ping(n+1)(ar); 
-        }
-        else if (n % 2 === 0) {
-          ar[0]+=1;
-          m67_RESULT = h('pre', ppYR, \`     SCORE: ping  ${ar[0]} pong: ${ar[1]}  \` );
-          ping(0)(ar); 
-        }
-        else {
-          ar[1]+=1
-          m67_RESULT = h('pre', ppY, \`     SCORE: ping  ${ar[0]} pong: ${ar[1]}  \` );
-          ping(0)(ar); 
-        }
-      }, 500 )
-    }  ` ),
-
-    h('p', ' The stream incF$ and the driver pingpongDrirun(main, sources) are the crucial Cycle.js application functions. sources contains the drivers. sources.PP = pingpongDriver is one of the drivers consumed by run() and made available in main() so information can be sent back to run. Round and round it goes. Here is the definition of ping$. ' ),
-    h('pre', `  const ping$ = sources.PP.map(x => {  
-      m66_RESULT = x;
-    }) ` ),
-
-    h('span.tao', ' The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with a Haskell WebSockets server. ' ),
-    h('br'),
     h('br'),
     h('span.tao', 'This project was created by and is actively maintained by me, David Schalk. The code repository is at '),
     h('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript", target: "_blank" } }, 'monads-in-JavaScript'),
@@ -1563,6 +1497,10 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
         t.ret(0).bnd(add3, 3).bnd(cube3).x ===
         t.ret(0).bnd(v => add3(v,3).bnd(cube3)).x  ` ),
 
+    h('h3', 'Feedback From the Error Monad' ),  
+    h('img.image', {props: {src: "error2.png"}}  ),
+    h('div#reactivity', ),
+    h('br'),
       h('h2', {style: {color: "red" }}, 'Comments' ),
      
       h('div#com2',  { style: { display: abcde} }, ), 
@@ -1722,11 +1660,84 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
                    \`mappend\` extra3) st   ` ),
     h('a', { props: { href: '#top' } }, 'Back To The Top'),
     h('br'),  
-    h('h3', 'Feedback From the Error Monad' ),  
-    h('br'),  
-    h('img.image', {props: {src: "error2.png"}}  ),
-    h('div#gameCode', ),
+
+
+
+  h('h3', 'Reactivity in Cycle.js'),
+
+   h('p', ' The stream incF$ and the driver pingpongDriver() (both defined below) are essential components of the pingpong demonstration. '),
+
+  h('pre', blue, `  var incF$ = n => xs.of(n);
+
+    function pingpongDriver () {
+      return xs.create({
+        start: listener => { 
+          incF$ = k => listener.next(k)
+        },
+        stop: () => {}
+      })
+    };  `),
+  h('p', ' Whenever the stream incF$() is called, the stream returned by pingpongDriver is augmented and that causes main() to return an object whose only element is a map from the stream calcStream to a virtual DOM node with many children. calcStream$ is produced by merging 48 streams together including ping$ resulting from ping(n) where "n" is the number supplied by pingpongDriver (a/k/a "sources.PP"). The first two lines of main()\'s return value are shown below. ' ),
+  h('pre', `    return { DOM: calcStream$.map(() => {
+      return h('div.main', [  ` ),
+
+    
+  h('p', ' merged into it. Each time main returns, Snabbdom\'s diff and render routine executes inside of run(sources,main). run(sources,main) calls main() and furnishes it with the listeners provided by the drivers. New events cause the cycle to repeat. ' ),  
+  h('p', ' ping(-5)([0,0]) is called when the pingpong button is clicked. Here\'s the relevant code:'),
+  h('pre', `  var pingpong$ = sources.DOM
+      .select('button#pingpong').events('click').map(() => ping(0)([0,0]));
+    
+    var ppR = {style: {color: 'red', 
+      marginLeft: '5%', fontSize: "26"}};
+    var ppY = {style: {color: 'yellow', 
+      marginLeft: '42%', fontSize: "26"}};
+    var ppRY = {style: {color: 'yellow', 
+      marginLeft: '5%', fontSize: "26"}};
+    var ppYR = {style: {color: 'red', 
+      marginLeft: '42%', fontSize: "26"}};
+
+    var ppStyle = false;
+
+    var m66_RESULT = h('span', ppR, ' -- start -- ' );
+    var m67_RESULT = h('pre', ppR, '                          -- NO SCORE -- ' );
+
+    var ping = n => ar => {
+      var k = Math.floor(Math.random() * 5)+1;
+      if(ar[0] > 10 || ar[1] > 10) { 
+        m67_RESULT = h('pre', ppY, \`     FINAL SCORE: ping  ${ar[0]} pong: ${ar[1]}\` );
+        document.getElementById("testQ").click();
+        return
+      }
+      setTimeout(() => {
+        if (n <= k) {  
+          ppStyle = !ppStyle;
+          incF$(n);
+          ping(n+1)(ar); 
+        }
+        else if (n % 2 === 0) {
+          ar[0]+=1;
+          m67_RESULT = h('pre', ppYR, \`     SCORE: ping  ${ar[0]} pong: ${ar[1]}  \` );
+          ping(0)(ar); 
+        }
+        else {
+          ar[1]+=1
+          m67_RESULT = h('pre', ppY, \`     SCORE: ping  ${ar[0]} pong: ${ar[1]}  \` );
+          ping(0)(ar); 
+        }
+      }, 500 )
+    }  ` ),
+
+    h('p', ' The stream incF$ and the driver pingpongDrirun(main, sources) are the crucial Cycle.js application functions. sources contains the drivers. sources.PP = pingpongDriver is one of the drivers consumed by run() and made available in main() so information can be sent back to run. Round and round it goes. Here is the definition of ping$. ' ),
+    h('pre#gameCode', `  const ping$ = sources.PP.map(x => {  
+      m66_RESULT = x;
+    }) ` ),
+
+    h('span.tao', ' The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with a Haskell WebSockets server. ' ),
     h('br'),
+
+
+
+
     h('h2', 'Appendix A - The Game Code' ),
     h('pre', `function MonadState(g, state) {
     this.id = g;
