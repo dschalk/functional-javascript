@@ -114,11 +114,9 @@
      });
 
      mMZ17.bnd( () => {                          // Prefix GZ#$42
-       console.log('GZ comments coming in. extra is',extra);
        var newStr = extra.substring(0, extra.length-3);
        newStr = newStr.replace(/<@><@>/g, "<@>");
        newStr = newStr.replace(/↵/g, '');
-       console.log('GZ comments coming in. newStr is',newStr);
        if (newStr === "") return;
        commentMonad.init(newStr);
      });
@@ -132,7 +130,7 @@
        console.log('In mMZ19 to edit a comment. <><><><><><><> extra, extra2:',extra,extra2);
      });
 
-     mMZ20.bnd( () => {                          
+     mMZ20.bnd( () => {                         // Prefix GD#$42  DELETE A COMMENT 
        commentMonad.remove(parseInt(extra,10));
      });
     // ******************************************************* TASKS
@@ -150,7 +148,7 @@
      });
 
      mMZ24.bnd( () => {        //Delete a task
-       taskMonad.delete(v[3]);
+       taskMonad.remove(v[3]);
      });
 
      mMZ25.bnd( () => {        // Receive tasks when group changes
@@ -1517,8 +1515,6 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
       h('br' ),
       h('br' ),
       h('div', commentMonad.html ),
-      h('br'),
-      h('br'),  
       h('p', ' When this website loads, it receives from the server a string containing all of the comments. The string is saved in commentMonad.s[0]. The string is transformed into an array of comments which is saved in commentMonad.s]1]. '), 
       h('p', ' When a comment is created, modified, or deleted, a WebSocket message goes to the server which performs some of its own housekeeping and broadcasts a message to all online browsers. It is received in messages$ and forwarded comments.js. ' ),
     h('p', ' The functions in the comments.js file mutate commentsMonad. There is no reason to create fresh instances of commentMonad, other than out of devout devotion to the doctrine of non-mutation. How silly that would be! Nothing touches commentMonad outside of the comments.js file; there is no danger. ' ),

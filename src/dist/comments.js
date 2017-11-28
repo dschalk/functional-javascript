@@ -46,14 +46,13 @@ MonadState3.prototype.remove = function (num) {
   console.log(this.s[1]);
   console.log('QQQQQQQQQQQQQQQQQQQQQQQQQQ In remove. this.s[1]')
   this.s[0] = this.s[1].join("<@>");
-  this.html = process(this.s[1]);
-  return this.html;
+  process(this.s[1]);
 };
 
 
 function process (a) { //Assembles the HTML for display.
   var arr = a;
-  mMcomments.ret([]);
+  commentMonad.html = [];
   console.log('In process in comments.js. ************************ arr is', arr);
   var n = -1;
   arr.map(a => { 
