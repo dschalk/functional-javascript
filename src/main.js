@@ -492,10 +492,8 @@
 
     var clearClick$ = sources.DOM
         .select('button#clear_P').events('click')
-        .map(() => m778_RESULT = h('div', ""));
+        .map(() => m42_RESULT = []);
 
-    const factorsRecursion = n => bind(50)(cubeC)(it4)
-    (it6)(() => { if (n < 15) factorsRecursion(n+1)});
     
     var factors2Press$ = sources.DOM
         .select('button#factors_P').events('click');
@@ -504,11 +502,12 @@
       console.log('&&&&&>>> >> in factors2action$. e is', e );
       var factors = [];
       mMfactors3.ret('');
-      factorsRecursion(0);
+      bind(50)(cubeC)(it4)(it6)(it7)
     });
 
   const workerG$ = sources.WWG.map(m => {
     m778_RESULT = result778(m.data);
+    mMZ38.release(m.data);
   });
 
   const result778 = x => h('div', [
@@ -953,10 +952,12 @@ h('div', {style: {fontSize: "18px", fontStyle: "italic", color: "#07f7f7"}},'WIT
 h('br'),
 h('div.content', [
 h('h3', 'Polymorphic Function Composition ' ), 
-h('p', ' Functions can be conveniently composed regardless of what they return or what arguments they take. The demonstrations below show chains of functions in which one performs a computations, one fetches data from a WebSocket server, and one fetches data from a web worker - all without Promises. '),
+h('p', ' By calling "bind()" only at the start, multiple functions can be conveniently composed regardless of their return value types, or the types of arguments they take. The '),
+h('a', {props: {href: '#asyncChain'}}, 'demonstrations' ),
+h('span', ' below show chains of functions in which one performs a computations, one fetches data from a WebSocket server, one fetches data from a web worker, and one formats the data for display - all without Promises. '),
 h('p', 'Promises can be linked without explicitely invoking the "then()" method, and with access to all previous results. All you need to do is begin a sequence of functions with the function "bind()". '),
 h('p', ' Not having to return specialized objects, as other JavaScript chaining algorithms require, is liberating. Having access to prior return values is empowering. ' ),
-h('p', ' Nothing prevents coders from imposing strict type constraints on the functions they compose. They can even modify bind() to be strictly typed in whatever way serves their purposes.  '),
+h('p', ' Nothing prevents coders from imposing strict type constraints on the functions they compose. They can even modify bind() to be strictly typed in whatever way serves their purposes. It will still work. '),
 h('span', ' Examples and discussion of linked computations can be found '), 
 h('a', { props: { href: '#chain' } }, 'here.'),
 h('span', ' Examples of linked asynchronous functions are '),
@@ -1176,25 +1177,52 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
       (v=>v*ar[1])(v=>v*ar[1])(v=>v+30)
       (v=>v*1/(ar[3]*2))(terminate).pop()  // 5] `),
     h('p', ' Realizing that there is no good reason to thread anonymous monads through an insulated pipeline of procedures was something of an epiphany for me. While writing this commentary, I suddenly realized that JavaScript can link procedures in a chain that has no side effects until the final link, as the Haskell programming language famously does, in a very straightforward manner without a Monad crutch. '),
-    h('p', ' Many examples on this page depend on named monads with "id" properties and constructs such as MonadState. It is the anonymous monads that turned out to be superfluous. '), 
+    h('p#asyncChain', ' Many examples on this page depend on named monads with "id" properties and constructs such as MonadState. It is the anonymous monads that turned out to be superfluous. '), 
     
+    h('a', { props: { href: '#top' } }, 'Back To The Top'),
     h('h2', 'Asynchronous Functions' ),
     
-    h('span.tao', ' A lengthy discussion of factorsRecursion() (below) and its dependencies can be found in '),
     h('a', {props: {href: '#cyclet'}}, 'Async Procedures' ),
-    h('span#asyncChain', '. In the upcoming demonstration, bind(50)(cubeC)(it4)(it6) runs fifteen times where prm4(50*50*50) fetches a random number less than 125000 from the Haskell server and prm6 fetches the random number\'s prime factors from a web worker. This is done without promises or any other feature introduced in ECMAScript 2015 and beyond. Developers who feel cramped by Promise\'s limitations will appreciate this way of handling asynchronous code. ' ), 
+    h('p', ' Here are linked procedures that perform a computation, send the result to the Haskell WebSocket server to obtain a random number less than the result (ip4), send the random number to a web worker to obtain the prime factors of the random num)ber (ip6), and finally parse the acquired data for display (ip7): '),
+    h('span', ' Click below to run '),
+    h('span', bigRed, 'bind(50)(cubeC)(it4)(it6)(it7)'),
     h('br'),
     h('br'),
-    h('span', ' Click the button below to execute '),
-    h('span', bigRed, 'factorsRecursion(0)' ),
-    h('br'),
-    h('br'),
-    h('button#factors_P', {style: {fontSize: '12px'}},  'decompose fifteen random numbers'),
+    h('button#factors_P', {style: {fontSize: '12px'}}, 'bind(50)(cubeC)(it4)(it6)(it7)'),
     h('span', "~~~~~"),  
     h('button#clear_P', {style: {fontSize: '12px', marginLeft: "0"}},  'clear results'), 
     h('br'),
-    m778_RESULT,  
-    h('p', ' m777_RESULT is a permanent fixture of the virtual DOM. workerG$ is merged into the stream that triggers Snabbdom\'s diff and render routine, so when a mew message from workerG triggers augmentation of workerG$, the resulting side effects appear in the browser. '),
+    h('div', m42_RESULT ),  
+    h('p', ' The definitions of it4(), it6(), and it(7) are: '),
+    h('pre', `  var it4 = x => {
+    if (socket.readyState === 1) {
+      socket.send('BB#$42,pMgroup,pMname,' + x);
+      return eval("mMZ37.bnd(mMZ37.bnd(y => y),ar)");
+    }
+  } 
+
+  var it6 = x => {
+    mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));
+    mMZ38.bnd(v => mMZ39.release(v));
+  }  
+
+  var it7 = v => mMZ39.bnd( v => {
+    m42_RESULT.unshift(h('p', orange, 
+    'The prime factors of ' + v[0] + v[4] + v[5]));
+  }); `),
+
+    h('p', ' "h(\'div\', m42_RESULT)" is a permanant fixture in the Snabbdom virtual DOM that is returned by main() and updated by calcStream$. When it7() executes, Sbabbdom performs its diff and render routine, updating the browser window. '),
+    h('p', ' The asynchronous functions use MonadItter instances mMZ37, mMZ38, and mMZ39 instead of Promises. Here\'s the definition of MonadItter: '),
+    h('pre', `  var MonadItter = function MonadItter() {
+    this.p = function () {};
+    this.release = function () {
+      return this.p.apply(this, arguments);
+    };
+    this.bnd = function (func) {
+      return this.p = func;
+    };
+  }; `),
+    h('p', ' When obtaining data from unreliable sources, one should add error checking functionality or use promises. '), 
 
     h('span.tao', ' Reactivity occurs naturally in the Cycle.js framework. Many developers find that Cycle.js has an unusually steep learning curve. It isn\'t so bad if you start with Andr Staltz\' '),
     h('a', { props: { href: "https://egghead.io/courses/cycle-js-fundamentals", target: "_blank" } }, ' Overview of Cycle.js.'),
@@ -1257,85 +1285,14 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
         return t;
       }; ` ),
     h('p', ' This is less functional than using bind() in that it doesn\'t pass functions down the chain but instead, it passes objects with exposed methods. But it has appealing features. Look how values move along the chain until, at the end they combine to yield 42. Explicitly passing values down the line lambda style is impossible with bind(); but with bind(), all functions have access to ar where they can find the values of every monad returned by previous functions. '),
-    h('p', 'The code below resembles a lambda calculus expression, and the lambda calculus is the essence of functional programming, residing close to the eternal Tao. But intermediate functions along a linked chain of computations can instantiate monads in the global space, a feature which can be convenient and which doesn\'t have to be dangerous; but a function that uses this feature is not pure and impure functions are anathema to functional programming. ' ),
-    h('pre', `  ret(2).bnd(v => add(v,1).bnd(cube).bnd(p => add(p,3)
-      .bnd(() => ret(p/3).bnd(add,3).bnd(z => [v,p,z,v*p-z]))))
-        // [2,27,12,42] ` ),
-    h('h2', 'Comparison With Haskell'),
-    h('span.tao', ' Values v that satisfy "v instanceof Monad" (called "monads" in this discussion) are very different from the Haskell monads, but they are similar in that both behave like the monads of category theory without actually being category theory monads. See ' ),
-    h('a', { props: { href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/", target: "_blank" } }, 'Hask is not a category.'),
-        h('span', ' by Andrej Bauer and the ' ),
-        h('a', { props: { href: '#discussion' } }, 'Discussion'),
-        h('span', ' below. They provide a convenient interface for dealing with uncertainty and side effects in a purely functional manner. Adherence to the monad laws (see below) helps instill confidence that the monads are robust, versatile, and reliable tools for isolating and chaining sequences of JavaScript functions. ' ),
-    h('br'),
-    h('h3', 'Haskell Monad Laws' ),  
-    h('p', {style: {fontStyle: 'italic'}}, ' By the way, these laws are just suggestions in the Haskell programming language. They are, nevertheless, universally respected by authors of robust, well-behaved Haskell code. '  ),
-    h('div', 'Left Identity ' ),
-    h('pre', `  m.ret(v).bnd(f, ...args).x === f(v, ...args).x
-
-      ret(v).bnd(f, ...args).x === f(v, ...args).x
-    bind(a)(ret)(func, ...args)(terminate).pop() === f(a, ...args).x
-
-      Haskell monad law: (return x) >>= f \u2261 f x  ` ),
-    h('div#discussion', ' Right Identity  ' ),
-    h('pre', `  m.bnd(m.ret) === m  For all m where 
-        (m.constructor === Monad) === true    
-
-      bind(a)(func, ...args)(ret)(terminate).pop() === func(a, ...args).x
-      // (ret) has no effect on either side of the function.
-      bind(3)(ret)(add,5)(ret)(terminate).pop() === add(3,5).x
-
-      Haskell monad law: m >>= return \u2261 m `  ),
-
-    h('div', ' Commutivity  ' ),
-
-    h('pre', `  eq(m.bnd(f, ...args).bnd(g, ...args), 
-      m.bnd(v => f(v, ...args).bnd(g, ...args)))
-
-      eq(bind(ret(v))(f, ...args)(g, ...args)(terminate),
-       bind(ret(3,'m'))(x => f(x, ...args))(g, ...args)(terminate))
-
-      Haskell: (m >>= f) >>= g \u2261 m >>= ( \\x -> (f x >>= g) ) `),
-
-    h('span',  {style: {fontSize: "18px", fontStyle: "italic"}}, 'Examples demonstrating commutivity' ),
-    h('pre', `  eq(bind(ret(3))(ret)(cube)(ret)(terminate),
-        bind(ret(3))(cube)(terminate)) 
-      
-      eq(m.ret(3).bnd(ret).bnd(cube).
-        bnd(ret),m.ret(3).bnd(cube)) ` ),  
-    h('p', ' The above relationships prove nothing, but they do suggest that the monads will turn out to be flexible and robust. The demonstrations below bear this out. ' ),
-    h('a', { props: { href: '#top' } }, 'Back To The Top'),
-    h('h3', ' Discussion ' ),
-    h('span.tao', ' The Haskell statement ' ),
-    h('span.turk6', `f \u2261 g` ),
-    h('span', ' returns True if and only if f x == g x for all Haskell values x in the domains of f and g. That is what eq() tests for, in addition to identity of id attributes. In JavaScript, "==" and "===" return false for identical objects that are in different locations in memory.' ),
-    h('br'),
-    h('br'),
-    h('span.tao',' The Haskell programming language borrowed the term "monad" from the branch of mathematics known as category theory. This was appropriate because Haskell monads, along with the function return and the "bind" operator >>=, behave quite a bit like category theory monads, and the inspiration for them came out of category theory. For Haskell monads to actually be category theory monads, they would need to reside in a category-theory category. They don\'t, although the Haskell mystique tends to give newcomers to the language the impression that they do. See ' ),
-    h('a', { props: { href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/", target: "_blank" } }, 'Hask is not a category.'),
-    h('br' ),
-    h('p', ' Research into ways of defining a Haskell category appears to be ongoing. This research involves tinkering with special constraints, omitted features, and definitions of morphisms that are not Haskell functions. When a definition of the category is established, Haskell monads are then shown to be, in some contrived context, category-theory monads. Devising such schemes are instructive academic exercises, but I think application developers will always want and need tools which lie outside of the closed space of any category. ' ),
-    h('p', ' However, imitating definitions and patterns found in category theory, as Haskell does in defining the functor, monoid, and monad type classes, was a stroke of genius that vastly enriched the Haskell programming language and brought it into the mainstream as a viable alternative to java, c++, etc.  This website runs efficiently on a Haskell WebSocket server. The modified Haskell Wai WebSocket server has proven to be extraordinarily easy to maintain as new requirements become necessary. For example, modifying the server to send chat messages and shared todo lists only to members of the same group was a trivial task. It required just a few lines of no-brainer pattern-matching code. ' ),
-    h('span.tao', ' Other JavaScript monad schemes mirror type theory and Haskell with their type constructors and monads that operate on types. Examples include '),
-    h('a', {props: {href: "https://curiosity-driven.org/monads-in-javascript"}}, "Curiosity-Driven" ),
-    h('span', ' and ' ),  
-    h('a', {props: {href: "https://github.com/fantasyland/fantasy-land"}}, "Fantasy Land." ),
-    h('br' ),
-    h('br' ),
-
-     // ***************************************** START MONAD
-     // ***************************************** END MONAD
-    h('p', ' ' ),
-    h('p', ' ' ),
-    h('p', ' ' ),
-    h('p', ' ' ),
-    h('p', ' ' ),
-    h('p', ' ' ),
-    h('p', ' ' ),
-    h('p', ' ' ),
-    h('p', ' ' ),
-    h('p', ' ' ),
-    h('p', ' ' ),
+    h('span.tao', 'The code below resembles a lambda calculus expression; and the lambda calculus is the essence of functional programming, always fading mysteriously into the eternal Tao and re-emerging in one manifestation or another (eg. The Turing Machine) whenever the question of computability is resolved.'),
+    h('span', italic, ' Note' ),
+    h('span', ': Hard-headed mathemaaticians can enjoy non-rational (neither rational nor irrational) musings. The example below shows values being carried accross a series of computation, eventually combining to yield "9". ' ),
+    h('br'),  
+    h('pre', `  ret(2).bnd(v => add(v,1)
+  .bnd(cube).bnd(p => add(p,3) 
+  .bnd(() => ret(p/3).bnd(add,3)
+  .bnd(z => v*z+p-v*p+z))))  //  9 ` ),
      // ************** OOOOOOOOOOOOOO ********    BEGIN ASYNC
 
 
@@ -1591,7 +1548,7 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
     h('p', ' *************************************************************************************** ' ),
     h('h3', 'Haskell Time'),
     h('p', ' This page is for front end developers, but in case anyone is interested, here are the server functions responsible for deleting or amending a comment: ' ),
-    h('pre', `  removeOne _ []                 = []
+    h('pre', `    removeOne _ []                 = []
     removeOne x (y:ys) | x == y    = ys
                        | otherwise = y : removeOne x ys
 
@@ -1908,11 +1865,12 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
     h('h2', 'Asynchronous Processes' ),
     h('h3', 'Cycle.js Time ' ),
     h('p', ' As stated above, the monads do not depend on Cycle.js. This section is for anyone who happens to be interested in how the monads achieve reactivity in this Cycle.js application.' ),
-    h('p', ' Here are the two sequences of four linked functions that we will analyze:'),
-    h('pre', `  bind(50)(cubeC)(it4)(it6) // Does not use Promises 
-  bind(50)(cubeC)(prm4)(prm6) // Uses Promises     `)  ,
-    h('p', ' The first sequence is used in the live demonstration below. Both sequences fetch a random number from the server and then fetch the number\'s prime decomposition from a web worker. The sequence without promises seems to run slightly faster.  '),
-    h('p', ' When the code runs, a WebSocket socket requests and obtains a pseudo random number between 0 and 125,000 from the server. The number is then sent a web worker that computes its prime components. When the data arrives, Snabbdom is prompted to modify the DOM to reflect the current value of 778_RESULT. '),
+    h('p', ' Here are the two sequences of five linked functions that we will analyze:'),
+    h('pre', `  bind(50)(cubeC)(it4)(it6)(it7) // Does not use Promises 
+  bind(50)(cubeC)(prm4)(prm6)(it7) // Uses Promises     `)  ,
+    h('p', ' The first sequence is used in the live demonstration above. Both sequences fetch a random number from the server and then fetch the number\'s prime decomposition from a web worker. The sequence without promises seems to run slightly faster.  '),
+    h('p', ' it7() was defined for use with MonadItter, not promises. It is a testiment to the robustness of bind() that it7() functions as intended at the end of a sequence of promises. '),
+    h('p', ' When the code runs, a WebSocket socket requests and obtains a pseudo random number between 0 and 125,000 from the server. The number is then sent a web worker that computes its prime components. When the data arrives, Snabbdom is prompted to modify the DOM to reflect the current value of m42_RESULT. '),
     h('p', ' These two drivers (Cycle.js terminology) are involved in the procedure: '),
     h('pre', `  function WebSocketDriver() {
     return xs.create({
@@ -1943,16 +1901,18 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
   h('p', ' run() is the function that keeps the perpetual cycle spinning. It takes two arguments, main() and sources. In main(), the drivers listen for events and map them into streams that process them and merge into calcStream, the stream that promts main() to return and then feeds Snabbdom\'s diff and render routine the side effects generated by operations on those events. '),
   h('p', ' When sources.WS hears a message prefixed by "BB#$42", MonadIterator instance mMZ27 is released. It releases mMZ37 with the number returned by the server (v[3]). it4() releases mMZ37 in it6, passing the number from the server to it. it6() sends the number to a web worker that sends back the number\'s prime decomposition. Here\'s the code: ' ),
 
-  h('pre', `  mMZ27.bnd( () => {        
-    mMZ37.release(v[3]);
-  });
-
-  var it4 = x => {
+  h('pre', `  var it4 = x => {
     if (socket.readyState === 1) socket.send('BB#$42,pMgroup,pMname,' + x);
-    return "mMZ37.bnd(mMZ37.bnd(y => y))"
+    return eval("mMZ37.bnd(mMZ37.bnd(y => y),ar)");
   }
 
-  var it6 = x => mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]])) `),
+  var it6 = x => {
+    mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));
+    mMZ38.bnd(v => mMZ39.release(v));
+  }  
+  var it7 = v => mMZ39.bnd( v => {
+    m42_RESULT.unshift(h('p', orange, v[3] + v[0] + v[4] + v[5]));
+  })  `),
 
   h('h3', 'MonadItter'),
   h('p', ' The MonadItter section of the page has a detailed discussion and live demonstrations. This is the definition: '),

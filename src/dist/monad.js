@@ -43,9 +43,12 @@ const redtao = {style: {color: "#ff5b5b", marginLeft: "3%"}}
 const green = {style: {color: "#7fffb4"}}
 const bigGreen = {style: {color: "#7fffb4", fontSize: "17"}}
 const greentao = {style: {color:"#7fffb4", marginLeft: "3%"}}
+const italic = {style: {fontStyle: "italic"}}
+const retern = x => y => window[y] = new Monad(x,y);
+
 
 var m778_RESULT = h('div', "" );
-
+var m42_RESULT = [];
 function makeSequence (n) {
   var a=[];
   var b=n;
@@ -163,10 +166,19 @@ const wait2 = x => {
 
 var it4 = x => {
   if (socket.readyState === 1) socket.send('BB#$42,pMgroup,pMname,' + x);
-  return "mMZ37.bnd(mMZ37.bnd(y => y))"
+  return eval("mMZ37.bnd(mMZ37.bnd(y => y),ar)");
 }
 
-var it6 = x => mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]))
+var it6 = x => {
+  mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));
+  mMZ38.bnd(v => mMZ39.release(v));
+}  
+var it7 = v => mMZ39.bnd( v => {
+  m42_RESULT.unshift(h('p', orange, v[3] + v[0] + v[4] + v[5]));
+});
+  //'The prime factors of ' + v[0] + ' are ' + v[1]);
+
+
 
 /*  function bind (x, arr=[]) {
     this.ar = arr;
