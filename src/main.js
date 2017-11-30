@@ -712,8 +712,7 @@
           .select('#testQ').events('click');
 
       var testQAction$ = testQ.map(() => {
-        mMt1.ret(0)
-        .bnd(v => mMZ2.release(v))});
+        mMZ2.release(2)});
 
       var testW = sources.DOM
           .select('#testW').events('keypress');
@@ -936,8 +935,19 @@
         .select('#todoButton').events('click')
         .map(() => showTodoDiv = showTodoDiv === "none" ? "block" : "none")
 
+    var result_8$ = sources.DOM
+        .select('#res8').events('click');
 
-      var calcStream$ = xs.merge( ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, clearAction$, factorsAction$, factors2Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
+    var res8$ = result_8$.map(() => {
+      res8_Style = res8_HIDE;
+      setTimeout(() => {res8_Style = res8_SHOW,4600;diffRender()},4200);
+      RESULT_8 = [];
+      bind(1)(addP(2))(cubeC)(addC(3))(multC(2))(multP(3))
+      (addC(30))(multC(1/10))(terminate).slice(1,8).map(v => v.then(z => {
+        ;RESULT_8.push(z.x+' ');console.log(RESULT_8);diffRender()}))  
+      }); 
+
+      var calcStream$ = xs.merge( res8$, ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, clearAction$, factorsAction$, factors2Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
       return { DOM: calcStream$.map(() => {
       return h('div.main', [
 
@@ -953,6 +963,7 @@ h('br'),
 h('div.content', [
 h('h3', 'Polymorphic Function Composition ' ), 
 h('span', ' By calling "bind()" only at the start, multiple functions can be conveniently composed regardless of their return value types, or the types of arguments they take. The '),
+h('span', 'The ' ),
 h('a', {props: {href: '#asyncChain'}}, 'demonstrations' ),
 h('span', ' below show chains of functions in which one performs a computations, one fetches data from a WebSocket server, one fetches data from a web worker, and one formats the data for display - all without Promises. '),
 h('p', 'Promises can be linked without explicitely invoking the "then()" method, and with access to all previous results. All you need to do is begin a sequence of functions with the function "bind()". '),
@@ -1114,12 +1125,19 @@ h('p', ' A description of what bind() does with promises isn\'t likely to be hel
 
 h('p', ' The functions bind() and ret() are similar in some ways to >>= (pronounced "bind") and "return" in the Haskell programming language. Functions used in chains of computations can take a JavaScript value and return a monad, the way Haskell does. But when computations are linked using the JavaScript bind(), there is no restriction on what can be returned by the functions in each succeeding link. This is an example of unharnessed JavaScript\'s potential for creativity and confusion.  '),
   
-h('p', ' bind() facilitates the linking of synchronous functions and promises in the same chain. In the functions below, the suffix "C" is for curried functions that return ordinary values and "P" if for functions that return promises. '),
+h('p', ' bind() facilitates the linking of synchronous functions and promises in the same chain. In the functions below, the suffix "C" is for curried functions that return ordinary values and "P" if for functions that return promises that run after two-second delays. '),
+h('pre', `  bind(1)(addP(2))(cubeC)(addC(3))
+  (multC(2))(multP(3))
+  (addC(30))(multC(1/10))(terminate)
+  .slice(1,8).map(v => v.then(z => {
+  RESULT_8.push(z.x+' ')})) ` ), 
+h('button#res8', res8_Style, 'Click to run the above sequence'),
+h('br'),  
+h('br'),  
+h('div.tao', giantRed, RESULT_8),
 
-h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
-    (squareP)(cubeC)(x => console.log(x))  // 64  `),
       
-    h('p', ' The sequence ran almost to completion in 67 microseconds and then waited 4 seconds before displaying "64" - 2 seconds for bind(3)(cubeP)(squareC)(addC(-727)) to execute then an additional 2-seconds (waiting for squareP to resolve) before running to completion. Under the hood, bind() linked the promises by using the Promises "then" method, which always returns a promise. bind() does not use promises until the first promise is encountered. The definitions of the functions are in an appendix.'),
+    h('p', ' Seven promises were prepared in four microseconds. After a two-second delay caused by addP(), "[3,27,30,60]" appeared in rapid succession, too fast to be percieved. Then, after another two-second delay caused by multP(), "[3,27,30,60,180,210,21]" was displayed.  The definitions of the functions are in an appendix. Later, we will look at some less trivial async functions involving web workers and the WebSocket server.'),
     h('p', ' Here is bind()\'s fundamental requirement: '),
     h('p', {style: {color: "yellow"}}, 'USE FUNCTIONS THAT TAKE ONLY ONE ARGUMENT'),
     h('p', ' The function add(), defined below, takes only one argument and returns a function. Here\'s how it works: '),
@@ -1619,7 +1637,7 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
 
   h('h3', 'Reactivity in Cycle.js'),
 
-   h('p', ' The stream incF$ and the driver pingpongDriver() (both defined below) are essential components of the pingpong demonstration. '),
+  h('p', ' The stream incF$ and the driver pingpongDriver() (both defined below) are essential components of the pingpong demonstration. '),
 
   h('pre', blue, `  var incF$ = n => xs.of(n);
 
@@ -1659,8 +1677,8 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
       var k = Math.floor(Math.random() * 5)+1;
       if(ar[0] > 10 || ar[1] > 10) { 
         m67_RESULT = h('pre', ppY, \`     FINAL SCORE: ping  ${ar[0]} pong: ${ar[1]}\` );
-        document.getElementById("testQ").click();
-        return
+        diffRender();
+        return;
       }
       setTimeout(() => {
         if (n <= k) {  
@@ -1680,6 +1698,9 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
         }
       }, 500 )
     }  ` ),
+    h('p', ' The function diffRender() forces Snabbdom to perform one last diff and render. It is defined as follows: ' ),
+    h('pre', `  const diffRender = () => document.getElementById("testQ").click();`),
+    h('p', ' The button "testQ" cubes the number 2 in the MonadItter demonstration. It was chosen because it does not significantly affect anything aside from forcing Snabbdom to update the DOM. '),
 
     h('p', ' The stream incF$ and the driver pingpongDrirun(main, sources) are the crucial Cycle.js application functions. sources contains the drivers. sources.PP = pingpongDriver is one of the drivers consumed by run() and made available in main() so information can be sent back to run. Round and round it goes. Here is the definition of ping$. ' ),
     h('pre#gameCode', `  const ping$ = sources.PP.map(x => {  
@@ -1688,10 +1709,6 @@ h('pre', {style: {color: 'lightBlue'}},  `  bind(3)(cubeP)(squareC)(addC(-727))
 
     h('span.tao', ' The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with a Haskell WebSockets server. ' ),
     h('br'),
-
-
-
-
     h('h2', 'Appendix A - The Game Code' ),
     h('pre', `function MonadState(g, state) {
     this.id = g;

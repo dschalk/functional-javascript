@@ -39,13 +39,21 @@ const orange = {style: {color: "#f98043"}}
 const orangetao = {style: {color: "#f98043", marginLeft: "3%"}} 
 const red = {style: {color: "#ff5b5b"}}
 const bigRed = {style: {color: "#ff5b5b", fontSize: "17"}}
+const giantRed = {style: {color: "#ff5b5b", fontSize: "21"}}
+const littleRed = {style: {color: "#ff5b5b", fontSize: "10"}}
 const redtao = {style: {color: "#ff5b5b", marginLeft: "3%"}}
 const green = {style: {color: "#7fffb4"}}
 const bigGreen = {style: {color: "#7fffb4", fontSize: "17"}}
+const giantGreen = {style: {color: "#7fffb4", fontSize: "20"}}
+const littleGreen = {style: {color: "#7fffb4", fontSize: "13"}}
 const greentao = {style: {color:"#7fffb4", marginLeft: "3%"}}
 const italic = {style: {fontStyle: "italic"}}
 const retern = x => y => window[y] = new Monad(x,y);
-
+var RESULT_8 = [];
+asyncArray = [];
+    var res8_SHOW = {style: {fontSize: "13px", color: "rgb(127, 255, 180)", display: "inline"}}
+    var res8_HIDE = {style: {fontSize: "13px", color: "rgb(127, 255, 180)", display: "none"}}
+    var res8_Style = res8_SHOW;
 
 var m778_RESULT = h('div', "" );
 var m42_RESULT = [];
@@ -55,6 +63,9 @@ function makeSequence (n) {
   while (b--) a[b] = b+1;
   return a
 }
+
+const diffRender = () => document.getElementById("testQ").click();
+
 
 var tr = x => p => async f => {
   return await f(await p(x))
@@ -138,10 +149,9 @@ const wait2 = x => {
 
   function bind (x, arr=[]) {
     this.ar = arr;
-    var that = this;
     this.ar.push(x instanceof Monad || x instanceof Monad2 ? x.x : x)
     if (this.ar.length === 0) this.ar = [x];
-    console.log('In bond <<>><<>><<>> x is', x);
+    console.log('In bind <<>><<>><<>> x is', x);
     return function debug8 (func) {
       if (func.name === "terminate") return ar;
       if (x instanceof Promise) {
@@ -178,25 +188,6 @@ var it7 = v => mMZ39.bnd( v => {
 });
   //'The prime factors of ' + v[0] + ' are ' + v[1]);
 
-
-
-/*  function bind (x, arr=[]) {
-    this.ar = arr;
-    var that = this;
-    this.ar.push(x instanceof Monad ? x.x : x)
-    console.log('this.ar is',this.ar);
-    if (this.ar.length === 0) this.ar = [x];
-    console.log('In bind <<>><<>><<>> x is', x);
-    return function debug8 (func) {
-      if (func.name === "terminate") return ar;
-      if (x instanceof Promise) {
-        var p = x.then(v => func(v.x));
-        return bind(p,this.ar)
-      }
-      if (x instanceof Monad) return bind(func(x.x),this.ar);
-      return bind(func(x),this.ar);
-    };
-  };  */
 
 const prm4 = x => {
   if (socket.readyState === 1) socket.send('BB#$42,pMgroup,pMname,' + x);
@@ -301,6 +292,16 @@ function id (x) {return x}
   const doubleC = a => ret(a+a);
   const squareC = a => ret(a*a);
   const sqrtC = a => ret(Math.sqrt(a));
+
+  const divAinverse = a => b => e/b;
+  const divA = a => b => b/a;
+  const addA = a => b => a+b;
+  const cubeA = v => v*v*v;
+  const idA = v => v;
+  const multA = a => b => a*b;
+  const doubleA = a => a+a;
+  const squareA = a => a*a;
+  const sqrtA = a => Math.sqrt(a);
 
 async function pause (x) {
   await wait(2000) 
@@ -2172,7 +2173,8 @@ var ping = n => ar => {
   var k = Math.floor(Math.random() * 5)+1;
   if(ar[0] > 10 || ar[1] > 10) { 
     m67_RESULT = h('pre', ppY, `     FINAL SCORE   ping: ${ar[0]} pong: ${ar[1]}` );
-    document.getElementById("testQ").click();
+    diffRender();
+    var m67_RESULT = h('pre', ppR, '                          -- NO SCORE -- ' );
     return
   }
   setTimeout(() => {
