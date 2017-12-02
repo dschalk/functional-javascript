@@ -962,7 +962,7 @@ h('div', {style: {fontSize: "18px", fontStyle: "italic", color: "#07f7f7"}},'WIT
 h('br'),
 h('div.content', [
 h('h3', 'Polymorphic Function Composition ' ), 
-h('span', ' By calling "bind()" only at the start, multiple functions can be conveniently composed regardless of their return value types, or the types of arguments they take. The '),
+h('span.tao', ' By calling "bind()" only at the start, multiple functions can be conveniently composed regardless of their return value types, or the types of arguments they take. The '),
 h('span', 'The ' ),
 h('a', {props: {href: '#asyncChain'}}, 'demonstrations' ),
 h('span', ' below show chains of functions in which one performs a computations, one fetches data from a WebSocket server, one fetches data from a web worker, and one formats the data for display - all without Promises. '),
