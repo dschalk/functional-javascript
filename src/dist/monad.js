@@ -147,15 +147,15 @@ const wait2 = x => {
     };
   };  */  
 
-  function bind (x, arr=[]) {
+
+ function bind (x, arr=[]) {
     this.ar = arr;
     this.ar.push(x instanceof Monad || x instanceof Monad2 ? x.x : x)
     if (this.ar.length === 0) this.ar = [x];
-    console.log('In bind <<>><<>><<>> x is', x);
     return function debug8 (func) {
       if (func.name === "terminate") return ar;
       if (x instanceof Promise) {
-        var p = x.then(v => func(v.x));
+        var p = x.then(v => func(v instanceof Monad2 ? v.x : v));
         return bind(p,this.ar);
       }  
       if (x instanceof Monad2) return bind(func(x.x),this.ar);
@@ -345,6 +345,11 @@ const doubleP = async a => {
 const addP = x => async y => {
   await wait(2000) 
   return ret(x + y);
+}
+
+const addPA = x => async y => {
+  await wait(2000) 
+  return x + y;
 }
 
 const multP = x => async y => {
@@ -2174,7 +2179,6 @@ var ping = n => ar => {
   if(ar[0] > 10 || ar[1] > 10) { 
     m67_RESULT = h('pre', ppY, `     FINAL SCORE   ping: ${ar[0]} pong: ${ar[1]}` );
     diffRender();
-    var m67_RESULT = h('pre', ppR, '                          -- NO SCORE -- ' );
     return
   }
   setTimeout(() => {
