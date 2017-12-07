@@ -52,7 +52,7 @@
 
 	var _dom = __webpack_require__(9);
 
-	var _code = __webpack_require__(129);
+	var _code = __webpack_require__(133);
 
 	var _code2 = _interopRequireDefault(_code);
 
@@ -95,7 +95,7 @@
 	    } else {
 	      login();
 	    }
-	  }, 300);
+	  }, 650);
 	}
 
 	function main(sources) {
@@ -213,7 +213,7 @@
 
 	    mMZ24.bnd(function () {
 	      //Delete a task
-	      taskMonad.remove(v[3]);
+	      taskMonad.delete(v[3]);
 	    });
 
 	    mMZ25.bnd(function () {
@@ -235,16 +235,15 @@
 	      console.log('In mMZ27 OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO --- v[3] is', v[3]);
 	      mMZ37.release(v[3]);
 	    });
-	    ret(v[0]).bnd(next, 'CA#$42', mMZ10 // Dice roll
-	    ).bnd(next, 'CD#$42', mMZ11).bnd(next, 'CE#$42', mMZ12).bnd(next, 'EE#$42', mMZ13).bnd(next, 'TD#$42', mMZ14).bnd(next, 'NN#$42', mMZ15).bnd(next, 'RR#$42', mMZ16).bnd(next, 'GZ#$42', mMZ17 // Comments automatically arrive after the app loads
-	    ).bnd(next, 'GN#$42', mMZ18).bnd(next, 'GE#$42', mMZ19).bnd(next, 'GD#$42', mMZ20).bnd(next, 'TA#$42', mMZ21 // Automatic task list load on group change
-	    ).bnd(next, 'TE#$42', mMZ22 // edit a task
-	    ).bnd(next, 'TT#$42', mMZ23 // chechbox
-	    ).bnd(next, 'TX#$42', mMZ24 // delete button
-	    ).bnd(next, 'TI#$42', mMZ25 // group change
-	    ).bnd(next, 'ST#$42', mMZ26 // server state
-	    ).bnd(next, 'BB#$42', mMZ27 // works in conjunction with prm4
-	    );
+	    ret(v[0]).bnd(next, 'CA#$42', mMZ10) // Dice roll
+	    .bnd(next, 'CD#$42', mMZ11).bnd(next, 'CE#$42', mMZ12).bnd(next, 'EE#$42', mMZ13).bnd(next, 'TD#$42', mMZ14).bnd(next, 'NN#$42', mMZ15).bnd(next, 'RR#$42', mMZ16).bnd(next, 'GZ#$42', mMZ17) // Comments automatically arrive after the app loads
+	    .bnd(next, 'GN#$42', mMZ18).bnd(next, 'GE#$42', mMZ19).bnd(next, 'GD#$42', mMZ20).bnd(next, 'TA#$42', mMZ21) // Automatic task list load on group change
+	    .bnd(next, 'TE#$42', mMZ22) // edit a task
+	    .bnd(next, 'TT#$42', mMZ23) // chechbox
+	    .bnd(next, 'TX#$42', mMZ24) // delete button
+	    .bnd(next, 'TI#$42', mMZ25) // group change
+	    .bnd(next, 'ST#$42', mMZ26) // server state
+	    .bnd(next, 'BB#$42', mMZ27); // works in conjunction with prm4
 	  });
 
 	  console.log('1^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ got this far');
@@ -583,11 +582,49 @@
 
 	  //************************************************** pingpong
 
+
+	  var mMZ33Func = function mMZ33Func(x) {
+	    return mMZ33.bnd(function (x) {
+	      mMt32 = new Monad(x, 'mMt32');
+	      mMt33.ret(x + ' cubed is ' + x * x * x);
+	      mMZ33Func(x + 1);
+	    });
+	  };
+
+	  mMZ33Func(0);
+
+	  var testZ = sources.DOM.select('#testZ').events('click');
+
+	  var testZAction$ = testZ.map(function () {
+	    mMZ33.release(mMt32.x + 1);
+	  });
+
+	  var testQ = sources.DOM.select('#testQ').events('click');
+
+	  var testQAction$ = testQ.map(function () {
+	    mMZ33.release(0);
+	    diffRender();
+	  });
+
+	  var testW = sources.DOM.select('#testW').events('keypress');
+
+	  var testWAction$ = testW.map(function (e) {
+	    if (e.keyCode === 13) {
+	      mMZ33.release(parseInt(e.target.value, 10));
+	      diffRender();
+	    }
+	  });
+
 	  var ping$ = sources.PP.map(function (x) {
 	    m66_RESULT = pingpongTog(x);
 	  });
-	  var pingpong$ = sources.DOM.select('button#pingpong').events('click').map(function () {
-	    return ping(0)([0, 0]);
+
+	  var pinpon$ = sources.DOM.select('button#pingpong').events('click');
+
+	  var pingpong$ = pinpon$.map(function () {
+	    m67_RESULT = (0, _dom.h)('pre', '         - - NO SCORE - -   ');
+	    diffRender();
+	    ping(0)([0, 0]);
 	  });
 
 	  //******************************************* END pingpong END
@@ -746,40 +783,6 @@
 	  // <>>><>><><><><>>>><><><  traversal  ><><><><><><>>><><><><><><><><><><><>< ENDOM traversal
 	  // <>>><>><><><><>>>><><><  traversal  ><><><><><><>>><><><><><><><><><><><>< START Itterator
 
-
-	  mMZ1.bnd(function (v) {
-	    return mMt1.bnd(add, v).bnd(function (w) {
-	      mMt1.ret(w).bnd(cube).bnd(function (x) {
-	        return mMt3.ret(w + ' cubed is ' + x);
-	      });
-	    });
-	  });
-
-	  mMZ2.bnd(function (v) {
-	    return cube(v).bnd(function (w) {
-	      return mMt3.ret(v + ' cubed is ' + w);
-	    });
-	  });
-
-	  var testZ = sources.DOM.select('#testZ').events('click');
-
-	  var testZAction$ = testZ.map(function () {
-	    mMZ1.release(1);
-	  });
-
-	  var testQ = sources.DOM.select('#testQ').events('click');
-
-	  var testQAction$ = testQ.map(function () {
-	    mMZ2.release(2);
-	  });
-
-	  var testW = sources.DOM.select('#testW').events('keypress');
-
-	  var testWAction$ = testW.map(function (e) {
-	    if (e.keyCode === 13) {
-	      mMZ2.release(e.target.value);
-	    }
-	  });
 
 	  function gMap(x, f, id) {
 	    var mon = new Monad(f(x), id);
@@ -980,6 +983,12 @@
 
 	  var result_8$ = sources.DOM.select('#res8').events('click');
 
+	  var diffR$ = sources.DOM.select('#diffRender').events('click').map(function () {
+	    if (diffRend < 50) {
+	      diffRend += 1;
+	    } else diffRend = 0;
+	  });
+
 	  var res8$ = result_8$.map(function () {
 	    res8_Style = res8_HIDE;
 	    setTimeout(function () {
@@ -993,14 +1002,18 @@
 	    });
 	  });
 
-	  var calcStream$ = xs.merge(res8$, ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, clearAction$, factorsAction$, factors2Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
+	  console.log('NOW WE ARE AT calcStream@');
+
+	  var calcStream$ = xs.merge(diffR$, res8$, ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, clearAction$, factorsAction$, factors2Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
 	  return { DOM: calcStream$.map(function () {
-	      return (0, _dom.h)('div.main', [(0, _dom.h)('div.image_3', [(0, _dom.h)('img.image_2', { props: { src: "logo.svg" } }), (0, _dom.h)('span', ' '), (0, _dom.h)('a', { props: { href: "https://cycle.js.org/", target: "_blank" } }, 'A Cycle.js application')]), (0, _dom.h)('div', { style: { textAlign: "center", fontWeight: "bold" } }, [(0, _dom.h)('div', { style: { fontSize: "20px", color: "#f7f700" } }, 'FUNCTIONAL REACTIVE PROGRAMMING'), (0, _dom.h)('br'), (0, _dom.h)('div', { style: { fontSize: "18px", fontStyle: "italic", color: "#07f7f7" } }, 'WITH CYCLE.JS')]), (0, _dom.h)('br'), (0, _dom.h)('div.content', [(0, _dom.h)('h3', 'Polymorphic Function Composition '), (0, _dom.h)('span.tao', ' By calling "bind()" only at the start, multiple functions can be conveniently composed regardless of their return value types, or the types of arguments they take. The '), (0, _dom.h)('span', 'The '), (0, _dom.h)('a', { props: { href: '#asyncChain' } }, 'demonstrations'), (0, _dom.h)('span', ' below show chains of functions in which one performs a computations, one fetches data from a WebSocket server, one fetches data from a web worker, and one formats the data for display - all without Promises. '), (0, _dom.h)('p', 'Promises can be linked without explicitely invoking the "then()" method, and with access to all previous results. All you need to do is begin a sequence of functions with the function "bind()". '), (0, _dom.h)('p', ' Not having to return specialized objects, as other JavaScript chaining algorithms require, is liberating. Having access to prior return values is empowering. '), (0, _dom.h)('p', ' Nothing prevents coders from imposing strict type constraints on the functions they compose. They can even modify bind() to be strictly typed in whatever way serves their purposes. It will still work. '), (0, _dom.h)('span', ' Examples and discussion of linked computations can be found '), (0, _dom.h)('a', { props: { href: '#chain' } }, 'here.'), (0, _dom.h)('span', ' Examples of linked asynchronous functions are '), (0, _dom.h)('a', { props: { href: '#asyncChain' } }, 'here.'), (0, _dom.h)('br'), (0, _dom.h)('p', ' bind() was initially defined to link what I refer to as "monads"; that is, objects created by statements such as "var mon = new Monad (7,"mon") where Monad is defined as: '), (0, _dom.h)('pre', { style: { color: "rgb(181, 244, 240)" } }, '    function Monad(z = \'default\', ID = \'tempMonad\') {\n      this.x = z;\n      this.id = ID;\n    }; '), (0, _dom.h)('p', ' Two methods, bnd() and ret(), were added to Monad.prototype. Monads created on the fly by ret() don\'t have "id" properties and corresponding pointers. Thay do their work securely insulated from their outer scope. '), (0, _dom.h)('p', ' Before explaining how the monads work, I invite you to try out some interactive demonstrations.'), (0, _dom.h)('h2', ' A Few Monad Demonstrations '), (0, _dom.h)('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history. All group members see your score decrease or increase as you navigate backwards and forwards. '), (0, _dom.h)('h', ' You are automatically logged in with randomly generated numbers as your user name and password. Your group is the non-group "solo". '), (0, _dom.h)('p', ' You can select a persistent name and password. These will make it possible for you to return later to delete or edit comments that you might have saved. '), (0, _dom.h)('p#gameIntro', ' The demonstration section also has a text box where you can create or join groups. Changing groups resets your game score and goal tally to zeros. '), (0, _dom.h)('span.tao', ' The game code is fairly concise and intuitive. A quick walk-through is presented at.'), (0, _dom.h)('a', { props: { href: '#gameCode' } }, 'here'), (0, _dom.h)('span', '. To see monadic functionality at work, I suggest that you take a look at the section captioned '), (0, _dom.h)('a', { props: { href: '#asyncExplanation' } }, 'Asynchronous Processes'), (0, _dom.h)('br'), (0, _dom.h)('p', ' But it might be best to first proceed down the page and see the examples of Monad instances manipulating data. If you are trying to wrap you head around the concept of functional programming, playing with bind() and the monads in the browser console might lift you into the comfort zone you seek. '), (0, _dom.h)('h3', 'The Game'), (0, _dom.h)('p', 'People who are in the same group, other than the default non-group named "solo", share the same todo list, chat messages, and simulated dice game. '), (0, _dom.h)('p', ' Data for the traversable game history accumulates until a player scores three goals and wins. The data array is then emptied and the application is ready to start accumulating a new history. '), (0, _dom.h)('p', ' Your user name for trying out the game, todo list, and chat demonstrations and for leaving comments is a thirteen digit random number. In the game section and in the comments section near the bottom of this page, you can chose your own persistent user name and password. As mentioned above, Knowing your password facilitates revising or removing comments.'), (0, _dom.h)('br')]), (0, _dom.h)('hr.len90', { style: { display: mMgameDiv2.x } }), (0, _dom.h)('br.len90', { style: { display: mMgameDiv2.x } }), (0, _dom.h)('div.heading', { style: { display: mMgameDiv2.x } }, 'Game, Todo List, Text Messages'), (0, _dom.h)('div#gameDiv2', { style: { display: mMgameDiv2.x } }, [(0, _dom.h)('br'), (0, _dom.h)('div#leftPanel', { style: { display: mMgameDiv2.x } }, [(0, _dom.h)('p', 'RULES: If clicking two numbers and an operator (in any order) results in 20 or 18, the score increases by 1 or 3, respectively. If the score becomes 0 or is evenly divisible by 5, 5 points are added. A score of 25 results in one goal. That can only be achieved by arriving at a score of 20, which jumps the score to 25. Directly computing 25 results in a score of 30, and no goal. Each time RL is clicked, one point is deducted. Three goals wins the game. The code is in an appendix.'), (0, _dom.h)('p', { style: { color: 'red', fontSize: '20px' } }, mMgoals2.x), buttonNode, (0, _dom.h)('br'), (0, _dom.h)('button#4.op', 'add'), (0, _dom.h)('button#5.op', 'subtract'), (0, _dom.h)('button#6.op', 'mult'), (0, _dom.h)('button#7.op', 'div'), (0, _dom.h)('button#8.op', 'concat'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div#dice', { style: { display: mMdice.x } }, [(0, _dom.h)('button#roll.tao1', 'ROLL'), (0, _dom.h)('button#back.tao100', 'BACK'), (0, _dom.h)('button#ahead.tao1', 'FORWARD'), (0, _dom.h)('div.tao', 'Selected numbers: ' + gameMonad.fetch3().join(', ')), (0, _dom.h)('div.tao', 'Operator: ' + gameMonad.fetch2() + ' '), (0, _dom.h)('div.tao', 'Index: ' + gameMonad.s[1]), (0, _dom.h)('button#clear', 'Clear selected numbers'), (0, _dom.h)('p', ' When traversing the game history, any time there are two selected numbers and a selected operator, a computation will be performed. You can clear the selected numbers and substitute others, and if you don\'t want a selected operator you can select another one.'), (0, _dom.h)('span', 'Change group: '), (0, _dom.h)('input#group', 'test'), (0, _dom.h)('p', mMsoloAlert.x), (0, _dom.h)('p', ' You can change your name by entering a comma-separated name and password below. The combination will go into a persistent file. You can use this combination in the future to edit or delete your saved comments. '), (0, _dom.h)('span.red', mMregister.x), (0, _dom.h)('label', { style: { display: mMshowRegister.x } }, 'Register or log in here:'), (0, _dom.h)('input.register', { style: { display: mMshowRegister.x } })])]), (0, _dom.h)('div#rightPanel', { style: { display: 'block' } }, [(0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('button#todoButton.cow', 'TOGGLE TODO_LIST'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('button#chat2.cow', 'TOGGLE CHAT'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div', { style: { fontSize: "14 px" } }, 'Name: ' + pMname.x), (0, _dom.h)('div', { style: { fontSize: "14 px" } }, 'Group: ' + pMgroup.x), (0, _dom.h)('br'), (0, _dom.h)('div', { style: { fontSize: "14 px" } }, gameData), (0, _dom.h)('br'), (0, _dom.h)('div#a100', ' _____________________________________ '), (0, _dom.h)('p.italic', ' Join group "t" if you want to see some previously created tasks. '), (0, _dom.h)('div', { style: { display: showTodoDiv } }, [(0, _dom.h)('div', taskMonad.html), (0, _dom.h)('div', 'Enter author, responsible person, and task here: '), (0, _dom.h)('input.newTask')]), (0, _dom.h)('br'), (0, _dom.h)('span#alert', mMalert.x), (0, _dom.h)('br'), (0, _dom.h)('span#alert2'), (0, _dom.h)('br'), (0, _dom.h)('div#chatDiv', { style: { display: showChatDiv } }, [(0, _dom.h)('div#messages', [(0, _dom.h)('span', 'Message: '), (0, _dom.h)('input.inputMessage'), (0, _dom.h)('div', messages), (0, _dom.h)('br')])])]), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span', '_____________________________________________________________________________________'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div.content', [(0, _dom.h)('h2', 'Monads'), (0, _dom.h)('p', ' For purposes of this discussion, "monads" are objects "m" for which "m instanceof Monad" returns true. The statement "var mon = new Monad(7,\'mon\')" creates a monad named "mon" which encapsulates the value 7. The expressions "mon.id === \'mon\'", mon.x === 7, and "mon instanceof Monad" all return true'), (0, _dom.h)('h', ' The functions bind() and ret() make the monads useful. Here are their definitions: '), (0, _dom.h)('pre', { style: { color: "lightBlue" } }, 'function bind (x, arr=[]) {\n  this.ar = arr;\n  var that = this;\n  this.ar.push(x instanceof Monad ? x.x : x)\n  if (this.ar.length === 0) this.ar = [x];\n  console.log(\'In bond <<>><<>><<>> x is\', x);\n  return function debug8 (func) {\n    if (func.name === "terminate") return ar;\n    if (x instanceof Promise) {\n      var p = x.then(v => func(v.x));\n      return bind(p,this.ar);\n    }  \n    if (x instanceof Monad) return bind(func(x.x),this.ar);\n    // Asynchronous functionality without Promises. Begin:\n    if (typeof func === \'string\' && func.slice(0,3) === "mMZ") { \n      var p = eval(func(x));\n      return bind(p, this.ar);\n    }\n    if (typeof x === \'string\' && x.slice(0,3) === "mMZ") { \n      var p = func(eval(x));\n      return bind(p, this.ar);\n    }\n    // Asynchronous functionality without Promises. End.\n    return bind(func(x),this.ar);\n  };\n};  \n     \nfunction ret (val) {\n    return new Monad2(val);\n} '), (0, _dom.h)('p', ' As is apparent from the definition, bind() is recursive and completely polymorphic. If bind()\'s argument is not a promise, an instance of Monad, an instance of Monad2, or a string, bind() returns "bind(func(x),this.ar)". The array "ar" accumulates results along a sequence of computations. "terminate" returns "ar".'), (0, _dom.h)('p', ' Monad2 is Monad without "id". Anonymous Monad2 instances are insulated from their outer scopes, eliminating the possibility of clashes with other processes. '), (0, _dom.h)('p', ' The definition of bind() speaks for itself more articulately the following description, but for what it\'s worth, here it is:  For any value "p" and arrays "ar", "ar2", and "ar3", the invisible function that stands ready to operate on the function ahead of bind(p,ar) in a chain is named "debug8". In the simple case of synchronous code, if the function ahead of bind(p,ar) - in other words, debug8\'s argument - is "func", bind(p,ar)(func) returns debug8 which returns bind(func(p,ar2)) which returns debug8, ready to continue the chain. If the next link is func2, bind(func2(func(p,ar),ar2),ar3) is called, returning debug8, ready to accept the next function in the chain. '), (0, _dom.h)('p', ' A description of what bind() does with promises isn\'t likely to be helpful. Too many words would be needed. Some examples below show it in action, waiting for WebSocket messages and web worker messages in a single chain. '), (0, _dom.h)('p', ' The functions bind() and ret() are similar in some ways to >>= (pronounced "bind") and "return" in the Haskell programming language. Functions used in chains of computations can take a JavaScript value and return a monad, the way Haskell does. But when computations are linked using the JavaScript bind(), there is no restriction on what can be returned by the functions in each succeeding link. This is an example of unharnessed JavaScript\'s potential for creativity and confusion.  '), (0, _dom.h)('p', ' bind() facilitates the linking of synchronous functions and promises in the same chain. In the functions below, the suffix "C" is for curried functions that return ordinary values and "P" if for functions that return promises that run after two-second delays. '), (0, _dom.h)('pre', '  bind(1)(addP(2))(cubeC)(addC(3))\n  (multC(2))(multP(3))\n  (addC(30))(multC(1/10))(terminate)\n  .slice(1,8).map(v => v.then(z => {\n  RESULT_8.push(z.x+\' \')})) '), (0, _dom.h)('button#res8', res8_Style, 'Click to run the above sequence'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div.tao', giantRed, RESULT_8), (0, _dom.h)('p', ' Seven promises were prepared in four microseconds. After a two-second delay caused by addP(), "[3,27,30,60]" appeared in rapid succession, too fast to be percieved. Then, after another two-second delay caused by multP(), "[3,27,30,60,180,210,21]" was displayed.  The definitions of the functions are in an appendix. Later, we will look at some less trivial async functions involving web workers and the WebSocket server.'), (0, _dom.h)('p', ' Here\'s a screen shot of the Chrome console log resulting from: '), (0, _dom.h)('pre', '  bind(3)(cubeP)(a => a + 3)(squareP)(b => \n  b/100)(v => ret(Math.sqrt(v)))\n  (addP(1))(addP(ar[0]))\n  (c => ar[5].then(v => c*v.x*2))\n  (terminate).map(b => {(b.then) ?\n  b.then(c => console.log(c.x ?\n  c.x : c)) : console.log(b)}) '), (0, _dom.h)('img', { props: { src: "async2.png" }, style: { height: "145%", width: "145%" } }), (0, _dom.h)('p', ' The time stamps show the two-second delays where cubeP(), squareP(), and addP() appear in the sequence. The sequence quickly runs to completion displaying an array of "undefined". Then the result begins to blossom approximately two seconds later as first 27 and 30 appear, then 900, 9, and 3, and finally 6 and 42. bind() is syntactic sugar hiding a confusing mess of nested promises and revealing exactly what is happening. '), (0, _dom.h)('p', ' bind() overcomes a limitation of explicitly using then() to chain promises; namely, lack of access to previous results. The number ar[0] as well as the promise ar[5] were used used in the sequence above. A short distance down this page you can see asynchronous procedures based on MonadItter rather than Promises. bind() and Cycle.js working together seem to be able to do everything that promises and generators do; and by any standard, often do them better. '), (0, _dom.h)('p', ' Functions returning monads and numbers are intermingled with functions returning promises. A demonstration further down the page features functions that obtain data from the Haskell WebSocket server and functions that obtain data from web workers. '), (0, _dom.h)('p', ' bind() is polymorphic, but it does have one important restriction which does not limit its possibilities. Here it is: '), (0, _dom.h)('p', { style: { color: "yellow" } }, 'USE FUNCTIONS THAT TAKE ONLY ONE ARGUMENT'), (0, _dom.h)('p', ' The function add(), defined below, takes only one argument and returns a function. Here\'s how it works: '), (0, _dom.h)('span.tao', '  var add = a => b => a+b '), (0, _dom.h)('br'), (0, _dom.h)('span.tao', '  var add3 = add(3)  '), (0, _dom.h)('br'), (0, _dom.h)('span', greentao, '  add3( " cows") '), (0, _dom.h)('span', 'returns'), (0, _dom.h)('span', red, ' "3 cows" '), (0, _dom.h)('br'), (0, _dom.h)('span', greentao, ' add3(4) '), (0, _dom.h)('span', 'returns'), (0, _dom.h)('span', red, ' 7'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span.tao', ' In functional programming, the pattern f = a => b => c => d is preferred over f(a,b,c) {return d}. All Haskell functions follow this pattern, not even needing parentheses. Define add() by '), (0, _dom.h)('span', green, 'add a b = a+b'), (0, _dom.h)('span', ' and run '), (0, _dom.h)('span', green, 'add 3 4.'), (0, _dom.h)('span', ' Haskell compilers return '), (0, _dom.h)('span', red, '7'), (0, _dom.h)('span', '.'), (0, _dom.h)('span', ' This is the functional way. It is the only sensible way to use bind() and the monads presented on this page. '), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back to the top'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span.tao', { style: { color: "#d8ef7c", fontSize: "17px" } }, 'Types:'), (0, _dom.h)('span.tao', ' When writing code, I pay attention to types and sometimes type-check to avoid crashes and for the convenience people using my websites. For example, if a user enters the wrong type of data it is helpful to display a message explaining why nothing is happening. This is a good way to prevent sockets from disconnecting in WebSocket applications. I like exploring the possibilities of JavaScript, so I prefer ad hoc type checking over writing code in a strongly typed language that compiles to JavaScript.  '), (0, _dom.h)('br'), (0, _dom.h)('h3#chain', 'More about monads'), (0, _dom.h)('p', ' The result of every computation in a chain of synchronous functions is available to every computation that comes after it. This can be seen in the next example: '), (0, _dom.h)('pre', { style: { fontSize: "12px" } }, '  bind(1)(addC(2))(cubeC)(addC(3))\n  (multC(this.ar[1]))(multC(this.ar[1]))\n  (addC(30))(multC(1/(ar[3]*2)))(terminate)\n   // [1, 3, 27, 30, 90, 270, 300, 5] '), (0, _dom.h)('p', ' Or, equivalently: '), (0, _dom.h)('pre', { style: { fontSize: "12px" } }, '  bind(1)(v=>ret(v+2))(v=>ret(v*v*v))(v=>ret(v+3))\n  (v=>ret(v*(ar[1])))(v=>ret(v*(ar[1])))(v=>ret(v+30))\n  (v=>ret(v*(1/(ar[3]*2))))(terminate)\n   // [1, 3, 27, 30, 90, 270, 300, 5] '), (0, _dom.h)('span.tao', ' Better yet, '), (0, _dom.h)('span', orange, 'FORGET ABOUT ANONYMOUS MONADS!'), (0, _dom.h)('span', ' What? I developed bind in order to link monads only to find that bind does quite well without them. This is more efficient: '), (0, _dom.h)('br'), (0, _dom.h)('pre', orange, '  bind(1)(v=>v+2)(v=>v*v*v)(v=>v+3)\n  (v=>v*ar[1])(v=>v*ar[1])(v=>v+30)\n  (v=>v*1/(ar[3]*2))(terminate)  \n   // [1, 3, 27, 30, 90, 270, 300, 5] '), (0, _dom.h)('p#cycletime', ' Or if you want just the final result '), (0, _dom.h)('pre', '  bind(1)(v=>v+2)(v=>v*v*v)(v=>v+3)\n  (v=>v*ar[1])(v=>v*ar[1])(v=>v+30)\n  (v=>v*1/(ar[3]*2))(terminate).pop()  // 5] '), (0, _dom.h)('p', ' Realizing that there is no good reason to thread anonymous monads through an insulated pipeline of procedures was something of an epiphany for me. While writing this commentary, I suddenly realized that JavaScript can link procedures in a chain that has no side effects until the final link, as the Haskell programming language famously does, in a very straightforward manner without a Monad crutch. '), (0, _dom.h)('p#asyncChain', ' Many examples on this page depend on named monads with "id" properties and constructs such as MonadState. It is the anonymous monads that turned out to be superfluous. '), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back To The Top'), (0, _dom.h)('h2', 'Asynchronous Functions'), (0, _dom.h)('a', { props: { href: '#cyclet' } }, 'Async Procedures'), (0, _dom.h)('p', ' Here are linked procedures that perform a computation, send the result to the Haskell WebSocket server to obtain a random number less than the result (ip4), send the random number to a web worker to obtain the prime factors of the random num)ber (ip6), and finally parse the acquired data for display (ip7): '), (0, _dom.h)('span', ' Click below to run '), (0, _dom.h)('span', bigRed, 'bind(50)(cubeC)(it4)(it6)(it7)'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('button#factors_P', { style: { fontSize: '12px' } }, 'bind(50)(cubeC)(it4)(it6)(it7)'), (0, _dom.h)('span', "~~~~~"), (0, _dom.h)('button#clear_P', { style: { fontSize: '12px', marginLeft: "0" } }, 'clear results'), (0, _dom.h)('br'), (0, _dom.h)('div', m42_RESULT), (0, _dom.h)('p', ' The definitions of it4(), it6(), and it(7) are: '), (0, _dom.h)('pre', '  var it4 = x => {\n    if (socket.readyState === 1) {\n      socket.send(\'BB#$42,pMgroup,pMname,\' + x);\n      return eval("mMZ37.bnd(mMZ37.bnd(y => y),ar)");\n    }\n  } \n\n  var it6 = x => {\n    mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));\n    mMZ38.bnd(v => mMZ39.release(v));\n  }  \n\n  var it7 = v => mMZ39.bnd( v => {\n    m42_RESULT.unshift(h(\'p\', orange, \n    \'The prime factors of \' + v[0] + v[4] + v[5]));\n  }); '), (0, _dom.h)('p', ' "h(\'div\', m42_RESULT)" is a permanant fixture in the Snabbdom virtual DOM that is returned by main() and updated by calcStream$. When it7() executes, Sbabbdom performs its diff and render routine, updating the browser window. '), (0, _dom.h)('p', ' The asynchronous functions use MonadItter instances mMZ37, mMZ38, and mMZ39 instead of Promises. Here\'s the definition of MonadItter: '), (0, _dom.h)('pre', '  var MonadItter = function MonadItter() {\n    this.p = function () {};\n    this.release = function () {\n      return this.p.apply(this, arguments);\n    };\n    this.bnd = function (func) {\n      return this.p = func;\n    };\n  }; '), (0, _dom.h)('p', ' When obtaining data from unreliable sources, one should add error checking functionality or use promises. '), (0, _dom.h)('span.tao', ' Reactivity occurs naturally in the Cycle.js framework. Many developers find that Cycle.js has an unusually steep learning curve. It isn\'t so bad if you start with Andr Staltz\' '), (0, _dom.h)('a', { props: { href: "https://egghead.io/courses/cycle-js-fundamentals", target: "_blank" } }, ' Overview of Cycle.js.'), (0, _dom.h)('span', ' Its elegance might take your breath away. '), (0, _dom.h)('br'), (0, _dom.h)('p#reactivity2', ' Let\'s take a look at how the ping pong example works in this Cycle.js application. JavaScript\'s mutable variables come in handy here. The variables "m66_RESULT" and "m67_RESULT" are permanent fixtures in the Snabbdom description of the virtual DOM that is returned by main(). Click the button below observe their values changing until ping or pong achieves a score of 11. '), (0, _dom.h)('div', [(0, _dom.h)('button#pingpong', { style: { fontSize: '17px' } }, 'start pingpong'), m66_RESULT]), m67_RESULT, (0, _dom.h)('span.tao', ' To see how this works, click '), (0, _dom.h)('a', { props: { href: "#reactivity" } }, 'Reactivity in Cycle.js'), (0, _dom.h)('br'), (0, _dom.h)('span.tao', 'This project was created by and is actively maintained by me, David Schalk. The code repository is at '), (0, _dom.h)('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript", target: "_blank" } }, 'monads-in-JavaScript'), (0, _dom.h)('span', ' You can comment at '), (0, _dom.h)('a', { props: { href: 'https://redd.it/60c2xx' } }, 'Reddit'), (0, _dom.h)('span', ' or in the Comments section near the end of this page '), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: 'https://github.com/snabbdom/snabbdom' } }, ' Snabbdom'), (0, _dom.h)('a', { props: { href: 'http://x-stream.github.io/' } }, ' xstream,'), (0, _dom.h)('span', ' and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimentation and learning so many supporting files are included as scripts in the index.html page. '), (0, _dom.h)('br'), (0, _dom.h)('h2', 'Alternative Monad Functionality'), (0, _dom.h)('p', ' Instances of Monad can also link by means of the method "bnd()". It, along with the method "ret()", were made available as follows: '), (0, _dom.h)('pre', { style: { color: "rgb(236, 242, 186)" } }, '  Monad.prototype.bnd = function (func, ...args) {\n    var m = func(this.x, ...args)\n    var ID;\n    if (m instanceof Monad) {\n      ID = testPrefix(args, this.id);\n      window[ID] = new Monad(m.x, ID);\n      return window[ID];\n    }\n    else return m;\n  };\n\n  Monad.prototype.ret = function (a) {\n    return window[this.id] = new Monad(a, this.id);\n  };\n     \n  function testPrefix (x,y) {\n     var t = y;  // y is the id of the monad calling testPrefix\n     if (Array.isArray(x)) {\n      x.map(v => {\n        if (typeof v == \'string\' && v.charAt() == \'$\') {\n           t = v.slice(1);  // Remove "$"\n        }\n      })\n    }\n    return t;\n  }; '), (0, _dom.h)('p', ' This is less functional than using bind() in that it doesn\'t pass functions down the chain but instead, it passes objects with exposed methods. But it has appealing features. Look how values move along the chain until, at the end they combine to yield 42. Explicitly passing values down the line lambda style is impossible with bind(); but with bind(), all functions have access to ar where they can find the values of every monad returned by previous functions. '), (0, _dom.h)('span.tao', 'The code below resembles a lambda calculus expression; and the lambda calculus is the essence of functional programming, always fading mysteriously into the eternal Tao and re-emerging in one manifestation or another (eg. The Turing Machine) whenever the question of computability is resolved.'), (0, _dom.h)('span', italic, ' Note'), (0, _dom.h)('span', ': Hard-headed mathemaaticians can enjoy non-rational (neither rational nor irrational) musings. The example below shows values being carried accross a series of computation, eventually combining to yield "9". '), (0, _dom.h)('br'), (0, _dom.h)('pre', '  ret(2).bnd(v => add(v,1)\n  .bnd(cube).bnd(p => add(p,3) \n  .bnd(() => ret(p/3).bnd(add,3)\n  .bnd(z => v*z+p-v*p+z))))  //  9 '),
+	      return (0, _dom.h)('div.main', [(0, _dom.h)('div.image_3', [(0, _dom.h)('img.image_2', { props: { src: "logo.svg" } }), (0, _dom.h)('span', ' '), (0, _dom.h)('a', { props: { href: "https://cycle.js.org/", target: "_blank" } }, 'A Cycle.js application')]), (0, _dom.h)('div', { style: { textAlign: "center", fontWeight: "bold" } }, [(0, _dom.h)('div', { style: { fontSize: "20px", color: "#f7f700" } }, 'FUNCTIONAL REACTIVE PROGRAMMING'), (0, _dom.h)('br'), (0, _dom.h)('div', { style: { fontSize: "18px", fontStyle: "italic", color: "#07f7f7" } }, 'WITH CYCLE.JS')]), (0, _dom.h)('br'), (0, _dom.h)('div.content', [(0, _dom.h)('h3', 'Polymorphic Function Composition '), (0, _dom.h)('span.tao', ' By calling "bind()" only at the start, multiple functions can be conveniently composed regardless of their return value types, or the types of arguments they take. The '), (0, _dom.h)('a', { props: { href: '#chain' } }, 'demonstrations'), (0, _dom.h)('span', ' below show chains of functions in which one performs a computation, one fetches data from a WebSocket server, one fetches data from a web worker, and one formats the data for display - all without Promises. '), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span', '' + styleFunc(["#71f74c", "3%",, "italic"]), ' Promises'), (0, _dom.h)('span', ' can be links in chained sequences of computations without explicitly invoking the "then()" method, and '), (0, _dom.h)('span', '' + styleFunc(["#71f74c",,, "italic"]), 'with access to previous results'), (0, _dom.h)('span', ' all the way back to the first link in the chain.'), (0, _dom.h)('span', ' All you need to do is begin a sequence of functions with the function "bind()". '), (0, _dom.h)('p', ' Not having to return specialized objects, as other JavaScript chaining algorithms require, is liberating. Having access to prior return values is empowering. '), (0, _dom.h)('p', ' Nothing prevents coders from imposing strict type constraints on the functions they compose. They can even modify bind() to be strictly typed in whatever way serves their purposes. It will still work. '), (0, _dom.h)('span.tao', ' Examples and discussion of chains containing both synchronous and asynchronous computations can be found '), (0, _dom.h)('a', { props: { href: '#chain' } }, 'here.'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span.tao', 'This project was created by and is actively maintained by me, David Schalk. The code repository is at '), (0, _dom.h)('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript", target: "_blank" } }, 'monads-in-JavaScript'), (0, _dom.h)('span', '. I hope you will comment in the Comments section near the end of this page. You can email me at fpschalk@gmail.com. This will remain a work in progress for a while longer. I apologize for all the legacy clutter in the repository. This project went through many changes before I changed its name to "monads-in-javascript", and it has gone through numerous changes since. '), (0, _dom.h)('p', ' bind() was initially defined to link what I refer to as "monads"; that is, objects created by statements such as "var mon = new Monad (7,"mon") or ret(7) (creating an instance of Monad2) where Monad and Monad2 are defined as: '), (0, _dom.h)('pre', { style: { color: "rgb(181, 244, 240)" } }, '    function Monad(z = \'default\', ID = \'tempMonad\') {\n      this.x = z;\n      this.id = ID;\n    }; \n\n    function Monad2(z = 0) {\n      this.x = z;\n    };  '), (0, _dom.h)('p', ' With some tweaking, bind() quickly evolved into universal glue for chaining all sorts of functions. I was amazed to see chains of all sorts of links, showing bind() and then nothing but functions. It seemed more a gift from a Muse rather than something I created. '), (0, _dom.h)('p', ' The methods bnd() and ret() were added to the Monad and Monad2 prototypes. Monads created on the fly by ret() don\'t have "id" properties and normally don\'t have names (corresponding pointers. Thay do their work securely insulated from their outer scope. '), (0, _dom.h)('p', ' Before explaining how the monads work, I invite you to try out some interactive demonstrations.'), (0, _dom.h)('h2', ' A Few Monad Demonstrations '), (0, _dom.h)('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history. All group members see your score decrease or increase as you navigate backwards and forwards. '), (0, _dom.h)('h', ' You are automatically logged in with randomly generated numbers as your user name and password. Your group is the non-group "solo". '), (0, _dom.h)('p', ' You can select a persistent name and password. These will make it possible for you to return later to delete or edit comments that you might have saved. '), (0, _dom.h)('p#gameIntro', ' The demonstration section also has a text box where you can create or join groups. Changing groups resets your game score and goal tally to zeros. '), (0, _dom.h)('span.tao', ' The game code is fairly concise and intuitive. A quick walk-through is presented at.'), (0, _dom.h)('a', { props: { href: '#gameCode' } }, 'here'), (0, _dom.h)('span', '. To see monadic functionality at work, I suggest that you take a look at the section captioned '), (0, _dom.h)('a', { props: { href: '#asyncExplanation' } }, 'Asynchronous Processes'), (0, _dom.h)('br'), (0, _dom.h)('p', ' But it might be best to first proceed down the page and see the examples of Monad instances manipulating data. If you are trying to wrap you head around the concept of functional programming, playing with bind() and the monads in the browser console might lift you into the comfort zone you seek. '), (0, _dom.h)('h3', 'The Game'), (0, _dom.h)('p', 'People who are in the same group, other than the default non-group named "solo", share the same todo list, chat messages, and simulated dice game. '), (0, _dom.h)('p', ' Data for the traversable game history accumulates until a player scores three goals and wins. The data array is then emptied and the application is ready to start accumulating a new history. '), (0, _dom.h)('p', ' Your user name for trying out the game, todo list, and chat demonstrations and for leaving comments is a thirteen digit random number. In the game section and in the comments section near the bottom of this page, you can chose your own persistent user name and password. As mentioned above, Knowing your password facilitates revising or removing comments.'), (0, _dom.h)('br')]), (0, _dom.h)('hr.len90', { style: { display: mMgameDiv2.x } }), (0, _dom.h)('br.len90', { style: { display: mMgameDiv2.x } }), (0, _dom.h)('div.heading', { style: { display: mMgameDiv2.x } }, 'Game, Todo List, Text Messages'), (0, _dom.h)('div#gameDiv2', { style: { display: mMgameDiv2.x } }, [(0, _dom.h)('br'), (0, _dom.h)('div#leftPanel', { style: { display: mMgameDiv2.x } }, [(0, _dom.h)('p', 'RULES: If clicking two numbers and an operator (in any order) results in 20 or 18, the score increases by 1 or 3, respectively. If the score becomes 0 or is evenly divisible by 5, 5 points are added. A score of 25 results in one goal. That can only be achieved by arriving at a score of 20, which jumps the score to 25. Directly computing 25 results in a score of 30, and no goal. Each time RL is clicked, one point is deducted. Three goals wins the game. The code is in an appendix.'), (0, _dom.h)('p', { style: { color: 'red', fontSize: '20px' } }, mMgoals2.x), buttonNode, (0, _dom.h)('br'), (0, _dom.h)('button#4.op', 'add'), (0, _dom.h)('button#5.op', 'subtract'), (0, _dom.h)('button#6.op', 'mult'), (0, _dom.h)('button#7.op', 'div'), (0, _dom.h)('button#8.op', 'concat'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div#dice', { style: { display: mMdice.x } }, [(0, _dom.h)('button#roll.tao1', 'ROLL'), (0, _dom.h)('button#back.tao100', 'BACK'), (0, _dom.h)('button#ahead.tao1', 'FORWARD'), (0, _dom.h)('div.tao', 'Selected numbers: ' + gameMonad.fetch3().join(', ')), (0, _dom.h)('div.tao', 'Operator: ' + gameMonad.fetch2() + ' '), (0, _dom.h)('div.tao', 'Index: ' + gameMonad.s[1]), (0, _dom.h)('button#clear', 'Clear selected numbers'), (0, _dom.h)('p', ' When traversing the game history, any time there are two selected numbers and a selected operator, a computation will be performed. You can clear the selected numbers and substitute others, and if you don\'t want a selected operator you can select another one.'), (0, _dom.h)('span', 'Change group: '), (0, _dom.h)('input#group', 'test'), (0, _dom.h)('p', mMsoloAlert.x), (0, _dom.h)('p', ' You can change your name by entering a comma-separated name and password below. The combination will go into a persistent file. You can use this combination in the future to edit or delete your saved comments. '), (0, _dom.h)('span.red', mMregister.x), (0, _dom.h)('label', { style: { display: mMshowRegister.x } }, 'Register or log in here:'), (0, _dom.h)('input.register', { style: { display: mMshowRegister.x } })])]), (0, _dom.h)('div#rightPanel', { style: { display: 'block' } }, [(0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('button#todoButton.cow', 'TOGGLE TODO_LIST'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('button#chat2.cow', 'TOGGLE CHAT'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div', { style: { fontSize: "14 px" } }, 'Name: ' + pMname.x), (0, _dom.h)('div', { style: { fontSize: "14 px" } }, 'Group: ' + pMgroup.x), (0, _dom.h)('br'), (0, _dom.h)('div', { style: { fontSize: "14 px" } }, gameData), (0, _dom.h)('br'), (0, _dom.h)('div#a100', ' _____________________________________ '), (0, _dom.h)('p.italic', ' Join group "t" if you want to see some previously created tasks. '), (0, _dom.h)('div', { style: { display: showTodoDiv } }, [(0, _dom.h)('div', taskMonad.html), (0, _dom.h)('div', 'Enter author, responsible person, and task here: '), (0, _dom.h)('input.newTask')]), (0, _dom.h)('br'), (0, _dom.h)('span#alert', mMalert.x), (0, _dom.h)('br'), (0, _dom.h)('span#alert2'), (0, _dom.h)('br'), (0, _dom.h)('div#chatDiv', { style: { display: showChatDiv } }, [(0, _dom.h)('div#messages', [(0, _dom.h)('span', 'Message: '), (0, _dom.h)('input.inputMessage'), (0, _dom.h)('div', messages), (0, _dom.h)('br')])])]), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span', '_____________________________________________________________________________________'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div.content', [(0, _dom.h)('h2', 'Monads'), (0, _dom.h)('p', ' For purposes of this discussion, "monads" are objects "m" for which "m instanceof Monad" returns true. The statement "var mon = new Monad(7,\'mon\')" creates a monad named "mon" which encapsulates the value 7. The expressions "mon.id === \'mon\'", mon.x === 7, and "mon instanceof Monad" all return true'), (0, _dom.h)('h', ' The functions bind() and ret() make the monads useful. Here are their definitions: '), (0, _dom.h)('pre', { style: { color: "lightBlue" } }, 'function bind (x, arr=[]) {\n  this.ar = arr;\n  var that = this;\n  this.ar.push(x instanceof Monad ? x.x : x)\n  if (this.ar.length === 0) this.ar = [x];\n  console.log(\'In bond <<>><<>><<>> x is\', x);\n  return function debug8 (func) {\n    if (func.name === "terminate") return ar;\n    if (x instanceof Promise) {\n      var p = x.then(v => func(v.x));\n      return bind(p,this.ar);\n    }  \n    if (x instanceof Monad) return bind(func(x.x),this.ar);\n    // Asynchronous functionality without Promises. Begin:\n    if (typeof func === \'string\' && func.slice(0,3) === "mMZ") { \n      var p = eval(func(x));\n      return bind(p, this.ar);\n    }\n    if (typeof x === \'string\' && x.slice(0,3) === "mMZ") { \n      var p = func(eval(x));\n      return bind(p, this.ar);\n    }\n    // Asynchronous functionality without Promises. End.\n    return bind(func(x),this.ar);\n  };\n};  \n     \nfunction ret (val) {\n    return new Monad2(val);\n} '), (0, _dom.h)('p', ' As is apparent from the definition, bind() is recursive and completely polymorphic. If bind()\'s argument is not a promise, an instance of Monad, an instance of Monad2, or a string, bind() returns "bind(func(x),this.ar)". The array "ar" accumulates results along a sequence of computations. "terminate" returns "ar".'), (0, _dom.h)('p', ' Monad2 is Monad without "id". Anonymous Monad2 instances are insulated from their outer scopes, eliminating the possibility of clashes with other processes. '), (0, _dom.h)('p', ' The definition of bind() speaks for itself more articulately the following description, but for what it\'s worth, here it is:  For any value "p" and arrays "ar", "ar2", and "ar3", the invisible function that stands ready to operate on the function ahead of bind(p,ar) in a chain is named "debug8". In the simple case of synchronous code, if the function ahead of bind(p,ar) - in other words, debug8\'s argument - is "func", bind(p,ar)(func) returns debug8 which returns bind(func(p,ar2)) which returns debug8, ready to continue the chain. If the next link is func2, bind(func2(func(p,ar),ar2),ar3) is called, returning debug8, ready to accept the next function in the chain. '), (0, _dom.h)('p', ' A description of what bind() does with promises isn\'t likely to be helpful. Too many words would be needed. Some examples below show it in action, waiting for WebSocket messages and web worker messages in a single chain. '), (0, _dom.h)('p#chain', ' The functions bind() and ret() are similar in some ways to >>= (pronounced "bind") and "return" in the Haskell programming language. Functions used in chains of computations can take a JavaScript value and return a monad, the way Haskell does. But when computations are linked using the JavaScript bind(), there is no restriction on what can be returned by the functions in each succeeding link. This is an example of unharnessed JavaScript\'s potential for creativity and confusion.  '), (0, _dom.h)('p', ' bind() facilitates the linking together of dissimilar functions. Synchronous functions, promises, and asynchronous functions that use MonadItter instead of the Promises API. Examples of the latter can be seen in upcomming demonstrations. In the functions below, the suffix "C" is for curried functions that return Monad2 instances with integer values. Functions that return Promises that resolve into integers after two seconds have the "P" suffix. format() presents the value of "x" in (p.then(x" and "m.x" for all promises "p" and monads "m" '), (0, _dom.h)('pre', '  bind(1)(addP(2))(cubeC)(addC(3))\n  (multC(2))(multP(3))\n  (addC(30))(multC(1/10))(terminate)\n  .slice(1,8).map(v => v.then(z => {\n  RESULT_8.push(z.x+\' \')})) '), (0, _dom.h)('button#res8', res8_Style, 'Click to run the above sequence'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div.tao', giantRed, RESULT_8), (0, _dom.h)('p', ' Seven promises were prepared in four microseconds. After a two-second delay caused by addP(), "[3,27,30,60]" appeared in rapid succession, too fast to be percieved. Then, after another two-second delay caused by multP(), "[3,27,30,60,180,210,21]" was displayed.  The definitions of the functions are in an appendix. Later, we will look at some less trivial async functions involving web workers and the WebSocket server.'), (0, _dom.h)('p', ' After a promise occurs in a linked sequence, subsequent functions populate ar with promises. Promises in ar can be used in computations as shown in the Chrome console log: '), (0, _dom.h)('img', { props: { src: "async2.png" }, style: { height: "145%", width: "145%" } }), (0, _dom.h)('p', ' addP() causes a two-second delay, as shown in the timestamps. It also causes every function that follows it to become a promise, as reflected in the expression above treating ar[3] as a promise: "(v=>ar[3].then(q=>v/q*2))". '), (0, _dom.h)('p', italicYellow, ' Sequences beginning with bind() reveal exactly what is happening while hiding a confusing mess of nested promises. They also provide a first-rate alternative to "Callback Hell". '), (0, _dom.h)('p#cycle', ' bind() overcomes the Promises API\'s lack of any way to access prior results linked by the "then()" method. The number ar[0] as well as the promise ar[5] were used used in the sequence above. A short distance down this page you can see asynchronous procedures based on MonadItter rather than Promises. MonadItter and Cycle.js working together can do everything promises and generators do but with greater flexibility and easier access to all values returned by the function calls is chained procedures. The links can be various functions rather than  '), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back To The Top'), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: '#cyclet' } }, 'Async Procedures'), (0, _dom.h)('p', ' Here are linked procedures that perform a computation, send the result to the Haskell WebSocket server to obtain a random number less than the result (ip4), send the random number to a web worker to obtain the prime factors of the random num)ber (ip6), and finally parse the acquired data for display (ip7): '), (0, _dom.h)('span', ' Click below to run '), (0, _dom.h)('span', bigRed, 'bind(50)(cubeC)(it4)(it6)(it7)'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('button#factors_P', { style: { fontSize: '12px' } }, 'bind(50)(cubeC)(it4)(it6)(it7)'), (0, _dom.h)('span', "~~~~~"), (0, _dom.h)('button#clear_P', { style: { fontSize: '12px', marginLeft: "0" } }, 'clear results'), (0, _dom.h)('br'), (0, _dom.h)('div', m42_RESULT), (0, _dom.h)('p', ' The definitions of it4(), it6(), and it(7) are: '), (0, _dom.h)('pre', '  var it4 = x => {\n    if (socket.readyState === 1) {\n      socket.send(\'BB#$42,pMgroup,pMname,\' + x);\n      return eval("mMZ37.bnd(mMZ37.bnd(y => y),ar)");\n    }\n  } \n\n  var it6 = x => {\n    mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));\n    mMZ38.bnd(v => mMZ39.release(v));\n  }  \n\n  var it7 = v => mMZ39.bnd( v => {\n    m42_RESULT.unshift(h(\'p\', orange, \n    \'The prime factors of \' + v[0] + v[4] + v[5]));\n  }); '), (0, _dom.h)('p', ' "h(\'div\', m42_RESULT)" is a permanent fixture in the Snabbdom virtual DOM that is returned by main() and updated by calcStream$. When it7() executes, Sbabbdom performs its diff and render routine, updating the browser window. '), (0, _dom.h)('p', ' The asynchronous functions use MonadItter instances mMZ37, mMZ38, and mMZ39 instead of Promises. Here\'s the definition of MonadItter: '), (0, _dom.h)('pre', '  var MonadItter = function MonadItter() {\n    this.p = function () {};\n    this.release = function () {\n      return this.p.apply(this, arguments);\n    };\n    this.bnd = function (func) {\n      return this.p = func;\n    };\n  }; '), (0, _dom.h)('p', ' When obtaining data from unreliable sources, one should add error checking functionality or use promises. '), (0, _dom.h)('h3', 'Reactivity In Cycle.js'), (0, _dom.h)('span.tao', ' Reactivity occurs naturally in the Cycle.js framework. Many developers find that Cycle.js has an unusually steep learning curve. It isn\'t so bad if you start with Andr Staltz\' '), (0, _dom.h)('a', { props: { href: "https://egghead.io/courses/cycle-js-fundamentals", target: "_blank" } }, ' Overview of Cycle.js.'), (0, _dom.h)('span', ' Its elegance might take your breath away. '), (0, _dom.h)('br'), (0, _dom.h)('p#reactivity2', ' Let\'s take a look at how the ping pong example works in this Cycle.js application. JavaScript\'s mutable variables come in handy here. The variables "m66_RESULT" and "m67_RESULT" are permanent fixtures in the Snabbdom description of the virtual DOM that is returned by main(). Click the button below observe their values changing until ping or pong achieves a score of 11. '), (0, _dom.h)('div', [(0, _dom.h)('button#pingpong', { style: { fontSize: '17px' } }, 'start pingpong'), m66_RESULT]), m67_RESULT, (0, _dom.h)('span.tao', ' To see how this works, click '), (0, _dom.h)('a', { props: { href: "#reactivity" } }, 'Reactivity in Cycle.js'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: 'https://github.com/snabbdom/snabbdom' } }, ' Snabbdom'), (0, _dom.h)('a', { props: { href: 'http://x-stream.github.io/' } }, ' xstream,'), (0, _dom.h)('span', ' and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimentation and learning so many supporting files are included as scripts in the index.html page. '), (0, _dom.h)('br'), (0, _dom.h)('p', ' bind() is polymorphic, but it does have one important syntactic restriction which does not restrict its functionality. Here it is: '), (0, _dom.h)('p', { style: { color: "#e1ff02" } }, 'USE FUNCTIONS THAT TAKE ONLY ONE ARGUMENT'), (0, _dom.h)('p', ' The function add(), defined below, takes only one argument and returns a function. Here\'s how it works: '), (0, _dom.h)('span.tao', '  var add = a => b => a+b '), (0, _dom.h)('br'), (0, _dom.h)('span.tao', '  var add3 = add(3)  '), (0, _dom.h)('br'), (0, _dom.h)('span', greentao, '  add3( " cows") '), (0, _dom.h)('span', 'returns'), (0, _dom.h)('span', red, ' "3 cows" '), (0, _dom.h)('br'), (0, _dom.h)('span', greentao, ' add3(4) '), (0, _dom.h)('span', 'returns'), (0, _dom.h)('span', red, ' 7'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span.tao', ' In functional programming, the pattern f = a => b => c => d is preferred over f(a,b,c) {return d}. All Haskell functions follow this pattern, not even needing parentheses. Define add() by '), (0, _dom.h)('span', green, 'add a b = a+b'), (0, _dom.h)('span', ' and run '), (0, _dom.h)('span', green, 'add 3 4.'), (0, _dom.h)('span', ' Haskell compilers return '), (0, _dom.h)('span', red, '7'), (0, _dom.h)('span', '.'), (0, _dom.h)('span', ' This is the functional way. It is the only sensible way to use bind() and the monads presented on this page. '), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back to the top'), (0, _dom.h)('br'), (0, _dom.h)('br'), _code2.default.async1, (0, _dom.h)('br'), (0, _dom.h)('span', mMfibBlurb.x), (0, _dom.h)('span', [(0, _dom.h)('svg', { attrs: { width: 50, height: 50 } }, [(0, _dom.h)('circle', { attrs: { cx: 25, cy: 25, r: 20, stroke: 'purple', 'stroke-width': 4, fill: fill1Monad.x } })])]), (0, _dom.h)('span', mMprimeBlurb.x), (0, _dom.h)('span', [(0, _dom.h)('svg', { attrs: { width: 50, height: 50 } }, [(0, _dom.h)('circle', { attrs: { cx: 25, cy: 25, r: 20, stroke: 'purple', 'stroke-width': 4, fill: fill2Monad.x } })])]), (0, _dom.h)('span', mMprimeFibBlurb.x), (0, _dom.h)('span', [(0, _dom.h)('svg', { attrs: { width: 50, height: 50 } }, [(0, _dom.h)('circle', { attrs: { cx: 25, cy: 25, r: 20, stroke: 'purple', 'stroke-width': 4, fill: fill3Monad.x } })])]), (0, _dom.h)('br'), (0, _dom.h)('p.red', 'The elapsed time is ' + mMelapsed.x + ' milliseconds.'), (0, _dom.h)('input#fib92'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span#PF_7.red6', 'Fibonacci Numbers'), (0, _dom.h)('br'), (0, _dom.h)('span#PF_9.turk', mMres.x[0]), (0, _dom.h)('br'), (0, _dom.h)('span#PF_8.red6', 'Prime Fibonacci Numbers'), (0, _dom.h)('br'), (0, _dom.h)('span#primeFibs.turk', mMres.x[2]), (0, _dom.h)('br'), (0, _dom.h)('span#PF_21.red6', 'The largest generated prime number.'), (0, _dom.h)('br'), (0, _dom.h)('span#PF_22.turk', mMres.x[1]), (0, _dom.h)('br'), (0, _dom.h)('h3', ' Promises and async/await are not needed '), (0, _dom.h)('p', ' Because this code is running in Cycle.js, waiting for WebSocket messages to come in and waiting for time consuming procedures to complete without blocking is easily accomplished without using promises or async/await. Drivers stand ready to process WebSocket and web worker messages. '), (0, _dom.h)('p', ' The second demonstration in this series decomposes numbers into its their prime factors. Testing with sequences of 9\'s, the first substantial lag occurs at 9,999,999 - unless a large array of prime numbers has already been generated in the previous demonstration or elsewhere. Here it is:'), (0, _dom.h)('input#factors_1'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span', mMfactors.x), (0, _dom.h)('span.tao3', mMfactors23.x), (0, _dom.h)('p', ' Next, two comma-separated numbers are decomposed into arrays of their prime factors, and those arrays are used to compute their lowest common multiple (lcm). For example, the lcm of 6 and 9 is 18 because 3*6 and 2*9 are both 18. The lcm of the denominators of two fractions is useful in fraction arithmetic; specifically, addition and subtraction. On my desktop computer, two seven digit numbers resulted in a lag of a few seconds when prime numbers had not been previously generated. '), (0, _dom.h)('input#factors_5'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div.tao3', mMfactors7.x), (0, _dom.h)('span', 'The least common multiple of  ' + mMfactors8.x[0] + ' and ' + mMfactors8.x[1] + ' is '), (0, _dom.h)('span.tao3', '' + mMfactors8.x[2]), (0, _dom.h)('br'), (0, _dom.h)('span', 'The largest common factor of ' + mMfactors8.x[0] + ' and ' + mMfactors8.x[1] + ' is '), (0, _dom.h)('span.tao3', '' + mMfactors8.x[3]), (0, _dom.h)('br'), (0, _dom.h)('div', 'TEST: ' + mMfactors8.x[0] + ' * ' + mMfactors8.x[1] + ' === ' + mMfactors8.x[2] + ' * ' + mMfactors8.x[3] + ' '), (0, _dom.h)('span', 'RESULT: '), (0, _dom.h)('span.tao3', '' + (mMfactors8.x[0] * mMfactors8.x[1] === mMfactors8.x[2] * mMfactors8.x[3])), (0, _dom.h)('h3', ' The Easy Way '), (0, _dom.h)('p', ' This has been a demonstration of MonadState and MonadState transformers. If you really want the least common multiple or the largest common factor of two positive integers, there is no need to generate prime numbers. The next and final demonstration in this section does not use a web worker. The computations block the main thread, but only for a few microseconds.'), (0, _dom.h)('br'), (0, _dom.h)('input#factors800'), (0, _dom.h)('br'), (0, _dom.h)('span', 'The least common multiple of  ' + mMfactors800.x[0] + ' and ' + mMfactors800.x[1] + ' is '), (0, _dom.h)('span.tao3', '' + mMfactors800.x[2]), (0, _dom.h)('br'), (0, _dom.h)('span', 'The largest common factor of ' + mMfactors800.x[0] + ' and ' + mMfactors800.x[1] + ' is '), (0, _dom.h)('span.tao3', '' + mMfactors800.x[3]), (0, _dom.h)('br'), (0, _dom.h)('div', 'TEST: ' + mMfactors800.x[0] + ' * ' + mMfactors800.x[1] + ' === ' + mMfactors800.x[2] + ' * ' + mMfactors800.x[3] + ' '), (0, _dom.h)('span', 'RESULT: '), (0, _dom.h)('span.tao3', '' + (mMfactors800.x[0] * mMfactors800.x[1] === mMfactors800.x[2] * mMfactors800.x[3])), (0, _dom.h)('p', ' The code for the previous demonstrations is available at the Github repository, and will soon be available here in an appendix. primesMonad and the functions primarily involved in its transformation are shown below: '), _code2.default.primes, (0, _dom.h)('p', ' primesMonad state updates are generated in workerB.js and stored in the main thread. Users set new upper bounds on the size of the largest Fibonacci number in the series to be considered by entering a number in a browser input box. Here is the relevant code: '), _code2.default.primes3, (0, _dom.h)('p', ' The user\'s selected number along with the current state of primesMonad (primesMonad.s) gets posted to workerB, which gets functionality beyond its prototype from workerB.js, which orchestrates preparation of the return message that will be posted back to the main thread. workerB.js delegates the job to functions in script2.js by calling: '), _code2.default.primes4, (0, _dom.h)('p', ' execF prepares the Fibonacci series and sends its state, along with the state of primesMonad that it received from workerB.js, to fpTransformer. execP is called with the current state and the largest Fibonacci number that had been recently produced by execF as arguments. The updated state is an array with four elements, [new upper bound, new series, largest prime produced in the current browser session, largest series]. If the new result is larger than any previous one, the first and second elements of the state array are identical to the third and fourth. Otherwise, they are smaller. As is apparent in the following code, primesMonad is re-created in the main thread using the state array that was posted by workerB. '), _code2.default.primes2, (0, _dom.h)('h3', 'Type Checking'), (0, _dom.h)('p', ' Type checking is useful for avoiding runtime errors and for optimization of user interfaces. For example, if a user enters the wrong type of data it is helpful to display a message explaining why nothing is happening. Not allowing defective user input to be transmitted to a WebSocket server prevents sockets from disconnecting. Some developers like to superimpose strong typing over JavaScript or write code in a strongly typed language that compiles to JavaScript. Others like to retain all of JavaScript\'s possibilities, checking types in only a few functions.  '), (0, _dom.h)('br'), (0, _dom.h)('h3', 'More about monads'), (0, _dom.h)('p', ' The result of every computation in a chain of synchronous functions is available to every computation that comes after it. This can be seen in the next example: '), (0, _dom.h)('pre', { style: { fontSize: "12px" } }, '  bind(1)(addC(2))(cubeC)(addC(3))\n  (multC(this.ar[1]))(multC(this.ar[1]))\n  (addC(30))(multC(1/(ar[3]*2)))(terminate)\n   // [1, 3, 27, 30, 90, 270, 300, 5] '), (0, _dom.h)('p', ' Or, equivalently: '), (0, _dom.h)('pre', { style: { fontSize: "12px" } }, '  bind(1)(v=>ret(v+2))(v=>ret(v*v*v))(v=>ret(v+3))\n  (v=>ret(v*(ar[1])))(v=>ret(v*(ar[1])))(v=>ret(v+30))\n  (v=>ret(v*(1/(ar[3]*2))))(terminate)\n   // [1, 3, 27, 30, 90, 270, 300, 5] '), (0, _dom.h)('span.tao', ' Better yet, '), (0, _dom.h)('span', orange, 'FORGET ABOUT ANONYMOUS MONADS!'), (0, _dom.h)('span', ' What? I developed bind in order to link monads only to find that bind does quite well without them. This is more efficient: '), (0, _dom.h)('br'), (0, _dom.h)('pre', orange, '  bind(1)(v=>v+2)(v=>v*v*v)(v=>v+3)\n  (v=>v*ar[1])(v=>v*ar[1])(v=>v+30)\n  (v=>v*1/(ar[3]*2))(terminate)  \n   // [1, 3, 27, 30, 90, 270, 300, 5] '), (0, _dom.h)('p#cycletime', ' Or if you want just the final result '), (0, _dom.h)('pre', '  bind(1)(v=>v+2)(v=>v*v*v)(v=>v+3)\n  (v=>v*ar[1])(v=>v*ar[1])(v=>v+30)\n  (v=>v*1/(ar[3]*2))(terminate).pop()  // 5] '), (0, _dom.h)('p', ' Many examples on this page depend on named monads with "id" properties and constructs such as MonadState. It is the anonymous monads that turned out to be superfluous. '), (0, _dom.h)('h2', 'Alternative Monad Functionality'), (0, _dom.h)('p', ' Instances of Monad can also link by means of the method "bnd()". It, along with the method "ret()", were made available as follows: '), (0, _dom.h)('pre', { style: { color: "rgb(236, 242, 186)" } }, '  Monad.prototype.bnd = function (func, ...args) {\n    var m = func(this.x, ...args)\n    var ID;\n    if (m instanceof Monad) {\n      ID = testPrefix(args, this.id);\n      window[ID] = new Monad(m.x, ID);\n      return window[ID];\n    }\n    else return m;\n  };\n\n  Monad.prototype.ret = function (a) {\n    return window[this.id] = new Monad(a, this.id);\n  };\n     \n  function testPrefix (x,y) {\n     var t = y;  // y is the id of the monad calling testPrefix\n     if (Array.isArray(x)) {\n      x.map(v => {\n        if (typeof v == \'string\' && v.charAt() == \'$\') {\n           t = v.slice(1);  // Remove "$"\n        }\n      })\n    }\n    return t;\n  }; '), (0, _dom.h)('p', ' This is less functional than using bind() in that it doesn\'t pass functions down the chain but instead, it passes objects with exposed methods. But it has appealing features. Look how values move along the chain until, at the end they combine to yield 42. Explicitly passing values down the line lambda style is impossible with bind(); but with bind(), all functions have access to ar where they can find the values of every monad returned by previous functions. '), (0, _dom.h)('span.tao', 'The code below resembles a lambda calculus expression; and the lambda calculus is the essence of functional programming, always fading mysteriously into the eternal Tao and re-emerging in one manifestation or another (eg. The Turing Machine) whenever the question of computability is resolved.'), (0, _dom.h)('span', italic, ' Note'), (0, _dom.h)('span', ': Hard-headed mathematicians can enjoy non-rational (neither rational nor irrational) musings. The example below shows values being carried across a series of computation, eventually combining to yield "9". '), (0, _dom.h)('br'), (0, _dom.h)('pre', '  ret(2).bnd(v => add(v,1)\n  .bnd(cube).bnd(p => add(p,3) \n  .bnd(() => ret(p/3).bnd(add,3)\n  .bnd(z => v*z+p-v*p+z))))  //  9 '),
 	      // ************** OOOOOOOOOOOOOO ********    BEGIN ASYNC
 
 
-	      (0, _dom.h)('h2#asyncExplanation', ' Asynchronous Processes '), (0, _dom.h)('a', { props: { href: '#gameIntro' } }, 'Back to the first set of demonstrations.'), _code2.default.async1, (0, _dom.h)('br'), (0, _dom.h)('span', mMfibBlurb.x), (0, _dom.h)('span', [(0, _dom.h)('svg', { attrs: { width: 50, height: 50 } }, [(0, _dom.h)('circle', { attrs: { cx: 25, cy: 25, r: 20, stroke: 'purple', 'stroke-width': 4, fill: fill1Monad.x } })])]), (0, _dom.h)('span', mMprimeBlurb.x), (0, _dom.h)('span', [(0, _dom.h)('svg', { attrs: { width: 50, height: 50 } }, [(0, _dom.h)('circle', { attrs: { cx: 25, cy: 25, r: 20, stroke: 'purple', 'stroke-width': 4, fill: fill2Monad.x } })])]), (0, _dom.h)('span', mMprimeFibBlurb.x), (0, _dom.h)('span', [(0, _dom.h)('svg', { attrs: { width: 50, height: 50 } }, [(0, _dom.h)('circle', { attrs: { cx: 25, cy: 25, r: 20, stroke: 'purple', 'stroke-width': 4, fill: fill3Monad.x } })])]), (0, _dom.h)('br'), (0, _dom.h)('p.red', 'The elapsed time is ' + mMelapsed.x + ' milliseconds.'), (0, _dom.h)('input#fib92'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span#PF_7.red6', 'Fibonacci Numbers'), (0, _dom.h)('br'), (0, _dom.h)('span#PF_9.turk', mMres.x[0]), (0, _dom.h)('br'), (0, _dom.h)('span#PF_8.red6', 'Prime Fibonacci Numbers'), (0, _dom.h)('br'), (0, _dom.h)('span#primeFibs.turk', mMres.x[2]), (0, _dom.h)('br'), (0, _dom.h)('span#PF_21.red6', 'The largest generated prime number.'), (0, _dom.h)('br'), (0, _dom.h)('span#PF_22.turk', mMres.x[1]), (0, _dom.h)('br'), (0, _dom.h)('h3', ' Promises and async/await are not needed '), (0, _dom.h)('p', ' Because this code is running in Cycle.js, waiting for WebSocket messages to come in and waiting for time consuming procedures to complete without blocking is easily accomplished without using promises or async/await. Drivers stand ready to process WebSocket and web worker messages. '), (0, _dom.h)('p', ' The second demonstration in this series decomposes numbers into its their prime factors. Testing with sequences of 9\'s, the first substantial lag occurs at 9,999,999 - unless a large array of prime numbers has already been generated in the previous demonstration or elsewhere. Here it is:'), (0, _dom.h)('input#factors_1'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span', mMfactors.x), (0, _dom.h)('span.tao3', mMfactors23.x), (0, _dom.h)('p', ' Next, two comma-separated numbers are decomposed into arrays of their prime factors, and those arrays are used to compute their lowest common multiple (lcm). For example, the lcm of 6 and 9 is 18 because 3*6 and 2*9 are both 18. The lcm of the denominators of two fractions is useful in fraction arithmetic; specifically, addition and subtraction. On my desktop computer, two seven digit numbers resulted in a lag of a few seconds when prime numbers had not been previously generated. '), (0, _dom.h)('input#factors_5'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div.tao3', mMfactors7.x), (0, _dom.h)('span', 'The least common multiple of  ' + mMfactors8.x[0] + ' and ' + mMfactors8.x[1] + ' is '), (0, _dom.h)('span.tao3', '' + mMfactors8.x[2]), (0, _dom.h)('br'), (0, _dom.h)('span', 'The largest common factor of ' + mMfactors8.x[0] + ' and ' + mMfactors8.x[1] + ' is '), (0, _dom.h)('span.tao3', '' + mMfactors8.x[3]), (0, _dom.h)('br'), (0, _dom.h)('div', 'TEST: ' + mMfactors8.x[0] + ' * ' + mMfactors8.x[1] + ' === ' + mMfactors8.x[2] + ' * ' + mMfactors8.x[3] + ' '), (0, _dom.h)('span', 'RESULT: '), (0, _dom.h)('span.tao3', '' + (mMfactors8.x[0] * mMfactors8.x[1] === mMfactors8.x[2] * mMfactors8.x[3])), (0, _dom.h)('h3', ' The Easy Way '), (0, _dom.h)('p', ' This has been a demonstration of MonadState and MonadState transformers. If you really want the least common multiple or the largest common factor of two positive integers, there is no need to generate prime numbers. The next and final demonstration in this section does not use a web worker. The computations block the main thread, but only for a few microseconds.'), (0, _dom.h)('br'), (0, _dom.h)('input#factors800'), (0, _dom.h)('br'), (0, _dom.h)('span', 'The least common multiple of  ' + mMfactors800.x[0] + ' and ' + mMfactors800.x[1] + ' is '), (0, _dom.h)('span.tao3', '' + mMfactors800.x[2]), (0, _dom.h)('br'), (0, _dom.h)('span', 'The largest common factor of ' + mMfactors800.x[0] + ' and ' + mMfactors800.x[1] + ' is '), (0, _dom.h)('span.tao3', '' + mMfactors800.x[3]), (0, _dom.h)('br'), (0, _dom.h)('div', 'TEST: ' + mMfactors800.x[0] + ' * ' + mMfactors800.x[1] + ' === ' + mMfactors800.x[2] + ' * ' + mMfactors800.x[3] + ' '), (0, _dom.h)('span', 'RESULT: '), (0, _dom.h)('span.tao3', '' + (mMfactors800.x[0] * mMfactors800.x[1] === mMfactors800.x[2] * mMfactors800.x[3])), (0, _dom.h)('p', ' The code for the previous demonstrations is available at the Github repository, and will soon be available here in an appendix. primesMonad and the functions primarily involved in its transformation are shown below: '), _code2.default.primes, (0, _dom.h)('p', ' primesMonad state updates are generated in workerB.js and stored in the main thread. Users set new upper bounds on the size of the largest Fibonacci number in the series to be considered by entering a number in a browser input box. Here is the relevant code: '), _code2.default.primes3, (0, _dom.h)('p', ' The user\'s selected number along with the current state of primesMonad (primesMonad.s) gets posted to workerB, which gets functionality beyond its prototype from workerB.js, which orchestrates preparation of the return message that will be posted back to the main thread. workerB.js delegates the job to functions in script2.js by calling: '), _code2.default.primes4, (0, _dom.h)('p', ' execF prepares the Fibonacci series and sends its state, along with the state of primesMonad that it received from workerB.js, to fpTransformer. execP is called with the current state and the largest Fibonacci number that had been recently produced by execF as arguments. The updated state is an array with four elements, [new upper bound, new series, largest prime produced in the current browser session, largest series]. If the new result is larger than any previous one, the first and second elements of the state array are identical to the third and fourth. Otherwise, they are smaller. As is apparent in the following code, primesMonad is re-created in the main thread using the state array that was posted by workerB. '), _code2.default.primes2, (0, _dom.h)('h2', 'MonadItter'), (0, _dom.h)('p', ' As shown in the "Monads" section (above), the definition of MonadItter is: '), _code2.default.monadIt, (0, _dom.h)('p', ' MonadItter instances don\'t link to one another. They exist to facilitate the work of instances of Monad, MonadState, etc. Here\'s how they work: '), (0, _dom.h)('p', 'For any instance of MonadItter, say "it", "it.bnd(func)" causes it.p === func. Calling the method "it.release(...args)" causes p(...args) to run, possibly with arguments supplied by the caller. '), (0, _dom.h)('p', ' MonadItter instances control the routing of incoming WebSocket messages. In one of the demonstrations below, they behave much like ES2015 iterators.'), (0, _dom.h)('h3', ' A Basic Itterator '), (0, _dom.h)('p', 'The following example illustrates the use of release() with an argument. It also shows a lambda expressions being provided as an argument for the method mMZ1.bnd() (thereby becoming the value of mMZ1.p), and then mMZ1.release providing an arguments for the function mMZ1.p. The code is shown beneith the following two buttons. '), (0, _dom.h)('button#testZ', 'mMZ1.release(1)'), (0, _dom.h)('p.code2', mMt3.x), (0, _dom.h)('span', 'Refresh button: '), (0, _dom.h)('button#testQ', 'mMt1.ret(0) '), (0, _dom.h)('br'), _code2.default.testZ, (0, _dom.h)('span.tao', ' The expression mMt3.x sits permanently in the Motorcycle virtual DOM description. You can call '), (0, _dom.h)('span.green', 'mMZ2.release(v)'), (0, _dom.h)('span', ' by entering a value for v below: '), (0, _dom.h)('br'), (0, _dom.h)('span', 'Please enter an integer here: '), (0, _dom.h)('input#testW'), (0, _dom.h)('p', ' cube() is defined in the Monad section (above). If you click "mMZ1.release(1)" several times, the code (above) will run several times, each time with v === 1. The result, mMt3.x, is shown below the button. mMZ1.p (bnd()\'s argument) remains constant while mMZ1.release(1) is repeatedly called, incrementing the number being cubed each time. '), (0, _dom.h)('p', ' Here is another example. It demonstrates lambda expressions passing values to a remote location for use in a computation. If you enter three numbers consecutively below, call them a, b, and c, then the quadratic equation will be used to find solutions for a*x**2 + b*x + c = 0. The a, b, and c you select might not have a solution. If a and b are positive numbers, you are likely to see solutions if c is a negative number. For example, 12, 12, and -24 yields the solutions 1 and -2. '), (0, _dom.h)('p#quad4.red2', mMquad4.x), (0, _dom.h)('p#quad5.red2', mMquad5.x), (0, _dom.h)('p#quad6.red2', mMquad6.x), (0, _dom.h)('p', 'Run mMZ3.release(v) three times for three numbers. The numbers are a, b, and c in ax*x + b*x + c = 0. Remember to press <ENTER> after each number. '), (0, _dom.h)('input#quad'), (0, _dom.h)('p', 'Here is the code:'), _code2.default.quad, (0, _dom.h)('p', ' fmap (above) facilitated using qS4 in a monadic sequence. qS4 returns an array, not an instance of Monad, but fmap lifts qS4 into the monadic sequence. '), (0, _dom.h)('p', ' The function solve() is recursive. It invokes itself after release() executes three times. The expression "solve()" resets solve to the top, where mMZ3.p becomes a function containing two nested occurrances of mMZ3.bnd. After mMZ3.release() executes, mMZ3.p becomes the function that is the argument to the next occurrance of mMZ3.bnd. That function contains yet another occurrance of mMZ3.bnd. MonadItter is syntactic sugar for nested callbacks. '), (0, _dom.h)('h2', ' MonadEr - An Error-Catching Monad '), (0, _dom.h)('p', ' Instances of MonadEr function much the same as instances of Monad, but when an instance of MonadEr encounters an error, it ceases to perform any further computations. Instead, it passes through every subsequent stage of a sequence of MonadEr expressions, reporting where it is and repeating the error message. It will continue to do this until it is re-instantiated or until its bnd() method runs on the function clean(). '), (0, _dom.h)('p', 'Functions used as arguments to the MonadEr bnd() method can be placed in quotation marks to prevent the browser engine from throwing reference errors. Arguments can be protected in the same manner. Using MonadEr can prevent the silent proliferation of NaN results in math computations, and can prevent browser crashes due to attempts to evaluate undefined variables. '), (0, _dom.h)('p.tao1b', ' The monad laws hold for MonadEr instances. The following relationships were verified in the Chrome console: '), (0, _dom.h)('pre', '    ret3(0,\'t\',[])  // t is now an instance of MonadEr with t.x = 0 and t.e = [].\n\n      t.ret(3).bnd(cube3).x === cube(3).x\n      ret3(3).bnd(cube3).x === cube3(3).x\n\n      t.bnd(t.ret) === t\n      t.bnd(ret) === t\n\n      t.ret(0).bnd(add3, 3).bnd(cube3).x ===\n      t.ret(0).bnd(v => add3(v,3).bnd(cube3)).x  '), (0, _dom.h)('h3', 'Feedback From the Error Monad'), (0, _dom.h)('img.image', { props: { src: "error2.png" } }), (0, _dom.h)('br'), (0, _dom.h)('h2', { style: { color: "red" } }, 'Comments'), (0, _dom.h)('div#com2', { style: { display: abcde } }), (0, _dom.h)('p', ' When this page loads in the browser, a user name is automatically generated in order to establish a unique WebSocket connection. This makes it possible to exchange text messages with other group members, play the game, and work on a shared todo list. If you want to leave a comment, you need to log in with a user name and a password of your choice. Each can be a single character or you could use a hard-to-hack combination of alphabet letter, numbers, and special characters. The main requirement is that there be only one comma, and that it be placed between the name and the password. '), (0, _dom.h)('p', 'The server will keep your user name and password in a text file. If you use your saved user name and password sometime in the future, you will be able to edit or delete any comments you previously made. '), (0, _dom.h)('p', ' If you enter a user name that has not been recorded, you will be logged in as that user. The user name and password will be saved. This means that you do not need to first register and then log in. This is an all-in-one process. If you enter a recognized user name but the password does not match the password in the record, you will be asked to try again. '), (0, _dom.h)('br'), (0, _dom.h)('h3', 'Register'), (0, _dom.h)('span.red', mMregister.x), (0, _dom.h)('input.register', { style: { display: mMshowRegister.x } }), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('h3', 'COMMENTS'), (0, _dom.h)('textarea#comment', ''), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div', commentMonad.html), (0, _dom.h)('p', ' When this website loads, it receives from the server a string containing all of the comments. The string is saved in commentMonad.s[0]. The string is transformed into an array of comments which is saved in commentMonad.s]1]. '), (0, _dom.h)('p', ' When a comment is created, modified, or deleted, a WebSocket message goes to the server which performs some of its own housekeeping and broadcasts a message to all online browsers. It is received in messages$ and forwarded comments.js. '), (0, _dom.h)('p', ' The functions in the comments.js file mutate commentsMonad. There is no reason to create fresh instances of commentMonad, other than out of devout devotion to the doctrine of non-mutation. How silly that would be! Nothing touches commentMonad outside of the comments.js file; there is no danger. '), (0, _dom.h)('p', ' commentMonad stands in stark contrast to the gameMonad, which is never mutated although it sees much action during game play. Here he entire Comments.js file: '), (0, _dom.h)('pre', 'function showFunc (name, name2) \n{return name == name2 ? \'inline-block\' : \'none\'}\n\nvar MonadState3 = function MonadState3(g, state) {\n  this.id = g;\n  this.s = state;\n  this.bnd = (func, ...args) => func(this.s, ...args);\n  this.ret = function (a) {\n    return window[this.id] = new MonadState(this.id, a);\n  };\n};\n\nvar commentMonad = new MonadState3(\'commentMonad\',   [ \'\', [] ]);\n\nMonadState3.prototype.html = [];\n\nMonadState3.prototype.init = function (str) { // fetch all comments\n  this.s[0] = str;\n  this.s[1] = this.s[0].split("<@>");\n  this.s[1] = this.s[1].filter(v => (v != ""));\n  process(this.s[1]);\n}\n\nMonadState3.prototype.append = function (str) {\n  this.s[0] = this.s[0] + str;\n  this.s[1] = this.s[0].split(\'<@>\').filter(v => (v != ""));\n  process(this.s[1]);\n}\n\nMonadState3.prototype.edit = function (num,txt) {\n  this.s[1].splice(num,1,txt);\n  this.s[0] = this.s[1].join("<@>");\n  this.s[1] = this.s[0].split(\'<@>\').filter(v => (v != ""));\n  process(this.s[1]);\n};\n\nMonadState3.prototype.remove = function (num) {\n  this.s[1] = this.s[1].filter(v => v!== \'\');\n  this.s[1].splice(num,1);\n  this.s[0] = this.s[1].join("<@>");\n  this.html = process(this.s[1]);\n  return this.html;\n};\n\nfunction process (a) { //Assembles the HTML for display.\n  var arr = a;\n  mMcomments.ret([]);\n  var n = -1;\n  arr.map(a => { \n    console.log(\'In arr.map - - - - - - - a is \', a );\n    var x = a.split("<o>");\n    if (x.length != 2) x = [\'malfunction\', \'8888\']\n    console.log(\'In arr.map o o o o o o o x is \', x );  \n    x[1] = x[1].replace(/<<>>/g, \',\');\n    show = showFunc(x[0], pMname.x);\n    n+=1;\n    mMcomments.bnd(push, h(\'div#\'+n, [\n      h(\'span\', x[0] + \' commented: \' + x[1].replace(/<<>>/g, ",")),\n      h(\'br\'),\n      h(\'textarea#commit\', {props: {cols: 55, rows: 2},\n         style: {display: show }}, x[1]),\n      h(\'button#deleteB\', {props: {innerHTML: \'delete\'}, \n     style: {display: show, fontSize:14}}),\n      h(\'br\' ),\n      h(\'span\', \'***************************************************************\')\n    ]))\n  })\n} '), (0, _dom.h)('p', ' *************************************************************************************** '), (0, _dom.h)('h3', 'Haskell Time'), (0, _dom.h)('p', ' This page is for front end developers, but in case anyone is interested, here are the server functions responsible for deleting or amending a comment: '), (0, _dom.h)('pre', '    removeOne _ []                 = []\n  removeOne x (y:ys) | x == y    = ys\n                     | otherwise = y : removeOne x ys\n\n  changeOne :: Text -> Text -> [Text] -> [Text]\n  changeOne _ _ []                 = []\n  changeOne z x (y:ys) | x == y    = z : ys\n                       | otherwise = y : changeOne z x ys '), (0, _dom.h)('a', ' Every message sent to the server is a comma separated string beginning with a prefex, then a group, and then a name. Comma separated items after that are named extra and extra2. '), (0, _dom.h)('p', ' The code below is responsible for dealing with comments. As in the browser, WebSocket messages are dealt with according to their six charachter prefixes. extra and extra2 are the only pertinent data since comments go to all groups '), (0, _dom.h)('pre', 'else if "GZ#$42" `T.isPrefixOf` msg              \n                  -- FETCH AND BROADCAST ALL COMMENTS ON BROWSER LOAD\n   then                                \n       do\n           st <- atomically $ readTVar state\n           broadcast ("GZ#$42," `mappend` group `mappend` "," \n             `mappend` sender `mappend` "," `mappend` comments ) st\n\nelse if "GN#$42" `T.isPrefixOf` msg \n                  -- RECEIVE A NEW COMMENT, UPDATE THE FILE AND THE TVAR,\n                  --  AND BROADCAST THE NEW COMMENT \n   then\n       do\n           old <- atomically $ readTVar comms\n           lk <- atomically L.new\n           let c = old `mappend` (T.replace (at `mappend` at) at extra) \n           let new = T.replace (at `mappend` at) at c -- cleanup\n           L.with lk $ TIO.writeFile xcomments new -- lock on writing\n           atomically $ writeTVar comms new\n           st <- atomically $ readTVar state\n           broadcast ("GN#$42," `mappend` group `mappend` ","\n               `mappend` sender `mappend` "," `mappend` extra) st\n\n else if "GD#$42" `T.isPrefixOf` msg      -- DELETE A COMMENT\n    then\n        do\n            a <- TIO.readFile xcomments\n            lk <- atomically L.new\n            let b = T.splitOn at a\n            let c = removeOne extra2 b\n            let d = T.intercalate at c\n            L.with lk $ TIO.writeFile xcomments d\n            atomically $ writeTVar comms d\n            st <- atomically $ readTVar state\n            broadcast ("GD#$42," `mappend` group `mappend` ","\n              `mappend` sender `mappend` "," `mappend` extra) st\n                \n else if "GE#$42" `T.isPrefixOf` msg      -- EDIT A COMMENT\n    then\n        do\n            a <- TIO.readFile xcomments\n            lk <- atomically L.new\n            let b = T.splitOn at a\n            let c = changeOne extra3 extra2 b\n            let txt = T.intercalate at c\n            L.with lk $ TIO.writeFile xcomments txt\n            atomically $ writeTVar comms txt\n            st <- atomically $ readTVar state\n            broadcast ("GE#$42," `mappend` group `mappend` com\n              `mappend` sender `mappend` com `mappend` extra `mappend` com\n                 `mappend` extra3) st   '), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back To The Top'), (0, _dom.h)('br'), (0, _dom.h)('div#reactivity'), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: "#reactivity2" } }, 'Back to the pingpong demo'), (0, _dom.h)('h3', 'Reactivity in Cycle.js'), (0, _dom.h)('p', ' The stream incF$ and the driver pingpongDriver() (both defined below) are essential components of the pingpong demonstration. '), (0, _dom.h)('pre', blue, '  var incF$ = n => xs.of(n);\n\n    function pingpongDriver () {\n      return xs.create({\n        start: listener => { \n          incF$ = k => listener.next(k)\n        },\n        stop: () => {}\n      })\n    };  '), (0, _dom.h)('p', ' Whenever the stream incF$() is called, the stream returned by pingpongDriver is augmented and that causes main() to return an object whose only element is a map from the stream calcStream to a virtual DOM node with many children. calcStream$ is produced by merging 48 streams together including ping$ resulting from ping(n) where "n" is the number supplied by pingpongDriver (a/k/a "sources.PP"). The first two lines of main()\'s return value are shown below. '), (0, _dom.h)('pre', '    return { DOM: calcStream$.map(() => {\n      return h(\'div.main\', [  '), (0, _dom.h)('p', ' merged into it. Each time main returns, Snabbdom\'s diff and render routine executes inside of run(sources,main). run(sources,main) calls main() and furnishes it with the listeners provided by the drivers. New events cause the cycle to repeat. '), (0, _dom.h)('p', ' ping(-5)([0,0]) is called when the pingpong button is clicked. Here\'s the relevant code:'), (0, _dom.h)('pre', '  var pingpong$ = sources.DOM\n      .select(\'button#pingpong\').events(\'click\').map(() => ping(0)([0,0]));\n    \n    var ppR = {style: {color: \'red\', \n      marginLeft: \'5%\', fontSize: "26"}};\n    var ppY = {style: {color: \'yellow\', \n      marginLeft: \'42%\', fontSize: "26"}};\n    var ppRY = {style: {color: \'yellow\', \n      marginLeft: \'5%\', fontSize: "26"}};\n    var ppYR = {style: {color: \'red\', \n      marginLeft: \'42%\', fontSize: "26"}};\n\n    var ppStyle = false;\n\n    var m66_RESULT = h(\'span\', ppR, \' -- start -- \' );\n    var m67_RESULT = h(\'pre\', ppR, \'                          -- NO SCORE -- \' );\n\n    var ping = n => ar => {\n      var k = Math.floor(Math.random() * 5)+1;\n      if(ar[0] > 10 || ar[1] > 10) { \n        diffRender();\n        return;\n      }\n      setTimeout(() => {\n        if (n <= k) {  \n          ppStyle = !ppStyle;\n          incF$(n);\n          ping(n+1)(ar); \n        }\n        else if (n % 2 === 0) {\n          ar[0]+=1;\n          m67_RESULT = h(\'pre\', ppYR, `     SCORE: ping  ' + ar[0] + ' pong: ' + ar[1] + '  ` );\n          ping(0)(ar); \n        }\n        else {\n          ar[1]+=1\n          m67_RESULT = h(\'pre\', ppY, `     SCORE: ping  ' + ar[0] + ' pong: ' + ar[1] + '  ` );\n          ping(0)(ar); \n        }\n      }, 500 )\n    }  '), (0, _dom.h)('p', ' The function diffRender() forces Snabbdom to perform one last diff and render. It is defined as follows: '), (0, _dom.h)('pre', '  const diffRender = () => document.getElementById("testQ").click();'), (0, _dom.h)('p', ' The button "testQ" cubes the number 2 in the MonadItter demonstration. It was chosen because it does not significantly affect anything aside from forcing Snabbdom to update the DOM. '), (0, _dom.h)('p', ' The stream incF$ and the driver pingpongDrirun(main, sources) are the crucial Cycle.js application functions. sources contains the drivers. sources.PP = pingpongDriver is one of the drivers consumed by run() and made available in main() so information can be sent back to run. Round and round it goes. Here is the definition of ping$. '), (0, _dom.h)('pre#gameCode', '  const ping$ = sources.PP.map(x => {  \n      m66_RESULT = x;\n    }) '), (0, _dom.h)('span.tao', ' The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with a Haskell WebSockets server. '), (0, _dom.h)('br'), (0, _dom.h)('h2', 'Appendix A - The Game Code'), (0, _dom.h)('pre', 'function MonadState(g, state) {\n    this.id = g;\n    this.s = state;\n  };  '), (0, _dom.h)('a', { props: { href: '#gameIntro' } }, 'Back to the first group of demonstrations.'), (0, _dom.h)('p'), (0, _dom.h)('pre', 'MonadState.prototype.run = function ([\n    score = this.s[0][this.s[1]][0],\n    goals = this.s[0][this.s[1]][1],\n    operator = this.s[0][this.s[1]][2],\n    picked = this.s[0][this.s[1]][3].slice(),\n    display = this.s[0][this.s[1]][4].slice()\n  ]) {\n    this.s[1] += 1;\n    var newState = this.s.slice();\n    newState[0].splice(this.s[1], 0, [score, goals, operator, picked, display])\n     console.log("[score, goals, operator, picked, display]",\n       [score, goals, operator, picked, display]);\n    this.s = newState;\n    buttonNode = bNode(display);\n    return window[\'gameMonad\'] = new MonadState(\'gameMonad\', newState);\n  }\n\n  var gameMonad = new MonadState(\'gameMonad\', [[[0,0,0,[],[1,2,3,4]],\n        [0,0,0,[],[0,0,0,0]]],1 ]);  '), (0, _dom.h)('p', ' Here is the code that controls what happens when a player clicks a number or an operator: '), (0, _dom.h)('pre', '  var numClickAction$ = numClick$.map(e => {\n      if (gameMonad.fetch3().length < 2)  {\n        var a = gameMonad.fetch3();\n        var b = gameMonad.fetch4();\n        a.push(b.splice(e.target.id, 1)[0]);\n        gameMonad.run([,,,a,b]);\n        if (a.length === 2 && gameMonad.fetch2() != 0) {\n          updateCalc(a, gameMonad.fetch2())\n        }\n      }\n    }).startWith([0, 0, 0, 0]);\n\n    var opClick$ = sources.DOM\n        .select(\'.op\').events(\'click\');\n\n    var opClickAction$ = opClick$.map(e => {\n      var s3 = gameMonad.fetch3();\n      if (s3.length === 2) {\n        updateCalc(s3, e.target.innerHTML);\n      }\n      else {\n        gameMonad.run([,,e.target.innerHTML,,]);\n      }\n    });  '), (0, _dom.h)('p', ' Notice the empty spaces in the arguments to gameMonad.run(). gameMonad.run()\'s argument is an array to facilitate calling it with default values. In numClickAction$ we are not changing the score, goals, or operator. The default values of these parameters are their current values. In opClickAction$, we are changing only one thing, the operator. Everything else stays as it is. '), (0, _dom.h)('p', ' When two numbers and an operator have been selected, control passes to updateCalc(). Here\'s the code: '), (0, _dom.h)('pre', 'function updateCalc(ar, op) {\n    var result = calc(ar[0], op, ar[1]);ar\n    if (result === 18 || result === 20) {\n      score(result);\n    }\n    else {\n      var a = gameMonad.fetch4().slice();\n      a.push(result);\n      gameMonad.run([,,0,[],a]);  // Display the result and \n                                  // reset the operator and selected values.\n    }\n  };\n\n  function score(result) {\n      var sc = parseInt(gameMonad.fetch0());\n      var sco = result === 18 ? sc + 3 : sc + 1;\n      var scor = sco % 5 === 0 ? sco + 5 : sco;\n      var goals = gameMonad.fetch1();\n      if (scor === 25 && gameMonad.fetch1() === "2") {  // The player wins.\n          mMindex.ret(0);\n          gameMonad = new MonadState(\'gameMonad\', \n             [[[0,0,0,[],[0,0,0,0]],[0,0,0,[][0,0,0,0]]],0]);\n          socket.send(`CE#$42,' + pMgroup.x + ',' + pMname.x + '`);  \n          // Ask the server to announce the winner to the entire group\n          newRoll(0,0);\n      }\n      else if (scor === 25) {\n        newRoll(0, parseInt(goals,10) + 1);\n      }\n      else newRoll(scor, goals);   // No increase in the number of goals.\n  };   '), (0, _dom.h)('span.tao', ' Additional code is available at'), (0, _dom.h)('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript",
-	          target: "_blank" } }, 'monads-in-JavaScript.'), (0, _dom.h)('p', '.'), (0, _dom.h)('p'), (0, _dom.h)('h3', 'Appendix B - Curried Functions Used In Several Demonstrations'), (0, _dom.h)('pre', '  function square (v) {\n      return ret(v*v)\n    };\n\n    function cube (v, id) {\n      return ret(v*v*v, id);\n    };\n\n    function add (a, b, id) {\n      return ret((parseInt(a,10) + parseInt(b,10)),id);\n    };\n\n    const divCinverse = a => b => ret(e/b);\n    const divC = a => b => ret(b/a);\n    const addC = a => b => ret(a+b);\n    const cubeC = v => ret(v*v*v);\n    const multC = a => b => ret(a*b);\n    const doubleC = a => ret(a+a);\n    const squareC = a => ret(a*a);\n    const sqrtC = a => ret(Math.sqrt(a));\n\n  async function squareP (x) {\n    await wait(2000) \n    return ret(x*x);\n  }\n\n  function wait(ms) {\n    return new Promise(r => setTimeout(r, ms));\n  }\n\n  const divPinverse = a => async b => {\n    await wait (2000)\n    return ret(a/b);\n  }\n\n  const divP = a => async b => {\n    await wait (2000)\n    return ret(b/a);\n  }\n\n  const sqrtP = async a => {\n    await wait (2000)\n    return ret(Math.sqrt(a));\n  }\n\n  const doubleP = async a => {\n    await wait (2000)\n    return ret(a+a);\n  }\n\n  const addP = x => async y => {\n    await wait(2000) \n    return ret(x + y);\n  }\n\n  const multP = x => async y => {\n    await wait(2000) \n    return ret(x * y);\n  }\n\n  async function cubeP (x) {\n    await wait(2000) \n    return ret(x*x*x);\n  } '), (0, _dom.h)('p'), (0, _dom.h)('h3', 'Appendix C - Further Reading '), (0, _dom.h)('p', ' Here is a good resource: '), (0, _dom.h)('a', { props: { href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" } }, 'You Don\'t Know Javascript by Kyle Simpson'), (0, _dom.h)('span', ' You can support the open-source digital version of this book with Patreon at the above address or purchase hard copies from O\Reily, Amazon, etc. '), (0, _dom.h)('a', { props: { href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" } }, 'You Don\'t Know Javascript'), (0, _dom.h)('span', ' is the thinking developer\'s answer to '), (0, _dom.h)('a', { props: { href: "http://shop.oreilly.com/product/9780596517748.do", target: "_blank" } }, ' "JavaScript: The Good Parts" by Douglas Crockford '), (0, _dom.h)('span#cyclet', ', which has long been revered as a "must read" JavaScript book. Kyle Simpson recommends learning to use potentially dangerous code intelligently while Douglas Crockford advocates never using it at all. I think the phrase "eval is evil" stems from Crockford\'s book. I find eval() to be very useful from time to time. Kyle Simpson teaches programmers how to safely tap the full potential of JavaScript. '), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: '#cycletime' } }, 'Return to the demonstration'), (0, _dom.h)('h2', 'Asynchronous Processes'), (0, _dom.h)('h3', 'Cycle.js Time '), (0, _dom.h)('p', ' As stated above, the monads do not depend on Cycle.js. This section is for anyone who happens to be interested in how the monads achieve reactivity in this Cycle.js application.'), (0, _dom.h)('p', ' Here are the two sequences of five linked functions that we will analyze:'), (0, _dom.h)('pre', '  bind(50)(cubeC)(it4)(it6)(it7) // Does not use Promises \n  bind(50)(cubeC)(prm4)(prm6)(it7) // Uses Promises     '), (0, _dom.h)('p', ' The first sequence is used in the live demonstration above. Both sequences fetch a random number from the server and then fetch the number\'s prime decomposition from a web worker. The sequence without promises seems to run slightly faster.  '), (0, _dom.h)('p', ' it7() was defined for use with MonadItter, not promises. It is a testiment to the robustness of bind() that it7() functions as intended at the end of a sequence of promises. '), (0, _dom.h)('p', ' When the code runs, a WebSocket socket requests and obtains a pseudo random number between 0 and 125,000 from the server. The number is then sent a web worker that computes its prime components. When the data arrives, Snabbdom is prompted to modify the DOM to reflect the current value of m42_RESULT. '), (0, _dom.h)('p', ' These two drivers (Cycle.js terminology) are involved in the procedure: '), (0, _dom.h)('pre', '  function WebSocketDriver() {\n    return xs.create({\n      start: listener => { socket.onmessage = msg => listener.next(msg)},\n      stop: () => { socket.close() }\n    });\n  };\n\n  function workerGDriver () {\n    return xs.create({\n      start: listener => { workerG.onmessage = msg => listener.next(msg)},\n      stop: () =>  workerG.terminate()  \n    });\n  }; '), (0, _dom.h)('p', ' These driver streams, among others, are located in an object named "sources" (shown below) '), (0, _dom.h)('pre', '  const sources = {\n    DOM: makeDOMDriver(\'#main-container\'),\n    WS: WebSocketDriver,\n    WWB: workerBDriver,\n    WWC: workerCDriver,\n    WWD: workerDDriver,\n    WWE: workerEDriver,\n    WWF: workerFDriver,\n    WWG: workerGDriver,\n    WW: workerDriver,\n    PP: pingpongDriver\n  } '), (0, _dom.h)('p', ' run() is the function that keeps the perpetual cycle spinning. It takes two arguments, main() and sources. In main(), the drivers listen for events and map them into streams that process them and merge into calcStream, the stream that promts main() to return and then feeds Snabbdom\'s diff and render routine the side effects generated by operations on those events. '), (0, _dom.h)('p', ' When sources.WS hears a message prefixed by "BB#$42", MonadIterator instance mMZ27 is released. It releases mMZ37 with the number returned by the server (v[3]). it4() releases mMZ37 in it6, passing the number from the server to it. it6() sends the number to a web worker that sends back the number\'s prime decomposition. Here\'s the code: '), (0, _dom.h)('pre', '  var it4 = x => {\n    if (socket.readyState === 1) socket.send(\'BB#$42,pMgroup,pMname,\' + x);\n    return eval("mMZ37.bnd(mMZ37.bnd(y => y),ar)");\n  }\n\n  var it6 = x => {\n    mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));\n    mMZ38.bnd(v => mMZ39.release(v));\n  }  \n  var it7 = v => mMZ39.bnd( v => {\n    m42_RESULT.unshift(h(\'p\', orange, v[3] + v[0] + v[4] + v[5]));\n  })  '), (0, _dom.h)('h3', 'MonadItter'), (0, _dom.h)('p', ' The MonadItter section of the page has a detailed discussion and live demonstrations. This is the definition: '), (0, _dom.h)('pre', '  var MonadItter = function MonadItter() {\n    this.p = function () {};\n    this.release = function () {\n      return this.p.apply(this, arguments);\n    };\n    this.bnd = function (func) {\n      return this.p = func;\n    };\n  }; '), (0, _dom.h)('h3', 'Promises'), (0, _dom.h)('p', ' As the definition of MonadItter shows, bnd() saves functions until release() causes them to execute. MonadItter instances are usually used on this webpage where promises, generators, and async/await could also do the job. '), (0, _dom.h)('p', 'Here are the Promises-based functions prm4() and prm6() that can be substituted for it4() and it6() in the expression bind(50)(cubeC)(it4)(it6): '), (0, _dom.h)('pre', '  const prm4 = x => {\n    if (socket.readyState === 1) socket.send(\'BB#$42,pMgroup,pMname,\' + x);\n    return new Promise( (resolve, reject) => {\n       mMZ37.bnd((y) => resolve(ret(y))) \n    })                         \n  }  \n\n  const prm6 = x => {\n    workerG.postMessage([primesMonad.s, [x]]);\n    return "Done"\n  } '), (0, _dom.h)('p', ' Those who believe that eval() is evil might prefer the Promises approach. I find Promises to be opinionated, limited, black boxes. Using it4() and it6(), the process is explicit rather than hidden in a Promises black box. Of course, one could study the code defining Promises until it no longer looks like a black box, but why bother? '), (0, _dom.h)('p', ' Error handling is easy when using MonadItter instances, and is entirely optional. I recommend it when making Ajax requests from third-party web sites. '), (0, _dom.h)('p', ' After "bind(50)(cubeC)(it4)(it6) runs, the prime decomposition of the number it recieved arrives from workerG. The workerGDriver (sources.WWG) detects the message and adds it to the workerG$ stream. Here is the definition of workerGDriver:  '), (0, _dom.h)('pre', '  function workerGDriver () {\n    return xs.create({\n      start: listener => { workerG.onmessage = msg => listener.next(msg)},\n      stop: () => { workerG.terminate() }\n    });\n  }; '), (0, _dom.h)('p', ' Clicking the "decompose fifteen random numbers" button causes factorsRecursion(0) to execute. Here\'s the code: '), (0, _dom.h)('pre', blue, '  const factorsRecursion = n => bind(50)(cubeC)(it4)\n      (it6)(() => { if (n < 15) factorsRecursion(n+1)}); '), (0, _dom.h)('p', 'result778(m.data) is called each time a message from workerG arrives. The definition of result778 is:   '), (0, _dom.h)('pre', blue, 'var result778 = x => h(\'div\', [\n        m778_RESULT,  \n        h(\'br\'),\n        h(\'span\', bigBlue, x[3] ),\n        h(\'span\', bigGreen, x[0] ),\n        h(\'span\', bigBlue, x[4] ),\n        h(\'span\', bigRed, x[5] ),\n    ]); '), (0, _dom.h)('p', ' The stream that listens for workerG messages adds to the vnode m778_RESULT as follows: '), (0, _dom.h)('pre', 'const workerG$ = sources.WWG.map(m => {\n        m778_RESULT = result778(m.data);\n        primesMonad = new MonadState(\'primesMonad\', m.data[2]);\n    }); '), (0, _dom.h)('pre', bigGreen, 'const factorsRecursion = n => bind(50)(cubeC)(it4)\n  (it6)(pause)(() => { if (n < 15) factorsRecursion(n+1)}); '), (0, _dom.h)('p'), (0, _dom.h)('button#diffRender', mM14.x)])])]);
+	      // h('asyncExplanation', ' Asynchronous Processes ' ),
+
+	      (0, _dom.h)('a', { props: { href: '#gameIntro' } }, 'Back to the first set of demonstrations.'), (0, _dom.h)('h2', 'MonadItter'), (0, _dom.h)('p', ' As shown in the "Monads" section (above), the definition of MonadItter is: '), _code2.default.monadIt, (0, _dom.h)('p', ' MonadItter instances don\'t link to one another. They exist to facilitate the work of instances of Monad, MonadState, etc. Here\'s how they work: '), (0, _dom.h)('p', 'For any instance of MonadItter, say "it", "it.bnd(func)" causes it.p === func. Calling the method "it.release(...args)" causes p(...args) to run, possibly with arguments supplied by the caller. '), (0, _dom.h)('p', ' MonadItter instances control the routing of incoming WebSocket messages. In one of the demonstrations below, they behave much like ES2015 iterators.'), (0, _dom.h)('h3', ' A Basic Itterator '), (0, _dom.h)('p', 'The following example illustrates the use of release() with an argument. It also shows a lambda expressions being provided as an argument for the method mMZ1.bnd() (thereby becoming the value of mMZ1.p), and then mMZ1.release providing an arguments for the function mMZ1.p. The code is shown beneith the following two buttons. '), (0, _dom.h)('button#testZ', 'mMZ33.release(1)'), (0, _dom.h)('p', mMt33.x), (0, _dom.h)('span', 'Refresh button: '), (0, _dom.h)('button#testQ', 'mMt33.ret(0) '), (0, _dom.h)('span.tao', ' The expression mMt33.x sits permanently in the Motorcycle virtual DOM description. You can call '), (0, _dom.h)('span.green', 'mMZ33.release(v)'), (0, _dom.h)('span', ' by entering a value for v below: '), (0, _dom.h)('br'), (0, _dom.h)('span', 'Please enter an integer here: '), (0, _dom.h)('input#testW'), (0, _dom.h)('p', ' cube() is defined in the Monad section (above). If you click "mMZ1.release(1)" several times, the code (above) will run several times, each time with v === 1. The result, mMt3.x, is shown below the button. mMZ1.p (bnd()\'s argument) remains constant while mMZ1.release(1) is repeatedly called, incrementing the number being cubed each time. '), (0, _dom.h)('p', ' Here is another example. It demonstrates lambda expressions passing values to a remote location for use in a computation. If you enter three numbers consecutively below, call them a, b, and c, then the quadratic equation will be used to find solutions for a*x**2 + b*x + c = 0. The a, b, and c you select might not have a solution. If a and b are positive numbers, you are likely to see solutions if c is a negative number. For example, 12, 12, and -24 yields the solutions 1 and -2. '), (0, _dom.h)('p#quad4.red2', mMquad4.x), (0, _dom.h)('p#quad5.red2', mMquad5.x), (0, _dom.h)('p#quad6.red2', mMquad6.x), (0, _dom.h)('p', 'Run mMZ3.release(v) three times for three numbers. The numbers are a, b, and c in ax*x + b*x + c = 0. Remember to press <ENTER> after each number. '), (0, _dom.h)('input#quad'), (0, _dom.h)('p', 'Here is the code:'), _code2.default.quad, (0, _dom.h)('p', ' fmap (above) facilitated using qS4 in a monadic sequence. qS4 returns an array, not an instance of Monad, but fmap lifts qS4 into the monadic sequence. '), (0, _dom.h)('p', ' The function solve() is recursive. It invokes itself after release() executes three times. The expression "solve()" resets solve to the top, where mMZ3.p becomes a function containing two nested occurrences of mMZ3.bnd. After mMZ3.release() executes, mMZ3.p becomes the function that is the argument to the next occurrence of mMZ3.bnd. That function contains yet another occurrence of mMZ3.bnd. MonadItter is syntactic sugar for nested callbacks. '), (0, _dom.h)('h2', ' MonadEr - An Error-Catching Monad '), (0, _dom.h)('p', ' Instances of MonadEr function much the same as instances of Monad, but when an instance of MonadEr encounters an error, it ceases to perform any further computations. Instead, it passes through every subsequent stage of a sequence of MonadEr expressions, reporting where it is and repeating the error message. It will continue to do this until it is re-instantiated or until its bnd() method runs on the function clean(). '), (0, _dom.h)('p', 'Functions used as arguments to the MonadEr bnd() method can be placed in quotation marks to prevent the browser engine from throwing reference errors. Arguments can be protected in the same manner. Using MonadEr can prevent the silent proliferation of NaN results in math computations, and can prevent browser crashes due to attempts to evaluate undefined variables. '), (0, _dom.h)('p.tao1b', ' The monad laws hold for MonadEr instances. The following relationships were verified in the Chrome console: '), (0, _dom.h)('pre', '    ret3(0,\'t\',[])  // t is now an instance of MonadEr with t.x = 0 and t.e = [].\n\n      t.ret(3).bnd(cube3).x === cube(3).x\n      ret3(3).bnd(cube3).x === cube3(3).x\n\n      t.bnd(t.ret) === t\n      t.bnd(ret) === t\n\n      t.ret(0).bnd(add3, 3).bnd(cube3).x ===\n      t.ret(0).bnd(v => add3(v,3).bnd(cube3)).x  '), (0, _dom.h)('h3', 'Feedback From the Error Monad'), (0, _dom.h)('img.image', { props: { src: "error2.png" } }), (0, _dom.h)('br'), (0, _dom.h)('h2', { style: { color: "red" } }, 'Comments'), (0, _dom.h)('div#com2', { style: { display: abcde } }), (0, _dom.h)('p', ' When this page loads in the browser, a user name is automatically generated in order to establish a unique WebSocket connection. This makes it possible to exchange text messages with other group members, play the game, and work on a shared todo list. If you want to leave a comment, you need to log in with a user name and a password of your choice. Each can be a single character or you could use a hard-to-hack combination of alphabet letter, numbers, and special characters. The main requirement is that there be only one comma, and that it be placed between the name and the password. '), (0, _dom.h)('p', 'The server will keep your user name and password in a text file. If you use your saved user name and password sometime in the future, you will be able to edit or delete any comments you previously made. '), (0, _dom.h)('p', ' If you enter a user name that has not been recorded, you will be logged in as that user. The user name and password will be saved. This means that you do not need to first register and then log in. This is an all-in-one process. If you enter a recognized user name but the password does not match the password in the record, you will be asked to try again. '), (0, _dom.h)('br'), (0, _dom.h)('h3', 'Register'), (0, _dom.h)('span.red', mMregister.x), (0, _dom.h)('input.register', { style: { display: mMshowRegister.x } }), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('h3', 'COMMENTS'), (0, _dom.h)('textarea#comment', ''), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div', commentMonad.html), (0, _dom.h)('p', ' When this website loads, it receives from the server a string containing all of the comments. The string is saved in commentMonad.s[0]. The string is transformed into an array of comments which is saved in commentMonad.s]1]. '), (0, _dom.h)('p', ' When a comment is created, modified, or deleted, a WebSocket message goes to the server which performs some of its own housekeeping and broadcasts a message to all online browsers. It is received in messages$ and forwarded comments.js. '), (0, _dom.h)('p', ' The functions in the comments.js file mutate commentsMonad. There is no reason to create fresh instances of commentMonad, other than out of devout devotion to the doctrine of non-mutation. How silly that would be! Nothing touches commentMonad outside of the comments.js file; there is no danger. '), (0, _dom.h)('p', ' commentMonad stands in stark contrast to the gameMonad, which is never mutated although it sees much action during game play. Here he entire Comments.js file: '), (0, _dom.h)('pre', 'function showFunc (name, name2) \n{return name == name2 ? \'inline-block\' : \'none\'}\n\nvar MonadState3 = function MonadState3(g, state) {\n  this.id = g;\n  this.s = state;\n  this.bnd = (func, ...args) => func(this.s, ...args);\n  this.ret = function (a) {\n    return window[this.id] = new MonadState(this.id, a);\n  };\n};\n\nvar commentMonad = new MonadState3(\'commentMonad\',   [ \'\', [] ]);\n\nMonadState3.prototype.html = [];\n\nMonadState3.prototype.init = function (str) { // fetch all comments\n  this.s[0] = str;\n  this.s[1] = this.s[0].split("<@>");\n  this.s[1] = this.s[1].filter(v => (v != ""));\n  process(this.s[1]);\n}\n\nMonadState3.prototype.append = function (str) {\n  this.s[0] = this.s[0] + str;\n  this.s[1] = this.s[0].split(\'<@>\').filter(v => (v != ""));\n  process(this.s[1]);\n}\n\nMonadState3.prototype.edit = function (num,txt) {\n  this.s[1].splice(num,1,txt);\n  this.s[0] = this.s[1].join("<@>");\n  this.s[1] = this.s[0].split(\'<@>\').filter(v => (v != ""));\n  process(this.s[1]);\n};\n\nMonadState3.prototype.remove = function (num) {\n  this.s[1] = this.s[1].filter(v => v!== \'\');\n  this.s[1].splice(num,1);\n  this.s[0] = this.s[1].join("<@>");\n  this.html = process(this.s[1]);\n  return this.html;\n};\n\nfunction process (a) { //Assembles the HTML for display.\n  var arr = a;\n  mMcomments.ret([]);\n  var n = -1;\n  arr.map(a => { \n    console.log(\'In arr.map - - - - - - - a is \', a );\n    var x = a.split("<o>");\n    if (x.length != 2) x = [\'malfunction\', \'8888\']\n    console.log(\'In arr.map o o o o o o o x is \', x );  \n    x[1] = x[1].replace(/<<>>/g, \',\');\n    show = showFunc(x[0], pMname.x);\n    n+=1;\n    mMcomments.bnd(push, h(\'div#\'+n, [\n      h(\'span\', x[0] + \' commented: \' + x[1].replace(/<<>>/g, ",")),\n      h(\'br\'),\n      h(\'textarea#commit\', {props: {cols: 55, rows: 2},\n         style: {display: show }}, x[1]),\n      h(\'button#deleteB\', {props: {innerHTML: \'delete\'}, \n     style: {display: show, fontSize:14}}),\n      h(\'br\' ),\n      h(\'span\', \'***************************************************************\')\n    ]))\n  })\n} '), (0, _dom.h)('p', ' *************************************************************************************** '), (0, _dom.h)('h3', 'Haskell Time'), (0, _dom.h)('p', ' This page is for front end developers, but in case anyone is interested, here are the server functions responsible for deleting or amending a comment: '), (0, _dom.h)('pre', '    removeOne _ []                 = []\n  removeOne x (y:ys) | x == y    = ys\n                     | otherwise = y : removeOne x ys\n\n  changeOne :: Text -> Text -> [Text] -> [Text]\n  changeOne _ _ []                 = []\n  changeOne z x (y:ys) | x == y    = z : ys\n                       | otherwise = y : changeOne z x ys '), (0, _dom.h)('a', ' Every message sent to the server is a comma separated string beginning with a prefix, then a group, and then a name. Comma separated items after that are named extra and extra2. '), (0, _dom.h)('p', ' The code belw is responsible for dealing with comments. As in the browser, WebSocket messages are dealt with according to their six character prefixes. extra and extra2 are the only pertinent data since comments go to all groups '), (0, _dom.h)('pre', 'else if "GZ#$42" `T.isPrefixOf` msg              \n                  -- FETCH AND BROADCAST ALL COMMENTS ON BROWSER LOAD\n   then                                \n       do\n           st <- atomically $ readTVar state\n           broadcast ("GZ#$42," `mappend` group `mappend` "," \n             `mappend` sender `mappend` "," `mappend` comments ) st\n\nelse if "GN#$42" `T.isPrefixOf` msg \n                  -- RECEIVE A NEW COMMENT, UPDATE THE FILE AND THE TVAR,\n                  --  AND BROADCAST THE NEW COMMENT \n   then\n       do\n           old <- atomically $ readTVar comms\n           lk <- atomically L.new\n           let c = old `mappend` (T.replace (at `mappend` at) at extra) \n           let new = T.replace (at `mappend` at) at c -- cleanup\n           L.with lk $ TIO.writeFile xcomments new -- lock on writing\n           atomically $ writeTVar comms new\n           st <- atomically $ readTVar state\n           broadcast ("GN#$42," `mappend` group `mappend` ","\n               `mappend` sender `mappend` "," `mappend` extra) st\n\n else if "GD#$42" `T.isPrefixOf` msg      -- DELETE A COMMENT\n    then\n        do\n            a <- TIO.readFile xcomments\n            lk <- atomically L.new\n            let b = T.splitOn at a\n            let c = removeOne extra2 b\n            let d = T.intercalate at c\n            L.with lk $ TIO.writeFile xcomments d\n            atomically $ writeTVar comms d\n            st <- atomically $ readTVar state\n            broadcast ("GD#$42," `mappend` group `mappend` ","\n              `mappend` sender `mappend` "," `mappend` extra) st\n                \n else if "GE#$42" `T.isPrefixOf` msg      -- EDIT A COMMENT\n    then\n        do\n            a <- TIO.readFile xcomments\n            lk <- atomically L.new\n            let b = T.splitOn at a\n            let c = changeOne extra3 extra2 b\n            let txt = T.intercalate at c\n            L.with lk $ TIO.writeFile xcomments txt\n            atomically $ writeTVar comms txt\n            st <- atomically $ readTVar state\n            broadcast ("GE#$42," `mappend` group `mappend` com\n              `mappend` sender `mappend` com `mappend` extra `mappend` com\n                 `mappend` extra3) st   '), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back To The Top'), (0, _dom.h)('br'), (0, _dom.h)('div#reactivity'), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: "#reactivity2" } }, 'Back to the pingpong demo'), (0, _dom.h)('h3', 'Reactivity in Cycle.js'), (0, _dom.h)('p', ' The stream incF$ and the driver pingpongDriver() (both defined below) are essential components of the pingpong demonstration. '), (0, _dom.h)('pre', blue, '  var incF$ = n => xs.of(n);\n\n    function pingpongDriver () {\n      return xs.create({\n        start: listener => { \n          incF$ = k => listener.next(k)\n        },\n        stop: () => {}\n      })\n    };  '), (0, _dom.h)('p', ' Whenever the stream incF$() is called, the stream returned by pingpongDriver is augmented and that causes main() to return an object whose only element is a map from the stream calcStream$ to a virtual DOM node with many children. calcStream$ is produced by merging 48 streams together including ping$ resulting from ping(n) where "n" is the number supplied by pingpongDriver (a/k/a "sources.PP"). The first two lines of main()\'s return value are shown below. '), (0, _dom.h)('pre', '    return { DOM: calcStream$.map(() => {\n      return h(\'div.main\', [  '), (0, _dom.h)('p', ' merged into it. Each time main returns, Snabbdom\'s diff and render routine executes inside of run(sources,main). run(sources,main) calls main() and furnishes it with the listeners provided by the drivers. New events cause the cycle to repeat. '), (0, _dom.h)('p', ' ping(-5)([0,0]) is called when the pingpong button is clicked. Here\'s the relevant code:'), (0, _dom.h)('pre', '  var pingpong$ = sources.DOM\n      .select(\'button#pingpong\').events(\'click\').map(() => ping(0)([0,0]));\n    \n    var ppR = {style: {color: \'red\', \n      marginLeft: \'5%\', fontSize: "26"}};\n    var ppY = {style: {color: \'yellow\', \n      marginLeft: \'42%\', fontSize: "26"}};\n    var ppRY = {style: {color: \'yellow\', \n      marginLeft: \'5%\', fontSize: "26"}};\n    var ppYR = {style: {color: \'red\', \n      marginLeft: \'42%\', fontSize: "26"}};\n\n    var ppStyle = false;\n\n    var m66_RESULT = h(\'span\', ppR, \' -- start -- \' );\n    var m67_RESULT = h(\'pre\', ppR, \'                          -- NO SCORE -- \' );\n\n    var ping = n => ar => {\n      var k = Math.floor(Math.random() * 5)+1;\n      if(ar[0] > 10 || ar[1] > 10) { \n        diffRender();\n        return;\n      }\n      setTimeout(() => {\n        if (n <= k) {  \n          ppStyle = !ppStyle;\n          incF$(n);\n          ping(n+1)(ar); \n        }\n        else if (n % 2 === 0) {\n          ar[0]+=1;\n          m67_RESULT = h(\'pre\', ppYR, `     SCORE: ping  ' + ar[0] + ' pong: ' + ar[1] + '  ` )W\n          ping(0)(ar); \n        }\n        else {\n          ar[1]+=1\n          m67_RESULT = h(\'pre\', ppY, `     SCORE: ping  ' + ar[0] + ' pong: ' + ar[1] + '  ` );\n          ping(0)(ar); \n        }\n      }, 500 )\n    }  '), (0, _dom.h)('p', ' The function diffRender() forces Snabbdom to perform one last diff and render. It is defined as follows: '), (0, _dom.h)('pre', '  const diffRender = () => document.getElementById("testQ").click();'), (0, _dom.h)('p', ' The button "testQ" cubes the number 2 in the MonadItter demonstration. It was chosen because it does not significantly affect anything aside from forcing Snabbdom to update the DOM. '), (0, _dom.h)('p', ' The stream incF$ and the driver pingpongDrirun(main, sources) are the crucial Cycle.js application functions. sources contains the drivers. sources.PP = pingpongDriver is one of the drivers consumed by run() and made available in main() so information can be sent back to run. Round and round it goes. Here is the definition of ping$. '), (0, _dom.h)('pre#gameCode', '  const ping$ = sources.PP.map(x => {  \n      m66_RESULT = x;\n    }) '), (0, _dom.h)('span.tao', ' The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with a Haskell WebSocket server. '), (0, _dom.h)('br'), (0, _dom.h)('h2', 'Appendix A - The Game Code'), (0, _dom.h)('pre', 'function MonadState(g, state) {\n    this.id = g;\n    this.s = state;\n  };  '), (0, _dom.h)('a', { props: { href: '#gameIntro' } }, 'Back to the first group of demonstrations.'), (0, _dom.h)('p'), (0, _dom.h)('pre', 'MonadState.prototype.run = function ([\n    score = this.s[0][this.s[1]][0],\n    goals = this.s[0][this.s[1]][1],\n    operator = this.s[0][this.s[1]][2],\n    picked = this.s[0][this.s[1]][3].slice(),\n    display = this.s[0][this.s[1]][4].slice()\n  ]) {\n    this.s[1] += 1;\n    var newState = this.s.slice();\n    newState[0].splice(this.s[1], 0, [score, goals, operator, picked, display])\n     console.log("[score, goals, operator, picked, display]",\n       [score, goals, operator, picked, display]);\n    this.s = newState;\n    buttonNode = bNode(display);\n    return window[\'gameMonad\'] = new MonadState(\'gameMonad\', newState);\n  }\n\n  var gameMonad = new MonadState(\'gameMonad\', [[[0,0,0,[],[1,2,3,4]],\n        [0,0,0,[],[0,0,0,0]]],1 ]);  '), (0, _dom.h)('p', ' Here is the code that controls what happens when a player clicks a number or an operator: '), (0, _dom.h)('pre', '  var numClickAction$ = numClick$.map(e => {\n      if (gameMonad.fetch3().length < 2)  {\n        var a = gameMonad.fetch3();\n        var b = gameMonad.fetch4();\n        a.push(b.splice(e.target.id, 1)[0]);\n        gameMonad.run([,,,a,b]);\n        if (a.length === 2 && gameMonad.fetch2() != 0) {\n          updateCalc(a, gameMonad.fetch2())\n        }\n      }\n    }).startWith([0, 0, 0, 0]);\n\n    var opClick$ = sources.DOM\n        .select(\'.op\').events(\'click\');\n\n    var opClickAction$ = opClick$.map(e => {\n      var s3 = gameMonad.fetch3();\n      if (s3.length === 2) {\n        updateCalc(s3, e.target.innerHTML);\n      }\n      else {\n        gameMonad.run([,,e.target.innerHTML,,]);\n      }\n    });  '), (0, _dom.h)('p', ' Notice the empty spaces in the arguments to gameMonad.run(). gameMonad.run()\'s argument is an array to facilitate calling it with default values. In numClickAction$ we are not changing the score, goals, or operator. The default values of these parameters are their current values. In opClickAction$, we are changing only one thing, the operator. Everything else stays as it is. '), (0, _dom.h)('p', ' When two numbers and an operator have been selected, control passes to updateCalc(). Here\'s the code: '), (0, _dom.h)('pre', 'function updateCalc(ar, op) {\n    var result = calc(ar[0], op, ar[1]);ar\n    if (result === 18 || result === 20) {\n      score(result);\n    }\n    else {\n      var a = gameMonad.fetch4().slice();\n      a.push(result);\n      gameMonad.run([,,0,[],a]);  // Display the result and \n                                  // reset the operator and selected values.\n    }\n  };\n\n  function score(result) {\n      var sc = parseInt(gameMonad.fetch0());\n      var sco = result === 18 ? sc + 3 : sc + 1;\n      var scor = sco % 5 === 0 ? sco + 5 : sco;\n      var goals = gameMonad.fetch1();\n      if (scor === 25 && gameMonad.fetch1() === "2") {  // The player wins.\n          mMindex.ret(0);\n          gameMonad = new MonadState(\'gameMonad\', \n             [[[0,0,0,[],[0,0,0,0]],[0,0,0,[][0,0,0,0]]],0]);\n          socket.send(`CE#$42,' + pMgroup.x + ',' + pMname.x + '`);  \n          // Ask the server to announce the winner to the entire group\n          newRoll(0,0);\n      }\n      else if (scor === 25) {\n        newRoll(0, parseInt(goals,10) + 1);\n      }\n      else newRoll(scor, goals);   // No increase in the number of goals.\n  };   '), (0, _dom.h)('span.tao', ' Additional code is available at'), (0, _dom.h)('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript",
+	          target: "_blank" } }, 'monads-in-JavaScript.'), (0, _dom.h)('p', '.'), (0, _dom.h)('p'), (0, _dom.h)('h3', 'Appendix B - Curried Functions Used In Several Demonstrations'), (0, _dom.h)('pre', '  function square (v) {\n      return ret(v*v)\n    };\n\n    function cube (v, id) {\n      return ret(v*v*v, id);\n    };\n\n    function add (a, b, id) {\n      return ret((parseInt(a,10) + parseInt(b,10)),id);\n    };\n\n    const divCinverse = a => b => ret(e/b);\n    const divC = a => b => ret(b/a);\n    const addC = a => b => ret(a+b);\n    const cubeC = v => ret(v*v*v);\n    const multC = a => b => ret(a*b);\n    const doubleC = a => ret(a+a);\n    const squareC = a => ret(a*a);\n    const sqrtC = a => ret(Math.sqrt(a));\n\n  async function squareP (x) {\n    await wait(2000) \n    return ret(x*x);\n  }\n\n  function wait(ms) {\n    return new Promise(r => setTimeout(r, ms));\n  }\n\n  const divPinverse = a => async b => {\n    await wait (2000)\n    return ret(a/b);\n  }\n\n  const divP = a => async b => {\n    await wait (2000)\n    return ret(b/a);\n  }\n\n  const sqrtP = async a => {\n    await wait (2000)\n    return ret(Math.sqrt(a));\n  }\n\n  const doubleP = async a => {\n    await wait (2000)\n    return ret(a+a);\n  }\n\n  const addP = x => async y => {\n    await wait(2000) \n    return ret(x + y);\n  }\n\n  const multP = x => async y => {\n    await wait(2000) \n    return ret(x * y);\n  }\n\n  async function cubeP (x) {\n    await wait(2000) \n    return ret(x*x*x);\n  } '), (0, _dom.h)('p'), (0, _dom.h)('h3', 'Appendix C - Further Reading '), (0, _dom.h)('p', ' Here is a good resource: '), (0, _dom.h)('a', { props: { href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" } }, 'You Don\'t Know Javascript by Kyle Simpson'), (0, _dom.h)('span', ' You can support the open-source digital version of this book with Patreon at the above address or purchase hard copies from O\Reily, Amazon, etc. '), (0, _dom.h)('a', { props: { href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" } }, 'You Don\'t Know JavaScript'), (0, _dom.h)('span', ' is the thinking developer\'s answer to '), (0, _dom.h)('a', { props: { href: "http://shop.oreilly.com/product/9780596517748.do", target: "_blank" } }, ' "JavaScript: The Good Parts" by Douglas Crockford '), (0, _dom.h)('span#cyclet', ', which has long been revered as a "must read" JavaScript book. Kyle Simpson recommends learning to use potentially dangerous code intelligently while Douglas Crockford advocates never using it at all. I think the phrase "eval is evil" stems from Crockford\'s book. I find eval() to be very useful from time to time. Kyle Simpson teaches programmers how to safely tap the full potential of JavaScript. '), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: '#cycletime' } }, 'Return to the demonstration'), (0, _dom.h)('h2', 'Asynchronous Processes'), (0, _dom.h)('h3', 'Cycle.js Time '), (0, _dom.h)('p', ' As stated above, the monads do not depend on Cycle.js. This section is for anyone who happens to be interested in how the monads achieve reactivity in this Cycle.js application.'), (0, _dom.h)('p', ' Here are the two sequences of five linked functions that we will analyze:'), (0, _dom.h)('pre', '  bind(50)(cubeC)(it4)(it6)(it7) // Does not use Promises \n  bind(50)(cubeC)(prm4)(prm6)(it7) // Uses Promises     '), (0, _dom.h)('p', ' The first sequence is used in the live demonstration above. Both sequences fetch a random number from the server and then fetch the number\'s prime decomposition from a web worker. The sequence without promises seems to run slightly faster.  '), (0, _dom.h)('p', ' it7() was defined for use with MonadItter, not promises. It is a testiment to the robustness of bind() that it7() functions as intended at the end of a sequence of promises. '), (0, _dom.h)('p', ' When the code runs, a WebSocket socket requests and obtains a pseudo random number between 0 and 125,000 from the server. The number is then sent a web worker that computes its prime components. When the data arrives, Snabbdom is prompted to modify the DOM to reflect the current value of m42_RESULT. '), (0, _dom.h)('p', ' These two drivers (Cycle.js terminology) are involved in the procedure: '), (0, _dom.h)('pre', '  function WebSocketDriver() {\n    return xs.create({\n      start: listener => { socket.onmessage = msg => listener.next(msg)},\n      stop: () => { socket.close() }\n    });\n  };\n\n  function workerGDriver () {\n    return xs.create({\n      start: listener => { workerG.onmessage = msg => listener.next(msg)},\n      stop: () =>  workerG.terminate()  \n    });\n  }; '), (0, _dom.h)('p', ' These driver streams, among others, are located in an object named "sources" (shown below) '), (0, _dom.h)('pre', '  const sources = {\n    DOM: makeDOMDriver(\'#main-container\'),\n    WS: WebSocketDriver,\n    WWB: workerBDriver,\n    WWC: workerCDriver,\n    WWD: workerDDriver,\n    WWE: workerEDriver,\n    WWF: workerFDriver,\n    WWG: workerGDriver,\n    WW: workerDriver,\n    PP: pingpongDriver\n  } '), (0, _dom.h)('p', ' run() is the function that keeps the perpetual cycle spinning. It takes two arguments, main() and sources. In main(), the drivers listen for events and map them into streams that process them and merge into calcStream, the stream that prompts main() to return and then feeds Snabbdom\'s diff and render routine the side effects generated by operations on those events. '), (0, _dom.h)('p', ' When sources.WS hears a message prefixed by "BB#$42", MonadIterator instance mMZ27 is released. It releases mMZ37 with the number returned by the server (v[3]). it4() releases mMZ37 in it6, passing the number from the server to it. it6() sends the number to a web worker that sends back the number\'s prime decomposition. Here\'s the code: '), (0, _dom.h)('pre', '  var it4 = x => {\n    if (socket.readyState === 1) socket.send(\'BB#$42,pMgroup,pMname,\' + x);\n    return eval("mMZ37.bnd(mMZ37.bnd(y => y),ar)");\n  }\n\n  var it6 = x => {\n    mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));\n    mMZ38.bnd(v => mMZ39.release(v));\n  }  \n  var it7 = v => mMZ39.bnd( v => {\n    m42_RESULT.unshift(h(\'p\', orange, v[3] + v[0] + v[4] + v[5]));\n  })  '), (0, _dom.h)('h3', 'MonadItter'), (0, _dom.h)('p', ' The MonadItter section of the page has a detailed discussion and live demonstrations. This is the definition: '), (0, _dom.h)('pre', '  var MonadItter = function MonadItter() {\n    this.p = function () {};\n    this.release = function () {\n      return this.p.apply(this, arguments);\n    };\n    this.bnd = function (func) {\n      return this.p = func;\n    };\n  }; '), (0, _dom.h)('h3', 'Promises'), (0, _dom.h)('p', ' As the definition of MonadItter shows, bnd() saves functions until release() causes them to execute. MonadItter instances are usually used on this webpage where promises, generators, and async/await could also do the job. '), (0, _dom.h)('p', 'Here are the Promises-based functions prm4() and prm6() that can be substituted for it4() and it6() in the expression bind(50)(cubeC)(it4)(it6): '), (0, _dom.h)('pre', '  const prm4 = x => {\n    if (socket.readyState === 1) socket.send(\'BB#$42,pMgroup,pMname,\' + x);\n    return new Promise( (resolve, reject) => {\n       mMZ37.bnd((y) => resolve(ret(y))) \n    })                         \n  }  \n\n  const prm6 = x => {\n    workerG.postMessage([primesMonad.s, [x]]);\n    return "Done"\n  } '), (0, _dom.h)('p', ' Those who believe that eval() is evil might prefer the Promises approach. I find Promises to be opinionated, limited, black boxes. Using it4() and it6(), the process is explicit rather than hidden in a Promises black box. Of course, one could study the code defining Promises until it no longer looks like a black box, but why bother? '), (0, _dom.h)('p', ' Error handling is easy when using MonadItter instances, and is entirely optional. I recommend it when making Ajax requests from third-party web sites. '), (0, _dom.h)('p', ' After "bind(50)(cubeC)(it4)(it6) runs, the prime decomposition of the number it recieved arrives from workerG. The workerGDriver (sources.WWG) detects the message and adds it to the workerG$ stream. Here is the definition of workerGDriver:  '), (0, _dom.h)('pre', '  function workerGDriver () {\n    return xs.create({\n      start: listener => { workerG.onmessage = msg => listener.next(msg)},\n      stop: () => { workerG.terminate() }\n    });\n  }; '), (0, _dom.h)('p', ' Clicking the "decompose fifteen random numbers" button causes factorsRecursion(0) to execute. Here\'s the code: '), (0, _dom.h)('pre', blue, '  const factorsRecursion = n => bind(50)(cubeC)(it4)\n      (it6)(() => { if (n < 15) factorsRecursion(n+1)}); '), (0, _dom.h)('p', 'result778(m.data) is called each time a message from workerG arrives. The definition of result778 is:   '), (0, _dom.h)('pre', blue, 'var result778 = x => h(\'div\', [\n        m778_RESULT,  \n        h(\'br\'),\n        h(\'span\', bigBlue, x[3] ),\n        h(\'span\', bigGreen, x[0] ),\n        h(\'span\', bigBlue, x[4] ),\n        h(\'span\', bigRed, x[5] ),\n    ]); '), (0, _dom.h)('p', ' The stream that listens for workerG messages adds to the vnode m778_RESULT as follows: '), (0, _dom.h)('pre', 'const workerG$ = sources.WWG.map(m => {\n        m778_RESULT = result778(m.data);\n        primesMonad = new MonadState(\'primesMonad\', m.data[2]);\n    }); '), (0, _dom.h)('pre', bigGreen, 'const factorsRecursion = n => bind(50)(cubeC)(it4)\n  (it6)(pause)(() => { if (n < 15) factorsRecursion(n+1)}); '), (0, _dom.h)('p'), (0, _dom.h)('button#diffRender', diffRend)])])]);
 	    })
 	  };
 	}
@@ -3343,7 +3356,7 @@
 	 * of VNode as input, and outputs the DOMSource object.
 	 * @function makeHTMLDriver
 	 */
-	var makeHTMLDriver_1 = __webpack_require__(99);
+	var makeHTMLDriver_1 = __webpack_require__(103);
 	exports.makeHTMLDriver = makeHTMLDriver_1.makeHTMLDriver;
 	/**
 	 * A factory function to create mocked DOMSource objects, for testing purposes.
@@ -3393,7 +3406,7 @@
 	 *
 	 * @function mockDOMSource
 	 */
-	var mockDOMSource_1 = __webpack_require__(127);
+	var mockDOMSource_1 = __webpack_require__(131);
 	exports.mockDOMSource = mockDOMSource_1.mockDOMSource;
 	/**
 	 * The hyperscript function `h()` is a function to create virtual DOM objects,
@@ -3437,7 +3450,7 @@
 	 */
 	var hyperscript_1 = __webpack_require__(28);
 	exports.h = hyperscript_1.h;
-	var hyperscript_helpers_1 = __webpack_require__(128);
+	var hyperscript_helpers_1 = __webpack_require__(132);
 	exports.svg = hyperscript_helpers_1.default.svg;
 	exports.a = hyperscript_helpers_1.default.a;
 	exports.abbr = hyperscript_helpers_1.default.abbr;
@@ -3665,7 +3678,7 @@
 	var utils_1 = __webpack_require__(23);
 	var modules_1 = __webpack_require__(32);
 	var isolateModule_1 = __webpack_require__(39);
-	var transposition_1 = __webpack_require__(98);
+	var transposition_1 = __webpack_require__(102);
 	var xstream_adapter_1 = __webpack_require__(3);
 	var MapPolyfill = __webpack_require__(40);
 	function makeDOMDriverInputGuard(modules) {
@@ -5558,17 +5571,17 @@
 	'use strict';
 
 	var clear          = __webpack_require__(43)
-	  , eIndexOf       = __webpack_require__(45)
-	  , setPrototypeOf = __webpack_require__(51)
-	  , callable       = __webpack_require__(56)
+	  , eIndexOf       = __webpack_require__(47)
+	  , setPrototypeOf = __webpack_require__(56)
+	  , callable       = __webpack_require__(61)
 	  , validValue     = __webpack_require__(44)
-	  , d              = __webpack_require__(57)
-	  , ee             = __webpack_require__(69)
-	  , Symbol         = __webpack_require__(70)
-	  , iterator       = __webpack_require__(75)
-	  , forOf          = __webpack_require__(79)
-	  , Iterator       = __webpack_require__(94)
-	  , isNative       = __webpack_require__(97)
+	  , d              = __webpack_require__(62)
+	  , ee             = __webpack_require__(74)
+	  , Symbol         = __webpack_require__(75)
+	  , iterator       = __webpack_require__(80)
+	  , forOf          = __webpack_require__(84)
+	  , Iterator       = __webpack_require__(98)
+	  , isNative       = __webpack_require__(101)
 
 	  , call = Function.prototype.call
 	  , defineProperties = Object.defineProperties, getPrototypeOf = Object.getPrototypeOf
@@ -5669,7 +5682,7 @@
 	// http://closure-library.googlecode.com/svn/docs/
 	// closure_goog_array_array.js.html#goog.array.clear
 
-	'use strict';
+	"use strict";
 
 	var value = __webpack_require__(44);
 
@@ -5681,12 +5694,14 @@
 
 /***/ }),
 /* 44 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
+
+	var isValue = __webpack_require__(45);
 
 	module.exports = function (value) {
-		if (value == null) throw new TypeError("Cannot use null or undefined");
+		if (!isValue(value)) throw new TypeError("Cannot use null or undefined");
 		return value;
 	};
 
@@ -5695,31 +5710,53 @@
 /* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	var toPosInt = __webpack_require__(46)
-	  , value    = __webpack_require__(44)
+	var _undefined = __webpack_require__(46)(); // Support ES3 engines
 
-	  , indexOf = Array.prototype.indexOf
-	  , hasOwnProperty = Object.prototype.hasOwnProperty
-	  , abs = Math.abs, floor = Math.floor;
+	module.exports = function (val) {
+	 return (val !== _undefined) && (val !== null);
+	};
 
-	module.exports = function (searchElement/*, fromIndex*/) {
-		var i, l, fromIndex, val;
-		if (searchElement === searchElement) { //jslint: ignore
-			return indexOf.apply(this, arguments);
-		}
 
-		l = toPosInt(value(this).length);
+/***/ }),
+/* 46 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	// eslint-disable-next-line no-empty-function
+	module.exports = function () {};
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var numberIsNaN       = __webpack_require__(48)
+	  , toPosInt          = __webpack_require__(51)
+	  , value             = __webpack_require__(44)
+	  , indexOf           = Array.prototype.indexOf
+	  , objHasOwnProperty = Object.prototype.hasOwnProperty
+	  , abs               = Math.abs
+	  , floor             = Math.floor;
+
+	module.exports = function (searchElement /*, fromIndex*/) {
+		var i, length, fromIndex, val;
+		if (!numberIsNaN(searchElement)) return indexOf.apply(this, arguments);
+
+		length = toPosInt(value(this).length);
 		fromIndex = arguments[1];
 		if (isNaN(fromIndex)) fromIndex = 0;
 		else if (fromIndex >= 0) fromIndex = floor(fromIndex);
 		else fromIndex = toPosInt(this.length) - floor(abs(fromIndex));
 
-		for (i = fromIndex; i < l; ++i) {
-			if (hasOwnProperty.call(this, i)) {
+		for (i = fromIndex; i < length; ++i) {
+			if (objHasOwnProperty.call(this, i)) {
 				val = this[i];
-				if (val !== val) return i; //jslint: ignore
+				if (numberIsNaN(val)) return i; // Jslint: ignore
 			}
 		}
 		return -1;
@@ -5727,25 +5764,63 @@
 
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	var toInteger = __webpack_require__(47)
-
-	  , max = Math.max;
-
-	module.exports = function (value) { return max(0, toInteger(value)); };
+	module.exports = __webpack_require__(49)()
+		? Number.isNaN
+		: __webpack_require__(50);
 
 
 /***/ }),
-/* 47 */
+/* 49 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	module.exports = function () {
+		var numberIsNaN = Number.isNaN;
+		if (typeof numberIsNaN !== "function") return false;
+		return !numberIsNaN({}) && numberIsNaN(NaN) && !numberIsNaN(34);
+	};
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	module.exports = function (value) {
+		// eslint-disable-next-line no-self-compare
+		return value !== value;
+	};
+
+
+/***/ }),
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	var sign = __webpack_require__(48)
+	var toInteger = __webpack_require__(52)
+
+	  , max = Math.max;
+
+	module.exports = function (value) {
+	 return max(0, toInteger(value));
+	};
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var sign = __webpack_require__(53)
 
 	  , abs = Math.abs, floor = Math.floor;
 
@@ -5758,92 +5833,95 @@
 
 
 /***/ }),
-/* 48 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	module.exports = __webpack_require__(49)()
+	module.exports = __webpack_require__(54)()
 		? Math.sign
-		: __webpack_require__(50);
+		: __webpack_require__(55);
 
 
 /***/ }),
-/* 49 */
+/* 54 */
 /***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	module.exports = function () {
 		var sign = Math.sign;
-		if (typeof sign !== 'function') return false;
-		return ((sign(10) === 1) && (sign(-20) === -1));
+		if (typeof sign !== "function") return false;
+		return (sign(10) === 1) && (sign(-20) === -1);
 	};
 
 
 /***/ }),
-/* 50 */
+/* 55 */
 /***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	module.exports = function (value) {
 		value = Number(value);
 		if (isNaN(value) || (value === 0)) return value;
-		return (value > 0) ? 1 : -1;
+		return value > 0 ? 1 : -1;
 	};
 
 
 /***/ }),
-/* 51 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	module.exports = __webpack_require__(52)()
+	module.exports = __webpack_require__(57)()
 		? Object.setPrototypeOf
-		: __webpack_require__(53);
+		: __webpack_require__(58);
 
 
 /***/ }),
-/* 52 */
+/* 57 */
 /***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
 
-	var create = Object.create, getPrototypeOf = Object.getPrototypeOf
-	  , x = {};
+	var create = Object.create, getPrototypeOf = Object.getPrototypeOf, plainObject = {};
 
-	module.exports = function (/*customCreate*/) {
-		var setPrototypeOf = Object.setPrototypeOf
-		  , customCreate = arguments[0] || create;
-		if (typeof setPrototypeOf !== 'function') return false;
-		return getPrototypeOf(setPrototypeOf(customCreate(null), x)) === x;
+	module.exports = function (/* CustomCreate*/) {
+		var setPrototypeOf = Object.setPrototypeOf, customCreate = arguments[0] || create;
+		if (typeof setPrototypeOf !== "function") return false;
+		return getPrototypeOf(setPrototypeOf(customCreate(null), plainObject)) === plainObject;
 	};
 
 
 /***/ }),
-/* 53 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
+
+	/* eslint no-proto: "off" */
 
 	// Big thanks to @WebReflection for sorting this out
 	// https://gist.github.com/WebReflection/5593554
 
-	'use strict';
+	"use strict";
 
-	var isObject      = __webpack_require__(54)
-	  , value         = __webpack_require__(44)
-
-	  , isPrototypeOf = Object.prototype.isPrototypeOf
-	  , defineProperty = Object.defineProperty
-	  , nullDesc = { configurable: true, enumerable: false, writable: true,
-			value: undefined }
+	var isObject        = __webpack_require__(59)
+	  , value           = __webpack_require__(44)
+	  , objIsPrototypeOf = Object.prototype.isPrototypeOf
+	  , defineProperty  = Object.defineProperty
+	  , nullDesc        = {
+		configurable: true,
+		enumerable: false,
+		writable: true,
+		value: undefined
+	}
 	  , validate;
 
 	validate = function (obj, prototype) {
 		value(obj);
-		if ((prototype === null) || isObject(prototype)) return obj;
-		throw new TypeError('Prototype must be null or an object');
+		if (prototype === null || isObject(prototype)) return obj;
+		throw new TypeError("Prototype must be null or an object");
 	};
 
 	module.exports = (function (status) {
@@ -5866,118 +5944,140 @@
 			fn = function self(obj, prototype) {
 				var isNullBase;
 				validate(obj, prototype);
-				isNullBase = isPrototypeOf.call(self.nullPolyfill, obj);
+				isNullBase = objIsPrototypeOf.call(self.nullPolyfill, obj);
 				if (isNullBase) delete self.nullPolyfill.__proto__;
 				if (prototype === null) prototype = self.nullPolyfill;
 				obj.__proto__ = prototype;
-				if (isNullBase) defineProperty(self.nullPolyfill, '__proto__', nullDesc);
+				if (isNullBase) defineProperty(self.nullPolyfill, "__proto__", nullDesc);
 				return obj;
 			};
 		}
-		return Object.defineProperty(fn, 'level', { configurable: false,
-			enumerable: false, writable: false, value: status.level });
-	}((function () {
-		var x = Object.create(null), y = {}, set
-		  , desc = Object.getOwnPropertyDescriptor(Object.prototype, '__proto__');
+		return Object.defineProperty(fn, "level", {
+			configurable: false,
+			enumerable: false,
+			writable: false,
+			value: status.level
+		});
+	}(
+		(function () {
+			var tmpObj1 = Object.create(null)
+			  , tmpObj2 = {}
+			  , set
+			  , desc = Object.getOwnPropertyDescriptor(Object.prototype, "__proto__");
 
-		if (desc) {
-			try {
-				set = desc.set; // Opera crashes at this point
-				set.call(x, y);
-			} catch (ignore) { }
-			if (Object.getPrototypeOf(x) === y) return { set: set, level: 2 };
-		}
+			if (desc) {
+				try {
+					set = desc.set; // Opera crashes at this point
+					set.call(tmpObj1, tmpObj2);
+				} catch (ignore) {}
+				if (Object.getPrototypeOf(tmpObj1) === tmpObj2) return { set: set, level: 2 };
+			}
 
-		x.__proto__ = y;
-		if (Object.getPrototypeOf(x) === y) return { level: 2 };
+			tmpObj1.__proto__ = tmpObj2;
+			if (Object.getPrototypeOf(tmpObj1) === tmpObj2) return { level: 2 };
 
-		x = {};
-		x.__proto__ = y;
-		if (Object.getPrototypeOf(x) === y) return { level: 1 };
+			tmpObj1 = {};
+			tmpObj1.__proto__ = tmpObj2;
+			if (Object.getPrototypeOf(tmpObj1) === tmpObj2) return { level: 1 };
 
-		return false;
-	}())));
+			return false;
+		})()
+	));
 
-	__webpack_require__(55);
+	__webpack_require__(60);
 
 
 /***/ }),
-/* 54 */
-/***/ (function(module, exports) {
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	var map = { 'function': true, object: true };
+	var isValue = __webpack_require__(45);
 
-	module.exports = function (x) {
-		return ((x != null) && map[typeof x]) || false;
+	var map = { function: true, object: true };
+
+	module.exports = function (value) {
+		return (isValue(value) && map[typeof value]) || false;
 	};
 
 
 /***/ }),
-/* 55 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// Workaround for http://code.google.com/p/v8/issues/detail?id=2804
 
-	'use strict';
+	"use strict";
 
 	var create = Object.create, shim;
 
-	if (!__webpack_require__(52)()) {
-		shim = __webpack_require__(53);
+	if (!__webpack_require__(57)()) {
+		shim = __webpack_require__(58);
 	}
 
 	module.exports = (function () {
-		var nullObject, props, desc;
+		var nullObject, polyProps, desc;
 		if (!shim) return create;
 		if (shim.level !== 1) return create;
 
 		nullObject = {};
-		props = {};
-		desc = { configurable: false, enumerable: false, writable: true,
-			value: undefined };
+		polyProps = {};
+		desc = {
+			configurable: false,
+			enumerable: false,
+			writable: true,
+			value: undefined
+		};
 		Object.getOwnPropertyNames(Object.prototype).forEach(function (name) {
-			if (name === '__proto__') {
-				props[name] = { configurable: true, enumerable: false, writable: true,
-					value: undefined };
+			if (name === "__proto__") {
+				polyProps[name] = {
+					configurable: true,
+					enumerable: false,
+					writable: true,
+					value: undefined
+				};
 				return;
 			}
-			props[name] = desc;
+			polyProps[name] = desc;
 		});
-		Object.defineProperties(nullObject, props);
+		Object.defineProperties(nullObject, polyProps);
 
-		Object.defineProperty(shim, 'nullPolyfill', { configurable: false,
-			enumerable: false, writable: false, value: nullObject });
+		Object.defineProperty(shim, "nullPolyfill", {
+			configurable: false,
+			enumerable: false,
+			writable: false,
+			value: nullObject
+		});
 
 		return function (prototype, props) {
-			return create((prototype === null) ? nullObject : prototype, props);
+			return create(prototype === null ? nullObject : prototype, props);
 		};
 	}());
 
 
 /***/ }),
-/* 56 */
+/* 61 */
 /***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	module.exports = function (fn) {
-		if (typeof fn !== 'function') throw new TypeError(fn + " is not a function");
+		if (typeof fn !== "function") throw new TypeError(fn + " is not a function");
 		return fn;
 	};
 
 
 /***/ }),
-/* 57 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var assign        = __webpack_require__(58)
-	  , normalizeOpts = __webpack_require__(64)
-	  , isCallable    = __webpack_require__(65)
-	  , contains      = __webpack_require__(66)
+	var assign        = __webpack_require__(63)
+	  , normalizeOpts = __webpack_require__(69)
+	  , isCallable    = __webpack_require__(70)
+	  , contains      = __webpack_require__(71)
 
 	  , d;
 
@@ -6038,51 +6138,52 @@
 
 
 /***/ }),
-/* 58 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	module.exports = __webpack_require__(59)()
+	module.exports = __webpack_require__(64)()
 		? Object.assign
-		: __webpack_require__(60);
+		: __webpack_require__(65);
 
 
 /***/ }),
-/* 59 */
+/* 64 */
 /***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	module.exports = function () {
 		var assign = Object.assign, obj;
-		if (typeof assign !== 'function') return false;
-		obj = { foo: 'raz' };
-		assign(obj, { bar: 'dwa' }, { trzy: 'trzy' });
-		return (obj.foo + obj.bar + obj.trzy) === 'razdwatrzy';
+		if (typeof assign !== "function") return false;
+		obj = { foo: "raz" };
+		assign(obj, { bar: "dwa" }, { trzy: "trzy" });
+		return (obj.foo + obj.bar + obj.trzy) === "razdwatrzy";
 	};
 
 
 /***/ }),
-/* 60 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	var keys  = __webpack_require__(61)
+	var keys  = __webpack_require__(66)
 	  , value = __webpack_require__(44)
+	  , max   = Math.max;
 
-	  , max = Math.max;
-
-	module.exports = function (dest, src/*, …srcn*/) {
-		var error, i, l = max(arguments.length, 2), assign;
+	module.exports = function (dest, src /*, …srcn*/) {
+		var error, i, length = max(arguments.length, 2), assign;
 		dest = Object(value(dest));
 		assign = function (key) {
-			try { dest[key] = src[key]; } catch (e) {
+			try {
+				dest[key] = src[key];
+			} catch (e) {
 				if (!error) error = e;
 			}
 		};
-		for (i = 1; i < l; ++i) {
+		for (i = 1; i < length; ++i) {
 			src = arguments[i];
 			keys(src).forEach(assign);
 		}
@@ -6092,48 +6193,54 @@
 
 
 /***/ }),
-/* 61 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	module.exports = __webpack_require__(62)()
+	module.exports = __webpack_require__(67)()
 		? Object.keys
-		: __webpack_require__(63);
+		: __webpack_require__(68);
 
 
 /***/ }),
-/* 62 */
+/* 67 */
 /***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	module.exports = function () {
 		try {
-			Object.keys('primitive');
+			Object.keys("primitive");
 			return true;
-		} catch (e) { return false; }
+		} catch (e) {
+	 return false;
+	}
 	};
 
 
 /***/ }),
-/* 63 */
-/***/ (function(module, exports) {
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
+
+	var isValue = __webpack_require__(45);
 
 	var keys = Object.keys;
 
 	module.exports = function (object) {
-		return keys(object == null ? object : Object(object));
+		return keys(isValue(object) ? Object(object) : object);
 	};
 
 
 /***/ }),
-/* 64 */
-/***/ (function(module, exports) {
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
+
+	var isValue = __webpack_require__(45);
 
 	var forEach = Array.prototype.forEach, create = Object.create;
 
@@ -6142,10 +6249,11 @@
 		for (key in src) obj[key] = src[key];
 	};
 
-	module.exports = function (options/*, …options*/) {
+	// eslint-disable-next-line no-unused-vars
+	module.exports = function (opts1 /*, …options*/) {
 		var result = create(null);
 		forEach.call(arguments, function (options) {
-			if (options == null) return;
+			if (!isValue(options)) return;
 			process(Object(options), result);
 		});
 		return result;
@@ -6153,46 +6261,48 @@
 
 
 /***/ }),
-/* 65 */
+/* 70 */
 /***/ (function(module, exports) {
 
 	// Deprecated
 
-	'use strict';
+	"use strict";
 
-	module.exports = function (obj) { return typeof obj === 'function'; };
-
-
-/***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	module.exports = __webpack_require__(67)()
-		? String.prototype.contains
-		: __webpack_require__(68);
-
-
-/***/ }),
-/* 67 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	var str = 'razdwatrzy';
-
-	module.exports = function () {
-		if (typeof str.contains !== 'function') return false;
-		return ((str.contains('dwa') === true) && (str.contains('foo') === false));
+	module.exports = function (obj) {
+	 return typeof obj === "function";
 	};
 
 
 /***/ }),
-/* 68 */
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = __webpack_require__(72)()
+		? String.prototype.contains
+		: __webpack_require__(73);
+
+
+/***/ }),
+/* 72 */
 /***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
+
+	var str = "razdwatrzy";
+
+	module.exports = function () {
+		if (typeof str.contains !== "function") return false;
+		return (str.contains("dwa") === true) && (str.contains("foo") === false);
+	};
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports) {
+
+	"use strict";
 
 	var indexOf = String.prototype.indexOf;
 
@@ -6202,13 +6312,13 @@
 
 
 /***/ }),
-/* 69 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var d        = __webpack_require__(57)
-	  , callable = __webpack_require__(56)
+	var d        = __webpack_require__(62)
+	  , callable = __webpack_require__(61)
 
 	  , apply = Function.prototype.apply, call = Function.prototype.call
 	  , create = Object.create, defineProperty = Object.defineProperty
@@ -6340,16 +6450,16 @@
 
 
 /***/ }),
-/* 70 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(71)() ? Symbol : __webpack_require__(72);
+	module.exports = __webpack_require__(76)() ? Symbol : __webpack_require__(77);
 
 
 /***/ }),
-/* 71 */
+/* 76 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -6372,15 +6482,15 @@
 
 
 /***/ }),
-/* 72 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// ES2015 Symbol polyfill for environments that do not (or partially) support it
 
 	'use strict';
 
-	var d              = __webpack_require__(57)
-	  , validateSymbol = __webpack_require__(73)
+	var d              = __webpack_require__(62)
+	  , validateSymbol = __webpack_require__(78)
 
 	  , create = Object.create, defineProperties = Object.defineProperties
 	  , defineProperty = Object.defineProperty, objPrototype = Object.prototype
@@ -6496,12 +6606,12 @@
 
 
 /***/ }),
-/* 73 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isSymbol = __webpack_require__(74);
+	var isSymbol = __webpack_require__(79);
 
 	module.exports = function (value) {
 		if (!isSymbol(value)) throw new TypeError(value + " is not a symbol");
@@ -6510,7 +6620,7 @@
 
 
 /***/ }),
-/* 74 */
+/* 79 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -6525,12 +6635,12 @@
 
 
 /***/ }),
-/* 75 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	var isIterable = __webpack_require__(76);
+	var isIterable = __webpack_require__(81);
 
 	module.exports = function (value) {
 		if (!isIterable(value)) throw new TypeError(value + " is not iterable");
@@ -6539,91 +6649,101 @@
 
 
 /***/ }),
-/* 76 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	var isArguments    = __webpack_require__(77)
-	  , isString       = __webpack_require__(78)
-	  , iteratorSymbol = __webpack_require__(70).iterator
+	var isArguments = __webpack_require__(82)
+	  , isValue     = __webpack_require__(45)
+	  , isString    = __webpack_require__(83);
 
-	  , isArray = Array.isArray;
+	var iteratorSymbol = __webpack_require__(75).iterator
+	  , isArray        = Array.isArray;
 
 	module.exports = function (value) {
-		if (value == null) return false;
+		if (!isValue(value)) return false;
 		if (isArray(value)) return true;
 		if (isString(value)) return true;
 		if (isArguments(value)) return true;
-		return (typeof value[iteratorSymbol] === 'function');
+		return typeof value[iteratorSymbol] === "function";
 	};
 
 
 /***/ }),
-/* 77 */
+/* 82 */
 /***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
 
-	var toString = Object.prototype.toString
+	var objToString = Object.prototype.toString
+	  , id = objToString.call(
+		(function () {
+			return arguments;
+		})()
+	);
 
-	  , id = toString.call((function () { return arguments; }()));
-
-	module.exports = function (x) { return (toString.call(x) === id); };
-
-
-/***/ }),
-/* 78 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	var toString = Object.prototype.toString
-
-	  , id = toString.call('');
-
-	module.exports = function (x) {
-		return (typeof x === 'string') || (x && (typeof x === 'object') &&
-			((x instanceof String) || (toString.call(x) === id))) || false;
+	module.exports = function (value) {
+		return objToString.call(value) === id;
 	};
 
 
 /***/ }),
-/* 79 */
+/* 83 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	var objToString = Object.prototype.toString, id = objToString.call("");
+
+	module.exports = function (value) {
+		return (
+			typeof value === "string" ||
+			(value &&
+				typeof value === "object" &&
+				(value instanceof String || objToString.call(value) === id)) ||
+			false
+		);
+	};
+
+
+/***/ }),
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	var isArguments = __webpack_require__(77)
-	  , callable    = __webpack_require__(56)
-	  , isString    = __webpack_require__(78)
-	  , get         = __webpack_require__(80)
+	var isArguments = __webpack_require__(82)
+	  , callable    = __webpack_require__(61)
+	  , isString    = __webpack_require__(83)
+	  , get         = __webpack_require__(85);
 
-	  , isArray = Array.isArray, call = Function.prototype.call
-	  , some = Array.prototype.some;
+	var isArray = Array.isArray, call = Function.prototype.call, some = Array.prototype.some;
 
-	module.exports = function (iterable, cb/*, thisArg*/) {
-		var mode, thisArg = arguments[2], result, doBreak, broken, i, l, char, code;
-		if (isArray(iterable) || isArguments(iterable)) mode = 'array';
-		else if (isString(iterable)) mode = 'string';
+	module.exports = function (iterable, cb /*, thisArg*/) {
+		var mode, thisArg = arguments[2], result, doBreak, broken, i, length, char, code;
+		if (isArray(iterable) || isArguments(iterable)) mode = "array";
+		else if (isString(iterable)) mode = "string";
 		else iterable = get(iterable);
 
 		callable(cb);
-		doBreak = function () { broken = true; };
-		if (mode === 'array') {
+		doBreak = function () {
+			broken = true;
+		};
+		if (mode === "array") {
 			some.call(iterable, function (value) {
 				call.call(cb, thisArg, value, doBreak);
-				if (broken) return true;
+				return broken;
 			});
 			return;
 		}
-		if (mode === 'string') {
-			l = iterable.length;
-			for (i = 0; i < l; ++i) {
+		if (mode === "string") {
+			length = iterable.length;
+			for (i = 0; i < length; ++i) {
 				char = iterable[i];
-				if ((i + 1) < l) {
+				if (i + 1 < length) {
 					code = char.charCodeAt(0);
-					if ((code >= 0xD800) && (code <= 0xDBFF)) char += iterable[++i];
+					if (code >= 0xd800 && code <= 0xdbff) char += iterable[++i];
 				}
 				call.call(cb, thisArg, char, doBreak);
 				if (broken) break;
@@ -6641,20 +6761,20 @@
 
 
 /***/ }),
-/* 80 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	var isArguments    = __webpack_require__(77)
-	  , isString       = __webpack_require__(78)
-	  , ArrayIterator  = __webpack_require__(81)
-	  , StringIterator = __webpack_require__(93)
-	  , iterable       = __webpack_require__(75)
-	  , iteratorSymbol = __webpack_require__(70).iterator;
+	var isArguments    = __webpack_require__(82)
+	  , isString       = __webpack_require__(83)
+	  , ArrayIterator  = __webpack_require__(86)
+	  , StringIterator = __webpack_require__(97)
+	  , iterable       = __webpack_require__(80)
+	  , iteratorSymbol = __webpack_require__(75).iterator;
 
 	module.exports = function (obj) {
-		if (typeof iterable(obj)[iteratorSymbol] === 'function') return obj[iteratorSymbol]();
+		if (typeof iterable(obj)[iteratorSymbol] === "function") return obj[iteratorSymbol]();
 		if (isArguments(obj)) return new ArrayIterator(obj);
 		if (isString(obj)) return new StringIterator(obj);
 		return new ArrayIterator(obj);
@@ -6662,148 +6782,166 @@
 
 
 /***/ }),
-/* 81 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	var setPrototypeOf = __webpack_require__(51)
-	  , contains       = __webpack_require__(66)
-	  , d              = __webpack_require__(57)
-	  , Iterator       = __webpack_require__(82)
+	var setPrototypeOf = __webpack_require__(56)
+	  , contains       = __webpack_require__(71)
+	  , d              = __webpack_require__(62)
+	  , Symbol         = __webpack_require__(75)
+	  , Iterator       = __webpack_require__(87);
 
-	  , defineProperty = Object.defineProperty
-	  , ArrayIterator;
+	var defineProperty = Object.defineProperty, ArrayIterator;
 
 	ArrayIterator = module.exports = function (arr, kind) {
-		if (!(this instanceof ArrayIterator)) return new ArrayIterator(arr, kind);
+		if (!(this instanceof ArrayIterator)) throw new TypeError("Constructor requires 'new'");
 		Iterator.call(this, arr);
-		if (!kind) kind = 'value';
-		else if (contains.call(kind, 'key+value')) kind = 'key+value';
-		else if (contains.call(kind, 'key')) kind = 'key';
-		else kind = 'value';
-		defineProperty(this, '__kind__', d('', kind));
+		if (!kind) kind = "value";
+		else if (contains.call(kind, "key+value")) kind = "key+value";
+		else if (contains.call(kind, "key")) kind = "key";
+		else kind = "value";
+		defineProperty(this, "__kind__", d("", kind));
 	};
 	if (setPrototypeOf) setPrototypeOf(ArrayIterator, Iterator);
 
+	// Internal %ArrayIteratorPrototype% doesn't expose its constructor
+	delete ArrayIterator.prototype.constructor;
+
 	ArrayIterator.prototype = Object.create(Iterator.prototype, {
-		constructor: d(ArrayIterator),
 		_resolve: d(function (i) {
-			if (this.__kind__ === 'value') return this.__list__[i];
-			if (this.__kind__ === 'key+value') return [i, this.__list__[i]];
+			if (this.__kind__ === "value") return this.__list__[i];
+			if (this.__kind__ === "key+value") return [i, this.__list__[i]];
 			return i;
-		}),
-		toString: d(function () { return '[object Array Iterator]'; })
+		})
 	});
+	defineProperty(ArrayIterator.prototype, Symbol.toStringTag, d("c", "Array Iterator"));
 
 
 /***/ }),
-/* 82 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	var clear    = __webpack_require__(43)
-	  , assign   = __webpack_require__(58)
-	  , callable = __webpack_require__(56)
+	  , assign   = __webpack_require__(63)
+	  , callable = __webpack_require__(61)
 	  , value    = __webpack_require__(44)
-	  , d        = __webpack_require__(57)
-	  , autoBind = __webpack_require__(83)
-	  , Symbol   = __webpack_require__(70)
+	  , d        = __webpack_require__(62)
+	  , autoBind = __webpack_require__(88)
+	  , Symbol   = __webpack_require__(75);
 
-	  , defineProperty = Object.defineProperty
-	  , defineProperties = Object.defineProperties
-	  , Iterator;
+	var defineProperty = Object.defineProperty, defineProperties = Object.defineProperties, Iterator;
 
 	module.exports = Iterator = function (list, context) {
-		if (!(this instanceof Iterator)) return new Iterator(list, context);
+		if (!(this instanceof Iterator)) throw new TypeError("Constructor requires 'new'");
 		defineProperties(this, {
-			__list__: d('w', value(list)),
-			__context__: d('w', context),
-			__nextIndex__: d('w', 0)
+			__list__: d("w", value(list)),
+			__context__: d("w", context),
+			__nextIndex__: d("w", 0)
 		});
 		if (!context) return;
 		callable(context.on);
-		context.on('_add', this._onAdd);
-		context.on('_delete', this._onDelete);
-		context.on('_clear', this._onClear);
+		context.on("_add", this._onAdd);
+		context.on("_delete", this._onDelete);
+		context.on("_clear", this._onClear);
 	};
 
-	defineProperties(Iterator.prototype, assign({
-		constructor: d(Iterator),
-		_next: d(function () {
-			var i;
-			if (!this.__list__) return;
-			if (this.__redo__) {
-				i = this.__redo__.shift();
-				if (i !== undefined) return i;
-			}
-			if (this.__nextIndex__ < this.__list__.length) return this.__nextIndex__++;
-			this._unBind();
-		}),
-		next: d(function () { return this._createResult(this._next()); }),
-		_createResult: d(function (i) {
-			if (i === undefined) return { done: true, value: undefined };
-			return { done: false, value: this._resolve(i) };
-		}),
-		_resolve: d(function (i) { return this.__list__[i]; }),
-		_unBind: d(function () {
-			this.__list__ = null;
-			delete this.__redo__;
-			if (!this.__context__) return;
-			this.__context__.off('_add', this._onAdd);
-			this.__context__.off('_delete', this._onDelete);
-			this.__context__.off('_clear', this._onClear);
-			this.__context__ = null;
-		}),
-		toString: d(function () { return '[object Iterator]'; })
-	}, autoBind({
-		_onAdd: d(function (index) {
-			if (index >= this.__nextIndex__) return;
-			++this.__nextIndex__;
-			if (!this.__redo__) {
-				defineProperty(this, '__redo__', d('c', [index]));
-				return;
-			}
-			this.__redo__.forEach(function (redo, i) {
-				if (redo >= index) this.__redo__[i] = ++redo;
-			}, this);
-			this.__redo__.push(index);
-		}),
-		_onDelete: d(function (index) {
-			var i;
-			if (index >= this.__nextIndex__) return;
-			--this.__nextIndex__;
-			if (!this.__redo__) return;
-			i = this.__redo__.indexOf(index);
-			if (i !== -1) this.__redo__.splice(i, 1);
-			this.__redo__.forEach(function (redo, i) {
-				if (redo > index) this.__redo__[i] = --redo;
-			}, this);
-		}),
-		_onClear: d(function () {
-			if (this.__redo__) clear.call(this.__redo__);
-			this.__nextIndex__ = 0;
-		})
-	})));
+	// Internal %IteratorPrototype% doesn't expose its constructor
+	delete Iterator.prototype.constructor;
 
-	defineProperty(Iterator.prototype, Symbol.iterator, d(function () {
-		return this;
-	}));
-	defineProperty(Iterator.prototype, Symbol.toStringTag, d('', 'Iterator'));
+	defineProperties(
+		Iterator.prototype,
+		assign(
+			{
+				_next: d(function () {
+					var i;
+					if (!this.__list__) return undefined;
+					if (this.__redo__) {
+						i = this.__redo__.shift();
+						if (i !== undefined) return i;
+					}
+					if (this.__nextIndex__ < this.__list__.length) return this.__nextIndex__++;
+					this._unBind();
+					return undefined;
+				}),
+				next: d(function () {
+					return this._createResult(this._next());
+				}),
+				_createResult: d(function (i) {
+					if (i === undefined) return { done: true, value: undefined };
+					return { done: false, value: this._resolve(i) };
+				}),
+				_resolve: d(function (i) {
+					return this.__list__[i];
+				}),
+				_unBind: d(function () {
+					this.__list__ = null;
+					delete this.__redo__;
+					if (!this.__context__) return;
+					this.__context__.off("_add", this._onAdd);
+					this.__context__.off("_delete", this._onDelete);
+					this.__context__.off("_clear", this._onClear);
+					this.__context__ = null;
+				}),
+				toString: d(function () {
+					return "[object " + (this[Symbol.toStringTag] || "Object") + "]";
+				})
+			},
+			autoBind({
+				_onAdd: d(function (index) {
+					if (index >= this.__nextIndex__) return;
+					++this.__nextIndex__;
+					if (!this.__redo__) {
+						defineProperty(this, "__redo__", d("c", [index]));
+						return;
+					}
+					this.__redo__.forEach(function (redo, i) {
+						if (redo >= index) this.__redo__[i] = ++redo;
+					}, this);
+					this.__redo__.push(index);
+				}),
+				_onDelete: d(function (index) {
+					var i;
+					if (index >= this.__nextIndex__) return;
+					--this.__nextIndex__;
+					if (!this.__redo__) return;
+					i = this.__redo__.indexOf(index);
+					if (i !== -1) this.__redo__.splice(i, 1);
+					this.__redo__.forEach(function (redo, j) {
+						if (redo > index) this.__redo__[j] = --redo;
+					}, this);
+				}),
+				_onClear: d(function () {
+					if (this.__redo__) clear.call(this.__redo__);
+					this.__nextIndex__ = 0;
+				})
+			})
+		)
+	);
+
+	defineProperty(
+		Iterator.prototype,
+		Symbol.iterator,
+		d(function () {
+			return this;
+		})
+	);
 
 
 /***/ }),
-/* 83 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var copy             = __webpack_require__(84)
-	  , normalizeOptions = __webpack_require__(64)
-	  , ensureCallable   = __webpack_require__(56)
-	  , map              = __webpack_require__(90)
-	  , callable         = __webpack_require__(56)
+	var copy             = __webpack_require__(89)
+	  , normalizeOptions = __webpack_require__(69)
+	  , ensureCallable   = __webpack_require__(61)
+	  , map              = __webpack_require__(94)
+	  , callable         = __webpack_require__(61)
 	  , validValue       = __webpack_require__(44)
 
 	  , bind = Function.prototype.bind, defineProperty = Object.defineProperty
@@ -6832,13 +6970,13 @@
 
 
 /***/ }),
-/* 84 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	var aFrom  = __webpack_require__(85)
-	  , assign = __webpack_require__(58)
+	var aFrom  = __webpack_require__(90)
+	  , assign = __webpack_require__(63)
 	  , value  = __webpack_require__(44);
 
 	module.exports = function (obj/*, propertyNames, options*/) {
@@ -6857,229 +6995,153 @@
 
 
 /***/ }),
-/* 85 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	module.exports = __webpack_require__(86)()
-		? Array.from
-		: __webpack_require__(87);
-
-
-/***/ }),
-/* 86 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	module.exports = function () {
-		var from = Array.from, arr, result;
-		if (typeof from !== 'function') return false;
-		arr = ['raz', 'dwa'];
-		result = from(arr);
-		return Boolean(result && (result !== arr) && (result[1] === 'dwa'));
-	};
-
-
-/***/ }),
-/* 87 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var iteratorSymbol = __webpack_require__(70).iterator
-	  , isArguments    = __webpack_require__(77)
-	  , isFunction     = __webpack_require__(88)
-	  , toPosInt       = __webpack_require__(46)
-	  , callable       = __webpack_require__(56)
-	  , validValue     = __webpack_require__(44)
-	  , isString       = __webpack_require__(78)
-
-	  , isArray = Array.isArray, call = Function.prototype.call
-	  , desc = { configurable: true, enumerable: true, writable: true, value: null }
-	  , defineProperty = Object.defineProperty;
-
-	module.exports = function (arrayLike/*, mapFn, thisArg*/) {
-		var mapFn = arguments[1], thisArg = arguments[2], Constructor, i, j, arr, l, code, iterator
-		  , result, getIterator, value;
-
-		arrayLike = Object(validValue(arrayLike));
-
-		if (mapFn != null) callable(mapFn);
-		if (!this || (this === Array) || !isFunction(this)) {
-			// Result: Plain array
-			if (!mapFn) {
-				if (isArguments(arrayLike)) {
-					// Source: Arguments
-					l = arrayLike.length;
-					if (l !== 1) return Array.apply(null, arrayLike);
-					arr = new Array(1);
-					arr[0] = arrayLike[0];
-					return arr;
-				}
-				if (isArray(arrayLike)) {
-					// Source: Array
-					arr = new Array(l = arrayLike.length);
-					for (i = 0; i < l; ++i) arr[i] = arrayLike[i];
-					return arr;
-				}
-			}
-			arr = [];
-		} else {
-			// Result: Non plain array
-			Constructor = this;
-		}
-
-		if (!isArray(arrayLike)) {
-			if ((getIterator = arrayLike[iteratorSymbol]) !== undefined) {
-				// Source: Iterator
-				iterator = callable(getIterator).call(arrayLike);
-				if (Constructor) arr = new Constructor();
-				result = iterator.next();
-				i = 0;
-				while (!result.done) {
-					value = mapFn ? call.call(mapFn, thisArg, result.value, i) : result.value;
-					if (!Constructor) {
-						arr[i] = value;
-					} else {
-						desc.value = value;
-						defineProperty(arr, i, desc);
-					}
-					result = iterator.next();
-					++i;
-				}
-				l = i;
-			} else if (isString(arrayLike)) {
-				// Source: String
-				l = arrayLike.length;
-				if (Constructor) arr = new Constructor();
-				for (i = 0, j = 0; i < l; ++i) {
-					value = arrayLike[i];
-					if ((i + 1) < l) {
-						code = value.charCodeAt(0);
-						if ((code >= 0xD800) && (code <= 0xDBFF)) value += arrayLike[++i];
-					}
-					value = mapFn ? call.call(mapFn, thisArg, value, j) : value;
-					if (!Constructor) {
-						arr[j] = value;
-					} else {
-						desc.value = value;
-						defineProperty(arr, j, desc);
-					}
-					++j;
-				}
-				l = j;
-			}
-		}
-		if (l === undefined) {
-			// Source: array or array-like
-			l = toPosInt(arrayLike.length);
-			if (Constructor) arr = new Constructor(l);
-			for (i = 0; i < l; ++i) {
-				value = mapFn ? call.call(mapFn, thisArg, arrayLike[i], i) : arrayLike[i];
-				if (!Constructor) {
-					arr[i] = value;
-				} else {
-					desc.value = value;
-					defineProperty(arr, i, desc);
-				}
-			}
-		}
-		if (Constructor) {
-			desc.value = null;
-			arr.length = l;
-		}
-		return arr;
-	};
-
-
-/***/ }),
-/* 88 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var toString = Object.prototype.toString
-
-	  , id = toString.call(__webpack_require__(89));
-
-	module.exports = function (f) {
-		return (typeof f === "function") && (toString.call(f) === id);
-	};
-
-
-/***/ }),
-/* 89 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	module.exports = function () {};
-
-
-/***/ }),
 /* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	var callable = __webpack_require__(56)
-	  , forEach  = __webpack_require__(91)
-
-	  , call = Function.prototype.call;
-
-	module.exports = function (obj, cb/*, thisArg*/) {
-		var o = {}, thisArg = arguments[2];
-		callable(cb);
-		forEach(obj, function (value, key, obj, index) {
-			o[key] = call.call(cb, thisArg, value, key, obj, index);
-		});
-		return o;
-	};
+	module.exports = __webpack_require__(91)()
+		? Array.from
+		: __webpack_require__(92);
 
 
 /***/ }),
 /* 91 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
 
-	module.exports = __webpack_require__(92)('forEach');
+	module.exports = function () {
+		var from = Array.from, arr, result;
+		if (typeof from !== "function") return false;
+		arr = ["raz", "dwa"];
+		result = from(arr);
+		return Boolean(result && (result !== arr) && (result[1] === "dwa"));
+	};
 
 
 /***/ }),
 /* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Internal method, used by iteration functions.
-	// Calls a function for each key-value pair found in object
-	// Optionally takes compareFn to iterate object in specific order
+	"use strict";
 
-	'use strict';
+	var iteratorSymbol = __webpack_require__(75).iterator
+	  , isArguments    = __webpack_require__(82)
+	  , isFunction     = __webpack_require__(93)
+	  , toPosInt       = __webpack_require__(51)
+	  , callable       = __webpack_require__(61)
+	  , validValue     = __webpack_require__(44)
+	  , isValue        = __webpack_require__(45)
+	  , isString       = __webpack_require__(83)
+	  , isArray        = Array.isArray
+	  , call           = Function.prototype.call
+	  , desc           = { configurable: true, enumerable: true, writable: true, value: null }
+	  , defineProperty = Object.defineProperty;
 
-	var callable = __webpack_require__(56)
-	  , value    = __webpack_require__(44)
+	// eslint-disable-next-line complexity
+	module.exports = function (arrayLike /*, mapFn, thisArg*/) {
+		var mapFn = arguments[1]
+		  , thisArg = arguments[2]
+		  , Context
+		  , i
+		  , j
+		  , arr
+		  , length
+		  , code
+		  , iterator
+		  , result
+		  , getIterator
+		  , value;
 
-	  , bind = Function.prototype.bind, call = Function.prototype.call, keys = Object.keys
-	  , propertyIsEnumerable = Object.prototype.propertyIsEnumerable;
+		arrayLike = Object(validValue(arrayLike));
 
-	module.exports = function (method, defVal) {
-		return function (obj, cb/*, thisArg, compareFn*/) {
-			var list, thisArg = arguments[2], compareFn = arguments[3];
-			obj = Object(value(obj));
-			callable(cb);
-
-			list = keys(obj);
-			if (compareFn) {
-				list.sort((typeof compareFn === 'function') ? bind.call(compareFn, obj) : undefined);
+		if (isValue(mapFn)) callable(mapFn);
+		if (!this || this === Array || !isFunction(this)) {
+			// Result: Plain array
+			if (!mapFn) {
+				if (isArguments(arrayLike)) {
+					// Source: Arguments
+					length = arrayLike.length;
+					if (length !== 1) return Array.apply(null, arrayLike);
+					arr = new Array(1);
+					arr[0] = arrayLike[0];
+					return arr;
+				}
+				if (isArray(arrayLike)) {
+					// Source: Array
+					arr = new Array(length = arrayLike.length);
+					for (i = 0; i < length; ++i) arr[i] = arrayLike[i];
+					return arr;
+				}
 			}
-			if (typeof method !== 'function') method = list[method];
-			return call.call(method, list, function (key, index) {
-				if (!propertyIsEnumerable.call(obj, key)) return defVal;
-				return call.call(cb, thisArg, obj[key], key, obj, index);
-			});
-		};
+			arr = [];
+		} else {
+			// Result: Non plain array
+			Context = this;
+		}
+
+		if (!isArray(arrayLike)) {
+			if ((getIterator = arrayLike[iteratorSymbol]) !== undefined) {
+				// Source: Iterator
+				iterator = callable(getIterator).call(arrayLike);
+				if (Context) arr = new Context();
+				result = iterator.next();
+				i = 0;
+				while (!result.done) {
+					value = mapFn ? call.call(mapFn, thisArg, result.value, i) : result.value;
+					if (Context) {
+						desc.value = value;
+						defineProperty(arr, i, desc);
+					} else {
+						arr[i] = value;
+					}
+					result = iterator.next();
+					++i;
+				}
+				length = i;
+			} else if (isString(arrayLike)) {
+				// Source: String
+				length = arrayLike.length;
+				if (Context) arr = new Context();
+				for (i = 0, j = 0; i < length; ++i) {
+					value = arrayLike[i];
+					if (i + 1 < length) {
+						code = value.charCodeAt(0);
+						// eslint-disable-next-line max-depth
+						if (code >= 0xd800 && code <= 0xdbff) value += arrayLike[++i];
+					}
+					value = mapFn ? call.call(mapFn, thisArg, value, j) : value;
+					if (Context) {
+						desc.value = value;
+						defineProperty(arr, j, desc);
+					} else {
+						arr[j] = value;
+					}
+					++j;
+				}
+				length = j;
+			}
+		}
+		if (length === undefined) {
+			// Source: array or array-like
+			length = toPosInt(arrayLike.length);
+			if (Context) arr = new Context(length);
+			for (i = 0; i < length; ++i) {
+				value = mapFn ? call.call(mapFn, thisArg, arrayLike[i], i) : arrayLike[i];
+				if (Context) {
+					desc.value = value;
+					defineProperty(arr, i, desc);
+				} else {
+					arr[i] = value;
+				}
+			}
+		}
+		if (Context) {
+			desc.value = null;
+			arr.length = length;
+		}
+		return arr;
 	};
 
 
@@ -7087,56 +7149,136 @@
 /* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Thanks @mathiasbynens
-	// http://mathiasbynens.be/notes/javascript-unicode#iterating-over-symbols
+	"use strict";
 
-	'use strict';
+	var objToString = Object.prototype.toString, id = objToString.call(__webpack_require__(46));
 
-	var setPrototypeOf = __webpack_require__(51)
-	  , d              = __webpack_require__(57)
-	  , Iterator       = __webpack_require__(82)
-
-	  , defineProperty = Object.defineProperty
-	  , StringIterator;
-
-	StringIterator = module.exports = function (str) {
-		if (!(this instanceof StringIterator)) return new StringIterator(str);
-		str = String(str);
-		Iterator.call(this, str);
-		defineProperty(this, '__length__', d('', str.length));
-
+	module.exports = function (value) {
+		return typeof value === "function" && objToString.call(value) === id;
 	};
-	if (setPrototypeOf) setPrototypeOf(StringIterator, Iterator);
-
-	StringIterator.prototype = Object.create(Iterator.prototype, {
-		constructor: d(StringIterator),
-		_next: d(function () {
-			if (!this.__list__) return;
-			if (this.__nextIndex__ < this.__length__) return this.__nextIndex__++;
-			this._unBind();
-		}),
-		_resolve: d(function (i) {
-			var char = this.__list__[i], code;
-			if (this.__nextIndex__ === this.__length__) return char;
-			code = char.charCodeAt(0);
-			if ((code >= 0xD800) && (code <= 0xDBFF)) return char + this.__list__[this.__nextIndex__++];
-			return char;
-		}),
-		toString: d(function () { return '[object String Iterator]'; })
-	});
 
 
 /***/ }),
 /* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	var callable = __webpack_require__(61)
+	  , forEach  = __webpack_require__(95)
+	  , call     = Function.prototype.call;
+
+	module.exports = function (obj, cb /*, thisArg*/) {
+		var result = {}, thisArg = arguments[2];
+		callable(cb);
+		forEach(obj, function (value, key, targetObj, index) {
+			result[key] = call.call(cb, thisArg, value, key, targetObj, index);
+		});
+		return result;
+	};
+
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = __webpack_require__(96)("forEach");
+
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// Internal method, used by iteration functions.
+	// Calls a function for each key-value pair found in object
+	// Optionally takes compareFn to iterate object in specific order
+
+	"use strict";
+
+	var callable                = __webpack_require__(61)
+	  , value                   = __webpack_require__(44)
+	  , bind                    = Function.prototype.bind
+	  , call                    = Function.prototype.call
+	  , keys                    = Object.keys
+	  , objPropertyIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+	module.exports = function (method, defVal) {
+		return function (obj, cb /*, thisArg, compareFn*/) {
+			var list, thisArg = arguments[2], compareFn = arguments[3];
+			obj = Object(value(obj));
+			callable(cb);
+
+			list = keys(obj);
+			if (compareFn) {
+				list.sort(typeof compareFn === "function" ? bind.call(compareFn, obj) : undefined);
+			}
+			if (typeof method !== "function") method = list[method];
+			return call.call(method, list, function (key, index) {
+				if (!objPropertyIsEnumerable.call(obj, key)) return defVal;
+				return call.call(cb, thisArg, obj[key], key, obj, index);
+			});
+		};
+	};
+
+
+/***/ }),
+/* 97 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// Thanks @mathiasbynens
+	// http://mathiasbynens.be/notes/javascript-unicode#iterating-over-symbols
+
+	"use strict";
+
+	var setPrototypeOf = __webpack_require__(56)
+	  , d              = __webpack_require__(62)
+	  , Symbol         = __webpack_require__(75)
+	  , Iterator       = __webpack_require__(87);
+
+	var defineProperty = Object.defineProperty, StringIterator;
+
+	StringIterator = module.exports = function (str) {
+		if (!(this instanceof StringIterator)) throw new TypeError("Constructor requires 'new'");
+		str = String(str);
+		Iterator.call(this, str);
+		defineProperty(this, "__length__", d("", str.length));
+	};
+	if (setPrototypeOf) setPrototypeOf(StringIterator, Iterator);
+
+	// Internal %ArrayIteratorPrototype% doesn't expose its constructor
+	delete StringIterator.prototype.constructor;
+
+	StringIterator.prototype = Object.create(Iterator.prototype, {
+		_next: d(function () {
+			if (!this.__list__) return undefined;
+			if (this.__nextIndex__ < this.__length__) return this.__nextIndex__++;
+			this._unBind();
+			return undefined;
+		}),
+		_resolve: d(function (i) {
+			var char = this.__list__[i], code;
+			if (this.__nextIndex__ === this.__length__) return char;
+			code = char.charCodeAt(0);
+			if (code >= 0xd800 && code <= 0xdbff) return char + this.__list__[this.__nextIndex__++];
+			return char;
+		})
+	});
+	defineProperty(StringIterator.prototype, Symbol.toStringTag, d("c", "String Iterator"));
+
+
+/***/ }),
+/* 98 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	'use strict';
 
-	var setPrototypeOf    = __webpack_require__(51)
-	  , d                 = __webpack_require__(57)
-	  , Iterator          = __webpack_require__(82)
-	  , toStringTagSymbol = __webpack_require__(70).toStringTag
-	  , kinds             = __webpack_require__(95)
+	var setPrototypeOf    = __webpack_require__(56)
+	  , d                 = __webpack_require__(62)
+	  , Iterator          = __webpack_require__(87)
+	  , toStringTagSymbol = __webpack_require__(75).toStringTag
+	  , kinds             = __webpack_require__(99)
 
 	  , defineProperties = Object.defineProperties
 	  , unBind = Iterator.prototype._unBind
@@ -7171,32 +7313,35 @@
 
 
 /***/ }),
-/* 95 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(96)('key',
+	module.exports = __webpack_require__(100)('key',
 		'value', 'key+value');
 
 
 /***/ }),
-/* 96 */
+/* 100 */
 /***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	var forEach = Array.prototype.forEach, create = Object.create;
 
-	module.exports = function (arg/*, …args*/) {
+	// eslint-disable-next-line no-unused-vars
+	module.exports = function (arg /*, …args*/) {
 		var set = create(null);
-		forEach.call(arguments, function (name) { set[name] = true; });
+		forEach.call(arguments, function (name) {
+			set[name] = true;
+		});
 		return set;
 	};
 
 
 /***/ }),
-/* 97 */
+/* 101 */
 /***/ (function(module, exports) {
 
 	// Exports true if environment provides native `Map` implementation,
@@ -7211,7 +7356,7 @@
 
 
 /***/ }),
-/* 98 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7267,14 +7412,14 @@
 	//# sourceMappingURL=transposition.js.map
 
 /***/ }),
-/* 99 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var xstream_adapter_1 = __webpack_require__(3);
-	var transposition_1 = __webpack_require__(98);
-	var HTMLSource_1 = __webpack_require__(100);
-	var toHTML = __webpack_require__(101);
+	var transposition_1 = __webpack_require__(102);
+	var HTMLSource_1 = __webpack_require__(104);
+	var toHTML = __webpack_require__(105);
 	var noop = function () { };
 	function makeHTMLDriver(effect, options) {
 	    if (!options) {
@@ -7300,7 +7445,7 @@
 	//# sourceMappingURL=makeHTMLDriver.js.map
 
 /***/ }),
-/* 100 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7332,22 +7477,22 @@
 	//# sourceMappingURL=HTMLSource.js.map
 
 /***/ }),
-/* 101 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	var init = __webpack_require__(102);
+	var init = __webpack_require__(106);
 
-	module.exports = init([__webpack_require__(106), __webpack_require__(123)]);
+	module.exports = init([__webpack_require__(110), __webpack_require__(127)]);
 
 /***/ }),
-/* 102 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	var parseSelector = __webpack_require__(103);
-	var VOID_ELEMENTS = __webpack_require__(104);
-	var CONTAINER_ELEMENTS = __webpack_require__(105);
+	var parseSelector = __webpack_require__(107);
+	var VOID_ELEMENTS = __webpack_require__(108);
+	var CONTAINER_ELEMENTS = __webpack_require__(109);
 
 	module.exports = function init(modules) {
 	  function parse(data) {
@@ -7404,9 +7549,8 @@
 	  };
 	};
 
-
 /***/ }),
-/* 103 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
@@ -7457,7 +7601,7 @@
 	};
 
 /***/ }),
-/* 104 */
+/* 108 */
 /***/ (function(module, exports) {
 
 	
@@ -7482,7 +7626,7 @@
 	};
 
 /***/ }),
-/* 105 */
+/* 109 */
 /***/ (function(module, exports) {
 
 	
@@ -7509,15 +7653,15 @@
 	};
 
 /***/ }),
-/* 106 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	var forOwn = __webpack_require__(107);
-	var escape = __webpack_require__(114);
-	var union = __webpack_require__(116);
+	var forOwn = __webpack_require__(111);
+	var escape = __webpack_require__(118);
+	var union = __webpack_require__(120);
 
-	var parseSelector = __webpack_require__(103);
+	var parseSelector = __webpack_require__(107);
 
 	// data.attrs, data.props, data.class
 
@@ -7578,7 +7722,7 @@
 	}
 
 /***/ }),
-/* 107 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -7589,9 +7733,9 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var baseFor = __webpack_require__(108),
-	    bindCallback = __webpack_require__(109),
-	    keys = __webpack_require__(110);
+	var baseFor = __webpack_require__(112),
+	    bindCallback = __webpack_require__(113),
+	    keys = __webpack_require__(114);
 
 	/**
 	 * The base implementation of `_.forOwn` without support for callback
@@ -7655,7 +7799,7 @@
 
 
 /***/ }),
-/* 108 */
+/* 112 */
 /***/ (function(module, exports) {
 
 	/**
@@ -7709,7 +7853,7 @@
 
 
 /***/ }),
-/* 109 */
+/* 113 */
 /***/ (function(module, exports) {
 
 	/**
@@ -7780,7 +7924,7 @@
 
 
 /***/ }),
-/* 110 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -7791,9 +7935,9 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var getNative = __webpack_require__(111),
-	    isArguments = __webpack_require__(112),
-	    isArray = __webpack_require__(113);
+	var getNative = __webpack_require__(115),
+	    isArguments = __webpack_require__(116),
+	    isArray = __webpack_require__(117);
 
 	/** Used to detect unsigned integer values. */
 	var reIsUint = /^\d+$/;
@@ -8022,7 +8166,7 @@
 
 
 /***/ }),
-/* 111 */
+/* 115 */
 /***/ (function(module, exports) {
 
 	/**
@@ -8165,7 +8309,7 @@
 
 
 /***/ }),
-/* 112 */
+/* 116 */
 /***/ (function(module, exports) {
 
 	/**
@@ -8400,7 +8544,7 @@
 
 
 /***/ }),
-/* 113 */
+/* 117 */
 /***/ (function(module, exports) {
 
 	/**
@@ -8586,7 +8730,7 @@
 
 
 /***/ }),
-/* 114 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -8597,7 +8741,7 @@
 	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var root = __webpack_require__(115);
+	var root = __webpack_require__(119);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0;
@@ -8772,7 +8916,7 @@
 
 
 /***/ }),
-/* 115 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -8838,7 +8982,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module), (function() { return this; }())))
 
 /***/ }),
-/* 116 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -8849,9 +8993,9 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var baseFlatten = __webpack_require__(117),
-	    baseUniq = __webpack_require__(118),
-	    restParam = __webpack_require__(122);
+	var baseFlatten = __webpack_require__(121),
+	    baseUniq = __webpack_require__(122),
+	    restParam = __webpack_require__(126);
 
 	/**
 	 * Creates an array of unique values, in order, of the provided arrays using
@@ -8879,7 +9023,7 @@
 
 
 /***/ }),
-/* 117 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -8890,8 +9034,8 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var isArguments = __webpack_require__(112),
-	    isArray = __webpack_require__(113);
+	var isArguments = __webpack_require__(116),
+	    isArray = __webpack_require__(117);
 
 	/**
 	 * Checks if `value` is object-like.
@@ -9016,7 +9160,7 @@
 
 
 /***/ }),
-/* 118 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -9027,9 +9171,9 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var baseIndexOf = __webpack_require__(119),
-	    cacheIndexOf = __webpack_require__(120),
-	    createCache = __webpack_require__(121);
+	var baseIndexOf = __webpack_require__(123),
+	    cacheIndexOf = __webpack_require__(124),
+	    createCache = __webpack_require__(125);
 
 	/** Used as the size to enable large array optimizations. */
 	var LARGE_ARRAY_SIZE = 200;
@@ -9090,7 +9234,7 @@
 
 
 /***/ }),
-/* 119 */
+/* 123 */
 /***/ (function(module, exports) {
 
 	/**
@@ -9153,7 +9297,7 @@
 
 
 /***/ }),
-/* 120 */
+/* 124 */
 /***/ (function(module, exports) {
 
 	/**
@@ -9212,7 +9356,7 @@
 
 
 /***/ }),
-/* 121 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -9223,7 +9367,7 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var getNative = __webpack_require__(111);
+	var getNative = __webpack_require__(115);
 
 	/** Native method references. */
 	var Set = getNative(global, 'Set');
@@ -9310,7 +9454,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 122 */
+/* 126 */
 /***/ (function(module, exports) {
 
 	/**
@@ -9383,14 +9527,14 @@
 
 
 /***/ }),
-/* 123 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var forOwn = __webpack_require__(107);
-	var escape = __webpack_require__(114);
-	var kebabCase = __webpack_require__(124);
+	var forOwn = __webpack_require__(111);
+	var escape = __webpack_require__(118);
+	var kebabCase = __webpack_require__(128);
 
 	// data.style
 
@@ -9414,7 +9558,7 @@
 	};
 
 /***/ }),
-/* 124 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -9425,8 +9569,8 @@
 	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var deburr = __webpack_require__(125),
-	    words = __webpack_require__(126);
+	var deburr = __webpack_require__(129),
+	    words = __webpack_require__(130);
 
 	/**
 	 * A specialized version of `_.reduce` for arrays without support for
@@ -9492,7 +9636,7 @@
 
 
 /***/ }),
-/* 125 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -9503,7 +9647,7 @@
 	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var root = __webpack_require__(115);
+	var root = __webpack_require__(119);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0;
@@ -9681,7 +9825,7 @@
 
 
 /***/ }),
-/* 126 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -9692,7 +9836,7 @@
 	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var root = __webpack_require__(115);
+	var root = __webpack_require__(119);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0;
@@ -9885,7 +10029,7 @@
 
 
 /***/ }),
-/* 127 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9960,7 +10104,7 @@
 	//# sourceMappingURL=mockDOMSource.js.map
 
 /***/ }),
-/* 128 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10037,7 +10181,7 @@
 	//# sourceMappingURL=hyperscript-helpers.js.map
 
 /***/ }),
-/* 129 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';

@@ -35,9 +35,6 @@ var nl = '\n';
 var blue = {style: {color: "#96f9ff"}} 
 var bigBlue = {style: {color: "#96f9ff",fontSize: "17"}} 
 var bluetao = {style: {color: "#96f9ff", marginLeft: "3%"}} 
-var diffRend = 0;
-var mMt32 = new Monad(0,'mMt32');
-var mMt33 = new Monad(0,'mMt33');
 const orange = {style: {color: "#f98043"}} 
 const orangetao = {style: {color: "#f98043", marginLeft: "3%"}} 
 const red = {style: {color: "#ff5b5b"}}
@@ -51,25 +48,12 @@ const giantGreen = {style: {color: "#7fffb4", fontSize: "20"}}
 const littleGreen = {style: {color: "#7fffb4", fontSize: "13"}}
 const greentao = {style: {color:"#7fffb4", marginLeft: "3%"}}
 const italic = {style: {fontStyle: "italic"}}
-const italicRed = {style: {fontStyle: "italic", color: "#ff5b5b"}}
-const italicYellow = {style: {fontStyle: "italic", color: "#fbfca9"}}
-function styleFunc ([color = '#361B01', marginLeft = '0px', fontSize = '15px', fontStyle = 'norma'])
-  {return {style: {color: color, marginLeft: marginLeft, fontSize: fontSize, fontStyle: fontStyle}}};
-const italicOrange = {style: {fontStyle: "italic", color: "#96f9ff"}}
-
 const retern = x => y => window[y] = new Monad(x,y);
-
 var RESULT_8 = [];
-
 asyncArray = [];
-
     var res8_SHOW = {style: {fontSize: "13px", color: "rgb(127, 255, 180)", display: "inline"}}
     var res8_HIDE = {style: {fontSize: "13px", color: "rgb(127, 255, 180)", display: "none"}}
     var res8_Style = res8_SHOW;
-
-var format = b => {(b.then) ?
-  b.then(c => console.log(c.x ?
-  c.x : c)) : console.log(b)}
 
 var m778_RESULT = h('div', "" );
 var m42_RESULT = [];
@@ -80,7 +64,7 @@ function makeSequence (n) {
   return a
 }
 
-const diffRender = () => document.getElementById('diffRender').click();
+const diffRender = () => document.getElementById("testQ").click();
 
 
 var tr = x => p => async f => {
@@ -107,14 +91,14 @@ var arf = async p => {
     this.id = ID;
   };
 
-  function Monad2(z = 0) {
+  function Monad2(z = 'generic') {
     this.x = z;
+    this.ret = a => new Monad2(a);
+    this.bnd = function (func, ...args) {
+      return func(this.x, ...args)
+    }
   };
 
-  Monad2.prototype.ret = a => new Monad2(a);
-  Monad2.prototype.bnd = function (func, ...args) {
-    return func(this.x, ...args)
-  }
 
 var m52 = new Monad2 (52);
 console.log('m52',m52);
@@ -161,69 +145,32 @@ const wait2 = x => {
         return bind(y,ar);
       }
     };
-  };   
+  };  */  
 
 
  function bind (x, arr=[]) {
-   if (!(x instanceof Monad || x instanceof Monad2 || x instanceof Promise 
-     || typeof x === 'string')) x = ret(x); 
     this.ar = arr;
     this.ar.push(x instanceof Monad || x instanceof Monad2 ? x.x : x)
     if (this.ar.length === 0) this.ar = [x];
     return function debug8 (func) {
       if (func.name === "terminate") return ar;
       if (x instanceof Promise) {
-        console.log('In bind. Promise. x and ar',x,ar);
         var p = x.then(v => func(v instanceof Monad2 ? v.x : v));
         return bind(p,this.ar);
       }  
       if (x instanceof Monad2) return bind(func(x.x),this.ar);
-        console.log('In bind. Promise. x and ar',x,ar);
       if (x instanceof Monad) return bind(func(x.x),this.ar);
-        console.log('In bind. Promise. x and ar',x,ar);
       // Asynchronous functionality without Promises. Begin:
       if (typeof func === 'string' && func.slice(0,3) === "mMZ") { 
-        console.log('In bind. Promise. x and ar',x,ar);
         var p = eval(func(x));
         return bind(p, this.ar);
       }
       if (typeof x === 'string' && x.slice(0,3) === "mMZ") { 
-        console.log('In bind. x === \'string\'. x and ar',x,ar);
         var p = func(eval(x));
         return bind(p, this.ar);
       }
       // Asynchronous functionality without Promises. End.
-        console.log('In bind. Plain. x and ar',x,ar);
       return bind(func(x),this.ar);
-    };
-  }; */
-
-  function bind (x, arr=[]) {
-    var bool = z => (z instanceof Monad || z instanceof Monad2 || z instanceof Promise 
-     || typeof z === 'string')
-    if (!bool(x)) x = ret(x); 
-    this.ar = arr;
-    this.ar.push(x instanceof Monad || x instanceof Monad2 ? x.x : x)
-    if (this.ar.length === 0) this.ar = [x];
-    return function debug8 (func) {
-      if (func.name === "terminate") return ar;
-      if (x instanceof Promise) {
-        var p = x.then(v => func(v instanceof Monad2  ? v.x : v));
-        return bind(p,this.ar);
-      }  
-      if (x instanceof Monad2) return bind(func(x.x),this.ar);
-      if (x instanceof Monad) return bind(func(x.x),this.ar);
-      // Asynchronous functionality without Promises. Begin:
-      if (typeof func === 'string' && func.slice(0,3) === "mMZ") { 
-        var p = eval(func(x));
-        return bind(p, this.ar);
-      }
-      if (typeof x === 'string' && x.slice(0,3) === "mMZ") { 
-        console.log('In bind. x === \'string\'. x and ar',x,ar);
-        var p = func(eval(x));
-        return bind(p, this.ar);
-      }
-      // Asynchronous functionality without Promises. End.
     };
   };  
 
@@ -2232,8 +2179,9 @@ var ping = n => ar => {
   if(ar[0] > 10 || ar[1] > 10) { 
     m67_RESULT = h('pre', ppY, `     FINAL SCORE   ping: ${ar[0]} pong: ${ar[1]}` );
     diffRender();
+    return
   }
-  else setTimeout(() => {
+  setTimeout(() => {
     if (n <= k) {  
       ppStyle = !ppStyle;
       incF$(n);

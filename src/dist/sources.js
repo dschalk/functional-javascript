@@ -61,8 +61,6 @@ function workerGDriver () {
   });
 };
 
-var sources = {WWG: workerGDriver};
-
 function workerDriver () {
   return xs.create({
     start: listener => { worker.onmessage = msg => listener.next(msg)},
