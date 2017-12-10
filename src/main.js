@@ -1002,25 +1002,28 @@ h('div', {style: {fontSize: "18px", fontStyle: "italic", color: "#07f7f7"}},'WIT
 h('br'),
 h('div.content', [
 h('h3', 'Polymorphic Function Composition With bind()' ), 
-h('span.tao', ' On this page, I present several techniques for writing robust, easily maintainable JavaScript code. Chaining function with bind() is one of them. Your first reaction might be disbelief, but I think the demonstrations will convince you that it actually does work.'),
 h('br'),
+h('p', ' Remarkable advantages flow from composising functions like this:'),
+h('div', bigOrange, ' bind(x)(function1)(function2) ... (functionN) ' ),
 h('br'),
-
-
-
-
-h('span.tao', 'Functions can be composed into chains '),
-h('pre.tao', bigRed, `bind(x)(function1)(function2) ... (functionN)`),
 h('span', ' where x can be any value and the functions (named or lambda expressions) are '),
 h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), 'not restricted in the types of values they return, the types of arguments they take, or the time it takes for them to return values. '),
-
-
-
-
-h('span', 'Functions that take multiple arguments should be curried; but since all JavaScript functions can be expressed in curried form, this is akin to a syntactic specification, and does not restrict what can be done. '), 
 h('br'),
 h('br'),
+h('span.tao', ' Asynchronous functions can run without support from the Promisses / Generators API, but if promises are your cup of tea, here\'s some good news:'),
+h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), ' Promises'), 
+  h('span', ' can be linked without explicitly invoking the "then()" method, and '), 
+h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), 'with complete access all to previous results'),
+h('span', '.' ),
+h('br'),
+h('p', 'Functions that take multiple arguments should be curried. This deosn\'t restrict what cam be done since all JavaScript functions are easy to curry. '), 
+h('pre', {style: {color: "#ff6bfc"}}, `  function add (a,b,c) {return a+b+c} -> const add = a => b => c => a+b+c 
 
+  parseInt(a,b) -> const parseIntC = a => b => parseInt(b,a)
+  
+  const pInt = parseIntC(10)       //  useful function
+  
+  ['1','2','3','4','5'].map(pInt)  // returns [1,2,3,4,5] `),
 
 ]),
 h('hr.len90', {style: { display: mMgameDiv2.x }}, ),
@@ -1037,25 +1040,20 @@ h('a', {props: {href: '#chain'}}, 'demonstrations' ),
 h('span', ' below include linked functions that begin with bind() followed by a function that performs a computation, then a function that obtains a pseudo-random number from the WebSocket server, then a function that obtains the number\'s prime decomposition from a web worker, followed by a function that formats the data for display - '), 
 h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), 'all without Promises.' ),
 h('br'),
-h('br'),
-h('span.tao', ' Asynchronous functions can run without support from the Promisses / Generators API, but for those who use promises, there is good news.'),
-h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), ' Promises'), 
-  h('span', ' can be linked without explicitly invoking the "then()" method, and '), 
-h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), 'with access to previous results'),
-  
-h('span', ' all the way back to the first link in the chain.'),
-h('span', ' All you need to do is begin a sequence of functions with the function bind() '),
+h('p', ' Not having to return specialized objects, as other JavaScript chaining algorithms require, is liberating. Having access to prior return values is empowering. ' ),
+h('p', ' Nothing prevents coders from imposing strict type constraints on the functions they compose. They can even modify bind() to be strictly typed in whatever way serves their purposes. It will still work. '),
+h('span.tao', ' Examples and discussion of chains containing both synchronous and asynchronous computations can be found '), 
+h('a', { props: { href: '#chain' } }, 'here.'),
 h('br'),
 h('br'),
 ]),
-
 h('div', {style: {width: '42%', fontSize: '15px', float: 'right'}}, [  
 h('h2', 'Preview' ),
 h('p', ' This demonstration is discussed in detail below. It shows some linked procedures in action. it4() obtains a random number less than 50 cubed (250,000) from the Haskell WebSocket server, then it6() obtains the prime factors of the random number, and finally it7() formats the message returned by the web worker for display in the browswer. '),
 h('p', ' The asynchronous functions don\'t use promises. Instead, they use MonadItter (explained below) which does what promises and generators do, but with more control and flexibility. ' ),  
 h('span', ' Click below (multiple times in rapid succession if you like) to run '),
 h('br'),
-h('span', styleFunc(["rgb(7, 247, 247)","7%","20px",]), 'bind(50)(cubeC)(it4)(it6)(it7)'),
+h('span', styleFunc(["rgb(7, 247, 247)","12%","20px",,,]), 'bind(50)(cubeC)(it4)(it6)(it7)'),
 h('br'),
 h('br'),
 h('button.factors_P', {style: {fontSize: '15px'}}, 'bind(50)(cubeC)(it4)(it6)(it7)'),
@@ -1073,10 +1071,6 @@ h('hr.len90', {style: { display: mMgameDiv2.x }}, ),
 h('div.content', [
 
 
-h('p', ' Not having to return specialized objects, as other JavaScript chaining algorithms require, is liberating. Having access to prior return values is empowering. ' ),
-h('p', ' Nothing prevents coders from imposing strict type constraints on the functions they compose. They can even modify bind() to be strictly typed in whatever way serves their purposes. It will still work. '),
-h('span.tao', ' Examples and discussion of chains containing both synchronous and asynchronous computations can be found '), 
-h('a', { props: { href: '#chain' } }, 'here.'),
 h('br'),
 h('br'),
 h('span.tao', 'This project was created by and is actively maintained by me, David Schalk. The code repository is at '),

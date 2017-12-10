@@ -51,15 +51,30 @@ const giantGreen = {style: {color: "#7fffb4", fontSize: "20"}}
 const littleGreen = {style: {color: "#7fffb4", fontSize: "13"}}
 const greentao = {style: {color:"#7fffb4", marginLeft: "3%"}}
 const italic = {style: {fontStyle: "italic"}}
+const center = {style: {textAlign: "center"}}
 const italicRed = {style: {fontStyle: "italic", color: "#ff5b5b"}}
 const italicYellow = {style: {fontStyle: "italic", color: "#fbfca9"}}
 
 
-function styleFunc ([color = '#361B01', marginLeft = '0px', fontSize = '15px', fontStyle = 'norma', width = '100%'])
-  {return {style: {color: color, marginLeft: marginLeft, fontSize: fontSize, fontStyle: fontStyle, width: width   }}};
+function styleFunc ([color = '#361B01', marginLeft = '0px', 
+  fontSize = '15px', fontStyle = 'norma', width = '100%', textAlign = 'left']) {
+    return {style:{
+      color: color, 
+      marginLeft: marginLeft, 
+      fontSize: fontSize, 
+      fontStyle: fontStyle, 
+      width: width, 
+      textAlign: textAlign }}
+  };
+
 const italicOrange = {style: {fontStyle: "italic", color: "#96f9ff"}}
 
 const retern = x => y => window[y] = new Monad(x,y);
+
+var bigOrange = styleFunc(["#f98043",,"19px",,,"center"]);
+
+const parseIntC = a => b => parseInt(b,a)
+const pInt = parseIntC(10) //  useful function
 
 var RESULT_8 = [];
 
