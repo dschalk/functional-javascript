@@ -1017,18 +1017,16 @@ h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), 'with complete access all
 h('span', '.' ),
 h('br'),
 h('p', 'Functions that take multiple arguments should be curried. This deosn\'t restrict what cam be done since all JavaScript functions are easy to curry. '), 
-h('pre', {style: {color: "#ff6bfc"}}, `  function add (a,b,c) {return a+b+c} -> const add = a => b => c => a+b+c 
+h('pre', {style: {color: "#ff8484"}}, `  function add (a,b,c) {return a+b+c} -> const add = a => b => c => a+b+c 
 
-  parseInt(a,b) -> const parseIntC = a => b => parseInt(b,a)
-  
+  parseInt(a,b) -> const parseIntC = a => b => parseInt(b,a)  // Argument order reversed
   const pInt = parseIntC(10)       //  useful function
-  
   ['1','2','3','4','5'].map(pInt)  // returns [1,2,3,4,5] `),
 
 ]),
 h('hr.len90', {style: { display: mMgameDiv2.x }}, ),
 h('br'),
-h('div.content2', [
+h('div#content2', [
 h('div', {style: {width: '50%', float: 'left'}}, [  
 
 h('span.tao', ' In JavaScript, we are accustomed to chaining operations with objects that have methods that operate on functions and return objects that have methods that operate on functions ... and so on and so forth along a chain. Promises are typical, always returning objects with the "then()" method. JQuerry and Lodash follow this pattern only with more methods that take functions and return objects with numerous methods. I\'ll say this again: Linking functions instead of objects with bind(), there are ' ), 
@@ -1236,7 +1234,7 @@ h('p', ' The definition of bind() speaks for itself more articulately the follow
 h('p', ' A description of what bind() does with promises isn\'t likely to be helpful. Too many words would be needed. Some examples below show it in action, waiting for WebSocket messages and web worker messages in a single chain. '),
 
 h('p#chain', ' The functions bind() and ret() are similar in some ways to >>= (pronounced "bind") and "return" in the Haskell programming language. Functions used in chains of computations can take a JavaScript value and return a monad, the way Haskell does. But when computations are linked using the JavaScript bind(), there is no restriction on what can be returned by the functions in each succeeding link. This is an example of unharnessed JavaScript\'s potential for creativity and confusion.  '),
-  
+h('a', {props: {href: '#content2'}}, 'Back to the preview demos'),  
 h('p', ' bind() facilitates the linking together of dissimilar functions. Synchronous functions, promises, and asynchronous functions that use MonadItter instead of the Promises API. Examples of the latter can be seen in upcomming demonstrations. In the functions below, the suffix "C" is for curried functions that return Monad2 instances with integer values. Functions that return Promises that resolve into integers after two seconds have the "P" suffix. format() presents the value of "x" in (p.then(x" and "m.x" for all promises "p" and monads "m" '),
 h('pre', `  bind(1)(addP(2))(cubeC)(addC(3))
   (multC(2))(multP(3))
@@ -1319,6 +1317,7 @@ h('span', ' and most of the monads and functions presented here are available in
 h('br' ),
 
 
+h('a', {props: {href: '#top'}}, 'Back to the top'),  
 
 
 
@@ -1444,6 +1443,7 @@ h('br'),
 h('h3', 'Type Checking' ),  
 h('p', ' Type checking is useful for avoiding runtime errors and for optimization of user interfaces. For example, if a user enters the wrong type of data it is helpful to display a message explaining why nothing is happening. Not allowing defective user input to be transmitted to a WebSocket server prevents sockets from disconnecting. Some developers like to superimpose strong typing over JavaScript or write code in a strongly typed language that compiles to JavaScript. Others like to retain all of JavaScript\'s possibilities, checking types in only a few functions.  '),
 h('br'),  
+h('a', {props: {href: '#top'}}, 'Back to the top'),  
 h('h3', 'More about monads'),   
 h('p', ' The result of every computation in a chain of synchronous functions is available to every computation that comes after it. This can be seen in the next example: ' ),  
 h('pre', {style: {fontSize: "12px"}}, `  bind(1)(addC(2))(cubeC)(addC(3))
