@@ -1021,7 +1021,7 @@ h('pre', {style: {color: "#ff8484"}}, `  function add (a,b,c) {return a+b+c} -> 
 
   parseInt(a,b) -> const parseIntC = a => b => parseInt(b,a)  // Argument order reversed
   const pInt = parseIntC(10)       //  useful function
-  ['1','2','3','4','5'].map(pInt)  // returns [1,2,3,4,5] `),
+  ['1','2','3','4','5'].map(pInt)  //  returns [1,2,3,4,5] `),
 
 ]),
 h('hr.len90', {style: { display: mMgameDiv2.x }}, ),
