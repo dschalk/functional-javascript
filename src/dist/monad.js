@@ -53,8 +53,10 @@ const greentao = {style: {color:"#7fffb4", marginLeft: "3%"}}
 const italic = {style: {fontStyle: "italic"}}
 const italicRed = {style: {fontStyle: "italic", color: "#ff5b5b"}}
 const italicYellow = {style: {fontStyle: "italic", color: "#fbfca9"}}
-function styleFunc ([color = '#361B01', marginLeft = '0px', fontSize = '15px', fontStyle = 'norma'])
-  {return {style: {color: color, marginLeft: marginLeft, fontSize: fontSize, fontStyle: fontStyle}}};
+
+
+function styleFunc ([color = '#361B01', marginLeft = '0px', fontSize = '15px', fontStyle = 'norma', width = '100%'])
+  {return {style: {color: color, marginLeft: marginLeft, fontSize: fontSize, fontStyle: fontStyle, width: width   }}};
 const italicOrange = {style: {fontStyle: "italic", color: "#96f9ff"}}
 
 const retern = x => y => window[y] = new Monad(x,y);
@@ -73,6 +75,7 @@ var format = b => {(b.then) ?
 
 var m778_RESULT = h('div', "" );
 var m42_RESULT = [];
+var m42_RESULT2 = [];
 function makeSequence (n) {
   var a=[];
   var b=n;
@@ -234,10 +237,11 @@ var it4 = x => {
 
 var it6 = x => {
   mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));
-  mMZ38.bnd(v => mMZ39.release(v));
 }  
-var it7 = v => mMZ39.bnd( v => {
-  m42_RESULT.unshift(h('p', orange, v[3] + v[0] + v[4] + v[5]));
+
+var it7 = v => mMZ38.bnd( v => {
+m42_RESULT = m42_RESULT.concat(h('p', orange, v[3] + v[0] + v[4] + v[5]).text).concat(h('br'))
+m42_RESULT2 = m42_RESULT2.concat(h('div', [h('p', orange, v[3] + v[0] + v[4] + v[5]).text]))
 });
   //'The prime factors of ' + v[0] + ' are ' + v[1]);
 
@@ -256,6 +260,7 @@ const prm6 = x => {
   workerG.postMessage([primesMonad.s, [x]]);
   return "Done"
 }
+
 
 var apolox = (async function hello() {
   await wait(3000);

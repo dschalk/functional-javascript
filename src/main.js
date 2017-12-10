@@ -492,23 +492,36 @@
   //******************************************************************* workerG
 
     var clearClick$ = sources.DOM
-        .select('button#clear_P').events('click')
-        .map(() => m42_RESULT = []);
-
+        .select('button.clear_P').events('click')
+        .map(e => {
+          console.log('In clearClick$ - - - e is', e);
+          m42_RESULT = []; 
+          m42_RESULT2 = [];
+        }) 
     
     var factors2Press$ = sources.DOM
-        .select('button#factors_P').events('click');
+        .select('button.factors_P').events('click');
 
     var factors2Action$ = factors2Press$.map(function (e) {
       console.log('&&&&&>>> >> in factors2action$. e is', e );
       var factors = [];
       mMfactors3.ret('');
-      bind(50)(cubeC)(it4)(it6)(it7)
+      bind(50)(cubeC)(it4)(it6)(it7);
     });
 
   const workerG$ = sources.WWG.map(m => {
     m778_RESULT = result778(m.data);
     mMZ38.release(m.data);
+    console.log('<><><><><><><><><><>< prime factors ><><><><><><><><><><><><><><><><>');
+    console.log('<><><><><><><><><><><>< e.data><>< e.target.ar2 ><><><><><><><><><><><><>');
+    if (m.data) {console.log('GOOD m.data')} else { return "cow" }
+      if (m.target) {console.log('GOOD m.target')} else { return "shit" }
+        if (m.data[1]) {console.log('GOOD m.data[1]')} else { return 'donkey'}
+          if (m.target.ar2) {console.log('GOOD m.data.ar2')} else { return 'dung'}                
+    console.log('The prime factors of ' + m.data[1] + ' are ' + m.target.ar2.join(', ')) 
+    console.log('<><><><><><><><><><><><><><><><><><><><><><><><><><><>');
+    console.log('<><><><><><><><><><><><><><><><><><><><><><><><><><><>');
+      
   });
 
   const result778 = x => h('div', [
@@ -992,30 +1005,72 @@ h('h3', 'Polymorphic Function Composition With bind()' ),
 h('span.tao', ' On this page, I present several techniques for writing robust, easily maintainable JavaScript code. Chaining function with bind() is one of them. Your first reaction might be disbelief, but I think the demonstrations will convince you that it actually does work.'),
 h('br'),
 h('br'),
+
+
+
+
 h('span.tao', 'Functions can be composed into chains '),
 h('pre.tao', bigRed, `bind(x)(function1)(function2) ... (functionN)`),
 h('span', ' where x can be any value and the functions (named or lambda expressions) are '),
-h('span', styleFunc(["rgb(7, 247, 247)",,,"italic"]), 'not restricted in the types of values they return, the types of arguments they take, or the time it takes for them to return values. '),
+h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), 'not restricted in the types of values they return, the types of arguments they take, or the time it takes for them to return values. '),
+
+
+
+
 h('span', 'Functions that take multiple arguments should be curried; but since all JavaScript functions can be expressed in curried form, this is akin to a syntactic specification, and does not restrict what can be done. '), 
 h('br'),
 h('br'),
+
+
+]),
+h('hr.len90', {style: { display: mMgameDiv2.x }}, ),
+h('br'),
+h('div.content2', [
+h('div', {style: {width: '50%', float: 'left'}}, [  
+
 h('span.tao', ' In JavaScript, we are accustomed to chaining operations with objects that have methods that operate on functions and return objects that have methods that operate on functions ... and so on and so forth along a chain. Promises are typical, always returning objects with the "then()" method. JQuerry and Lodash follow this pattern only with more methods that take functions and return objects with numerous methods. I\'ll say this again: Linking functions instead of objects with bind(), there are ' ), 
-h('span', styleFunc(["rgb(7, 247, 247)",,,"italic"]), 'no restrictions on return value types, no restrictions on argument types, and no restriction on how long it takes to return a value! '), 
+h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), 'no restrictions on return value types, no restrictions on argument types, and no restriction on how long it takes to return a value! '), 
 h('br'),
 h('br'),
 h('span.tao', 'The ' ),
 h('a', {props: {href: '#chain'}}, 'demonstrations' ),
 h('span', ' below include linked functions that begin with bind() followed by a function that performs a computation, then a function that obtains a pseudo-random number from the WebSocket server, then a function that obtains the number\'s prime decomposition from a web worker, followed by a function that formats the data for display - '), 
-h('span', styleFunc(["rgb(7, 247, 247)",,,"italic"]), 'all without Promises.' ),
+h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), 'all without Promises.' ),
 h('br'),
 h('br'),
 h('span.tao', ' Asynchronous functions can run without support from the Promisses / Generators API, but for those who use promises, there is good news.'),
-h('span', styleFunc(["rgb(7, 247, 247)",,,"italic"]), ' Promises'), 
+h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), ' Promises'), 
   h('span', ' can be linked without explicitly invoking the "then()" method, and '), 
-h('span', styleFunc(["rgb(7, 247, 247)",,,"italic"]), 'with access to previous results'),
+h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), 'with access to previous results'),
   
 h('span', ' all the way back to the first link in the chain.'),
-h('span', ' All you need to do is begin a sequence of functions with the function "bind()". '),
+h('span', ' All you need to do is begin a sequence of functions with the function bind() '),
+h('br'),
+h('br'),
+]),
+
+h('div', {style: {width: '42%', fontSize: '15px', float: 'right'}}, [  
+h('h2', 'Preview' ),
+h('p', ' This demonstration is discussed in detail below. It shows some linked procedures in action. it4() obtains a random number less than 50 cubed (250,000) from the Haskell WebSocket server, then it6() obtains the prime factors of the random number, and finally it7() formats the message returned by the web worker for display in the browswer. '),
+h('p', ' The asynchronous functions don\'t use promises. Instead, they use MonadItter (explained below) which does what promises and generators do, but with more control and flexibility. ' ),  
+h('span', ' Click below (multiple times in rapid succession if you like) to run '),
+h('br'),
+h('span', styleFunc(["rgb(7, 247, 247)","7%","20px",]), 'bind(50)(cubeC)(it4)(it6)(it7)'),
+h('br'),
+h('br'),
+h('button.factors_P', {style: {fontSize: '15px'}}, 'bind(50)(cubeC)(it4)(it6)(it7)'),
+h('span', "~~~~~"),  
+h('button.clear_P', {style: {fontSize: '15px', marginLeft: "0"}},  'clear results'), 
+h('br'),
+h('br'),
+h('div', orange, m42_RESULT2 ), 
+h('br'),
+h('br'),
+]),
+
+]),  
+h('hr.len90', {style: { display: mMgameDiv2.x }}, ),
+h('div.content', [
 
 
 h('p', ' Not having to return specialized objects, as other JavaScript chaining algorithms require, is liberating. Having access to prior return values is empowering. ' ),
@@ -1212,12 +1267,12 @@ h('a', {props: {href: '#cyclet'}}, 'Async Procedures' ),
 h('p', ' Here are linked procedures that perform a computation, send the result to the Haskell WebSocket server to obtain a random number less than the result (ip4), send the random number to a web worker to obtain the prime factors of the random num)ber (ip6), and finally parse the acquired data for display (ip7): '),
 h('span', ' Click below (multiple times in rapid succession if you like) to run '),
 h('br'),
-h('span', styleFunc(["rgb(7, 247, 247)","7%","20px",]), 'bind(50)(cubeC)(it4)(it6)(it7)'),
+h('span', styleFunc(["rgb(7, 247, 247)","7%","20px",,]), 'bind(50)(cubeC)(it4)(it6)(it7)'),
 h('br'),
 h('br'),
-h('button#factors_P', {style: {fontSize: '12px'}}, 'bind(50)(cubeC)(it4)(it6)(it7)'),
+h('button.factors_P', {style: {fontSize: '15px'}}, 'bind(50)(cubeC)(it4)(it6)(it7)'),
 h('span', "~~~~~"),  
-h('button#clear_P', {style: {fontSize: '12px', marginLeft: "0"}},  'clear results'), 
+h('button.clear_P', {style: {fontSize: '15px', marginLeft: "0"}},  'clear results'), 
 h('br'),
 h('div', m42_RESULT ),  
 h('p', ' The definitions of it4(), it6(), and it(7) are: '),
