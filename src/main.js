@@ -989,8 +989,6 @@ var calcStream$ = xs.merge( diffR$, res8$, ping$, pingpong$, m80Action$, comment
       return { DOM: calcStream$.map(() => {
       return h('div.main', [
 
-
-
 h('div.image_3', [
 h('img.image_2', {props: {src: "logo.svg" }}  ),
 h('span', ' ' ),
@@ -1001,7 +999,10 @@ h('br'),
 h('div', {style: {fontSize: "18px", fontStyle: "italic", color: "#07f7f7"}},'WITH CYCLE.JS' ) ]),
 h('br'),
 h('div.content', [
-h('h3', 'Polymorphic Function Composition With bind()' ), 
+h('div', styleFunc(["#d3f99a",,"26px",,,"center"]), [  
+  h('span', 'Polymorphic Function Composition With '),
+  h('a',  {props: {href: "#bind"}}, 'bind()' ), 
+]),  
 h('br'),
 h('p', ' Remarkable advantages flow from composising functions like this:'),
 h('div', bigOrange, ' bind(x)(function1)(function2) ... (functionN) ' ),
@@ -1016,12 +1017,20 @@ h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), ' Promises'),
 h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), 'with complete access all to previous results'),
 h('span', '.' ),
 h('br'),
-h('p', 'Functions that take multiple arguments should be curried. This deosn\'t restrict what cam be done since all JavaScript functions are easy to curry. '), 
+h('p', 'Functions that take multiple arguments should be curried. This deosn\'t restrict what cam be done since all JavaScript functions have equivalent curried forms. '), 
 h('pre', {style: {color: "#ff8484"}}, `  function add (a,b,c) {return a+b+c} -> const add = a => b => c => a+b+c 
 
   parseInt(a,b) -> const parseIntC = a => b => parseInt(b,a)  // Argument order reversed
   const pInt = parseIntC(10)       //  useful function
   ['1','2','3','4','5'].map(pInt)  //  returns [1,2,3,4,5] `),
+h('span.tao', ' The functions curry() and curryReverse are usually all you need to curry a function. The definitions are in the '),
+h('a', {props: {href: "#curryDef"}}, 'appendix'),
+h('span', ' Here are two examples: '),
+h('br'),
+h('br'),
+h('pre', orange, `  curry(function (a,b,c) {return a+b+c})(13)(14)(15) === 42   // returns true
+  const cRev = curryReverse(parseInt)(10);
+  cRev("223")  // returns 223 `),
 
 ]),
 h('hr.len90', {style: { display: mMgameDiv2.x }}, ),
@@ -1083,12 +1092,12 @@ h('pre', {style: { color: "rgb(181, 244, 240)" }},   `    function Monad(z = 'de
     function Monad2(z = 0) {
       this.x = z;
     };  ` ),
-h('p', ' With some tweaking, bind() quickly evolved into universal glue for chaining all sorts of functions. I was amazed to see chains of all sorts of links, showing bind() and then nothing but functions. It seemed more a gift from a Muse rather than something I created. ' ),
-h('p', ' The methods bnd() and ret() were added to the Monad and Monad2 prototypes. Monads created on the fly by ret() don\'t have "id" properties and normally don\'t have names (corresponding pointers. Thay do their work securely insulated from their outer scope. '),
+h('p', ' With some tweaking, bind() evolved into more than I imagined possible. It felt like something wonderful had been given to me. I didn\'t set out to invent it. ' ),
+h('p', ' The methods bnd() and ret() were added to the Monad and Monad2 prototypes. Monads created on the fly by ret() don\'t have "id" properties and are normally anonymous so they can do their work securely insulated from their outer scope. '),
 h('p', ' Before explaining how the monads work, I invite you to try out some interactive demonstrations.'), 
 h('h2', ' A Few Monad Demonstrations ' ),
 h('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history. All group members see your score decrease or increase as you navigate backwards and forwards. ' ),
-h('h', ' You are automatically logged in with randomly generated numbers as your user name and password. Your group is the non-group "solo". '),
+h('p', ' You are automatically logged in with randomly generated numbers as your user name and password. Your group is the non-group "solo". '),
 h('p', ' You can select a persistent name and password. These will make it possible for you to return later to delete or edit comments that you might have saved. '),
 h('p#gameIntro', ' The demonstration section also has a text box where you can create or join groups. Changing groups resets your game score and goal tally to zeros. ' ),
       h('span.tao', ' The game code is fairly concise and intuitive. A quick walk-through is presented at.' ),
@@ -1196,8 +1205,9 @@ h('h2', 'Monads' ),
 
 
 
-h('p', ' For purposes of this discussion, "monads" are objects "m" for which "m instanceof Monad" returns true. The statement "var mon = new Monad(7,\'mon\')" creates a monad named "mon" which encapsulates the value 7. The expressions "mon.id === \'mon\'", mon.x === 7, and "mon instanceof Monad" all return true'),
-h('h', ' The functions bind() and ret() make the monads useful. Here are their definitions: '),
+h('p#bind', ' For purposes of this discussion, "monads" are objects "m" for which "m instanceof Monad" returns true. The statement "var mon = new Monad(7,\'mon\')" creates a monad named "mon" which encapsulates the value 7. The expressions "mon.id === \'mon\'", mon.x === 7, and "mon instanceof Monad" all return true'),
+h('a', {props: {href: '#top'}}, 'Back to the top'),  
+h('p', ' The functions bind() and ret() make the monads useful. Here are their definitions: '),
 h('pre', {style: {color: "lightBlue"}}, `function bind (x, arr=[]) {
   this.ar = arr;
   var that = this;
@@ -1652,7 +1662,37 @@ function process (a) { //Assembles the HTML for display.
     ]))
   })
 } ` ),
+h('div#curryDef'),
+h('br'),
+h('pre', `function curry(func) {
 
+  return function curried(...args) {
+    if (args.length >= func.length) {
+      return func.apply(this, args);
+    } else {
+      return function(...args2) {
+        return curried.apply(this, args.concat(args2));
+      }
+    }
+  };
+
+} 
+
+function curryReverse(func) {
+
+  return function curried(...args) {
+    if (args.length >= func.length) {
+      return func.apply(this, args.reverse());
+    } else {
+      return function(...args2) {
+        return curried.apply(this, args.concat(args2));
+      }
+    }
+  };
+
+} `),
+
+h('a', {props: {href: '#top'}}, 'Back to the top'),  
   h('p', ' *************************************************************************************** ' ),
   h('h3', 'Haskell Time'),
   h('p', ' This page is for front end developers, but in case anyone is interested, here are the server functions responsible for deleting or amending a comment: ' ),

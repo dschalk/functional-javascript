@@ -71,7 +71,7 @@ const italicOrange = {style: {fontStyle: "italic", color: "#96f9ff"}}
 
 const retern = x => y => window[y] = new Monad(x,y);
 
-var bigOrange = styleFunc(["#f98043",,"19px",,,"center"]);
+var bigOrange = styleFunc(["#f98043","7%","19px",,,]);
 
 const parseIntC = a => b => parseInt(b,a)
 const pInt = parseIntC(10) //  useful function
@@ -2275,6 +2275,33 @@ var ping = n => ar => {
 ping(0)([0,0]);
 
 
+function curry(func) {
+
+  return function curried(...args) {
+    if (args.length >= func.length) {
+      return func.apply(this, args);
+    } else {
+      return function(...args2) {
+        return curried.apply(this, args.concat(args2));
+      }
+    }
+  };
+
+}
+
+function curryReverse(func) {
+
+  return function curried(...args) {
+    if (args.length >= func.length) {
+      return func.apply(this, args.reverse());
+    } else {
+      return function(...args2) {
+        return curried.apply(this, args.concat(args2));
+      }
+    }
+  };
+
+}
 
 
 
