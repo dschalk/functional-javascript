@@ -13,6 +13,8 @@ var chatNode;
 var captionDiv = 'block';
 var xs = xstream.default;
 var h = h.h;
+var fredArray = ["waiting"];
+var fredButton = h('button#fredButton', "fredButton");
 const messages = [];
 var buttonNode;
 var stat;
@@ -39,6 +41,8 @@ var diffRend = 0;
 var mMt32 = new Monad(0,'mMt32');
 var mMt33 = new Monad(0,'mMt33');
 const orange = {style: {color: "#f98043"}} 
+const orangeIndent7 = {style: {color: "#f98043", marginLeft: "7%", fontSize: "20px"}} 
+const purple = {style: {color: "#ff9bf8"}}
 const orangetao = {style: {color: "#f98043", marginLeft: "3%"}} 
 const red = {style: {color: "#ff5b5b"}}
 const bigRed = {style: {color: "#ff5b5b", fontSize: "17"}}
@@ -51,7 +55,7 @@ const giantGreen = {style: {color: "#7fffb4", fontSize: "20"}}
 const littleGreen = {style: {color: "#7fffb4", fontSize: "13"}}
 const greentao = {style: {color:"#7fffb4", marginLeft: "3%"}}
 const italic = {style: {fontStyle: "italic"}}
-const center = {style: {textAlign: "center"}}
+const center = {style: {textAlign: "center", float: "center"}}
 const italicRed = {style: {fontStyle: "italic", color: "#ff5b5b"}}
 const italicYellow = {style: {fontStyle: "italic", color: "#fbfca9"}}
 
@@ -100,6 +104,7 @@ function makeSequence (n) {
 
 const diffRender = () => document.getElementById('diffRender').click();
 
+const fredFunc =  a => {fredArray = a}; 
 
 var tr = x => p => async f => {
   return await f(await p(x))
@@ -2276,7 +2281,6 @@ ping(0)([0,0]);
 
 
 function curry(func) {
-
   return function curried(...args) {
     if (args.length >= func.length) {
       return func.apply(this, args);
@@ -2286,11 +2290,9 @@ function curry(func) {
       }
     }
   };
-
 }
 
 function curryReverse(func) {
-
   return function curried(...args) {
     if (args.length >= func.length) {
       return func.apply(this, args.reverse());
@@ -2300,10 +2302,19 @@ function curryReverse(func) {
       }
     }
   };
-
 }
 
 
+var fredExec = () => {
+  fredArr = [];
+  bind(1)(addP(2))(cubeC)(addC(3))(multP(2))(multC(3))
+  (addC(30))(multP(1/5))(terminate).slice(1,9)
+  .map(v => v.then(q => {
+    fredArr.push(q.x);
+    fredArray = fredArr.join(' ')
+    diffRender()
+  }))   
+}
 
 
 

@@ -81,6 +81,15 @@ function pingpongDriver () {
   })
 };
 
+var freddy$ = n => xs.of(n);
+
+function fredDriver () {
+  return xs.create({
+    start: listener => { freddy$ = k => listener.next(k)},
+    stop: () => {}
+  })
+};
+
 /*function eM2Driver () {
   return xs.create({
     start: listener => { mM2.on = msg => listener.next(msg)},
