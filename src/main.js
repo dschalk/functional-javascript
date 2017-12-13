@@ -1116,7 +1116,10 @@ h('pre', `  const addP = x => async y => {
     await wait(2000) 
     return ret(x + y);
 } `),
-h('p', ' Examples of promises using the results of prior promises in a chain are presented further down the page. As the caption says, this is just a preview. '), 
+h('p', ' Examples of promises using the results of prior promises in a chain are presented further down the page. I hope this preview piqued your interest. Most of the functions are available in the browswer console or scratch pad, so you can conveniently test my code and experiment. '), 
+h('span', ' If you have any thoughts about this project that you are willing to share, please leave a '),
+h('a', {props: {href: "#comments"}}, 'comment'),
+('span', ' below '),
 ]),
 h('span', center, '_________________________________________________________________________________________________'),  
 ]),
@@ -1252,33 +1255,35 @@ h('h2', 'Monads' ),
 h('p#bind', ' For purposes of this discussion, "monads" are objects "m" for which "m instanceof Monad" returns true. The statement "var mon = new Monad(7,\'mon\')" creates a monad named "mon" which encapsulates the value 7. The expressions "mon.id === \'mon\'", mon.x === 7, and "mon instanceof Monad" all return true'),
 h('a', {props: {href: '#top'}}, 'Back to the top'),  
 h('p', ' The functions bind() and ret() make the monads useful. Here are their definitions: '),
-h('pre', {style: {color: "lightBlue"}}, `function bind (x, arr=[]) {
-  this.ar = arr;
-  var that = this;
-  this.ar.push(x instanceof Monad ? x.x : x)
-  if (this.ar.length === 0) this.ar = [x];
-  console.log('In bond <<>><<>><<>> x is', x);
-  return function debug8 (func) {
-    if (func.name === "terminate") return ar;
-    if (x instanceof Promise) {
-      var p = x.then(v => func(v.x));
-      return bind(p,this.ar);
-    }  
-    if (x instanceof Monad) return bind(func(x.x),this.ar);
-    // Asynchronous functionality without Promises. Begin:
-    if (typeof func === 'string' && func.slice(0,3) === "mMZ") { 
-      var p = eval(func(x));
-      return bind(p, this.ar);
-    }
-    if (typeof x === 'string' && x.slice(0,3) === "mMZ") { 
-      var p = func(eval(x));
-      return bind(p, this.ar);
-    }
-    // Asynchronous functionality without Promises. End.
-    return bind(func(x),this.ar);
-  };
-};  
-     
+h('pre', {style: {color: "lightBlue"}}, `  function bind (x, arr=[]) {
+    var bool = z => (z instanceof Monad || z instanceof Monad2 
+      || z instanceof Promise || typeof z === 'string')
+    if (!bool(x)) x = ret(x); 
+    this.ar = arr;
+    this.ar.push(x instanceof Monad || x instanceof Monad2 ? x.x : x)
+    if (this.ar.length === 0) this.ar = [x];
+    return function debug8 (func) {
+      if (func.name === "terminate") return ar;
+      if (x instanceof Promise) {
+        var p = x.then(v => func(v instanceof Monad2  ? v.x : v));
+        return bind(p,this.ar);
+      }  
+      if (x instanceof Monad2) return bind(func(x.x),this.ar);
+      if (x instanceof Monad) return bind(func(x.x),this.ar);
+      // Asynchronous functionality without Promises. Begin:
+      if (typeof func === 'string' && func.slice(0,3) === "mMZ") { 
+        var p = eval(func(x));
+        return bind(p, this.ar);
+      }
+      if (typeof x === 'string' && x.slice(0,3) === "mMZ") { 
+        console.log('In bind. x === \'string\'. x and ar',x,ar);
+        var p = func(eval(x));
+        return bind(p, this.ar);
+      }
+      // Asynchronous functionality without Promises. End.
+    };
+  };  
+
 function ret (val) {
     return new Monad2(val);
 } ` ),
@@ -1617,10 +1622,12 @@ h('pre', `  ret(2).bnd(v => add(v,1)
       t.ret(0).bnd(v => add3(v,3).bnd(cube3)).x  ` ),
 
   h('h3', 'Feedback From the Error Monad' ),  
+  h('span#comments', ),
   h('img.image', {props: {src: "error2.png"}}  ),
-  h('br'),
+  h('div#comment'),
     h('h2', {style: {color: "red" }}, 'Comments' ),
    
+  h('a', {props: {href: '#top'}}, 'Back to the top'),  
     h('div#com2',  { style: { display: abcde} }, ), 
     h('p', ' When this page loads in the browser, a user name is automatically generated in order to establish a unique WebSocket connection. This makes it possible to exchange text messages with other group members, play the game, and work on a shared todo list. If you want to leave a comment, you need to log in with a user name and a password of your choice. Each can be a single character or you could use a hard-to-hack combination of alphabet letter, numbers, and special characters. The main requirement is that there be only one comma, and that it be placed between the name and the password. ' ),
     h('p', 'The server will keep your user name and password in a text file. If you use your saved user name and password sometime in the future, you will be able to edit or delete any comments you previously made. '),
