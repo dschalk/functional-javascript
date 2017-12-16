@@ -686,7 +686,7 @@
 
 	  var fredGo$ = sources.DOM.select('button#fredB').events('click').map(function () {
 	    freday = [];
-	    fred();
+	    funcP();
 	  });
 
 	  //******************************************* END pingpong END

@@ -615,7 +615,7 @@ console.log('testFlow',testFlow);
         .events('click')
         .map(() => {
           freday = [];
-          fred()});
+          funcP()});
 
 
         

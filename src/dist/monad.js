@@ -2310,8 +2310,8 @@ function curryReverse(func) {
   var cRev = curryReverse(parseInt)(10);  // Useful function
   ["1","2","3","4","5"].map(v => cRev(v));  // returns [1,2,3,4,5] 
 
-var fred = () => {
-  fred = [];
+var funcP = () => {
+  var fred = [];
   bind(1)(addP(2))(cubeC)(addC(3))(multP(2))(multC(3))
   (addC(30))(multP(1/5))(terminate).slice(1,9)
   .map(v => v.then(q => {
