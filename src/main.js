@@ -1,19 +1,30 @@
-      
   import {run} from '@cycle/xstream-run';
   import {h, p, span, h1, h2, h3, pre, br, div, label, input, hr, makeDOMDriver} from '@cycle/dom';
   import code from './code.js';
-  // import {EventEmitter} from 'events'
+  
 
+// import flow from 'lodash/fp/flow';
+import _curry from 'lodash/fp/curry';
+
+function add3 (a,b,c) {return a+b+c};
+function mult2 (a,b) {return a*b};
+var testFlow = _curry(add3)
+var testFlow2 = _curry(mult2);
+console.log('testFlow(2)(3)(4) <><><><><><> -->', testFlow(2)(3)(4) );
+
+console.log('testFlow2(2)(21) <><><><><><> -->', testFlow2(2)(21) );
+
+console.log('testFlow',testFlow);
 
   console.log('If you can read this you are in main.js <@><@><@><@><@><@><@><@>');
   var textA = h('textarea', 'You bet!' );
   var formA = h('form#horses', 'You bet!' );
+  console.log(xs);
 
+  /*
   socket.addEventListener('message', function (event) {
     console.log('<$><$><$><$><$><$><$><$><$> $$ Message from server: event.data ', event.data);
   });
-  console.log(xs);
-  /*
   var stream = xs.periodic(1000)
     .filter(i => i % 2 === 0)
     .map(i => i * i)
@@ -587,24 +598,24 @@
     });
     
     const fred$ = sources.FD.map(e => {
-      fredArray = e;
+      freday = e;
     })
 
     var frd$ = sources.DOM
         .select('div#fredB').events('click')
         
     var fredAction$ = frd$.map((e) => {
-        fredArray = [];
+        freday = [];
         diffRender()
-        console.log("Goodness gracious great balls of fire, fredArray, e", fredArray,e);
+        console.log("Goodness gracious great balls of fire, freday, e", freday,e);
     });
 
     var fredGo$ = sources.DOM
         .select('button#fredB')
         .events('click')
         .map(() => {
-          fredArray = [];
-          fredExec()});
+          freday = [];
+          fred()});
 
 
         
@@ -1020,37 +1031,48 @@ h('div', {style: {fontSize: "22px", fontStyle: "italic", color: "#07f7f7"}},'WIT
 h('br'),
 h('br'),
 h('div.content', [
-h('div', styleFunc(["#d3f99a",,"26px",,,"center"]), [  
-  h('span', 'Polymorphic Function Composition'),
+h('div', styleFunc(["#FFD700",,"26px",,,"center"]), 'Polymorphic Function Composition'),
+h('br'),
+h('br'),
+  
+
+
+  
+  
+h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' Application developers who use the pattern '),
+h('span', styleFunc(["#FFD700",,"18px",,,"center"]), 'bind(x)(function1)(function2) ... (functionN) '),
+h('span', styleFunc(["#d3ead5",,"18px",,,]), ' enjoy these advantages:' ),
+h('div', styleFunc(["#a3ffe4",,"18px",,,]), [ 
+h('p', ' x can be any value,'),
+h('span.tao', ' there are no restrictions on argument types'),
+h('span', styleFunc(["#FFD700",,"18px",,,]), '*'), 
+h('span', ',' ),
+h('br'),
+h('p', ' there are no restrictions on return value types, '), 
+h('p', ' all functions have access to all prior functions return values, '),
+h('p', ' any function in the chain can be asynchronous, '),
+h('p', ' promises can access prior promises\' resolution values ')
 ]),  
-h('p', ' Remarkable advantages flow from composing functions like this:'),
-h('div', bigOrange, ' bind(x)(function1)(function2) ... (functionN) ' ),
-h('br'),
-h('span', ' where x can be any value and the functions (named or lambda expressions) are '),
-h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), 'not restricted in the types of values they return, the types of arguments they take, or the time it takes for them to return values'),
-h('span', ' and "bind()" is defined as '),
+
+
+h('span.tao', ' Inexperienced coders can regard "bind()" as a black box, but eventually they will want to know that is defined as '),
 h('a',  {props: {href: "#bind"}}, 'click-me' ), 
-h('span','.'),
+h('span','. Experienced coders might consider modifying bind() for specific projects, removing what won\'t be used and adding things such as error handling or type checking.'),
 h('br'),
 h('br'),
-h('span.tao', ' Asynchronous functions don\'t need promises, but for those who use Ecmascript 2015 promises, here\'s some good news:'),
-h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), ' Promises'), 
-  h('span', ' can be linked without explicitly invoking the "then()" method, and '), 
-h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), 'with complete access all to previous results'),
-h('span', '.' ),
-h('br'),
-h('br'),
-h('span.tao', 'Functions that take multiple arguments should be curried. This deosn\'t restrict what cam be done since all multi-argument JavaScript functions can be coded in curried forms. The functions curry() and curryReverse are usually all you need to curry a function. The definitions are in the '),
+h('span', styleFunc(["#FFD700",,"18px",,,]),  '* '),
+h('span', 'Functions that take multiple arguments should be curried or else receive their argumernts in an array. This deosn\'t restrict what cam be done. All multi-argument JavaScript functions can be coded in curried forms. The functions curry() and curryReverse are usually all you need to curry a function. Functions that return multiple values usually return arrays, as in the example below. The definitions are in the '),
 h('a', {props: {href: "#curryDef"}}, 'appendix'),
 h('span', ' Here are some examples: '),
 h('pre', purple, `  function add3 (a,b,c) {return a+b+c}
-  curry(add3)(13)(14)(15)                   //  returns 42
+  
+  curry(add3)(13)(14)(15)                           //  returns 42
+  bind(13)(v => [v, v+1, v+2])(add3)(terminate)[2]  //  returns 42
 
-  const cRev = curryReverse(parseInt)(10);  // Useful function
-  ["1","2","3","4","5"].map(v => cRev(v));  // returns [1,2,3,4,5] `), 
-]),
+  var cRev = curryReverse(parseInt)(10);    // Useful function
+  ["1","2","3","4","5"].map(v => cRev(v));  // returns [1,2,3,4,5] `),
 h('br'),
-
+]),
 h('div#content2', [
 
 h('div', {style: {width: '50%', float: 'left', marginRight: "5%"}}, [  
@@ -1070,14 +1092,14 @@ h('p', ' Nothing prevents you from imposing strict type constraints on the funct
 h('span.tao', ' Examples and discussion of chains containing both synchronous and asynchronous computations can be found '), 
 h('a', { props: { href: '#chain' } }, 'here.'),
 h('br'),
-h('p', ' The second example in the right column runs fredExec() when the button is clicked. It returns the formatted return value of: '), 
-h('pre', `  var fredExec = () => {
-    fredArr = [];
+h('p', ' The second example in the right column runs fred() when the button is clicked. It returns the formatted return value of: '), 
+h('pre', `  var fred = () => {
+    fred = [];
     bind(1)(addP(2))(cubeC)(addC(3))(multP(2))
     (multC(3))(addC(30))(multP(1/5))(terminate)
     .slice(1,9).map(v => v.then(q => { 
-      fredArr.push(q.x);
-      fredArray = fredArr.join(' ')
+      fred.push(q.x);
+      freday = fred.join(' ')
       diffRender()
     }))   
   }  `),
@@ -1105,17 +1127,17 @@ h('br'),
 h('br'),
 h('div', orange, m42_RESULT2 ), 
 h('br'),
-
-h('button#fredB', {style: {fontSize: '15px'}}, 'Click to run fredExec()' ),
+h('p', ' Click to run fredExtract() (defined in the left column). '),
+h('button#fredB', {style: {fontSize: '15px'}}, 'fred()' ),
 h('br'),
 h('br'),
-h('div#fred', orangeIndent7, fredArray ),
+h('div#fred', orangeIndent7, freday ),
 h('br'),
-h('p', ' The definitions of the functions in fredExec are shown in the Appendix. The P-suffixed functions  follow this pattern: '),  
+h('p', ' The definitions of the functions in fred are shown in the Appendix. The P-suffixed functions  follow this pattern: '),  
 h('pre', `  const addP = x => async y => {
     await wait(2000) 
     return ret(x + y);
-} `),
+  } `),
 h('p', ' Examples of promises using the results of prior promises in a chain are presented further down the page. I hope this preview piqued your interest. Most of the functions are available in the browswer console or scratch pad, so you can conveniently test my code and experiment. '), 
 h('span', ' If you have any thoughts about this project that you are willing to share, please leave a '),
 h('a', {props: {href: "#comments"}}, 'comment'),
@@ -1252,12 +1274,12 @@ h('h2', 'Monads' ),
 
 
 
-h('p#bind', ' For purposes of this discussion, "monads" are objects "m" for which "m instanceof Monad" returns true. The statement "var mon = new Monad(7,\'mon\')" creates a monad named "mon" which encapsulates the value 7. The expressions "mon.id === \'mon\'", mon.x === 7, and "mon instanceof Monad" all return true'),
+h('p#bind', ' For purposes of this discussion, "monads" are objects "m" for which "m instanceof Monad" or "m instanceof Monad2" return true. The statement "var mon = new Monad(7,\'mon\')" creates a monad named "mon" which encapsulates the value 7. '),
 h('a', {props: {href: '#top'}}, 'Back to the top'),  
 h('p', ' The functions bind() and ret() make the monads useful. Here are their definitions: '),
 h('pre', {style: {color: "lightBlue"}}, `  function bind (x, arr=[]) {
-    var bool = z => (z instanceof Monad || z instanceof Monad2 
-      || z instanceof Promise || typeof z === 'string')
+    var bool = z => (z instanceof Monad || z instanceof Monad2 || z instanceof Promise 
+     || typeof z === 'string' || z instanceof Array)
     if (!bool(x)) x = ret(x); 
     this.ar = arr;
     this.ar.push(x instanceof Monad || x instanceof Monad2 ? x.x : x)
@@ -1268,8 +1290,7 @@ h('pre', {style: {color: "lightBlue"}}, `  function bind (x, arr=[]) {
         var p = x.then(v => func(v instanceof Monad2  ? v.x : v));
         return bind(p,this.ar);
       }  
-      if (x instanceof Monad2) return bind(func(x.x),this.ar);
-      if (x instanceof Monad) return bind(func(x.x),this.ar);
+      if (x instanceof Monad || x instanceof Monad2) return bind(func(x.x),this.ar);
       // Asynchronous functionality without Promises. Begin:
       if (typeof func === 'string' && func.slice(0,3) === "mMZ") { 
         var p = eval(func(x));
@@ -1281,13 +1302,13 @@ h('pre', {style: {color: "lightBlue"}}, `  function bind (x, arr=[]) {
         return bind(p, this.ar);
       }
       // Asynchronous functionality without Promises. End.
+      if (x instanceof Array) {
+        var p = func(...x);
+        return bind(p, this.ar);
+      };  
     };
-  };  
-
-function ret (val) {
-    return new Monad2(val);
-} ` ),
-h('p', ' As is apparent from the definition, bind() is recursive and completely polymorphic. If bind()\'s argument is not a promise, an instance of Monad, an instance of Monad2, or a string, bind() returns "bind(func(x),this.ar)". The array "ar" accumulates results along a sequence of computations. "terminate" returns "ar".'), 
+  }; ` ),
+h('p', ' As is apparent from the definition, bind() is recursive and completely polymorphic. If bind()\'s argument is not a promise, an instance of Monad, an instance of Monad2, or a string, bind() returns "bind(func(ret(x)),this.ar)". The array "ar" accumulates results along a sequence of computations. "terminate" returns "ar".'), 
 h('p', ' Monad2 is Monad without "id". Anonymous Monad2 instances are insulated from their outer scopes, eliminating the possibility of clashes with other processes. '),
 h('p', ' The definition of bind() speaks for itself more articulately the following description, but for what it\'s worth, here it is:  For any value "p" and arrays "ar", "ar2", and "ar3", the invisible function that stands ready to operate on the function ahead of bind(p,ar) in a chain is named "debug8". In the simple case of synchronous code, if the function ahead of bind(p,ar) - in other words, debug8\'s argument - is "func", bind(p,ar)(func) returns debug8 which returns bind(func(p,ar2)) which returns debug8, ready to continue the chain. If the next link is func2, bind(func2(func(p,ar),ar2),ar3) is called, returning debug8, ready to accept the next function in the chain. ' ),
 h('p', ' A description of what bind() does with promises isn\'t likely to be helpful. Too many words would be needed. Some examples below show it in action, waiting for WebSocket messages and web worker messages in a single chain. '),
@@ -1372,7 +1393,7 @@ h('a', {props: {href: "#reactivity"}}, 'Reactivity in Cycle.js' ),
 h('br'),
 h('br' ),
 h('br' ),
-h('a', {props: {href: 'https://github.com/snabbdom/snabbdom'}}, ' Snabbdom', ),
+h('a.tao', {props: {href: 'https://github.com/snabbdom/snabbdom'}}, ' Snabbdom', ),
 h('a', {props: {href: 'http://x-stream.github.io/'}}, ' xstream,' ),
 h('span', ' and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimentation and learning so many supporting files are included as scripts in the index.html page. ' ),
 h('br' ),
@@ -1453,8 +1474,8 @@ h('br'),
   h('br'),
   h('span#PF_22.turk', mMres.x[1]  ),
   h('br'),
-  h('h3', ' Promises and async/await are not needed ' ),
-  h('p', ' Because this code is running in Cycle.js, waiting for WebSocket messages to come in and waiting for time consuming procedures to complete without blocking is easily accomplished without using promises or async/await. Drivers stand ready to process WebSocket and web worker messages. '),   
+  h('h3', ' Promises are not needed ' ),
+  h('p', ' Asychronous code can be handled without reliance on Ecmascript 2015 promises either explicitely or implicitely (eg. using async/await). Cycle.js drivers eliminate any need to explicitely use functions from r eactive library, but Xstrean is an integral component of Cycle.js. ' ),   
 
   h('p', ' The second demonstration in this series decomposes numbers into its their prime factors. Testing with sequences of 9\'s, the first substantial lag occurs at 9,999,999 - unless a large array of prime numbers has already been generated in the previous demonstration or elsewhere. Here it is:' ),
   h('input#factors_1'),

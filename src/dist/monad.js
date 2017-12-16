@@ -13,7 +13,7 @@ var chatNode;
 var captionDiv = 'block';
 var xs = xstream.default;
 var h = h.h;
-var fredArray = ["waiting"];
+var freday = ["waiting"];
 var fredButton = h('button#fredButton', "fredButton");
 const messages = [];
 var buttonNode;
@@ -46,6 +46,7 @@ const purple = {style: {color: "#ff9bf8"}}
 const orangetao = {style: {color: "#f98043", marginLeft: "3%"}} 
 const red = {style: {color: "#ff5b5b"}}
 const bigRed = {style: {color: "#ff5b5b", fontSize: "17"}}
+var bigOrange = styleFunc(["#f98043",,"19px",,,"left"]);
 const giantRed = {style: {color: "#ff5b5b", fontSize: "21"}}
 const littleRed = {style: {color: "#ff5b5b", fontSize: "10"}}
 const redtao = {style: {color: "#ff5b5b", marginLeft: "3%"}}
@@ -75,7 +76,6 @@ const italicOrange = {style: {fontStyle: "italic", color: "#96f9ff"}}
 
 const retern = x => y => window[y] = new Monad(x,y);
 
-var bigOrange = styleFunc(["#f98043","7%","19px",,,]);
 
 const parseIntC = a => b => parseInt(b,a)
 const pInt = parseIntC(10) //  useful function
@@ -104,7 +104,7 @@ function makeSequence (n) {
 
 const diffRender = () => document.getElementById('diffRender').click();
 
-const fredFunc =  a => {fredArray = a}; 
+const fredFunc =  a => {freday = a}; 
 
 var tr = x => p => async f => {
   return await f(await p(x))
@@ -223,7 +223,7 @@ const wait2 = x => {
 
   function bind (x, arr=[]) {
     var bool = z => (z instanceof Monad || z instanceof Monad2 || z instanceof Promise 
-     || typeof z === 'string')
+     || typeof z === 'string' || z instanceof Array)
     if (!bool(x)) x = ret(x); 
     this.ar = arr;
     this.ar.push(x instanceof Monad || x instanceof Monad2 ? x.x : x)
@@ -234,8 +234,7 @@ const wait2 = x => {
         var p = x.then(v => func(v instanceof Monad2  ? v.x : v));
         return bind(p,this.ar);
       }  
-      if (x instanceof Monad2) return bind(func(x.x),this.ar);
-      if (x instanceof Monad) return bind(func(x.x),this.ar);
+      if (x instanceof Monad || x instanceof Monad2) return bind(func(x.x),this.ar);
       // Asynchronous functionality without Promises. Begin:
       if (typeof func === 'string' && func.slice(0,3) === "mMZ") { 
         var p = eval(func(x));
@@ -247,8 +246,12 @@ const wait2 = x => {
         return bind(p, this.ar);
       }
       // Asynchronous functionality without Promises. End.
+      if (x instanceof Array) {
+        var p = func(...x);
+        return bind(p, this.ar);
+      };  
     };
-  };  
+  };
 
 var it4 = x => {
   if (socket.readyState === 1) socket.send('BB#$42,pMgroup,pMname,' + x);
@@ -2304,14 +2307,16 @@ function curryReverse(func) {
   };
 }
 
+  var cRev = curryReverse(parseInt)(10);  // Useful function
+  ["1","2","3","4","5"].map(v => cRev(v));  // returns [1,2,3,4,5] 
 
-var fredExec = () => {
-  fredArr = [];
+var fred = () => {
+  fred = [];
   bind(1)(addP(2))(cubeC)(addC(3))(multP(2))(multC(3))
   (addC(30))(multP(1/5))(terminate).slice(1,9)
   .map(v => v.then(q => {
-    fredArr.push(q.x);
-    fredArray = fredArr.join(' ')
+    fred.push(q.x);
+    freday = fred.join(' ')
     diffRender()
   }))   
 }
