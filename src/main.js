@@ -2,6 +2,9 @@
   import {h, p, span, h1, h2, h3, pre, br, div, label, input, hr, makeDOMDriver} from '@cycle/dom';
   import code from './code.js';
   
+var curryL = _.curry;
+
+console.log(_.curry, "Fish and sticks", curryL);
 
 // import flow from 'lodash/fp/flow';
 import _curry from 'lodash/fp/curry';
@@ -389,6 +392,15 @@ console.log('testFlow',testFlow);
       }
     }).startWith([0, 0, 0, 0]);
 
+    var itterPress$ = sources.DOM
+        .select('#itter').events('keypress');
+
+    var itterAction$ = itterPress$.map(e => {
+      if (e.keyCode === 13) {
+        itterResult = h('div', styleFunc(["#FFD700",,"16px",,,]), bind(pInt(e.target.value))(v => v)(() => mMZ23.bnd(v => v*v*v))(()=>3)(x => mMZ23.release(3)+x)(q => q*q/ar[1])(terminate).join(', ') ); 
+      }
+    });
+
     var opClick$ = sources.DOM
         .select('.op').events('click');
 
@@ -615,7 +627,8 @@ console.log('testFlow',testFlow);
         .events('click')
         .map(() => {
           freday = [];
-          funcP()});
+          funcP()
+        });
 
 
         
@@ -1013,7 +1026,7 @@ console.log('testFlow',testFlow);
     console.log('NOW WE ARE AT calcStream@');
 
 
-var calcStream$ = xs.merge( fredGo$, fredAction$, diffR$, res8$, ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, clearAction$, factorsAction$, factors2Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
+var calcStream$ = xs.merge( itterAction$, fredGo$, fredAction$, diffR$, res8$, ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, clearAction$, factorsAction$, factors2Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
       return { DOM: calcStream$.map(() => {
       return h('div.main', [
 
@@ -1059,7 +1072,7 @@ h('span','. Experienced coders might consider modifying bind() for specific proj
 h('br'),
 h('br'),
 h('span', styleFunc(["#FFD700",,"20px",,,]),  '* '),
-h('span', 'Functions that take multiple arguments should be curried or else receive their argumernts in an array. This deosn\'t restrict what cam be done. All multi-argument JavaScript functions can be coded in curried forms. The functions curry() and curryReverse are usually all you need to curry a function. Functions that return multiple values usually return arrays, as in the example below. The definitions are in the '),
+h('span', 'Functions that take multiple arguments should be curried or else receive their arguments in an array. This deosn\'t restrict what cam be done. All multi-argument JavaScript functions can be coded in curried forms. The functions curry() and curryReverse are usually all you need to curry a function. Functions that return multiple values usually return arrays, as in the example below. The definitions are in the '),
 h('a', {props: {href: "#curryDef"}}, 'appendix'),
 h('span', ' Here are some examples: '),
 h('pre', styleFunc(["#FFD700",,,,,]), `  function add3 (a,b,c) {return a+b+c}
@@ -1070,16 +1083,32 @@ h('pre', styleFunc(["#FFD700",,,,,]), `  function add3 (a,b,c) {return a+b+c}
   var cRev = curryReverse(parseInt)(10);    // Useful function
   ["1","2","3","4","5"].map(v => cRev(v));  // returns [1,2,3,4,5] `),
 h('br'),
-h('h2', 'Preview' ),
+h('h1', 'THREE DEMONSTRATIONS' ),
 ]),
 
 h('div#content2', [
 
-h('div', {style: {width: '47%', float: 'left'}}, [  
-h('p', ' The underlying code will be explained later but first, here is a preview of what the code does. Another group of preview examples is a little further down, in the game section. ' ), 
-h('span', ' Demonstration 1 begins with bind(50) followed by a function that returns 50 cubed, then a function that obtains a pseudo-random number from the WebSocket server, then a function that obtains the number\'s prime decomposition from a web worker, and finally a function that formats the data for display. it4() and it7 use MonadItter (explained later) rather than promises.  '), 
+h('div', {style: {width: '47%', fontSize: '15px', float: 'left'}}, [  
 h('br'),
-h('p', ' The second example in the right column runs funcP() when the button is clicked. It returns the formatted return value of: '), 
+h('span.tao', ' Lodash/fp\'s '), 
+h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "_.flow" ),
+h('span', ' and Ramda\'s '),
+h('a', {props: {href: "http://ramdajs.com/docs/#compose"}}, 'R.compose' ),
+h('span', ' facilitate simple function composition; i.e., functions return the arguments for succeeding. bind() has additional features, such as access to the return values of all prior functions in chains. Example 1 demonstrates this feature. mMZ23 is an instance of '), h('a',  {props: {href: "#itter"}}, 'MonadItter' ),  
+h('span', ', which provides a convenient way to handle callbacks.'), 
+h('p', ' Example 1 formats ar for display. Here is a variation on Example 1 that uses ar[2], first releasing mMZ23 with the number 3 and in the last step applying "v => v*v*v" to 4 to obtain 64. '), 
+h('pre', `  
+bind(100)
+(v => v)                       // 100
+(() => mMZ23.bnd(v => v*v*v))  // cubes x in mMZ23.release(x)
+(()=>3)                        // 3
+(x => mMZ23.release(3)+x)      // 27 + 3 = 30   
+(q => q*q/ar[1])               // (30*30)/100 = 9 
+(terminate)[2](4)              // ar[2] === v => v*v*v
+                               // ar[2](4) = 64  FINAL RESULT `), 
+h('p', ' Example 2 begins with bind(50) followed by a function that returns 50 cubed, then a function that obtains a pseudo-random number from the WebSocket server, then a function that obtains the number\'s prime decomposition from a web worker, and finally a function that formats the data for display. it4() and it7 use MonadItter (explained later) rather than promises.  '), 
+h('br'),
+h('p', ' Example 3 displays the formatted return value of: '), 
 h('pre', `  var funcP = () => {
   var fred = [];
   bind(1)(addP(2))(cubeC)(addC(3))(multP(2))(multC(3))
@@ -1089,11 +1118,21 @@ h('pre', `  var funcP = () => {
     freday = fred.join(' ')
     diffRender() `),
 h('p', ' "bind(1)(addP(2))" returns a promise, causing all subsequent functions to return promises. The functions with the "P" suffix have two-second delays. In the Chrome console we see that "[1, Promise, Promise, Promise, Promise, Promise, Promise, Promise]" is returned after about 5 microseconds (when "terminate" dumps "ar"}, then "bind(1)(addP(2))(cubeC)(addC(3))" "(multP(2))(multC(3))" and "multP(1/5))" resolve after about 2, 4, and 6 seconds, respectively. '),
+
+
+
 ]),
 
 
 h('div', {style: {width: '47%', fontSize: '15px', float: 'right'}}, [  
 h('h3', 'Demonstration 1' ),
+h('p', ' Enter a number n ( for bind(n) ) to call this chain of functions: '),
+h('pre', `bind(n)(v => v)(() => mMZ23.bnd(v => v*v*v))(()=>3)
+(x => mMZ23.release(3)+x)(q => q*q/ar[1])(terminate).join(', ') `), 
+itterResult,
+h('span', 'Enter a number here -> ' ),  
+h('input#itter', ),
+h('h3', 'Demonstration 2' ),
 h('span', '.'),
 h('span', ' Click below (multiple times in rapid succession if you like) to run '),
 h('br'),
@@ -1108,7 +1147,7 @@ h('br'),
 h('br'),
 h('div', orange, m42_RESULT2 ), 
 h('br'),
-h('h3', 'Demonstration 2' ),
+h('h3', 'Demonstration 3' ),
 h('p', ' Click to run fredExtract() (defined in the left column). '),
 h('button#fredB', {style: {fontSize: '15px'}}, 'fred()' ),
 h('br'),
@@ -1125,11 +1164,9 @@ h('span', ' If you have any thoughts about this project that you are willing to 
 h('a', {props: {href: "#comments"}}, 'comment'),
 ('span', ' below '),
 ]),
-h('span', center, '_________________________________________________________________________________________________'),  
 ]),
-h('br'),  
-
 h('div.content', [
+h('h1', '_________________________' ),  
 
 h('span.tao', 'This project was created by and is actively maintained by me, David Schalk. The code repository is at '),
 h('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript", target: "_blank" } }, 'monads-in-JavaScript'),
@@ -1168,14 +1205,7 @@ h('p', 'People who are in the same group, other than the default non-group named
 h('p', ' Data for the traversable game history accumulates until a player scores three goals and wins. The data array is then emptied and the application is ready to start accumulating a new history. '),
 h('p', ' Your user name for trying out the game, todo list, and chat demonstrations and for leaving comments is a thirteen digit random number. In the game section and in the comments section near the bottom of this page, you can chose your own persistent user name and password. As mentioned above, Knowing your password facilitates revising or removing comments.' ),
 h('br') ]),
-h('hr.len90', {style: { display: mMgameDiv2.x }}, ),
-h('br.len90', {style: { display: mMgameDiv2.x }}, ),
-h('div.heading',  {style: { display: mMgameDiv2.x }}, 'Game, Todo List, Text Messages' ),
-
-
-
-
-
+h('h1', 'Game, Todo List, Text Messages' ),
 
 h('div#gameDiv2', {style: { display: mMgameDiv2.x }}, [
 h('br'),
@@ -1252,11 +1282,8 @@ h('br'),
 ]),
 h('br'),  
 h('br'),  
-h('br'),  
-h('span', '_____________________________________________________________________________________'),  
-h('br'),  
-h('br'),  
 h('div.content', [
+h('h1', '_________________________' ),  
 h('h2', 'Monads' ),  
 
 
@@ -1568,7 +1595,7 @@ h('p', ' This is less functional than using bind() in that it doesn\'t pass func
 h('span.tao', 'The code below resembles a lambda calculus expression; and the lambda calculus is the essence of functional programming, always fading mysteriously into the eternal Tao and re-emerging in one manifestation or another (eg. The Turing Machine) whenever the question of computability is resolved.'),
 h('span', italic, ' Note' ),
 h('span', ': Hard-headed mathematicians can enjoy non-rational (neither rational nor irrational) musings. The example below shows values being carried across a series of computation, eventually combining to yield "9". ' ),
-h('br'),  
+h('br#itter'),  
 h('pre', `  ret(2).bnd(v => add(v,1)
   .bnd(cube).bnd(p => add(p,3) 
   .bnd(() => ret(p/3).bnd(add,3)
@@ -2187,7 +2214,6 @@ else if "GN#$42" \`T.isPrefixOf\` msg
     })
   }
 }
-
 const sources = {
   DOM: makeDOMDriver('#main-container'),
   WS: websocketsDriver,

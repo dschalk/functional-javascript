@@ -40,6 +40,7 @@ var bluetao = {style: {color: "#96f9ff", marginLeft: "3%"}}
 var diffRend = 0;
 var mMt32 = new Monad(0,'mMt32');
 var mMt33 = new Monad(0,'mMt33');
+var itterResult = h('div', 'ready' );
 const orange = {style: {color: "#f98043"}} 
 const orangeIndent7 = {style: {color: "#f98043", marginLeft: "7%", fontSize: "20px"}} 
 const purple = {style: {color: "#ff9bf8"}}
@@ -59,6 +60,12 @@ const italic = {style: {fontStyle: "italic"}}
 const center = {style: {textAlign: "center", float: "center"}}
 const italicRed = {style: {fontStyle: "italic", color: "#ff5b5b"}}
 const italicYellow = {style: {fontStyle: "italic", color: "#fbfca9"}}
+
+var curryL = _.curry;
+console.log(_.curry, "Fish and sticks", curryL);
+var toInt = curryL(parseInt)(10)
+var res43 = toInt("43");
+console.log('M<M<M<M<M<M<M<M<M<<>-> res43',res43);
 
 function styleFunc ([color = '#361B01', marginLeft = '0px', 
   fontSize = '15px', fontStyle = 'norma', width = '100%', textAlign = 'left']) {
@@ -236,10 +243,12 @@ const wait2 = x => {
       if (x instanceof Monad || x instanceof Monad2) return bind(func(x.x),this.ar);
       // Asynchronous functionality without Promises. Begin:
       if (typeof func === 'string' && func.slice(0,3) === "mMZ") { 
+        console.log('In bind() func.slice(0,3) === \"mMZ\" ' );
         var p = eval(func(x));
         return bind(p, this.ar);
       }
       if (typeof x === 'string' && x.slice(0,3) === "mMZ") { 
+        console.log('In bind() slice(0,3) === \"mMZ\" ' );
         console.log('In bind. x === \'string\'. x and ar',x,ar);
         var p = func(eval(x));
         return bind(p, this.ar);
