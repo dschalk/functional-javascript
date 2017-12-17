@@ -1146,7 +1146,6 @@ h('button.clear_P', {style: {fontSize: '15px', marginLeft: "0"}},  'clear result
 h('br'),
 h('br'),
 h('div', orange, m42_RESULT2 ), 
-h('br'),
 h('h3', 'Demonstration 3' ),
 h('p', ' Click to run fredExtract() (defined in the left column). '),
 h('button#fredB', {style: {fontSize: '15px'}}, 'fred()' ),
