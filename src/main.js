@@ -10,10 +10,10 @@ function add3 (a,b,c) {return a+b+c};
 function mult2 (a,b) {return a*b};
 var testFlow = _curry(add3)
 var testFlow2 = _curry(mult2);
+
+console.log('_curry', _curry);
 console.log('testFlow(2)(3)(4) <><><><><><> -->', testFlow(2)(3)(4) );
-
 console.log('testFlow2(2)(21) <><><><><><> -->', testFlow2(2)(21) );
-
 console.log('testFlow',testFlow);
 
   console.log('If you can read this you are in main.js <@><@><@><@><@><@><@><@>');
@@ -779,9 +779,6 @@ console.log('testFlow',testFlow);
       // <>>><>><><><><>>>><><><  traversal  ><><><><><><>>><><><><><><><><><><><>< START Itterator
 
 
-
-
-
     function gMap(x, f, id) {
       var mon = new Monad(f(x), id);
       window[id] = mon;
@@ -1045,12 +1042,13 @@ h('span', styleFunc(["#d3ead5",,"18px",,,]), ' enjoy these advantages:' ),
 h('div', styleFunc(["#a3ffe4",,"18px",,,]), [ 
 h('p', ' x can be any value,'),
 h('span.tao', ' there are no restrictions on argument types'),
-h('span', styleFunc(["#FFD700",,"18px",,,]), '*'), 
+h('span', styleFunc(["#FFD700",,"20px",,,]), '*'), 
 h('span', ',' ),
 h('br'),
 h('p', ' there are no restrictions on return value types, '), 
 h('p', ' all functions have access to all prior functions return values, '),
 h('p', ' any function in the chain can be asynchronous, '),
+h('p', ' function have access to all previous functions\' return values, '),
 h('p', ' promises can access prior promises\' resolution values ')
 ]),  
 
@@ -1060,59 +1058,42 @@ h('a',  {props: {href: "#bind"}}, 'click-me' ),
 h('span','. Experienced coders might consider modifying bind() for specific projects, removing what won\'t be used and adding things such as error handling or type checking.'),
 h('br'),
 h('br'),
-h('span', styleFunc(["#FFD700",,"18px",,,]),  '* '),
+h('span', styleFunc(["#FFD700",,"20px",,,]),  '* '),
 h('span', 'Functions that take multiple arguments should be curried or else receive their argumernts in an array. This deosn\'t restrict what cam be done. All multi-argument JavaScript functions can be coded in curried forms. The functions curry() and curryReverse are usually all you need to curry a function. Functions that return multiple values usually return arrays, as in the example below. The definitions are in the '),
 h('a', {props: {href: "#curryDef"}}, 'appendix'),
 h('span', ' Here are some examples: '),
-h('pre', purple, `  function add3 (a,b,c) {return a+b+c}
-  
-  curry(add3)(13)(14)(15)                           //  returns 42
+h('pre', styleFunc(["#FFD700",,,,,]), `  function add3 (a,b,c) {return a+b+c}
+
+  bind(15)(curry(add3)(13)(14))(terminate)[1]       //  returns 42
   bind(13)(v => [v, v+1, v+2])(add3)(terminate)[2]  //  returns 42
 
   var cRev = curryReverse(parseInt)(10);    // Useful function
   ["1","2","3","4","5"].map(v => cRev(v));  // returns [1,2,3,4,5] `),
 h('br'),
+h('h2', 'Preview' ),
 ]),
+
 h('div#content2', [
 
-h('div', {style: {width: '50%', float: 'left', marginRight: "5%"}}, [  
-h('span.tao', ' In JavaScript, we are accustomed to chaining operations with objects that have methods that operate on functions and return objects that have methods that operate on functions ... and so on and so forth along a chain. Promises are typical, always returning objects with the "then()" method. JQuerry and Lodash follow this pattern only with more methods that take functions and return objects with numerous methods. '), 
+h('div', {style: {width: '47%', float: 'left'}}, [  
+h('p', ' The underlying code will be explained later but first, here is a preview of what the code does. Another group of preview examples is a little further down, in the game section. ' ), 
+h('span', ' Demonstration 1 begins with bind(50) followed by a function that returns 50 cubed, then a function that obtains a pseudo-random number from the WebSocket server, then a function that obtains the number\'s prime decomposition from a web worker, and finally a function that formats the data for display. it4() and it7 use MonadItter (explained later) rather than promises.  '), 
 h('br'),
-h('br'),
-h('span.tao', ' With bind(), you link functions instead of objects. Each function in a chain returns the next function\'s argument. Instead of writing telescoping nested code or callback spaghetti, you just specify a series of functions. bind() takes care of the details. ' ), 
-h('br'),
-h('br'),
-h('span.tao', 'The ' ),
-h('a', {props: {href: '#chain'}}, 'demonstrations' ),
-h('span', ' below include linked functions that begin with bind() followed by a function that performs a computation, then a function that obtains a pseudo-random number from the WebSocket server, then a function that obtains the number\'s prime decomposition from a web worker, followed by a function that formats the data for display - '), 
-h('span', styleFunc(["rgb(7, 247, 247)",,,"italic",]), 'all without Promises.' ),
-h('br'),
-h('p', ' Not having to return specialized objects, as other JavaScript chaining algorithms require, is liberating. Having access to prior return values is empowering. ' ),
-h('p', ' Nothing prevents you from imposing strict type constraints on the functions you compose with bind(). You might want to make a strictly-typed modification of bind(). I\'m not writing a library. I\'m just sharing some ideas that you might find helpful in writing your own code. '),
-h('span.tao', ' Examples and discussion of chains containing both synchronous and asynchronous computations can be found '), 
-h('a', { props: { href: '#chain' } }, 'here.'),
-h('br'),
-h('p', ' The second example in the right column runs fred() when the button is clicked. It returns the formatted return value of: '), 
-h('pre', `  var fred = () => {
-    fred = [];
-    bind(1)(addP(2))(cubeC)(addC(3))(multP(2))
-    (multC(3))(addC(30))(multP(1/5))(terminate)
-    .slice(1,9).map(v => v.then(q => { 
-      fred.push(q.x);
-      freday = fred.join(' ')
-      diffRender()
-    }))   
-  }  `),
+h('p', ' The second example in the right column runs funcP() when the button is clicked. It returns the formatted return value of: '), 
+h('pre', `  var funcP = () => {
+  var fred = [];
+  bind(1)(addP(2))(cubeC)(addC(3))(multP(2))(multC(3))
+  (addC(30))(multP(1/5))(terminate).slice(1,9)
+  .map(v => v.then(q => {
+    fred.push(q.x);
+    freday = fred.join(' ')
+    diffRender() `),
 h('p', ' "bind(1)(addP(2))" returns a promise, causing all subsequent functions to return promises. The functions with the "P" suffix have two-second delays. In the Chrome console we see that "[1, Promise, Promise, Promise, Promise, Promise, Promise, Promise]" is returned after about 5 microseconds (when "terminate" dumps "ar"}, then "bind(1)(addP(2))(cubeC)(addC(3))" "(multP(2))(multC(3))" and "multP(1/5))" resolve after about 2, 4, and 6 seconds, respectively. '),
 ]),
 
 
-h('div', {style: {width: '40%', marginLeft: '5%', fontSize: '15px', float: 'right'}}, [  
-h('h2', 'Preview' ),
-h('p', ' This demonstration is discussed in detail below. It shows some linked procedures in action. it4() obtains a random number less than 50 cubed (250,000) from the Haskell WebSocket server, then it6() obtains the prime factors of the random number, and finally it7() formats the message returned by the web worker for display in the browswer. '),
-h('span', ' The asynchronous functions don\'t use promises. Instead, they use MonadItter (explained below) which does what promises and generators do, but with more control and flexibility. The definitions of it4(), it6(), and it7() are ' ),  
-h('a', {props: {href: "#itx"}}, 'here'), 
-h('br'),
+h('div', {style: {width: '47%', fontSize: '15px', float: 'right'}}, [  
+h('h3', 'Demonstration 1' ),
 h('span', '.'),
 h('span', ' Click below (multiple times in rapid succession if you like) to run '),
 h('br'),
@@ -1127,6 +1108,7 @@ h('br'),
 h('br'),
 h('div', orange, m42_RESULT2 ), 
 h('br'),
+h('h3', 'Demonstration 22' ),
 h('p', ' Click to run fredExtract() (defined in the left column). '),
 h('button#fredB', {style: {fontSize: '15px'}}, 'fred()' ),
 h('br'),
@@ -1151,8 +1133,10 @@ h('div.content', [
 
 h('span.tao', 'This project was created by and is actively maintained by me, David Schalk. The code repository is at '),
 h('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript", target: "_blank" } }, 'monads-in-JavaScript'),
-h('span', '. I hope you will comment in the Comments section near the end of this page. You can email me at fpschalk@gmail.com. This will remain a work in progress for a while longer. I apologize for all the legacy clutter in the repository. This project went through many changes before I changed its name to "monads-in-javascript", and it has gone through numerous changes since. ' ),
-h('p', ' bind() was initially defined to link what I refer to as "monads"; that is, objects created by statements such as "var mon = new Monad (7,"mon") or ret(7) (creating an instance of Monad2) where Monad and Monad2 are defined as: '), 
+h('span', '. I hope you will comment in the '),
+h('a', {props: {href: "#comments"}}, 'comments'),
+h('span', ' section near the end of this page. You can email me at fpschalk@gmail.com. This will remain a work in progress for a while longer. I still need to remove clutter from the repository. This project went through many changes before I changed its name to "monads-in-javascript", and it has gone through numerous changes since. ' ),
+h('p', ' bind() was initially defined in order to compose what I refer to as "monads"; i.e., instances of Monad and Monad2 defined as: '), 
 h('pre', {style: { color: "rgb(181, 244, 240)" }}, `    function Monad(z = 'default', ID = 'tempMonad') {
       this.x = z;
       this.id = ID;
@@ -1161,8 +1145,12 @@ h('pre', {style: { color: "rgb(181, 244, 240)" }}, `    function Monad(z = 'defa
     function Monad2(z = 0) {
       this.x = z;
     };  ` ),
-h('p', ' With some tweaking, bind() evolved into more than I imagined possible. It felt like something wonderful had been given to me. I didn\'t set out to invent it. ' ),
-h('p', ' The methods bnd() and ret() were added to the Monad and Monad2 prototypes. Monads created on the fly by ret() don\'t have "id" properties and are normally anonymous so they can do their work securely insulated from their outer scope. '),
+h('p', ' With some tweaking, bind() evolved into more than I originally intended. Composing functions turned out to be much more satisfying than composing objects such as monads. ' ),
+h('p', ' Nothing prevents you from imposing strict type constraints on the functions you compose with bind(). You might want to make a strictly-typed modification of bind(). I\'m not writing a library. I\'m just sharing some ideas that you might find helpful in writing your own code. '),
+h('span.tao', ' Examples and discussion of chains containing both synchronous and asynchronous computations can be found '), 
+h('a', { props: { href: '#chain' } }, 'here.'),
+h('br'),
+h('p', ' The methods bnd() and ret() were added to the Monad and Monad2 prototypes. Monads created on the fly by ret() don\'t have "id" properties and are normally anonymous. Anonymous instances of Monad2 are insulated from their outer scopes. '),
 h('p', ' Before explaining how the monads work, I invite you to try out some interactive demonstrations.'), 
 h('h2', ' A Few Monad Demonstrations ' ),
 h('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history. All group members see your score decrease or increase as you navigate backwards and forwards. ' ),

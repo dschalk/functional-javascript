@@ -60,7 +60,6 @@ const center = {style: {textAlign: "center", float: "center"}}
 const italicRed = {style: {fontStyle: "italic", color: "#ff5b5b"}}
 const italicYellow = {style: {fontStyle: "italic", color: "#fbfca9"}}
 
-
 function styleFunc ([color = '#361B01', marginLeft = '0px', 
   fontSize = '15px', fontStyle = 'norma', width = '100%', textAlign = 'left']) {
     return {style:{
@@ -1245,14 +1244,11 @@ function primes(n, ar) {
           return 0;
       }
       return n / (2 * a);
+
   };
   var qS3 = function qS3(a, b, c) {
       return [qS1(a, b, c), qS2(a, b, c)];
   };
-      var qS4 = function qS4 ([x,y,z]) {
-        let [a,b,c] = [numProtect(x),numProtect(y),numProtect(z)]
-        return [qS1(a,b,c), qS2(a,b,c)]
-      }
 
   var qS4 = function qS4(_a) {
       var x = _a[0], y = _a[1], z = _a[2];
