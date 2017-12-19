@@ -1085,7 +1085,7 @@ h('pre', styleFunc(["#FFD700",,,,,]), `  function add3 (a,b,c) {return a+b+c}
 
   var cRev = curryReverse(parseInt)(10);    // Useful function
   ["1","2","3","4","5"].map(v => cRev(v));  // returns [1,2,3,4,5] `),
-h('p', ' As you may have gathered, "terminate" returns bind()\'s ar property. How bind() works should become clearer as you study the four demonstrations (below) '),
+h('p', ' As you may have gathered, "terminate" returns bind()\'s ar property. The demonstrations below illustrate some of bind()\'s features. Detailed analysis is further down the page.  '),
 h('h2', 'FOUR DEMONSTRATIONS' ),
 ]),
 
@@ -1097,7 +1097,7 @@ h('span.tao', ' Lodash/fp\'s '),
 h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "_.flow" ),
 h('span', ' and Ramda\'s '),
 h('a', {props: {href: "http://ramdajs.com/docs/#compose"}}, 'R.compose' ),
-h('span', ' facilitate simple function composition; i.e., functions return the arguments for succeeding functions. bind() does this, but it has additional features. For example, starting a chain with bind() gives every linked function access to the return values of all prior functions. These values pushed into bind()\'s ar property at each link in a chain of functions. The examples in the right column exhibit this along with some of the other features of bind(). '),
+h('span', ' facilitate simple function composition; i.e., functions return the arguments for succeeding functions. bind() does this, but it has additional features. For example, starting a chain with bind() gives every linked function access to the return values of all prior functions. These values are pushed into bind()\'s ar property at each link in a chain of functions. The examples in the right column exhibit this along with some of the other features of bind(). '),
 h('br'),
 h('br'),
 h('span', ' In Demonstration 1, mMZ23 is an instance of '),
