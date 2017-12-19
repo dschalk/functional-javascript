@@ -1065,7 +1065,7 @@ h('p', ' there are no restrictions on return value types, '),
 h('p', ' all functions have access to all prior functions return values, '),
 h('p', ' any function in the chain can be asynchronous, '),
 h('p', ' function have access to all previous functions\' return values, '),
-h('p', ' promises can access prior promises\' resolution values ')
+h('p', ' promises can use all prior promises\' resolution values ')
 ]),
 
 h('span.tao', ' Inexperienced coders can regard "bind()" as a black box, but eventually they will want to know that is defined as '),
@@ -1085,8 +1085,8 @@ h('pre', styleFunc(["#FFD700",,,,,]), `  function add3 (a,b,c) {return a+b+c}
 
   var cRev = curryReverse(parseInt)(10);    // Useful function
   ["1","2","3","4","5"].map(v => cRev(v));  // returns [1,2,3,4,5] `),
-h('br'),
-h('h1', 'FOUR DEMONSTRATIONS' ),
+h('p', ' As you may have gathered, "terminate" returns bind()\'s ar property. How bind() works should become clearer as you study the four demonstrations (below) '),
+h('h2', 'FOUR DEMONSTRATIONS' ),
 ]),
 
 h('div#content2', [
