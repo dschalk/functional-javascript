@@ -1060,7 +1060,6 @@ h('p', ' any function in the chain can be asynchronous, '),
 h('p', ' function have access to all previous functions\' return values, '),
 h('p', ' promises can access prior promises\' resolution values ')
 ]),
-h('p', ' You bet, sucker.'),
 
 h('span.tao', ' Inexperienced coders can regard "bind()" as a black box, but eventually they will want to know that is defined as '),
 h('a',  {props: {href: "#bind"}}, 'click-me' ),
