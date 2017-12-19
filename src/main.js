@@ -387,10 +387,17 @@
     var doublePress$ = sources.DOM
         .select('#double').events('keypress');
 
+    var doubleFunc = x =>
+     mMZ19.bnd(v => bind(bind(v)(s => s*s*s)
+     (w => w + 3)(a => a*a)(terminate)[3]/100)  // End of inner bind().
+     (x=>x*x)(terminate)[1])  // Now the outer bind() is working.
+
+
     var doubleAction$ = doublePress$.map(e => {
-        mMZ19.bnd(bind(bind(pInt(e.target.value))
-        (v=>v*v*v)(v=>v+3)(v=>v*v)(terminate)[3]/100)
-        (v=>v*v)(terminate)[1]/3)  // Now the first bind is working.
+      console.log('In doubleAction - - e is',e);
+      mMZ19.bnd(v => bind(bind(v)(s => s*s*s)
+      (w => w + 3)(a => a*a)(terminate)[3]/100)  // End of inner bind().
+      (x=>x*x)(terminate)[1])  // Now the outer bind() is working.
       if (e.keyCode === 13) {
         doubleResult = h('div', styleFunc(["#FFD700",,"16px",,,]),
         mMZ19.release(pInt(e.target.value)))
@@ -1022,7 +1029,7 @@
     console.log('NOW WE ARE AT calcStream@');
 
 
-var calcStream$ = xs.merge( itterAction$, fredGo$, fredAction$, diffR$, res8$, ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, clearAction$, factorsAction$, factors2Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
+var calcStream$ = xs.merge( doubleAction$, itterAction$, fredGo$, fredAction$, diffR$, res8$, ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, clearAction$, factorsAction$, factors2Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
       return { DOM: calcStream$.map(() => {
       return h('div.main', [
 
@@ -1079,7 +1086,7 @@ h('pre', styleFunc(["#FFD700",,,,,]), `  function add3 (a,b,c) {return a+b+c}
   var cRev = curryReverse(parseInt)(10);    // Useful function
   ["1","2","3","4","5"].map(v => cRev(v));  // returns [1,2,3,4,5] `),
 h('br'),
-h('h1', 'THREE DEMONSTRATIONS' ),
+h('h1', 'FOUR DEMONSTRATIONS' ),
 ]),
 
 h('div#content2', [
@@ -1155,14 +1162,15 @@ h('pre', `  const addP = x => async y => {
     await wait(2000)
     return ret(x + y);
   } `),
-/*h('h3', 'Demonstration 4' ),
-h('p', ' In the next demonstration mMZ19.release(3) returns 27. Enter 3 or any other number and see what is returned '),
-h('pre',  `mMZ19.bnd(bind(bind(x)(v=>v*v*v)
-(v=>v+3)(v=>v*v)(terminate)[3]/100)
-(v=>v*v)(terminate)[1]/3)  // Now the first bind is working. `),
+h('h3', 'Demonstration 4' ),
+h('p', ' bind() is nested inside of bind() in the next demonstration. You can verify that mMZ19.release(3) returns 27. Enter 3 or any other number and see what these linked functions return: '),
+h('pre',  `mMZ19.bnd(v => bind(bind(v)(s => s*s*s)
+(w => w + 3)(a => a*a)(terminate)[3]/100)  // End inner bind().
+(x=>x*x)(terminate)[1])  // Now the outer bind() is working. `),
 doubleResult,
-h('span', 'Enter a number here -> ' ),
-h('input#double', ),*/
+h('br'),
+h('span', 'mMZ.release(n) Enter n here -> ' ),
+h('input#double', ),
 ]),
 ]),
 h('div.content', [
