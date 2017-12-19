@@ -1,4 +1,6 @@
 
+
+
 var todoData
 var mMt3VAL;
 var taskL = [];
@@ -34,17 +36,21 @@ var m9 = new Monad(9, 'm9');
 var m38 = new Monad(0, 'm38');
 var stateArray = [];
 var nl = '\n';
-var blue = {style: {color: "#96f9ff"}} 
-var bigBlue = {style: {color: "#96f9ff",fontSize: "17"}} 
-var bluetao = {style: {color: "#96f9ff", marginLeft: "3%"}} 
+var blue = {style: {color: "#96f9ff"}}
+var bigBlue = {style: {color: "#96f9ff",fontSize: "17"}}
+var bluetao = {style: {color: "#96f9ff", marginLeft: "3%"}}
 var diffRend = 0;
 var mMt32 = new Monad(0,'mMt32');
 var mMt33 = new Monad(0,'mMt33');
 var itterResult = h('div', 'ready' );
-const orange = {style: {color: "#f98043"}} 
-const orangeIndent7 = {style: {color: "#f98043", marginLeft: "7%", fontSize: "20px"}} 
+var doubleResult = h('div', 'ready' );
+function add3 (a,b,c) {return a+b+c};
+function mult2 (a,b) {return a*b};
+
+const orange = {style: {color: "#f98043"}}
+const orangeIndent7 = {style: {color: "#f98043", marginLeft: "7%", fontSize: "20px"}}
 const purple = {style: {color: "#ff9bf8"}}
-const orangetao = {style: {color: "#f98043", marginLeft: "3%"}} 
+const orangetao = {style: {color: "#f98043", marginLeft: "3%"}}
 const red = {style: {color: "#ff5b5b"}}
 const bigRed = {style: {color: "#ff5b5b", fontSize: "17"}}
 var bigOrange = styleFunc(["#f98043",,"19px",,,"left"]);
@@ -61,20 +67,18 @@ const center = {style: {textAlign: "center", float: "center"}}
 const italicRed = {style: {fontStyle: "italic", color: "#ff5b5b"}}
 const italicYellow = {style: {fontStyle: "italic", color: "#fbfca9"}}
 
-var curryL = _.curry;
-console.log(_.curry, "Fish and sticks", curryL);
-var toInt = curryL(parseInt)(10)
+var toInt = curryReverse(parseInt)(10)
 var res43 = toInt("43");
 console.log('M<M<M<M<M<M<M<M<M<<>-> res43',res43);
 
-function styleFunc ([color = '#361B01', marginLeft = '0px', 
+function styleFunc ([color = '#361B01', marginLeft = '0px',
   fontSize = '15px', fontStyle = 'norma', width = '100%', textAlign = 'left']) {
     return {style:{
-      color: color, 
-      marginLeft: marginLeft, 
-      fontSize: fontSize, 
-      fontStyle: fontStyle, 
-      width: width, 
+      color: color,
+      marginLeft: marginLeft,
+      fontSize: fontSize,
+      fontStyle: fontStyle,
+      width: width,
       textAlign: textAlign }}
   };
 
@@ -110,7 +114,7 @@ function makeSequence (n) {
 
 const diffRender = () => document.getElementById('diffRender').click();
 
-const fredFunc =  a => {freday = a}; 
+const fredFunc =  a => {freday = a};
 
 var tr = x => p => async f => {
   return await f(await p(x))
@@ -125,11 +129,11 @@ function germinate(x) {return x};
 
 console.log(makeSequence(5))
 
-var arf = async p => { 
-  var jim = await p; 
+var arf = async p => {
+  var jim = await p;
   console.log('arf',jim)
   return jim                     ;
-}; 
+};
 
   function Monad(z = 'default', ID = 'tempMonad') {
     this.x = z;
@@ -190,12 +194,12 @@ const wait2 = x => {
         return bind(y,ar);
       }
     };
-  };   
+  };
 
 
  function bind (x, arr=[]) {
-   if (!(x instanceof Monad || x instanceof Monad2 || x instanceof Promise 
-     || typeof x === 'string')) x = ret(x); 
+   if (!(x instanceof Monad || x instanceof Monad2 || x instanceof Promise
+     || typeof x === 'string')) x = ret(x);
     this.ar = arr;
     this.ar.push(x instanceof Monad || x instanceof Monad2 ? x.x : x)
     if (this.ar.length === 0) this.ar = [x];
@@ -205,18 +209,18 @@ const wait2 = x => {
         console.log('In bind. Promise. x and ar',x,ar);
         var p = x.then(v => func(v instanceof Monad2 ? v.x : v));
         return bind(p,this.ar);
-      }  
+      }
       if (x instanceof Monad2) return bind(func(x.x),this.ar);
         console.log('In bind. Promise. x and ar',x,ar);
       if (x instanceof Monad) return bind(func(x.x),this.ar);
         console.log('In bind. Promise. x and ar',x,ar);
       // Asynchronous functionality without Promises. Begin:
-      if (typeof func === 'string' && func.slice(0,3) === "mMZ") { 
+      if (typeof func === 'string' && func.slice(0,3) === "mMZ") {
         console.log('In bind. Promise. x and ar',x,ar);
         var p = eval(func(x));
         return bind(p, this.ar);
       }
-      if (typeof x === 'string' && x.slice(0,3) === "mMZ") { 
+      if (typeof x === 'string' && x.slice(0,3) === "mMZ") {
         console.log('In bind. x === \'string\'. x and ar',x,ar);
         var p = func(eval(x));
         return bind(p, this.ar);
@@ -228,9 +232,9 @@ const wait2 = x => {
   }; */
 
   function bind (x, arr=[]) {
-    var bool = z => (z instanceof Monad || z instanceof Monad2 || z instanceof Promise 
+    var bool = z => (z instanceof Monad || z instanceof Monad2 || z instanceof Promise
      || typeof z === 'string' || z instanceof Array)
-    if (!bool(x)) x = ret(x); 
+    if (!bool(x)) x = ret(x);
     this.ar = arr;
     this.ar.push(x instanceof Monad || x instanceof Monad2 ? x.x : x)
     if (this.ar.length === 0) this.ar = [x];
@@ -239,15 +243,15 @@ const wait2 = x => {
       if (x instanceof Promise) {
         var p = x.then(v => func(v instanceof Monad2  ? v.x : v));
         return bind(p,this.ar);
-      }  
+      }
       if (x instanceof Monad || x instanceof Monad2) return bind(func(x.x),this.ar);
       // Asynchronous functionality without Promises. Begin:
-      if (typeof func === 'string' && func.slice(0,3) === "mMZ") { 
+      if (typeof func === 'string' && func.slice(0,3) === "mMZ") {
         console.log('In bind() func.slice(0,3) === \"mMZ\" ' );
         var p = eval(func(x));
         return bind(p, this.ar);
       }
-      if (typeof x === 'string' && x.slice(0,3) === "mMZ") { 
+      if (typeof x === 'string' && x.slice(0,3) === "mMZ") {
         console.log('In bind() slice(0,3) === \"mMZ\" ' );
         console.log('In bind. x === \'string\'. x and ar',x,ar);
         var p = func(eval(x));
@@ -257,7 +261,7 @@ const wait2 = x => {
       if (x instanceof Array) {
         var p = func(...x);
         return bind(p, this.ar);
-      };  
+      };
     };
   };
 
@@ -268,7 +272,7 @@ var it4 = x => {
 
 var it6 = x => {
   mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));
-}  
+}
 
 var it7 = v => mMZ38.bnd( v => {
 m42_RESULT = m42_RESULT.concat(h('p', orange, v[3] + v[0] + v[4] + v[5]).text).concat(h('br'))
@@ -281,11 +285,11 @@ const prm4 = x => {
   if (socket.readyState === 1) socket.send('BB#$42,pMgroup,pMname,' + x);
   return new Promise( (resolve, reject) => {
      mMZ37.bnd((y) => {
-       console.log('In prm4 - <><><><><> - y is',y);  
+       console.log('In prm4 - <><><><><> - y is',y);
        resolve(ret(y));
-     }) 
-  })                         
-}  
+     })
+  })
+}
 
 const prm6 = x => {
   workerG.postMessage([primesMonad.s, [x]]);
@@ -300,14 +304,14 @@ var apolox = (async function hello() {
 })();
 console.log('apolox is', apolox);
 
- async function trylock () { 
+ async function trylock () {
    await wait(1000);
    console.log('<%><>%<%><><%><><%><><%><><%> in tryLock');
-   if (this.lock === true) { 
+   if (this.lock === true) {
      console.log('this.lock = true');
      return trylock()
    }
-   else { this.lock = true } 
+   else { this.lock = true }
   };
 
 function ret (val = 0) {
@@ -342,7 +346,7 @@ function id (x) {return x}
   Monad.prototype.ret = function (a) {
     return window[this.id] = new Monad(a, this.id);
   };
-  
+
   Monad.prototype.getVal = async function fg (f) {
     this.ret(await(f));
   };
@@ -393,17 +397,17 @@ function id (x) {return x}
   const sqrtA = a => Math.sqrt(a);
 
 async function pause (x) {
-  await wait(2000) 
+  await wait(2000)
   return ret(x);
 }
 
 async function pause1 (x) {
-  await wait(1000) 
+  await wait(1000)
   return x;
 }
 
 async function squareP (x) {
-  await wait(2000) 
+  await wait(2000)
   return ret(x*x);
 }
 
@@ -432,22 +436,22 @@ const doubleP = async a => {
 }
 
 const addP = x => async y => {
-  await wait(2000) 
+  await wait(2000)
   return ret(x + y);
 }
 
 const addPA = x => async y => {
-  await wait(2000) 
+  await wait(2000)
   return x + y;
 }
 
 const multP = x => async y => {
-  await wait(2000) 
+  await wait(2000)
   return ret(x * y);
 }
 
 async function cubeP (x) {
-  await wait(2000) 
+  await wait(2000)
   return ret(x*x*x);
 }
 
@@ -485,7 +489,7 @@ function retrn (m, val=m.x) {
      window[m.id] = new Monad(val, m.id);
      return window[m.id];
    }
-   return window[m] = new Monad(val,String(m)); 
+   return window[m] = new Monad(val,String(m));
  }
 
 function fmap (f, mon1, ...args) {
@@ -507,7 +511,7 @@ function fmap (f, mon1, ...args) {
     else a = "fmap error"
   }
   return ret(a,id);
-} 
+}
 
 
 var m0 = new Monad (0, "m0")
@@ -700,26 +704,26 @@ var m0 = new Monad (0, "m0")
 
 function prm () {
   return new Promise( (resolve, reject) => {
-     mMZ39.bnd((y) => resolve(y)) 
- })                          
+     mMZ39.bnd((y) => resolve(y))
+ })
 }
 
 function prm1 (x) {
   return new Promise( (resolve, reject) => {
-     mMZ39.bnd((y) => resolve(x*y)) 
- })                          
+     mMZ39.bnd((y) => resolve(x*y))
+ })
 }
 const pop = ar => ret(ar.pop())
 
 const prm5 = x => {
   return new Promise( (resolve, reject) => {
-     mMZ39.bnd((y) => resolve(y)) 
- }).then(workerC.postMessage([primesMonad.s, [x]]));                         
+     mMZ39.bnd((y) => resolve(y))
+ }).then(workerC.postMessage([primesMonad.s, [x]]));
 }
 
 function largestPrime (x) {bind(x)(prm5)(split2)(terminate)
 .pop()
-.then(v => console.log(v.pop(),"Is the largest prime factor of",x))} 
+.then(v => console.log(v.pop(),"Is the largest prime factor of",x))}
 
 function split2(str) {return str.split(',')}
 
@@ -729,9 +733,9 @@ var LARGEST = 0;
 
 var ar = [function () {}];
 
-const largest = x => ( () => x + " is the largest prime factor of " + ar[0]); 
+const largest = x => ( () => x + " is the largest prime factor of " + ar[0]);
 
-const factorsF = x => ( () => "the prime factors of " + ar[1] + " are " + x); 
+const factorsF = x => ( () => "the prime factors of " + ar[1] + " are " + x);
 
 var MonadItter = function MonadItter() {
   this.p = function () {};
@@ -821,13 +825,13 @@ var mMtodo = new Monad('inline','mMtodoDiv');
 var mMgame = new Monad('block','mMgameDiv');
 var mMerror = new Monad('','mMerror');
 var mMseries = new Monad('','mMseries');
-var mMnumbers = new Monad([0,0,0,0], 'mMnumbers') 
-var mMoperator = new Monad('add', 'mMoperator') 
+var mMnumbers = new Monad([0,0,0,0], 'mMnumbers')
+var mMoperator = new Monad('add', 'mMoperator')
 
 var mMob = new Monad (0, 'mMob')
 var pMname = new Monad('1v65n$%pqw3*@#9', 'pMname');
 var pMoldName = new Monad('1v65n$%pqw3*@#9', 'pMoldName');
-var pMbackupName = new Monad('backup', 'pMbackupName'); 
+var pMbackupName = new Monad('backup', 'pMbackupName');
 var pMpassword = new Monad('password', 'pMpassword');
 var pMcombo = new Monad('1v65n$%pqw3*@#9<o>none', 'pMcombo');
 var pMgroup = new Monad('solo', 'pMgroup');
@@ -1866,7 +1870,7 @@ function *gen(x) {
 
 var primesIt = gen(primesMonad.s[2]+1);
 
-var mMadvice = new Monad ('', 'mMadvice'); 
+var mMadvice = new Monad ('', 'mMadvice');
 
 function calc (a, op, b) {
   var result;
@@ -1899,7 +1903,7 @@ function updateCalc(ar, op) {
   var s00 = s[0][s[1]][0];
   var s01 = s[0][s[1]][1];
   console.log("<^><^><^> push has been executed <^><^><^> s04 <^><^><^>", s04);
-  gameMonad.run(s00, s01, 0, [], s04); 
+  gameMonad.run(s00, s01, 0, [], s04);
   if (result === 18 || result === 20) {
     score(result);
   }
@@ -2146,7 +2150,7 @@ var rand$ = xs.of(rand());
   console.log('*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*');
   console.log( 'Hello Nurse' );
   console.log('*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*');
- 
+
 
 
 function MonadEvents(z = 'default', ID = 'temp') {
@@ -2242,13 +2246,13 @@ mMZ33.bnd(n => fn2(n));
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
-var ppR = {style: {color: 'red', 
+var ppR = {style: {color: 'red',
   marginLeft: '5%', fontSize: "26"}};
-var ppY = {style: {color: 'yellow', 
+var ppY = {style: {color: 'yellow',
   marginLeft: '42%', fontSize: "26"}};
-var ppRY = {style: {color: 'yellow', 
+var ppRY = {style: {color: 'yellow',
   marginLeft: '5%', fontSize: "26"}};
-var ppYR = {style: {color: 'red', 
+var ppYR = {style: {color: 'red',
   marginLeft: '42%', fontSize: "26"}};
 
 var ppStyle = false;
@@ -2258,29 +2262,29 @@ var m67_RESULT = h('pre', ppR, '                          -- NO SCORE -- ' );
 
 var pingpongTog = n => ppStyle ?
   h('span', ppR, ' ping ' +  n + ' ~~~> ') :
-  h('span', ppY , 'PONG! ' + n) 
+  h('span', ppY , 'PONG! ' + n)
 
 var ping = n => ar => {
   var k = Math.floor(Math.random() * 5)+1;
-  if(ar[0] > 10 || ar[1] > 10) { 
+  if(ar[0] > 10 || ar[1] > 10) {
     m67_RESULT = h('pre', ppY, `     FINAL SCORE   ping: ${ar[0]} pong: ${ar[1]}` );
     diffRender();
   }
   else setTimeout(() => {
-    if (n <= k) {  
+    if (n <= k) {
       ppStyle = !ppStyle;
       incF$(n);
-      ping(n+1)(ar); 
+      ping(n+1)(ar);
     }
     else if (n % 2 === 0) {
       ar[0]+=1;
       m67_RESULT = h('pre', ppYR, `     SCORE: ping  ${ar[0]} pong: ${ar[1]}  ` );
-      ping(0)(ar); 
+      ping(0)(ar);
     }
     else {
       ar[1]+=1
       m67_RESULT = h('pre', ppY, `     SCORE: ping  ${ar[0]} pong: ${ar[1]}  ` );
-      ping(0)(ar); 
+      ping(0)(ar);
     }
   }, 500 )
 }
@@ -2313,7 +2317,7 @@ function curryReverse(func) {
 }
 
   var cRev = curryReverse(parseInt)(10);  // Useful function
-  ["1","2","3","4","5"].map(v => cRev(v));  // returns [1,2,3,4,5] 
+  ["1","2","3","4","5"].map(v => cRev(v));  // returns [1,2,3,4,5]
 
 var funcP = () => {
   var fred = [];
@@ -2323,11 +2327,5 @@ var funcP = () => {
     fred.push(q.x);
     freday = fred.join(' ')
     diffRender()
-  }))   
+  }))
 }
-
-
-
-
-
-
