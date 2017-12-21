@@ -1328,9 +1328,11 @@ h('pre', {style: {color: "lightBlue"}}, `  function bind (x, arr=[]) {
 h('p', ' As is apparent from the definition, bind() is recursive and completely polymorphic. If bind()\'s argument is not a promise, an instance of Monad, an instance of Monad2, or a string, it gets encapsulated in an anonymous monad and bind() returns "bind(func(ret(x)),this.ar)" which returns the function named "debug8". '),
 h('p', ' The function ret() returns an instance of Monad2, which is like instances of Monad but without an id. Anonymous Monad2 instances are insulated from their outer scopes, eliminating the possibility of clashes with other processes. But plain values without the monadic wrappers would be just as insulated, so ret() is likely to be removed in the next revision. '),
 h('p', ' The definition of bind() speaks for itself more articulately the following description, but for what it\'s worth, here it is:  Let "p" be any value, "ar", "ar2", and "ar3" be arrays, func() and func2() be sychronous functions. bind(p,ar)(func)(func2) -> debug8(func)(func2) -> bind(func(p,ar),ar2)(func2) -> debug8(func(p,ar,ar2)(func2) -> bind(func2(func(p,ar),ar2),ar3) -> debug8 ready to continue the chain. ' ),
-h('p', ' Arrays are treated as argument lists in bind. I you want an array to be treated as an array, you should put it in quotation marks and then use JSON.parse to remove the quotation marks inside the function that needs it. Here is an example: '),
+h('p', ' Arrays are treated as argument lists in bind. If you want an array to be treated as an array, you cam put it in quotation marks and then use JSON.parse to remove the quotation marks inside the function that needs it. Here is an example: '),
 h('pre',  `  bind("[1,2,3,4,5]")(v => R.reduce((a,b)=>a*b)
-  (1)(JSON.parse(v)))(b=>(b/10)+30)(terminate)[2]  // 42  ` ),  
+  (1)(JSON.parse(v)))(b=>(b/10)+30)(terminate)[2]  // 42  ` ),
+h('p',   ' Another way of getting an array argument to a function is to send it in an object like this: '), h('pre', `  bind({a: [5,6,7]})(q => R.reduce((a,b)=>a*b)
+  (1)(q.a))(p=>p/5)(terminate)[2]  // 42 `),
 h('a', {props: {href: '#content2'}}, 'Back to the preview demos'),
 h('p', ' bind() facilitates the linking together of dissimilar functions. Synchronous functions, promises, and asynchronous functions that use MonadItter instead of the Promises API. Examples of the latter can be seen in upcomming demonstrations. In the functions below, the suffix "C" is for curried functions that return Monad2 instances with integer values. Functions that return Promises that resolve into integers after two seconds have the "P" suffix. format() presents the value of "x" in (p.then(x" and "m.x" for all promises "p" and monads "m" '),
 h('pre', `  bind(1)(addP(2))(cubeC)(addC(3))
