@@ -170,67 +170,9 @@ const wait2 = x => {
   setTimeout( function (x) {return x},2000 )
 }
 
-/*  function bind (x, arr=[]) {
-    var ar = arr;
-    if (ar.length === 0) ar = [x];
-    console.log('bind: x is', x);
-    console.log('bind: ar is', ar);
-    console.log(' ');
-    return function debug8 (func) {
-      var y = func(x);
-      if (func.name === "terminate") return ar;
-      if (y instanceof Promise) {
-        y.then(v => {
-          ar.push(v);
-          return bind(y,ar)
-        })
-      }
-      else if (y instanceof Monad) {
-        ar.push(y.x);
-        return bind(func(y.x),ar);
-      }
-      else {
-        ar.push(y);
-        return bind(y,ar);
-      }
-    };
-  };
-
-
- function bind (x, arr=[]) {
-   if (!(x instanceof Monad || x instanceof Monad2 || x instanceof Promise
-     || typeof x === 'string')) x = ret(x);
-    this.ar = arr;
-    this.ar.push(x instanceof Monad || x instanceof Monad2 ? x.x : x)
-    if (this.ar.length === 0) this.ar = [x];
-    return function debug8 (func) {
-      if (func.name === "terminate") return ar;
-      if (x instanceof Promise) {
-        console.log('In bind. Promise. x and ar',x,ar);
-        var p = x.then(v => func(v instanceof Monad2 ? v.x : v));
-        return bind(p,this.ar);
-      }
-      if (x instanceof Monad2) return bind(func(x.x),this.ar);
-        console.log('In bind. Promise. x and ar',x,ar);
-      if (x instanceof Monad) return bind(func(x.x),this.ar);
-        console.log('In bind. Promise. x and ar',x,ar);
-      // Asynchronous functionality without Promises. Begin:
-      if (typeof func === 'string' && func.slice(0,3) === "mMZ") {
-        console.log('In bind. Promise. x and ar',x,ar);
-        var p = eval(func(x));
-        return bind(p, this.ar);
-      }
-      if (typeof x === 'string' && x.slice(0,3) === "mMZ") {
-        console.log('In bind. x === \'string\'. x and ar',x,ar);
-        var p = func(eval(x));
-        return bind(p, this.ar);
-      }
-      // Asynchronous functionality without Promises. End.
-        console.log('In bind. Plain. x and ar',x,ar);
-      return bind(func(x),this.ar);
-    };
-  }; */
-
+    var bool = z => (z instanceof Monad || z instanceof Monad2 || z instanceof Promise
+     || typeof z === 'string' || z instanceof Array)
+    //if (!bool(x)) x = ret(x);
   function bind (x, arr=[]) {
     var bool = z => (z instanceof Monad || z instanceof Monad2 || z instanceof Promise
      || typeof z === 'string' || z instanceof Array)
@@ -262,6 +204,9 @@ const wait2 = x => {
         var p = func(...x);
         return bind(p, this.ar);
       };
+        var p = func(x);
+        return bind(p, this.ar);
+
     };
   };
 
@@ -951,7 +896,6 @@ function MonadState(g, state) {
 };
 
 var mMg = new Monad([], 'mMg');
-
 
 function tP (x) {
   if (eval('typeof ' + x) === 'undefined') return "code4"
@@ -1894,47 +1838,6 @@ function calc (a, op, b) {
   }
   return result;
 };
-/*
-function updateCalc(ar, op) {
-  var result = calc(ar[0], op, ar[1]);
-  var s = gameMonad.s.slice();
-  var s04 = s[0][s[1]][4].slice()
-  s04.push(result);
-  var s00 = s[0][s[1]][0];
-  var s01 = s[0][s[1]][1];
-  console.log("<^><^><^> push has been executed <^><^><^> s04 <^><^><^>", s04);
-  gameMonad.run(s00, s01, 0, [], s04);
-  if (result === 18 || result === 20) {
-    score(result);
-  }
-};
-
-function score(result) {
-    var sc = parseInt(gameMonad.fetch0());
-    var sco = result === 18 ? sc + 3 : sc + 1;
-    var scor = sco % 5 === 0 ? sco + 5 : sco;
-    var goals = gameMonad.fetch1();
-    if (scor === 25 && gameMonad.fetch1() === "2") {
-        retrn(mMindex,0);
-        gameMonad = new MonadState('gameMonad', [[0,0,0,[],[0,0,0,0]],[0,0,0,[][0,0,0,0]],0]);
-        socket.send(`CE#$42,${pMgroup.x},${pMname.x}`);
-        newRoll(0,0);
-    }
-    else if (scor === 25) {
-      newRoll(0, goals*1 + 1);
-    }
-    else newRoll(scor, goals);
-};
-
-function newRoll (a,b) {
-  socket.send(`CA#$42,${pMgroup.x},${pMname.x},6,6,12,20,${a},${b}`);
-}
-*/
-
-
-
-
-
 
 function updateCalc(ar, op) {
   var result = calc(ar[0], op, ar[1]);ar
@@ -1965,8 +1868,6 @@ function score(result) {
     }
     else newRoll(scor, goals);
 };
-
-
 
 var gameMonad = new MonadState('gameMonad', [[[0,0,0,[],[1,2,3,4]], [0,0,0,[],[0,0,0,0]]],1 ]);
 
@@ -2030,78 +1931,6 @@ MonadState.prototype.run = function ([
   buttonNode = bNode(display);
   return window['gameMonad'] = new MonadState('gameMonad', newState);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-var gameMonad = new MonadState('gameMonad', [ [ [0,0,0,[],['lemon','lemon','lemon','lemon'] ]],0 ]);
-console.log("gameMonad.s",gameMonad.s)
-
-MonadState.prototype.fetch0 = function () {
-  return this.s[0][this.s[1]][0];
-}
-
-MonadState.prototype.fetch1 = function () {
-  return this.s[0][this.s[1]][1];
-}
-
-MonadState.prototype.fetch2 = function () {
-  var x = this.s[0][this.s[1]][2];
-  retrn(mMoperator,x);
-  return x;
-}
-
-MonadState.prototype.fetch3 = function () {
-  var x = this.s[0][this.s[1]][3].slice();
-  retrn(mMnumbers,x);
-  return x;
-}
-
-MonadState.prototype.fetch4 = function () {
-  return this.s[0][this.s[1]][4].slice();
-}
-
-MonadState.prototype.clearPicked = function () {
-  var st = this.s.slice();
-  st[0][st[1]][3] = [];
-  st[1] += 1;
-  st.splice(this.s[1]+1, 0, st[0]);
-  retrn(mMnumbers,[])
-  return new MonadState('gameMonad', st);
-}
-
-MonadState.prototype.run = function (
-  score,// = this.s[0][this.s[1]][0],
-  goals,// = this.s[0][this.s[1]][1],
-  operator,// = this.s[0][this.s[1]][2],
-  picked, // = this.s[0][this.s[1]][3].slice(),
-  display, // = this.s[0][this.s[1]][4].slice()
-  ) {
-  this.s[1] = this.s[1] + 1;
-  var newState = [score, goals, operator, picked, display];
-  var s = this.s.slice();
-  var s0 = s[0].slice();
-  s0.splice(this.s[1], 0, newState);
-  window['gameMonad'] = new MonadState('gameMonad', [s0, s[1]] );
-  window['gameMonad'].html = bNode(s0[s[1]][4]);
-  return window['gameMonad'];
-}
-
-gameMonad.run(0,0,0,[],[2,4,6,8])
-*/
-
-
 
 function newRoll (a,b) {
   socket.send(`CA#$42,${pMgroup.x},${pMname.x},6,6,12,20,${a},${b}`);
