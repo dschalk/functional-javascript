@@ -174,9 +174,6 @@ const wait2 = x => {
      || typeof z === 'string' || z instanceof Array)
     //if (!bool(x)) x = ret(x);
   function bind (x, arr=[]) {
-    var bool = z => (z instanceof Monad || z instanceof Monad2 || z instanceof Promise
-     || typeof z === 'string' || z instanceof Array)
-    if (!bool(x)) x = ret(x);
     this.ar = arr;
     this.ar.push(x instanceof Monad || x instanceof Monad2 ? x.x : x)
     if (this.ar.length === 0) this.ar = [x];
@@ -186,7 +183,7 @@ const wait2 = x => {
         var p = x.then(v => func(v instanceof Monad2  ? v.x : v));
         return bind(p,this.ar);
       }
-      if (x instanceof Monad || x instanceof Monad2) return bind(func(x.x),this.ar);
+      // if (x instanceof Monad || x instanceof Monad2) return bind(func(x.x),this.ar);
       // Asynchronous functionality without Promises. Begin:
       if (typeof func === 'string' && func.slice(0,3) === "mMZ") {
         console.log('In bind() func.slice(0,3) === \"mMZ\" ' );
@@ -200,18 +197,13 @@ const wait2 = x => {
         return bind(p, this.ar);
       }
       // Asynchronous functionality without Promises. End.
-      if (x instanceof Array) {
-        var p = func(...x);
-        return bind(p, this.ar);
-      };
-        var p = func(x);
-        return bind(p, this.ar);
-
+      var p = func(x);
+      return bind(p, this.ar);
     };
   };
 
 var it4 = x => {
-  if (socket.readyState === 1) socket.send('BB#$42,pMgroup,pMname,' + x);
+  if (socket.readyState === 1) socket.send(`BB#$42,${pMgroup.x},${pMoldName.x},${x}`);
   return eval("mMZ37.bnd(mMZ37.bnd(y => y),ar)");
 }
 
@@ -224,8 +216,6 @@ m42_RESULT = m42_RESULT.concat(h('p', orange, v[3] + v[0] + v[4] + v[5]).text).c
 m42_RESULT2 = m42_RESULT2.concat(h('div', [h('p', orange, v[3] + v[0] + v[4] + v[5]).text]))
 });
   //'The prime factors of ' + v[0] + ' are ' + v[1]);
-
-
 const prm4 = x => {
   if (socket.readyState === 1) socket.send('BB#$42,pMgroup,pMname,' + x);
   return new Promise( (resolve, reject) => {
@@ -321,15 +311,15 @@ function id (x) {return x}
     return ret((parseInt(a,10) + parseInt(b,10)),id);
   };
 
-  const divCinverse = a => b => ret(e/b);
-  const divC = a => b => ret(b/a);
-  const addC = a => b => ret(a+b);
-  const cubeC = v => ret(v*v*v);
+  const divCinverse = a => b => e/b;
+  const divC = a => b => b/a;
+  const addC = a => b => a+b;
+  const cubeC = v => v*v*v;
   const idC = v => v;
-  const multC = a => b => ret(a*b);
-  const doubleC = a => ret(a+a);
-  const squareC = a => ret(a*a);
-  const sqrtC = a => ret(Math.sqrt(a));
+  const multC = a => b => a*b;
+  const doubleC = a => a+a;
+  const squareC = a => a*a;
+  const sqrtC = a => Math.sqrt(a);
 
   const divAinverse = a => b => e/b;
   const divA = a => b => b/a;
@@ -362,27 +352,27 @@ function wait(ms) {
 
 const divPinverse = a => async b => {
   await wait (2000)
-  return ret(a/b);
+  return a/b;
 }
 
 const divP = a => async b => {
   await wait (2000)
-  return ret(b/a);
+  return b/a;
 }
 
 const sqrtP = async a => {
   await wait (2000)
-  return ret(Math.sqrt(a));
+  return Math.sqrt(a);
 }
 
 const doubleP = async a => {
   await wait (2000)
-  return ret(a+a);
+  return a+a;
 }
 
 const addP = x => async y => {
   await wait(2000)
-  return ret(x + y);
+  return x + y;
 }
 
 const addPA = x => async y => {
@@ -392,12 +382,12 @@ const addPA = x => async y => {
 
 const multP = x => async y => {
   await wait(2000)
-  return ret(x * y);
+  return x * y;
 }
 
 async function cubeP (x) {
   await wait(2000)
-  return ret(x*x*x);
+  return x*x*x;
 }
 
   const divMinverse = a => b => ret(a/b);

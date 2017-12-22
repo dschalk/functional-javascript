@@ -527,7 +527,7 @@
       console.log('&&&&&>>> >> in factors2action$. e is', e );
       var factors = [];
       mMfactors3.ret('');
-      bind(50)(cubeC)(it4)(it6)(it7);
+      bind(50)(a=>a*a*a)(it4)(it6)(it7);
     });
 
   const workerG$ = sources.WWG.map(m => {
@@ -1033,23 +1033,23 @@ h('img.image_2', {props: {src: "logo.svg" }}  ),
 h('span', ' ' ),
 h('a', { props: { href: "https://cycle.js.org/", target: "_blank" } }, 'A Cycle.js application')    ]),
 h('div', {style: {textAlign:"center", fontWeight: "bold"}}, [
-h('div', {style: {fontSize: "27px", color: "#f7f700"}}, 'FUNCTIONAL REACTIVE PROGRAMMING'),
+h('div', {style: {fontSize: "27px", color: "#f7f700"}}, 'FUNCTIONAL PROGRAMMING'),
 h('br'),
-h('div', {style: {fontSize: "22px", fontStyle: "italic", color: "#07f7f7"}},'WITH CYCLE.JS' ) ]),
+h('div', {style: {fontSize: "22px", fontStyle: "italic", color: "#07f7f7"}},'WITH CYCLE.JS and RAMDA' ) ]),
 h('br'),
 h('br'),
 h('div.content', [
 h('div', styleFunc(["#FFD700",,"26px",,,"center"]), 'Polymorphic Function Composition'),
 h('br'),
 
-h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' There are many obvious advantages to composing function with he pattern '),
+h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' There are many advantages to composing function with he pattern '),
 h('span', styleFunc(["#a3ffe4",,"18px",,,"center"]), 'bind(x)(function1)(function2) ... (functionN) '),
 h('span', styleFunc(["#d3ead5",,"18px",,,]), ' where '),
 h('pre', styleFunc(["#a3ffe4",,"16px",,,]), `  x can be any value,
 
-  there are no restrictions on argument types*,
+  there are no restrictions on argument types*, 
 
-  there are no restrictions on return value types,
+  here are no restrictions on return value types,
 
   any function in the chain can be asynchronous,
 
@@ -1057,23 +1057,21 @@ h('pre', styleFunc(["#a3ffe4",,"16px",,,]), `  x can be any value,
 
   functions have access to prior asynchronous functions\' resolution values. `),
 h('span', styleFunc(["#FFD700","3%","20px",,,]), '* '),
-h('span', 'Functions that take multiple arguments should be curried or else receive their arguments in an array. This deosn\'t restrict what cam be done. All multi-argument JavaScript functions can be coded in curried forms and, of course, their arguments can be placed inside of square brackets.'),
-h('p', ' One look at code written in this fashion and you immediately know what the code is doing. That makes it easy to maintain and debug. '),
+
+h('span', 'Functions that take multiple arguments should be curried. If you don\'t want to re-write a functions, you can use R.curry (or R.flip which reverses the order of the curried arguments). '),
 h('p', ' When promises are chained with their "then" methods, only the preceding function\'s return value is available to each link in the chain. Promises are more useful when the bind() pattern is used. '),
-h('p', ' Promises, asychronous functions, and sychronous functions can be composed in any order if you begin the sequence with bind(). Stream of consciousness coding in which you say "do this, then do that, then do the other thing" becomes a reality.  '),
-h('p', ' Code written in the style function1(function2(function3(function4))) is unsightly and can be difficult to understand and maintain. But worse than that, there is no access to remote return values and no built-in way to deal with asychronous code. Functions that could be simple when composed in the bind() pattern need to be more complicated in order to achieve what bind() provides. That means more opportunities for bugs and more time spent on mainenance and repair. '),
+h('p', ' Synchronous and asynchronous functions functions can form chains of parsing and computational procedures. Just start with bind() and add the functions that do what you want to accomplish. Others can look at you code and see precisely what you did. This obviously promotes ease of maintenance and debugging.  '),
 
 h('span.tao', ' Lodash/fp\'s '),
 h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "_.flow" ),
 h('span', ' and Ramda\'s '),
 h('a', {props: {href: "http://ramdajs.com/docs/#compose"}}, 'R.compose' ),
-h('span', ' facilitate simple function composition; i.e., functions return the arguments for succeeding functions. bind() does this, but it has additional features. For example, starting a chain with bind() gives every linked function access to the return values (or the value of the "x" property of returned monads) of all prior functions. These values are pushed into bind()\'s ar property at each link in a chain of functions. The examples in the right column exhibit this along with some of the other features of bind(). '),
+h('span', ' facilitate simple function composition; i.e., functions return the arguments provided to succeeding functions. bind() does this too, but it also give every linked function access to the return values of all prior functions. These values are pushed into bind()\'s ar property at each link in a chain of functions.  '),
 h('span.tao', ' Inexperienced coders can regard "bind()" as a black box, but eventually they will want to know that is defined as '),
 h('a',  {props: {href: "#bind"}}, 'click-me' ),
 h('span','. Experienced coders might consider modifying bind() for specific projects, removing what won\'t be used and adding things such as error handling and type checking.'),
 
-h('p', ' The functions curry or R.curry (Ramda is available) and curryReverse or R.flip are usually all you need to run a function in curried format. Functions that return multiple values usually return arrays, as in the example below. The definitions are in the '),
-h('a', {props: {href: "#curryDef"}}, 'appendix'),
+h('p', ' I use several Ramda functions in this project. R.flip and R.curry are similar, but R.flip reverses the order of the arguments. R.add, R.concat, and R.reduce do what their names imply. R.reduce takes arguments in the order R.reduce(function)(accumulater)(array). '),
 h('span', ' Here are some examples: '),
 h('pre', styleFunc(["#FFD700",,,,,]), `  function add3 (a,b,c) {return a+b+c}
 
@@ -1102,9 +1100,9 @@ bind(100)
 (q => q*q/ar[1])               // (30*30)/100 = 9
 (terminate)[2](4)              // ar[2] === v => v*v*v
                                // ar[2](4) = 64  FINAL RESULT `),
-h('p', ' Example 2 begins with bind(50) followed by a function that returns 50 cubed, then a function that obtains a pseudo-random number from the WebSocket server, then a function that obtains the number\'s prime decomposition from a web worker, and finally a function that formats the data for display. it4() and it7 use MonadItter (explained later) rather than promises.  '),
+h('p', ' Demonstration 2 begins with bind(50) followed by a function that returns 50 cubed, then a function that obtains a pseudo-random number from the WebSocket server, then a function that obtains the number\'s prime decomposition from a web worker, and finally a function that formats the data for display. it4() and it7 use MonadItter (explained later) rather than promises.  '),
 h('br'),
-h('p', ' Example 3 displays the formatted return value of: '),
+h('p', ' Demonstration 3 displays the formatted return value of: '),
 h('pre', `  var funcP = () => {
   var fred = [];
   bind(1)(addP(2))(cubeC)(addC(3))(multP(2))(multC(3))
@@ -1114,7 +1112,6 @@ h('pre', `  var funcP = () => {
     freday = fred.join(' ')
     diffRender() `),
 h('p', ' "bind(1)(addP(2))" returns a promise, causing all subsequent functions to return promises. The functions with the "P" suffix have two-second delays. In the Chrome console we see that "[1, Promise, Promise, Promise, Promise, Promise, Promise, Promise]" is returned after about 5 microseconds (when "terminate" dumps "ar"}, then "bind(1)(addP(2))(cubeC)(addC(3))" "(multP(2))(multC(3))" and "multP(1/5))" resolve after about 2, 4, and 6 seconds, respectively. '),
-
 ]),
 
 h('div', {style: {width: '47%', fontSize: '15px', float: 'right'}}, [
@@ -1190,7 +1187,7 @@ h('pre', {style: { color: "rgb(181, 244, 240)" }}, `    function Monad(z = 'defa
 
 h('p', ' I had originally extended the Monad prototype with the method "bnd" for composition. bnd() operated on functions and returned monads. I wanted to see if there would be any advantages to composition with an external function rather than a method. '),
 h('p', ' Haskell\'s bind is an external operator. You can\'t define new operators in JavaScript, so bind() had to be a function. ' ),
-h('p', ' I soon realized that bind() could be made to compose functions. After that fact dawned upon me, I no longer had much use for the monads. Named monads were good for encapsulating global values, but not much else. I now have the power of truly functional programming at my fingertips.  ' ),
+h('p', ' I saw that bind() could be made to compose functions so I abandoned the idea of using monads as vehicles for chaining functions. Without the baggage of monads, true functional programming came alive. Coding became easy and transparent. ' ),
 h('p', ' Nothing prevents you from imposing strict type constraints on the functions you compose with bind(). You might want to make a strictly-typed modification of bind(). I\'m not writing a library. I\'m just sharing some ideas that might help you with your projects. '),
 h('span.tao', ' Examples and discussion of chains containing both synchronous and asynchronous computations can be found '),
 h('a', { props: { href: '#chain' } }, 'here.'),
@@ -1328,11 +1325,6 @@ h('pre', {style: {color: "lightBlue"}}, `  function bind (x, arr=[]) {
 h('p', ' As is apparent from the definition, bind() is recursive and completely polymorphic. If bind()\'s argument is not a promise, an instance of Monad, an instance of Monad2, or a string, it gets encapsulated in an anonymous monad and bind() returns "bind(func(ret(x)),this.ar)" which returns the function named "debug8". '),
 h('p', ' The function ret() returns an instance of Monad2, which is like instances of Monad but without an id. Anonymous Monad2 instances are insulated from their outer scopes, eliminating the possibility of clashes with other processes. But plain values without the monadic wrappers would be just as insulated, so ret() is likely to be removed in the next revision. '),
 h('p', ' The definition of bind() speaks for itself more articulately the following description, but for what it\'s worth, here it is:  Let "p" be any value, "ar", "ar2", and "ar3" be arrays, func() and func2() be sychronous functions. bind(p,ar)(func)(func2) -> debug8(func)(func2) -> bind(func(p,ar),ar2)(func2) -> debug8(func(p,ar,ar2)(func2) -> bind(func2(func(p,ar),ar2),ar3) -> debug8 ready to continue the chain. ' ),
-h('p', ' Arrays are treated as argument lists in bind. If you want an array to be treated as an array, you cam put it in quotation marks and then use JSON.parse to remove the quotation marks inside the function that needs it. Here is an example: '),
-h('pre',  `  bind("[1,2,3,4,5]")(v => R.reduce((a,b)=>a*b)
-  (1)(JSON.parse(v)))(b=>(b/10)+30)(terminate)[2]  // 42  ` ),
-h('p',   ' Another way of getting an array argument to a function is to send it in an object like this: '), h('pre', `  bind({a: [5,6,7]})(q => R.reduce((a,b)=>a*b)
-  (1)(q.a))(p=>p/5)(terminate)[2]  // 42 `),
 h('a', {props: {href: '#content2'}}, 'Back to the preview demos'),
 h('p', ' bind() facilitates the linking together of dissimilar functions. Synchronous functions, promises, and asynchronous functions that use MonadItter instead of the Promises API. Examples of the latter can be seen in upcomming demonstrations. In the functions below, the suffix "C" is for curried functions that return Monad2 instances with integer values. Functions that return Promises that resolve into integers after two seconds have the "P" suffix. format() presents the value of "x" in (p.then(x" and "m.x" for all promises "p" and monads "m" '),
 h('pre', `  bind(1)(addP(2))(cubeC)(addC(3))
@@ -1370,21 +1362,19 @@ h('br'),
 h('div', m42_RESULT ),
 h('p', ' The definitions of it4(), it6(), and it(7) are: '),
 h('pre', `  var it4 = x => {
-    if (socket.readyState === 1) {
-      socket.send('BB#$42,pMgroup,pMname,' + x);
-      return eval("mMZ37.bnd(mMZ37.bnd(y => y),ar)");
-    }
+    if (socket.readyState === 1) socket.send(\`BB#$42,\${pMgroup.x},\${x}\`);
+    return eval("mMZ37.bnd(mMZ37.bnd(y => y),ar)");
   }
 
   var it6 = x => {
     mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));
-    mMZ38.bnd(v => mMZ39.release(v));
   }
 
-  var it7 = v => mMZ39.bnd( v => {
-    m42_RESULT.unshift(h('p', orange,
-    'The prime factors of ' + v[0] + v[4] + v[5]));
-  }); `),
+  var it7 = v => mMZ38.bnd( v => {
+    m42_RESULT = m42_RESULT.concat(h('p', orange, v[3] + v[0] + v[4] + v[5]).text).concat(h('br'))
+    m42_RESULT2 = m42_RESULT2.concat(h('div', [h('p', orange, v[3] + v[0] + v[4] + v[5]).text]))
+  });  `),
+
 h('p', ' "h(\'div\', m42_RESULT)" is a permanent fixture in the Snabbdom virtual DOM that is returned by main() and updated by calcStream$. When it7() executes, Sbabbdom performs its diff and render routine, updating the browser window. '),
 h('p', ' The asynchronous functions use MonadItter instances mMZ37, mMZ38, and mMZ39 instead of Promises. Here\'s the definition of MonadItter: '),
 h('pre', `  var MonadItter = function MonadItter() {
@@ -1413,39 +1403,15 @@ h('br'),
 h('br' ),
 h('br' ),
 h('a.tao', {props: {href: 'https://github.com/snabbdom/snabbdom'}}, ' Snabbdom', ),
+h('span', ', ' ),
 h('a', {props: {href: 'http://x-stream.github.io/'}}, ' xstream,' ),
 h('span', ' and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimentation and learning so many supporting files are included as scripts in the index.html page. ' ),
 h('br' ),
-
-h('a', {props: {href: '#top'}}, 'Back to the top'),
-
-h('p', ' bind() is polymorphic, but it does have one important syntactic restriction which does not restrict its functionality. Here it is: '),
-h('p', {style: {color: "#e1ff02"}}, 'USE FUNCTIONS THAT TAKE ONLY ONE ARGUMENT'),
-h('p', ' The function add(), defined below, takes only one argument and returns a function. Here\'s how it works: '),
-h('span.tao',  '  var add = a => b => a+b '),
-h('br'),
-h('span.tao',  '  var add3 = add(3)  '),
-h('br'),
-h('span', greentao, '  add3( " cows") '),
-h('span', 'returns'),
-h('span', red, ' "3 cows" '),
-h('br'),
-h('span', greentao, ' add3(4) '),
-h('span', 'returns'),
-h('span', red, ' 7'),
-h('br'),
-h('br'),
-h('span.tao', ' In functional programming, the pattern f = a => b => c => d is preferred over f(a,b,c) {return d}. All Haskell functions follow this pattern, not even needing parentheses. Define add() by '), h('span', green, 'add a b = a+b'), h('span', ' and run '),h('span', green, 'add 3 4.'), h('span', ' Haskell compilers return '), h('span', red, '7'), h('span', '.' ),
-h('span', ' This is the functional way. It is the only sensible way to use bind() and the monads presented on this page. '),
-h('br'),
 h('br'),
 h('a', {props: {href: '#top'}}, 'Back to the top'),
 h('br'),
 h('br'),
-
-
       code.async1,
-
   h('br'),
   h('span', mMfibBlurb.x ),
   h('span', [
@@ -2133,18 +2099,20 @@ else if "GN#$42" \`T.isPrefixOf\` msg
     h('p#itx', ' When sources.WS hears a message prefixed by "BB#$42", MonadIterator instance mMZ27 is released. It releases mMZ37 with the number returned by the server (v[3]). it4() releases mMZ37 in it6, passing the number from the server to it. it6() sends the number to a web worker that sends back the number\'s prime decomposition. Here\'s the code: ' ),
 
     h('a', {props: {href: '#top'}}, 'Back to the top'),
-    h('pre', `  var it4 = x => {
-      if (socket.readyState === 1) socket.send('BB#$42,pMgroup,pMname,' + x);
-      return eval("mMZ37.bnd(mMZ37.bnd(y => y),ar)");
-    }
 
-    var it6 = x => {
-      mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));
-      mMZ38.bnd(v => mMZ39.release(v));
-    }
-    var it7 = v => mMZ39.bnd( v => {
-      m42_RESULT.unshift(h('p', orange, v[3] + v[0] + v[4] + v[5]));
-    })  `),
+h('pre', `  var it4 = x => {
+    if (socket.readyState === 1) socket.send(\`BB#$42,\${pMgroup.x},\${x}\`);
+    return eval("mMZ37.bnd(mMZ37.bnd(y => y),ar)");
+  }
+
+  var it6 = x => {
+    mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));
+  }
+
+  var it7 = v => mMZ38.bnd( v => {
+    m42_RESULT = m42_RESULT.concat(h('p', orange, v[3] + v[0] + v[4] + v[5]).text).concat(h('br'))
+    m42_RESULT2 = m42_RESULT2.concat(h('div', [h('p', orange, v[3] + v[0] + v[4] + v[5]).text]))
+  });  `),
 
     h('h3', 'MonadItter'),
     h('p', ' The MonadItter section of the page has a detailed discussion and live demonstrations. This is the definition: '),
