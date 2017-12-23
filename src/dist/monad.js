@@ -1,6 +1,4 @@
 
-
-
 var todoData
 var mMt3VAL;
 var taskL = [];
@@ -331,6 +329,11 @@ function id (x) {return x}
   const squareA = a => a*a;
   const sqrtA = a => Math.sqrt(a);
 
+var release = t => instance => async param => {
+  await wait(t)
+  instance.release(param);
+}
+
 async function pause (x) {
   await wait(2000)
   return ret(x);
@@ -342,7 +345,7 @@ async function pause1 (x) {
 }
 
 async function squareP (x) {
-  await wait(2000)
+  await wait(1000)
   return ret(x*x);
 }
 
@@ -351,42 +354,42 @@ function wait(ms) {
 }
 
 const divPinverse = a => async b => {
-  await wait (2000)
+  await wait (1000)
   return a/b;
 }
 
 const divP = a => async b => {
-  await wait (2000)
+  await wait (1000)
   return b/a;
 }
 
 const sqrtP = async a => {
-  await wait (2000)
+  await wait (1000)
   return Math.sqrt(a);
 }
 
 const doubleP = async a => {
-  await wait (2000)
+  await wait (1000)
   return a+a;
 }
 
 const addP = x => async y => {
-  await wait(2000)
+  await wait(1000)
   return x + y;
 }
 
 const addPA = x => async y => {
-  await wait(2000)
+  await wait(1000)
   return x + y;
 }
 
 const multP = x => async y => {
-  await wait(2000)
+  await wait(1000)
   return x * y;
 }
 
 async function cubeP (x) {
-  await wait(2000)
+  await wait(1000)
   return x*x*x;
 }
 
@@ -2148,3 +2151,16 @@ var funcP = () => {
     diffRender()
   }))
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1062,11 +1062,13 @@ h('span', 'Functions that take multiple arguments should be curried. If you don\
 h('p', ' When promises are chained with their "then" methods, only the preceding function\'s return value is available to each link in the chain. Promises are more useful when the bind() pattern is used. '),
 h('p', ' Synchronous and asynchronous functions functions can form chains of parsing and computational procedures. Just start with bind() and add the functions that do what you want to accomplish. Others can look at you code and see precisely what you did. This obviously promotes ease of maintenance and debugging.  '),
 
-h('span.tao', ' Lodash/fp\'s '),
-h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "_.flow" ),
+h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
+h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "  .flow" ),
 h('span', ' and Ramda\'s '),
 h('a', {props: {href: "http://ramdajs.com/docs/#compose"}}, 'R.compose' ),
-h('span', ' facilitate simple function composition; i.e., functions return the arguments provided to succeeding functions. bind() does this too, but it also give every linked function access to the return values of all prior functions. These values are pushed into bind()\'s ar property at each link in a chain of functions.  '),
+h('span', ' that facilitate simple function composition; i.e., a function\'s arguments is the preceding function\'s return value. bind() does this while also giving every linked function along a pipeline access to the return values of every function that preceded it. Return values are pushed into bind()\'s ar property at every link along the way. I don\'t know of a library that has this feature built in, or that displays what it does as explicitely as bind() does.  '),
+h('br'),
+h('br'),
 h('span.tao', ' Inexperienced coders can regard "bind()" as a black box, but eventually they will want to know that is defined as '),
 h('a',  {props: {href: "#bind"}}, 'click-me' ),
 h('span','. Experienced coders might consider modifying bind() for specific projects, removing what won\'t be used and adding things such as error handling and type checking.'),
@@ -1076,53 +1078,23 @@ h('span', ' Here are some examples: '),
 h('pre', styleFunc(["#FFD700",,,,,]), `  function add3 (a,b,c) {return a+b+c}
 
   bind(15)(curry(add3)(13)(14))(terminate)[1]       //  returns 42
-  bind(13)(v => [v, v+1, v+2])(add3)(terminate)[2]  //  returns 42
 
   var cRev = R.flip(parseInt)(10);          // Useful function
   ["1","2","3","4","5"].map(v => cRev(v));  // returns [1,2,3,4,5] `),
-h('p', ' "terminate" promts bind to return ar, the array of return (possibly modified) return values. The demonstrations below illustrate some of bind()\'s features. Detailed analysis is further down the page.  '),
-h('h2', 'FOUR DEMONSTRATIONS' ),
+h('p', ' "terminate" promts bind to return ar, the array of return return values. The demonstrations below illustrates some of bind()\'s features. Detailed analysis is further down the page.  '),
+h('h2', 'DEMONSTRATIONS' ),
 ]),
 
 h('div#content2', [
 
 h('div', {style: {width: '47%', fontSize: '15px', float: 'left'}}, [
-h('span.tao', ' In Demonstration 1, mMZ23 is an instance of '),
-h('a',  {props: {href: "#itter"}}, 'MonadItter' ),
-h('span', ', which provides a convenient way to handle callbacks. mMZ.release(3) calls mMZ.bnd()\'s argument, the function "x => x*x*x, with the argument "3". The return value of (x=>x*x*x)(3) is in the same context (scope) as mMZ.release(3). '),
-h('p', ' The flag "terminate" prompts bind() to return its ar property. Demonstration 1 formats ar for display. Here is a variation on Example 1 that uses ar[2] twice, first releasing mMZ23 with the number 3 and in the last step applying "v => v*v*v" to 4 to obtain 64. '),
-h('pre', `
-bind(100)
-(v => v)                       // 100
-(() => mMZ23.bnd(v => v*v*v))  // cubes x in mMZ23.release(x)
-(()=>3)                        // 3
-(x => mMZ23.release(3)+x)      // 27 + 3 = 30
-(q => q*q/ar[1])               // (30*30)/100 = 9
-(terminate)[2](4)              // ar[2] === v => v*v*v
-                               // ar[2](4) = 64  FINAL RESULT `),
-h('p', ' Demonstration 2 begins with bind(50) followed by a function that returns 50 cubed, then a function that obtains a pseudo-random number from the WebSocket server, then a function that obtains the number\'s prime decomposition from a web worker, and finally a function that formats the data for display. it4() and it7 use MonadItter (explained later) rather than promises.  '),
-h('br'),
-h('p', ' Demonstration 3 displays the formatted return value of: '),
-h('pre', `  var funcP = () => {
-  var fred = [];
-  bind(1)(addP(2))(cubeC)(addC(3))(multP(2))(multC(3))
-  (addC(30))(multP(1/5))(terminate).slice(1,9)
-  .map(v => v.then(q => {
-    fred.push(q.x);
-    freday = fred.join(' ')
-    diffRender() `),
-h('p', ' "bind(1)(addP(2))" returns a promise, causing all subsequent functions to return promises. The functions with the "P" suffix have two-second delays. In the Chrome console we see that "[1, Promise, Promise, Promise, Promise, Promise, Promise, Promise]" is returned after about 5 microseconds (when "terminate" dumps "ar"}, then "bind(1)(addP(2))(cubeC)(addC(3))" "(multP(2))(multC(3))" and "multP(1/5))" resolve after about 2, 4, and 6 seconds, respectively. '),
-]),
 
+h('p', ' Demonstration 1 begins with bind(50) followed by a function that returns 50 cubed. ip4 sends the number to the Haskell server. When the result (a pseudo-random number) comes in, ip7 receives it and forwards it to a web worker that returns its prime factors. That information is formatted for display in the browswer. '),
+h('p', ' it4() and it7 are asynchronous functions that do not use promises. Instead, they use instances of MonadItter, which will be explained later. '),
+h('br'),
+]),
 h('div', {style: {width: '47%', fontSize: '15px', float: 'right'}}, [
 h('h3', 'Demonstration 1' ),
-h('p', ' Enter a number n ( for bind(n) ) to call this chain of functions: '),
-h('pre', `bind(n)(v => v)(() => mMZ23.bnd(v => v*v*v))(()=>3)
-(x => mMZ23.release(3)+x)(q => q*q/ar[1])(terminate).join(', ') `),
-itterResult,
-h('span', 'Enter a number here -> ' ),
-h('input#itter', ),
-h('h3', 'Demonstration 2' ),
 h('span', '.'),
 h('span', ' Click below (multiple times in rapid succession if you like) to run '),
 h('br'),
@@ -1136,19 +1108,7 @@ h('button.clear_P', {style: {fontSize: '15px', marginLeft: "0"}},  'clear result
 h('br'),
 h('br'),
 h('div', orange, m42_RESULT2 ),
-h('h3', 'Demonstration 3' ),
-h('p', ' Click to run fredExtract() (defined in the left column). '),
-h('button#fredB', {style: {fontSize: '15px'}}, 'fred()' ),
-h('br'),
-h('br'),
-h('div#fred', orangeIndent7, freday ),
-h('br'),
-h('p', ' The definitions of the functions in fred are shown in the Appendix. The P-suffixed functions  follow this pattern: '),
-h('pre', `  const addP = x => async y => {
-    await wait(2000)
-    return ret(x + y);
-  } `),
-h('h3', 'Demonstration 4' ),
+h('h3', 'Demonstration 2' ),
 h('p', ' bind() is nested inside of bind() in the next demonstration. You can verify that mMZ19.release(3) returns 27. Enter 3 or any other number and see what these linked functions return: '),
 h('pre',  `mMZ19.bnd(v => bind(bind(v)(s => s*s*s)
 (w => w + 3)(a => a*a)(terminate)[3]/100)  // End inner bind().
@@ -1170,7 +1130,7 @@ h('br'),
 h('div.content', [
 
 
-h('span.tao', 'This project was created by and is actively maintained by me, David Schalk. The code repository is at '),
+h('span.tao', 'This project was created by and is actively maintained by me, David Schalk. It is a work in progress. The code repository is at '),
 h('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript", target: "_blank" } }, 'monads-in-JavaScript'),
 h('span', '. Please leave a comment in the '),
 h('a', {props: {href: "#comments"}}, 'comments'),
