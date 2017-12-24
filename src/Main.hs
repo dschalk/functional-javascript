@@ -128,11 +128,8 @@ getN :: [Client] -> Text
 getN [(a,_,_,_,_,_,_,_)] = a
 getN [] = pack "Mr. Nobody"
 
-getScore :: Client -> Score
-getScore (_,b,_,_,_,_,_,_) = b
-
-getGoal :: Client -> Goal
-getGoal (_,_,c,_,_,_,_,_) = c
+-- getGroup :: Client -> Goal
+-- getGroup (_,b,_,_,_,_,_,_) = b
 
 findGroup :: Client -> Group
 findGroup (_,_,_,d,_,_,_,_) = d
@@ -338,9 +335,9 @@ talk conn state client = forever $ do
   let currentState = [a `mappend` dash `mappend` (pack.show $ b)  `mappend` dash `mappend`  (pack.show $ c)  `mappend` dash `mappend` d  `mappend` dash `mappend` (pack.show $ g) | (a,b,c,d,_,_,g,_) <- st]
   print "<!><@><#>$ currentState OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
   print currentState
-  let tState = T.intercalate at currentState
-  broadcast ("ST#$42," `mappend` group `mappend` com
-    `mappend` sender `mappend` com `mappend` tState) st
+ -- let tState = T.intercalate at currentState
+ -- broadcast ("ST#$42," `mappend` group `mappend` com
+ --   `mappend` sender `mappend` com `mappend` tState) st
   let tsks = (T.unpack group) :: FilePath
   TIO.appendFile tsks mempty
   tks <- TIO.readFile tsks
@@ -586,9 +583,15 @@ talk conn state client = forever $ do
                 let new = changeGroup sender extra st
                 atomically $ writeTVar state new
                 let status = [[a,pack $ show b,pack $ show c] | (a,b,c,_,_,_,_,_) <- st]
+                print "***************************************** in CO#$42"
                 print $!  status
+                print msgArray
+                let gr = getGroup sender new
+                print "Here comes group"
+                print gr
+                print "***************************************** in CO#$42"
                 let subSt = subState sender extra new
-                broadcast ("NN#$42," `mappend` group `mappend` "," `mappend` sender `mappend` "," `mappend` T.concat (textState subSt)) subSt
+                broadcast ("NN#$42," `mappend` gr `mappend` "," `mappend` sender `mappend` "," `mappend` T.concat (textState subSt)) subSt
 
      else if "XX#$42" `T.isPrefixOf` msg
         then
@@ -665,7 +668,7 @@ talk conn state client = forever $ do
                 broadcast ("TX#$42," `mappend` group `mappend` com
                   `mappend` sender `mappend` com `mappend` extra) subSt
 
-     else if "ST#$42" `T.isPrefixOf` msg  -- Delete a task
+     else if "ST#$42" `T.isPrefixOf` msg  
         then
             do
                 st <- atomically $ readTVar state

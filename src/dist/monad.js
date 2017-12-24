@@ -42,6 +42,8 @@ var mMt32 = new Monad(0,'mMt32');
 var mMt33 = new Monad(0,'mMt33');
 var itterResult = h('div', 'ready' );
 var doubleResult = h('div', 'ready' );
+var playerName = "nobody";
+var playerGroup = "solo"
 function add3 (a,b,c) {return a+b+c};
 function mult2 (a,b) {return a*b};
 
@@ -201,8 +203,7 @@ const wait2 = x => {
   };
 
 var it4 = x => {
-  if (socket.readyState === 1) socket.send(`BB#$42,${pMgroup.x},${pMoldName.x},${x}`);
-  return eval("mMZ37.bnd(mMZ37.bnd(y => y),ar)");
+  if (socket.readyState === 1) socket.send(`BB#$42,${pMgroup.x},${pMname.x},${x}`);
 }
 
 var it6 = x => {
@@ -1841,7 +1842,7 @@ function updateCalc(ar, op) {
     var a = gameMonad.fetch4().slice();
     console.log('OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO in update calc. a is', a);
     a.push(result);
-    gameMonad.run([,,0,[],a]);
+    gameMonad.run([,,0,[],a,,]);
   }
 };
 
@@ -1852,7 +1853,7 @@ function score(result) {
     var goals = gameMonad.fetch1();
     if (scor === 25 && gameMonad.fetch1() === "2") {
         mMindex.ret(0);
-        gameMonad = new MonadState('gameMonad', [[[0,0,0,[],[0,0,0,0]],[0,0,0,[][0,0,0,0]]],0]);
+        gameMonad = new MonadState('gameMonad', [[[0,0,0,[],[0,0,0,0],,],[0,0,0,[][0,0,0,0],,]],0]);
         socket.send(`CE#$42,${pMgroup.x},${pMname.x}`);
         newRoll(0,0);
     }
@@ -1862,7 +1863,7 @@ function score(result) {
     else newRoll(scor, goals);
 };
 
-var gameMonad = new MonadState('gameMonad', [[[0,0,0,[],[1,2,3,4]], [0,0,0,[],[0,0,0,0]]],1 ]);
+var gameMonad = new MonadState('gameMonad', [[[0,0,0,[],[1,2,3,4],"nobody","solo"], [0,0,0,[],[0,0,0,0],"nobody","solo"]],1 ]);
 
 MonadState.prototype.dec = function () {
   this.s[1] -= 1;
@@ -1900,6 +1901,20 @@ MonadState.prototype.fetch4 = function () {
   return this.s[0][this.s[1]][4].slice();
 }
 
+MonadState.prototype.fetch5 = function () {
+  return this.s[0][this.s[1]][5] 
+}
+
+MonadState.prototype.fetch6 = function () {
+  return this.s[0][this.s[1]][6] 
+}
+
+function send (a,b) {
+  var x = gameMonad.s[0][gameMonad.s[1]][5];
+  var y = gameMonad.s[0][gameMonad.s[1]][6];
+  socket.send(a + ',' + y + ',' + x + ',' + b)
+}
+
 MonadState.prototype.clearPicked = function () {
   var st = this.s.slice();
   st[0][st[1]][3] = [];
@@ -1913,13 +1928,16 @@ MonadState.prototype.run = function ([
   goals = this.s[0][this.s[1]][1],
   operator = this.s[0][this.s[1]][2],
   picked = this.s[0][this.s[1]][3].slice(),
-  display = this.s[0][this.s[1]][4].slice()
+  display = this.s[0][this.s[1]][4].slice(),
+  playerName = gameMonad.s[0][gameMonad.s[1]][5],
+  playerGroup = gameMonad.s[0][gameMonad.s[1]][6]
 ]) {
-  console.log('In MonadState run ***************%%%%%%%^^^^^^&&&&&&&');
+  pMscore.ret(score);
+  pMgoals.ret(goals);
+  pMgroup.ret(playerGroup);
   this.s[1] += 1;
   var newState = this.s.slice();
-  newState[0].splice(this.s[1], 0, [score, goals, operator, picked, display])
-   console.log("[score, goals, operator, picked, display]",[score, goals, operator, picked, display]);
+  newState[0].splice(this.s[1], 0, [score, goals, operator, picked, display, playerName, playerGroup])
   this.s = newState;
   buttonNode = bNode(display);
   return window['gameMonad'] = new MonadState('gameMonad', newState);
