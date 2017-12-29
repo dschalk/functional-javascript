@@ -1,4 +1,4 @@
-
+var sources;
 var todoData
 var mMt3VAL;
 var taskL = [];
@@ -44,8 +44,20 @@ var itterResult = h('div', 'ready' );
 var doubleResult = h('div', 'ready' );
 var playerName = "nobody";
 var playerGroup = "solo"
+var workerH$;
+var dRes;
+
+
+bind(3)(s => s*s*s)(w => async() => {
+  await wait(1000); return w})(terminate)// (v => console.log(v()))(terminate).then(b => ar[1] + b + ar[0] + ar[1]/9 )))(terminate)    
+
+
 function add3 (a,b,c) {return a+b+c};
 function mult2 (a,b) {return a*b};
+
+var workerG$;
+
+var reducePlus = R.reduce((a,b)=>a+b)(0)
 
 const orange = {style: {color: "#f98043"}}
 const orangeIndent7 = {style: {color: "#f98043", marginLeft: "7%", fontSize: "20px"}}
@@ -101,6 +113,15 @@ asyncArray = [];
 var format = b => {(b.then) ?
   b.then(c => console.log(c.x ?
   c.x : c)) : console.log(b)}
+
+var format2 = b => { var a = new Date(); (b.then) ?
+  b.then(c => (new Date() - a) + ': ' + c): (Date() - a) + ": " + b};
+/*
+var arno = [];
+var format2 = b => { var a = new Date();(b.then) ?
+  b.then(c => {arno.push(new Date() - a, c.x ?
+  c.x : c);console.log(arno)}) : {arno.push(new Date() - a, b);console.log(arno };
+*/
 
 var m778_RESULT = h('div', "" );
 var m42_RESULT = [];
@@ -173,14 +194,17 @@ const wait2 = x => {
     var bool = z => (z instanceof Monad || z instanceof Monad2 || z instanceof Promise
      || typeof z === 'string' || z instanceof Array)
     //if (!bool(x)) x = ret(x);
+
+
   function bind (x, arr=[]) {
     this.ar = arr;
-    this.ar.push(x instanceof Monad || x instanceof Monad2 ? x.x : x)
+    if (x instanceof Promise) {x.then(y => {ar.push(y);console.log(ar.join(', '))})}
+    else {ar.push(x);console.log(ar.join(', '))}
     if (this.ar.length === 0) this.ar = [x];
     return function debug8 (func) {
       if (func.name === "terminate") return ar;
       if (x instanceof Promise) {
-        var p = x.then(v => func(v instanceof Monad2  ? v.x : v));
+        var p = x.then(v => func(v));
         return bind(p,this.ar);
       }
       // if (x instanceof Monad || x instanceof Monad2) return bind(func(x.x),this.ar);
@@ -210,10 +234,42 @@ var it6 = x => {
   mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));
 }
 
+var it8 = x => {
+  console.log('In it8 - - x is', x );
+  mMZ34.bnd(x => workerH.postMessage([primesMonad.s, [x]]));
+}
+
+var m42_RESULT3 = []
 var it7 = v => mMZ38.bnd( v => {
-m42_RESULT = m42_RESULT.concat(h('p', orange, v[3] + v[0] + v[4] + v[5]).text).concat(h('br'))
-m42_RESULT2 = m42_RESULT2.concat(h('div', [h('p', orange, v[3] + v[0] + v[4] + v[5]).text]))
+  m42_RESULT = m42_RESULT.concat(h('p', orange, v[3] + v[0] + v[4] + v[5]).text).concat(h('br'))
+  m42_RESULT2 = m42_RESULT2.concat(h('div', [h('p', orange, v[3] + v[0] + v[4] + v[5]).text]))
+  m42_RESULT3 = m42_RESULT3.concat(h('p', orange, v[5]).text).concat(h('br'))
 });
+
+var RESULT_7 = [];
+
+//var m42_RESULT3 = [];
+//m42_RESULT3 = m42_RESULT3.concat(h('div', [h('p', orange, RESULT_7.text).concat(h('br'))] ))
+
+var RESULT_6 = ""
+var ar7 = [];
+
+var func7 = x => {
+    RESULT_7 = "";
+    var d = Date.now();
+    diffRender();
+    bind(x)(s => s*s*s)(e => (async w => {await wait(2000); return w + 3})(e))
+    (q => q*q)(async y => {await wait(2000); return ar[2]
+    .then(z => z*ar[0])})(async a => {await wait(2000); return a*ar[1]})
+    (v => Math.floor(v/300))(terminate).map(v => (v instanceof Promise) ? 
+    v.then(w => RESULT_7 = RESULT_7 + " --> t = " + Math.floor(
+    (Date.now() - d)/1000) + " seconds. Result: " + w ) :
+    RESULT_7 = RESULT_7 + " --> t = " + Math.floor((Date.now() - d)/1000) + " seconds. Result: " + v);
+    diffRender();
+    };
+
+
+
   //'The prime factors of ' + v[0] + ' are ' + v[1]);
 const prm4 = x => {
   if (socket.readyState === 1) socket.send('BB#$42,pMgroup,pMname,' + x);
@@ -335,18 +391,20 @@ var release = t => instance => async param => {
   instance.release(param);
 }
 
+
+
 async function pause (x) {
   await wait(2000)
   return ret(x);
 }
 
 async function pause1 (x) {
-  await wait(1000)
+  await wait(2000)
   return x;
 }
 
 async function squareP (x) {
-  await wait(1000)
+  await wait(2000)
   return ret(x*x);
 }
 
@@ -355,42 +413,42 @@ function wait(ms) {
 }
 
 const divPinverse = a => async b => {
-  await wait (1000)
+  await wait (2000)
   return a/b;
 }
 
 const divP = a => async b => {
-  await wait (1000)
+  await wait (2000)
   return b/a;
 }
 
 const sqrtP = async a => {
-  await wait (1000)
+  await wait (2000)
   return Math.sqrt(a);
 }
 
 const doubleP = async a => {
-  await wait (1000)
+  await wait (2000)
   return a+a;
 }
 
 const addP = x => async y => {
-  await wait(1000)
+  await wait(2000)
   return x + y;
 }
 
 const addPA = x => async y => {
-  await wait(1000)
+  await wait(2000)
   return x + y;
 }
 
 const multP = x => async y => {
-  await wait(1000)
+  await wait(2000)
   return x * y;
 }
 
 async function cubeP (x) {
-  await wait(1000)
+  await wait(2000)
   return x*x*x;
 }
 
@@ -640,6 +698,8 @@ var m0 = new Monad (0, "m0")
   var mMchange3 = new Monad(0, 'mMchange3')
   var backupMonad = new Monad('', 'backupMonad')
   var mMshowRegister = new Monad('inline', 'mMshowRegister')
+  var mMfoo = new Monad([], 'mMfoo')
+  var mMbar = new Monad([], 'mMbar')
 
 function prm () {
   return new Promise( (resolve, reject) => {
@@ -796,6 +856,7 @@ var workerD = new Worker("workerD.js");
 var workerE = new Worker("workerE.js");
 var workerF = new Worker("workerF.js");
 var workerG = new Worker("workerG.js");
+var workerH = new Worker("workerH.js");
 
 var pMop = new Monad (0, 'pMop');
 
@@ -2162,7 +2223,7 @@ function curryReverse(func) {
 var funcP = () => {
   var fred = [];
   bind(1)(addP(2))(cubeC)(addC(3))(multP(2))(multC(3))
-  (addC(30))(multP(1/5))(terminate).slice(1,9)
+  (addC(30))(multP(1/5))(it4)(it6)(it7)(terminate).slice(1,9)
   .map(v => v.then(q => {
     fred.push(q.x);
     freday = fred.join(' ')

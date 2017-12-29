@@ -61,6 +61,14 @@ function workerGDriver () {
   });
 };
 
+function workerHDriver () {
+  return xs.create({
+    start: listener => { workerH.onmessage = msg => listener.next(msg)},
+    stop: () => { workerH.terminate() }
+  });
+};
+
+
 function workerDriver () {
   return xs.create({
     start: listener => { worker.onmessage = msg => listener.next(msg)},

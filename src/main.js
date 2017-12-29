@@ -160,7 +160,9 @@
      });
 
      mMZ27.bnd( () => {
-       console.log('In mMZ27 OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO --- v[3] is', v[3])
+       console.log('In mMZ27 OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO --- v[3] is', v[3]);
+       mM27.ret(v[3]);
+       console.log('BB BB BB BB BB BB BB BB BB mM27.x',mM27.x)
        mMZ37.release(v[3]);
      });
      ret(v[0])
@@ -413,13 +415,23 @@
 
     var doubleAction$ = doublePress$.map(e => {
       console.log('In doubleAction - - e is',e);
-      mMZ19.bnd(v => bind(bind(v)(s => s*s*s)
-      (w => w + 3)(a => a*a)(terminate)[3]/100)  // End of inner bind().
-      (x=>x*x)(terminate)[1])  // Now the outer bind() is working.
+      var dRes = "";
       if (e.keyCode === 13) {
-        doubleResult = h('div', styleFunc(["#FFD700",,"16px",,,]),
-        mMZ19.release(pInt(e.target.value)))
+        bind(3)
+        (cubeP)(addP(3))(c=>ar[1]
+        .then(v => v - 75 + c*ar[0]))(terminate)
+        .map(v => v.then ? v.then(s => 
+        dRes = dRes + s + ', ') : dRes = dRes + v + ', ')  
       }
+    });
+    
+    var sevenPress$ = sources.DOM
+        .select('#seven').events('keypress');
+
+    var sevenAction$ = sevenPress$.map(e => {
+      if (e.keyCode === 13) {
+       func7(e.target.value);
+      };
     });
 // ******************************************************************** <><><><><><> -> End Demos
 
@@ -501,9 +513,7 @@
       }
     });
 
-
-
-  //******************************************************************* workerG
+  //******************************************************************* worker
 
     var clearClick$ = sources.DOM
         .select('button.clear_P').events('click')
@@ -523,20 +533,35 @@
       bind(50)(a=>a*a*a)(it4)(it6)(it7);
     });
 
-  const workerG$ = sources.WWG.map(m => {
+  workerG$ = sources.WWG.map(m => {
+    mMbar.ret(m.data);
     m778_RESULT = result778(m.data);
     mMZ38.release(m.data);
-    console.log('<><><><><><><><><><>< prime factors ><><><><><><><><><><><><><><><><>');
-    console.log('<><><><><><><><><><><>< e.data><>< e.target.ar2 ><><><><><><><><><><><><>');
-    if (m.data) {console.log('GOOD m.data')} else { return "cow" }
-      if (m.target) {console.log('GOOD m.target')} else { return "shit" }
-        if (m.data[1]) {console.log('GOOD m.data[1]')} else { return 'donkey'}
-          if (m.target.ar2) {console.log('GOOD m.data.ar2')} else { return 'dung'}
-    console.log('The prime factors of ' + m.data[1] + ' are ' + m.target.ar2.join(', '))
-    console.log('<><><><><><><><><><><><><><><><><><><><><><><><><><><>');
-    console.log('<><><><><><><><><><><><><><><><><><><><><><><><><><><>');
-
+    mMZ34.release(m.data[6]);
   });
+
+
+  var factors3Press$ = sources.DOM
+      .select('input#factors').events('keypress');
+
+  var factors3Action$ = factors3Press$.map(function (e) {
+      if (e.keyCode === 13) {
+      bind(5000)(it6);
+    }
+  });
+
+  workerH$ = sources.WWH.map(m => {
+    console.log('<0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0> In workerH$ e is', e);
+    mMZ34.release(m.data);
+    r
+  });
+
+
+
+//    if (m.data) {console.log('GOOD m.data')} else { return "cow" }
+  //    if (m.target) {console.log('GOOD m.target')} else { return "shit" }
+    //    if (m.data[1]) {console.log('GOOD m.data[1]')} else { return 'donkey'}
+      //    if (m.target.ar2) {console.log('GOOD m.data.ar2')} else { return 'dung'}
 
   const result778 = x => h('div', [
     m778_RESULT,
@@ -743,7 +768,7 @@
       });
 
       const workerF$ = sources.WWF.map(m => {
-        console.log('Back in the main thread. m is', m );
+        console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz -> Back in the main thread. m is', m );
         mMfactors6_b.ret(m.data[2][3]);
         window['primesMonad'] = new MonadState('primesMonad', m.data[0], primes_state);
         window['decompMonad'] = new MonadState('decompMonad', m.data[2], primes_state);
@@ -1017,9 +1042,10 @@
     console.log('NOW WE ARE AT calcStream@');
 
 
-var calcStream$ = xs.merge( doubleAction$, itterAction$, fredGo$, fredAction$, diffR$, res8$, ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, clearAction$, factorsAction$, factors2Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
-      return { DOM: calcStream$.map(() => {
-      return h('div.main', [
+var calcStream$ = xs.merge( sevenAction$, doubleAction$, itterAction$, fredGo$, fredAction$, diffR$, res8$, ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, workerH$, clearAction$, factorsAction$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$) 
+
+return { DOM: calcStream$.map(() => { 
+  return h('div.main', [
 
 h('div.image_3', [
 h('img.image_2', {props: {src: "logo.svg" }}  ),
@@ -1028,7 +1054,7 @@ h('a', { props: { href: "https://cycle.js.org/", target: "_blank" } }, 'A Cycle.
 h('div', {style: {textAlign:"center", fontWeight: "bold"}}, [
 h('div', {style: {fontSize: "27px", color: "#f7f700"}}, 'FUNCTIONAL PROGRAMMING'),
 h('br'),
-h('div', {style: {fontSize: "22px", fontStyle: "italic", color: "#07f7f7"}},'WITH CYCLE.JS and AMDA' ) ]),
+h('div', {style: {fontSize: "22px", fontStyle: "italic", color: "#07f7f7"}},'WITH CYCLE.JS' ) ]),
 h('br'),
 h('br'),
 h('div.content', [
@@ -1053,40 +1079,47 @@ h('span', styleFunc(["#FFD700","3%","20px",,,]), '* '),
 
 h('span', 'Functions that take multiple arguments should be curried. If you don\'t want to re-write a functions, you can use R.curry (or R.flip which reverses the order of the curried arguments). '),
 h('p', ' When promises are chained with their "then" methods, only the preceding function\'s return value is available to each link in the chain. Promises are more useful when the bind() pattern is used. '),
-h('p', ' Synchronous and asynchronous functions functions can form chains of parsing and computational procedures. Just start with bind() and add the functions that do what you want to accomplish. Others can look at you code and see precisely what you did. This obviously promotes ease of maintenance and debugging.  '),
+h('p', ' Synchronous and asynchronous functions functions can form chains of parsing and computational procedures. Just start with bind() and add the functions that do what you want to accomplish. Others can study your code and see precisely what you did. This obviously promotes ease of maintenance and debugging.  '),
+h('span.tao', ' The following example was run with timestamps in the Chrome scratchpad. "ar" is the array of return values in '),
+h('a', {props: {href: "#bind"}},'bind()'), 
+h('span', ' and cubeP and addP return promises that resolve after two seconds. '), 
+h('pre', `  bind(3)(cubeP)(addP(3))(a=>a+ar[0]+ar[1]-18)(terminate)
+
+  16:33:56.298  3               // start
+  16:33:58.299  3, 27           // two seconds after start
+  16:34:00.300  3, 27, 30       // four seconds after start   
+  16:34:00.300  3, 27, 30, 42   // finish  `),
+h('p', ' 18 is subtracted from the sum of the first three elements of ar to yield 42 (3+27+30-18 = 42). This demonstrates how easy it is to access the resolution values of prior prominses. '), 
 
 h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
 h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "  .flow" ),
 h('span', ' and Ramda\'s '),
 h('a', {props: {href: "http://ramdajs.com/docs/#compose"}}, 'R.compose' ),
-h('span', ' that facilitate simple function composition; i.e., a function\'s arguments is the preceding function\'s return value. bind() does this while also giving every linked function along a pipeline access to the return values of every function that preceded it. Return values are pushed into bind()\'s ar property at every link along the way. I don\'t know of a library that has this feature built in, or that displays what it does as explicitly as bind() does.  '),
+h('span', ', that facilitate simple function composition; i.e., a function\'s arguments is the preceding function\'s return value. bind() does this while also giving every linked function along a pipeline access to the return values of every function that preceded it.  '),
 h('br'),
 h('br'),
 h('span.tao', ' Inexperienced coders can regard "bind()" as a black box, but eventually they will want to know that is defined as '),
 h('a',  {props: {href: "#bind"}}, 'click-me' ),
 h('span','. Experienced coders might consider modifying bind() for specific projects, removing what won\'t be used and adding things such as error handling and type checking.'),
 
-h('p', ' I use several Ramda functions in this project. R.flip and R.curry are similar, but R.flip reverses the order of the arguments. R.add, R.concat, and R.reduce do what their names imply. R.reduce takes arguments in the order R.reduce(function)(accumulator)(array). '),
-h('span', ' Here are some examples: '),
-h('pre', styleFunc(["#FFD700",,,,,]), `  function add3 (a,b,c) {return a+b+c}
-  bind(15)(curry(add3)(13)(14))(terminate)[1]  //  returns 42
 
-  var cRev = R.flip(parseInt)(10);             // Useful function
-  ["1","2","3","4","5"].map(v => cRev(v));     // returns [1,2,3,4,5] `),
-h('p', ' "terminate" prompts bind to return ar, the array of return return values. The demonstrations below illustrates some of bind()\'s features. Detailed analysis is further down the page.  '),
-h('h2', 'DEMONSTRATIONS' ),
 ]),
 
 h('div#content2', [
 
 h('div', {style: {width: '47%', fontSize: '15px', float: 'left'}}, [ // ((************ LEFT PANEL
 
-h('p', ' Demonstration 1 begins with a computation. After 50 is cubed, it4 sends the result (125,000) to the Haskell WebSocket server which sends back a pseudo-random number between 0 and 125,000. '), 
+h('br'),
+h('br'),
+h('span', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 1'),
+h('span', ' begins with a computation. After 50 is cubed, it4 sends the result (125,000) to the Haskell WebSocket server which sends back a pseudo-random number between 0 and 125,000. '), 
 h('p', ' When the random number arrives, the browser calls "mMZ37.release(v[3])" where v[3] is the new random number.  mMZ37.release(v[3]) causes it6 to send v[3] to a web worker, prompting it to send back its prime factors. it7 formats the prime factors for display. '),
 h('span', ' it4() and it7 are asynchronous functions that do not use promises. Instead, they use instances of MonadItter, which will be explained later. The definitions of it4, it6, and it7 are '),
 h('a', {props: {href: "#itterDef"}}, 'here'),  
 h('span', ',' ),
 h('br'),
+
+
 ]),
 h('div', {style: {width: '47%', fontSize: '15px', float: 'right'}}, [  // ********* RIGHT PANEL
 h('h3', 'Demonstration 1' ),
@@ -1094,7 +1127,7 @@ h('span', '.'),
 h('span', ' Click below (multiple times in rapid succession if you like) to run '),
 h('br'),
 h('br'),
-h('span', styleFunc(["rgb(7, 247, 247)","12%","20px",,,]), 'bind(50)(x=>x*x*x)(it4)(it6)(it7)'),
+h('span', styleFunc(["rgb(7, 247, 247)","12%","20px",,,,,]), 'bind(50)(x=>x*x*x)(it4)(it6)(it7)'),
 h('br'),
 h('br'),
 h('button.factors_P', {style: {fontSize: '15px'}}, 'bind(50)(x=>x*x*x)(it4)(it6)(it7)'),
@@ -1103,17 +1136,14 @@ h('button.clear_P', {style: {fontSize: '15px', marginLeft: "0"}},  'clear result
 h('br'),
 h('br'),
 h('div', orange, m42_RESULT2 ),
-h('h3', 'Demonstration 2' ),
-h('p', ' bind() is nested inside of bind() in the next demonstration. You can verify that mMZ19.release(3) returns 27. Enter 3 or any other number and see what these linked functions return: '),
-h('pre',  `mMZ19.bnd(v => bind(bind(v)(s => s*s*s)
-(w => w + 3)(a => a*a)(terminate)[3]/100)  // End inner bind().
-(x=>x*x)(terminate)[1])  // Now the outer bind() is working. `), 
-doubleResult,
-h('br'),
-h('span', 'mMZ.release(n) Enter n here -> ' ),
-h('input#double', ),
 h('br'),
 h('br'),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
+
+
 ]),
 h('br'),
 h('br'),
@@ -1140,6 +1170,7 @@ h('pre', {style: { color: "rgb(181, 244, 240)" }}, `    function Monad(z = 'defa
       this.x = z;
     };  ` ),
 
+
 h('p', ' I had originally extended the Monad prototype with the method "bnd" for composition. bnd() operated on functions and returned monads. I wanted to see if there would be any advantages to composition with an external function rather than a method. '),
 h('p', ' Haskell\'s bind is an external operator. You can\'t define new operators in JavaScript, so bind() had to be a function. ' ),
 h('p', ' I saw that bind() could be made to compose functions so I abandoned the idea of using monads as vehicles for chaining functions. Without the baggage of monads, true functional programming came alive. Coding became easy and transparent. ' ),
@@ -1164,6 +1195,8 @@ h('h3', 'The Game'),
 h('p', 'People who are in the same group, other than the default non-group named "solo", share the same todo list, chat messages, and simulated dice game. '),
 h('p', ' Data for the traversable game history accumulates until a player scores three goals and wins. The data array is then emptied and the application is ready to start accumulating a new history. '),
 h('p', ' Your user name for trying out the game, todo list, and chat demonstrations and for leaving comments is a thirteen digit random number. In the game section and in the comments section near the bottom of this page, you can chose your own persistent user name and password. As mentioned above, Knowing your password facilitates revising or removing comments.' ),
+
+
 ]),
 h('h1', 'Game, Todo List, Text Messages' ),
 h('div#gameDiv2', {style: { display: mMgameDiv2.x }}, [
@@ -1197,7 +1230,6 @@ h('label', {style: {display: mMshowRegister.x }}, 'Register or log in here:'),
 h('input.register', {style: {display: mMshowRegister.x }},),
 ])
 ]),
-
 h('div#rightanel', { style: { display: 'block' } }, [
 h('br'),
 h('br'),
@@ -1242,39 +1274,36 @@ h('br'),
 h('br'),
 h('h1', '________________________________________________' ),
 h('div.content', [
-h('a', {props: {href: '#top'}}, 'Back to the top'),
+h('a#bind', {props: {href: '#top'}}, 'Back to the top'),
 
-h('p', ' While experimenting with monads (instances of Monad and Monad2), I defined an external function to compose them and named it "bind". When I realized that bind() could link functions, it was clear that using monads as vehicles for linking procedures was well, stupid. Structures such as MonadState are useful for holding state and the little monads are useful for encapsulating global variables, but that\'s all they are good for. '),
-h('p', ' The function that freed me from the constraints of Promises and my monads is currently defined as follows: '),
+h('p', ' Here is the definition of bind: '),
 h('pre', {style: {color: "lightBlue"}}, `  function bind (x, arr=[]) {
-    var bool = z => (z instanceof Monad || z instanceof Monad2 || z instanceof Promise
-     || typeof z === 'string' || z instanceof Array)
-    if (!bool(x)) x = ret(x);
     this.ar = arr;
-    this.ar.push(x instanceof Monad || x instanceof Monad2 ? x.x : x)
+    if (x instanceof Promise) {x.then(y => {ar.push(y);console.log(ar.join(', '))})}
+    else {ar.push(x);console.log(ar.join(', '))}
     if (this.ar.length === 0) this.ar = [x];
     return function debug8 (func) {
       if (func.name === "terminate") return ar;
       if (x instanceof Promise) {
-        var p = x.then(v => func(v instanceof Monad2  ? v.x : v));
+        var p = x.then(v => func(v));
         return bind(p,this.ar);
       }
-      if (x instanceof Monad || x instanceof Monad2) return bind(func(x.x),this.ar);
+      // if (x instanceof Monad || x instanceof Monad2) return bind(func(x.x),this.ar);
       // Asynchronous functionality without Promises. Begin:
       if (typeof func === 'string' && func.slice(0,3) === "mMZ") {
+        console.log('In bind() func.slice(0,3) === \"mMZ\" ' );
         var p = eval(func(x));
         return bind(p, this.ar);
       }
       if (typeof x === 'string' && x.slice(0,3) === "mMZ") {
+        console.log('In bind() slice(0,3) === \"mMZ\" ' );
         console.log('In bind. x === \'string\'. x and ar',x,ar);
         var p = func(eval(x));
         return bind(p, this.ar);
       }
       // Asynchronous functionality without Promises. End.
-      if (x instanceof Array) {
-        var p = func(...x);
-        return bind(p, this.ar);
-      };
+      var p = func(x);
+      return bind(p, this.ar);
     };
   }; ` ),
 h('p', ' As is apparent from the definition, bind() is recursive and completely polymorphic. If bind()\'s argument is not a promise, an instance of Monad, an instance of Monad2, or a string, it gets encapsulated in an anonymous monad and bind() returns "bind(func(ret(x)),this.ar)" which returns the function named "debug8". '),
@@ -2030,8 +2059,7 @@ else if "GN#$42" \`T.isPrefixOf\` msg
     h('a', {props: {href: '#top'}}, 'Back to the top'),
 
 h('pre', `var it4 = x => {
-  if (socket.readyState === 1) socket
-  .send(\`BB#$42,\${pMgroup.x},\${pMname.x},\${x}\`);
+  if (socket.readyState === 1) socket.send(\`BB#$42,\${pMgroup.x},\${pMname.x},\${x}\`);
 }
 
 var it6 = x => {
@@ -2039,11 +2067,8 @@ var it6 = x => {
 }
 
 var it7 = v => mMZ38.bnd( v => {
-  m42_RESULT = m42_RESULT.concat(
-  h('p', orange, v[3] + v[0] + v[4] + v[5]);
-  .text).concat(h('br'));
-  m42_RESULT2 = m42_RESULT2.concat(
-  h('p', orange, v[3] + v[0] + v[4] + v[5]).text);
+m42_RESULT = m42_RESULT.concat(h('p', orange, v[3] + v[0] + v[4] + v[5]).text).concat(h('br'))
+m42_RESULT2 = m42_RESULT2.concat(h('div', [h('p', orange, v[3] + v[0] + v[4] + v[5]).text]))
 });  `),
 
     h('h3', 'MonadItter'),
@@ -2113,7 +2138,7 @@ h('a', {props: {href: '#top'}}, 'Back to the top'),
     })
   }
 }
-const sources = {
+sources = {
   DOM: makeDOMDriver('#main-container'),
   WS: websocketsDriver,
   WWB: workerBDriver,
@@ -2122,6 +2147,7 @@ const sources = {
   WWE: workerEDriver,
   WWF: workerFDriver,
   WWG: workerGDriver,
+  WWH: workerHDriver,
   WW: workerDriver,
   PP: pingpongDriver,
   FD: fredDriver
