@@ -47,17 +47,16 @@ var playerGroup = "solo"
 var workerH$;
 var dRes;
 
-
 bind(3)(s => s*s*s)(w => async() => {
   await wait(1000); return w})(terminate)// (v => console.log(v()))(terminate).then(b => ar[1] + b + ar[0] + ar[1]/9 )))(terminate)    
-
 
 function add3 (a,b,c) {return a+b+c};
 function mult2 (a,b) {return a*b};
 
 var workerG$;
 
-var reducePlus = R.reduce((a,b)=>a+b)(0)
+var reducePlus = R.reduce((a,b)=>a+b)(0);
+var reduceMult = R.reduce((a,b)=>a*b)(1);
 
 const orange = {style: {color: "#f98043"}}
 const orangeIndent7 = {style: {color: "#f98043", marginLeft: "7%", fontSize: "20px"}}
@@ -191,37 +190,26 @@ const wait2 = x => {
   setTimeout( function (x) {return x},2000 )
 }
 
-    var bool = z => (z instanceof Monad || z instanceof Monad2 || z instanceof Promise
-     || typeof z === 'string' || z instanceof Array)
-    //if (!bool(x)) x = ret(x);
+var m42_RESULT3 = []
 
-
-  function bind (x, arr=[]) {
-    this.ar = arr;
+  function bind (x, ar=[]) {
+    this.ar = ar;
     if (x instanceof Promise) {x.then(y => {ar.push(y);console.log(ar.join(', '))})}
     else {ar.push(x);console.log(ar.join(', '))}
-    if (this.ar.length === 0) this.ar = [x];
+    if (ar.length === 0) ar = [x];
     return function debug8 (func) {
       if (func.name === "terminate") return ar;
+      var p;
       if (x instanceof Promise) {
-        var p = x.then(v => func(v));
-        return bind(p,this.ar);
+        p = x.then(v => func(v));
       }
-      // if (x instanceof Monad || x instanceof Monad2) return bind(func(x.x),this.ar);
-      // Asynchronous functionality without Promises. Begin:
-      if (typeof func === 'string' && func.slice(0,3) === "mMZ") {
-        console.log('In bind() func.slice(0,3) === \"mMZ\" ' );
+     /* else if (typeof func === 'string' && func.slice(0,3) === "mMZ") {
         var p = eval(func(x));
-        return bind(p, this.ar);
       }
-      if (typeof x === 'string' && x.slice(0,3) === "mMZ") {
-        console.log('In bind() slice(0,3) === \"mMZ\" ' );
-        console.log('In bind. x === \'string\'. x and ar',x,ar);
+      else if (typeof x === 'string' && x.slice(0,3) === "mMZ") {
         var p = func(eval(x));
-        return bind(p, this.ar);
-      }
-      // Asynchronous functionality without Promises. End.
-      var p = func(x);
+      } */
+      else p = func(x);
       return bind(p, this.ar);
     };
   };
@@ -234,12 +222,6 @@ var it6 = x => {
   mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));
 }
 
-var it8 = x => {
-  console.log('In it8 - - x is', x );
-  mMZ34.bnd(x => workerH.postMessage([primesMonad.s, [x]]));
-}
-
-var m42_RESULT3 = []
 var it7 = v => mMZ38.bnd( v => {
   m42_RESULT = m42_RESULT.concat(h('p', orange, v[3] + v[0] + v[4] + v[5]).text).concat(h('br'))
   m42_RESULT2 = m42_RESULT2.concat(h('div', [h('p', orange, v[3] + v[0] + v[4] + v[5]).text]))
@@ -247,6 +229,10 @@ var it7 = v => mMZ38.bnd( v => {
 });
 
 var RESULT_7 = [];
+
+var it8 = x => {
+  workerH.postMessage([primesMonad.s, [x]]);
+}
 
 //var m42_RESULT3 = [];
 //m42_RESULT3 = m42_RESULT3.concat(h('div', [h('p', orange, RESULT_7.text).concat(h('br'))] ))
@@ -563,6 +549,16 @@ var m0 = new Monad (0, "m0")
   var mM37 = M('', 'mM37');
   var mM38 = M(0, 'mM38');
   var mM39 = M(0, 'mM39');
+  var mM40 = M(0, 'mM40');
+  var mM41 = M(0, 'mM41');
+  var mM42 = M(0, 'mM42');
+  var mM43 = M(0, 'mM43');
+  var mM44 = M(0, 'mM44');
+  var mM45 = M(3, 'mM45');
+  var mM46 = M('', 'mM46');
+  var mM47 = M('', 'mM47');
+  var mM48 = M(0, 'mM48');
+  var mM49 = M(0, 'mM49');
   var mMscbd = M([], 'mMscbd');
   var mMmessages = M([], 'mMmessages');
   var mMscoreboard = M([], 'mMscoreboard');
@@ -717,7 +713,7 @@ const pop = ar => ret(ar.pop())
 const prm5 = x => {
   return new Promise( (resolve, reject) => {
      mMZ39.bnd((y) => resolve(y))
- }).then(workerC.postMessage([primesMonad.s, [x]]));
+  }).then(workerC.postMessage([primesMonad.s, [x]]));
 }
 
 function largestPrime (x) {bind(x)(prm5)(split2)(terminate)
@@ -788,6 +784,16 @@ var MonadItter = function MonadItter() {
   var mMZ37 = MI();
   var mMZ38 = MI();
   var mMZ39 = MI();
+  var mMZ40 = MI();
+  var mMZ41 = MI();
+  var mMZ42 = MI();
+  var mMZ43 = MI();
+  var mMZ44 = MI();
+  var mMZ45 = MI();
+  var mMZ46 = MI();
+  var mMZ47 = MI();
+  var mMZ48 = MI();
+  var mMZ49 = MI();
   var mMi3terPrime = MI();
   var mMitterPrime4 = MI();
   var mMitterPrime5 = MI();
