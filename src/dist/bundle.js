@@ -356,6 +356,9 @@
 	      send("CO#$42", e.target.value);
 	      gameMonad.run([0, 0, 0, [], [0, 0, 0, 0],, e.target.value]);
 	      socket.send('TI#$42,' + e.target.value + ',' + pMname.x);
+	      setTimeout(function () {
+	        return send("CO#$42", e.target.value);
+	      }, 500);
 	    }
 	  });
 

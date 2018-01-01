@@ -190,29 +190,39 @@ const wait2 = x => {
   setTimeout( function (x) {return x},2000 )
 }
 
+var MonadItter = function MonadItter() {
+  this.p = function () {};
+  this.release = function () {
+    return this.p.apply(this, arguments);
+  };
+  this.bnd = function (func) {
+    return this.p = func;
+  };
+};
+
+var MI = function MI() {
+  return new MonadItter();
+};
 var m42_RESULT3 = []
 
-  function bind (x, ar=[]) {
-    this.ar = ar;
-    if (x instanceof Promise) {x.then(y => {ar.push(y);console.log(ar.join(', '))})}
-    else {ar.push(x);console.log(ar.join(', '))}
-    if (ar.length === 0) ar = [x];
-    return function debug8 (func) {
-      if (func.name === "terminate") return ar;
-      var p;
-      if (x instanceof Promise) {
-        p = x.then(v => func(v));
-      }
-     /* else if (typeof func === 'string' && func.slice(0,3) === "mMZ") {
-        var p = eval(func(x));
-      }
-      else if (typeof x === 'string' && x.slice(0,3) === "mMZ") {
-        var p = func(eval(x));
-      } */
-      else p = func(x);
-      return bind(p, this.ar);
-    };
+var mMZ60 = new MonadItter();
+
+function bind (x, ar=[], f = 'R.join(", ")') {
+  this.ar = ar;
+  if (x instanceof Promise) {x.then(y => {ar.push(y);console.log(ar.join(', '))})}
+  else {ar.push(x);console.log(ar.join(', '))}
+  eval(f)(ar);
+  if (ar.length === 0) ar = [x];
+  return function debug8 (func) {
+    if (func.name === "terminate") return ar;
+    var p;
+    if (x instanceof Promise) {
+      p = x.then(v => func(v));
+    }
+    else p = func(x);
+    return bind(p, this.ar, f);
   };
+};
 
 var it4 = x => {
   if (socket.readyState === 1) socket.send(`BB#$42,${pMgroup.x},${pMname.x},${x}`);
@@ -794,6 +804,16 @@ var MonadItter = function MonadItter() {
   var mMZ47 = MI();
   var mMZ48 = MI();
   var mMZ49 = MI();
+  var mMZ50 = MI();
+  var mMZ51 = MI();
+  var mMZ52 = MI();
+  var mMZ53 = MI();
+  var mMZ54 = MI();
+  var mMZ55 = MI();
+  var mMZ56 = MI();
+  var mMZ57 = MI();
+  var mMZ58 = MI();
+  var mMZ59 = MI();
   var mMi3terPrime = MI();
   var mMitterPrime4 = MI();
   var mMitterPrime5 = MI();
@@ -1996,8 +2016,8 @@ MonadState.prototype.run = function ([
   operator = this.s[0][this.s[1]][2],
   picked = this.s[0][this.s[1]][3].slice(),
   display = this.s[0][this.s[1]][4].slice(),
-  playerName = gameMonad.s[0][gameMonad.s[1]][5],
-  playerGroup = gameMonad.s[0][gameMonad.s[1]][6]
+  playerName = pMname.x,
+  playerGroup = pMgroup.x
 ]) {
   pMscore.ret(score);
   pMgoals.ret(goals);

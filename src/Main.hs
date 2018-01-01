@@ -4,6 +4,7 @@ import           System.IO
 import           Control.Concurrent             (forkIO)
 import qualified Control.Concurrent.STM.Lock as L
 import           Data.Tuple.Select
+import           Data.Tuple.Update
 import           Data.Data
 import           Data.Typeable
 import           Data.Tuple.Select
@@ -177,20 +178,21 @@ extractTail [a,b] = b
 extractTail _ = pack "Error. ExtractTail is being applied to something other than a two item list of Text"
 
 newName :: Text -> Text -> Client -> Client
-newName name1 name2 (a, b, c, d, e, f, g, h) | name1 == a  = (name2, b, c, d, e, f, g, h)
+newName name1 name2 (a, b, c, d, e, f, g, h) | name1 == a  = upd1 name2 (a, b, c, d, e, f, g, h) 
                                              | otherwise = (a, b, c, d, e, f, g, h)
 
 changeName :: Text -> Text -> ServerState -> ServerState
 changeName name1 name2 s = map (newName name1 name2) s
 
 newGroupKeepScore :: Text -> Text -> Client -> Client
-newGroupKeepScore name group (a, b, c, d, e, f, g, h)  | name == a  = (a, b, c, group, e, f, g, h)
+newGroupKeepScore name group (a, b, c, d, e, f, g, h)  | name == a  = upd4 group (a, b, c, d, e, f, g, h)
                                                        | otherwise = (a, b, c, d, e, f, g, h)
+
 changeGroupKeepScore :: Text -> Text -> ServerState -> ServerState
 changeGroupKeepScore name group = map (newGroupKeepScore name group)
 
 newGroup :: Text -> Text -> Client -> Client
-newGroup name group (a, b, c, d, e, f, g, h) | name == a  = (a, 0, 0, group, e, f, g, h)
+newGroup name group (a, b, c, d, e, f, g, h) | name == a  = upd4 group (a, b, c, d, e, f, g, h)
                                              | otherwise = (a, b, c, d, e, f, g, h)
 
 changeGroup :: Text -> Text -> ServerState -> ServerState
