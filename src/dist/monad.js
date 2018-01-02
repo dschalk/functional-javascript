@@ -160,6 +160,41 @@ var arf = async p => {
     this.id = ID;
   };
 
+  Monad.prototype.bnd = function (func, ...args) {
+    if (func instanceof Promise) {
+      this.getVal(func,this.x,args);
+
+    }
+    var m = func(this.x, ...args)
+    var ID;
+    if (m instanceof Monad) {
+      ID = testPrefix(args, this.id);
+      window[ID] = new Monad(m.x, ID);
+      return window[ID];
+    }
+    else return m;
+  };
+
+  Monad.prototype.ret = function (a) {
+    return window[this.id] = new Monad(a, this.id);
+  };
+
+  Monad.prototype.getVal = async function fg (f) {
+    this.ret(await(f));
+  };
+
+  function testPrefix (x,y) {
+     var t = y;  // y is the id of the monad calling testPrefix
+     if (Array.isArray(x)) {
+      x.map(v => {
+        if (typeof v == 'string' && v.charAt() == '$') {
+           t = v.slice(1);  // Remove "$"
+        }
+      })
+    }
+    return t;
+  }
+
   function Monad2(z = 0) {
     this.x = z;
   };
@@ -203,16 +238,23 @@ var MonadItter = function MonadItter() {
 var MI = function MI() {
   return new MonadItter();
 };
+
 var m42_RESULT3 = []
 
 var mMZ60 = new MonadItter();
 
-function bind (x, ar=[], f = 'R.join(", ")') {
+var bindEmitter = new EventEmitter();
+bindEmitter.on(123,v => console.log('My',v));
+bindEmitter.emit(123,"dick");
+
+var mM40 = new Monad([], 'mM40');
+var RESULT_bind = [];
+
+function bind (x, ar=[]) {
   this.ar = ar;
-  if (x instanceof Promise) {x.then(y => {ar.push(y);console.log(ar.join(', '))})}
-  else {ar.push(x);console.log(ar.join(', '))}
-  eval(f)(ar);
-  if (ar.length === 0) ar = [x];
+  if (this.ar.length === 0) this.ar = [x];
+  if (x instanceof Promise) x.then(y => ar.push(y));
+  else ar.push(x)
   return function debug8 (func) {
     if (func.name === "terminate") return ar;
     var p;
@@ -220,8 +262,48 @@ function bind (x, ar=[], f = 'R.join(", ")') {
       p = x.then(v => func(v));
     }
     else p = func(x);
-    return bind(p, this.ar, f);
+    return bind(p, this.ar);
   };
+};
+
+function bind2 (x, ar=[]) {
+  this.ar = ar;
+  if (this.ar.length === 0) this.ar = [x];
+  if (x instanceof Promise) {x.then(y => {
+    ar.push(y);
+    RESULT_bind = ar;
+    console.log(ar.join(', '));
+    diffRender();
+  })}
+  else {
+    ar.push(x);console.log(ar.join(', '));RESULT_bind = ar;
+    if (socket.readyState === 1) diffRender();
+  }
+  return function debug8 (func) {
+    if (func.name === "terminate") return ar;
+    var p;
+    if (x instanceof Promise) {
+      p = x.then(v => func(v));
+    }
+    else p = func(x);
+    return bind2(p, this.ar);
+  };
+};
+
+function bindEmitterDriver () {
+  return xs.create({
+    start: listener => { bindEmitter.on = msg => listener.next(msg)},
+    stop: () => { bindEmitter.removeAllListeners() }
+  });
+};
+
+var bindAr$ = ar => xs.of(ar);
+
+function Driver () {
+  return xs.create({
+    start: listener => { freddy$ = k => listener.next(k)},
+    stop: () => {}
+  })
 };
 
 var it4 = x => {
@@ -313,41 +395,6 @@ function ret_2 (val = 0, id = "retDefault") {
 }
 
 function id (x) {return x}
-
-  Monad.prototype.bnd = function (func, ...args) {
-    if (func instanceof Promise) {
-      this.getVal(func,this.x,args);
-
-    }
-    var m = func(this.x, ...args)
-    var ID;
-    if (m instanceof Monad) {
-      ID = testPrefix(args, this.id);
-      window[ID] = new Monad(m.x, ID);
-      return window[ID];
-    }
-    else return m;
-  };
-
-  Monad.prototype.ret = function (a) {
-    return window[this.id] = new Monad(a, this.id);
-  };
-
-  Monad.prototype.getVal = async function fg (f) {
-    this.ret(await(f));
-  };
-
-  function testPrefix (x,y) {
-     var t = y;  // y is the id of the monad calling testPrefix
-     if (Array.isArray(x)) {
-      x.map(v => {
-        if (typeof v == 'string' && v.charAt() == '$') {
-           t = v.slice(1);  // Remove "$"
-        }
-      })
-    }
-    return t;
-  }
 
   function square (v) {
     return ret(v*v)
@@ -2142,7 +2189,7 @@ em2.on('42',x => console.log(x));
 
 var producer = {
   start: function (listener) {
-    this.id = em.emit('cow',45)
+    em.emit('cow',45)
   },
 
   stop: function () {

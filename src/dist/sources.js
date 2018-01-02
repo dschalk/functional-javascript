@@ -98,6 +98,18 @@ function fredDriver () {
   })
 };
 
+var RESULT_bind = [];
+ 
+var bind$ = n => xs.of(n);
+
+function bindDriver () {
+  return xs.create({
+    start: listener => { bind$ = a => listener.next(a) },
+    stop: () => {}
+  })
+};
+
+
 /*function eM2Driver () {
   return xs.create({
     start: listener => { mM2.on = msg => listener.next(msg)},

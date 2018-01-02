@@ -457,6 +457,20 @@
             fib2([0, 1, e.target.value]);
         }
     });
+
+    var printingPress$ = sources.DOM
+        .select('input#demo2').events('keydown');
+
+    var demo2Action$ = printingPress$.map(function (e) { if (e.target.value === '') {
+            return;
+        }
+        ;
+        if (e.keyCode === 13) { bind2(e.target.value)(cubeP)(addP(3))(a=>a+ar[0]+ar[1]-18)
+           (multP(1/3))(addP(-11))(()=>ar[1]+ar[2]+ar[3])(terminate) 
+        }
+    });
+
+
     // *******************************************n****************************** ENDOM iginal Fibonacci END
 
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START PRIME FIB
@@ -669,7 +683,7 @@
   */
     // **********************************************************************
 
-
+var bindBD$ = sources.BD.map(m => console.log("Happy and proud",m))
 
       const workerC$ = sources.WWC.map(m => {
         console.log('Back in the main thread. m is', m );
@@ -1042,7 +1056,7 @@
     console.log('NOW WE ARE AT calcStream@');
 
 
-var calcStream$ = xs.merge( sevenAction$, doubleAction$, itterAction$, fredGo$, fredAction$, diffR$, res8$, ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, workerH$, clearAction$, factorsAction$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$) 
+var calcStream$ = xs.merge( demo2Action$, bindBD$, sevenAction$, doubleAction$, itterAction$, fredGo$, fredAction$, diffR$, res8$, ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, workerH$, clearAction$, factorsAction$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$) 
 
 return { DOM: calcStream$.map(() => { 
   return h('div.main', [
@@ -1116,7 +1130,13 @@ h('span', ' it4() and it7 are asynchronous functions that do not use promises. I
 h('a', {props: {href: "#itterDef"}}, 'here'),  
 h('span', ',' ),
 h('br'),
-
+h('br'),
+h('span', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 2'),
+h('span', ' shows a function summing resolution values of three prior promises. These numbers were preserved in ar[1], ar[2], and ar[3]. Here\'s the code that runs after you enter a value for bind2\'s argument: ' ),
+h('pre', `  bind2(n)(cubeP)(addP(3))(a=>a+ar[0]+ar[1]-18)(multP(1/3))
+  (addP(-11))(()=>ar[1]+ar[2]+ar[3])(terminate) ` ),
+h('br'),
+h('br'),
 
 ]),
 h('div', {style: {width: '47%', fontSize: '15px', float: 'right'}}, [  // ********* RIGHT PANEL
@@ -1134,8 +1154,15 @@ h('br'),
 h('br'),
 h('div', orange, m42_RESULT2 ),
 h('br'),
+h('h3', 'Demonstration 2' ),
+h('div', bigRed, R.join(", ")(RESULT_bind) ),
+h('br'),
+h('input#demo2', ),
+h('br'),
 
-
+  
+  
+h('br'),
 ]),
 h('br'),
 h('br'),
@@ -2107,7 +2134,8 @@ sources = {
   WWH: workerHDriver,
   WW: workerDriver,
   PP: pingpongDriver,
-  FD: fredDriver
+  FD: fredDriver,
+  BD: bindDriver
 }
 
 run(main, sources);
