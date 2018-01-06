@@ -461,13 +461,9 @@
     var printingPress$ = sources.DOM
         .select('input#demo2').events('keydown');
 
-    var demo2Action$ = printingPress$.map(function (e) { if (e.target.value === '') {
-            return;
-        }
-        ;
-        if (e.keyCode === 13) { bind2(e.target.value)(cubeP)(addP(3))(a=>a+ar[0]+ar[1]-18)
-           (multP(1/3))(addP(-11))(()=>ar[1]+ar[2]+ar[3])(terminate) 
-        }
+    var demo2Action$ = printingPress$.map(function (e) { 
+      if (e.target.value === '') return;
+      if (e.keyCode === 13) { bind3(3,[],'jim7')(cubeP)(addP(3))(a=>a+jim7[0]+jim7[1]-18)(multP(1/3))(addP(-11))(()=>jim7[1]+jim7[2]+jim7[3])(terminate)}
     });
 
 
@@ -1076,7 +1072,8 @@ h('div', styleFunc(["#FFD700",,"26px",,,"center"]), 'Polymorphic Function Compos
 h('br'),
 
 h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' There are many advantages to composing function with he pattern '),
-h('span', styleFunc(["#a3ffe4",,"18px",,,"center"]), 'bind(x)(functiona1)(function2) ... (functionN) '),
+h('a', {props: {href: "#bind"}, style: {fontSize:"18px"}}, 'bind'), 
+h('span', styleFunc(["#f7f700",,"18px"]), '(x)(functiona1)(function2) ... (functionN) '),
 h('span', styleFunc(["#d3ead5",,"18px",,,]), ' where '),
 h('pre', styleFunc(["#a3ffe4",,"16px",,,]), `  x can be any value,
 
@@ -1092,18 +1089,6 @@ h('pre', styleFunc(["#a3ffe4",,"16px",,,]), `  x can be any value,
 h('span', styleFunc(["#FFD700","3%","20px",,,]), '* '),
 h('span', 'Functions that take multiple arguments should be curried. The Ramda library, which includes R.curry and R.flip (reverse argument order curry), and the rest of the Ramda library have been made available in the Chrome and Firefox consoles by means of a script in index.html. '),
 h('p', ' When promises are chained with their "then" methods, only the preceding function\'s return value is available to each link in the chain. bind() overcomes this limitation.'),
-h('span.tao', ' To illustrate how this works, the following example was run with timestamps in the Chrome scratchpad. "ar" is the array of return values, promise resolution values, and messages maintained in pipelines constructed with '),
-h('a', {props: {href: "#bind"}},'bind()'), 
-h('span', ' and cubeP and addP return promises that resolve, doing what their names imply, after two second delays caused by "setTimeout". Their definitions are '),
-h('a', {props: {href: '#it4'}},  'here. '), 
-h('pre', `  bind(3)(cubeP)(addP(3))(a=>a+ar[0]+ar[1]-18)(terminate)
-
-  16:33:56.298  3               // start
-  16:33:58.299  3, 27           // two seconds after start
-  16:34:00.300  3, 27, 30       // four seconds after start   
-  16:34:00.300  3, 27, 30, 42   // finish  `),
-h('p', ' 18 is subtracted from the sum of the first three elements of ar to yield 42 (3+27+30-18 = 42). This demonstrates how easy it is to access the resolution values of prior prominses. '), 
-
 h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
 h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "  .flow" ),
 h('span', ' and Ramda\'s '),
@@ -1111,10 +1096,6 @@ h('a', {props: {href: "http://ramdajs.com/docs/#compose"}}, 'R.compose' ),
 h('span', ', that facilitate simple function composition; i.e., a function\'s arguments is the preceding function\'s return value. bind() does this while also giving every linked function along a pipeline access to the return values of every function that preceded it.  '),
 h('br'),
 h('br'),
-h('span.tao', ' Inexperienced coders can regard "bind()" as a black box, but eventually they will want to know that is defined as '),
-h('a',  {props: {href: "#bind"}}, 'click-me' ),
-h('span','. Experienced coders might consider modifying bind() for specific projects, removing what won\'t be used and adding things such as error handling and type checking.'),
-
 
 ]),
 
@@ -1127,14 +1108,13 @@ h('span', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 1'),
 h('span', ' begins with a computation. After 50 is cubed, it4 sends the result (125,000) to the Haskell WebSocket server which sends back a pseudo-random number between 0 and 125,000. '), 
 h('p', ' When the random number arrives, the browser calls "mMZ37.release(v[3])" where v[3] is the new random number.  mMZ37.release(v[3]) causes it6 to send v[3] to a web worker, prompting it to send back its prime factors. it7 formats the prime factors for display. '),
 h('span', ' it4() and it7 are asynchronous functions that do not use promises. Instead, they use instances of MonadItter, which will be explained later. The definitions of it4, it6, and it7 are '),
-h('a', {props: {href: "#itterDef"}}, 'here'),  
 h('span', ',' ),
 h('br'),
 h('br'),
 h('span', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 2'),
-h('span', ' shows a function summing resolution values of three prior promises. These numbers were preserved in ar[1], ar[2], and ar[3]. Here\'s the code that runs after you enter a value for bind2\'s argument: ' ),
-h('pre', `  bind2(n)(cubeP)(addP(3))(a=>a+ar[0]+ar[1]-18)(multP(1/3))
-  (addP(-11))(()=>ar[1]+ar[2]+ar[3])(terminate) ` ),
+h('p', ' bind3() is essentially bind() only bind3() provides an opportunity to name the array that accumulates results. Selecting unique names prevents bind() from clashing with with other simultaneously running code beginning with bind(). Here is the code that runs in the right column when you select a value for "n". ' ),   
+h('pre', `  bind3(n,[],'jim7')(cubeP)(addP(3))(a=>a+jim7[0]+jim7[1]-18)
+  (multP(1/3))(addP(-11))(()=>jim7[1]+jim7[2]+jim7[3])(terminate) ` ),
 h('br'),
 h('br'),
 
@@ -1156,7 +1136,9 @@ h('div', orange, m42_RESULT2 ),
 h('br'),
 h('h3', 'Demonstration 2' ),
 h('div', bigRed, R.join(", ")(RESULT_bind) ),
-h('br'),
+h('pre', `  bind3(3,[],'jim7')(cubeP)(addP(3))(a=>a+jim7[0]+jim7[1]-18)
+  (multP(1/3))(addP(-11))(()=>jim7[1]+jim7[2]+jim7[3])(terminate) ` ),
+h('span', ' value of n --> '),
 h('input#demo2', ),
 h('br'),
 
@@ -1276,21 +1258,21 @@ h('div.content', [
 h('a#bind', {props: {href: '#top'}}, 'Back to the top'),
 
 h('p', ' Here is the definition of bind: '),
-h('pre', {style: {color: "lightBlue"}}, `  function bind (x, ar=[]) {
-    this.ar = ar;
-    if (x instanceof Promise) {x.then(y => {ar.push(y);console.log(ar.join(', '))})}
-    else {ar.push(x);console.log(ar.join(', '))}
-    if (ar.length === 0) ar = [x];
+h('pre', {style: {color: "lightBlue"}}, `  function bind (x, ar=[], str="susan") {
+    this[str] = ar;
+    if (this[str].length === 0) this[str] = [x];
+    if (x instanceof Promise) x.then(y => this[str].push(y));
+    else this[str].push(x)
     return function debug8 (func) {
-      if (func.name === "terminate") return ar;
+      if (func.name === "terminate") return this[str];
       var p;
       if (x instanceof Promise) {
         p = x.then(v => func(v));
       }
       else p = func(x);
-      return bind(p, this.ar);
+      return bind(p, this[str]);
     };
-  };` ),
+  }; ` ),
 
 h('p', ' As is apparent from the definition, bind() is recursive and completely polymorphic. If bind()\'s argument is not a promise, an instance of Monad, an instance of Monad2, or a string, it gets encapsulated in an anonymous monad and bind() returns "bind(func(ret(x)),this.ar)" which returns the function named "debug8". '),
 h('p', ' The function ret() returns an instance of Monad2, which is like instances of Monad but without an id. Anonymous Monad2 instances are insulated from their outer scopes, eliminating the possibility of clashes with other processes. But plain values without the monadic wrappers would be just as insulated, so ret() is likely to be removed in the next revision. '),
@@ -1590,7 +1572,8 @@ var MonadState3 = function MonadState3(g, state) {
   this.ret = function (a) {
     return window[this.id] = new MonadState(this.id, a);
   };
-};
+}  bind2(n)(cubeP)(addP(3))(a=>a+ar[0]+ar[1]-18)(multP(1/3))
+  (addP(-11))(()=>ar[1]+ar[2]+ar[3])(terminate) ;
 
 var commentMonad = new MonadState3('commentMonad',   [ '', [] ]);
 
@@ -1943,9 +1926,7 @@ else if "GN#$42" \`T.isPrefixOf\` msg
 
     function wait(ms) {
       return new Promise(r => setTimeout(r, ms));
-    }
-
-    h('a#it4', {props: {href: '#top'}}, 'Back to the top'),
+    } h('a#it4', {props: {href: '#top'}}, 'Back to the top'),
     
     async function cubeP (x) {
       await wait(2000)
@@ -1986,6 +1967,7 @@ else if "GN#$42" \`T.isPrefixOf\` msg
       await wait(2000)
       return ret(x * y);
     }
+
         `),
 
     h('p'),
@@ -2114,6 +2096,7 @@ var it7 = v => mMZ38.bnd( v => {
 h('a', {props: {href: '#top'}}, 'Back to the top'),
 
     h('p'),
+    h('input#change', RESULT_bind ),
     h('button#fredButton', fredButton ),
     h('button#diffRender', diffRend )
           ])
@@ -2122,6 +2105,7 @@ h('a', {props: {href: '#top'}}, 'Back to the top'),
     })
   }
 }
+
 sources = {
   DOM: makeDOMDriver('#main-container'),
   WS: websocketsDriver,
@@ -2139,3 +2123,6 @@ sources = {
 }
 
 run(main, sources);
+
+
+

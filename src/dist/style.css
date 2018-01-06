@@ -19,6 +19,14 @@
     padding: 3px 0px 3px 3px;
   }
 
+a {
+  color: #cc72f9;
+}
+
+a:hover {
+  color: #f7f700;
+}
+
 #wrapper {
   width: 500px;
   height: 500px;
@@ -376,10 +384,6 @@
 #todoDiv {
   width:100%;
 }
-
-a {
-  color: #efb8c9;
-}u
 
 #eighty {
   width: 92%;

@@ -46,10 +46,10 @@ var playerName = "nobody";
 var playerGroup = "solo"
 var workerH$;
 var dRes;
-
+/*
 bind(3)(s => s*s*s)(w => async() => {
   await wait(1000); return w})(terminate)// (v => console.log(v()))(terminate).then(b => ar[1] + b + ar[0] + ar[1]/9 )))(terminate)    
-
+*/
 function add3 (a,b,c) {return a+b+c};
 function mult2 (a,b) {return a*b};
 
@@ -245,12 +245,29 @@ var mMZ60 = new MonadItter();
 
 var bindEmitter = new EventEmitter();
 bindEmitter.on(123,v => console.log('My',v));
-bindEmitter.emit(123,"dick");
+bindEmitter.emit(123,"personal pie in the sky");
 
 var mM40 = new Monad([], 'mM40');
 var RESULT_bind = [];
 
-function bind (x, ar=[]) {
+/*
+function bind (x, array9=[]) {
+  let arm = array9;
+  this.arm = arm;
+  if (x instanceof Promise) x.then(y => this.arm.push(y));
+  else this.arm.push(x)
+  return function debug8 (func) {
+    if (func.name === "terminate") return this.arm;
+    var p;
+    if (x instanceof Promise) {
+      p = x.then(v => func(v));
+    }
+    else p = func(x);
+    return bind(p, this.arm);
+  }
+};
+
+function bind (x, ar=[], str="susan") {
   this.ar = ar;
   if (this.ar.length === 0) this.ar = [x];
   if (x instanceof Promise) x.then(y => ar.push(y));
@@ -266,7 +283,9 @@ function bind (x, ar=[]) {
   };
 };
 
-function bind2 (x, ar=[]) {
+function bind2 (x, ar=[], str="fred") {
+  typeof window[str] === 'undefined' ? console.log("bind3", str, ": GOOD CHOICE") : console.log("WARNING - bind3 potential name clash");
+  this[str] = ar;
   this.ar = ar;
   if (this.ar.length === 0) this.ar = [x];
   if (x instanceof Promise) {x.then(y => {
@@ -276,7 +295,9 @@ function bind2 (x, ar=[]) {
     diffRender();
   })}
   else {
-    ar.push(x);console.log(ar.join(', '));RESULT_bind = ar;
+    ar.push(x);
+    RESULT_bind = ar;
+    console.log(ar.join(', '));
     if (socket.readyState === 1) diffRender();
   }
   return function debug8 (func) {
@@ -289,6 +310,154 @@ function bind2 (x, ar=[]) {
     return bind2(p, this.ar);
   };
 };
+
+*/
+
+function bind (x, ar=[], str="susan") {
+  this[str] = ar;
+  if (this[str].length === 0) this[str] = [x];
+  if (x instanceof Promise) x.then(y => this[str].push(y));
+  else this[str].push(x)
+  return function debug8 (func) {
+    if (func.name === "terminate") return this[str];
+    var p;
+    if (x instanceof Promise) {
+      p = x.then(v => func(v));
+    }
+    else p = func(x);
+    return bind(p, this[str]);
+  };
+};
+
+function bind2 (x, ar=[], str="fred") {
+  typeof window[str] === 'undefined' ? console.log("bind3", str, ": GOOD CHOICE") : console.log("WARNING - bind3 potential name clash");
+  this[str] = ar;
+  if (this[str].length === 0) this[str] = [x];
+  if (x instanceof Promise) {x.then(y => {
+    this[str].push(y);
+    RESULT_bind = this[str];
+    console.log(this[str].join(', '));
+    diffRender();
+  })}
+  else {
+    this[str].push(x);
+    RESULT_bind = this[str];
+    console.log(this[str].join(', '));
+    if (socket.readyState === 1) diffRender();
+  }
+  return function debug8 (func) {
+    if (func.name === "terminate") return this[str];
+    var p;
+    if (x instanceof Promise) {
+      p = x.then(v => func(v));
+    }
+    else p = func(x);
+    return bind2(p, this[str]);
+  };
+};
+
+function bind3 (x, ar=[], str="fred") {
+  typeof window[str] === 'undefined' ? console.log("bind3", str, ": GOOD CHOICE") : console.log("WARNING - bind3 potential name clash");
+  this[str] = ar;
+  //if (this[str].length === 0) this[str] = [x];
+  if (x instanceof Promise) {x.then(y => {
+    this[str].push(y);
+    RESULT_bind = this[str];
+    console.log(this.str.join(', '));
+    diffRender();
+  })}
+  else {
+    this[str].push(x);
+    RESULT_bind = this[str];
+    console.log(this[str].join(', '));
+    if (socket.readyState === 1) diffRender();
+  }
+  return function debug8 (func) {
+    if (func.name === "terminate") return this[str];
+    var p;
+    if (x instanceof Promise) {
+      p = x.then(v => func(v));
+    }
+    else p = func(x);
+    return bind2(p, this[str]);
+  };
+};
+
+var logger = () => {console.log('(*)(*)(*)', arm ); return x};
+
+function bind6 (x, ar = [], o = {a: 0}) {
+  var arm = ar;
+  var ob = o 
+  if (x instanceof Promise) x.then(y => arm.push(y));
+  else arm.push(x)
+  return function debug8 (func) {
+    if (func.name === "terminate") return arm;
+    var p;
+    if (x instanceof Promise) {
+      p = x.then(v => func(v));
+      RESULT_bind = arm;
+      console.log(arm.join(', '));
+      diffRender();
+    }
+    else {
+      p = func(x);
+      RESULT_bind = arm;
+      if (socket.readyState === 1) diffRender();
+      return bind2(p, arm);
+    };
+  };
+};
+
+var runDemo = n => {
+  bind2(n)(cubeP)(addP(3))(a=>a+arm[0]+arm[1]-18)
+  (multP(1/3))(addP(-11))(()=>arm[1]+arm[2]+arm[3])
+  (terminate);
+  diffRender();
+}
+
+
+
+
+
+
+
+/*var Ob = {
+  a: function arm () {},
+  f: function g (x) {
+    if (x instanceof Promise) {x.then(y => {
+      RESULT_bind = Ob.arm;
+      that.arm.push(y);
+      console.log(Ob.arm.join(', '));
+      diffRender();
+    })}
+    else {
+      Ob.arm.push(x);
+      console.log(Ob.arm.join(', '));
+      RESULT_bind = Ob.arm;
+      if (socket.readyState === 1) diffRender();
+    }
+
+    return function debug8 (func) {
+      if (func.name === "terminate") return this.arm;
+      var p;
+      if (x instanceof Promise) {
+        p = x.then(v => func(v));
+      }
+      else p = func(x);
+      console.log("this",this);
+      return g(p, Ob.arm);
+    };
+  },
+};
+*/
+
+
+
+
+
+
+
+
 
 function bindEmitterDriver () {
   return xs.create({
@@ -783,7 +952,7 @@ var fx = async () => {await ar[1].then(x => m779.ret(x)); return m779.x}
 
 var LARGEST = 0;
 
-var ar = [function () {}];
+// var ar = [function () {}];
 
 const largest = x => ( () => x + " is the largest prime factor of " + ar[0]);
 
@@ -2239,25 +2408,27 @@ var pingpongTog = n => ppStyle ?
   h('span', ppY , 'PONG! ' + n)
 
 var ping = n => ar => {
+  var ar = ar;
+  this.ar = ar;
   var k = Math.floor(Math.random() * 5)+1;
   if(ar[0] > 10 || ar[1] > 10) {
-    m67_RESULT = h('pre', ppY, `     FINAL SCORE   ping: ${ar[0]} pong: ${ar[1]}` );
+    m67_RESULT = h('pre', ppY, `     `), h('span', 'FINAL SCORE   ping: ' + ar[0] + ' pong: ' + ar[1] );
     diffRender();
   }
   else setTimeout(() => {
     if (n <= k) {
       ppStyle = !ppStyle;
       incF$(n);
-      ping(n+1)(ar);
+      ping(n+1)(this.ar);
     }
     else if (n % 2 === 0) {
       ar[0]+=1;
-      m67_RESULT = h('pre', ppYR, `     SCORE: ping  ${ar[0]} pong: ${ar[1]}  ` );
+      m67_RESULT = h('pre', ppYR, `    `), h('span', 'SCORE: ping: ' + ar[0] + ' pong: ' + ar[1]   );
       ping(0)(ar);
     }
     else {
       ar[1]+=1
-      m67_RESULT = h('pre', ppY, `     SCORE: ping  ${ar[0]} pong: ${ar[1]}  ` );
+      m67_RESULT = h('pre', ppY, `     ` ), h('span', 'SCORE: ping ' + ar[0] + ' pong: ' + ar[1]   );
       ping(0)(ar);
     }
   }, 500 )
