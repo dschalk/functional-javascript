@@ -1245,9 +1245,8 @@ h('p', ' You can change your name by entering a comma-separated name and passwor
 h('span.red', mMregister.x ),
 h('label', {style: {display: mMshowRegister.x }}, 'Register or log in here:'),
 h('input.register', {style: {display: mMshowRegister.x }},),
-])
-]),
-h('div#rightanel', { style: { display: 'block' } }, [
+])]),
+h('div#rightanel', { style: { display: 'block', float: 'right' } }, [
 h('br'),
 h('br'),
 h('br'),
@@ -1278,14 +1277,15 @@ h('br'),
 h('span#alert2'),
 
 h('br'),
-    h('div#chatDiv', { style: { display: showChatDiv } }, [
-      h('div#messages', [
-        h('span', 'Message: '),
-        h('input.inputMessage'),
-        h('div', messages  ),
-        h('br'),
-      ])
-    ])
+h('div#chatDiv', { style: { display: showChatDiv } }, [
+  h('div#messages', [
+    h('span', 'Message: '),
+    h('input.inputMessage'),
+    h('div', messages  ),
+    h('br'),
+  ])
+])
+])
 ]),
 h('br'),
 h('br'),
@@ -2144,7 +2144,6 @@ h('a', {props: {href: '#top'}}, 'Back to the top'),
   h('button#diffRender', 'diffRender()' ),
   h('br'),
   h('br')
-          ])
         ])
       ])
     })
