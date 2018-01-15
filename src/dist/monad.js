@@ -15,11 +15,19 @@ var xs = xstream.default;
 var h = h.h;
 var freday = ["waiting"];
 var fredButton = h('button#fredButton', "fredButton");
+
+var diffR = h('button#diffRender', "diffRender");
+var diffRender = () => 8;   ;  // See document.onload in maim
+
+// var fredButton = h('button#fredButton', "fredButton");
 const messages = [];
 var buttonNode;
 var stat;
 var solo = "solo";
+var RESULT_BINDA = []; 
+var RESULT_BIND = []; 
 var gameData = "nobody 0 | 0 \njudy 0 | 0"
+var O = {ar: []};
 var m = new Monad(42, 'm');
 var m0 = new Monad(0, 'm0');
 var m1 = new Monad(1, 'm1');
@@ -46,6 +54,8 @@ var playerName = "nobody";
 var playerGroup = "solo"
 var workerH$;
 var dRes;
+var m42_RESULT7 = "ready"
+
 /*
 bind(3)(s => s*s*s)(w => async() => {
   await wait(1000); return w})(terminate)// (v => console.log(v()))(terminate).then(b => ar[1] + b + ar[0] + ar[1]/9 )))(terminate)    
@@ -57,6 +67,7 @@ var workerG$;
 
 var reducePlus = R.reduce((a,b)=>a+b)(0);
 var reduceMult = R.reduce((a,b)=>a*b)(1);
+
 
 const orange = {style: {color: "#f98043"}}
 const orangeIndent7 = {style: {color: "#f98043", marginLeft: "7%", fontSize: "20px"}}
@@ -109,15 +120,19 @@ asyncArray = [];
     var res8_HIDE = {style: {fontSize: "13px", color: "rgb(127, 255, 180)", display: "none"}}
     var res8_Style = res8_SHOW;
 
-var format = b => {(b.then) ?
-  b.then(c => console.log(c.x ?
-  c.x : c)) : console.log(b)}
+var format = b => {b instanceof Promise ?
+  b.then(c => {console.log(c); return c}) : console.log(b); return b   }; 
 
 var format2 = b => { var a = new Date(); (b.then) ?
   b.then(c => (new Date() - a) + ': ' + c): (Date() - a) + ": " + b};
+
+
+
+
 /*
 var arno = [];
-var format2 = b => { var a = new Date();(b.then) ?
+var format3 = b => { var a = new Date();(b.then) ?
+
   b.then(c => {arno.push(new Date() - a, c.x ?
   c.x : c);console.log(arno)}) : {arno.push(new Date() - a, b);console.log(arno };
 */
@@ -132,7 +147,7 @@ function makeSequence (n) {
   return a
 }
 
-const diffRender = () => document.getElementById('diffRender').click();
+// const diffRender = () => document.getElementById('diffRender').click();
 
 const fredFunc =  a => {freday = a};
 
@@ -292,7 +307,7 @@ function bind2 (x, ar=[], str="fred") {
     ar.push(y);
     RESULT_bind = ar;
     console.log(ar.join(', '));
-    diffRender();
+    dcoiffRender();
   })}
   else {
     ar.push(x);
@@ -329,6 +344,112 @@ function bind (x, ar=[], str="susan") {
   };
 };
 
+var O_001 = {ar: []};
+var O_002 = {ar: []};
+var O_003 = {ar: []};
+var O_004 = {ar: []};
+
+var bind1 = Bindo("bind1");
+var bind2 = Bindo("bind2");
+var bind3 = Bindo("bind3");
+var bind4 = Bindo("bind4");
+var bind5 = Bindo("bind5");
+var bind6 = Bindo("bind6");
+
+function Bindo (str) {
+  console.log("In Bindo - - str is", str);
+  Bindo[str] = [];
+  return function bindo ( x, ob = {ar: []} ) {
+    if (x instanceof Promise) x.then(y => {
+      Bindo[str].push(y);
+      diffRender();
+      console.log(Bindo[str]);
+    })
+    else {
+      Bindo[str].push(x)
+      diffRender();
+    }
+    console.log(Bindo[str]);
+    return function debug8 (func) {
+      var p;
+      if (func.name === "terminate") return Bindo[str];
+      if (x instanceof Promise) {
+        p = x.then(v => func(v));
+      }
+      else p = func(x);
+      console.log("In debug8. this is",this);
+      return bindo(p,Bindo[str]);
+    };
+  };
+};
+
+var b0 = () => Bindo.bind;
+var b3 = () => Bindo.bind3;
+var bindArr = Bindo("bindoArr")([]);
+var bindOb = Bindo("bindoOb")({ar: []});
+
+
+var aBind = [];
+var bBind = [];
+var cBind = [];
+var dBind = [];
+
+function barfly (x) { 
+  console.log('x is',x);
+  var foo = x; 
+  return function farfly () { 
+    foo+=1; 
+    if (foo < 5) return barfly(foo); else console.log('foo is',foo)  
+  } 
+}      
+
+var makeBind = name => x => {
+  var x = x;
+  var ar = [];
+  var name = name;
+  var bin = () => {
+    if (x instanceof Promise) x.then(y => ar.push(y));
+    else ar.push(x)
+    return function debug8 (func) {
+      if (func.name === "terminate") return ar;
+      name = ar;
+      console.log(ar);
+      if (x instanceof Promise) {
+        x = x.then(v => func(v));
+        name = ar;
+        console.log(ar);
+      }
+      else x = func(x);
+      return bin();
+    };
+  };
+  return bin;
+};
+
+function binda (x, ar=[], str="susan", name ) {
+  this[str] = ar;
+  window[name] = name;
+  var that = this;
+  diffRender();
+  this[str] = ar;
+  if (x instanceof Promise) x.then(y => this[str].push(y));
+  else this[str].push(x)
+  return function debug8 (func) {
+    if (func.name === "terminate") return this[str];
+    var p;
+    if (x instanceof Promise) {
+      console.log("that === this,that, this",that===this,that,this);
+      p = x.then(v => func(v));
+      window[name] = this[str];
+    }
+    else {
+      p = func(x);
+      window[name] = this[str];
+    };
+    return binda(p, this[str]);
+  };
+};
+/*
 function bind2 (x, ar=[], str="fred") {
   typeof window[str] === 'undefined' ? console.log("bind3", str, ": GOOD CHOICE") : console.log("WARNING - bind3 potential name clash");
   this[str] = ar;
@@ -382,6 +503,7 @@ function bind3 (x, ar=[], str="fred") {
     return bind2(p, this[str]);
   };
 };
+*/
 
 var logger = () => {console.log('(*)(*)(*)', arm ); return x};
 
@@ -606,62 +728,72 @@ var release = t => instance => async param => {
 
 
 async function pause (x) {
-  await wait(2000)
-  return ret(x);
-}
-
-async function pause1 (x) {
-  await wait(2000)
+  await wait(1200)
   return x;
 }
 
+async function pauseM (x) {
+  await wait(1200)
+  return ret(x);
+}
+
 async function squareP (x) {
-  await wait(2000)
-  return ret(x*x);
+  await wait(1200)
+  return x*x;
 }
 
 function wait(ms) {
   return new Promise(r => setTimeout(r, ms));
 }
 
+var wai = async x => {
+  await setTimeout(x = x, 1200);
+  return x;
+}
+
 const divPinverse = a => async b => {
-  await wait (2000)
+  await wait (1200)
   return a/b;
 }
 
 const divP = a => async b => {
-  await wait (2000)
+  await wait (1200)
   return b/a;
 }
 
 const sqrtP = async a => {
-  await wait (2000)
+  await wait (1200)
   return Math.sqrt(a);
 }
 
 const doubleP = async a => {
-  await wait (2000)
+  await wait (1200)
   return a+a;
 }
 
 const addP = x => async y => {
-  await wait(2000)
+  await wait(1200)
   return x + y;
 }
 
 const addPA = x => async y => {
-  await wait(2000)
+  await wait(1200)
   return x + y;
 }
 
 const multP = x => async y => {
-  await wait(2000)
+  await wait(1200)
   return x * y;
 }
 
 async function cubeP (x) {
-  await wait(2000)
+  await wait(1200)
   return x*x*x;
+}
+
+async function idP (x) {
+  await wait(1200)
+  return x;
 }
 
   const divMinverse = a => b => ret(a/b);
