@@ -1071,8 +1071,21 @@
 
       console.log('NOW WE ARE AT calcStream@');
 
+      var test5Press$ = sources.DOM
+        .select('input#test5').events('keypress');
 
-  var calcStream$ = xs.merge( diffRendChange$, diffRendClick$, demo2Action$, bindBD$, sevenAction$, doubleAction$, itterAction$, fredGo$, fredAction$, diffR$, res8$, ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, workerH$, clearAction$, factorsAction$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$) 
+      var test5Action$ = test5Press$.map(function (e) {
+        console.log('In testAction$');
+        if (e.keyCode === 13) {
+          test5(e.target.value);
+        };
+      }); 
+          
+
+
+
+
+  var calcStream$ = xs.merge( test5Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, sevenAction$, doubleAction$, itterAction$, fredGo$, fredAction$, diffR$, res8$, ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, workerH$, clearAction$, factorsAction$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$) 
 
   return { DOM: calcStream$.map(() => { 
     return h('div.main', [
@@ -1124,27 +1137,55 @@
   h('div', {style: {width: '47%', fontSize: '15px', float: 'left'}}, [ // ((************ LEFT PANEL
 
   h('br'),
-  h('span', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 1'),
-  h('span', ' begins with a computation. After 50 is cubed, it4 sends the result (125,000) to the Haskell WebSocket server which sends back a pseudo-random number between 0 and 125,000. '), 
+  h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 1 - WebSocket and worker interactions.'),
+  h('span', ' The first demonstration begins with a computation. After 50 is cubed, it4 sends the result (125,000) to the Haskell WebSocket server which sends back a pseudo-random number between 0 and 125,000. '), 
   h('p', ' When a WebSocket message containing the random number arrives, the front end app (of which, this is the user interface) calls "mMZ37.release(v[3])" where v[3] is the new random number.  mMZ37.release(v[3]) causes it6 to send v[3] to a web worker, prompting it to send back v[3]\'s prime factors. it7 formats the prime factors for display. '),
   h('span#defsReturn', ' it4() and it6 are asynchronous functions that do not use promises. Instead, they use instances of MonadItter, which will be explained later. The definitions of it4, it6, and it7 are in the '),
   h('a', {props: {href: "#defs" }},  'appendix'),
   h('span', '.' ),
+
   h('br'),
   h('br'),
-  h('p', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 2'),
-  h('span', ' bind() and variations on its theme are produced by a factory named "Bindo". For example, bind1 is created with the code '),
+  h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 2 - accessing prior values and avoiding clashes.'),
+  h('p', ' If you enter an argument x for test5(x) (right column), this code will run: '),  
+h('pre', orange, `var test5 = x => {
+  var n = toInt(x);
+  Bindo.bind1 = []; 
+  Bindo.bind2 = []; 
+  Bindo.bind3 = []; 
+  
+  bind1(n+0)(cubeP)(() => idP(Bindo.bind1[0] -
+  Bindo.bind1[1]))(v=>addP(Bindo.bind1[1])(v));
+
+  bind2(n+1)(cubeP)(() => idP(Bindo.bind2[0] -
+  Bindo.bind2[1]))(v=>addP(Bindo.bind2[1])(v)); 
+
+  bind3(n+2)(cubeP)(() => idP(Bindo.bind3[0] -
+  Bindo.bind3[1]))(v=>addP(Bindo.bind3[1])(v));} `), 
+
+
+
+
+
+
+
+
+  h('p', ' The code will be discussed in detail further down the page. This is just a preview. '), 
+  h('span', 'bind() and variations on its theme are produced by a factory named "Bindo". For example, bind1 is created with the code '),
   h('span', orange, `var bind1 = Bindo("bind1")  `), 
-  h('span', ', and used in the next demonstration. '), 
+  h('span', '.'), 
   h('br'),
   h('br'),
   h('span', ' Bindo.bind1 is the array of data created by bind1 operating on linked functions. '),
   h('span.tao', orange, `bind1(e.target.value)(cubeP)` ),
-  h('span', ' cubes user input and makes the entered number and its cube the first two elements in Bindo.bind3. '),
-  h('br'),
-h('br'),
+  h('span', ' cubes user inpup. The first element of the Bindo.bindo array is the user input. It is encapsulated in a promise that resolves after 1200 ms. When it resolves, its cube becomes the resolution value of the next promise and when it resolves, it becomes the argument of the promise\'s then method and so on. The same goes for Bindo.bind2 and Bindo.bind3. '),
+
+
+h('p', '     '),
 
 ]),
+
+
 h('div', {style: {width: '47%', fontSize: '15px', float: 'right'}}, [  // ********* RIGHT PANEL
 h('h3', 'Demonstration 1' ),
 h('span', ' Click below (multiple times in rapid succession if you like) to run '),
@@ -1162,21 +1203,22 @@ h('div', orange, m42_RESULT2 ),
 h('br'),
 h('h3', 'Demonstration 2' ),
 
+h('pre', green, `bind1(n+0)(cubeP)(() => idP(Bindo.bind1[0] -
+Bindo.bind1[1]))(v=>addP(Bindo.bind1[1])(v));
+bind2(n+1)(cubeP)(() => idP(Bindo.bind2[0] -
+Bindo.bind2[1]))(v=>addP(Bindo.bind2[1])(v)); 
+bind3(n+2)(cubeP)(() => idP(Bindo.bind3[0] -
+Bindo.bind3[1]))(v=>addP(Bindo.bind3[1])(v)); `), 
 
-h('div#zero', bigRed, Bindo.bind1.join(', ') ),
 
-
-h('pre', `  Bindo.bind1 = [];
-  bind1(e.target.value)(cubeP)
-  (() => idP(Bindo.bind1[0]-Bindo.bind1[1])) 
-  (v=>addP(Bindo.bind1[1])(v)); `),
+// h('div#zero', bigRed, Bindo.bind1.join(', ') ),
 h('span', ' value of n --> '),
-h('input#demo2', ),
+h('input#test5', ),
 h('br'),
+h('div#z1', bigGreen, Bindo.bind1.join(', ') ),
+h('div#z2', bigGreen, Bindo.bind2.join(', ') ),
+h('div#z3', bigGreen, Bindo.bind3.join(', ') ),
 
-h('div', O.ar ), 
-  
-  
 h('br'),
 ]),
 h('br'),

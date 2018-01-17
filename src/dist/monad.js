@@ -56,6 +56,22 @@ var workerH$;
 var dRes;
 var m42_RESULT7 = "ready"
 
+  
+var test5 = x => {
+  var n = toInt(x);
+  Bindo.bind1 = []; Bindo.bind2 = []; Bindo.bind3=[]; 
+  
+  bind1(n+0)(cubeP)(() => idP(Bindo.bind1[0]-Bindo.bind1[1]))
+  (v=>addP(Bindo.bind1[1])(v));
+
+  bind2(n+1)(cubeP)(() => idP(Bindo.bind2[0]-Bindo.bind2[1]))
+  (v=>addP(Bindo.bind2[1])(v)); 
+
+  bind3(n+2)(cubeP)(() => idP(Bindo.bind3[0]-Bindo.bind3[1]))
+  (v=>addP(Bindo.bind3[1])(v)); 
+}
+
+
 /*
 bind(3)(s => s*s*s)(w => async() => {
   await wait(1000); return w})(terminate)// (v => console.log(v()))(terminate).then(b => ar[1] + b + ar[0] + ar[1]/9 )))(terminate)    
@@ -88,6 +104,7 @@ const italic = {style: {fontStyle: "italic"}}
 const center = {style: {textAlign: "center", float: "center"}}
 const italicRed = {style: {fontStyle: "italic", color: "#ff5b5b"}}
 const italicYellow = {style: {fontStyle: "italic", color: "#fbfca9"}}
+
 
 var toInt = curryReverse(parseInt)(10)
 var res43 = toInt("43");
@@ -377,7 +394,6 @@ function Bindo (str) {
         p = x.then(v => func(v));
       }
       else p = func(x);
-      console.log("In debug8. this is",this);
       return bindo(p,Bindo[str]);
     };
   };
