@@ -344,28 +344,12 @@ function bind2 (x, ar=[], str="fred") {
 };
 
 */
-
-function bind (x, ar=[], str="susan") {
-  this[str] = ar;
-  if (this[str].length === 0) this[str] = [x];
-  if (x instanceof Promise) x.then(y => this[str].push(y));
-  else this[str].push(x)
-  return function debug8 (func) {
-    if (func.name === "terminate") return this[str];
-    var p;
-    if (x instanceof Promise) {
-      p = x.then(v => func(v));
-    }
-    else p = func(x);
-    return bind(p, this[str]);
-  };
-};
-
 var O_001 = {ar: []};
 var O_002 = {ar: []};
 var O_003 = {ar: []};
 var O_004 = {ar: []};
 
+var bind = Bindo("bindo");
 var bind1 = Bindo("bind1");
 var bind2 = Bindo("bind2");
 var bind3 = Bindo("bind3");
@@ -638,22 +622,6 @@ var it8 = x => {
 
 var RESULT_6 = ""
 var ar7 = [];
-
-var func7 = x => {
-    RESULT_7 = "";
-    var d = Date.now();
-    diffRender();
-    bind(x)(s => s*s*s)(e => (async w => {await wait(2000); return w + 3})(e))
-    (q => q*q)(async y => {await wait(2000); return ar[2]
-    .then(z => z*ar[0])})(async a => {await wait(2000); return a*ar[1]})
-    (v => Math.floor(v/300))(terminate).map(v => (v instanceof Promise) ? 
-    v.then(w => RESULT_7 = RESULT_7 + " --> t = " + Math.floor(
-    (Date.now() - d)/1000) + " seconds. Result: " + w ) :
-    RESULT_7 = RESULT_7 + " --> t = " + Math.floor((Date.now() - d)/1000) + " seconds. Result: " + v);
-    diffRender();
-    };
-
-
 
   //'The prime factors of ' + v[0] + ' are ' + v[1]);
 const prm4 = x => {

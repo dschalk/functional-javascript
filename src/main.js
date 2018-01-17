@@ -426,757 +426,743 @@
       }
     });
     
-    var sevenPress$ = sources.DOM
-        .select('#seven').events('keypress');
+    // ******************************************************************** <><><><><><> -> End Demos
 
-    var sevenAction$ = sevenPress$.map(e => {
-      if (e.keyCode === 13) {
-       func7(e.target.value);
+      var fib2 = function fib2(v) {
+          if (v[2] > 1) {
+              mMfib.ret([v[1], v[0] + v[1], v[2] - 1]);
+          }
+          else {
+              mM19.ret(v[0]);
+          }
       };
-    });
-// ******************************************************************** <><><><><><> -> End Demos
 
-    var fib2 = function fib2(v) {
-        if (v[2] > 1) {
-            mMfib.ret([v[1], v[0] + v[1], v[2] - 1]);
-        }
-        else {
-            mM19.ret(v[0]);
-        }
-    };
+      var fibPress$ = sources.DOM
+          .select('input#code').events('keydown');
 
-    var fibPress$ = sources.DOM
-        .select('input#code').events('keydown');
+      var fibPressAction$ = fibPress$.map(function (e) { if (e.target.value === '') {
+              return;
+          }
+          ;
+          if (e.keyCode === 13) {
+              mM21.ret(e.target.value);
+              fib2([0, 1, e.target.value]);
+          }
+      });
 
-    var fibPressAction$ = fibPress$.map(function (e) { if (e.target.value === '') {
-            return;
-        }
-        ;
+      var printingPress$ = sources.DOM
+          .select('input#demo2').events('keydown');
+
+      var demo2Action$ = printingPress$.map(function (e) { 
+        if (e.target.value === '') return;
         if (e.keyCode === 13) {
-            mM21.ret(e.target.value);
-            fib2([0, 1, e.target.value]);
-        }
-    });
-
-    var printingPress$ = sources.DOM
-        .select('input#demo2').events('keydown');
-
-    var demo2Action$ = printingPress$.map(function (e) { 
-      if (e.target.value === '') return;
-      if (e.keyCode === 13) {
-      Bindo.bind1 = [];
-      bind1(e.target.value)(cubeP)
-      (() => idP(Bindo.bind1[0]-Bindo.bind1[1])) 
-      (v=>addP(Bindo.bind1[1])(v))
-      };
-    });
+        Bindo.bind1 = [];
+        bind1(e.target.value)(cubeP)
+        (() => idP(Bindo.bind1[0]-Bindo.bind1[1])) 
+        (v=>addP(Bindo.bind1[1])(v))
+        };
+      });
 
 
-    // *******************************************n****************************** ENDOM iginal Fibonacci END
+      // *******************************************n****************************** ENDOM iginal Fibonacci END
 
-    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START PRIME FIB
+      // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START PRIME FIB
 
-    const workerB$ = sources.WWB.map(m => {
-      console.log('In workerB stream in the main thread. m, m[3] ', m, m.data[3] );
-      if (m.data[3] === 'color') {
-        fill1Monad.ret(m.data[0]);
-        fill2Monad.ret(m.data[1]);
-        fill3Monad.ret(m.data[2]);
-        mMprimeBlurb.ret(m.data[5]);
-        mMfibBlurb.ret(m.data[4]);
-        mMprimeFibBlurb.ret(m.data[6]);
-      }
-      else {
-        console.log('m.data[3] ********************', m.data[3] );
-        mMelapsed.ret(elapsed(m.data[0][3]))
-        .bnd(v =>  console.log(v));
-        mMres.ret(m.data[0])
-        window['primesMonad'] = new MonadState('primesMonad', m.data[1], primes_state);
-      }
-    });
-
-    var fibKeyPress5$ = sources.DOM
-        .select('input#fib92').events('keyup');
-
-    var primeFib$ = fibKeyPress5$.map(e => {
-      workerB.postMessage([primesMonad.s, e.target.value]);
-    });
-
-    var clearprimes$ = sources.DOM
-      .select('#clearprimes').events('click')
-      .map(() => mMres.ret([mMres.x[0], '', mMres.x[2], mMres.x[3]]));
-
-
-  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  Begin Easy
-
-    var factorsPress$ = sources.DOM
-        .select('input#factors_1').events('keydown');
-
-    var factorsAction$ = factorsPress$.map(function (e) {
-    console.log('&&&&&>>> >>  factorsAction$. e is', e );
-      var factors = [];
-      mMfactors3.ret('');
-      if (e.keyCode === 13) {
-        var num = e.target.value;
-        if (!num.match(/^[0-9]+$/)) {
-          mMfactors3.ret('This works only if you enter a number. ' + num + ' is not a number');
+      const workerB$ = sources.WWB.map(m => {
+        console.log('In workerB stream in the main thread. m, m[3] ', m, m.data[3] );
+        if (m.data[3] === 'color') {
+          fill1Monad.ret(m.data[0]);
+          fill2Monad.ret(m.data[1]);
+          fill3Monad.ret(m.data[2]);
+          mMprimeBlurb.ret(m.data[5]);
+          mMfibBlurb.ret(m.data[4]);
+          mMprimeFibBlurb.ret(m.data[6]);
         }
         else {
-          var n = parseInt(num, 10);
-          workerC.postMessage([primesMonad.s, [n]]);
-          bind(n)(prm5)(split2)(pop)(largest)(terminate).map(x => m777.ret(x));
+          console.log('m.data[3] ********************', m.data[3] );
+          mMelapsed.ret(elapsed(m.data[0][3]))
+          .bnd(v =>  console.log(v));
+          mMres.ret(m.data[0])
+          window['primesMonad'] = new MonadState('primesMonad', m.data[1], primes_state);
         }
-      }
-    });
+      });
 
-  //******************************************************************* worker
+      var fibKeyPress5$ = sources.DOM
+          .select('input#fib92').events('keyup');
 
-    var clearClick$ = sources.DOM
-        .select('button.clear_P').events('click')
-        .map(e => {
-          console.log('In clearClick$ - - - e is', e);
-          m42_RESULT = [];
-          m42_RESULT2 = [];
+      var primeFib$ = fibKeyPress5$.map(e => {
+        workerB.postMessage([primesMonad.s, e.target.value]);
+      });
+
+      var clearprimes$ = sources.DOM
+        .select('#clearprimes').events('click')
+        .map(() => mMres.ret([mMres.x[0], '', mMres.x[2], mMres.x[3]]));
+
+
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  Begin Easy
+
+      var factorsPress$ = sources.DOM
+          .select('input#factors_1').events('keydown');
+
+      var factorsAction$ = factorsPress$.map(function (e) {
+      console.log('&&&&&>>> >>  factorsAction$. e is', e );
+        var factors = [];
+        mMfactors3.ret('');
+        if (e.keyCode === 13) {
+          var num = e.target.value;
+          if (!num.match(/^[0-9]+$/)) {
+            mMfactors3.ret('This works only if you enter a number. ' + num + ' is not a number');
+          }
+          else {
+            var n = parseInt(num, 10);
+            workerC.postMessage([primesMonad.s, [n]]);
+            bind(n)(prm5)(split2)(pop)(largest)(terminate).map(x => m777.ret(x));
+          }
+        }
+      });
+
+    //******************************************************************* worker
+
+      var clearClick$ = sources.DOM
+          .select('button.clear_P').events('click')
+          .map(e => {
+            console.log('In clearClick$ - - - e is', e);
+            m42_RESULT = [];
+            m42_RESULT2 = [];
+          })
+
+      var factors2Press$ = sources.DOM
+            .select('button.factors_P').events('click');
+
+      var factors2Action$ = factors2Press$.map(function (e) {
+        console.log('&&&&&>>> >> in factors2action$. e is', e );
+        var factors = [];
+        mMfactors3.ret('');
+        Bindo.bind0 = [];
+        bind(50)(x=>x*x*x)(it4)(it6)(it7);                    
+      });
+
+      workerG$ = sources.WWG.map(m => {
+        mMbar.ret(m.data);
+        m778_RESULT = result778(m.data);
+        mMZ38.release(m.data);
+        mMZ34.release(m.data[6]);
+      });
+
+      var factors3Press$ = sources.DOM
+          .select('input#factors').events('keypress');
+
+      var factors3Action$ = factors3Press$.map(function (e) {
+          if (e.keyCode === 13) {
+          bind(e.target.value)(it8);
+        }
+      });
+
+      mMZ40.bnd(v => {mM40.ret([reduceMult(v), reducePlus(v)]); console.log(mM40.x)});
+
+      workerH$ = sources.WWH.map(m => {
+        console.log('<0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0> In workerH$ m is', m);
+        mMZ40.release(m.data);
+        // mMZ40.bnd(v => console.log(reduceMult(v), reducePlus));
+      });
+
+    //    if (m.data) {console.log('GOOD m.data')} else { return "cow" }
+      //    if (m.target) {console.log('GOOD m.target')} else { return "shit" }
+        //    if (m.data[1]) {console.log('GOOD m.data[1]')} else { return 'donkey'}
+          //    if (m.target.ar2) {console.log('GOOD m.data.ar2')} else { return 'dung'}
+
+      const result778 = x => h('div', [
+        m778_RESULT,
+        h('br'),
+        h('span', bigBlue, x[3] ),
+        h('span', bigGreen, x[0] ),
+        h('span', bigBlue, x[4] ),
+        h('span', bigRed, x[5] ),
+      ]);
+
+      var m778_RESULT = h('div', '' );
+
+
+      //************************************************** pingpong
+
+
+        var mMZ33Func = x => mMZ33
+          .bnd(x => {
+            mMt32 = new Monad(x,'mMt32');
+            mMt33.ret(x + ' cubed is ' + x*x*x)
+            mMZ33Func(x+1);
+          });
+
+        mMZ33Func(0);
+
+        var testZ = sources.DOM
+            .select('#testZ').events('click');
+
+        var testZAction$ = testZ.map(function () {
+            mMZ33.release(mMt32.x + 1);
+        });
+
+        var testQ = sources.DOM
+            .select('#testQ').events('click');
+
+        var testQAction$ = testQ.map(() => {
+          mMZ33.release(0);
+          diffRender();
+        });
+
+        var testW = sources.DOM
+            .select('#testW').events('keypress');
+
+        var testWAction$ = testW.map(function (e) {
+            if (e.keyCode === 13) {
+                mMZ33.release(parseInt(e.target.value, 10));
+                diffRender();
+            }
+        });
+
+        const ping$ = sources.PP.map(x => {
+          m66_RESULT = pingpongTog(x);
         })
 
-    var factors2Press$ = sources.DOM
-          .select('button.factors_P').events('click');
+        var pinpon$ = sources.DOM
+            .select('button#pingpong').events('click')
 
-    var factors2Action$ = factors2Press$.map(function (e) {
-      console.log('&&&&&>>> >> in factors2action$. e is', e );
-      var factors = [];
-      mMfactors3.ret('');
-      Bindo.bind0 = [];
-      bind(50)(x=>x*x*x)(it4)(it6)(it7);                    
-    });
-
-    workerG$ = sources.WWG.map(m => {
-      mMbar.ret(m.data);
-      m778_RESULT = result778(m.data);
-      mMZ38.release(m.data);
-      mMZ34.release(m.data[6]);
-    });
-
-    var factors3Press$ = sources.DOM
-        .select('input#factors').events('keypress');
-
-    var factors3Action$ = factors3Press$.map(function (e) {
-        if (e.keyCode === 13) {
-        bind(e.target.value)(it8);
-      }
-    });
-
-    mMZ40.bnd(v => {mM40.ret([reduceMult(v), reducePlus(v)]); console.log(mM40.x)});
-
-    workerH$ = sources.WWH.map(m => {
-      console.log('<0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0> In workerH$ m is', m);
-      mMZ40.release(m.data);
-      // mMZ40.bnd(v => console.log(reduceMult(v), reducePlus));
-    });
-
-  //    if (m.data) {console.log('GOOD m.data')} else { return "cow" }
-    //    if (m.target) {console.log('GOOD m.target')} else { return "shit" }
-      //    if (m.data[1]) {console.log('GOOD m.data[1]')} else { return 'donkey'}
-        //    if (m.target.ar2) {console.log('GOOD m.data.ar2')} else { return 'dung'}
-
-    const result778 = x => h('div', [
-      m778_RESULT,
-      h('br'),
-      h('span', bigBlue, x[3] ),
-      h('span', bigGreen, x[0] ),
-      h('span', bigBlue, x[4] ),
-      h('span', bigRed, x[5] ),
-    ]);
-
-    var m778_RESULT = h('div', '' );
-
-
-    //************************************************** pingpong
-
-
-      var mMZ33Func = x => mMZ33
-        .bnd(x => {
-          mMt32 = new Monad(x,'mMt32');
-          mMt33.ret(x + ' cubed is ' + x*x*x)
-          mMZ33Func(x+1);
+        var pingpong$ = pinpon$.map(() => {
+            m67_RESULT = h('pre', `         - - NO SCORE - -   ` );
+            diffRender();
+            ping(0)([0,0]);
         });
 
-      mMZ33Func(0);
+        const fred$ = sources.FD.map(e => {
+          freday = e;
+        })
 
-      var testZ = sources.DOM
-          .select('#testZ').events('click');
+        var frd$ = sources.DOM
+            .select('div#fredB').events('click')
 
-      var testZAction$ = testZ.map(function () {
-          mMZ33.release(mMt32.x + 1);
-      });
-
-      var testQ = sources.DOM
-          .select('#testQ').events('click');
-
-      var testQAction$ = testQ.map(() => {
-        mMZ33.release(0);
-        diffRender();
-      });
-
-      var testW = sources.DOM
-          .select('#testW').events('keypress');
-
-      var testWAction$ = testW.map(function (e) {
-          if (e.keyCode === 13) {
-              mMZ33.release(parseInt(e.target.value, 10));
-              diffRender();
-          }
-      });
-
-      const ping$ = sources.PP.map(x => {
-        m66_RESULT = pingpongTog(x);
-      })
-
-      var pinpon$ = sources.DOM
-          .select('button#pingpong').events('click')
-
-      var pingpong$ = pinpon$.map(() => {
-          m67_RESULT = h('pre', `         - - NO SCORE - -   ` );
-          diffRender();
-          ping(0)([0,0]);
-      });
-
-      const fred$ = sources.FD.map(e => {
-        freday = e;
-      })
-
-      var frd$ = sources.DOM
-          .select('div#fredB').events('click')
-
-      var fredAction$ = frd$.map((e) => {
-          freday = [];
-          diffRender()
-          console.log("Goodness gracious great balls of fire, freday, e", freday,e);
-      });
-
-      var fredGo$ = sources.DOM
-          .select('button#fredB')
-          .events('click')
-          .map(() => {
+        var fredAction$ = frd$.map((e) => {
             freday = [];
-            funcP()
+            diffRender()
+            console.log("Goodness gracious great balls of fire, freday, e", freday,e);
+        });
+
+        var fredGo$ = sources.DOM
+            .select('button#fredB')
+            .events('click')
+            .map(() => {
+              freday = [];
+              funcP()
+            });
+
+
+
+      //******************************************* END pingpong END
+
+      /*
+      const redStyle = {style: {color: 'red', marginLeft: '20%', fontSize: '25px'}}
+      const yellowStyle = {style: {color: 'yellow', marginLeft: '20%', fontSize:'25px'}}
+
+        var pingpongRecursion = n => ar => bind(n,ar)(ppFna)(pause)(ppFnb)(() => {
+          if (n < 15) pingpongRecursion(n+1,ar)
+          bind(n+1,ar)(ppFna)(pause)(ppFnb)(terminate)
+        });
+
+        var ppFna = n => h('p', redStyle, 'ping' + n);
+        var ppFnb = n => h('div', [h('br'),h('p', yellowStyle, 'PONG' + n)]);
+
+
+
+        var pingpongAction$ = pingpong$.map(function (e) {  });
+
+      */
+        // **********************************************************************
+
+    var bindBD$ = sources.BD.map(m => console.log("Happy and proud",m))
+
+          const workerC$ = sources.WWC.map(m => {
+            console.log('Back in the main thread. m is', m );
+            mMfactors.ret(m.data[0]);
+            mMfactors23.ret(m.data[1]);
+            mMZ39.release(m.data[1]);
+            window['primesMonad'] = new MonadState('primesMonad', m.data[2]);
           });
 
+          function prom (n) {
+            setTimeout(() => {workerC.postMessage([primesMonad.s, [n]])},20 );
+            return new Promise ((resolve,reject) => {
+              resolve ( sources.WWC.map(e => console.log(e.data[1])))
+            });
+          };
 
+          prom(66);
+          prom(66);
+          prom(66);
+          prom(66);
+          prom(66);
 
-    //******************************************* END pingpong END
+          var factorsP$ = sources.DOM
+            .select('input#factors_5').events('keyup');
 
-    /*
-    const redStyle = {style: {color: 'red', marginLeft: '20%', fontSize: '25px'}}
-    const yellowStyle = {style: {color: 'yellow', marginLeft: '20%', fontSize:'25px'}}
-
-      var pingpongRecursion = n => ar => bind(n,ar)(ppFna)(pause)(ppFnb)(() => {
-        if (n < 15) pingpongRecursion(n+1,ar)
-        bind(n+1,ar)(ppFna)(pause)(ppFnb)(terminate)
-      });
-
-      var ppFna = n => h('p', redStyle, 'ping' + n);
-      var ppFnb = n => h('div', [h('br'),h('p', yellowStyle, 'PONG' + n)]);
-
-
-
-      var pingpongAction$ = pingpong$.map(function (e) {  });
-
-    */
-      // **********************************************************************
-
-  var bindBD$ = sources.BD.map(m => console.log("Happy and proud",m))
-
-        const workerC$ = sources.WWC.map(m => {
-          console.log('Back in the main thread. m is', m );
-          mMfactors.ret(m.data[0]);
-          mMfactors23.ret(m.data[1]);
-          mMZ39.release(m.data[1]);
-          window['primesMonad'] = new MonadState('primesMonad', m.data[2]);
-        });
-
-        function prom (n) {
-          setTimeout(() => {workerC.postMessage([primesMonad.s, [n]])},20 );
-          return new Promise ((resolve,reject) => {
-            resolve ( sources.WWC.map(e => console.log(e.data[1])))
-          });
-        };
-
-        prom(66);
-        prom(66);
-        prom(66);
-        prom(66);
-        prom(66);
-
-        var factorsP$ = sources.DOM
-          .select('input#factors_5').events('keyup');
-
-        var fA$ = factorsP$.map(function (e) {
-          mMfactors7.ret('');
-          var factors = [];
-          if (e.keyCode === 13) {
-            var ar = (e.target.value).split(',').map(v => parseInt(v,10));
-            console.log('In fA$ ar is', ar );
-            if (ar[0] !== ar[0] || ar[1] !== ar[1] || typeof ar[0] !== 'number' || typeof ar[1] !== 'number') {
-              mMfactors7.ret('It works only if you enter two integers separated by a comma.');
-              return;
-            }
-          else {
-              //workerD.postMessage([primesMonad.s, ar, mMfactors6.x]);
-              workerD.postMessage([primesMonad.s, ar, decompMonad.s, 'Happy, happy']);
-            }
-          }
-        });
-
-        const workerD$ = sources.WWD.map(m => {
-          console.log('Back in the main thread. m is', m );
-          mMfactors6.ret(m.data[0][3]);
-          window['primesMonad'] = new MonadState('primesMonad', m.data[0], primes_state);
-          mMfactors8.ret(m.data[1]);
-        });
-
-
-      // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  End Easy
-        const largestFactor = x => bind(1111111)(prm5)(split2)(largest)(terminate).pop()
-        var factorsPress_b$ = sources.DOM
-            .select('input#factors_1b').events('keydown');
-
-        var factorsAction_b$ = factorsPress_b$.map(function (e) {
-        console.log('Cordial greetings from factorsAction$_b$. e is', e );
-          var factors = [];
-          mMfactors3_b.ret('');
-          if (e.keyCode === 13) {
-            var num = e.target.value;
-            if (!num.match(/^[0-9]+$/)) {
-              mMfactors3_b.ret('This works only if you enter a number. ' + num + ' is not a number');
-            }
-            else {
-              var n = parseInt(num, 10);
-              workerE.postMessage([primesMonad.s, n, decompMonad.s]);
-            }
-          }
-        });
-
-        const workerE$ = sources.WWE.map(m => {
-          // console.log('Back in the main thread. m is', m );
-          mMfactors_b.ret(m.data[0]);
-          window['primesMonad'] = new MonadState('primesMonad', m.data[1]);
-          window['decompMonad'] = new MonadState('decompMonad', m.data[2]);
-        });
-
-        var factorsP_b$ = sources.DOM
-          .select('input#factors_5b').events('keyup');
-
-        var fA_b$ = factorsP_b$.map(function (e) {
-          mMfactors7.ret('');
-          var factors = [];
-          if (e.keyCode === 13) {
-            var ar = (e.target.value).split(',').map(v => parseInt(v,10));
-            console.log('In fA$ ar is', ar );
-            if (ar[0] !== ar[0] || ar[1] !== ar[1] || typeof ar[0] !== 'number' || typeof ar[1] !== 'number') {
-              mMfactors7.ret('It works only if you enter two integers separated by a comma.');
-              return;
-            }
-          else {
-              workerF.postMessage([primesMonad.s, ar, decompMonad.s]);
-            }
-          }
-        });
-
-        const workerF$ = sources.WWF.map(m => {
-          console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz -> Back in the main thread. m is', m );
-          mMfactors6_b.ret(m.data[2][3]);
-          window['primesMonad'] = new MonadState('primesMonad', m.data[0], primes_state);
-          window['decompMonad'] = new MonadState('decompMonad', m.data[2], primes_state);
-          mMfactors8_b.ret(m.data[1]);
-        });
-
-          var factorsP_c$ = sources.DOM
-            .select('input#factors800').events('keyup');
-
-          var fA_c$ = factorsP_c$.map(function (e) {
-            console.log('In fa_c$ *************************************************************'),
-            mMfactors800.ret('');
+          var fA$ = factorsP$.map(function (e) {
+            mMfactors7.ret('');
             var factors = [];
-            var ar = (e.target.value).split(',').map(v => parseInt(v,10));
             if (e.keyCode === 13) {
-              console.log('In fA_c$ ar is', ar );
+              var ar = (e.target.value).split(',').map(v => parseInt(v,10));
+              console.log('In fA$ ar is', ar );
               if (ar[0] !== ar[0] || ar[1] !== ar[1] || typeof ar[0] !== 'number' || typeof ar[1] !== 'number') {
                 mMfactors7.ret('It works only if you enter two integers separated by a comma.');
                 return;
               }
             else {
-              console.log('In fA_c$ else block. ar is', ar );
-              mMfactors800.ret(simpleWay(ar[0], ar[1]));
+                //workerD.postMessage([primesMonad.s, ar, mMfactors6.x]);
+                workerD.postMessage([primesMonad.s, ar, decompMonad.s, 'Happy, happy']);
               }
             }
           });
 
-        // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ENDOM prime factors END
-        // ?<>>><>><><><><>>>><><><  traversal  ><><><><><><>>><><><><><><><><><><><>< START traversal
-        document.onload = function (event) {
-          console.log('onload event: ', event);
-          mMitterfib5.release(200);
-        }
-
-          // document.getElementById('login').focus();
-        // <>>><>><><><><>>>><><><  traversal  ><><><><><><>>><><><><><><><><><><><>< ENDOM traversal
-        // <>>><>><><><><>>>><><><  traversal  ><><><><><><>>><><><><><><><><><><><>< START Itterator
+          const workerD$ = sources.WWD.map(m => {
+            console.log('Back in the main thread. m is', m );
+            mMfactors6.ret(m.data[0][3]);
+            window['primesMonad'] = new MonadState('primesMonad', m.data[0], primes_state);
+            mMfactors8.ret(m.data[1]);
+          });
 
 
-      function gMap(x, f, id) {
-        var mon = new Monad(f(x), id);
-        window[id] = mon;
-        return mon;
-      }
+        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  End Easy
+          const largestFactor = x => bind(1111111)(prm5)(split2)(largest)(terminate).pop()
+          var factorsPress_b$ = sources.DOM
+              .select('input#factors_1b').events('keydown');
 
-        var solve = function solve () {
-           mMZ3.bnd(a => {
-           mMquad4.ret('');
-           mMquad6.ret('');
-           mMquad5.ret(a + " * x * x ")
-           mMZ3.bnd(b => {
-           mMquad6.ret(b + ' * x ')
-           mMZ3.bnd(c => {
-           mMtemp.ret([a,b,c])
-          .bnd(gMap, qS4,'mMtemp2')
-          .bnd(result => {
-            let x = result[0]
-            let y = result[1]
-            if (x === 0) {
-              mMquad5.ret('No solution', mMtemp)
-              mMquad6.ret(' ');
-              solve();
-              return;
-            }
-            if (y === 0) {
-              mMquad5.ret('No solution')
-              mMquad6.ret(' ')
-              solve();
-              return;
-            };
-            mMquad4.ret("Solutiions for " + a + ", " + b + " and " + c + " are " + x + " and  " + y)
-            mMquad5.ret(p(a).text + " * " + x + " * " + x + " + " + p(b).text +
-                    " * " + x + " " + p(c).text + " = 0")
-            mMquad6.ret(p(a).text + " * " + y + " * " + y + " + " + p(b).text +
-                    " * " + y + " " + p(c).text + " = 0")
-            solve();   // Continuing the endless loop.
-            }) }) }) })
-        };
-        solve();
-
-        var quad$ = sources.DOM
-            .select('#quad').events('keypress');
-
-        var quadAction$ = quad$.map(function (e) {
+          var factorsAction_b$ = factorsPress_b$.map(function (e) {
+          console.log('Cordial greetings from factorsAction$_b$. e is', e );
+            var factors = [];
+            mMfactors3_b.ret('');
             if (e.keyCode === 13) {
-                mMZ3.release(e.target.value);
-                document.getElementById('quad').value = null;
+              var num = e.target.value;
+              if (!num.match(/^[0-9]+$/)) {
+                mMfactors3_b.ret('This works only if you enter a number. ' + num + ' is not a number');
+              }
+              else {
+                var n = parseInt(num, 10);
+                workerE.postMessage([primesMonad.s, n, decompMonad.s]);
+              }
+            }
+          });
+
+          const workerE$ = sources.WWE.map(m => {
+            // console.log('Back in the main thread. m is', m );
+            mMfactors_b.ret(m.data[0]);
+            window['primesMonad'] = new MonadState('primesMonad', m.data[1]);
+            window['decompMonad'] = new MonadState('decompMonad', m.data[2]);
+          });
+
+          var factorsP_b$ = sources.DOM
+            .select('input#factors_5b').events('keyup');
+
+          var fA_b$ = factorsP_b$.map(function (e) {
+            mMfactors7.ret('');
+            var factors = [];
+            if (e.keyCode === 13) {
+              var ar = (e.target.value).split(',').map(v => parseInt(v,10));
+              console.log('In fA$ ar is', ar );
+              if (ar[0] !== ar[0] || ar[1] !== ar[1] || typeof ar[0] !== 'number' || typeof ar[1] !== 'number') {
+                mMfactors7.ret('It works only if you enter two integers separated by a comma.');
+                return;
+              }
+            else {
+                workerF.postMessage([primesMonad.s, ar, decompMonad.s]);
+              }
+            }
+          });
+
+          const workerF$ = sources.WWF.map(m => {
+            console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz -> Back in the main thread. m is', m );
+            mMfactors6_b.ret(m.data[2][3]);
+            window['primesMonad'] = new MonadState('primesMonad', m.data[0], primes_state);
+            window['decompMonad'] = new MonadState('decompMonad', m.data[2], primes_state);
+            mMfactors8_b.ret(m.data[1]);
+          });
+
+            var factorsP_c$ = sources.DOM
+              .select('input#factors800').events('keyup');
+
+            var fA_c$ = factorsP_c$.map(function (e) {
+              console.log('In fa_c$ *************************************************************'),
+              mMfactors800.ret('');
+              var factors = [];
+              var ar = (e.target.value).split(',').map(v => parseInt(v,10));
+              if (e.keyCode === 13) {
+                console.log('In fA_c$ ar is', ar );
+                if (ar[0] !== ar[0] || ar[1] !== ar[1] || typeof ar[0] !== 'number' || typeof ar[1] !== 'number') {
+                  mMfactors7.ret('It works only if you enter two integers separated by a comma.');
+                  return;
+                }
+              else {
+                console.log('In fA_c$ else block. ar is', ar );
+                mMfactors800.ret(simpleWay(ar[0], ar[1]));
+                }
+              }
+            });
+
+          // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ENDOM prime factors END
+          // ?<>>><>><><><><>>>><><><  traversal  ><><><><><><>>><><><><><><><><><><><>< START traversal
+          document.onload = function (event) {
+            console.log('onload event: ', event);
+            mMitterfib5.release(200);
+          }
+
+            // document.getElementById('login').focus();
+          // <>>><>><><><><>>>><><><  traversal  ><><><><><><>>><><><><><><><><><><><>< ENDOM traversal
+          // <>>><>><><><><>>>><><><  traversal  ><><><><><><>>><><><><><><><><><><><>< START Itterator
+
+
+        function gMap(x, f, id) {
+          var mon = new Monad(f(x), id);
+          window[id] = mon;
+          return mon;
+        }
+
+          var solve = function solve () {
+             mMZ3.bnd(a => {
+             mMquad4.ret('');
+             mMquad6.ret('');
+             mMquad5.ret(a + " * x * x ")
+             mMZ3.bnd(b => {
+             mMquad6.ret(b + ' * x ')
+             mMZ3.bnd(c => {
+             mMtemp.ret([a,b,c])
+            .bnd(gMap, qS4,'mMtemp2')
+            .bnd(result => {
+              let x = result[0]
+              let y = result[1]
+              if (x === 0) {
+                mMquad5.ret('No solution', mMtemp)
+                mMquad6.ret(' ');
+                solve();
+                return;
+              }
+              if (y === 0) {
+                mMquad5.ret('No solution')
+                mMquad6.ret(' ')
+                solve();
+                return;
+              };
+              mMquad4.ret("Solutiions for " + a + ", " + b + " and " + c + " are " + x + " and  " + y)
+              mMquad5.ret(p(a).text + " * " + x + " * " + x + " + " + p(b).text +
+                      " * " + x + " " + p(c).text + " = 0")
+              mMquad6.ret(p(a).text + " * " + y + " * " + y + " + " + p(b).text +
+                      " * " + y + " " + p(c).text + " = 0")
+              solve();   // Continuing the endless loop.
+              }) }) }) })
+          };
+          solve();
+
+          var quad$ = sources.DOM
+              .select('#quad').events('keypress');
+
+          var quadAction$ = quad$.map(function (e) {
+              if (e.keyCode === 13) {
+                  mMZ3.release(e.target.value);
+                  document.getElementById('quad').value = null;
+              }
+          });
+
+
+        // ******************************************BEGIN TODO LIST
+
+            var task2 = function task2(str) {
+                socket.send(`TD#$42,${get(pMgroup)},${get(pMname)},@${str}`)
+            };
+
+            function comment2(str) {
+                socket.send(`TD#$42,${get(pMgroup)},${get(pMname)},@${str}`)
+            };
+
+
+        // *****************************************END TODO LIST
+             var captionClick$ = sources.DOM
+                .select('#caption').events('click');
+
+            var captionClickAction$ = captionClick$.map(function () {
+                (get(mMcaptionDiv)  === 'none') ?
+                    mMcaptionDiv.ret('block') :
+                    mMcaptionDiv.ret('none')
+            });
+
+            var gameClick$ = sources.DOM
+                .select('#game').events('click');
+
+            var gameClickAction$ = gameClick$.map(function () {
+                (get(mMgameDiv)  === 'none') ?
+                    mMgameDiv.ret('block') :
+                    mMgameDiv.ret('none')
+            });
+
+            var clearPicked$ = sources.DOM
+                .select('#clear').events('click');
+
+            var clearAction$ = clearPicked$.map( () => {
+              gameMonad.clearPicked();
+            });
+
+        var elemB$ = sources.DOM.select('input#message2').events('keyup')
+          .map(e => {
+          mM10.ret(e.target.value);
+          worker.postMessage([mM9.x, e.target.value]);
+        });
+
+        var pr$ = sources.DOM
+            .select('#primeNumbers').events('keypress');
+
+        var prAction$ = pr$.map(function (e) {
+            if (e.keyCode === 13) {
+              worker.postMessage(["CE#$42", primesMonad.s, e.target.value]);
             }
         });
 
 
-      // ******************************************BEGIN TODO LIST
+        // Clicking the checkbox to indicate that a task has been finished.
+        var box$ = sources.DOM.select('.box').events('click');
 
-          var task2 = function task2(str) {
-              socket.send(`TD#$42,${get(pMgroup)},${get(pMname)},@${str}`)
-          };
-
-          function comment2(str) {
-              socket.send(`TD#$42,${get(pMgroup)},${get(pMname)},@${str}`)
-          };
-
-
-      // *****************************************END TODO LIST
-           var captionClick$ = sources.DOM
-              .select('#caption').events('click');
-
-          var captionClickAction$ = captionClick$.map(function () {
-              (get(mMcaptionDiv)  === 'none') ?
-                  mMcaptionDiv.ret('block') :
-                  mMcaptionDiv.ret('none')
-          });
-
-          var gameClick$ = sources.DOM
-              .select('#game').events('click');
-
-          var gameClickAction$ = gameClick$.map(function () {
-              (get(mMgameDiv)  === 'none') ?
-                  mMgameDiv.ret('block') :
-                  mMgameDiv.ret('none')
-          });
-
-          var clearPicked$ = sources.DOM
-              .select('#clear').events('click');
-
-          var clearAction$ = clearPicked$.map( () => {
-            gameMonad.clearPicked();
-          });
-
-      var elemB$ = sources.DOM.select('input#message2').events('keyup')
-        .map(e => {
-        mM10.ret(e.target.value);
-        worker.postMessage([mM9.x, e.target.value]);
-      });
-
-      var pr$ = sources.DOM
-          .select('#primeNumbers').events('keypress');
-
-      var prAction$ = pr$.map(function (e) {
-          if (e.keyCode === 13) {
-            worker.postMessage(["CE#$42", primesMonad.s, e.target.value]);
-          }
-      });
-
-
-      // Clicking the checkbox to indicate that a task has been finished.
-      var box$ = sources.DOM.select('.box').events('click');
-
-      var boxAction$ = box$.map(e => {
-        console.log('+++++++ PROGRESS OF boxAction$ ++++++ .box was clicked');
-        var index = parseInt(e.target.parentNode.id, 10);
-        console.log(index);
-        console.log(taskMonad.s[1].slice(index,index+1) );
-        var task = taskMonad.s[1].slice(index,index+1)[0];
-        console.log('task:',task);
-        var old = task;
-        var ar = task.split("<$>");
-        ar = ar.filter(v => v !== "");
-        ar[1] = ar[1] === "false" ? "true" : "false"
-        var newTask = ar.join("<$>");
-        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ In boxAction$. newTask is',newTask);
-        socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
-      });
-
-      var cbx2$ = sources.DOM.select('.cbx2').events('click');
-
-      var cbx2Action$ = cbx2$.map(e => {
-        console.log('+++++++ PROGRESS OF cbx2Action$ ++++++ .cbx2 was clicked');
-        var index = parseInt(e.target.parentNode.id, 10);
-        console.log(index);
-        console.log(taskMonad.s[1].slice(index,index+1) );
-        var task = taskMonad.s[1].slice(index,index+1)[0];
-        console.log('task:',task);
-        var old = task;
-        var ar = task.split("<$>");
-        ar = ar.filter(v => v !== "");
-        ar[1] = ar[1] === "false" ? "true" : "false"
-        var newTask = ar.join("<$>");
-        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ In cbx2Action$. newTask is',newTask);
-        socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
-      });
-
-
-      // Clicking the DELETE button.
-
-
-      var deleteClick$ = sources.DOM
-          .select('#deleteTask').events('click');
-
-      var deleteAction$ = deleteClick$.map(function (e) {
-        var index = parseInt(e.target.parentNode.id, 10);
-        var old = taskMonad.s[1].slice(index,index+1)[0];
-        socket.send(`TX#$42,${pMgroup.x},${pMname.x},${index},${old}`);
-      });
-
-      // Editing a task.
-
-      var edit$ = sources.DOM
-          .select('#edit2').events('keypress');
-
-      var editAction$ = edit$.map(function (e) {
-        var arr;
-        var str;
-        if (e.keyCode === 13) {
-          var index = parseInt(e.target.parentElement.id, 10);
-          var old = taskMonad.s[1].slice(index,index+1)[0];
-          var ar = old.split("<$>");
-          var newAr = e.target.value.split(',');
-          var newString = newAr.join("<<>>");
-          console.log('()()()()()()()() In editAction$. ar is', ar);
-          ar.shift();
-          console.log('()()()()()()()() In editAction$. ar is', ar);
-          ar.unshift(newString);
-          console.log('()()()()()()()() In editAction$. ar is', ar);
+        var boxAction$ = box$.map(e => {
+          console.log('+++++++ PROGRESS OF boxAction$ ++++++ .box was clicked');
+          var index = parseInt(e.target.parentNode.id, 10);
+          console.log(index);
+          console.log(taskMonad.s[1].slice(index,index+1) );
+          var task = taskMonad.s[1].slice(index,index+1)[0];
+          console.log('task:',task);
+          var old = task;
+          var ar = task.split("<$>");
+          ar = ar.filter(v => v !== "");
+          ar[1] = ar[1] === "false" ? "true" : "false"
           var newTask = ar.join("<$>");
-          console.log('4.3.2.1. >> In editAction$.index, old and newTask are',index,old,newTask);
+          console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ In boxAction$. newTask is',newTask);
           socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
-        }
-      });
-
-      var newTask$ = sources.DOM
-          .select('input.newTask').events('keydown');
-
-      var newTaskAction$ = newTask$.map(function (e) {
-        console.log("-------------ONE TWO THREE In newTaskAction$. e is",e);
-        if (e.keyCode === 13) {
-        var alert = '';
-            var ar = e.target.value.split(',');
-          if (ar.length < 2) {
-            mMalert.ret('You should enter responsible party then a comma then a task');
-            return;
-          }
-          else {
-            var x = ar.shift();
-            var y = ar.shift();
-            var z = ar.join("<<>>")
-            var result = z + '<$>' + 'false' +'<$>' + x + '<$>' + y
-            socket.send(`TA#$42,${pMgroup.x},${pMname.x},${result}<@>`)
-          }
-        }
-      });
-
-      console.log('Just before calcStream@');
-
-      var chatClick$ = sources.DOM
-          .select('#chat2').events('click')
-          .map(() => showChatDiv = showChatDiv === "none" ? "block" : "none")
-
-       var todoClick$ = sources.DOM
-          .select('#todoButton').events('click')
-          .map(() => showTodoDiv = showTodoDiv === "none" ? "block" : "none")
-
-      var result_8$ = sources.DOM
-          .select('#res8').events('click');
-
-      var diffR$ = sources.DOM
-          .select('#diffRender').events('click')
-          .map(() => {
-            if (diffRend < 50) {diffRend+=1}
-            else diffRend = 0;
-          });
-
-       
-      var diffRendChange$ = sources.DOM
-          .select('input#change').events('onChange')
-          .map(e => {
-            console.log('diffRend changed <C><C>< Change ><C><C> --> --> e is', e );
-          })
-
-      var diffRendClick$ = sources.DOM
-          .select('input#change').events('click')
-          .map(e => {
-            console.log('diffRend changed <C><C>< Click Click Click ><C><C> --> --> e is', e );
-          })
-
-
-      var res8$ = result_8$.map(() => {
-        res8_Style = res8_HIDE;
-        setTimeout(() => {res8_Style = res8_SHOW,4600;diffRender()},4200);
-        RESULT_8 = [];
-        bind(1)(addP(2))(cubeC)(addC(3))(multC(2))(multP(3))
-        (addC(30))(multC(1/10))(terminate).slice(1,8).map(v => v.then(z => {
-          ;RESULT_8.push(z.x+' ');console.log(RESULT_8);diffRender()}))
         });
 
-      console.log('NOW WE ARE AT calcStream@');
+        var cbx2$ = sources.DOM.select('.cbx2').events('click');
 
-      var test5Press$ = sources.DOM
-        .select('input#test5').events('keypress');
-
-      var test5Action$ = test5Press$.map(function (e) {
-        console.log('In testAction$');
-        if (e.keyCode === 13) {
-          test5(e.target.value);
-        };
-      }); 
-          
-
-
-
-
-  var calcStream$ = xs.merge( test5Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, sevenAction$, doubleAction$, itterAction$, fredGo$, fredAction$, diffR$, res8$, ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, workerH$, clearAction$, factorsAction$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$) 
-
-  return { DOM: calcStream$.map(() => { 
-    return h('div.main', [
-
-  h('div.image_3', [
-  h('img.image_2', {props: {src: "logo.svg" }}  ),
-  h('span', ' ' ),
-  h('a', { props: { href: "https://cycle.js.org/", target: "_blank" } }, 'A Cycle.js application')    ]),
-  h('div', {style: {textAlign:"center", fontWeight: "bold"}}, [
-  h('div', {style: {fontSize: "27px", color: "#f7f700"}}, 'FUNCTIONAL PROGRAMMING'),
-  h('br'),
-  h('div', {style: {fontSize: "22px", fontStyle: "italic", color: "#07f7f7"}},'WITH CYCLE.JS' ) ]),
-  h('br'),
-  h('br'),
-  h('div.content', [
-  h('div', styleFunc(["#FFD700",,"26px",,,"center"]), 'Polymorphic Function Composition'),
-  h('br'),
-
-  h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' There are many advantages to composing function with he pattern '),
-  h('a', {props: {href: "#bind"}, style: {fontSize:"18px"}}, 'bind'), 
-  h('span', styleFunc(["#f7f700",,"18px"]), '(x)(functiona1)(function2) ... (functionN) '),
-  h('span', styleFunc(["#d3ead5",,"18px",,,]), ' where '),
-  h('pre', styleFunc(["#a3ffe4",,"16px",,,]), `  x can be any value,
-
-    there are no restrictions on argument types*, 
-
-    here are no restrictions on return value types,
-
-    any function in the chain can be asynchronous,
-
-    functions have access to all prior functions\' return values,
-
-    functions have access to prior asynchronous functions\' resolution values. `),
-  h('span', styleFunc(["#FFD700","3%","20px",,,]), '* '),
-  h('span', 'Functions that take multiple arguments should be curried. The Ramda library, which includes R.curry and R.flip (reverse argument order curry), and the rest of the Ramda library have been made available in the Chrome and Firefox consoles by means of a script in index.html. '),
-  h('p', ' When promises are chained with their "then" methods, only the preceding function\'s return value is available to each link in the chain. bind() overcomes this limitation.'),
-  h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
-  h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "  .flow" ),
-  h('span', ' and Ramda\'s '),
-  h('a', {props: {href: "http://ramdajs.com/docs/#compose"}}, 'R.compose' ),
-  h('span', ', that facilitate simple function composition; i.e., a function\'s arguments is the preceding function\'s return value. bind() does this while also giving every linked function along a pipeline access to the return values of every function that preceded it.  '),
-  h('br'),
-  h('br'),
-
-  ]),
-
-  h('div#content2', [
-
-  h('div', {style: {width: '47%', fontSize: '15px', float: 'left'}}, [ // ((************ LEFT PANEL
-
-  h('br'),
-  h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 1 - WebSocket and worker interactions.'),
-  h('span', ' The first demonstration begins with a computation. After 50 is cubed, it4 sends the result (125,000) to the Haskell WebSocket server which sends back a pseudo-random number between 0 and 125,000. '), 
-  h('p', ' When a WebSocket message containing the random number arrives, the front end app (of which, this is the user interface) calls "mMZ37.release(v[3])" where v[3] is the new random number.  mMZ37.release(v[3]) causes it6 to send v[3] to a web worker, prompting it to send back v[3]\'s prime factors. it7 formats the prime factors for display. '),
-  h('span#defsReturn', ' it4() and it6 are asynchronous functions that do not use promises. Instead, they use instances of MonadItter, which will be explained later. The definitions of it4, it6, and it7 are in the '),
-  h('a', {props: {href: "#defs" }},  'appendix'),
-  h('span', '.' ),
-
-  h('br'),
-  h('br'),
-  h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 2 - accessing prior values and avoiding clashes.'),
-  h('p', ' If you enter an argument x for test5(x) (right column), this code will run: '),  
-h('pre', orange, `var test5 = x => {
-  var n = toInt(x);
-  Bindo.bind1 = []; 
-  Bindo.bind2 = []; 
-  Bindo.bind3 = []; 
-  
-  bind1(n+0)(cubeP)(() => idP(Bindo.bind1[0] -
-  Bindo.bind1[1]))(v=>addP(Bindo.bind1[1])(v));
-
-  bind2(n+1)(cubeP)(() => idP(Bindo.bind2[0] -
-  Bindo.bind2[1]))(v=>addP(Bindo.bind2[1])(v)); 
-
-  bind3(n+2)(cubeP)(() => idP(Bindo.bind3[0] -
-  Bindo.bind3[1]))(v=>addP(Bindo.bind3[1])(v));} `), 
+        var cbx2Action$ = cbx2$.map(e => {
+          console.log('+++++++ PROGRESS OF cbx2Action$ ++++++ .cbx2 was clicked');
+          var index = parseInt(e.target.parentNode.id, 10);
+          console.log(index);
+          console.log(taskMonad.s[1].slice(index,index+1) );
+          var task = taskMonad.s[1].slice(index,index+1)[0];
+          console.log('task:',task);
+          var old = task;
+          var ar = task.split("<$>");
+          ar = ar.filter(v => v !== "");
+          ar[1] = ar[1] === "false" ? "true" : "false"
+          var newTask = ar.join("<$>");
+          console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ In cbx2Action$. newTask is',newTask);
+          socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
+        });
 
 
+        // Clicking the DELETE button.
+
+
+        var deleteClick$ = sources.DOM
+            .select('#deleteTask').events('click');
+
+        var deleteAction$ = deleteClick$.map(function (e) {
+          var index = parseInt(e.target.parentNode.id, 10);
+          var old = taskMonad.s[1].slice(index,index+1)[0];
+          socket.send(`TX#$42,${pMgroup.x},${pMname.x},${index},${old}`);
+        });
+
+        // Editing a task.
+
+        var edit$ = sources.DOM
+            .select('#edit2').events('keypress');
+
+        var editAction$ = edit$.map(function (e) {
+          var arr;
+          var str;
+          if (e.keyCode === 13) {
+            var index = parseInt(e.target.parentElement.id, 10);
+            var old = taskMonad.s[1].slice(index,index+1)[0];
+            var ar = old.split("<$>");
+            var newAr = e.target.value.split(',');
+            var newString = newAr.join("<<>>");
+            console.log('()()()()()()()() In editAction$. ar is', ar);
+            ar.shift();
+            console.log('()()()()()()()() In editAction$. ar is', ar);
+            ar.unshift(newString);
+            console.log('()()()()()()()() In editAction$. ar is', ar);
+            var newTask = ar.join("<$>");
+            console.log('4.3.2.1. >> In editAction$.index, old and newTask are',index,old,newTask);
+            socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
+          }
+        });
+
+        var newTask$ = sources.DOM
+            .select('input.newTask').events('keydown');
+
+        var newTaskAction$ = newTask$.map(function (e) {
+          console.log("-------------ONE TWO THREE In newTaskAction$. e is",e);
+          if (e.keyCode === 13) {
+          var alert = '';
+              var ar = e.target.value.split(',');
+            if (ar.length < 2) {
+              mMalert.ret('You should enter responsible party then a comma then a task');
+              return;
+            }
+            else {
+              var x = ar.shift();
+              var y = ar.shift();
+              var z = ar.join("<<>>")
+              var result = z + '<$>' + 'false' +'<$>' + x + '<$>' + y
+              socket.send(`TA#$42,${pMgroup.x},${pMname.x},${result}<@>`)
+            }
+          }
+        });
+
+        console.log('Just before calcStream@');
+
+        var chatClick$ = sources.DOM
+            .select('#chat2').events('click')
+            .map(() => showChatDiv = showChatDiv === "none" ? "block" : "none")
+
+         var todoClick$ = sources.DOM
+            .select('#todoButton').events('click')
+            .map(() => showTodoDiv = showTodoDiv === "none" ? "block" : "none")
+
+        var result_8$ = sources.DOM
+            .select('#res8').events('click');
+
+        var diffR$ = sources.DOM
+            .select('#diffRender').events('click')
+            .map(() => {
+              if (diffRend < 50) {diffRend+=1}
+              else diffRend = 0;
+            });
+
+         
+        var diffRendChange$ = sources.DOM
+            .select('input#change').events('onChange')
+            .map(e => {
+              console.log('diffRend changed <C><C>< Change ><C><C> --> --> e is', e );
+            })
+
+        var diffRendClick$ = sources.DOM
+            .select('input#change').events('click')
+            .map(e => {
+              console.log('diffRend changed <C><C>< Click Click Click ><C><C> --> --> e is', e );
+            })
+
+
+        var res8$ = result_8$.map(() => {
+          res8_Style = res8_HIDE;
+          setTimeout(() => {res8_Style = res8_SHOW,4600;diffRender()},4200);
+          RESULT_8 = [];
+          bind(1)(addP(2))(cubeC)(addC(3))(multC(2))(multP(3))
+          (addC(30))(multC(1/10))(terminate).slice(1,8).map(v => v.then(z => {
+            ;RESULT_8.push(z.x+' ');console.log(RESULT_8);diffRender()}))
+          });
+
+        console.log('NOW WE ARE AT calcStream@');
+
+        var test5Press$ = sources.DOM
+          .select('input#test5').events('keypress');
+
+        var test5Action$ = test5Press$.map(function (e) {
+          console.log('In testAction$');
+          if (e.keyCode === 13) {
+            test5(e.target.value);
+          };
+        }); 
+            
 
 
 
 
+    var calcStream$ = xs.merge( test5Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterAction$, fredGo$, fredAction$, diffR$, res8$, ping$, pingpong$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, clearClick$, workerG$, workerH$, clearAction$, factorsAction$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$) 
+
+    return { DOM: calcStream$.map(() => { 
+      return h('div.main', [
+
+    h('div.image_3', [
+    h('img.image_2', {props: {src: "logo.svg" }}  ),
+    h('span', ' ' ),
+    h('a', { props: { href: "https://cycle.js.org/", target: "_blank" } }, 'A Cycle.js application')    ]),
+    h('div', {style: {textAlign:"center", fontWeight: "bold"}}, [
+    h('div', {style: {fontSize: "27px", color: "#f7f700"}}, 'FUNCTIONAL PROGRAMMING'),
+    h('br'),
+    h('div', {style: {fontSize: "22px", fontStyle: "italic", color: "#07f7f7"}},'WITH CYCLE.JS' ) ]),
+    h('br'),
+    h('br'),
+    h('div.content', [
+    h('div', styleFunc(["#FFD700",,"26px",,,"center"]), 'Polymorphic Function Composition'),
+    h('br'),
+
+    h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' There are many advantages to composing function with he pattern '),
+    h('a', {props: {href: "#bind"}, style: {fontSize:"18px"}}, 'bind'), 
+    h('span', styleFunc(["#f7f700",,"18px"]), '(x)(functiona1)(function2) ... (functionN) '),
+    h('span', styleFunc(["#d3ead5",,"18px",,,]), ' where '),
+    h('pre', styleFunc(["#a3ffe4",,"16px",,,]), `  x can be any value,
+
+      there are no restrictions on argument types*, 
+
+      here are no restrictions on return value types,
+
+      any function in the chain can be asynchronous,
+
+      functions have access to all prior functions\' return values,
+
+      functions have access to prior asynchronous functions\' resolution values. `),
+    h('span', styleFunc(["#FFD700","3%","20px",,,]), '* '),
+    h('span', 'Functions that take multiple arguments should be curried. The Ramda library, which includes R.curry and R.flip (reverse argument order curry), and the rest of the Ramda library have been made available in the Chrome and Firefox consoles by means of a script in index.html. '),
+    h('p', ' When promises are chained with their "then" methods, only the preceding function\'s return value is available to each link in the chain. bind() overcomes this limitation.'),
+    h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
+    h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "  .flow" ),
+    h('span', ' and Ramda\'s '),
+    h('a', {props: {href: "http://ramdajs.com/docs/#compose"}}, 'R.compose' ),
+    h('span', ', that facilitate simple function composition; i.e., a function\'s arguments is the preceding function\'s return value. bind() does this while also giving every linked function along a pipeline access to the return values of every function that preceded it.  '),
+    h('br'),
+    h('br'),
+
+    ]),
+
+    h('div#content2', [
+
+    h('div', {style: {width: '47%', fontSize: '15px', float: 'left'}}, [ // ((************ LEFT PANEL
+
+    h('br'),
+    h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 1 - WebSocket and worker interactions.'),
+    h('span', ' The first demonstration begins with a computation. After 50 is cubed, it4 sends the result (125,000) to the Haskell WebSocket server which sends back a pseudo-random number between 0 and 125,000. '), 
+    h('p', ' When a WebSocket message containing the random number arrives, the front end app (of which, this is the user interface) calls "mMZ37.release(v[3])" where v[3] is the new random number.  mMZ37.release(v[3]) causes it6 to send v[3] to a web worker, prompting it to send back v[3]\'s prime factors. it7 formats the prime factors for display. '),
+    h('span#defsReturn', ' it4() and it6 are asynchronous functions that do not use promises. Instead, they use instances of MonadItter, which will be explained later. The definitions of it4, it6, and it7 are in the '),
+    h('a', {props: {href: "#defs" }},  'appendix'),
+    h('span', '.' ),
+
+    h('br'),
+    h('br'),
+    h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 2 - accessing prior values and avoiding clashes.'),
+    h('p', ' If you enter an argument x for test5(x) (right column), this code will run: '),  
+  h('pre', orange, `var test5 = x => {
+    var n = toInt(x);
+    Bindo.bind1 = []; 
+    Bindo.bind2 = []; 
+    Bindo.bind3 = []; 
+    
+    bind1(n+0)(cubeP)(() => idP(Bindo.bind1[0] -
+    Bindo.bind1[1]))(v=>addP(Bindo.bind1[1])(v));
+
+    bind2(n+1)(cubeP)(() => idP(Bindo.bind2[0] -
+    Bindo.bind2[1]))(v=>addP(Bindo.bind2[1])(v)); 
+
+    bind3(n+2)(cubeP)(() => idP(Bindo.bind3[0] -
+    Bindo.bind3[1]))(v=>addP(Bindo.bind3[1])(v));} `), 
 
 
-  h('p', ' The code will be discussed in detail further down the page. This is just a preview. '), 
-  h('span', 'bind() and variations on its theme are produced by a factory named "Bindo". For example, bind1 is created with the code '),
-  h('span', orange, `var bind1 = Bindo("bind1")  `), 
-  h('span', '.'), 
-  h('br'),
-  h('br'),
-  h('span', ' Bindo.bind1 is the array of data created by bind1 operating on linked functions. '),
+    h('p', ' The code will be discussed in detail further down the page. This is just a preview. '), 
+    h('span', 'bind() and variations on its theme are produced by a factory named "Bindo". For example, bind1 is created with the code '),
+    h('span', orange, `var bind1 = Bindo("bind1")  `), 
+    h('span', '.'), 
+    h('br'),
+    h('br'),
+    h('span', ' Bindo.bind1 is the array of data created by bind1 operating on linked functions. The display on the right shows Bindo.bind1, Bindo.bind2, and Bindo.bind3 increasing every 1200 microseconds. '),
   h('span.tao', orange, `bind1(e.target.value)(cubeP)` ),
   h('span', ' cubes user inpup. The first element of the Bindo.bindo array is the user input. It is encapsulated in a promise that resolves after 1200 ms. When it resolves, its cube becomes the resolution value of the next promise and when it resolves, it becomes the argument of the promise\'s then method and so on. The same goes for Bindo.bind2 and Bindo.bind3. '),
 
@@ -1213,7 +1199,7 @@ Bindo.bind3[1]))(v=>addP(Bindo.bind3[1])(v)); `),
 
 // h('div#zero', bigRed, Bindo.bind1.join(', ') ),
 h('span', ' value of n --> '),
-h('input#test5', ),
+h('input#test5', {style: {height: '15px'}}, ),
 h('br'),
 h('div#z1', bigGreen, Bindo.bind1.join(', ') ),
 h('div#z2', bigGreen, Bindo.bind2.join(', ') ),
@@ -1859,6 +1845,8 @@ else if "GN#$42" \`T.isPrefixOf\` msg
     var m67_RESULT = h('pre', ppR, \'                          -- NO SCORE -- \' );
 
     var ping = n => ar => {
+      console.log("Piles of cow shit");
+      console.log("Piles of cow shit");
       var k = Math.floor(Math.random() * 5)+1;
       if(ar[0] > 10 || ar[1] > 10) {
         diffRender();
