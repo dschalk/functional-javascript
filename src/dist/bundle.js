@@ -332,7 +332,6 @@
 	        var x = art.join('<o>');
 	        mMshowRegister.ret('none');
 	        pMname.bnd(backupMonad.ret);
-	        console.log('In registerPressAction$. str and ar are', str, ar);
 	        pMname.ret(name);
 	        console.log('pMname.x is', pMname.x);
 	        socket.send('RR#$42,' + pMgroup.x + ',' + pMoldName.x + ',' + x);
