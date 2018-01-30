@@ -21,13 +21,14 @@ function Monad(z = 19, g = 'generic') {
     var ID;
     if (m instanceof Monad) {
       ID = testPrefix(args, _this.id); 
-      self[ID] = new Monad(m.x, ID);
-      return self[ID];
+      _this[ID] = new Monad(m.x, ID);
+      return _this[ID];
     }
     else return m;
   };
   this.ret = function (a) {
-    return self[_this.id] = new Monad(a,_this.id);
+    return _this[_this.id] = new Monad(a,_this.id);
+    console.log('In Monad.ret --> this is',this);
   };
 };
 

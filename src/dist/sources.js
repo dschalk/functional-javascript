@@ -1,4 +1,6 @@
 var connection;
+var sources;
+var _AR_ = [];
 
 function createWebSocket(path) {
     var host = window.location.hostname;
@@ -68,6 +70,13 @@ function workerHDriver () {
   });
 };
 
+function workerIDriver () {
+  return xs.create({
+    start: listener => { workerI.onmessage = msg => listener.next(msg)},
+    stop: () => { workerH.terminate() }
+  });
+};
+
 
 function workerDriver () {
   return xs.create({
@@ -83,6 +92,7 @@ socket.onclose = function (event) {
 var incF$ = n => xs.of(n);
 
 function pingpongDriver () {
+  console.log('pingpongDriver is executing');
   return xs.create({
     start: listener => { incF$ = k => listener.next(k)},
     stop: () => {}
@@ -124,6 +134,21 @@ function mMstreamDriver () {
   });
 };*/
 
+
+sources = {
+  WWB: workerBDriver,
+  WWC: workerCDriver,
+  WWD: workerDDriver,
+  WWE: workerEDriver,
+  WWF: workerFDriver,
+  WWG: workerGDriver,
+  WWH: workerHDriver,
+  WWI: workerIDriver,
+  WW: workerDriver,
+  PP: pingpongDriver,
+  FD: fredDriver,
+  BD: bindDriver
+}
 
 
 

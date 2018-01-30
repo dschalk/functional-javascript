@@ -1,4 +1,9 @@
-var sources;
+
+var ping43 = {style: {display: "inline"}};
+var ping44 = {style: {display: "inline"}};
+var png = 'ding';
+var _SCORE_ = [0,0];
+var _ar_ = [];
 var todoData
 var mMt3VAL;
 var taskL = [];
@@ -15,10 +20,9 @@ var xs = xstream.default;
 var h = h.h;
 var freday = ["waiting"];
 var fredButton = h('button#fredButton', "fredButton");
-
+var cow = 0;
 var diffR = h('button#diffRender', "diffRender");
 var diffRender = () => 8;   ;  // See document.onload in maim
-
 // var fredButton = h('button#fredButton', "fredButton");
 const messages = [];
 var buttonNode;
@@ -44,6 +48,11 @@ var stateArray = [];
 var nl = '\n';
 var blue = {style: {color: "#96f9ff"}}
 var bigBlue = {style: {color: "#96f9ff",fontSize: "17"}}
+var bigGold = {style: {color: "#FFD700",fontSize: "17"}}
+
+
+
+
 var bluetao = {style: {color: "#96f9ff", marginLeft: "3%"}}
 var diffRend = 0;
 var mMt32 = new Monad(0,'mMt32');
@@ -56,10 +65,14 @@ var workerH$;
 var dRes;
 var m42_RESULT7 = "ready"
 
-  
+var tInt = a => b => parseInt(b,a);  
+var toInt = tInt(10);
+
 var test5 = x => {
   var n = toInt(x);
   Bindo.bind1 = []; Bindo.bind2 = []; Bindo.bind3=[]; 
+  Bindo.bind4 = []; Bindo.bind5 = []; Bindo.bind6=[]; 
+  Bindo.bind7 = []; Bindo.bind8 = []; Bindo.bind9=[]; 
   
   bind1(n+0)(cubeP)(() => idP(Bindo.bind1[0]-Bindo.bind1[1]))
   (v=>addP(Bindo.bind1[1])(v));
@@ -69,6 +82,25 @@ var test5 = x => {
 
   bind3(n+2)(cubeP)(() => idP(Bindo.bind3[0]-Bindo.bind3[1]))
   (v=>addP(Bindo.bind3[1])(v)); 
+
+  bind4(n+3)(cubeP)(() => idP(Bindo.bind4[0]-Bindo.bind4[1]))
+  (v=>addP(Bindo.bind4[1])(v)); 
+
+  bind5(n+4)(cubeP)(() => idP(Bindo.bind5[0]-Bindo.bind5[1]))
+  (v=>addP(Bindo.bind5[1])(v)); 
+
+  bind6(n+5)(cubeP)(() => idP(Bindo.bind6[0]-Bindo.bind6[1]))
+  (v=>addP(Bindo.bind6[1])(v)); 
+
+  bind7(n+6)(cubeP)(() => idP(Bindo.bind7[0]-Bindo.bind7[1]))
+  (v=>addP(Bindo.bind7[1])(v)); 
+
+  bind8(n+7)(cubeP)(() => idP(Bindo.bind8[0]-Bindo.bind8[1]))
+  (v=>addP(Bindo.bind8[1])(v)); 
+
+  bind9(n+8)(cubeP)(() => idP(Bindo.bind9[0]-Bindo.bind9[1]))
+  (v=>addP(Bindo.bind9[1])(v)); 
+
 }
 
 
@@ -106,9 +138,6 @@ const italicRed = {style: {fontStyle: "italic", color: "#ff5b5b"}}
 const italicYellow = {style: {fontStyle: "italic", color: "#fbfca9"}}
 
 
-var toInt = curryReverse(parseInt)(10)
-var res43 = toInt("43");
-console.log('M<M<M<M<M<M<M<M<M<<>-> res43',res43);
 
 function styleFunc ([color = '#361B01', marginLeft = '0px',
   fontSize = '15px', fontStyle = 'norma', width = '100%', textAlign = 'left']) {
@@ -193,16 +222,16 @@ var arf = async p => {
   };
 
   Monad.prototype.bnd = function (func, ...args) {
+    var _this = this;
     if (func instanceof Promise) {
-      this.getVal(func,this.x,args);
-
+      _this.getVal(func,this.x,args);
     }
     var m = func(this.x, ...args)
     var ID;
     if (m instanceof Monad) {
       ID = testPrefix(args, this.id);
-      window[ID] = new Monad(m.x, ID);
-      return window[ID];
+      _this[ID] = new Monad(m.x, ID);
+      return _this[ID];
     }
     else return m;
   };
@@ -356,9 +385,45 @@ var bind3 = Bindo("bind3");
 var bind4 = Bindo("bind4");
 var bind5 = Bindo("bind5");
 var bind6 = Bindo("bind6");
+var bind7 = Bindo("bind7");
+var bind8 = Bindo("bind8");
+var bind9 = Bindo("bind9");
 
 function Bindo (str) {
-  console.log("In Bindo - - str is", str);
+  Bindo[str] = [];
+  return function bindo ( x ) {
+    if (x instanceof Promise) x.then(y => {
+      Bindo[str].push(y);
+      diffRender();
+      console.log(Bindo[str]);
+    })
+    else {
+      Bindo[str].push(x)
+      diffRender();
+    }
+    console.log(Bindo[str]);
+    return function debug8 (func) {
+      var p;
+      if (func.name === "terminate") return Bindo[str];
+      if (x instanceof Promise) {
+        p = x.then(v => func(v));
+      }
+      else p = func(x);
+      return bindo(p,Bindo[str]);
+    };
+  };
+};
+
+var bind$ = n => xs.of(n);
+
+function bindDriver () {
+  return xs.create({
+    start: listener => { bind$ = a => listener.next(a) },
+    stop: () => {}
+  })
+};
+
+function BindoSimple (str) {
   Bindo[str] = [];
   return function bindo ( x, ob = {ar: []} ) {
     if (x instanceof Promise) x.then(y => {
@@ -640,13 +705,6 @@ const prm6 = x => {
 }
 
 
-var apolox = (async function hello() {
-  await wait(3000);
-  console.log( 'Hello Nurse, you sure are a fine-looking woman.' );
-  return ret('Oh Nurse, you tear me up');
-})();
-console.log('apolox is', apolox);
-
  async function trylock () {
    await wait(1000);
    console.log('<%><>%<%><><%><><%><><%><><%> in tryLock');
@@ -894,8 +952,8 @@ var m0 = new Monad (0, "m0")
   var mM40 = M(0, 'mM40');
   var mM41 = M(0, 'mM41');
   var mM42 = M(0, 'mM42');
-  var mM43 = M(0, 'mM43');
-  var mM44 = M(0, 'mM44');
+  var mM43 = M({}, 'mM43');
+  var mM44 = M({}, 'mM44');
   var mM45 = M(3, 'mM45');
   var mM46 = M('', 'mM46');
   var mM47 = M('', 'mM47');
@@ -1215,6 +1273,7 @@ var workerE = new Worker("workerE.js");
 var workerF = new Worker("workerF.js");
 var workerG = new Worker("workerG.js");
 var workerH = new Worker("workerH.js");
+var workerI = new Worker("workerI.js");
 
 var pMop = new Monad (0, 'pMop');
 
@@ -2505,6 +2564,7 @@ mMZ33.bnd(n => fn2(n));
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
+
 var ppR = {style: {color: 'red',
   marginLeft: '5%', fontSize: "26"}};
 var ppY = {style: {color: 'yellow',
@@ -2514,44 +2574,40 @@ var ppRY = {style: {color: 'yellow',
 var ppYR = {style: {color: 'red',
   marginLeft: '42%', fontSize: "26"}};
 
+var _A1 = {style: {color: 'red',
+  marginLeft: '5%', fontSize: "26"}};
+var _A2 = {style: {color: 'yellow',
+  marginLeft: '5%', fontSize: "26"}};
+var _A3 = {style: {display: 'none'}};
+var _A4 = {style: {color: 'red',
+  marginLeft: '22%', fontSize: "26"}};
+
 var ppStyle = false;
 
 var m66_RESULT = h('span', ppR, ' -- start -- ' );
-var m67_RESULT = h('pre', ppR, '                          -- NO SCORE -- ' );
 
-var pingpongTog = n => ppStyle ?
-  h('span', ppR, ' ping ' +  n + ' ~~~> ') :
-  h('span', ppY , 'PONG! ' + n)
+var pingScore = [0,0];
 
-var ping = n => ar => {
-  var ar = ar;
-  this.ar = ar;
-  var k = Math.floor(Math.random() * 5)+1;
-  if(ar[0] > 10 || ar[1] > 10) {
-    m67_RESULT = h('pre', ppY, `     `), h('span', 'FINAL SCORE   ping: ' + ar[0] + ' pong: ' + ar[1] );
+var pingBool = false;
+
+var otherP = bool => {  
+  if (bool) {
+    ping43 = _A1;
+    ping44 = _A3;
+    pingScore[0] += 1;
     diffRender();
   }
-  else setTimeout(() => {
-    if (n <= k) {
-      ppStyle = !ppStyle;
-      incF$(n);
-      ping(n+1)(this.ar);
-    }
-    else if (n % 2 === 0) {
-      ar[0]+=1;
-      m67_RESULT = h('pre', ppYR, `    `), h('span', 'SCORE: ping: ' + ar[0] + ' pong: ' + ar[1]   );
-      ping(0)(ar);
-    }
-    else {
-      ar[1]+=1
-      m67_RESULT = h('pre', ppY, `     ` ), h('span', 'SCORE: ping ' + ar[0] + ' pong: ' + ar[1]   );
-      ping(0)(ar);
-    }
-  }, 500 )
-}
-
-ping(0)([0,0]);
-
+  if (bool === false ) {
+    ping43 = _A3
+    ping44 = _A2
+    pingScore[1] += 1;
+    diffRender();
+  }
+  if (bool === null ) {
+    ping43 = ping43 === _A3 ? _A1 : _A3
+    ping44 = ping43 === _A3 ? _A2 : _A3
+  }
+};
 
 function curry(func) {
   return function curried(...args) {
