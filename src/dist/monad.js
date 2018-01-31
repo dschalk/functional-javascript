@@ -113,10 +113,6 @@ function mult2 (a,b) {return a*b};
 
 var workerG$;
 
-var reducePlus = R.reduce((a,b)=>a+b)(0);
-var reduceMult = R.reduce((a,b)=>a*b)(1);
-
-
 const orange = {style: {color: "#f98043"}}
 const orangeIndent7 = {style: {color: "#f98043", marginLeft: "7%", fontSize: "20px"}}
 const purple = {style: {color: "#ff9bf8"}}
@@ -377,6 +373,9 @@ var O_001 = {ar: []};
 var O_002 = {ar: []};
 var O_003 = {ar: []};
 var O_004 = {ar: []};
+
+
+h('h3#bindDef',  'The Definition of bind'  )
 
 var bind = Bindo("bindo");
 var bind1 = Bindo("bind1");

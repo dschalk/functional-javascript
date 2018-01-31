@@ -1,8 +1,9 @@
   import {run} from '@cycle/xstream-run';
   import {h, p, span, h1, h2, h3, pre, br, div, label, input, hr, makeDOMDriver} from '@cycle/dom';
   import code from './code.js';
+  import {curry, flip, compose} from 'ramda'
 
-  console.log('If you can read this you are in main.js <@><@><@><@><@><@><@><@>');
+  console.log(' Now loading main.js <@><@><@><@> <<< @ >>> <@><@><@><@>');
   var textA = h('textarea', 'You bet!' );
   var formA = h('form#horses', 'You bet!' );
   console.log(xs);
@@ -1103,26 +1104,36 @@ var test5Action$ = test5Press$.map(function (e) {
     h('br'),
     h('br'),
     h('div.content', [
-    h('div', styleFunc(["#FFD700",,"26px",,,"center"]), 'Polymorphic Function Composition'),
+    h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' Functions composed this way: '),
+    h('br'),
+    h('br'),
+    h('div', styleFunc(["#FFD700",,"21px",,,"center"]), 'bind(x)(functiona1)(function2) ... (functionN)'),
     h('br'),
 
-    h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' There are many advantages to composing function with he pattern '),
-    h('a', {props: {href: "#bind"}, style: {fontSize:"18px"}}, 'bind'), 
-    h('span', styleFunc(["#f7f700",,"18px"]), '(x)(functiona1)(function2) ... (functionN) '),
-    h('span', styleFunc(["#d3ead5",,"18px",,,]), ' where '),
-    h('pre', styleFunc(["#a3ffe4",,"16px",,,]), `  x can be any value,
+    h('span', styleFunc(["#d3ead5","3%","18px",,,]), 'where '),
+    h('pre', styleFunc(["#a3ffe4",,"16px",,,]), `      x can be any value,
 
       there are no restrictions on argument types*, 
 
-      here are no restrictions on return value types,
+      there are no restrictions on return value types,
 
       any function in the chain can be asynchronous,
 
       functions have access to all prior functions\' return values,
 
       functions have access to prior asynchronous functions\' resolution values. `),
+    h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' would appear to be remarkably flexible and expressive, if they work. Tweaking and testing is ongoing, but they do work flawlessly in a wide range of use cases, as demonstrated below. '), 
+      
+    h('br'),
+    h('br'),
+    h('span.tao', ' The starting function "bind" does not depend on Cycle.js, but Cycle.js provides an excellent light weight, non-opinionated platform for exhibiting its potential usefulness in production code. The definition of "bind" is  '),
+    h('a', {props: {href: "#bind" }},  'here'),
+    h('span', '.' ),
+    h('br'),
+    h('br'),
     h('span', styleFunc(["#FFD700","3%","20px",,,]), '* '),
-    h('span', 'Functions that take multiple arguments should be curried. The Ramda library, which includes R.curry and R.flip (reverse argument order curry), and the rest of the Ramda library have been made available in the Chrome and Firefox consoles by means of a script in index.html. '),
+
+    h('span', 'Functions that take multiple arguments should be curried. Otherwise, they should be placed in arrays or objects. ' ),
     h('p', ' When promises are chained with their "then" methods, only the preceding function\'s return value is available to each link in the chain. bind() overcomes this limitation.'),
     h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
     h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "  .flow" ),
@@ -1210,10 +1221,25 @@ h('div#z9', bigGreen, Bindo.bind9.join(', ') ),
 
 h('br'),
 h('br'),
+h('h3', 'Demonstration 3' ),
+h('br'),
 h('button.pingpong', {style: {fontSize: '17px'}}, 'start pingpong'),
 h('pre', ping43, ` ping        ---> `), 
 h('pre', ping44, `                 <---        pong `),
 h('pre',  `          -- SCORE: ping: ${pingScore[0]}     pong: ${pingScore[1]} ` ),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
 h('br'),
 h('br'),
 ]),
@@ -1331,34 +1357,38 @@ h('h1', '________________________________________________' ),
 h('div.content', [
 h('a#bind', {props: {href: '#top'}}, 'Back to the top'),
 
-h('p', ' Here is the definition of Bindo: '),
-h('pre', {style: {color: "lightBlue"}}, `  function Bindo (str) {
-  console.log("in bindo - - str is", str);
-  bindo[str] = [];
-  return function bindo ( x, ob = {ar: []} ) {
-    if (x instanceof promise) x.then(y => {
-      bindo[str].push(y);
-      diffrender();
-      console.log(bindo[str]);
+h('p', ' Here are the definitions of bind and four other similar functions: '),
+h('pre', {style: {color: "lightBlue"}}, `var bind = Bindo("bindo");
+var bind1 = Bindo("bind1");
+var bind2 = Bindo("bind2");
+var bind3 = Bindo("bind3");
+var bind4 = Bindo("bind4");
+
+function Bindo (str) {
+  Bindo[str] = [];
+  return function bindo ( x ) {
+    if (x instanceof Promise) x.then(y => {
+      Bindo[str].push(y);
+      diffRender();
+      console.log(Bindo[str]);
     })
     else {
-      bindo[str].push(x)
-      diffrender();
+      Bindo[str].push(x)
+      diffRender();
     }
-    console.log(bindo[str]);
+    console.log(Bindo[str]);
     return function debug8 (func) {
       var p;
-      if (func.name === "terminate") return bindo[str];
-      if (x instanceof promise) {
+      if (func.name === "terminate") return Bindo[str];
+      if (x instanceof Promise) {
         p = x.then(v => func(v));
       }
       else p = func(x);
-      console.log("in debug8. this is",this);
-      return bindo(p,bindo[str]);
+      return bindo(p,Bindo[str]);
     };
   };
 }; ` ),
-
+h('p', ' "bind"\s result array "Bindo.bindo" couldn\'t be named "Bindo.bind" without overriding Bind\'s prototypical bind method. As you see, "Bindo" provides a namespace for functions returned by Bindo. Creating unique names for different uses of Bindo avoids clashes. ' ),
 h('a', {props: {href: '#content2'}}, 'Back to the preview demos'),
 h('p', italicYellow, ' Sequences beginning with bind() reveal exactly what is happening while hiding a confusing mess of nested promises. They provide an excellent alternative to "Callback Hell". '),
 h('p#cycle', ' bind() overcomes the Promises API\'s lack of any way to access prior results linked by the "then()" method. The number ar[0] as well as the promise ar[5] were used used in the sequence above. A short distance down this page you can see asynchronous procedures based on MonadItter rather than Promises. MonadItter and Cycle.js working together can do everything promises and generators do but with greater flexibility and easier access to all values returned by the function calls is chained procedures. The links can be various functions rather than  ' ),
