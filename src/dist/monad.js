@@ -1,6 +1,38 @@
 
 var ping43 = {style: {display: "inline"}};
 var ping44 = {style: {display: "inline"}};
+var ping45 = {style: {display: "inline"}};
+var ping46 = {style: {display: "inline"}};
+var ping47 = {style: {display: "inline"}};
+var ping48 = {style: {display: "inline"}};
+var ping49 = {style: {display: "inline"}};
+var ping50 = {style: {display: "inline"}};
+var ping51 = {style: {display: "inline"}};
+var ping52 = {style: {display: "inline"}};
+
+var worker = new Worker("worker.js");
+var workerB = new Worker("workerB.js");
+var workerC = new Worker("workerC.js");
+var workerD = new Worker("workerD.js");
+var workerE = new Worker("workerE.js");
+var workerF = new Worker("workerF.js");
+var workerG = new Worker("workerG.js");
+var workerH = new Worker("workerH.js");
+var workerI = new Worker("workerI.js");
+var workerJ = new Worker("workerJ.js");
+
+var PING_A;
+var PING_B;
+var PING_C;
+var pp4;
+var pingDisplay;
+var pingCompute;
+
+var m67_RESULT = "pending"
+var m68_RESULT = "pending"
+var m69_RESULT = "pending"
+var PingpongMaker;
+
 var png = 'ding';
 var _SCORE_ = [0,0];
 var _ar_ = [];
@@ -50,7 +82,50 @@ var blue = {style: {color: "#96f9ff"}}
 var bigBlue = {style: {color: "#96f9ff",fontSize: "17"}}
 var bigGold = {style: {color: "#FFD700",fontSize: "17"}}
 
+var pingL = ar => ar.filter(v => v === true).length;
+var pongL = ar => ar.filter(v => v === false).lengt;
 
+
+var ppR = {style: {color: 'red',
+  marginLeft: '5%', fontSize: "26"}};
+var ppY = {style: {color: 'yellow',
+  marginLeft: '42%', fontSize: "26"}};
+var ppRY = {style: {color: 'yellow',
+  marginLeft: '5%', fontSize: "26"}};
+var ppYR = {style: {color: 'red',
+  marginLeft: '42%', fontSize: "26"}};
+
+var _A1 = {style: {color: 'red',
+  marginLeft: '5%', fontSize: "26"}};
+var _A2 = {style: {color: 'yellow',
+  marginLeft: '5%', fontSize: "26"}};
+var _A3 = {style: {display: 'none'}};
+
+var pingScore = [0,0];
+
+var _A4 = (pingScore[0] < pingScore[1]) ? _A2 : _A1
+
+var ppStyle = false;
+
+var m66_RESULT = h('span', ppR, ' -- start -- ' );
+
+var pingScore2 = [0,0];
+var pingScore3 = [0,0];
+var pingScore4 = [0,0];
+var pingScore5 = [0,0];
+var pingScore6 = [0,0];
+var pingScore7 = [0,0];
+var pingScore8 = [0,0];
+var pingScore9 = [0,0];
+
+var pingBool = false;
+
+var pingScr = [0,0];
+var pingScr1 = [0,0];
+var pingScr2 = [0,0];
+var pingScr3 = [0,0];
+var pingScr4 = [0,0];
+var pingScr5 = [0,0];
 
 
 var bluetao = {style: {color: "#96f9ff", marginLeft: "3%"}}
@@ -180,7 +255,7 @@ var format3 = b => { var a = new Date();(b.then) ?
 */
 
 var m778_RESULT = h('div', "" );
-var m42_RESULT = [];
+var m42_RESULT = ['  '];
 var m42_RESULT2 = [];
 function makeSequence (n) {
   var a=[];
@@ -778,6 +853,10 @@ async function pauseM (x) {
   return ret(x);
 }
 
+async function pauseX (x) {
+  await wait(x);
+}
+
 async function squareP (x) {
   await wait(1200)
   return x*x;
@@ -1263,16 +1342,6 @@ var pMnewName = new Monad('', 'pMnewName');
 var mMnums = new Monad([0,0,0,0], 'mMnums');
 var mMnumEls = new Monad([], 'mMnumEls');
 var mMstyle = new Monad(['inline', 'inline', 'inline', 'inline'], 'mMstyle')
-
-var worker = new Worker("worker.js");
-var workerB = new Worker("workerB.js");
-var workerC = new Worker("workerC.js");
-var workerD = new Worker("workerD.js");
-var workerE = new Worker("workerE.js");
-var workerF = new Worker("workerF.js");
-var workerG = new Worker("workerG.js");
-var workerH = new Worker("workerH.js");
-var workerI = new Worker("workerI.js");
 
 var pMop = new Monad (0, 'pMop');
 
@@ -2564,50 +2633,6 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-var ppR = {style: {color: 'red',
-  marginLeft: '5%', fontSize: "26"}};
-var ppY = {style: {color: 'yellow',
-  marginLeft: '42%', fontSize: "26"}};
-var ppRY = {style: {color: 'yellow',
-  marginLeft: '5%', fontSize: "26"}};
-var ppYR = {style: {color: 'red',
-  marginLeft: '42%', fontSize: "26"}};
-
-var _A1 = {style: {color: 'red',
-  marginLeft: '5%', fontSize: "26"}};
-var _A2 = {style: {color: 'yellow',
-  marginLeft: '5%', fontSize: "26"}};
-var _A3 = {style: {display: 'none'}};
-var _A4 = {style: {color: 'red',
-  marginLeft: '22%', fontSize: "26"}};
-
-var ppStyle = false;
-
-var m66_RESULT = h('span', ppR, ' -- start -- ' );
-
-var pingScore = [0,0];
-
-var pingBool = false;
-
-var otherP = bool => {  
-  if (bool) {
-    ping43 = _A1;
-    ping44 = _A3;
-    pingScore[0] += 1;
-    diffRender();
-  }
-  if (bool === false ) {
-    ping43 = _A3
-    ping44 = _A2
-    pingScore[1] += 1;
-    diffRender();
-  }
-  if (bool === null ) {
-    ping43 = ping43 === _A3 ? _A1 : _A3
-    ping44 = ping43 === _A3 ? _A2 : _A3
-  }
-};
-
 function curry(func) {
   return function curried(...args) {
     if (args.length >= func.length) {
@@ -2628,7 +2653,7 @@ function curryReverse(func) {
       return function(...args2) {
         return curried.apply(this, args.concat(args2));
       }
-    }
+    _}
   };
 }
 
@@ -2645,12 +2670,84 @@ var funcP = () => {
     diffRender()
   }))
 }
+    
+    var ping = n => ar => {
+      console.log('#1 In ping -- n and ar[0] and ar[1] are',n,ar[0],ar[1]);
+      var k = Math.floor(Math.random() * 5)+1;
+      if(ar[0] > 10 || ar[1] > 10) {
+        diffRender();
+        return;
+      }
+      setTimeout(() => {
+        if (n <= k) {
+          ppStyle = !ppStyle;
+          incF$(n);
+          ping(n+1)(ar);
+          diffRender();
+        }
+        else if (n % 2 === 0) {
+          ar[0]+=1;
+          m67_RESULT = h('pre', ppYR, `     SCORE: ping  \${ar[0]} pong: \${ar[1]}  ` )
+          ping(0)(ar);
+          diffRender();
+        }
+        else {
+          ar[1]+=1
+          m67_RESULT = h('pre', ppY, `     SCORE: ping  \${ar[0]} pong: \${ar[1]}  ` );
+          ping(0)(ar);
+          diffRender();
+        }
+        console.log('#2 In ping -- n and ar[0] and ar[1] are',n,ar[0],ar[1]);
+      },500);
+    }  
 
+var pingD = a => b => c => h('div', [
+  h('pre', a, ` ping        ---> `), 
+  h('pre', b, `                 <---        pong `), 
+  h('pre',  `          -- SCORE: ping: ` + c[0]  + ` pong: ` + c[1]  ),
+]);
 
+m67_RESULT = pingD(_A1)(_A3)([3,2]); 
 
-
-
-
+PingpongMaker = (name) => {
+  var a = _A1;
+  var b = _A3;
+  var c = [0,0];
+  var n = 0;
+  var bool = true;
+  var k = Math.floor(Math.random() * 7)+1;
+  return function train () {
+    if (c[0] > 10 || c[1] > 10) return;
+    var ms = 400;
+    console.log('a.style.color, b.style.color, c', a.style.display, b.style.display, c);
+    if (a === _A3) {a = _A1; b = _A3}
+    else if (a === _A1) {a = _A3; b = _A2};
+    if (n <= k) {
+      n+=1;
+      window[name] = pingD(a)(b)(c);
+      diffRender();
+    }
+    else if (n % 2 === 0) {
+      ms = 1200
+      n = 0
+      c[0]+=1;
+      window[name] = pingD(_A1)(_A3)(c);
+      diffRender();
+      k = Math.floor(Math.random() * 7)+1;
+    }
+    else if (n % 2 === 1) {
+      ms = 1200;
+      n = 0;
+      c[1]+=1;
+      window[name] = pingD(_A3)(_A2)(c);
+      diffRender();
+      k = Math.floor(Math.random() * 7)+1;
+    }
+    setTimeout( function () {
+      train();
+    },ms );
+  }
+}
 
 
 

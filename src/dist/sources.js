@@ -73,7 +73,14 @@ function workerHDriver () {
 function workerIDriver () {
   return xs.create({
     start: listener => { workerI.onmessage = msg => listener.next(msg)},
-    stop: () => { workerH.terminate() }
+    stop: () => { workerI.terminate() }
+  });
+};
+
+function workerJDriver () {
+  return xs.create({
+    start: listener => { workerJ.onmessage = msg => listener.next(msg)},
+    stop: () => { workerJ.terminate() }
   });
 };
 
@@ -119,7 +126,6 @@ function bindDriver () {
   })
 };
 
-
 /*function eM2Driver () {
   return xs.create({
     start: listener => { mM2.on = msg => listener.next(msg)},
@@ -144,6 +150,7 @@ sources = {
   WWG: workerGDriver,
   WWH: workerHDriver,
   WWI: workerIDriver,
+  WWJ: workerJDriver,
   WW: workerDriver,
   PP: pingpongDriver,
   FD: fredDriver,
