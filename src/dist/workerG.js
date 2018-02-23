@@ -10,10 +10,22 @@
 
 
 onmessage = function(ar) {
+  console.log('In workerG.js <X><X><X><X><X><X><X> Is this where you want to be?');importScripts 
   importScripts('script2.js');
   var primes = execP(ar.data[0], ar.data[1] + 1)
   var factors = primeFactors(primes, ar.data[1])
-  postMessage([ar.data[1], factors[0].join(', '), primes, factors[2], factors[1], factors[3].join(', '), factors[3]]);
+  postMessage(
+    [
+      ar.data[1], 
+      factors[0].join(', '), 
+      primes, factors[2], 
+      factors[1], 
+      factors[3].join(', '), 
+      factors[3] 
+     // factors[3] + factors[0] + factors[4] + factors[5]
+     // console.log('In workerG >>>>>>>>> factors', factors);
+    ]
+  );
 };
 
 function primeFactors (primeState, n) {

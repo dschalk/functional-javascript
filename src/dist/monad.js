@@ -1,4 +1,8 @@
 
+
+console.log('<h><h><h> ---> --> -> h, h.h instanceof Function, and h("div", "cows, horses, and subservient women") are', h, h.h, h.h("div", "cows, horses, and subservient women"));
+
+
 var ping43 = {style: {display: "inline"}};
 var ping44 = {style: {display: "inline"}};
 var ping45 = {style: {display: "inline"}};
@@ -20,6 +24,8 @@ var workerG = new Worker("workerG.js");
 var workerH = new Worker("workerH.js");
 var workerI = new Worker("workerI.js");
 var workerJ = new Worker("workerJ.js");
+
+var m42_ = ['ready'];
 
 var PING_A;
 var PING_B;
@@ -64,6 +70,8 @@ var RESULT_BINDA = [];
 var RESULT_BIND = []; 
 var gameData = "nobody 0 | 0 \njudy 0 | 0"
 var O = {ar: []};
+
+
 var m = new Monad(42, 'm');
 var m0 = new Monad(0, 'm0');
 var m1 = new Monad(1, 'm1');
@@ -255,7 +263,9 @@ var format3 = b => { var a = new Date();(b.then) ?
 */
 
 var m778_RESULT = h('div', "" );
-var m42_RESULT = ['  '];
+var m42_RESULT = [];
+var m42_RES = [];
+var m42_R = "";
 var m42_RESULT2 = [];
 function makeSequence (n) {
   var a=[];
@@ -483,7 +493,7 @@ function Bindo (str) {
         p = x.then(v => func(v));
       }
       else p = func(x);
-      return bindo(p,Bindo[str]);
+      return bindo(p);
     };
   };
 };
@@ -737,18 +747,17 @@ function Driver () {
 };
 
 var it4 = x => {
-  if (socket.readyState === 1) socket.send(`BB#$42,${pMgroup.x},${pMname.x},${x}`);
+  if (socket.readyState === 1) socket.send(`BC#$42,${pMgroup.x},${pMname.x},${x}`);
 }
 
 var it6 = x => {
-  mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));
+  mMZ40.bnd(x => workerH.postMessage([primesMonad.s, x]));
 }
 
-var it7 = v => mMZ38.bnd( v => {
-  m42_RESULT = m42_RESULT.concat(h('p', orange, v[3] + v[0] + v[4] + v[5]).text).concat(h('br'))
-  m42_RESULT2 = m42_RESULT2.concat(h('div', [h('p', orange, v[3] + v[0] + v[4] + v[5]).text]))
-  m42_RESULT3 = m42_RESULT3.concat(h('p', orange, v[5]).text).concat(h('br'))
-});
+ var it7 = v => mMZ41.bnd( v => {
+    m42_RESULT7.unshift(h('p', orange,
+    'The prime factors of ' + v[0] + v[4] + v[5]));
+  });
 
 var RESULT_7 = [];
 

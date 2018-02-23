@@ -157,11 +157,14 @@
      });
 
      mMZ27.bnd( () => {
-       console.log('In mMZ27 OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO --- v[3] is', v[3]);
-       mM27.ret(v[3]);
-       console.log('BB BB BB BB BB BB BB BB BB mM27.x',mM27.x)
-       mMZ37.release(v[3]);
+       mMZ38.release(v[3]);
      });
+
+     mMZ28.bnd( () => {
+       console.log('In mMZ28 - - v[3] is', v[3]);
+       mMZ40.release(v[3]);
+     });
+
      ret(v[0])
     .bnd(next, 'CC#$42', mMZ9)
     .bnd(next, 'CA#$42', mMZ10) // Dice roll
@@ -180,7 +183,8 @@
     .bnd(next, 'TT#$42', mMZ23)  // chechbox
     .bnd(next, 'TX#$42', mMZ24)  // delete button
     .bnd(next, 'TI#$42', mMZ25)  // group change
-    .bnd(next, 'BB#$42', mMZ27)  // works in conjunction with prm4
+    .bnd(next, 'BB#$42', mMZ27)  // works in conjunction with it4
+    .bnd(next, 'BC#$42', mMZ28)  // works in conjunction with it4
    });
 
    console.log('1^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ got this far');
@@ -519,30 +523,96 @@
       });
 
     //******************************************************************* worker
+      m42_RES = [];
 
-      var clearClick$ = sources.DOM
-          .select('button.clear_P').events('click')
-          .map(e => {
-            console.log('In clearClick$ - - - e is', e);
-            m42_RESULT = m42_RESULT[0];
-          })
 
-      var factors2Press$ = sources.DOM
-            .select('button.factors_P').events('click');
+    var clearClick$ = sources.DOM
+        .select('button.clear_P').events('click')
+        .map(e => {
+          console.log('In clearClick$ - - - e is', e);
+          m42_RESULT = [];
+          m42_RESULT2 = [];
+        })
 
-      var factors2Action$ = factors2Press$.map(function (e) {
-        console.log('&&&&&>>> >> in factors2action$. e is', e );
-        var factors = [];
-        mMfactors3.ret('');
-        Bindo.bind0 = [];
-        bind(50)(x=>x*x*x)(it4)(it6)(it7);                    
+    var factors2Press$ = sources.DOM
+        .select('button.factors_P').events('click');
+
+    var factors2Action$ = factors2Press$.map(function (e) {
+      console.log('&&&&&>>> >> in factors2action$. e is', e );
+      var factors = [];
+      mMfactors3.ret('');
+      bind(50)(cubeC)(it4)(it6)(it7);
+    });
+
+  workerG$ = sources.WWG.map(m => {
+    m778_RESULT = result778(m.data);
+    mMZ38.release(m.data);
+    console.log('<><><><><><><><><><>< prime factors ><><><><><><><><><><><><><><><><>');
+    console.log('<><><><><><><><><><><>< e.data><>< e.target.ar2 ><><><><><><><><><><><><>');
+    if (m.data) {console.log('GOOD m.data')} else { return "cow" }
+      if (m.target) {console.log('GOOD m.target')} else { return "shit" }
+        if (m.data[1]) {console.log('GOOD m.data[1]')} else { return 'donkey'}
+          if (m.target.ar2) {console.log('GOOD m.data.ar2')} else { return 'dung'}
+    console.log('The prime factors of ' + m.data[1] + ' are ' + m.target.ar2.join(', '))
+    console.log('<><><><><><><><><><><><><><><><><><><><><><><><><><><>');
+    console.log('<><><><><><><><><><><><><><><><><><><><><><><><><><><>');
+
+  });
+
+      var clearClick7$ = sources.DOM
+          .select('button.clear_Q').events('click')
+          .map((() => {
+            m42_ = [];
+          }))
+  
+
+      var factorsClick7$ = sources.DOM
+        .select('button#factors_Q').events('click');
+
+      var factorsAction7$ = factorsClick7$.map( e => {
+        m42_ = [];
+        console.log('In factorsAction7$ - - <W>W<>W<>W<><W>WWW<W><W>WW><><><><><>!!! e is',e); 
+
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
+        bind(50)(x=>x*x*x)(it4)(it6);
       });
-      workerG$ = sources.WWG.map(m => {
-        mMbar.ret(m.data);
-        m778_RESULT = result778(m.data);
-        mMZ38.release(m.data);
-        mMZ34.release(m.data[6]);
-      });
+    
+      var callOrder = 0;
+
+      workerH$ = sources.WWH.map(m => {
+        callOrder = callOrder > 24 ? 1 : callOrder + 1;
+        m42_.push(callOrder + "  ");
+        m42_.push(m.data);
+        m42_.push(h('br'));
+        console.log('In workerH$ - - m42_ is', m42_);
+        });
 
       var factors3Press$ = sources.DOM
           .select('input#factors').events('keypress');
@@ -555,16 +625,16 @@
 
       mMZ40.bnd(v => {mM40.ret([reduceMult(v), reducePlus(v)]); console.log(mM40.x)});
 
-      workerH$ = sources.WWH.map(m => {
+    /*  workerH$ = sources.WWH.map(m => {
         console.log('<0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0> In workerH$ m is', m);
         mMZ40.release(m.data);
         // mMZ40.bnd(v => console.log(reduceMult(v), reducePlus));
       });
 
-    //    if (m.data) {console.log('GOOD m.data')} else { return "cow" }
-      //    if (m.target) {console.log('GOOD m.target')} else { return "shit" }
-        //    if (m.data[1]) {console.log('GOOD m.data[1]')} else { return 'donkey'}
-          //    if (m.target.ar2) {console.log('GOOD m.data.ar2')} else { return 'dung'}
+       if (m.data) {console.log('GOOD m.data')} else { return "cow" }
+       if (m.target) {console.log('GOOD m.target')} else { return "shit" }
+       if (m.data[1]) {console.log('GOOD m.data[1]')} else { return 'donkey'}
+       if (m.target.ar2) {console.log('GOOD m.data.ar2')} else { return 'dung'} */
 
       const result778 = x => h('div', [
         m778_RESULT,
@@ -1186,7 +1256,7 @@ var pingpong4$ = pinpon4$.map(() => {
 
 
 
-      var calcStream$ = xs.merge( pingpong$, test5Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterAction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, workerG$, workerH$, clearAction$, factorsAction$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$) 
+      var calcStream$ = xs.merge( pingpong$, test5Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterAction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, workerG$, workerH$, clearAction$, factorsAction$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$) 
 
 
 
@@ -1213,7 +1283,7 @@ var pingpong4$ = pinpon4$.map(() => {
       h('span', styleFunc(["#d3ead5","3%","18px",,,]), 'where '),
       h('pre', styleFunc(["#ffff00",,"18px",,,]), `        x can be any value,
 
-        there are no restrictions on argument types*, 
+        there are no restrictions on argument types, 
 
         there are no restrictions on return value types,
 
@@ -1231,7 +1301,7 @@ var pingpong4$ = pinpon4$.map(() => {
       h('span', '.' ),
       h('br'),
     h('br'),
-    h('span', styleFunc(["#FFD700","3%","20px",,,]), '* '),
+    h('span', styleFunc(["#FFD700","3%","20px",,,]), '\* '),
 
     h('span', 'Functions that take multiple arguments should be curried. Otherwise, they should be placed in arrays or objects. ' ),
     h('p', ' When promises are chained with their "then" methods, only the preceding function\'s return value is available to each link in the chain. bind() overcomes this limitation.'),
@@ -1241,6 +1311,7 @@ var pingpong4$ = pinpon4$.map(() => {
     h('a', {props: {href: "http://ramdajs.com/docs/#compose"}}, 'R.compose' ),
     h('span', ', that facilitate simple function composition; i.e., a function\'s arguments is the preceding function\'s return value. bind() does this while also giving every linked function along a pipeline access to the return values of every function that preceded it.  '),
     h('br'),
+    h('p', 'CAUTION - THE COMMENTARTY AFTER THE DEMONSTRATIONS STILL LAGS BEHIND RECENT REFACTORING.'),
     h('br'),
     ]),
     h('div#content2', [
@@ -1277,21 +1348,27 @@ h('br'),
 
 
 h('div', {style: {width: '47%', fontSize: '15px', float: 'right'}}, [  // ********* RIGHT PANEL
+
+
+
 h('h3', 'Demonstration 1' ),
-h('span', ' Click below (multiple times in rapid succession if you like) to run '),
+h('span', ' Click below to run bind(50)(x=>x\*x\*x)(it4)(it6) twenty-five times. The left column is the call order.'),
 h('br'),
 h('br'),
-h('span', styleFunc(["rgb(7, 247, 247)","12%","20px",,,,,]), 'bind(50)(x=>x*x*x)(it4)(it6)(it7)'),
+h('span', styleFunc(["rgb(7, 247, 247)","12%","20px",,,,,]), 'bind(50)(x=>x\*x\*x)(it4)(it6)'),
 h('br'),
 h('br'),
-h('button.factors_P', {style: {fontSize: '15px'}}, 'bind(50)(x=>x*x*x)(it4)(it6)(it7)'),
+h('button#factors_Q', {style: {fontSize: '15px'}}, 'bind(50)(x=>x\*x\*x)(it4)(it6)(it7)'),
 h('span', "~~"),
-h('button.clear_P', {style: {fontSize: '15px', marginLeft: "0"}},  'clear results'),
+h('button.clear_Q', {style: {fontSize: '15px', marginLeft: "0"}},  'clear results'),
 h('br'),
 h('br'),
-h('div', orange, m42_RESULT ),
+h('div', m42_ ),
 h('br'),
 h('br'),
+
+
+
 h('h3', 'Demonstration 2' ),
 
 h('pre', green, `bind1(n+0)(cubeP)(() => idP(Bindo.bind1[0] -
@@ -1453,6 +1530,7 @@ h('h1', '________________________________________________' ),
 h('div.content', [
 h('a#bind', {props: {href: '#top'}}, 'Back to the top'),
 
+h('p', 'CAUTION - SOME OF THE COMMENTARTY AFTER THIS POINT STILL LAGS BEHIND RECENT REFACTORING.'),
 h('p', ' Here are the definitions of bind and four other similar functions: '),
 h('pre', {style: {color: "lightBlue"}}, `var bind = Bindo("bindo");
 var bind1 = Bindo("bind1");
@@ -1493,22 +1571,8 @@ h('p#cycle', ' bind() overcomes the Promises API\'s lack of any way to access pr
 h('a', { props: { href: '#top' } }, 'Back To The Top'),
 h('br'),
 h('a', {props: {href: '#cyclet'}}, 'Async Procedures' ),
-h('p', ' Let\'s take a closer look at the first demonstration on this page. It computed 50 cubed (125,000), obtained a  pseudo-random number less than 125,000 from the server and sent it to a web worker to obtain its prime decomposition, and formatted the prime numbers for display. Here it is again: '),
-h('span', ' Click below (multiple times in rapid succession if you like) to run '),
-h('br'),
-h('br'),
-h('span', styleFunc(["rgb(7, 247, 247)","7%","20px",,]), 'bind(50)(cubeC)(it4)(it6)(it7)'),
-h('br'),
-h('br'),
-h('button.factors_P', {style: {fontSize: '15px'}}, 'bind(50)(cubeC)(it4)(it6)(it7)'),
-h('span', "~~~~~"),
-h('button.clear_P', {style: {fontSize: '15px', marginLeft: "0"}},  'clear results'),
-h('br'),
-h('br'),
-h('div', m42_RESULT ),
-h('p', ' The definitions of it4(), it6(), and it(7) are: '),
 h('p', ' "h(\'div\', m42_RESULT)" is a permanent fixture in the Snabbdom virtual DOM that is returned by main() and updated by calcStream$. When it7() executes, Snabbdom performs its diff and render routine, updating the browser window. '),
-h('p', ' The asynchronous functions use MonadItter instances mMZ37, mMZ38, and mMZ39 instead of Promises. Here\'s the definition of MonadItter: '),
+h('p', ' The asynchronous functions in Demonstration 1 use monadItter instances mMZ40 and mMZ41 instead of Promises. Here\'s the definition of MonadItter: '),
 h('pre', `  var MonadItter = function MonadItter() {
     this.p = function () {};
     this.release = function () {
@@ -1523,17 +1587,6 @@ h('h3', 'Reactivity In Cycle.js' ),
 h('span.tao', ' Reactivity occurs naturally in the Cycle.js framework. Many developers find that Cycle.js has an unusually steep learning curve. It isn\'t so bad if you start with Andrew Staltz\' '),
 h('a', { props: { href: "https://egghead.io/courses/cycle-js-fundamentals", target: "_blank" } }, ' Overview of Cycle.js.'),
 h('span', ' Its elegance might take your breath away. ' ),
-h('br' ),
-h('p#reactivity2', ' Let\'s take a look at how the ping pong example works in this Cycle.js application. JavaScript\'s mutable variables come in handy here. The variables "COW" and "DOG" are permanent fixtures in the Snabbdom description of the virtual DOM that is returned by main(). Click the button below observe their values changing until ping or pong achieves a score of 11. '),
-h('br'),
-h('button.pingpong', {style: {fontSize: '17px'}}, 'start pingpong'),
-h('br'),
-h('pre', ping43, ` ping        ---> `), 
-h('pre', ping44, `                 <---        pong `),
-h('pre',  `                    -- SCORE: ping: ${pingScore[0]}     pong: ${pingScore[1]} ` ),
-h('span.tao', ' To see how this works, click '),
-h('a', {props: {href: "#reactivity"}}, 'Reactivity in Cycle.js' ),
-h('br'),
 h('br' ),
 h('br' ),
 h('a.tao', {props: {href: 'https://github.com/snabbdom/snabbdom'}}, ' Snabbdom', ),
@@ -1595,7 +1648,7 @@ h('br'),
   h('span', mMfactors.x ),
   h('span.tao3', mMfactors23.x ),
 
-  h('p', ' Next, two comma-separated numbers are decomposed into arrays of their prime factors, and those arrays are used to compute their lowest common multiple (lcm). For example, the lcm of 6 and 9 is 18 because 3*6 and 2*9 are both 18. The lcm of the denominators of two fractions is useful in fraction arithmetic; specifically, addition and subtraction. On my desktop computer, two seven digit numbers resulted in a lag of a few seconds when prime numbers had not been previously generated. ' ),
+  h('p', ' Next, two comma-separated numbers are decomposed into arrays of their prime factors, and those arrays are used to compute their lowest common multiple (lcm). For example, the lcm of 6 and 9 is 18 because 3\*6 and 2\*9 are both 18. The lcm of the denominators of two fractions is useful in fraction arithmetic; specifically, addition and subtraction. On my desktop computer, two seven digit numbers resulted in a lag of a few seconds when prime numbers had not been previously generated. ' ),
 
   h('input#factors_5'),
   h('br'),
@@ -2236,7 +2289,7 @@ var it6 = x => {
 }
 
 var it7 = v => mMZ38.bnd( v => {
-  m42_RESULT = m42_RESULT.concat(h('p', orange, v[3] + v[0] + v[4] + v[5]).text).concat(h('br'))
+  m42_RESULT = m42_RESULT.concat(h('p', orange, v[3] + v[0] + v[4] + v[5]).text.concat(h('br'))
   m42_RESULT2 = m42_RESULT2.concat(h('div', [h('p', orange, v[3] + v[0] + v[4] + v[5]).text]))
   m42_RESULT3 = m42_RESULT3.concat(h('p', orange, v[5]).text).concat(h('br'))
 });  `),

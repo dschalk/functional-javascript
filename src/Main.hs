@@ -391,6 +391,17 @@ talk conn state client = forever $ do
                 broadcast ("BB#$42," `mappend` group `mappend` "," 
                   `mappend` sender `mappend` "," `mappend` (pack $ show z) ) st
 
+     else if "BC#$42" `T.isPrefixOf` msg     -- Generate a random number          
+        then                                          
+            do
+                print "extraNum:"
+                print extraNum
+                z <- Fm.rM extraNum 
+                print z
+                st <- atomically $ readTVar state
+                broadcast ("BC#$42," `mappend` group `mappend` "," 
+                  `mappend` sender `mappend` "," `mappend` (pack $ show z) ) st
+
      else if "GN#$42" `T.isPrefixOf` msg -- RECEIVE A NEW COMMENT, UPDATE THE FILE AND THE TVAR,
                                          --  AND BROADCAST THE NEW COMMENT 
         then

@@ -50,13 +50,13 @@
 
 	var _xstreamRun = __webpack_require__(1);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(8);
 
-	var _code = __webpack_require__(133);
+	var _code = __webpack_require__(132);
 
 	var _code2 = _interopRequireDefault(_code);
 
-	var _ramda = __webpack_require__(134);
+	var _ramda = __webpack_require__(133);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -221,11 +221,14 @@
 	    });
 
 	    mMZ27.bnd(function () {
-	      console.log('In mMZ27 OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO --- v[3] is', v[3]);
-	      mM27.ret(v[3]);
-	      console.log('BB BB BB BB BB BB BB BB BB mM27.x', mM27.x);
-	      mMZ37.release(v[3]);
+	      mMZ38.release(v[3]);
 	    });
+
+	    mMZ28.bnd(function () {
+	      console.log('In mMZ28 - - v[3] is', v[3]);
+	      mMZ40.release(v[3]);
+	    });
+
 	    ret(v[0]).bnd(next, 'CC#$42', mMZ9).bnd(next, 'CA#$42', mMZ10) // Dice roll
 	    .bnd(next, 'CD#$42', mMZ11).bnd(next, 'CE#$42', mMZ12).bnd(next, 'EE#$42', mMZ13).bnd(next, 'TD#$42', mMZ14).bnd(next, 'NN#$42', mMZ15).bnd(next, 'RR#$42', mMZ16).bnd(next, 'GZ#$42', mMZ17) // Comments automatically arrive after the app loads
 	    .bnd(next, 'GN#$42', mMZ18).bnd(next, 'GE#$42', mMZ19).bnd(next, 'GD#$42', mMZ20).bnd(next, 'TA#$42', mMZ21) // Automatic task list load on group change
@@ -233,7 +236,8 @@
 	    .bnd(next, 'TT#$42', mMZ23) // chechbox
 	    .bnd(next, 'TX#$42', mMZ24) // delete button
 	    .bnd(next, 'TI#$42', mMZ25) // group change
-	    .bnd(next, 'BB#$42', mMZ27); // works in conjunction with prm4
+	    .bnd(next, 'BB#$42', mMZ27) // works in conjunction with it4
+	    .bnd(next, 'BC#$42', mMZ28); // works in conjunction with it4
 	  });
 
 	  console.log('1^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ got this far');
@@ -595,10 +599,12 @@
 	  });
 
 	  //******************************************************************* worker
+	  m42_RES = [];
 
 	  var clearClick$ = sources.DOM.select('button.clear_P').events('click').map(function (e) {
 	    console.log('In clearClick$ - - - e is', e);
-	    m42_RESULT = m42_RESULT[0];
+	    m42_RESULT = [];
+	    m42_RESULT2 = [];
 	  });
 
 	  var factors2Press$ = sources.DOM.select('button.factors_P').events('click');
@@ -607,16 +613,138 @@
 	    console.log('&&&&&>>> >> in factors2action$. e is', e);
 	    var factors = [];
 	    mMfactors3.ret('');
-	    Bindo.bind0 = [];
-	    bind(50)(function (x) {
-	      return x * x * x;
-	    })(it4)(it6)(it7);
+	    bind(50)(cubeC)(it4)(it6)(it7);
 	  });
+
 	  workerG$ = sources.WWG.map(function (m) {
-	    mMbar.ret(m.data);
 	    m778_RESULT = result778(m.data);
 	    mMZ38.release(m.data);
-	    mMZ34.release(m.data[6]);
+	    console.log('<><><><><><><><><><>< prime factors ><><><><><><><><><><><><><><><><>');
+	    console.log('<><><><><><><><><><><>< e.data><>< e.target.ar2 ><><><><><><><><><><><><>');
+	    if (m.data) {
+	      console.log('GOOD m.data');
+	    } else {
+	      return "cow";
+	    }
+	    if (m.target) {
+	      console.log('GOOD m.target');
+	    } else {
+	      return "shit";
+	    }
+	    if (m.data[1]) {
+	      console.log('GOOD m.data[1]');
+	    } else {
+	      return 'donkey';
+	    }
+	    if (m.target.ar2) {
+	      console.log('GOOD m.data.ar2');
+	    } else {
+	      return 'dung';
+	    }
+	    console.log('The prime factors of ' + m.data[1] + ' are ' + m.target.ar2.join(', '));
+	    console.log('<><><><><><><><><><><><><><><><><><><><><><><><><><><>');
+	    console.log('<><><><><><><><><><><><><><><><><><><><><><><><><><><>');
+	  });
+
+	  var clearClick7$ = sources.DOM.select('button.clear_Q').events('click').map(function () {
+	    m42_ = [];
+	  });
+
+	  var factorsClick7$ = sources.DOM.select('button#factors_Q').events('click');
+
+	  var factorsAction7$ = factorsClick7$.map(function (e) {
+	    m42_ = [];
+	    console.log('In factorsAction7$ - - <W>W<>W<>W<><W>WWW<W><W>WW><><><><><>!!! e is', e);
+
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	    bind(50)(function (x) {
+	      return x * x * x;
+	    })(it4)(it6);
+	  });
+
+	  var callOrder = 0;
+
+	  workerH$ = sources.WWH.map(function (m) {
+	    callOrder = callOrder > 24 ? 1 : callOrder + 1;
+	    m42_.push(callOrder + "  ");
+	    m42_.push(m.data);
+	    m42_.push((0, _dom.h)('br'));
+	    console.log('In workerH$ - - m42_ is', m42_);
 	  });
 
 	  var factors3Press$ = sources.DOM.select('input#factors').events('keypress');
@@ -631,16 +759,15 @@
 	    mM40.ret([reduceMult(v), reducePlus(v)]);console.log(mM40.x);
 	  });
 
-	  workerH$ = sources.WWH.map(function (m) {
-	    console.log('<0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0> In workerH$ m is', m);
-	    mMZ40.release(m.data);
-	    // mMZ40.bnd(v => console.log(reduceMult(v), reducePlus));
-	  });
-
-	  //    if (m.data) {console.log('GOOD m.data')} else { return "cow" }
-	  //    if (m.target) {console.log('GOOD m.target')} else { return "shit" }
-	  //    if (m.data[1]) {console.log('GOOD m.data[1]')} else { return 'donkey'}
-	  //    if (m.target.ar2) {console.log('GOOD m.data.ar2')} else { return 'dung'}
+	  /*  workerH$ = sources.WWH.map(m => {
+	      console.log('<0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0> In workerH$ m is', m);
+	      mMZ40.release(m.data);
+	      // mMZ40.bnd(v => console.log(reduceMult(v), reducePlus));
+	    });
+	      if (m.data) {console.log('GOOD m.data')} else { return "cow" }
+	     if (m.target) {console.log('GOOD m.target')} else { return "shit" }
+	     if (m.data[1]) {console.log('GOOD m.data[1]')} else { return 'donkey'}
+	     if (m.target.ar2) {console.log('GOOD m.data.ar2')} else { return 'dung'} */
 
 	  var result778 = function result778(x) {
 	    return (0, _dom.h)('div', [m778_RESULT, (0, _dom.h)('br'), (0, _dom.h)('span', bigBlue, x[3]), (0, _dom.h)('span', bigGreen, x[0]), (0, _dom.h)('span', bigBlue, x[4]), (0, _dom.h)('span', bigRed, x[5])]);
@@ -1229,19 +1356,21 @@
 	    };
 	  });
 
-	  var calcStream$ = xs.merge(pingpong$, test5Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterAction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, workerG$, workerH$, clearAction$, factorsAction$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
+	  var calcStream$ = xs.merge(pingpong$, test5Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterAction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, workerG$, workerH$, clearAction$, factorsAction$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$);
 
 	  return { DOM: calcStream$.map(function () {
-	      return (0, _dom.h)('div.main', [(0, _dom.h)('div.image_3', [(0, _dom.h)('img.image_2', { props: { src: "logo.svg" } }), (0, _dom.h)('span', ' '), (0, _dom.h)('a', { props: { href: "https://cycle.js.org/", target: "_blank" } }, 'A Cycle.js application')]), (0, _dom.h)('div', { style: { textAlign: "center", fontWeight: "bold" } }, [(0, _dom.h)('div', { style: { fontSize: "27px", color: "#FFD700" } }, 'FUNCTIONAL PROGRAMMING'), (0, _dom.h)('br'), (0, _dom.h)('div', { style: { fontSize: "22px", fontStyle: "italic", color: "#07f7f7" } }, 'WITH CYCLE.JS')]), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div.content', [(0, _dom.h)('span', styleFunc(["#d3ead5", "3%", "18px",,,]), ' Does composing functions like this: '), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div', styleFunc(["#FFD700",, "21px",,, "center"]), 'bind(x)(functiona1)(function2) ... (functionN)'), (0, _dom.h)('br'), (0, _dom.h)('span', styleFunc(["#d3ead5", "3%", "18px",,,]), 'where '), (0, _dom.h)('pre', styleFunc(["#ffff00",, "18px",,,]), '        x can be any value,\n\n        there are no restrictions on argument types*, \n\n        there are no restrictions on return value types,\n\n        any function in the chain can be asynchronous,\n\n        functions have access to all prior functions\' return values,\n\n        functions have access to prior asynchronous functions\' resolution values. '), (0, _dom.h)('span', styleFunc(["#d3ead5", "3%", "18px",,,]), ' look too flexible and expressive to be possible? It\'s not. It\'s yours to use however you like, such as simplifying the composition of all kinds of functions or helping others to understand the behavior you expect from your chained functions.'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span.tao', ' The starting function "bind" does not depend on Cycle.js, but Cycle.js provides an excellent light weight, non-opinionated platform for exhibiting its potential usefulness in production code. The definition of "bind" is  '), (0, _dom.h)('a', { props: { href: "#bind" } }, 'here'), (0, _dom.h)('span', '.'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span', styleFunc(["#FFD700", "3%", "20px",,,]), '* '), (0, _dom.h)('span', 'Functions that take multiple arguments should be curried. Otherwise, they should be placed in arrays or objects. '), (0, _dom.h)('p', ' When promises are chained with their "then" methods, only the preceding function\'s return value is available to each link in the chain. bind() overcomes this limitation.'), (0, _dom.h)('span.tao', ' There are library functions, for example Lodash/fp\'s '), (0, _dom.h)('a', { props: { href: "https://lodash.com/docs/4.17.4#flow" } }, "  .flow"), (0, _dom.h)('span', ' and Ramda\'s '), (0, _dom.h)('a', { props: { href: "http://ramdajs.com/docs/#compose" } }, 'R.compose'), (0, _dom.h)('span', ', that facilitate simple function composition; i.e., a function\'s arguments is the preceding function\'s return value. bind() does this while also giving every linked function along a pipeline access to the return values of every function that preceded it.  '), (0, _dom.h)('br'), (0, _dom.h)('br')]), (0, _dom.h)('div#content2', [(0, _dom.h)('div', { style: { width: '47%', fontSize: '15px', float: 'left' } }, [// ((************ LEFT PANEL
+	      return (0, _dom.h)('div.main', [(0, _dom.h)('div.image_3', [(0, _dom.h)('img.image_2', { props: { src: "logo.svg" } }), (0, _dom.h)('span', ' '), (0, _dom.h)('a', { props: { href: "https://cycle.js.org/", target: "_blank" } }, 'A Cycle.js application')]), (0, _dom.h)('div', { style: { textAlign: "center", fontWeight: "bold" } }, [(0, _dom.h)('div', { style: { fontSize: "27px", color: "#FFD700" } }, 'FUNCTIONAL PROGRAMMING'), (0, _dom.h)('br'), (0, _dom.h)('div', { style: { fontSize: "22px", fontStyle: "italic", color: "#07f7f7" } }, 'WITH CYCLE.JS')]), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div.content', [(0, _dom.h)('span', styleFunc(["#d3ead5", "3%", "18px",,,]), ' Does composing functions like this: '), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div', styleFunc(["#FFD700",, "21px",,, "center"]), 'bind(x)(functiona1)(function2) ... (functionN)'), (0, _dom.h)('br'), (0, _dom.h)('span', styleFunc(["#d3ead5", "3%", "18px",,,]), 'where '), (0, _dom.h)('pre', styleFunc(["#ffff00",, "18px",,,]), '        x can be any value,\n\n        there are no restrictions on argument types, \n\n        there are no restrictions on return value types,\n\n        any function in the chain can be asynchronous,\n\n        functions have access to all prior functions\' return values,\n\n        functions have access to prior asynchronous functions\' resolution values. '), (0, _dom.h)('span', styleFunc(["#d3ead5", "3%", "18px",,,]), ' look too flexible and expressive to be possible? It\'s not. It\'s yours to use however you like, such as simplifying the composition of all kinds of functions or helping others to understand the behavior you expect from your chained functions.'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span.tao', ' The starting function "bind" does not depend on Cycle.js, but Cycle.js provides an excellent light weight, non-opinionated platform for exhibiting its potential usefulness in production code. The definition of "bind" is  '), (0, _dom.h)('a', { props: { href: "#bind" } }, 'here'), (0, _dom.h)('span', '.'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span', styleFunc(["#FFD700", "3%", "20px",,,]), '\* '), (0, _dom.h)('span', 'Functions that take multiple arguments should be curried. Otherwise, they should be placed in arrays or objects. '), (0, _dom.h)('p', ' When promises are chained with their "then" methods, only the preceding function\'s return value is available to each link in the chain. bind() overcomes this limitation.'), (0, _dom.h)('span.tao', ' There are library functions, for example Lodash/fp\'s '), (0, _dom.h)('a', { props: { href: "https://lodash.com/docs/4.17.4#flow" } }, "  .flow"), (0, _dom.h)('span', ' and Ramda\'s '), (0, _dom.h)('a', { props: { href: "http://ramdajs.com/docs/#compose" } }, 'R.compose'), (0, _dom.h)('span', ', that facilitate simple function composition; i.e., a function\'s arguments is the preceding function\'s return value. bind() does this while also giving every linked function along a pipeline access to the return values of every function that preceded it.  '), (0, _dom.h)('br'), (0, _dom.h)('p', 'CAUTION - THE COMMENTARTY AFTER THE DEMONSTRATIONS STILL LAGS BEHIND RECENT REFACTORING.'), (0, _dom.h)('br')]), (0, _dom.h)('div#content2', [(0, _dom.h)('div', { style: { width: '47%', fontSize: '15px', float: 'left' } }, [// ((************ LEFT PANEL
 	      (0, _dom.h)('br'), (0, _dom.h)('h3', styleFunc(["#8ffc95", "3%",,,,]), ' Demonstration 1 - WebSocket and worker interactions.'), (0, _dom.h)('span', ' The first demonstration begins with a computation. After 50 is cubed, it4 sends the result (125,000) to the Haskell WebSocket server which sends back a pseudo-random number between 0 and 125,000. '), (0, _dom.h)('p', ' When a WebSocket message containing the random number arrives, the front end app (of which, this is the user interface) calls "mMZ37.release(v[3])" where v[3] is the new random number.  mMZ37.release(v[3]) causes it6 to send v[3] to a web worker, prompting it to send back v[3]\'s prime factors. it7 formats the prime factors for display. '), (0, _dom.h)('span#defsReturn', ' it4() and it6 are asynchronous functions that do not use promises. Instead, they use instances of MonadItter, which will be explained later. The definitions of it4, it6, and it7 are in the '), (0, _dom.h)('a', { props: { href: "#defs" } }, 'appendix'), (0, _dom.h)('span', '.'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('h3', styleFunc(["#8ffc95", "3%",,,,]), ' Demonstration 2 - accessing prior values and avoiding clashes.'), (0, _dom.h)('p', ' If you enter an argument x for test5(x) (right column), the code shown in the right column will run: '), (0, _dom.h)('span.tao', 'bind() and variations on its theme are produced by a factory named "Bindo". For example, bind1 is created with the code '), (0, _dom.h)('span', orange, 'var bind1 = Bindo("bind1")  '), (0, _dom.h)('span', '.'), (0, _dom.h)('p', ' bind1 is a function. Bindo.bind1 is an array not of the promises returned by each function, but rather it is an array of the values that are produced as each promise resolves. The display on the right shows bind1 using Bindo.bind1[0] and Bindo.bind1[1] as if they were existing values. Bindo.bind1 is augmented each time a promise resolves. '), (0, _dom.h)('p', ' Demonstration 2 also shows that Bindo effectively insulates the nine sequences from one another. They can\'t corrupt data or running functions and nothing can touch then. '), (0, _dom.h)('span.tao', orange, 'bind1(e.target.value)(cubeP)'), (0, _dom.h)('span', ' cubes user inpup. The first element of the Bindo.bindo array is the user input. It is encapsulated in a promise that resolves after 1200 ms. When it resolves, its cube becomes the resolution value of the next promise and when it resolves, it becomes the argument of the next promise\'s then method and so on. '), (0, _dom.h)('p', '     '), (0, _dom.h)('h3', styleFunc(["#8ffc95", "3%",,,,]), ' Demonstration 3 '), (0, _dom.h)('span', ' This demonstation uses a closure to define separate namespaces, which is what Bindo() does in the previous demonstrations. '), (0, _dom.h)('a', { props: { href: '#pingmaker' } }, 'Click'), (0, _dom.h)('br')]), (0, _dom.h)('div', { style: { width: '47%', fontSize: '15px', float: 'right' } }, [// ********* RIGHT PANEL
-	      (0, _dom.h)('h3', 'Demonstration 1'), (0, _dom.h)('span', ' Click below (multiple times in rapid succession if you like) to run '), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span', styleFunc(["rgb(7, 247, 247)", "12%", "20px",,,,,]), 'bind(50)(x=>x*x*x)(it4)(it6)(it7)'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('button.factors_P', { style: { fontSize: '15px' } }, 'bind(50)(x=>x*x*x)(it4)(it6)(it7)'), (0, _dom.h)('span', "~~"), (0, _dom.h)('button.clear_P', { style: { fontSize: '15px', marginLeft: "0" } }, 'clear results'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div', orange, m42_RESULT), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('h3', 'Demonstration 2'), (0, _dom.h)('pre', green, 'bind1(n+0)(cubeP)(() => idP(Bindo.bind1[0] -\nBindo.bind1[1]))(v=>addP(Bindo.bind1[1])(v));\nbind2(n+1)(cubeP)(() => idP(Bindo.bind2[0] -\nBindo.bind2[1]))(v=>addP(Bindo.bind2[1])(v)); \n  . . .\nbind9(n+8)(cubeP)(() => idP(Bindo.bind9j[0] -\nBindo.bind9[1]))(v=>addP(Bindo.bind9[1])(v)); '), (0, _dom.h)('div#zero', bigRed, Bindo.bind1.join(', ')), (0, _dom.h)('span', ' value of n --> '), (0, _dom.h)('input#test5', { style: { height: "15px" } }), (0, _dom.h)('br'), (0, _dom.h)('div#z1', bigGreen, Bindo.bind1.join(', ')), (0, _dom.h)('div#z2', bigGreen, Bindo.bind2.join(', ')), (0, _dom.h)('div#z3', bigGreen, Bindo.bind3.join(', ')), (0, _dom.h)('div#z4', bigGreen, Bindo.bind4.join(', ')), (0, _dom.h)('div#z5', bigGreen, Bindo.bind5.join(', ')), (0, _dom.h)('div#z6', bigGreen, Bindo.bind6.join(', ')), (0, _dom.h)('div#z7', bigGreen, Bindo.bind7.join(', ')), (0, _dom.h)('div#z8', bigGreen, Bindo.bind8.join(', ')), (0, _dom.h)('div#z9', bigGreen, Bindo.bind9.join(', ')), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('h3', 'Demonstration 3'), (0, _dom.h)('br'), (0, _dom.h)('button.pingpong', { style: { fontSize: '17px' } }, 'start pingpong'), pingDisplay, (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), m67_RESULT, (0, _dom.h)('br'), m68_RESULT, (0, _dom.h)('br'), m69_RESULT, (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br')]), (0, _dom.h)('br'), (0, _dom.h)('br')]), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('h1', '_____________________________________________________________________'), (0, _dom.h)('br'), (0, _dom.h)('div.content', [(0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span.tao', 'This project was created by and is actively maintained by me, David Schalk. It is a work in progress. The code repository is at '), (0, _dom.h)('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript", target: "_blank" } }, 'monads-in-JavaScript'), (0, _dom.h)('span', '. Please leave a comment in the '), (0, _dom.h)('a', { props: { href: "#comments" } }, 'comments'), (0, _dom.h)('span', ' section near the end of this page. You can email me at pyschalk@gmail.com. '), (0, _dom.h)('p', ' '), (0, _dom.h)('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history. All group members see your score decrease or increase as you navigate backwards and forwards. '), (0, _dom.h)('p', ' You are automatically logged in with randomly generated numbers as your user name and password. Your group is the non-group "solo". '), (0, _dom.h)('p', ' You can select a persistent name and password. These will make it possible for you to return later to delete or edit comments that you might have saved. '), (0, _dom.h)('p#gameIntro', ' The demonstration section also has a text box where you can create or join groups. Changing groups resets your game score and goal tally to zeros. '), (0, _dom.h)('span.tao', ' The game code is fairly concise and intuitive. A quick walk-through is presented at.'), (0, _dom.h)('a', { props: { href: '#gameCode' } }, 'here'), (0, _dom.h)('span', '. To see monadic functionality at work, I suggest that you take a look at the section captioned '), (0, _dom.h)('a', { props: { href: '#asyncExplanation' } }, 'Asynchronous Processes'), (0, _dom.h)('br'), (0, _dom.h)('p', ' But it might be best to first proceed down the page and see the examples of Monad instances manipulating data. If you are trying to wrap you head around the concept of functional programming, playing with bind() and the monads in the browser console might lift you into the comfort zone you seek. '), (0, _dom.h)('h3', 'The Game'), (0, _dom.h)('p', 'People who are in the same group, other than the default non-group named "solo", share the same todo list, chat messages, and simulated dice game. '), (0, _dom.h)('p', ' Data for the traversable game history accumulates until a player scores three goals and wins. The data array is then emptied and the application is ready to start accumulating a new history. '), (0, _dom.h)('p', ' Your user name for trying out the game, todo list, and chat demonstrations and for leaving comments is a thirteen digit random number. In the game section and in the comments section near the bottom of this page, you can chose your own persistent user name and password. As mentioned above, Knowing your password facilitates revising or removing comments.')]), (0, _dom.h)('h1', 'Game, Todo List, Text Messages'), (0, _dom.h)('div#gameDiv2', { style: { display: mMgameDiv2.x } }, [(0, _dom.h)('div#leftPanel', { style: { display: mMgameDiv2.x } }, [(0, _dom.h)('p', 'RULES: If clicking two numbers and an operator (in any order) results in 20 or 18, the score increases by 1 or 3, respectively. If the score becomes 0 or is evenly divisible by 5, 5 points are added. A score of 25 results in one goal. That can only be achieved by arriving at a score of 20, which jumps the score to 25. Directly computing 25 results in a score of 30, and no goal. Each time ROLL is clicked, one point is deducted. Three goals wins the game. The code is in an appendix.'), (0, _dom.h)('p', { style: { color: 'red', fontSize: '20px' } }, mMgoals2.x), buttonNode, (0, _dom.h)('br'), (0, _dom.h)('button#4.op', 'add'), (0, _dom.h)('button#5.op', 'subtract'), (0, _dom.h)('button#6.op', 'mult'), (0, _dom.h)('button#7.op', 'div'), (0, _dom.h)('button#8.op', 'concat'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div#dice', { style: { display: mMdice.x } }, [(0, _dom.h)('button#roll.tao1', 'ROLL'), (0, _dom.h)('button#back.tao100', 'BACK'), (0, _dom.h)('button#ahead.tao1', 'FORWARD'), (0, _dom.h)('div.tao', 'Selected numbers: ' + gameMonad.fetch3().join(', ')), (0, _dom.h)('div.tao', 'Operator: ' + gameMonad.fetch2() + ' '), (0, _dom.h)('div.tao', 'Index: ' + gameMonad.s[1]), (0, _dom.h)('button#clear', 'Clear selected numbers'), (0, _dom.h)('p', ' When traversing the game history, any time there are two selected numbers and a selected operator, a computation will be performed. You can clear the selected numbers and substitute others, and if you don\'t want a selected operator you can select another one.'), (0, _dom.h)('span', 'Change group: '), (0, _dom.h)('input#group', 'test'), (0, _dom.h)('p', mMsoloAlert.x), (0, _dom.h)('p', ' You can change your name by entering a comma-separated name and password below. The combination will go into a persistent file. You can use this combination in the future to edit or delete your saved comments. '), (0, _dom.h)('span.red', mMregister.x), (0, _dom.h)('label', { style: { display: mMshowRegister.x } }, 'Register or log in here:'), (0, _dom.h)('input.register', { style: { display: mMshowRegister.x } })])]), (0, _dom.h)('div#rightanel', { style: { display: 'block', float: 'right' } }, [(0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('button#todoButton.cow', 'TOGGLE TODO_LIST'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('button#chat2.cow', 'TOGGLE CHAT'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div', { style: { fontSize: "14 px" } }, 'Name: ' + pMname.x), (0, _dom.h)('div', { style: { fontSize: "14 px" } }, 'Group: ' + pMgroup.x), (0, _dom.h)('br'), (0, _dom.h)('div', { style: { fontSize: "14 px" } }, gameData), (0, _dom.h)('br'), (0, _dom.h)('div#a100', ' _____________________________________ '), (0, _dom.h)('p.italic', ' Join group "t" if you want to see some previously created tasks. '), (0, _dom.h)('div', { style: { display: showTodoDiv } }, [(0, _dom.h)('div', taskMonad.html), (0, _dom.h)('div', 'Enter author, responsible person, and task here: '), (0, _dom.h)('input.newTask')]), (0, _dom.h)('br'), (0, _dom.h)('span#alert', mMalert.x), (0, _dom.h)('br'), (0, _dom.h)('span#alert2'), (0, _dom.h)('br'), (0, _dom.h)('div#chatDiv', { style: { display: showChatDiv } }, [(0, _dom.h)('div#messages', [(0, _dom.h)('span', 'Message: '), (0, _dom.h)('input.inputMessage'), (0, _dom.h)('div', messages), (0, _dom.h)('br')])])])]), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('h1', '________________________________________________'), (0, _dom.h)('div.content', [(0, _dom.h)('a#bind', { props: { href: '#top' } }, 'Back to the top'), (0, _dom.h)('p', ' Here are the definitions of bind and four other similar functions: '), (0, _dom.h)('pre', { style: { color: "lightBlue" } }, 'var bind = Bindo("bindo");\nvar bind1 = Bindo("bind1");\nvar bind2 = Bindo("bind2");\nvar bind3 = Bindo("bind3");\nvar bind4 = Bindo("bind4");\n\nfunction Bindo (str) {\n  Bindo[str] = [];\n  return function bindo ( x ) {\n    if (x instanceof Promise) x.then(y => {\n      Bindo[str].push(y);\n      diffRender();\n      console.log(Bindo[str]);\n    })\n    else {\n      Bindo[str].push(x)\n      diffRender();\n    }\n    console.log(Bindo[str]);\n    return function debug8 (func) {\n      var p;\n      if (func.name === "terminate") return Bindo[str];\n      if (x instanceof Promise) {\n        p = x.then(v => func(v));\n      }\n      else p = func(x);\n      return bindo(p,Bindo[str]);\n    };\n  };\n}; '), (0, _dom.h)('p', ' "bind"\s result array "Bindo.bindo" couldn\'t be named "Bindo.bind" without overriding Bind\'s prototypical bind method. As you see, "Bindo" provides a namespace for functions returned by Bindo. Creating unique names for different uses of Bindo avoids clashes. '), (0, _dom.h)('a', { props: { href: '#content2' } }, 'Back to the preview demos'), (0, _dom.h)('p', italicYellow, ' Sequences beginning with bind() reveal exactly what is happening while hiding a confusing mess of nested promises. They provide an excellent alternative to "Callback Hell". '), (0, _dom.h)('p#cycle', ' bind() overcomes the Promises API\'s lack of any way to access prior results linked by the "then()" method. The number ar[0] as well as the promise ar[5] were used used in the sequence above. A short distance down this page you can see asynchronous procedures based on MonadItter rather than Promises. MonadItter and Cycle.js working together can do everything promises and generators do but with greater flexibility and easier access to all values returned by the function calls is chained procedures. The links can be various functions rather than  '), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back To The Top'), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: '#cyclet' } }, 'Async Procedures'), (0, _dom.h)('p', ' Let\'s take a closer look at the first demonstration on this page. It computed 50 cubed (125,000), obtained a  pseudo-random number less than 125,000 from the server and sent it to a web worker to obtain its prime decomposition, and formatted the prime numbers for display. Here it is again: '), (0, _dom.h)('span', ' Click below (multiple times in rapid succession if you like) to run '), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span', styleFunc(["rgb(7, 247, 247)", "7%", "20px",,]), 'bind(50)(cubeC)(it4)(it6)(it7)'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('button.factors_P', { style: { fontSize: '15px' } }, 'bind(50)(cubeC)(it4)(it6)(it7)'), (0, _dom.h)('span', "~~~~~"), (0, _dom.h)('button.clear_P', { style: { fontSize: '15px', marginLeft: "0" } }, 'clear results'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div', m42_RESULT), (0, _dom.h)('p', ' The definitions of it4(), it6(), and it(7) are: '), (0, _dom.h)('p', ' "h(\'div\', m42_RESULT)" is a permanent fixture in the Snabbdom virtual DOM that is returned by main() and updated by calcStream$. When it7() executes, Snabbdom performs its diff and render routine, updating the browser window. '), (0, _dom.h)('p', ' The asynchronous functions use MonadItter instances mMZ37, mMZ38, and mMZ39 instead of Promises. Here\'s the definition of MonadItter: '), (0, _dom.h)('pre', '  var MonadItter = function MonadItter() {\n    this.p = function () {};\n    this.release = function () {\n      return this.p.apply(this, arguments);\n    };\n    this.bnd = function (func) {\n      return this.p = func;\n    };\n  }; '), (0, _dom.h)('p', ' When obtaining data from unreliable sources, one should add error checking functionality or use promises. '), (0, _dom.h)('h3', 'Reactivity In Cycle.js'), (0, _dom.h)('span.tao', ' Reactivity occurs naturally in the Cycle.js framework. Many developers find that Cycle.js has an unusually steep learning curve. It isn\'t so bad if you start with Andrew Staltz\' '), (0, _dom.h)('a', { props: { href: "https://egghead.io/courses/cycle-js-fundamentals", target: "_blank" } }, ' Overview of Cycle.js.'), (0, _dom.h)('span', ' Its elegance might take your breath away. '), (0, _dom.h)('br'), (0, _dom.h)('p#reactivity2', ' Let\'s take a look at how the ping pong example works in this Cycle.js application. JavaScript\'s mutable variables come in handy here. The variables "COW" and "DOG" are permanent fixtures in the Snabbdom description of the virtual DOM that is returned by main(). Click the button below observe their values changing until ping or pong achieves a score of 11. '), (0, _dom.h)('br'), (0, _dom.h)('button.pingpong', { style: { fontSize: '17px' } }, 'start pingpong'), (0, _dom.h)('br'), (0, _dom.h)('pre', ping43, ' ping        ---> '), (0, _dom.h)('pre', ping44, '                 <---        pong '), (0, _dom.h)('pre', '                    -- SCORE: ping: ' + pingScore[0] + '     pong: ' + pingScore[1] + ' '), (0, _dom.h)('span.tao', ' To see how this works, click '), (0, _dom.h)('a', { props: { href: "#reactivity" } }, 'Reactivity in Cycle.js'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('a.tao', { props: { href: 'https://github.com/snabbdom/snabbdom' } }, ' Snabbdom'), (0, _dom.h)('span', ', '), (0, _dom.h)('a', { props: { href: 'http://x-stream.github.io/' } }, ' xstream,'), (0, _dom.h)('span', ' and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimentation and learning so many supporting files are included as scripts in the index.html page. '), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back to the top'), (0, _dom.h)('br'), (0, _dom.h)('br'), _code2.default.async1, (0, _dom.h)('br'), (0, _dom.h)('span', mMfibBlurb.x), (0, _dom.h)('span', [(0, _dom.h)('svg', { attrs: { width: 50, height: 50 } }, [(0, _dom.h)('circle', { attrs: { cx: 25, cy: 25, r: 20, stroke: 'purple', 'stroke-width': 4, fill: fill1Monad.x } })])]), (0, _dom.h)('span', mMprimeBlurb.x), (0, _dom.h)('span', [(0, _dom.h)('svg', { attrs: { width: 50, height: 50 } }, [(0, _dom.h)('circle', { attrs: { cx: 25, cy: 25, r: 20, stroke: 'purple', 'stroke-width': 4, fill: fill2Monad.x } })])]), (0, _dom.h)('span', mMprimeFibBlurb.x), (0, _dom.h)('span', [(0, _dom.h)('svg', { attrs: { width: 50, height: 50 } }, [(0, _dom.h)('circle', { attrs: { cx: 25, cy: 25, r: 20, stroke: 'purple', 'stroke-width': 4, fill: fill3Monad.x } })])]), (0, _dom.h)('br'), (0, _dom.h)('p.red', 'The elapsed time is ' + mMelapsed.x + ' milliseconds.'), (0, _dom.h)('input#fib92'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span#PF_7.red6', 'Fibonacci Numbers'), (0, _dom.h)('br'), (0, _dom.h)('span#PF_9.turk', mMres.x[0]), (0, _dom.h)('br'), (0, _dom.h)('span#PF_8.red6', 'Prime Fibonacci Numbers'), (0, _dom.h)('br'), (0, _dom.h)('span#primeFibs.turk', mMres.x[2]), (0, _dom.h)('br'), (0, _dom.h)('span#PF_21.red6', 'The largest generated prime number.'), (0, _dom.h)('br'), (0, _dom.h)('span#PF_22.turk', mMres.x[1]), (0, _dom.h)('br'), (0, _dom.h)('h3', ' Promises are not needed '), (0, _dom.h)('p', ' Asynchronous code can be handled without reliance on Ecmascript 2015 promises either explicitly or implicitly (e.g. using async/await). Cycle.js drivers eliminate any need to explicitly use functions from reactive library, but Xstrean is an integral component of Cycle.js. '), (0, _dom.h)('p', ' The second demonstration in this series decomposes numbers into its their prime factors. Testing with sequences of 9\'s, the first substantial lag occurs at 9,999,999 - unless a large array of prime numbers has already been generated in the previous demonstration or elsewhere. Here it is:'), (0, _dom.h)('input#factors_1'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span', mMfactors.x), (0, _dom.h)('span.tao3', mMfactors23.x), (0, _dom.h)('p', ' Next, two comma-separated numbers are decomposed into arrays of their prime factors, and those arrays are used to compute their lowest common multiple (lcm). For example, the lcm of 6 and 9 is 18 because 3*6 and 2*9 are both 18. The lcm of the denominators of two fractions is useful in fraction arithmetic; specifically, addition and subtraction. On my desktop computer, two seven digit numbers resulted in a lag of a few seconds when prime numbers had not been previously generated. '), (0, _dom.h)('input#factors_5'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div.tao3', mMfactors7.x), (0, _dom.h)('span', 'The least common multiple of  ' + mMfactors8.x[0] + ' and ' + mMfactors8.x[1] + ' is '), (0, _dom.h)('span.tao3', '' + mMfactors8.x[2]), (0, _dom.h)('br'), (0, _dom.h)('span', 'The largest common factor of ' + mMfactors8.x[0] + ' and ' + mMfactors8.x[1] + ' is '), (0, _dom.h)('span.tao3', '' + mMfactors8.x[3]), (0, _dom.h)('br'), (0, _dom.h)('div', 'TEST: ' + mMfactors8.x[0] + ' * ' + mMfactors8.x[1] + ' === ' + mMfactors8.x[2] + ' * ' + mMfactors8.x[3] + ' '), (0, _dom.h)('span', 'RESULT: '), (0, _dom.h)('span.tao3', '' + (mMfactors8.x[0] * mMfactors8.x[1] === mMfactors8.x[2] * mMfactors8.x[3])), (0, _dom.h)('h3', ' The Easy Way '), (0, _dom.h)('p', ' This has been a demonstration of MonadState and MonadState transformers. If you really want the least common multiple or the largest common factor of two positive integers, there is no need to generate prime numbers. The next and final demonstration in this section does not use a web worker. The computations block the main thread, but only for a few microseconds.'), (0, _dom.h)('br'), (0, _dom.h)('input#factors800'), (0, _dom.h)('br'), (0, _dom.h)('span', 'The least common multiple of  ' + mMfactors800.x[0] + ' and ' + mMfactors800.x[1] + ' is '), (0, _dom.h)('span.tao3', '' + mMfactors800.x[2]), (0, _dom.h)('br'), (0, _dom.h)('span', 'The largest common factor of ' + mMfactors800.x[0] + ' and ' + mMfactors800.x[1] + ' is '), (0, _dom.h)('span.tao3', '' + mMfactors800.x[3]), (0, _dom.h)('br'), (0, _dom.h)('div', 'TEST: ' + mMfactors800.x[0] + ' * ' + mMfactors800.x[1] + ' === ' + mMfactors800.x[2] + ' * ' + mMfactors800.x[3] + ' '), (0, _dom.h)('span', 'RESULT: '), (0, _dom.h)('span.tao3', '' + (mMfactors800.x[0] * mMfactors800.x[1] === mMfactors800.x[2] * mMfactors800.x[3])), (0, _dom.h)('p', ' The code for the previous demonstrations is available at the Github repository, and will soon be available here in an appendix. primesMonad and the functions primarily involved in its transformation are shown below: '), _code2.default.primes, (0, _dom.h)('p', ' primesMonad state updates are generated in workerB.js and stored in the main thread. Users set new upper bounds on the size of the largest Fibonacci number in the series to be considered by entering a number in a browser input box. Here is the relevant code: '), _code2.default.primes3, (0, _dom.h)('p', ' The user\'s selected number along with the current state of primesMonad (primesMonad.s) gets posted to workerB, which gets functionality beyond its prototype from workerB.js, which orchestrates preparation of the return message that will be posted back to the main thread. workerB.js delegates the job to functions in script2.js by calling: '), _code2.default.primes4, (0, _dom.h)('p', ' execF prepares the Fibonacci series and sends its state, along with the state of primesMonad that it received from workerB.js, to fpTransformer. execP is called with the current state and the largest Fibonacci number that had been recently produced by execF as arguments. The updated state is an array with four elements, [new upper bound, new series, largest prime produced in the current browser session, largest series]. If the new result is larger than any previous one, the first and second elements of the state array are identical to the third and fourth. Otherwise, they are smaller. As is apparent in the following code, primesMonad is re-created in the main thread using the state array that was posted by workerB. '), _code2.default.primes2, (0, _dom.h)('h3', 'Type Checking'), (0, _dom.h)('p', ' Type checking is useful for avoiding runtime errors and for optimization of user interfaces. For example, if a user enters the wrong type of data it is helpful to display a message explaining why nothing is happening. Not allowing defective user input to be transmitted to a WebSocket server prevents sockets from disconnecting. Some developers like to superimpose strong typing over JavaScript or write code in a strongly typed language that compiles to JavaScript. Others like to retain all of JavaScript\'s possibilities, checking types in only a few functions.  '), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back to the top'), (0, _dom.h)('h3', 'More Examples'), (0, _dom.h)('p', ' The result of every computation in a chain of synchronous functions is available to every computation that comes after it. This can be seen in the next example: '), (0, _dom.h)('pre', { style: { fontSize: "12px" } }, '  bind(1)(addC(2))(cubeC)(addC(3))\n  (multC(this.ar[1]))(multC(this.ar[1]))\n  (addC(30))(multC(1/(ar[3]*2)))(terminate)\n   // [1, 3, 27, 30, 90, 270, 300, 5] '), (0, _dom.h)('p', ' Or, equivalently: '), (0, _dom.h)('pre', orange, '  bind(1)(v=>v+2)(v=>v*v*v)(v=>v+3)\n  (v=>v*ar[1])(v=>v*ar[1])(v=>v+30)\n  (v=>v*1/(ar[3]*2))(terminate)\n   // [1, 3, 27, 30, 90, 270, 300, 5] '), (0, _dom.h)('p#cycletime', ' Or if you want just the final result '), (0, _dom.h)('pre', '  bind(1)(v=>v+2)(v=>v*v*v)(v=>v+3)\n  (v=>v*ar[1])(v=>v*ar[1])(v=>v+30)\n  (v=>v*1/(ar[3]*2))(terminate).pop()  // 5] '), (0, _dom.h)('h2', 'Alternative Monad Functionality'), (0, _dom.h)('p', ' Instances of Monad can also link by means of the method "bnd()". It, along with the method "ret()", were made available as follows: '), (0, _dom.h)('pre', { style: { color: "rgb(236, 242, 186)" } }, '  Monad.prototype.bnd = function (func, ...args) {\n    var m = func(this.x, ...args)\n    var ID;\n    if (m instanceof Monad) {\n      ID = testPrefix(args, this.id);\n      window[ID] = new Monad(m.x, ID);\n      return window[ID];\n    }\n    else return m;\n  };\n\n  Monad.prototype.ret = function (a) {\n    return window[this.id] = new Monad(a, this.id);\n  };\n\n  function testPrefix (x,y) {\n     var t = y;  // y is the id of the monad calling testPrefix\n     if (Array.isArray(x)) {\n      x.map(v => {\n        if (typeof v == \'string\' && v.charAt() == \'$\') {\n           t = v.slice(1);  // Remove "$"\n        }\n      })\n    }\n    return t;\n  }; '), (0, _dom.h)('p', ' This is less functional than using bind() in that it doesn\'t pass functions down the chain but instead passes objects with exposed methods. But it has appealing features. Look how values move along the chain until, at the end they combine to yield 42. Explicitly passing values from function to function along a chain is impossible with bind(); but with bind(), all chained functions share an array of return values and the resolution values of returned promises. '), (0, _dom.h)('br#itter'), (0, _dom.h)('pre', '  ret(2).bnd(v => add(v,1)\n  .bnd(cube).bnd(p => add(p,3)\n  .bnd(() => ret(p/3).bnd(add,3)\n  .bnd(z => v*z+p-v*p+z))))  //  9 '),
+
+
+	      (0, _dom.h)('h3', 'Demonstration 1'), (0, _dom.h)('span', ' Click below to run bind(50)(x=>x\*x\*x)(it4)(it6) twenty-five times. The left column is the call order.'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span', styleFunc(["rgb(7, 247, 247)", "12%", "20px",,,,,]), 'bind(50)(x=>x\*x\*x)(it4)(it6)'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('button#factors_Q', { style: { fontSize: '15px' } }, 'bind(50)(x=>x\*x\*x)(it4)(it6)(it7)'), (0, _dom.h)('span', "~~"), (0, _dom.h)('button.clear_Q', { style: { fontSize: '15px', marginLeft: "0" } }, 'clear results'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div', m42_), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('h3', 'Demonstration 2'), (0, _dom.h)('pre', green, 'bind1(n+0)(cubeP)(() => idP(Bindo.bind1[0] -\nBindo.bind1[1]))(v=>addP(Bindo.bind1[1])(v));\nbind2(n+1)(cubeP)(() => idP(Bindo.bind2[0] -\nBindo.bind2[1]))(v=>addP(Bindo.bind2[1])(v)); \n  . . .\nbind9(n+8)(cubeP)(() => idP(Bindo.bind9j[0] -\nBindo.bind9[1]))(v=>addP(Bindo.bind9[1])(v)); '), (0, _dom.h)('div#zero', bigRed, Bindo.bind1.join(', ')), (0, _dom.h)('span', ' value of n --> '), (0, _dom.h)('input#test5', { style: { height: "15px" } }), (0, _dom.h)('br'), (0, _dom.h)('div#z1', bigGreen, Bindo.bind1.join(', ')), (0, _dom.h)('div#z2', bigGreen, Bindo.bind2.join(', ')), (0, _dom.h)('div#z3', bigGreen, Bindo.bind3.join(', ')), (0, _dom.h)('div#z4', bigGreen, Bindo.bind4.join(', ')), (0, _dom.h)('div#z5', bigGreen, Bindo.bind5.join(', ')), (0, _dom.h)('div#z6', bigGreen, Bindo.bind6.join(', ')), (0, _dom.h)('div#z7', bigGreen, Bindo.bind7.join(', ')), (0, _dom.h)('div#z8', bigGreen, Bindo.bind8.join(', ')), (0, _dom.h)('div#z9', bigGreen, Bindo.bind9.join(', ')), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('h3', 'Demonstration 3'), (0, _dom.h)('br'), (0, _dom.h)('button.pingpong', { style: { fontSize: '17px' } }, 'start pingpong'), pingDisplay, (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), m67_RESULT, (0, _dom.h)('br'), m68_RESULT, (0, _dom.h)('br'), m69_RESULT, (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br')]), (0, _dom.h)('br'), (0, _dom.h)('br')]), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('h1', '_____________________________________________________________________'), (0, _dom.h)('br'), (0, _dom.h)('div.content', [(0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span.tao', 'This project was created by and is actively maintained by me, David Schalk. It is a work in progress. The code repository is at '), (0, _dom.h)('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript", target: "_blank" } }, 'monads-in-JavaScript'), (0, _dom.h)('span', '. Please leave a comment in the '), (0, _dom.h)('a', { props: { href: "#comments" } }, 'comments'), (0, _dom.h)('span', ' section near the end of this page. You can email me at pyschalk@gmail.com. '), (0, _dom.h)('p', ' '), (0, _dom.h)('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history. All group members see your score decrease or increase as you navigate backwards and forwards. '), (0, _dom.h)('p', ' You are automatically logged in with randomly generated numbers as your user name and password. Your group is the non-group "solo". '), (0, _dom.h)('p', ' You can select a persistent name and password. These will make it possible for you to return later to delete or edit comments that you might have saved. '), (0, _dom.h)('p#gameIntro', ' The demonstration section also has a text box where you can create or join groups. Changing groups resets your game score and goal tally to zeros. '), (0, _dom.h)('span.tao', ' The game code is fairly concise and intuitive. A quick walk-through is presented at.'), (0, _dom.h)('a', { props: { href: '#gameCode' } }, 'here'), (0, _dom.h)('span', '. To see monadic functionality at work, I suggest that you take a look at the section captioned '), (0, _dom.h)('a', { props: { href: '#asyncExplanation' } }, 'Asynchronous Processes'), (0, _dom.h)('br'), (0, _dom.h)('p', ' But it might be best to first proceed down the page and see the examples of Monad instances manipulating data. If you are trying to wrap you head around the concept of functional programming, playing with bind() and the monads in the browser console might lift you into the comfort zone you seek. '), (0, _dom.h)('h3', 'The Game'), (0, _dom.h)('p', 'People who are in the same group, other than the default non-group named "solo", share the same todo list, chat messages, and simulated dice game. '), (0, _dom.h)('p', ' Data for the traversable game history accumulates until a player scores three goals and wins. The data array is then emptied and the application is ready to start accumulating a new history. '), (0, _dom.h)('p', ' Your user name for trying out the game, todo list, and chat demonstrations and for leaving comments is a thirteen digit random number. In the game section and in the comments section near the bottom of this page, you can chose your own persistent user name and password. As mentioned above, Knowing your password facilitates revising or removing comments.')]), (0, _dom.h)('h1', 'Game, Todo List, Text Messages'), (0, _dom.h)('div#gameDiv2', { style: { display: mMgameDiv2.x } }, [(0, _dom.h)('div#leftPanel', { style: { display: mMgameDiv2.x } }, [(0, _dom.h)('p', 'RULES: If clicking two numbers and an operator (in any order) results in 20 or 18, the score increases by 1 or 3, respectively. If the score becomes 0 or is evenly divisible by 5, 5 points are added. A score of 25 results in one goal. That can only be achieved by arriving at a score of 20, which jumps the score to 25. Directly computing 25 results in a score of 30, and no goal. Each time ROLL is clicked, one point is deducted. Three goals wins the game. The code is in an appendix.'), (0, _dom.h)('p', { style: { color: 'red', fontSize: '20px' } }, mMgoals2.x), buttonNode, (0, _dom.h)('br'), (0, _dom.h)('button#4.op', 'add'), (0, _dom.h)('button#5.op', 'subtract'), (0, _dom.h)('button#6.op', 'mult'), (0, _dom.h)('button#7.op', 'div'), (0, _dom.h)('button#8.op', 'concat'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div#dice', { style: { display: mMdice.x } }, [(0, _dom.h)('button#roll.tao1', 'ROLL'), (0, _dom.h)('button#back.tao100', 'BACK'), (0, _dom.h)('button#ahead.tao1', 'FORWARD'), (0, _dom.h)('div.tao', 'Selected numbers: ' + gameMonad.fetch3().join(', ')), (0, _dom.h)('div.tao', 'Operator: ' + gameMonad.fetch2() + ' '), (0, _dom.h)('div.tao', 'Index: ' + gameMonad.s[1]), (0, _dom.h)('button#clear', 'Clear selected numbers'), (0, _dom.h)('p', ' When traversing the game history, any time there are two selected numbers and a selected operator, a computation will be performed. You can clear the selected numbers and substitute others, and if you don\'t want a selected operator you can select another one.'), (0, _dom.h)('span', 'Change group: '), (0, _dom.h)('input#group', 'test'), (0, _dom.h)('p', mMsoloAlert.x), (0, _dom.h)('p', ' You can change your name by entering a comma-separated name and password below. The combination will go into a persistent file. You can use this combination in the future to edit or delete your saved comments. '), (0, _dom.h)('span.red', mMregister.x), (0, _dom.h)('label', { style: { display: mMshowRegister.x } }, 'Register or log in here:'), (0, _dom.h)('input.register', { style: { display: mMshowRegister.x } })])]), (0, _dom.h)('div#rightanel', { style: { display: 'block', float: 'right' } }, [(0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('button#todoButton.cow', 'TOGGLE TODO_LIST'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('button#chat2.cow', 'TOGGLE CHAT'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div', { style: { fontSize: "14 px" } }, 'Name: ' + pMname.x), (0, _dom.h)('div', { style: { fontSize: "14 px" } }, 'Group: ' + pMgroup.x), (0, _dom.h)('br'), (0, _dom.h)('div', { style: { fontSize: "14 px" } }, gameData), (0, _dom.h)('br'), (0, _dom.h)('div#a100', ' _____________________________________ '), (0, _dom.h)('p.italic', ' Join group "t" if you want to see some previously created tasks. '), (0, _dom.h)('div', { style: { display: showTodoDiv } }, [(0, _dom.h)('div', taskMonad.html), (0, _dom.h)('div', 'Enter author, responsible person, and task here: '), (0, _dom.h)('input.newTask')]), (0, _dom.h)('br'), (0, _dom.h)('span#alert', mMalert.x), (0, _dom.h)('br'), (0, _dom.h)('span#alert2'), (0, _dom.h)('br'), (0, _dom.h)('div#chatDiv', { style: { display: showChatDiv } }, [(0, _dom.h)('div#messages', [(0, _dom.h)('span', 'Message: '), (0, _dom.h)('input.inputMessage'), (0, _dom.h)('div', messages), (0, _dom.h)('br')])])])]), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('h1', '________________________________________________'), (0, _dom.h)('div.content', [(0, _dom.h)('a#bind', { props: { href: '#top' } }, 'Back to the top'), (0, _dom.h)('p', 'CAUTION - SOME OF THE COMMENTARTY AFTER THIS POINT STILL LAGS BEHIND RECENT REFACTORING.'), (0, _dom.h)('p', ' Here are the definitions of bind and four other similar functions: '), (0, _dom.h)('pre', { style: { color: "lightBlue" } }, 'var bind = Bindo("bindo");\nvar bind1 = Bindo("bind1");\nvar bind2 = Bindo("bind2");\nvar bind3 = Bindo("bind3");\nvar bind4 = Bindo("bind4");\n\nfunction Bindo (str) {\n  Bindo[str] = [];\n  return function bindo ( x ) {\n    if (x instanceof Promise) x.then(y => {\n      Bindo[str].push(y);\n      diffRender();\n      console.log(Bindo[str]);\n    })\n    else {\n      Bindo[str].push(x)\n      diffRender();\n    }\n    console.log(Bindo[str]);\n    return function debug8 (func) {\n      var p;\n      if (func.name === "terminate") return Bindo[str];\n      if (x instanceof Promise) {\n        p = x.then(v => func(v));\n      }\n      else p = func(x);\n      return bindo(p,Bindo[str]);\n    };\n  };\n}; '), (0, _dom.h)('p', ' "bind"\s result array "Bindo.bindo" couldn\'t be named "Bindo.bind" without overriding Bind\'s prototypical bind method. As you see, "Bindo" provides a namespace for functions returned by Bindo. Creating unique names for different uses of Bindo avoids clashes. '), (0, _dom.h)('a', { props: { href: '#content2' } }, 'Back to the preview demos'), (0, _dom.h)('p', italicYellow, ' Sequences beginning with bind() reveal exactly what is happening while hiding a confusing mess of nested promises. They provide an excellent alternative to "Callback Hell". '), (0, _dom.h)('p#cycle', ' bind() overcomes the Promises API\'s lack of any way to access prior results linked by the "then()" method. The number ar[0] as well as the promise ar[5] were used used in the sequence above. A short distance down this page you can see asynchronous procedures based on MonadItter rather than Promises. MonadItter and Cycle.js working together can do everything promises and generators do but with greater flexibility and easier access to all values returned by the function calls is chained procedures. The links can be various functions rather than  '), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back To The Top'), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: '#cyclet' } }, 'Async Procedures'), (0, _dom.h)('p', ' "h(\'div\', m42_RESULT)" is a permanent fixture in the Snabbdom virtual DOM that is returned by main() and updated by calcStream$. When it7() executes, Snabbdom performs its diff and render routine, updating the browser window. '), (0, _dom.h)('p', ' The asynchronous functions in Demonstration 1 use monadItter instances mMZ40 and mMZ41 instead of Promises. Here\'s the definition of MonadItter: '), (0, _dom.h)('pre', '  var MonadItter = function MonadItter() {\n    this.p = function () {};\n    this.release = function () {\n      return this.p.apply(this, arguments);\n    };\n    this.bnd = function (func) {\n      return this.p = func;\n    };\n  }; '), (0, _dom.h)('p', ' When obtaining data from unreliable sources, one should add error checking functionality or use promises. '), (0, _dom.h)('h3', 'Reactivity In Cycle.js'), (0, _dom.h)('span.tao', ' Reactivity occurs naturally in the Cycle.js framework. Many developers find that Cycle.js has an unusually steep learning curve. It isn\'t so bad if you start with Andrew Staltz\' '), (0, _dom.h)('a', { props: { href: "https://egghead.io/courses/cycle-js-fundamentals", target: "_blank" } }, ' Overview of Cycle.js.'), (0, _dom.h)('span', ' Its elegance might take your breath away. '), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('a.tao', { props: { href: 'https://github.com/snabbdom/snabbdom' } }, ' Snabbdom'), (0, _dom.h)('span', ', '), (0, _dom.h)('a', { props: { href: 'http://x-stream.github.io/' } }, ' xstream,'), (0, _dom.h)('span', ' and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimentation and learning so many supporting files are included as scripts in the index.html page. '), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back to the top'), (0, _dom.h)('br'), (0, _dom.h)('br'), _code2.default.async1, (0, _dom.h)('br'), (0, _dom.h)('span', mMfibBlurb.x), (0, _dom.h)('span', [(0, _dom.h)('svg', { attrs: { width: 50, height: 50 } }, [(0, _dom.h)('circle', { attrs: { cx: 25, cy: 25, r: 20, stroke: 'purple', 'stroke-width': 4, fill: fill1Monad.x } })])]), (0, _dom.h)('span', mMprimeBlurb.x), (0, _dom.h)('span', [(0, _dom.h)('svg', { attrs: { width: 50, height: 50 } }, [(0, _dom.h)('circle', { attrs: { cx: 25, cy: 25, r: 20, stroke: 'purple', 'stroke-width': 4, fill: fill2Monad.x } })])]), (0, _dom.h)('span', mMprimeFibBlurb.x), (0, _dom.h)('span', [(0, _dom.h)('svg', { attrs: { width: 50, height: 50 } }, [(0, _dom.h)('circle', { attrs: { cx: 25, cy: 25, r: 20, stroke: 'purple', 'stroke-width': 4, fill: fill3Monad.x } })])]), (0, _dom.h)('br'), (0, _dom.h)('p.red', 'The elapsed time is ' + mMelapsed.x + ' milliseconds.'), (0, _dom.h)('input#fib92'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span#PF_7.red6', 'Fibonacci Numbers'), (0, _dom.h)('br'), (0, _dom.h)('span#PF_9.turk', mMres.x[0]), (0, _dom.h)('br'), (0, _dom.h)('span#PF_8.red6', 'Prime Fibonacci Numbers'), (0, _dom.h)('br'), (0, _dom.h)('span#primeFibs.turk', mMres.x[2]), (0, _dom.h)('br'), (0, _dom.h)('span#PF_21.red6', 'The largest generated prime number.'), (0, _dom.h)('br'), (0, _dom.h)('span#PF_22.turk', mMres.x[1]), (0, _dom.h)('br'), (0, _dom.h)('h3', ' Promises are not needed '), (0, _dom.h)('p', ' Asynchronous code can be handled without reliance on Ecmascript 2015 promises either explicitly or implicitly (e.g. using async/await). Cycle.js drivers eliminate any need to explicitly use functions from reactive library, but Xstrean is an integral component of Cycle.js. '), (0, _dom.h)('p', ' The second demonstration in this series decomposes numbers into its their prime factors. Testing with sequences of 9\'s, the first substantial lag occurs at 9,999,999 - unless a large array of prime numbers has already been generated in the previous demonstration or elsewhere. Here it is:'), (0, _dom.h)('input#factors_1'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('span', mMfactors.x), (0, _dom.h)('span.tao3', mMfactors23.x), (0, _dom.h)('p', ' Next, two comma-separated numbers are decomposed into arrays of their prime factors, and those arrays are used to compute their lowest common multiple (lcm). For example, the lcm of 6 and 9 is 18 because 3\*6 and 2\*9 are both 18. The lcm of the denominators of two fractions is useful in fraction arithmetic; specifically, addition and subtraction. On my desktop computer, two seven digit numbers resulted in a lag of a few seconds when prime numbers had not been previously generated. '), (0, _dom.h)('input#factors_5'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div.tao3', mMfactors7.x), (0, _dom.h)('span', 'The least common multiple of  ' + mMfactors8.x[0] + ' and ' + mMfactors8.x[1] + ' is '), (0, _dom.h)('span.tao3', '' + mMfactors8.x[2]), (0, _dom.h)('br'), (0, _dom.h)('span', 'The largest common factor of ' + mMfactors8.x[0] + ' and ' + mMfactors8.x[1] + ' is '), (0, _dom.h)('span.tao3', '' + mMfactors8.x[3]), (0, _dom.h)('br'), (0, _dom.h)('div', 'TEST: ' + mMfactors8.x[0] + ' * ' + mMfactors8.x[1] + ' === ' + mMfactors8.x[2] + ' * ' + mMfactors8.x[3] + ' '), (0, _dom.h)('span', 'RESULT: '), (0, _dom.h)('span.tao3', '' + (mMfactors8.x[0] * mMfactors8.x[1] === mMfactors8.x[2] * mMfactors8.x[3])), (0, _dom.h)('h3', ' The Easy Way '), (0, _dom.h)('p', ' This has been a demonstration of MonadState and MonadState transformers. If you really want the least common multiple or the largest common factor of two positive integers, there is no need to generate prime numbers. The next and final demonstration in this section does not use a web worker. The computations block the main thread, but only for a few microseconds.'), (0, _dom.h)('br'), (0, _dom.h)('input#factors800'), (0, _dom.h)('br'), (0, _dom.h)('span', 'The least common multiple of  ' + mMfactors800.x[0] + ' and ' + mMfactors800.x[1] + ' is '), (0, _dom.h)('span.tao3', '' + mMfactors800.x[2]), (0, _dom.h)('br'), (0, _dom.h)('span', 'The largest common factor of ' + mMfactors800.x[0] + ' and ' + mMfactors800.x[1] + ' is '), (0, _dom.h)('span.tao3', '' + mMfactors800.x[3]), (0, _dom.h)('br'), (0, _dom.h)('div', 'TEST: ' + mMfactors800.x[0] + ' * ' + mMfactors800.x[1] + ' === ' + mMfactors800.x[2] + ' * ' + mMfactors800.x[3] + ' '), (0, _dom.h)('span', 'RESULT: '), (0, _dom.h)('span.tao3', '' + (mMfactors800.x[0] * mMfactors800.x[1] === mMfactors800.x[2] * mMfactors800.x[3])), (0, _dom.h)('p', ' The code for the previous demonstrations is available at the Github repository, and will soon be available here in an appendix. primesMonad and the functions primarily involved in its transformation are shown below: '), _code2.default.primes, (0, _dom.h)('p', ' primesMonad state updates are generated in workerB.js and stored in the main thread. Users set new upper bounds on the size of the largest Fibonacci number in the series to be considered by entering a number in a browser input box. Here is the relevant code: '), _code2.default.primes3, (0, _dom.h)('p', ' The user\'s selected number along with the current state of primesMonad (primesMonad.s) gets posted to workerB, which gets functionality beyond its prototype from workerB.js, which orchestrates preparation of the return message that will be posted back to the main thread. workerB.js delegates the job to functions in script2.js by calling: '), _code2.default.primes4, (0, _dom.h)('p', ' execF prepares the Fibonacci series and sends its state, along with the state of primesMonad that it received from workerB.js, to fpTransformer. execP is called with the current state and the largest Fibonacci number that had been recently produced by execF as arguments. The updated state is an array with four elements, [new upper bound, new series, largest prime produced in the current browser session, largest series]. If the new result is larger than any previous one, the first and second elements of the state array are identical to the third and fourth. Otherwise, they are smaller. As is apparent in the following code, primesMonad is re-created in the main thread using the state array that was posted by workerB. '), _code2.default.primes2, (0, _dom.h)('h3', 'Type Checking'), (0, _dom.h)('p', ' Type checking is useful for avoiding runtime errors and for optimization of user interfaces. For example, if a user enters the wrong type of data it is helpful to display a message explaining why nothing is happening. Not allowing defective user input to be transmitted to a WebSocket server prevents sockets from disconnecting. Some developers like to superimpose strong typing over JavaScript or write code in a strongly typed language that compiles to JavaScript. Others like to retain all of JavaScript\'s possibilities, checking types in only a few functions.  '), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back to the top'), (0, _dom.h)('h3', 'More Examples'), (0, _dom.h)('p', ' The result of every computation in a chain of synchronous functions is available to every computation that comes after it. This can be seen in the next example: '), (0, _dom.h)('pre', { style: { fontSize: "12px" } }, '  bind(1)(addC(2))(cubeC)(addC(3))\n  (multC(this.ar[1]))(multC(this.ar[1]))\n  (addC(30))(multC(1/(ar[3]*2)))(terminate)\n   // [1, 3, 27, 30, 90, 270, 300, 5] '), (0, _dom.h)('p', ' Or, equivalently: '), (0, _dom.h)('pre', orange, '  bind(1)(v=>v+2)(v=>v*v*v)(v=>v+3)\n  (v=>v*ar[1])(v=>v*ar[1])(v=>v+30)\n  (v=>v*1/(ar[3]*2))(terminate)\n   // [1, 3, 27, 30, 90, 270, 300, 5] '), (0, _dom.h)('p#cycletime', ' Or if you want just the final result '), (0, _dom.h)('pre', '  bind(1)(v=>v+2)(v=>v*v*v)(v=>v+3)\n  (v=>v*ar[1])(v=>v*ar[1])(v=>v+30)\n  (v=>v*1/(ar[3]*2))(terminate).pop()  // 5] '), (0, _dom.h)('h2', 'Alternative Monad Functionality'), (0, _dom.h)('p', ' Instances of Monad can also link by means of the method "bnd()". It, along with the method "ret()", were made available as follows: '), (0, _dom.h)('pre', { style: { color: "rgb(236, 242, 186)" } }, '  Monad.prototype.bnd = function (func, ...args) {\n    var m = func(this.x, ...args)\n    var ID;\n    if (m instanceof Monad) {\n      ID = testPrefix(args, this.id);\n      window[ID] = new Monad(m.x, ID);\n      return window[ID];\n    }\n    else return m;\n  };\n\n  Monad.prototype.ret = function (a) {\n    return window[this.id] = new Monad(a, this.id);\n  };\n\n  function testPrefix (x,y) {\n     var t = y;  // y is the id of the monad calling testPrefix\n     if (Array.isArray(x)) {\n      x.map(v => {\n        if (typeof v == \'string\' && v.charAt() == \'$\') {\n           t = v.slice(1);  // Remove "$"\n        }\n      })\n    }\n    return t;\n  }; '), (0, _dom.h)('p', ' This is less functional than using bind() in that it doesn\'t pass functions down the chain but instead passes objects with exposed methods. But it has appealing features. Look how values move along the chain until, at the end they combine to yield 42. Explicitly passing values from function to function along a chain is impossible with bind(); but with bind(), all chained functions share an array of return values and the resolution values of returned promises. '), (0, _dom.h)('br#itter'), (0, _dom.h)('pre', '  ret(2).bnd(v => add(v,1)\n  .bnd(cube).bnd(p => add(p,3)\n  .bnd(() => ret(p/3).bnd(add,3)\n  .bnd(z => v*z+p-v*p+z))))  //  9 '),
 	      // ************** OOOOOOOOOOOOOO ********    BEGIN ASYNC
 
 
 	      // h('asyncExplanation', ' Asynchronous Processes ' ),
 
 	      (0, _dom.h)('a', { props: { href: '#gameIntro' } }, 'Back to the first set of demonstrations.'), (0, _dom.h)('h2', 'MonadItter'), (0, _dom.h)('p', ' As shown in the "Monads" section (above), the definition of MonadItter is: '), _code2.default.monadIt, (0, _dom.h)('p', ' MonadItter instances don\'t link to one another. They exist to facilitate the work of instances of Monad, MonadState, etc. Here\'s how they work: '), (0, _dom.h)('p', 'For any instance of MonadItter, say "it", "it.bnd(func)" causes it.p === func. Calling the method "it.release(...args)" causes p(...args) to run, possibly with arguments supplied by the caller. '), (0, _dom.h)('p', ' MonadItter instances control the routing of incoming WebSocket messages. In one of the demonstrations below, they behave much like ES2015 iterators.'), (0, _dom.h)('h3', ' A Basic Itterator '), (0, _dom.h)('p', 'The following example illustrates the use of release() with an argument. It also shows a lambda expressions being provided as an argument for the method mMZ1.bnd() (thereby becoming the value of mMZ1.p), and then mMZ1.release providing an arguments for the function mMZ1.p. The code is shown beneith the following two buttons. '), (0, _dom.h)('button#testZ', 'mMZ33.release(1)'), (0, _dom.h)('p', mMt33.x), (0, _dom.h)('span', 'Refresh button: '), (0, _dom.h)('button#testQ', 'mMt33.ret(0) '), (0, _dom.h)('span.tao', ' The expression mMt33.x sits permanently in the Motorcycle virtual DOM description. You can call '), (0, _dom.h)('span.green', 'mMZ33.release(v)'), (0, _dom.h)('span', ' by entering a value for v below: '), (0, _dom.h)('br'), (0, _dom.h)('span', 'Please enter an integer here: '), (0, _dom.h)('input#testW'), (0, _dom.h)('p', ' cube() is defined in the Monad section (above). If you click "mMZ1.release(1)" several times, the code (above) will run several times, each time with v === 1. The result, mMt3.x, is shown below the button. mMZ1.p (bnd()\'s argument) remains constant while mMZ1.release(1) is repeatedly called, incrementing the number being cubed each time. '), (0, _dom.h)('p', ' Here is another example. It demonstrates lambda expressions passing values to a remote location for use in a computation. If you enter three numbers consecutively below, call them a, b, and c, then the quadratic equation will be used to find solutions for a*x**2 + b*x + c = 0. The a, b, and c you select might not have a solution. If a and b are positive numbers, you are likely to see solutions if c is a negative number. For example, 12, 12, and -24 yields the solutions 1 and -2. '), (0, _dom.h)('p#quad4.red2', mMquad4.x), (0, _dom.h)('p#quad5.red2', mMquad5.x), (0, _dom.h)('p#quad6.red2', mMquad6.x), (0, _dom.h)('p', 'Run mMZ3.release(v) three times for three numbers. The numbers are a, b, and c in ax*x + b*x + c = 0. Remember to press <ENTER> after each number. '), (0, _dom.h)('input#quad'), (0, _dom.h)('p', 'Here is the code:'), _code2.default.quad, (0, _dom.h)('p', ' fmap (above) facilitated using qS4 in a monadic sequence. qS4 returns an array, not an instance of Monad, but fmap lifts qS4 into the monadic sequence. '), (0, _dom.h)('p', ' The function solve() is recursive. It invokes itself after release() executes three times. The expression "solve()" resets solve to the top, where mMZ3.p becomes a function containing two nested occurrences of mMZ3.bnd. After mMZ3.release() executes, mMZ3.p becomes the function that is the argument to the next occurrence of mMZ3.bnd. That function contains yet another occurrence of mMZ3.bnd. MonadItter is syntactic sugar for nested callbacks. '), (0, _dom.h)('h2', ' MonadEr - An Error-Catching Monad '), (0, _dom.h)('p', ' Instances of MonadEr function much the same as instances of Monad, but when an instance of MonadEr encounters an error, it ceases to perform any further computations. Instead, it passes through every subsequent stage of a sequence of MonadEr expressions, reporting where it is and repeating the error message. It will continue to do this until it is re-instantiated or until its bnd() method runs on the function clean(). '), (0, _dom.h)('p', 'Functions used as arguments to the MonadEr bnd() method can be placed in quotation marks to prevent the browser engine from throwing reference errors. Arguments can be protected in the same manner. Using MonadEr can prevent the silent proliferation of NaN results in math computations, and can prevent browser crashes due to attempts to evaluate undefined variables. '), (0, _dom.h)('p.tao1b', ' The monad laws hold for MonadEr instances. The following relationships were verified in the Chrome console: '), (0, _dom.h)('pre', '    ret3(0,\'t\',[])  // t is now an instance of MonadEr with t.x = 0 and t.e = [].\n\n      t.ret(3).bnd(cube3).x === cube(3).x\n      ret3(3).bnd(cube3).x === cube3(3).x\n\n      t.bnd(t.ret) === t\n      t.bnd(ret) === t\n\n      t.ret(0).bnd(add3, 3).bnd(cube3).x ===\n      t.ret(0).bnd(v => add3(v,3).bnd(cube3)).x  '), (0, _dom.h)('h3', 'Feedback From the Error Monad'), (0, _dom.h)('span#comments'), (0, _dom.h)('img.image', { props: { src: "error2.png" } }), (0, _dom.h)('div#comment'), (0, _dom.h)('h2', { style: { color: "red" } }, 'Comments'), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back to the top'), (0, _dom.h)('div#com2', { style: { display: abcde } }), (0, _dom.h)('p', ' When this page loads in the browser, a user name is automatically generated in order to establish a unique WebSocket connection. This makes it possible to exchange text messages with other group members, play the game, and work on a shared todo list. If you want to leave a comment, you need to log in with a user name and a password of your choice. Each can be a single character or you could use a hard-to-hack combination of alphabet letter, numbers, and special characters. The main requirement is that there be only one comma, and that it be placed between the name and the password. '), (0, _dom.h)('p', 'The server will keep your user name and password in a text file. If you use your saved user name and password sometime in the future, you will be able to edit or delete any comments you previously made. '), (0, _dom.h)('p', ' If you enter a user name that has not been recorded, you will be logged in as that user. The user name and password will be saved. This means that you do not need to first register and then log in. This is an all-in-one process. If you enter a recognized user name but the password does not match the password in the record, you will be asked to try again. '), (0, _dom.h)('br'), (0, _dom.h)('h3', 'Register'), (0, _dom.h)('span.red', mMregister.x), (0, _dom.h)('input.register', { style: { display: mMshowRegister.x } }), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('h3', 'COMMENTS'), (0, _dom.h)('textarea#comment', ''), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('div', commentMonad.html), (0, _dom.h)('p', ' When this website loads, it receives from the server a string containing all of the comments. The string is saved in commentMonad.s[0]. The string is transformed into an array of comments which is saved in commentMonad.s]1]. '), (0, _dom.h)('p', ' When a comment is created, modified, or deleted, a WebSocket message goes to the server which performs some of its own housekeeping and broadcasts a message to all online browsers. It is received in messages$ and forwarded comments.js. '), (0, _dom.h)('p', ' The functions in the comments.js file mutate commentsMonad. There is no reason to create fresh instances of commentMonad, other than out of devout devotion to the doctrine of non-mutation. How silly that would be! Nothing touches commentMonad outside of the comments.js file; there is no danger. '), (0, _dom.h)('p', ' commentMonad stands in stark contrast to the gameMonad, which is never mutated although it sees much action during game play. Here he entire Comments.js file: '), (0, _dom.h)('pre', 'function showFunc (name, name2)\n{return name == name2 ? \'inline-block\' : \'none\'}\n\nvar MonadState3 = function MonadState3(g, state) {\n  this.id = g;\n  this.s = state;\n  this.bnd = (func, ...args) => func(this.s, ...args);\n  this.ret = function (a) {\n    return window[this.id] = new MonadState(this.id, a);\n  };\n}  bind2(n)(cubeP)(addP(3))(a=>a+ar[0]+ar[1]-18)(multP(1/3))\n  (addP(-11))(()=>ar[1]+ar[2]+ar[3])(terminate) ;\n\nvar commentMonad = new MonadState3(\'commentMonad\',   [ \'\', [] ]);\n\nMonadState3.prototype.html = [];\n\nMonadState3.prototype.init = function (str) { // fetch all comments\n  this.s[0] = str;\n  this.s[1] = this.s[0].split("<@>");\n  this.s[1] = this.s[1].filter(v => (v != ""));\n  process(this.s[1]);\n}\n\nMonadState3.prototype.append = function (str) {\n  this.s[0] = this.s[0] + str;\n  this.s[1] = this.s[0].split(\'<@>\').filter(v => (v != ""));\n  process(this.s[1]);\n}\n\nMonadState3.prototype.edit = function (num,txt) {\n  this.s[1].splice(num,1,txt);\n  this.s[0] = this.s[1].join("<@>");\n  this.s[1] = this.s[0].split(\'<@>\').filter(v => (v != ""));\n  process(this.s[1]);\n};\n\nMonadState3.prototype.remove = function (num) {\n  this.s[1] = this.s[1].filter(v => v!== \'\');\n  this.s[1].splice(num,1);\n  this.s[0] = this.s[1].join("<@>");\n  this.html = process(this.s[1]);\n  return this.html;\n};\n\nfunction process (a) { //Assembles the HTML for display.\n  var arr = a;\n  mMcomments.ret([]);\n  var n = -1;\n  arr.map(a => {\n    console.log(\'In arr.map - - - - - - - a is \', a );\n    var x = a.split("<o>");\n    if (x.length != 2) x = [\'malfunction\', \'8888\']\n    console.log(\'In arr.map o o o o o o o x is \', x );\n    x[1] = x[1].replace(/<<>>/g, \',\');\n    show = showFunc(x[0], pMname.x);\n    n+=1;\n    mMcomments.bnd(push, h(\'div#\'+n, [\n      h(\'span\', x[0] + \' commented: \' + x[1].replace(/<<>>/g, ",")),\n      h(\'br\'),\n      h(\'textarea#commit\', {props: {cols: 55, rows: 2},\n         style: {display: show }}, x[1]),\n      h(\'button#deleteB\', {props: {innerHTML: \'delete\'},\n     style: {display: show, fontSize:14}}),\n      h(\'br\' ),\n      h(\'span\', \'***************************************************************\')\n    ]))\n  })\n} '), (0, _dom.h)('div#curryDef'), (0, _dom.h)('br'), (0, _dom.h)('pre', 'function curry(func) {\n\n  return function curried(...args) {\n    if (args.length >= func.length) {\n      return func.apply(this, args);\n    } else {\n      return function(...args2) {\n        return curried.apply(this, args.concat(args2));\n      }\n    }\n  };\n\n}\n\nfunction curryReverse(func) {\n\n  return function curried(...args) {\n    if (args.length >= func.length) {\n      return func.apply(this, args.reverse());\n    } else {\n      return function(...args2) {\n        return curried.apply(this, args.concat(args2));\n      }\n    }\n  };\n\n} '), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back to the top'), (0, _dom.h)('p', ' *************************************************************************************** '), (0, _dom.h)('h3', 'Haskell Time'), (0, _dom.h)('p', ' This page is for front end developers, but in case anyone is interested, here are the server functions responsible for deleting or amending a comment: '), (0, _dom.h)('pre', '    removeOne _ []                 = []\n  removeOne x (y:ys) | x == y    = ys\n                     | otherwise = y : removeOne x ys\n\n  changeOne :: Text -> Text -> [Text] -> [Text]\n  changeOne _ _ []                 = []\n  changeOne z x (y:ys) | x == y    = z : ys\n                       | otherwise = y : changeOne z x ys '), (0, _dom.h)('a', ' Every message sent to the server is a comma separated string beginning with a prefix, then a group, and then a name. Comma separated items after that are named extra and extra2. '), (0, _dom.h)('p', ' The code belw is responsible for dealing with comments. As in the browser, WebSocket messages are dealt with according to their six character prefixes. extra and extra2 are the only pertinent data since comments go to all groups '), (0, _dom.h)('pre', 'else if "GZ#$42" `T.isPrefixOf` msg\n                  -- FETCH AND BROADCAST ALL COMMENTS ON BROWSER LOAD\n   then\n       do\n           st <- atomically $ readTVar state\n           broadcast ("GZ#$42," `mappend` group `mappend` ","\n             `mappend` sender `mappend` "," `mappend` comments ) st\n\nelse if "GN#$42" `T.isPrefixOf` msg\n                  -- RECEIVE A NEW COMMENT, UPDATE THE FILE AND THE TVAR,\n                  --  AND BROADCAST THE NEW COMMENT\n   then\n       do\n           old <- atomically $ readTVar comms\n           lk <- atomically L.new\n           let c = old `mappend` (T.replace (at `mappend` at) at extra)\n           let new = T.replace (at `mappend` at) at c -- cleanup\n           L.with lk $ TIO.writeFile xcomments new -- lock on writing\n           atomically $ writeTVar comms new\n           st <- atomically $ readTVar state\n           broadcast ("GN#$42," `mappend` group `mappend` ","\n               `mappend` sender `mappend` "," `mappend` extra) st\n\n else if "GD#$42" `T.isPrefixOf` msg      -- DELETE A COMMENT\n    then\n        do\n            a <- TIO.readFile xcomments\n            lk <- atomically L.new\n            let b = T.splitOn at a\n            let c = removeOne extra2 b\n            let d = T.intercalate at c\n            L.with lk $ TIO.writeFile xcomments d\n            atomically $ writeTVar comms d\n            st <- atomically $ readTVar state\n            broadcast ("GD#$42," `mappend` group `mappend` ","\n              `mappend` sender `mappend` "," `mappend` extra) st\n\n else if "GE#$42" `T.isPrefixOf` msg      -- EDIT A COMMENT\n    then\n        do\n            a <- TIO.readFile xcomments\n            lk <- atomically L.new\n            let b = T.splitOn at a\n            let c = changeOne extra3 extra2 b\n            let txt = T.intercalate at c\n            L.with lk $ TIO.writeFile xcomments txt\n            atomically $ writeTVar comms txt\n            st <- atomically $ readTVar state\n            broadcast ("GE#$42," `mappend` group `mappend` com\n              `mappend` sender `mappend` com `mappend` extra `mappend` com\n                 `mappend` extra3) st   '), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back To The Top'), (0, _dom.h)('br'), (0, _dom.h)('div#reactivity'), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: "#reactivity2" } }, 'Back to the pingpong demo'), (0, _dom.h)('h3', 'Reactivity in Cycle.js'), (0, _dom.h)('p', ' The stream incF$ and the driver pingpongDriver() (both defined below) are essential components of the pingpong demonstration. '), (0, _dom.h)('pre', blue, '  var incF$ = n => xs.of(n);\n\n    function pingpongDriver () {\n      return xs.create({\n        start: listener => {\n          incF$ = k => listener.next(k)\n        },\n        stop: () => {}\n      })\n    };  '), (0, _dom.h)('p', ' Whenever the stream incF$() is called, the stream returned by pingpongDriver is augmented and that causes main() to return an object whose only element is a map from the stream calcStream$ to a virtual DOM node with many children. calcStream$ is produced by merging 48 streams together including ping$ resulting from ping(n) where "n" is the number supplied by pingpongDriver (a/k/a "sources.PP"). The first two lines of main()\'s return value are shown below. '), (0, _dom.h)('pre', '    return { DOM: calcStream$.map(() => {\n      return h(\'div.main\', [  '), (0, _dom.h)('p', ' merged into it. Each time main returns, Snabbdom\'s diff and render routine executes inside of run(sources,main). run(sources,main) calls main() and furnishes it with the listeners provided by the drivers. New events cause the cycle to repeat. '), (0, _dom.h)('p', ' ping(-5)([0,0]) is called when the pingpong button is clicked. Here\'s the relevant code:'), (0, _dom.h)('pre', '  var pingpong$ = sources.DOM\n      .select(\'buttonr#ingpong\').events(\'click\').map(() => ping(0)([0,0]));\n\n    var ppR = {style: {color: \'red\',\n      marginLeft: \'5%\', fontSize: "26"}};\n    var ppY = {style: {color: \'yellow\',\n      marginLeft: \'42%\', fontSize: "26"}};\n    var ppRY = {style: {color: \'yellow\',\n      marginLeft: \'5%\', fontSize: "26"}};\n    var ppYR = {style: {color: \'red\',\n      marginLeft: \'42%\', fontSize: "26"}};\n\n    var ppStyle = false;\n\n\n    var ping = n => ar => {\n      console.log("Piles of cow shit");\n      console.log("Piles of cow shit");\n      var k = Math.floor(Math.random() * 5)+1;\n      if(ar[0] > 10 || ar[1] > 10) {\n        diffRender();\n        return;\n      }\n      setTimeout(() => {\n        if (n <= k) {\n          ppStyle = !ppStyle;\n          incF$(n);\n          ping(n+1)(ar);\n        }\n        else if (n % 2 === 0) {\n          ar[0]+=1;\n          m67_RESULT = h(\'pre\', ppYR, `     SCORE: ping  ${ar[0]} pong: ${ar[1]}  ` )W\n          ping(0)(ar);\n        }\n        else {\n          ar[1]+=1\n          m67_RESULT = h(\'pre\', ppY, `     SCORE: ping  ${ar[0]} pong: ${ar[1]}  ` );\n          ping(0)(ar);\n        }\n      }, 500 )\n    }  '), (0, _dom.h)('p', ' The function diffRender() forces Snabbdom to perform one last diff and render. It is defined as follows: '), (0, _dom.h)('pre', '  const diffRender = () => document.getElementById("testQ").click();'), (0, _dom.h)('p', ' The button "testQ" cubes the number 2 in the MonadItter demonstration. It was chosen because it does not significantly affect anything aside from forcing Snabbdom to update the DOM. '), (0, _dom.h)('p', ' The stream incF$ and the driver pingpongDrirun(main, sources) are the crucial Cycle.js application functions. sources contains the drivers. sources.PP = pingpongDriver is one of the drivers consumed by run() and made available in main() so information can be sent back to run. Round and round it goes. Here is the definition of ping$. '), (0, _dom.h)('span.tao', ' The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with a Haskell WebSocket server. '), (0, _dom.h)('br'), (0, _dom.h)('h2', 'Appendix A - The Game Code'), (0, _dom.h)('pre', 'function MonadState(g, state) {\n      this.id = g;\n      this.s = state;\n    };  '), (0, _dom.h)('a', { props: { href: '#gameIntro' } }, 'Back to the first group of demonstrations.'), (0, _dom.h)('p'), (0, _dom.h)('pre', 'MonadState.prototype.run = function ([\n      score = this.s[0][this.s[1]][0],\n      goals = this.s[0][this.s[1]][1],\n      operator = this.s[0][this.s[1]][2],\n      picked = this.s[0][this.s[1]][3].slice(),\n      display = this.s[0][this.s[1]][4].slice()\n      playerName = this.s[0][this.s[1]][5] ? this.s[0][this.s[1]][5].slice() : "nobody",\n      playerGroup = this.s[0][this.s[1]][6] ? this.s[0][this.s[1]][6].slice() : "solo",\n    ]) {\n      this.s[1] += 1;\n      var newState = this.s.slice();\n      newState[0].splice(this.s[1], 0, [score, goals, operator, picked, display,playerName,playerGroup])\n       console.log("[score, goals, operator, picked, display]",\n         [score, goals, operator, picked, display,playerName,playerGroup]);\n      this.s = newState;\n      buttonNode = bNode(display);\n      return window[\'gameMonad\'] = new MonadState(\'gameMonad\', newState);\n    }\n\n    var gameMonad = new MonadState(\'gameMonad\', [[[0,0,0,[],[1,2,3,4]],\n          [0,0,0,[],[0,0,0,0]]],1 ]);  '), (0, _dom.h)('p', ' Here is the code that controls what happens when a player clicks a number or an operator: '), (0, _dom.h)('pre', '  var numClickAction$ = numClick$.map(e => {\n        if (gameMonad.fetch3().length < 2)  {\n          var a = gameMonad.fetch3();\n          var b = gameMonad.fetch4();\n          a.push(b.splice(e.target.id, 1)[0]);\n          gameMonad.run([,,,a,b,,]);\n          if (a.length === 2 && gameMonad.fetch2() != 0) {\n            updateCalc(a, gameMonad.fetch2())\n          }\n        }\n      }).startWith([0, 0, 0, 0]);\n\n      var opClick$ = sources.DOM\n          .select(\'.op\').events(\'click\');\n\n      var opClickAction$ = opClick$.map(e => {\n        var s3 = gameMonad.fetch3();\n        if (s3.length === 2) {\n          updateCalc(s3, e.target.innerHTML);\n        }\n        else {\n          gameMonad.run([,,e.target.innerHTML,,,,]);\n        }\n      });  '), (0, _dom.h)('p', ' Notice the empty spaces in the arguments to gameMonad.run(). gameMonad.run()\'s argument is an array to facilitate calling it with default values. In numClickAction$ we are not changing the score, goals, or operator. The default values of these parameters are their current values. In opClickAction$, we are changing only one thing, the operator. Everything else stays as it is. '), (0, _dom.h)('p', ' When two numbers and an operator have been selected, control passes to updateCalc(). Here\'s the code: '), (0, _dom.h)('pre', 'function updateCalc(ar, op) {\n      var result = calc(ar[0], op, ar[1]);ar\n      if (result === 18 || result === 20) {\n        score(result);\n      }\n      else {\n        var a = gameMonad.fetch4().slice();\n        a.push(result);\n        gameMonad.run([,,0,[],a,,]);  // Display the result and\n                                    // reset the operator and selected values.\n      }\n    };\n\n    function score(result) {\n        var sc = parseInt(gameMonad.fetch0());\n        var sco = result === 18 ? sc + 3 : sc + 1;\n        var scor = sco % 5 === 0 ? sco + 5 : sco;\n        var goals = gameMonad.fetch1();\n        if (scor === 25 && gameMonad.fetch1() === "2") {  // The player wins.\n            mMindex.ret(0);\n            gameMonad = new MonadState(\'gameMonad\',\n               [[[0,0,0,[],[0,0,0,0]],[0,0,0,[][0,0,0,0]]],0]);\n            socket.send(`CE#$42,' + pMgroup.x + ',' + pMname.x + '`);\n            // Ask the server to announce the winner to the entire group\n            newRoll(0,0);\n        }\n        else if (scor === 25) {\n          newRoll(0, parseInt(goals,10) + 1);\n        }\n        else newRoll(scor, goals);   // No increase in the number of goals.\n    };   '), (0, _dom.h)('span.tao', ' Additional code is available at'), (0, _dom.h)('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript",
-	          target: "_blank" } }, 'monads-in-JavaScript.'), (0, _dom.h)('p', '.'), (0, _dom.h)('p'), (0, _dom.h)('h3', 'Appendix B - Curried Functions Used In Several Demonstrations'), (0, _dom.h)('pre#wait', ' function square (v) {\n        return ret(v*v)\n      };\n\n      function cube (v, id) {\n        return ret(v*v*v, id);\n      };\n\n      function add (a, b, id) {\n        return ret((parseInt(a,10) + parseInt(b,10)),id);\n      };\n\n      const divCinverse = a => b => ret(e/b);\n      const divC = a => b => ret(b/a);\n      const addC = a => b => ret(a+b);\n      const cubeC = v => ret(v*v*v);\n      const multC = a => b => ret(a*b);\n      const doubleC = a => ret(a+a);\n      const squareC = a => ret(a*a);\n      const sqrtC = a => ret(Math.sqrt(a));\n\n    function wait(ms) {\n      return new Promise(r => setTimeout(r, ms));\n    } h(\'a#it4\', {props: {href: \'#top\'}}, \'Back to the top\'),\n    \n    async function cubeP (x) {\n      await wait(2000)\n      return ret(x*x*x);\n    } \n\n    const addP = x => async y => {\n      await wait(2000)\n      return ret(x + y);\n    }\n\n    async function squareP (x) {\n      await wait(2000)\n      return ret(x*x);\n    }\n\n    const divPinverse = a => async b => {\n      await wait (2000)\n      return ret(a/b);\n    }\n\n    const divP = a => async b => {\n      await wait (2000)\n      return ret(b/a);\n    }\n\n    const sqrtP = async a => {\n      await wait (2000)\n      return ret(Math.sqrt(a));\n    }\n\n    const doubleP = async a => {\n      await wait (2000)\n      return ret(a+a);\n    }\n\n    const multP = x => async y => {\n      await wait(2000)\n      return ret(x * y);\n    }\n\n        '), (0, _dom.h)('p'), (0, _dom.h)('h3', 'Appendix C - Further Reading '), (0, _dom.h)('p', ' Here is a good resource: '), (0, _dom.h)('a', { props: { href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" } }, 'You Don\'t Know Javascript by Kyle Simpson'), (0, _dom.h)('span', ' You can support the open-source digital version of this book with Patreon at the above address or purchase hard copies from O\Reily, Amazon, etc. '), (0, _dom.h)('a', { props: { href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" } }, 'You Don\'t Know JavaScript'), (0, _dom.h)('span', ' is the thinking developer\'s answer to '), (0, _dom.h)('a', { props: { href: "http://shop.oreilly.com/product/9780596517748.do", target: "_blank" } }, ' "JavaScript: The Good Parts" by Douglas Crockford '), (0, _dom.h)('span#cyclet', ', which has long been revered as a "must read" JavaScript book. Kyle Simpson recommends learning to use potentially dangerous code intelligently while Douglas Crockford advocates never using it at all. I think the phrase "eval is evil" stems from Crockford\'s book. I find eval() to be very useful from time to time. Kyle Simpson teaches programmers how to safely tap the full potential of JavaScript. '), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: '#cycletime' } }, 'Return to the demonstration'), (0, _dom.h)('h2', 'Asynchronous Processes'), (0, _dom.h)('h3', 'Cycle.js Time '), (0, _dom.h)('p', ' As stated above, the monads do not depend on Cycle.js. This section is for anyone who happens to be interested in how the monads achieve reactivity in this Cycle.js application.'), (0, _dom.h)('p', ' Here are the two sequences of five linked functions that we will analyze:'), (0, _dom.h)('pre', '  bind(50)(cubeC)(it4)(it6)(it7) // Does not use Promises\n    bind(50)(cubeC)(prm4)(prm6)(it7) // Uses Promises     '), (0, _dom.h)('p', ' The first sequence is used in the live demonstration above. Both sequences fetch a random number from the server and then fetch the number\'s prime decomposition from a web worker. The sequence without promises seems to run slightly faster.  '), (0, _dom.h)('p', ' it7() was defined for use with MonadItter, not promises. It is a testiment to the robustness of bind() that it7() functions as intended at the end of a sequence of promises. '), (0, _dom.h)('p', ' When the code runs, a WebSocket socket requests and obtains a pseudo random number between 0 and 125,000 from the server. The number is then sent a web worker that computes its prime components. When the data arrives, Snabbdom is prompted to modify the DOM to reflect the current value of m42_RESULT. '), (0, _dom.h)('p', ' These two drivers (Cycle.js terminology) are involved in the procedure: '), (0, _dom.h)('pre', '  function WebSocketDriver() {\n      return xs.create({\n        start: listener => { socket.onmessage = msg => listener.next(msg)},\n        stop: () => { socket.close() }\n      });\n    };\n\n    function workerGDriver () {\n      return xs.create({\n        start: listener => { workerG.onmessage = msg => listener.next(msg)},\n        stop: () =>  workerG.terminate()\n      });\n    }; '), (0, _dom.h)('p', ' These driver streams, among others, are located in an object named "sources" (shown below) '), (0, _dom.h)('pre', '  const sources = {\n      DOM: makeDOMDriver(\'#main-container\'),\n      WS: WebSocketDriver,\n      WWB: workerBDriver,\n      WWC: workerCDriver,\n      WWD: workerDDriver,\n      WWE: workerEDriver,\n      WWF: workerFDriver,\n      WWG: workerGDriver,\n      WW: workerDriver,\n      PP: pingpongDriver\n    } '), (0, _dom.h)('p', ' run() is the function that keeps the perpetual cycle spinning. It takes two arguments, main() and sources. In main(), the drivers listen for events and map them into streams that process them and merge into calcStream, the stream that prompts main() to return and then feeds Snabbdom\'s diff and render routine the side effects generated by operations on those events. '), (0, _dom.h)('p#itterDef', ' When sources.WS hears a message prefixed by "BB#$42", MonadIterator instance mMZ27 is released. It releases mMZ37 with the number returned by the server (v[3]). it4() releases mMZ37 in it6, passing the number from the server to it. it6() sends the number to a web worker that sends back the number\'s prime decomposition. Here\'s the code: '), (0, _dom.h)('a#defs', { props: { href: '#top' } }, 'Back to the top'), (0, _dom.h)('pre', 'var it4 = x => {\n  if (socket.readyState === 1) socket.send(`BB#$42,${pMgroup.x},${pMname.x},${x}`);\n}\n\nvar it6 = x => {\n  mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));\n}\n\nvar it7 = v => mMZ38.bnd( v => {\n  m42_RESULT = m42_RESULT.concat(h(\'p\', orange, v[3] + v[0] + v[4] + v[5]).text).concat(h(\'br\'))\n  m42_RESULT2 = m42_RESULT2.concat(h(\'div\', [h(\'p\', orange, v[3] + v[0] + v[4] + v[5]).text]))\n  m42_RESULT3 = m42_RESULT3.concat(h(\'p\', orange, v[5]).text).concat(h(\'br\'))\n});  '), (0, _dom.h)('h3', 'MonadItter'), (0, _dom.h)('p', ' The MonadItter section of the page has a detailed discussion and live demonstrations. This is the definition: '), (0, _dom.h)('pre', '  var MonadItter = function MonadItter() {\n      this.p = function () {};\n      this.release = function () {\n        return this.p.apply(this, arguments);\n      };\n      this.bnd = function (func) {\n        return this.p = func;\n      };\n    }; '), (0, _dom.h)('h3', 'Promises'), (0, _dom.h)('p', ' As the definition of MonadItter shows, bnd() saves functions until release() causes them to execute. MonadItter instances are usually used on this webpage where promises, generators, and async/await could also do the job. '), (0, _dom.h)('p', 'Here are the Promises-based functions prm4() and prm6() that can be substituted for it4() and it6() in the expression bind(50)(cubeC)(it4)(it6): '), (0, _dom.h)('pre', '  const prm4 = x => {\n      if (socket.readyState === 1) socket.send(\'BB#$42,pMgroup,pMname,\' + x);\n      return new Promise( (resolve, reject) => {\n         mMZ37.bnd((y) => resolve(ret(y)))\n      })\n    }\n\n    const prm6 = x => {\n      workerG.postMessage([primesMonad.s, [x]]);\n      return "Done"\n    } '), (0, _dom.h)('p', ' Error handling is easy when using MonadItter instances, and is entirely optional. '), (0, _dom.h)('p', ' After "bind(50)(cubeC)(it4)(it6) runs, the prime decomposition of the number it recieved arrives from workerG. The workerGDriver (sources.WWG) detects the message and adds it to the workerG$ stream. Here is the definition of workerGDriver:  '), (0, _dom.h)('pre', '  function workerGDriver () {\n      return xs.create({\n        start: listener => { workerG.onmessage = msg => listener.next(msg)},\n        stop: () => { workerG.terminate() }\n      });\n    }; '), (0, _dom.h)('p', ' Clicking the "decompose fifteen random numbers" button causes factorsRecursion(0) to execute. Here\'s the code: '), (0, _dom.h)('pre', blue, '  const factorsRecursion = n => bind(50)(cubeC)(it4)\n        (it6)(() => { if (n < 15) factorsRecursion(n+1)}); '), (0, _dom.h)('p', 'result778(m.data) is called each time a message from workerG arrives. The definition of result778 is:   '), (0, _dom.h)('pre', blue, 'var result778 = x => h(\'div\', [\n          m778_RESULT,\n          h(\'br\'),\n          h(\'span\', bigBlue, x[3] ),\n          h(\'span\', bigGreen, x[0] ),\n          h(\'span\', bigBlue, x[4] ),\n          h(\'span\', bigRed, x[5] ),\n      ]); '), (0, _dom.h)('p', ' The stream that listens for workerG messages adds to the vnode m778_RESULT as follows: '), (0, _dom.h)('pre', 'const workerG$ = sources.WWG.map(m => {\n          m778_RESULT = result778(m.data);\n          primesMonad = new MonadState(\'primesMonad\', m.data[2]);\n      }); '), (0, _dom.h)('pre', bigGreen, 'const factorsRecursion = n => bind(50)(cubeC)(it4)\n    (it6)(pause)(() => { if (n < 15) factorsRecursion(n+1)}); '), (0, _dom.h)('pre', bigGold, '  var test5 = x => {\n    var n = toInt(x);\n    Bindo.bind1 = []; \n    Bindo.bind2 = []; \n    Bindo.bind3 = []; \n    \n    bind1(n+0)(cubeP)(() => idP(Bindo.bind1[0] -\n    Bindo.bind1[1]))(v=>addP(Bindo.bind1[1])(v));\n\n    bind2(n+1)(cubeP)(() => idP(Bindo.bind2[0] -\n    Bindo.bind2[1]))(v=>addP(Bindo.bind2[1])(v)); \n\n    bind3(n+2)(cubeP)(() => idP(Bindo.bind3[0] -\n    Bindo.bind3[1]))(v=>addP(Bindo.bind3[1])(v));} '), (0, _dom.h)('button#fredButton', fredButton), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back to the top'), (0, _dom.h)('br'), (0, _dom.h)('input#change', diffRend), (0, _dom.h)('div#changeDisplay', [diffRend]), (0, _dom.h)('button#diffRender', 'diffRender()'), (0, _dom.h)('br'), (0, _dom.h)('div#pingmaker'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('p', ' This is the code involved in the pingpong demonstration. PingpongMaker\'s argument creates a namespace. The demonstration features three such namespaces. It verifies that each game proceeds with its own state, oblivious of the states of the other two games in progress. Bindo uses its closure to achieve a similar effect. '), (0, _dom.h)('pre', 'var pingD = a => b => c => h(\'div\', [\n  h(\'pre\', a, ` ping        ---> `), \n  h(\'pre\', b, `                 <---        pong `), \n  h(\'pre\',  `          -- SCORE: ping: ` + c[0]  + ` pong: ` + c[1]  ),\n]);\n\nvar PingpongMaker = (name) => {\n  var a = _A1;\n  var b = _A3;\n  var c = [0,0];\n  var n = 0;\n  var bool = true;\n  var k = Math.floor(Math.random() * 7)+1;\n  return function train () {\n    if (c[0] > 10 || c[1] > 10) return;\n    var ms = 400;\n    console.log(\'a.style.color, b.style.color, c\', a.style.display, b.style.display, c);\n    if (a === _A3) {a = _A1; b = _A3}\n    else if (a === _A1) {a = _A3; b = _A2};\n    if (n <= k) {\n      n+=1;\n      window[name] = pingD(a)(b)(c);\n      diffRender();\n    }\n    else if (n % 2 === 0) {\n      ms = 1200\n      n = 0\n      c[0]+=1;\n      window[name] = pingD(_A1)(_A3)(c);\n      diffRender();\n      k = Math.floor(Math.random() * 7)+1;\n    }\n    else if (n % 2 === 1) {\n      ms = 1200;\n      n = 0;\n      c[1]+=1;\n      window[name] = pingD(_A3)(_A2)(c);\n      diffRender();\n      k = Math.floor(Math.random() * 7)+1;\n    }\n    setTimeout( function () {\n      train();\n    },ms );\n  }\n}  \n\nPingpongMaker(\'m67_RESULT\')\nPingpongMaker(\'m68_RESULT\')\nPingpongMaker(\'m69_RESULT\')  '), (0, _dom.h)('p', ' m67_RESULT, m68_RESULT, and m69_RESULT are permanent fixtures in the virtual DOM description returned by main()'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br')])]);
+	          target: "_blank" } }, 'monads-in-JavaScript.'), (0, _dom.h)('p', '.'), (0, _dom.h)('p'), (0, _dom.h)('h3', 'Appendix B - Curried Functions Used In Several Demonstrations'), (0, _dom.h)('pre#wait', ' function square (v) {\n        return ret(v*v)\n      };\n\n      function cube (v, id) {\n        return ret(v*v*v, id);\n      };\n\n      function add (a, b, id) {\n        return ret((parseInt(a,10) + parseInt(b,10)),id);\n      };\n\n      const divCinverse = a => b => ret(e/b);\n      const divC = a => b => ret(b/a);\n      const addC = a => b => ret(a+b);\n      const cubeC = v => ret(v*v*v);\n      const multC = a => b => ret(a*b);\n      const doubleC = a => ret(a+a);\n      const squareC = a => ret(a*a);\n      const sqrtC = a => ret(Math.sqrt(a));\n\n    function wait(ms) {\n      return new Promise(r => setTimeout(r, ms));\n    } h(\'a#it4\', {props: {href: \'#top\'}}, \'Back to the top\'),\n    \n    async function cubeP (x) {\n      await wait(2000)\n      return ret(x*x*x);\n    } \n\n    const addP = x => async y => {\n      await wait(2000)\n      return ret(x + y);\n    }\n\n    async function squareP (x) {\n      await wait(2000)\n      return ret(x*x);\n    }\n\n    const divPinverse = a => async b => {\n      await wait (2000)\n      return ret(a/b);\n    }\n\n    const divP = a => async b => {\n      await wait (2000)\n      return ret(b/a);\n    }\n\n    const sqrtP = async a => {\n      await wait (2000)\n      return ret(Math.sqrt(a));\n    }\n\n    const doubleP = async a => {\n      await wait (2000)\n      return ret(a+a);\n    }\n\n    const multP = x => async y => {\n      await wait(2000)\n      return ret(x * y);\n    }\n\n        '), (0, _dom.h)('p'), (0, _dom.h)('h3', 'Appendix C - Further Reading '), (0, _dom.h)('p', ' Here is a good resource: '), (0, _dom.h)('a', { props: { href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" } }, 'You Don\'t Know Javascript by Kyle Simpson'), (0, _dom.h)('span', ' You can support the open-source digital version of this book with Patreon at the above address or purchase hard copies from O\Reily, Amazon, etc. '), (0, _dom.h)('a', { props: { href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" } }, 'You Don\'t Know JavaScript'), (0, _dom.h)('span', ' is the thinking developer\'s answer to '), (0, _dom.h)('a', { props: { href: "http://shop.oreilly.com/product/9780596517748.do", target: "_blank" } }, ' "JavaScript: The Good Parts" by Douglas Crockford '), (0, _dom.h)('span#cyclet', ', which has long been revered as a "must read" JavaScript book. Kyle Simpson recommends learning to use potentially dangerous code intelligently while Douglas Crockford advocates never using it at all. I think the phrase "eval is evil" stems from Crockford\'s book. I find eval() to be very useful from time to time. Kyle Simpson teaches programmers how to safely tap the full potential of JavaScript. '), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('a', { props: { href: '#cycletime' } }, 'Return to the demonstration'), (0, _dom.h)('h2', 'Asynchronous Processes'), (0, _dom.h)('h3', 'Cycle.js Time '), (0, _dom.h)('p', ' As stated above, the monads do not depend on Cycle.js. This section is for anyone who happens to be interested in how the monads achieve reactivity in this Cycle.js application.'), (0, _dom.h)('p', ' Here are the two sequences of five linked functions that we will analyze:'), (0, _dom.h)('pre', '  bind(50)(cubeC)(it4)(it6)(it7) // Does not use Promises\n    bind(50)(cubeC)(prm4)(prm6)(it7) // Uses Promises     '), (0, _dom.h)('p', ' The first sequence is used in the live demonstration above. Both sequences fetch a random number from the server and then fetch the number\'s prime decomposition from a web worker. The sequence without promises seems to run slightly faster.  '), (0, _dom.h)('p', ' it7() was defined for use with MonadItter, not promises. It is a testiment to the robustness of bind() that it7() functions as intended at the end of a sequence of promises. '), (0, _dom.h)('p', ' When the code runs, a WebSocket socket requests and obtains a pseudo random number between 0 and 125,000 from the server. The number is then sent a web worker that computes its prime components. When the data arrives, Snabbdom is prompted to modify the DOM to reflect the current value of m42_RESULT. '), (0, _dom.h)('p', ' These two drivers (Cycle.js terminology) are involved in the procedure: '), (0, _dom.h)('pre', '  function WebSocketDriver() {\n      return xs.create({\n        start: listener => { socket.onmessage = msg => listener.next(msg)},\n        stop: () => { socket.close() }\n      });\n    };\n\n    function workerGDriver () {\n      return xs.create({\n        start: listener => { workerG.onmessage = msg => listener.next(msg)},\n        stop: () =>  workerG.terminate()\n      });\n    }; '), (0, _dom.h)('p', ' These driver streams, among others, are located in an object named "sources" (shown below) '), (0, _dom.h)('pre', '  const sources = {\n      DOM: makeDOMDriver(\'#main-container\'),\n      WS: WebSocketDriver,\n      WWB: workerBDriver,\n      WWC: workerCDriver,\n      WWD: workerDDriver,\n      WWE: workerEDriver,\n      WWF: workerFDriver,\n      WWG: workerGDriver,\n      WW: workerDriver,\n      PP: pingpongDriver\n    } '), (0, _dom.h)('p', ' run() is the function that keeps the perpetual cycle spinning. It takes two arguments, main() and sources. In main(), the drivers listen for events and map them into streams that process them and merge into calcStream, the stream that prompts main() to return and then feeds Snabbdom\'s diff and render routine the side effects generated by operations on those events. '), (0, _dom.h)('p#itterDef', ' When sources.WS hears a message prefixed by "BB#$42", MonadIterator instance mMZ27 is released. It releases mMZ37 with the number returned by the server (v[3]). it4() releases mMZ37 in it6, passing the number from the server to it. it6() sends the number to a web worker that sends back the number\'s prime decomposition. Here\'s the code: '), (0, _dom.h)('a#defs', { props: { href: '#top' } }, 'Back to the top'), (0, _dom.h)('pre', 'var it4 = x => {\n  if (socket.readyState === 1) socket.send(`BB#$42,${pMgroup.x},${pMname.x},${x}`);\n}\n\nvar it6 = x => {\n  mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));\n}\n\nvar it7 = v => mMZ38.bnd( v => {\n  m42_RESULT = m42_RESULT.concat(h(\'p\', orange, v[3] + v[0] + v[4] + v[5]).text.concat(h(\'br\'))\n  m42_RESULT2 = m42_RESULT2.concat(h(\'div\', [h(\'p\', orange, v[3] + v[0] + v[4] + v[5]).text]))\n  m42_RESULT3 = m42_RESULT3.concat(h(\'p\', orange, v[5]).text).concat(h(\'br\'))\n});  '), (0, _dom.h)('h3', 'MonadItter'), (0, _dom.h)('p', ' The MonadItter section of the page has a detailed discussion and live demonstrations. This is the definition: '), (0, _dom.h)('pre', '  var MonadItter = function MonadItter() {\n      this.p = function () {};\n      this.release = function () {\n        return this.p.apply(this, arguments);\n      };\n      this.bnd = function (func) {\n        return this.p = func;\n      };\n    }; '), (0, _dom.h)('h3', 'Promises'), (0, _dom.h)('p', ' As the definition of MonadItter shows, bnd() saves functions until release() causes them to execute. MonadItter instances are usually used on this webpage where promises, generators, and async/await could also do the job. '), (0, _dom.h)('p', 'Here are the Promises-based functions prm4() and prm6() that can be substituted for it4() and it6() in the expression bind(50)(cubeC)(it4)(it6): '), (0, _dom.h)('pre', '  const prm4 = x => {\n      if (socket.readyState === 1) socket.send(\'BB#$42,pMgroup,pMname,\' + x);\n      return new Promise( (resolve, reject) => {\n         mMZ37.bnd((y) => resolve(ret(y)))\n      })\n    }\n\n    const prm6 = x => {\n      workerG.postMessage([primesMonad.s, [x]]);\n      return "Done"\n    } '), (0, _dom.h)('p', ' Error handling is easy when using MonadItter instances, and is entirely optional. '), (0, _dom.h)('p', ' After "bind(50)(cubeC)(it4)(it6) runs, the prime decomposition of the number it recieved arrives from workerG. The workerGDriver (sources.WWG) detects the message and adds it to the workerG$ stream. Here is the definition of workerGDriver:  '), (0, _dom.h)('pre', '  function workerGDriver () {\n      return xs.create({\n        start: listener => { workerG.onmessage = msg => listener.next(msg)},\n        stop: () => { workerG.terminate() }\n      });\n    }; '), (0, _dom.h)('p', ' Clicking the "decompose fifteen random numbers" button causes factorsRecursion(0) to execute. Here\'s the code: '), (0, _dom.h)('pre', blue, '  const factorsRecursion = n => bind(50)(cubeC)(it4)\n        (it6)(() => { if (n < 15) factorsRecursion(n+1)}); '), (0, _dom.h)('p', 'result778(m.data) is called each time a message from workerG arrives. The definition of result778 is:   '), (0, _dom.h)('pre', blue, 'var result778 = x => h(\'div\', [\n          m778_RESULT,\n          h(\'br\'),\n          h(\'span\', bigBlue, x[3] ),\n          h(\'span\', bigGreen, x[0] ),\n          h(\'span\', bigBlue, x[4] ),\n          h(\'span\', bigRed, x[5] ),\n      ]); '), (0, _dom.h)('p', ' The stream that listens for workerG messages adds to the vnode m778_RESULT as follows: '), (0, _dom.h)('pre', 'const workerG$ = sources.WWG.map(m => {\n          m778_RESULT = result778(m.data);\n          primesMonad = new MonadState(\'primesMonad\', m.data[2]);\n      }); '), (0, _dom.h)('pre', bigGreen, 'const factorsRecursion = n => bind(50)(cubeC)(it4)\n    (it6)(pause)(() => { if (n < 15) factorsRecursion(n+1)}); '), (0, _dom.h)('pre', bigGold, '  var test5 = x => {\n    var n = toInt(x);\n    Bindo.bind1 = []; \n    Bindo.bind2 = []; \n    Bindo.bind3 = []; \n    \n    bind1(n+0)(cubeP)(() => idP(Bindo.bind1[0] -\n    Bindo.bind1[1]))(v=>addP(Bindo.bind1[1])(v));\n\n    bind2(n+1)(cubeP)(() => idP(Bindo.bind2[0] -\n    Bindo.bind2[1]))(v=>addP(Bindo.bind2[1])(v)); \n\n    bind3(n+2)(cubeP)(() => idP(Bindo.bind3[0] -\n    Bindo.bind3[1]))(v=>addP(Bindo.bind3[1])(v));} '), (0, _dom.h)('button#fredButton', fredButton), (0, _dom.h)('a', { props: { href: '#top' } }, 'Back to the top'), (0, _dom.h)('br'), (0, _dom.h)('input#change', diffRend), (0, _dom.h)('div#changeDisplay', [diffRend]), (0, _dom.h)('button#diffRender', 'diffRender()'), (0, _dom.h)('br'), (0, _dom.h)('div#pingmaker'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('p', ' This is the code involved in the pingpong demonstration. PingpongMaker\'s argument creates a namespace. The demonstration features three such namespaces. It verifies that each game proceeds with its own state, oblivious of the states of the other two games in progress. Bindo uses its closure to achieve a similar effect. '), (0, _dom.h)('pre', 'var pingD = a => b => c => h(\'div\', [\n  h(\'pre\', a, ` ping        ---> `), \n  h(\'pre\', b, `                 <---        pong `), \n  h(\'pre\',  `          -- SCORE: ping: ` + c[0]  + ` pong: ` + c[1]  ),\n]);\n\nvar PingpongMaker = (name) => {\n  var a = _A1;\n  var b = _A3;\n  var c = [0,0];\n  var n = 0;\n  var bool = true;\n  var k = Math.floor(Math.random() * 7)+1;\n  return function train () {\n    if (c[0] > 10 || c[1] > 10) return;\n    var ms = 400;\n    console.log(\'a.style.color, b.style.color, c\', a.style.display, b.style.display, c);\n    if (a === _A3) {a = _A1; b = _A3}\n    else if (a === _A1) {a = _A3; b = _A2};\n    if (n <= k) {\n      n+=1;\n      window[name] = pingD(a)(b)(c);\n      diffRender();\n    }\n    else if (n % 2 === 0) {\n      ms = 1200\n      n = 0\n      c[0]+=1;\n      window[name] = pingD(_A1)(_A3)(c);\n      diffRender();\n      k = Math.floor(Math.random() * 7)+1;\n    }\n    else if (n % 2 === 1) {\n      ms = 1200;\n      n = 0;\n      c[1]+=1;\n      window[name] = pingD(_A3)(_A2)(c);\n      diffRender();\n      k = Math.floor(Math.random() * 7)+1;\n    }\n    setTimeout( function () {\n      train();\n    },ms );\n  }\n}  \n\nPingpongMaker(\'m67_RESULT\')\nPingpongMaker(\'m68_RESULT\')\nPingpongMaker(\'m69_RESULT\')  '), (0, _dom.h)('p', ' m67_RESULT, m68_RESULT, and m69_RESULT are permanent fixtures in the virtual DOM description returned by main()'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br'), (0, _dom.h)('br')])]);
 	    })
 	  };
 	}
@@ -3402,20 +3531,13 @@
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(6);
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
 	/* WEBPACK VAR INJECTION */(function(global, module) {'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	var _ponyfill = __webpack_require__(8);
+	var _ponyfill = __webpack_require__(7);
 
 	var _ponyfill2 = _interopRequireDefault(_ponyfill);
 
@@ -3438,10 +3560,10 @@
 
 	var result = (0, _ponyfill2['default'])(root);
 	exports['default'] = result;
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(7)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(6)(module)))
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 	module.exports = function(module) {
@@ -3457,7 +3579,7 @@
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -3485,11 +3607,11 @@
 	};
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var thunk = __webpack_require__(10);
+	var thunk = __webpack_require__(9);
 	exports.thunk = thunk;
 	/**
 	 * A factory for the DOM driver function.
@@ -3527,7 +3649,7 @@
 	 * of VNode as input, and outputs the DOMSource object.
 	 * @function makeDOMDriver
 	 */
-	var makeDOMDriver_1 = __webpack_require__(14);
+	var makeDOMDriver_1 = __webpack_require__(13);
 	exports.makeDOMDriver = makeDOMDriver_1.makeDOMDriver;
 	/**
 	 * A factory for the HTML driver function.
@@ -3575,7 +3697,7 @@
 	 * of VNode as input, and outputs the DOMSource object.
 	 * @function makeHTMLDriver
 	 */
-	var makeHTMLDriver_1 = __webpack_require__(103);
+	var makeHTMLDriver_1 = __webpack_require__(102);
 	exports.makeHTMLDriver = makeHTMLDriver_1.makeHTMLDriver;
 	/**
 	 * A factory function to create mocked DOMSource objects, for testing purposes.
@@ -3625,7 +3747,7 @@
 	 *
 	 * @function mockDOMSource
 	 */
-	var mockDOMSource_1 = __webpack_require__(131);
+	var mockDOMSource_1 = __webpack_require__(130);
 	exports.mockDOMSource = mockDOMSource_1.mockDOMSource;
 	/**
 	 * The hyperscript function `h()` is a function to create virtual DOM objects,
@@ -3667,9 +3789,9 @@
 	 *
 	 * @function h
 	 */
-	var hyperscript_1 = __webpack_require__(28);
+	var hyperscript_1 = __webpack_require__(27);
 	exports.h = hyperscript_1.h;
-	var hyperscript_helpers_1 = __webpack_require__(132);
+	var hyperscript_helpers_1 = __webpack_require__(131);
 	exports.svg = hyperscript_helpers_1.default.svg;
 	exports.a = hyperscript_helpers_1.default.a;
 	exports.abbr = hyperscript_helpers_1.default.abbr;
@@ -3774,10 +3896,10 @@
 	//# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var h = __webpack_require__(11);
+	var h = __webpack_require__(10);
 
 	function copyToThunk(vnode, thunk) {
 	  thunk.elm = vnode.elm;
@@ -3826,11 +3948,11 @@
 
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var VNode = __webpack_require__(12);
-	var is = __webpack_require__(13);
+	var VNode = __webpack_require__(11);
+	var is = __webpack_require__(12);
 
 	function addNS(data, children) {
 	  data.ns = 'http://www.w3.org/2000/svg';
@@ -3865,7 +3987,7 @@
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports) {
 
 	module.exports = function(sel, data, children, text, elm) {
@@ -3876,7 +3998,7 @@
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports) {
 
 	module.exports = {
@@ -3886,20 +4008,20 @@
 
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var snabbdom_1 = __webpack_require__(15);
+	var snabbdom_1 = __webpack_require__(14);
 	var xstream_1 = __webpack_require__(4);
-	var MainDOMSource_1 = __webpack_require__(17);
-	var VNodeWrapper_1 = __webpack_require__(27);
-	var utils_1 = __webpack_require__(23);
-	var modules_1 = __webpack_require__(32);
-	var isolateModule_1 = __webpack_require__(39);
-	var transposition_1 = __webpack_require__(102);
+	var MainDOMSource_1 = __webpack_require__(16);
+	var VNodeWrapper_1 = __webpack_require__(26);
+	var utils_1 = __webpack_require__(22);
+	var modules_1 = __webpack_require__(31);
+	var isolateModule_1 = __webpack_require__(38);
+	var transposition_1 = __webpack_require__(101);
 	var xstream_adapter_1 = __webpack_require__(3);
-	var MapPolyfill = __webpack_require__(40);
+	var MapPolyfill = __webpack_require__(39);
 	function makeDOMDriverInputGuard(modules) {
 	    if (!Array.isArray(modules)) {
 	        throw new Error("Optional modules option must be " +
@@ -3949,16 +4071,16 @@
 	//# sourceMappingURL=makeDOMDriver.js.map
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// jshint newcap: false
 	/* global require, module, document, Node */
 	'use strict';
 
-	var VNode = __webpack_require__(12);
-	var is = __webpack_require__(13);
-	var domApi = __webpack_require__(16);
+	var VNode = __webpack_require__(11);
+	var is = __webpack_require__(12);
+	var domApi = __webpack_require__(15);
 
 	function isUndef(s) { return s === undefined; }
 	function isDef(s) { return s !== undefined; }
@@ -4213,7 +4335,7 @@
 
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports) {
 
 	function createElement(tagName){
@@ -4273,22 +4395,22 @@
 
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var xstream_adapter_1 = __webpack_require__(3);
-	var DocumentDOMSource_1 = __webpack_require__(18);
-	var BodyDOMSource_1 = __webpack_require__(20);
+	var DocumentDOMSource_1 = __webpack_require__(17);
+	var BodyDOMSource_1 = __webpack_require__(19);
 	var xstream_1 = __webpack_require__(4);
-	var ElementFinder_1 = __webpack_require__(21);
-	var fromEvent_1 = __webpack_require__(19);
-	var isolate_1 = __webpack_require__(25);
-	var EventDelegator_1 = __webpack_require__(26);
-	var utils_1 = __webpack_require__(23);
+	var ElementFinder_1 = __webpack_require__(20);
+	var fromEvent_1 = __webpack_require__(18);
+	var isolate_1 = __webpack_require__(24);
+	var EventDelegator_1 = __webpack_require__(25);
+	var utils_1 = __webpack_require__(22);
 	var matchesSelector;
 	try {
-	    matchesSelector = __webpack_require__(24);
+	    matchesSelector = __webpack_require__(23);
 	}
 	catch (e) {
 	    matchesSelector = Function.prototype;
@@ -4475,13 +4597,13 @@
 	//# sourceMappingURL=MainDOMSource.js.map
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var xstream_1 = __webpack_require__(4);
 	var xstream_adapter_1 = __webpack_require__(3);
-	var fromEvent_1 = __webpack_require__(19);
+	var fromEvent_1 = __webpack_require__(18);
 	var DocumentDOMSource = (function () {
 	    function DocumentDOMSource(_runStreamAdapter, _name) {
 	        this._runStreamAdapter = _runStreamAdapter;
@@ -4516,7 +4638,7 @@
 	//# sourceMappingURL=DocumentDOMSource.js.map
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4539,13 +4661,13 @@
 	//# sourceMappingURL=fromEvent.js.map
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var xstream_1 = __webpack_require__(4);
 	var xstream_adapter_1 = __webpack_require__(3);
-	var fromEvent_1 = __webpack_require__(19);
+	var fromEvent_1 = __webpack_require__(18);
 	var BodyDOMSource = (function () {
 	    function BodyDOMSource(_runStreamAdapter, _name) {
 	        this._runStreamAdapter = _runStreamAdapter;
@@ -4580,15 +4702,15 @@
 	//# sourceMappingURL=BodyDOMSource.js.map
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var ScopeChecker_1 = __webpack_require__(22);
-	var utils_1 = __webpack_require__(23);
+	var ScopeChecker_1 = __webpack_require__(21);
+	var utils_1 = __webpack_require__(22);
 	var matchesSelector;
 	try {
-	    matchesSelector = __webpack_require__(24);
+	    matchesSelector = __webpack_require__(23);
 	}
 	catch (e) {
 	    matchesSelector = Function.prototype;
@@ -4627,7 +4749,7 @@
 	//# sourceMappingURL=ElementFinder.js.map
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -4654,7 +4776,7 @@
 	//# sourceMappingURL=ScopeChecker.js.map
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -4694,7 +4816,7 @@
 	//# sourceMappingURL=utils.js.map
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4728,11 +4850,11 @@
 	}
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var utils_1 = __webpack_require__(23);
+	var utils_1 = __webpack_require__(22);
 	function isolateSource(source, scope) {
 	    return source.select(utils_1.SCOPE_PREFIX + scope);
 	}
@@ -4758,15 +4880,15 @@
 	//# sourceMappingURL=isolate.js.map
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var ScopeChecker_1 = __webpack_require__(22);
-	var utils_1 = __webpack_require__(23);
+	var ScopeChecker_1 = __webpack_require__(21);
+	var utils_1 = __webpack_require__(22);
 	var matchesSelector;
 	try {
-	    matchesSelector = __webpack_require__(24);
+	    matchesSelector = __webpack_require__(23);
 	}
 	catch (e) {
 	    matchesSelector = Function.prototype;
@@ -4897,13 +5019,13 @@
 	//# sourceMappingURL=EventDelegator.js.map
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var hyperscript_1 = __webpack_require__(28);
-	var classNameFromVNode_1 = __webpack_require__(29);
-	var selectorParser_1 = __webpack_require__(30);
+	var hyperscript_1 = __webpack_require__(27);
+	var classNameFromVNode_1 = __webpack_require__(28);
+	var selectorParser_1 = __webpack_require__(29);
 	var VNodeWrapper = (function () {
 	    function VNodeWrapper(rootElement) {
 	        this.rootElement = rootElement;
@@ -4934,12 +5056,12 @@
 	//# sourceMappingURL=VNodeWrapper.js.map
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var is = __webpack_require__(13);
-	var vnode = __webpack_require__(12);
+	var is = __webpack_require__(12);
+	var vnode = __webpack_require__(11);
 	function isGenericStream(x) {
 	    return !Array.isArray(x) && typeof x.map === "function";
 	}
@@ -5002,7 +5124,7 @@
 	//# sourceMappingURL=hyperscript.js.map
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5012,7 +5134,7 @@
 	});
 	exports.default = classNameFromVNode;
 
-	var _selectorParser2 = __webpack_require__(30);
+	var _selectorParser2 = __webpack_require__(29);
 
 	var _selectorParser3 = _interopRequireDefault(_selectorParser2);
 
@@ -5048,7 +5170,7 @@
 	}
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5058,7 +5180,7 @@
 	});
 	exports.default = selectorParser;
 
-	var _browserSplit = __webpack_require__(31);
+	var _browserSplit = __webpack_require__(30);
 
 	var _browserSplit2 = _interopRequireDefault(_browserSplit);
 
@@ -5110,7 +5232,7 @@
 	}
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports) {
 
 	/*!
@@ -5222,28 +5344,28 @@
 
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var ClassModule = __webpack_require__(33);
+	var ClassModule = __webpack_require__(32);
 	exports.ClassModule = ClassModule;
-	var PropsModule = __webpack_require__(34);
+	var PropsModule = __webpack_require__(33);
 	exports.PropsModule = PropsModule;
-	var AttrsModule = __webpack_require__(35);
+	var AttrsModule = __webpack_require__(34);
 	exports.AttrsModule = AttrsModule;
-	var EventsModule = __webpack_require__(36);
+	var EventsModule = __webpack_require__(35);
 	exports.EventsModule = EventsModule;
-	var StyleModule = __webpack_require__(37);
+	var StyleModule = __webpack_require__(36);
 	exports.StyleModule = StyleModule;
-	var HeroModule = __webpack_require__(38);
+	var HeroModule = __webpack_require__(37);
 	exports.HeroModule = HeroModule;
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = [StyleModule, ClassModule, PropsModule, AttrsModule];
 	//# sourceMappingURL=modules.js.map
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, exports) {
 
 	function updateClass(oldVnode, vnode) {
@@ -5267,7 +5389,7 @@
 
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, exports) {
 
 	function updateProps(oldVnode, vnode) {
@@ -5291,7 +5413,7 @@
 
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, exports) {
 
 	var booleanAttrs = ["allowfullscreen", "async", "autofocus", "autoplay", "checked", "compact", "controls", "declare", 
@@ -5336,10 +5458,10 @@
 
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var is = __webpack_require__(13);
+	var is = __webpack_require__(12);
 
 	function arrInvoker(arr) {
 	  return function() {
@@ -5400,7 +5522,7 @@
 
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports) {
 
 	var raf = (typeof window !== 'undefined' && window.requestAnimationFrame) || setTimeout;
@@ -5470,7 +5592,7 @@
 
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports) {
 
 	var raf = (typeof window !== 'undefined' && window.requestAnimationFrame) || setTimeout;
@@ -5628,11 +5750,11 @@
 
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var MapPolyfill = __webpack_require__(40);
+	var MapPolyfill = __webpack_require__(39);
 	var IsolateModule = (function () {
 	    function IsolateModule(isolatedElements) {
 	        this.isolatedElements = isolatedElements;
@@ -5737,16 +5859,16 @@
 	//# sourceMappingURL=isolateModule.js.map
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(41)() ? Map : __webpack_require__(42);
+	module.exports = __webpack_require__(40)() ? Map : __webpack_require__(41);
 
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -5784,23 +5906,23 @@
 
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var clear          = __webpack_require__(43)
-	  , eIndexOf       = __webpack_require__(47)
-	  , setPrototypeOf = __webpack_require__(56)
-	  , callable       = __webpack_require__(61)
-	  , validValue     = __webpack_require__(44)
-	  , d              = __webpack_require__(62)
-	  , ee             = __webpack_require__(74)
-	  , Symbol         = __webpack_require__(75)
-	  , iterator       = __webpack_require__(80)
-	  , forOf          = __webpack_require__(84)
-	  , Iterator       = __webpack_require__(98)
-	  , isNative       = __webpack_require__(101)
+	var clear          = __webpack_require__(42)
+	  , eIndexOf       = __webpack_require__(46)
+	  , setPrototypeOf = __webpack_require__(55)
+	  , callable       = __webpack_require__(60)
+	  , validValue     = __webpack_require__(43)
+	  , d              = __webpack_require__(61)
+	  , ee             = __webpack_require__(73)
+	  , Symbol         = __webpack_require__(74)
+	  , iterator       = __webpack_require__(79)
+	  , forOf          = __webpack_require__(83)
+	  , Iterator       = __webpack_require__(97)
+	  , isNative       = __webpack_require__(100)
 
 	  , call = Function.prototype.call
 	  , defineProperties = Object.defineProperties, getPrototypeOf = Object.getPrototypeOf
@@ -5894,7 +6016,7 @@
 
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// Inspired by Google Closure:
@@ -5903,11 +6025,25 @@
 
 	"use strict";
 
-	var value = __webpack_require__(44);
+	var value = __webpack_require__(43);
 
 	module.exports = function () {
 		value(this).length = 0;
 		return this;
+	};
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var isValue = __webpack_require__(44);
+
+	module.exports = function (value) {
+		if (!isValue(value)) throw new TypeError("Cannot use null or undefined");
+		return value;
 	};
 
 
@@ -5917,21 +6053,7 @@
 
 	"use strict";
 
-	var isValue = __webpack_require__(45);
-
-	module.exports = function (value) {
-		if (!isValue(value)) throw new TypeError("Cannot use null or undefined");
-		return value;
-	};
-
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _undefined = __webpack_require__(46)(); // Support ES3 engines
+	var _undefined = __webpack_require__(45)(); // Support ES3 engines
 
 	module.exports = function (val) {
 	 return (val !== _undefined) && (val !== null);
@@ -5939,7 +6061,7 @@
 
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -5949,14 +6071,14 @@
 
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var numberIsNaN       = __webpack_require__(48)
-	  , toPosInt          = __webpack_require__(51)
-	  , value             = __webpack_require__(44)
+	var numberIsNaN       = __webpack_require__(47)
+	  , toPosInt          = __webpack_require__(50)
+	  , value             = __webpack_require__(43)
 	  , indexOf           = Array.prototype.indexOf
 	  , objHasOwnProperty = Object.prototype.hasOwnProperty
 	  , abs               = Math.abs
@@ -5983,18 +6105,18 @@
 
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	module.exports = __webpack_require__(49)()
+	module.exports = __webpack_require__(48)()
 		? Number.isNaN
-		: __webpack_require__(50);
+		: __webpack_require__(49);
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -6007,7 +6129,7 @@
 
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -6019,12 +6141,12 @@
 
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var toInteger = __webpack_require__(52)
+	var toInteger = __webpack_require__(51)
 
 	  , max = Math.max;
 
@@ -6034,12 +6156,12 @@
 
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var sign = __webpack_require__(53)
+	var sign = __webpack_require__(52)
 
 	  , abs = Math.abs, floor = Math.floor;
 
@@ -6052,18 +6174,18 @@
 
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	module.exports = __webpack_require__(54)()
+	module.exports = __webpack_require__(53)()
 		? Math.sign
-		: __webpack_require__(55);
+		: __webpack_require__(54);
 
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -6076,7 +6198,7 @@
 
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -6089,18 +6211,18 @@
 
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	module.exports = __webpack_require__(57)()
+	module.exports = __webpack_require__(56)()
 		? Object.setPrototypeOf
-		: __webpack_require__(58);
+		: __webpack_require__(57);
 
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -6115,7 +6237,7 @@
 
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* eslint no-proto: "off" */
@@ -6125,8 +6247,8 @@
 
 	"use strict";
 
-	var isObject        = __webpack_require__(59)
-	  , value           = __webpack_require__(44)
+	var isObject        = __webpack_require__(58)
+	  , value           = __webpack_require__(43)
 	  , objIsPrototypeOf = Object.prototype.isPrototypeOf
 	  , defineProperty  = Object.defineProperty
 	  , nullDesc        = {
@@ -6203,16 +6325,16 @@
 		})()
 	));
 
-	__webpack_require__(60);
+	__webpack_require__(59);
 
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var isValue = __webpack_require__(45);
+	var isValue = __webpack_require__(44);
 
 	var map = { function: true, object: true };
 
@@ -6222,7 +6344,7 @@
 
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// Workaround for http://code.google.com/p/v8/issues/detail?id=2804
@@ -6231,8 +6353,8 @@
 
 	var create = Object.create, shim;
 
-	if (!__webpack_require__(57)()) {
-		shim = __webpack_require__(58);
+	if (!__webpack_require__(56)()) {
+		shim = __webpack_require__(57);
 	}
 
 	module.exports = (function () {
@@ -6276,7 +6398,7 @@
 
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -6288,15 +6410,15 @@
 
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var assign        = __webpack_require__(63)
-	  , normalizeOpts = __webpack_require__(69)
-	  , isCallable    = __webpack_require__(70)
-	  , contains      = __webpack_require__(71)
+	var assign        = __webpack_require__(62)
+	  , normalizeOpts = __webpack_require__(68)
+	  , isCallable    = __webpack_require__(69)
+	  , contains      = __webpack_require__(70)
 
 	  , d;
 
@@ -6357,18 +6479,18 @@
 
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	module.exports = __webpack_require__(64)()
+	module.exports = __webpack_require__(63)()
 		? Object.assign
-		: __webpack_require__(65);
+		: __webpack_require__(64);
 
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -6383,13 +6505,13 @@
 
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var keys  = __webpack_require__(66)
-	  , value = __webpack_require__(44)
+	var keys  = __webpack_require__(65)
+	  , value = __webpack_require__(43)
 	  , max   = Math.max;
 
 	module.exports = function (dest, src /*, …srcn*/) {
@@ -6412,18 +6534,18 @@
 
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	module.exports = __webpack_require__(67)()
+	module.exports = __webpack_require__(66)()
 		? Object.keys
-		: __webpack_require__(68);
+		: __webpack_require__(67);
 
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -6439,12 +6561,12 @@
 
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var isValue = __webpack_require__(45);
+	var isValue = __webpack_require__(44);
 
 	var keys = Object.keys;
 
@@ -6454,12 +6576,12 @@
 
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var isValue = __webpack_require__(45);
+	var isValue = __webpack_require__(44);
 
 	var forEach = Array.prototype.forEach, create = Object.create;
 
@@ -6480,7 +6602,7 @@
 
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(module, exports) {
 
 	// Deprecated
@@ -6493,18 +6615,18 @@
 
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	module.exports = __webpack_require__(72)()
+	module.exports = __webpack_require__(71)()
 		? String.prototype.contains
-		: __webpack_require__(73);
+		: __webpack_require__(72);
 
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -6518,7 +6640,7 @@
 
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -6531,13 +6653,13 @@
 
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var d        = __webpack_require__(62)
-	  , callable = __webpack_require__(61)
+	var d        = __webpack_require__(61)
+	  , callable = __webpack_require__(60)
 
 	  , apply = Function.prototype.apply, call = Function.prototype.call
 	  , create = Object.create, defineProperty = Object.defineProperty
@@ -6669,16 +6791,16 @@
 
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(76)() ? Symbol : __webpack_require__(77);
+	module.exports = __webpack_require__(75)() ? Symbol : __webpack_require__(76);
 
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -6701,15 +6823,15 @@
 
 
 /***/ }),
-/* 77 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// ES2015 Symbol polyfill for environments that do not (or partially) support it
 
 	'use strict';
 
-	var d              = __webpack_require__(62)
-	  , validateSymbol = __webpack_require__(78)
+	var d              = __webpack_require__(61)
+	  , validateSymbol = __webpack_require__(77)
 
 	  , create = Object.create, defineProperties = Object.defineProperties
 	  , defineProperty = Object.defineProperty, objPrototype = Object.prototype
@@ -6825,12 +6947,12 @@
 
 
 /***/ }),
-/* 78 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isSymbol = __webpack_require__(79);
+	var isSymbol = __webpack_require__(78);
 
 	module.exports = function (value) {
 		if (!isSymbol(value)) throw new TypeError(value + " is not a symbol");
@@ -6839,7 +6961,7 @@
 
 
 /***/ }),
-/* 79 */
+/* 78 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -6854,12 +6976,12 @@
 
 
 /***/ }),
-/* 80 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var isIterable = __webpack_require__(81);
+	var isIterable = __webpack_require__(80);
 
 	module.exports = function (value) {
 		if (!isIterable(value)) throw new TypeError(value + " is not iterable");
@@ -6868,16 +6990,16 @@
 
 
 /***/ }),
-/* 81 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var isArguments = __webpack_require__(82)
-	  , isValue     = __webpack_require__(45)
-	  , isString    = __webpack_require__(83);
+	var isArguments = __webpack_require__(81)
+	  , isValue     = __webpack_require__(44)
+	  , isString    = __webpack_require__(82);
 
-	var iteratorSymbol = __webpack_require__(75).iterator
+	var iteratorSymbol = __webpack_require__(74).iterator
 	  , isArray        = Array.isArray;
 
 	module.exports = function (value) {
@@ -6890,7 +7012,7 @@
 
 
 /***/ }),
-/* 82 */
+/* 81 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -6908,7 +7030,7 @@
 
 
 /***/ }),
-/* 83 */
+/* 82 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -6927,15 +7049,15 @@
 
 
 /***/ }),
-/* 84 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var isArguments = __webpack_require__(82)
-	  , callable    = __webpack_require__(61)
-	  , isString    = __webpack_require__(83)
-	  , get         = __webpack_require__(85);
+	var isArguments = __webpack_require__(81)
+	  , callable    = __webpack_require__(60)
+	  , isString    = __webpack_require__(82)
+	  , get         = __webpack_require__(84);
 
 	var isArray = Array.isArray, call = Function.prototype.call, some = Array.prototype.some;
 
@@ -6980,17 +7102,17 @@
 
 
 /***/ }),
-/* 85 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var isArguments    = __webpack_require__(82)
-	  , isString       = __webpack_require__(83)
-	  , ArrayIterator  = __webpack_require__(86)
-	  , StringIterator = __webpack_require__(97)
-	  , iterable       = __webpack_require__(80)
-	  , iteratorSymbol = __webpack_require__(75).iterator;
+	var isArguments    = __webpack_require__(81)
+	  , isString       = __webpack_require__(82)
+	  , ArrayIterator  = __webpack_require__(85)
+	  , StringIterator = __webpack_require__(96)
+	  , iterable       = __webpack_require__(79)
+	  , iteratorSymbol = __webpack_require__(74).iterator;
 
 	module.exports = function (obj) {
 		if (typeof iterable(obj)[iteratorSymbol] === "function") return obj[iteratorSymbol]();
@@ -7001,16 +7123,16 @@
 
 
 /***/ }),
-/* 86 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var setPrototypeOf = __webpack_require__(56)
-	  , contains       = __webpack_require__(71)
-	  , d              = __webpack_require__(62)
-	  , Symbol         = __webpack_require__(75)
-	  , Iterator       = __webpack_require__(87);
+	var setPrototypeOf = __webpack_require__(55)
+	  , contains       = __webpack_require__(70)
+	  , d              = __webpack_require__(61)
+	  , Symbol         = __webpack_require__(74)
+	  , Iterator       = __webpack_require__(86);
 
 	var defineProperty = Object.defineProperty, ArrayIterator;
 
@@ -7039,18 +7161,18 @@
 
 
 /***/ }),
-/* 87 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var clear    = __webpack_require__(43)
-	  , assign   = __webpack_require__(63)
-	  , callable = __webpack_require__(61)
-	  , value    = __webpack_require__(44)
-	  , d        = __webpack_require__(62)
-	  , autoBind = __webpack_require__(88)
-	  , Symbol   = __webpack_require__(75);
+	var clear    = __webpack_require__(42)
+	  , assign   = __webpack_require__(62)
+	  , callable = __webpack_require__(60)
+	  , value    = __webpack_require__(43)
+	  , d        = __webpack_require__(61)
+	  , autoBind = __webpack_require__(87)
+	  , Symbol   = __webpack_require__(74);
 
 	var defineProperty = Object.defineProperty, defineProperties = Object.defineProperties, Iterator;
 
@@ -7151,17 +7273,17 @@
 
 
 /***/ }),
-/* 88 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var copy             = __webpack_require__(89)
-	  , normalizeOptions = __webpack_require__(69)
-	  , ensureCallable   = __webpack_require__(61)
-	  , map              = __webpack_require__(94)
-	  , callable         = __webpack_require__(61)
-	  , validValue       = __webpack_require__(44)
+	var copy             = __webpack_require__(88)
+	  , normalizeOptions = __webpack_require__(68)
+	  , ensureCallable   = __webpack_require__(60)
+	  , map              = __webpack_require__(93)
+	  , callable         = __webpack_require__(60)
+	  , validValue       = __webpack_require__(43)
 
 	  , bind = Function.prototype.bind, defineProperty = Object.defineProperty
 	  , hasOwnProperty = Object.prototype.hasOwnProperty
@@ -7189,14 +7311,14 @@
 
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var aFrom  = __webpack_require__(90)
-	  , assign = __webpack_require__(63)
-	  , value  = __webpack_require__(44);
+	var aFrom  = __webpack_require__(89)
+	  , assign = __webpack_require__(62)
+	  , value  = __webpack_require__(43);
 
 	module.exports = function (obj/*, propertyNames, options*/) {
 		var copy = Object(value(obj)), propertyNames = arguments[1], options = Object(arguments[2]);
@@ -7214,18 +7336,18 @@
 
 
 /***/ }),
-/* 90 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	module.exports = __webpack_require__(91)()
+	module.exports = __webpack_require__(90)()
 		? Array.from
-		: __webpack_require__(92);
+		: __webpack_require__(91);
 
 
 /***/ }),
-/* 91 */
+/* 90 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -7240,19 +7362,19 @@
 
 
 /***/ }),
-/* 92 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var iteratorSymbol = __webpack_require__(75).iterator
-	  , isArguments    = __webpack_require__(82)
-	  , isFunction     = __webpack_require__(93)
-	  , toPosInt       = __webpack_require__(51)
-	  , callable       = __webpack_require__(61)
-	  , validValue     = __webpack_require__(44)
-	  , isValue        = __webpack_require__(45)
-	  , isString       = __webpack_require__(83)
+	var iteratorSymbol = __webpack_require__(74).iterator
+	  , isArguments    = __webpack_require__(81)
+	  , isFunction     = __webpack_require__(92)
+	  , toPosInt       = __webpack_require__(50)
+	  , callable       = __webpack_require__(60)
+	  , validValue     = __webpack_require__(43)
+	  , isValue        = __webpack_require__(44)
+	  , isString       = __webpack_require__(82)
 	  , isArray        = Array.isArray
 	  , call           = Function.prototype.call
 	  , desc           = { configurable: true, enumerable: true, writable: true, value: null }
@@ -7365,12 +7487,12 @@
 
 
 /***/ }),
-/* 93 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var objToString = Object.prototype.toString, id = objToString.call(__webpack_require__(46));
+	var objToString = Object.prototype.toString, id = objToString.call(__webpack_require__(45));
 
 	module.exports = function (value) {
 		return typeof value === "function" && objToString.call(value) === id;
@@ -7378,13 +7500,13 @@
 
 
 /***/ }),
-/* 94 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var callable = __webpack_require__(61)
-	  , forEach  = __webpack_require__(95)
+	var callable = __webpack_require__(60)
+	  , forEach  = __webpack_require__(94)
 	  , call     = Function.prototype.call;
 
 	module.exports = function (obj, cb /*, thisArg*/) {
@@ -7398,16 +7520,16 @@
 
 
 /***/ }),
-/* 95 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	module.exports = __webpack_require__(96)("forEach");
+	module.exports = __webpack_require__(95)("forEach");
 
 
 /***/ }),
-/* 96 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// Internal method, used by iteration functions.
@@ -7416,8 +7538,8 @@
 
 	"use strict";
 
-	var callable                = __webpack_require__(61)
-	  , value                   = __webpack_require__(44)
+	var callable                = __webpack_require__(60)
+	  , value                   = __webpack_require__(43)
 	  , bind                    = Function.prototype.bind
 	  , call                    = Function.prototype.call
 	  , keys                    = Object.keys
@@ -7443,7 +7565,7 @@
 
 
 /***/ }),
-/* 97 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// Thanks @mathiasbynens
@@ -7451,10 +7573,10 @@
 
 	"use strict";
 
-	var setPrototypeOf = __webpack_require__(56)
-	  , d              = __webpack_require__(62)
-	  , Symbol         = __webpack_require__(75)
-	  , Iterator       = __webpack_require__(87);
+	var setPrototypeOf = __webpack_require__(55)
+	  , d              = __webpack_require__(61)
+	  , Symbol         = __webpack_require__(74)
+	  , Iterator       = __webpack_require__(86);
 
 	var defineProperty = Object.defineProperty, StringIterator;
 
@@ -7488,16 +7610,16 @@
 
 
 /***/ }),
-/* 98 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var setPrototypeOf    = __webpack_require__(56)
-	  , d                 = __webpack_require__(62)
-	  , Iterator          = __webpack_require__(87)
-	  , toStringTagSymbol = __webpack_require__(75).toStringTag
-	  , kinds             = __webpack_require__(99)
+	var setPrototypeOf    = __webpack_require__(55)
+	  , d                 = __webpack_require__(61)
+	  , Iterator          = __webpack_require__(86)
+	  , toStringTagSymbol = __webpack_require__(74).toStringTag
+	  , kinds             = __webpack_require__(98)
 
 	  , defineProperties = Object.defineProperties
 	  , unBind = Iterator.prototype._unBind
@@ -7532,17 +7654,17 @@
 
 
 /***/ }),
-/* 99 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(100)('key',
+	module.exports = __webpack_require__(99)('key',
 		'value', 'key+value');
 
 
 /***/ }),
-/* 100 */
+/* 99 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -7560,7 +7682,7 @@
 
 
 /***/ }),
-/* 101 */
+/* 100 */
 /***/ (function(module, exports) {
 
 	// Exports true if environment provides native `Map` implementation,
@@ -7575,7 +7697,7 @@
 
 
 /***/ }),
-/* 102 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7631,14 +7753,14 @@
 	//# sourceMappingURL=transposition.js.map
 
 /***/ }),
-/* 103 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var xstream_adapter_1 = __webpack_require__(3);
-	var transposition_1 = __webpack_require__(102);
-	var HTMLSource_1 = __webpack_require__(104);
-	var toHTML = __webpack_require__(105);
+	var transposition_1 = __webpack_require__(101);
+	var HTMLSource_1 = __webpack_require__(103);
+	var toHTML = __webpack_require__(104);
 	var noop = function () { };
 	function makeHTMLDriver(effect, options) {
 	    if (!options) {
@@ -7664,7 +7786,7 @@
 	//# sourceMappingURL=makeHTMLDriver.js.map
 
 /***/ }),
-/* 104 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7696,22 +7818,22 @@
 	//# sourceMappingURL=HTMLSource.js.map
 
 /***/ }),
+/* 104 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	
+	var init = __webpack_require__(105);
+
+	module.exports = init([__webpack_require__(109), __webpack_require__(126)]);
+
+/***/ }),
 /* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	var init = __webpack_require__(106);
-
-	module.exports = init([__webpack_require__(110), __webpack_require__(127)]);
-
-/***/ }),
-/* 106 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	
-	var parseSelector = __webpack_require__(107);
-	var VOID_ELEMENTS = __webpack_require__(108);
-	var CONTAINER_ELEMENTS = __webpack_require__(109);
+	var parseSelector = __webpack_require__(106);
+	var VOID_ELEMENTS = __webpack_require__(107);
+	var CONTAINER_ELEMENTS = __webpack_require__(108);
 
 	module.exports = function init(modules) {
 	  function parse(data) {
@@ -7769,13 +7891,13 @@
 	};
 
 /***/ }),
-/* 107 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
 	// https://github.com/Matt-Esch/virtual-dom/blob/master/virtual-hyperscript/parse-tag.js
 
-	var split = __webpack_require__(31);
+	var split = __webpack_require__(30);
 
 	var classIdSplit = /([\.#]?[a-zA-Z0-9\u007F-\uFFFF_:-]+)/;
 	var notClassId = /^\.|#/;
@@ -7820,7 +7942,7 @@
 	};
 
 /***/ }),
-/* 108 */
+/* 107 */
 /***/ (function(module, exports) {
 
 	
@@ -7845,7 +7967,7 @@
 	};
 
 /***/ }),
-/* 109 */
+/* 108 */
 /***/ (function(module, exports) {
 
 	
@@ -7872,15 +7994,15 @@
 	};
 
 /***/ }),
-/* 110 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	var forOwn = __webpack_require__(111);
-	var escape = __webpack_require__(118);
-	var union = __webpack_require__(120);
+	var forOwn = __webpack_require__(110);
+	var escape = __webpack_require__(117);
+	var union = __webpack_require__(119);
 
-	var parseSelector = __webpack_require__(107);
+	var parseSelector = __webpack_require__(106);
 
 	// data.attrs, data.props, data.class
 
@@ -7941,7 +8063,7 @@
 	}
 
 /***/ }),
-/* 111 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -7952,9 +8074,9 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var baseFor = __webpack_require__(112),
-	    bindCallback = __webpack_require__(113),
-	    keys = __webpack_require__(114);
+	var baseFor = __webpack_require__(111),
+	    bindCallback = __webpack_require__(112),
+	    keys = __webpack_require__(113);
 
 	/**
 	 * The base implementation of `_.forOwn` without support for callback
@@ -8018,7 +8140,7 @@
 
 
 /***/ }),
-/* 112 */
+/* 111 */
 /***/ (function(module, exports) {
 
 	/**
@@ -8072,7 +8194,7 @@
 
 
 /***/ }),
-/* 113 */
+/* 112 */
 /***/ (function(module, exports) {
 
 	/**
@@ -8143,7 +8265,7 @@
 
 
 /***/ }),
-/* 114 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -8154,9 +8276,9 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var getNative = __webpack_require__(115),
-	    isArguments = __webpack_require__(116),
-	    isArray = __webpack_require__(117);
+	var getNative = __webpack_require__(114),
+	    isArguments = __webpack_require__(115),
+	    isArray = __webpack_require__(116);
 
 	/** Used to detect unsigned integer values. */
 	var reIsUint = /^\d+$/;
@@ -8385,7 +8507,7 @@
 
 
 /***/ }),
-/* 115 */
+/* 114 */
 /***/ (function(module, exports) {
 
 	/**
@@ -8528,7 +8650,7 @@
 
 
 /***/ }),
-/* 116 */
+/* 115 */
 /***/ (function(module, exports) {
 
 	/**
@@ -8763,7 +8885,7 @@
 
 
 /***/ }),
-/* 117 */
+/* 116 */
 /***/ (function(module, exports) {
 
 	/**
@@ -8949,7 +9071,7 @@
 
 
 /***/ }),
-/* 118 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -8960,7 +9082,7 @@
 	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var root = __webpack_require__(119);
+	var root = __webpack_require__(118);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0;
@@ -9135,7 +9257,7 @@
 
 
 /***/ }),
-/* 119 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -9198,10 +9320,10 @@
 
 	module.exports = root;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module), (function() { return this; }())))
 
 /***/ }),
-/* 120 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -9212,9 +9334,9 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var baseFlatten = __webpack_require__(121),
-	    baseUniq = __webpack_require__(122),
-	    restParam = __webpack_require__(126);
+	var baseFlatten = __webpack_require__(120),
+	    baseUniq = __webpack_require__(121),
+	    restParam = __webpack_require__(125);
 
 	/**
 	 * Creates an array of unique values, in order, of the provided arrays using
@@ -9242,7 +9364,7 @@
 
 
 /***/ }),
-/* 121 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -9253,8 +9375,8 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var isArguments = __webpack_require__(116),
-	    isArray = __webpack_require__(117);
+	var isArguments = __webpack_require__(115),
+	    isArray = __webpack_require__(116);
 
 	/**
 	 * Checks if `value` is object-like.
@@ -9379,7 +9501,7 @@
 
 
 /***/ }),
-/* 122 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -9390,9 +9512,9 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var baseIndexOf = __webpack_require__(123),
-	    cacheIndexOf = __webpack_require__(124),
-	    createCache = __webpack_require__(125);
+	var baseIndexOf = __webpack_require__(122),
+	    cacheIndexOf = __webpack_require__(123),
+	    createCache = __webpack_require__(124);
 
 	/** Used as the size to enable large array optimizations. */
 	var LARGE_ARRAY_SIZE = 200;
@@ -9453,7 +9575,7 @@
 
 
 /***/ }),
-/* 123 */
+/* 122 */
 /***/ (function(module, exports) {
 
 	/**
@@ -9516,7 +9638,7 @@
 
 
 /***/ }),
-/* 124 */
+/* 123 */
 /***/ (function(module, exports) {
 
 	/**
@@ -9575,7 +9697,7 @@
 
 
 /***/ }),
-/* 125 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -9586,7 +9708,7 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var getNative = __webpack_require__(115);
+	var getNative = __webpack_require__(114);
 
 	/** Native method references. */
 	var Set = getNative(global, 'Set');
@@ -9673,7 +9795,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 126 */
+/* 125 */
 /***/ (function(module, exports) {
 
 	/**
@@ -9746,14 +9868,14 @@
 
 
 /***/ }),
-/* 127 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var forOwn = __webpack_require__(111);
-	var escape = __webpack_require__(118);
-	var kebabCase = __webpack_require__(128);
+	var forOwn = __webpack_require__(110);
+	var escape = __webpack_require__(117);
+	var kebabCase = __webpack_require__(127);
 
 	// data.style
 
@@ -9777,7 +9899,7 @@
 	};
 
 /***/ }),
-/* 128 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -9788,8 +9910,8 @@
 	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var deburr = __webpack_require__(129),
-	    words = __webpack_require__(130);
+	var deburr = __webpack_require__(128),
+	    words = __webpack_require__(129);
 
 	/**
 	 * A specialized version of `_.reduce` for arrays without support for
@@ -9855,7 +9977,7 @@
 
 
 /***/ }),
-/* 129 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -9866,7 +9988,7 @@
 	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var root = __webpack_require__(119);
+	var root = __webpack_require__(118);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0;
@@ -10044,7 +10166,7 @@
 
 
 /***/ }),
-/* 130 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -10055,7 +10177,7 @@
 	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var root = __webpack_require__(119);
+	var root = __webpack_require__(118);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0;
@@ -10248,7 +10370,7 @@
 
 
 /***/ }),
-/* 131 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10323,11 +10445,11 @@
 	//# sourceMappingURL=mockDOMSource.js.map
 
 /***/ }),
-/* 132 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var hyperscript_1 = __webpack_require__(28);
+	var hyperscript_1 = __webpack_require__(27);
 	function isValidString(param) {
 	    return typeof param === 'string' && param.length > 0;
 	}
@@ -10400,7 +10522,7 @@
 	//# sourceMappingURL=hyperscript-helpers.js.map
 
 /***/ }),
-/* 133 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10411,7 +10533,7 @@
 
 	var _todo1$todo2$sco$calc;
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(8);
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -10731,262 +10853,262 @@
 	exports.default = (_todo1$todo2$sco$calc = { todo1: todo1, todo2: todo2, sco: sco, calculations: calculations, prototypeAdditions: prototypeAdditions, styl: styl, num_op: num_op, fetch: fetch, gameMonad_2: gameMonad_2, newRoll: newRoll, primes3: primes3, primes2: primes2, primes: primes, variations: variations, MonadEmitter: MonadEmitter, clicks: clicks, bNode: bNode, MonadState2: MonadState2, gameMonad: gameMonad, cycle: cycle, monad: monad, hardWay: hardWay, hardWay2: hardWay2, async1: async1, async2: async2, execP: execP, workerD$: workerD$, fact_workerC: fact_workerC, fact2_workerD: fact2_workerD, primes_state: primes_state, workerB_Driver: workerB_Driver, workerC: workerC, worker$: worker$, errorDemo: errorDemo, monadEr: monadEr, backAction: backAction, tests: tests, mMZ10: mMZ10, test3: test3 }, _defineProperty(_todo1$todo2$sco$calc, 'monad', monad), _defineProperty(_todo1$todo2$sco$calc, 'equals', equals), _defineProperty(_todo1$todo2$sco$calc, 'fmap', fmap), _defineProperty(_todo1$todo2$sco$calc, 'opM', opM), _defineProperty(_todo1$todo2$sco$calc, 'e2', e2), _defineProperty(_todo1$todo2$sco$calc, 'e2x', e2x), _defineProperty(_todo1$todo2$sco$calc, 'e3', e3), _defineProperty(_todo1$todo2$sco$calc, 'e4', e4), _defineProperty(_todo1$todo2$sco$calc, 'e4x', e4x), _defineProperty(_todo1$todo2$sco$calc, 'e6', e6), _defineProperty(_todo1$todo2$sco$calc, 'e6x', e6x), _defineProperty(_todo1$todo2$sco$calc, 'driver', driver), _defineProperty(_todo1$todo2$sco$calc, 'messages', messages), _defineProperty(_todo1$todo2$sco$calc, 'monadIt', monadIt), _defineProperty(_todo1$todo2$sco$calc, 'MonadSet', MonadSet), _defineProperty(_todo1$todo2$sco$calc, 'updateCalc', updateCalc), _defineProperty(_todo1$todo2$sco$calc, 'arrayFuncs', arrayFuncs), _defineProperty(_todo1$todo2$sco$calc, 'nums', nums), _defineProperty(_todo1$todo2$sco$calc, 'cleanup', cleanup), _defineProperty(_todo1$todo2$sco$calc, 'ret', ret), _defineProperty(_todo1$todo2$sco$calc, 'C42', C42), _defineProperty(_todo1$todo2$sco$calc, 'newTask', newTask), _defineProperty(_todo1$todo2$sco$calc, 'process', process), _defineProperty(_todo1$todo2$sco$calc, 'mM$task', mM$task), _defineProperty(_todo1$todo2$sco$calc, 'colorClick', colorClick), _defineProperty(_todo1$todo2$sco$calc, 'edit', edit), _defineProperty(_todo1$todo2$sco$calc, 'testZ', testZ), _defineProperty(_todo1$todo2$sco$calc, 'quad', quad), _defineProperty(_todo1$todo2$sco$calc, 'quadShort', quadShort), _defineProperty(_todo1$todo2$sco$calc, 'runTest', runTest), _defineProperty(_todo1$todo2$sco$calc, 'todoStream', todoStream), _defineProperty(_todo1$todo2$sco$calc, 'inc', inc), _defineProperty(_todo1$todo2$sco$calc, 'seed', seed), _defineProperty(_todo1$todo2$sco$calc, 'add', add), _defineProperty(_todo1$todo2$sco$calc, 'MonadState', MonadState), _defineProperty(_todo1$todo2$sco$calc, 'primesMonad', primesMonad), _defineProperty(_todo1$todo2$sco$calc, 'fibsMonad', fibsMonad), _defineProperty(_todo1$todo2$sco$calc, 'primeFibInterface', primeFibInterface), _defineProperty(_todo1$todo2$sco$calc, 'tr3', tr3), _defineProperty(_todo1$todo2$sco$calc, 'fpTransformer', fpTransformer), _defineProperty(_todo1$todo2$sco$calc, 'factorsMonad', factorsMonad), _defineProperty(_todo1$todo2$sco$calc, 'factorsInput', factorsInput), _defineProperty(_todo1$todo2$sco$calc, 'promise', promise), _defineProperty(_todo1$todo2$sco$calc, 'promiseSnippet', promiseSnippet), _defineProperty(_todo1$todo2$sco$calc, 'timeout', timeout), _defineProperty(_todo1$todo2$sco$calc, 'timeoutSnippet', timeoutSnippet), _defineProperty(_todo1$todo2$sco$calc, 'examples', examples), _defineProperty(_todo1$todo2$sco$calc, 'examples2', examples2), _todo1$todo2$sco$calc);
 
 /***/ }),
-/* 134 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = {};
-	module.exports.F = /*#__PURE__*/__webpack_require__(135);
-	module.exports.T = /*#__PURE__*/__webpack_require__(139);
-	module.exports.__ = /*#__PURE__*/__webpack_require__(140);
-	module.exports.add = /*#__PURE__*/__webpack_require__(141);
-	module.exports.addIndex = /*#__PURE__*/__webpack_require__(143);
-	module.exports.adjust = /*#__PURE__*/__webpack_require__(148);
-	module.exports.all = /*#__PURE__*/__webpack_require__(150);
-	module.exports.allPass = /*#__PURE__*/__webpack_require__(157);
-	module.exports.always = /*#__PURE__*/__webpack_require__(136);
-	module.exports.and = /*#__PURE__*/__webpack_require__(174);
-	module.exports.any = /*#__PURE__*/__webpack_require__(175);
-	module.exports.anyPass = /*#__PURE__*/__webpack_require__(177);
-	module.exports.ap = /*#__PURE__*/__webpack_require__(178);
-	module.exports.aperture = /*#__PURE__*/__webpack_require__(179);
-	module.exports.append = /*#__PURE__*/__webpack_require__(182);
-	module.exports.apply = /*#__PURE__*/__webpack_require__(183);
-	module.exports.applySpec = /*#__PURE__*/__webpack_require__(184);
-	module.exports.applyTo = /*#__PURE__*/__webpack_require__(186);
-	module.exports.ascend = /*#__PURE__*/__webpack_require__(187);
-	module.exports.assoc = /*#__PURE__*/__webpack_require__(188);
-	module.exports.assocPath = /*#__PURE__*/__webpack_require__(189);
-	module.exports.binary = /*#__PURE__*/__webpack_require__(192);
-	module.exports.bind = /*#__PURE__*/__webpack_require__(166);
-	module.exports.both = /*#__PURE__*/__webpack_require__(194);
-	module.exports.call = /*#__PURE__*/__webpack_require__(198);
-	module.exports.chain = /*#__PURE__*/__webpack_require__(200);
-	module.exports.clamp = /*#__PURE__*/__webpack_require__(205);
-	module.exports.clone = /*#__PURE__*/__webpack_require__(206);
-	module.exports.comparator = /*#__PURE__*/__webpack_require__(210);
-	module.exports.complement = /*#__PURE__*/__webpack_require__(211);
-	module.exports.compose = /*#__PURE__*/__webpack_require__(213);
-	module.exports.composeK = /*#__PURE__*/__webpack_require__(220);
-	module.exports.composeP = /*#__PURE__*/__webpack_require__(221);
-	module.exports.concat = /*#__PURE__*/__webpack_require__(224);
-	module.exports.cond = /*#__PURE__*/__webpack_require__(243);
-	module.exports.construct = /*#__PURE__*/__webpack_require__(244);
-	module.exports.constructN = /*#__PURE__*/__webpack_require__(245);
-	module.exports.contains = /*#__PURE__*/__webpack_require__(246);
-	module.exports.converge = /*#__PURE__*/__webpack_require__(247);
-	module.exports.countBy = /*#__PURE__*/__webpack_require__(248);
-	module.exports.curry = /*#__PURE__*/__webpack_require__(199);
-	module.exports.curryN = /*#__PURE__*/__webpack_require__(145);
-	module.exports.dec = /*#__PURE__*/__webpack_require__(251);
-	module.exports.defaultTo = /*#__PURE__*/__webpack_require__(252);
-	module.exports.descend = /*#__PURE__*/__webpack_require__(253);
-	module.exports.difference = /*#__PURE__*/__webpack_require__(254);
-	module.exports.differenceWith = /*#__PURE__*/__webpack_require__(255);
-	module.exports.dissoc = /*#__PURE__*/__webpack_require__(256);
-	module.exports.dissocPath = /*#__PURE__*/__webpack_require__(257);
-	module.exports.divide = /*#__PURE__*/__webpack_require__(260);
-	module.exports.drop = /*#__PURE__*/__webpack_require__(261);
-	module.exports.dropLast = /*#__PURE__*/__webpack_require__(263);
-	module.exports.dropLastWhile = /*#__PURE__*/__webpack_require__(268);
-	module.exports.dropRepeats = /*#__PURE__*/__webpack_require__(271);
-	module.exports.dropRepeatsWith = /*#__PURE__*/__webpack_require__(273);
-	module.exports.dropWhile = /*#__PURE__*/__webpack_require__(276);
-	module.exports.either = /*#__PURE__*/__webpack_require__(278);
-	module.exports.empty = /*#__PURE__*/__webpack_require__(280);
-	module.exports.endsWith = /*#__PURE__*/__webpack_require__(281);
-	module.exports.eqBy = /*#__PURE__*/__webpack_require__(283);
-	module.exports.eqProps = /*#__PURE__*/__webpack_require__(284);
-	module.exports.equals = /*#__PURE__*/__webpack_require__(229);
-	module.exports.evolve = /*#__PURE__*/__webpack_require__(285);
-	module.exports.filter = /*#__PURE__*/__webpack_require__(239);
-	module.exports.find = /*#__PURE__*/__webpack_require__(286);
-	module.exports.findIndex = /*#__PURE__*/__webpack_require__(288);
-	module.exports.findLast = /*#__PURE__*/__webpack_require__(290);
-	module.exports.findLastIndex = /*#__PURE__*/__webpack_require__(292);
-	module.exports.flatten = /*#__PURE__*/__webpack_require__(294);
-	module.exports.flip = /*#__PURE__*/__webpack_require__(295);
-	module.exports.forEach = /*#__PURE__*/__webpack_require__(296);
-	module.exports.forEachObjIndexed = /*#__PURE__*/__webpack_require__(297);
-	module.exports.fromPairs = /*#__PURE__*/__webpack_require__(298);
-	module.exports.groupBy = /*#__PURE__*/__webpack_require__(299);
-	module.exports.groupWith = /*#__PURE__*/__webpack_require__(300);
-	module.exports.gt = /*#__PURE__*/__webpack_require__(301);
-	module.exports.gte = /*#__PURE__*/__webpack_require__(302);
-	module.exports.has = /*#__PURE__*/__webpack_require__(303);
-	module.exports.hasIn = /*#__PURE__*/__webpack_require__(304);
-	module.exports.head = /*#__PURE__*/__webpack_require__(305);
-	module.exports.identical = /*#__PURE__*/__webpack_require__(234);
-	module.exports.identity = /*#__PURE__*/__webpack_require__(306);
-	module.exports.ifElse = /*#__PURE__*/__webpack_require__(308);
-	module.exports.inc = /*#__PURE__*/__webpack_require__(309);
-	module.exports.indexBy = /*#__PURE__*/__webpack_require__(310);
-	module.exports.indexOf = /*#__PURE__*/__webpack_require__(311);
-	module.exports.init = /*#__PURE__*/__webpack_require__(312);
-	module.exports.innerJoin = /*#__PURE__*/__webpack_require__(313);
-	module.exports.insert = /*#__PURE__*/__webpack_require__(314);
-	module.exports.insertAll = /*#__PURE__*/__webpack_require__(315);
-	module.exports.intersection = /*#__PURE__*/__webpack_require__(316);
-	module.exports.intersperse = /*#__PURE__*/__webpack_require__(320);
-	module.exports.into = /*#__PURE__*/__webpack_require__(321);
-	module.exports.invert = /*#__PURE__*/__webpack_require__(326);
-	module.exports.invertObj = /*#__PURE__*/__webpack_require__(327);
-	module.exports.invoker = /*#__PURE__*/__webpack_require__(328);
-	module.exports.is = /*#__PURE__*/__webpack_require__(329);
-	module.exports.isEmpty = /*#__PURE__*/__webpack_require__(330);
-	module.exports.isNil = /*#__PURE__*/__webpack_require__(191);
-	module.exports.join = /*#__PURE__*/__webpack_require__(331);
-	module.exports.juxt = /*#__PURE__*/__webpack_require__(332);
-	module.exports.keys = /*#__PURE__*/__webpack_require__(168);
-	module.exports.keysIn = /*#__PURE__*/__webpack_require__(333);
-	module.exports.last = /*#__PURE__*/__webpack_require__(274);
-	module.exports.lastIndexOf = /*#__PURE__*/__webpack_require__(334);
-	module.exports.length = /*#__PURE__*/__webpack_require__(335);
-	module.exports.lens = /*#__PURE__*/__webpack_require__(337);
-	module.exports.lensIndex = /*#__PURE__*/__webpack_require__(338);
-	module.exports.lensPath = /*#__PURE__*/__webpack_require__(339);
-	module.exports.lensProp = /*#__PURE__*/__webpack_require__(340);
-	module.exports.lift = /*#__PURE__*/__webpack_require__(196);
-	module.exports.liftN = /*#__PURE__*/__webpack_require__(197);
-	module.exports.lt = /*#__PURE__*/__webpack_require__(341);
-	module.exports.lte = /*#__PURE__*/__webpack_require__(342);
-	module.exports.map = /*#__PURE__*/__webpack_require__(160);
-	module.exports.mapAccum = /*#__PURE__*/__webpack_require__(343);
-	module.exports.mapAccumRight = /*#__PURE__*/__webpack_require__(344);
-	module.exports.mapObjIndexed = /*#__PURE__*/__webpack_require__(345);
-	module.exports.match = /*#__PURE__*/__webpack_require__(346);
-	module.exports.mathMod = /*#__PURE__*/__webpack_require__(347);
-	module.exports.max = /*#__PURE__*/__webpack_require__(158);
-	module.exports.maxBy = /*#__PURE__*/__webpack_require__(348);
-	module.exports.mean = /*#__PURE__*/__webpack_require__(349);
-	module.exports.median = /*#__PURE__*/__webpack_require__(351);
-	module.exports.memoize = /*#__PURE__*/__webpack_require__(352);
-	module.exports.memoizeWith = /*#__PURE__*/__webpack_require__(353);
-	module.exports.merge = /*#__PURE__*/__webpack_require__(354);
-	module.exports.mergeAll = /*#__PURE__*/__webpack_require__(355);
-	module.exports.mergeDeepLeft = /*#__PURE__*/__webpack_require__(356);
-	module.exports.mergeDeepRight = /*#__PURE__*/__webpack_require__(359);
-	module.exports.mergeDeepWith = /*#__PURE__*/__webpack_require__(360);
-	module.exports.mergeDeepWithKey = /*#__PURE__*/__webpack_require__(357);
-	module.exports.mergeWith = /*#__PURE__*/__webpack_require__(361);
-	module.exports.mergeWithKey = /*#__PURE__*/__webpack_require__(358);
-	module.exports.min = /*#__PURE__*/__webpack_require__(362);
-	module.exports.minBy = /*#__PURE__*/__webpack_require__(363);
-	module.exports.modulo = /*#__PURE__*/__webpack_require__(364);
-	module.exports.multiply = /*#__PURE__*/__webpack_require__(365);
-	module.exports.nAry = /*#__PURE__*/__webpack_require__(193);
-	module.exports.negate = /*#__PURE__*/__webpack_require__(366);
-	module.exports.none = /*#__PURE__*/__webpack_require__(367);
-	module.exports.not = /*#__PURE__*/__webpack_require__(212);
-	module.exports.nth = /*#__PURE__*/__webpack_require__(275);
-	module.exports.nthArg = /*#__PURE__*/__webpack_require__(368);
-	module.exports.o = /*#__PURE__*/__webpack_require__(369);
-	module.exports.objOf = /*#__PURE__*/__webpack_require__(325);
-	module.exports.of = /*#__PURE__*/__webpack_require__(370);
-	module.exports.omit = /*#__PURE__*/__webpack_require__(372);
-	module.exports.once = /*#__PURE__*/__webpack_require__(373);
-	module.exports.or = /*#__PURE__*/__webpack_require__(279);
-	module.exports.over = /*#__PURE__*/__webpack_require__(374);
-	module.exports.pair = /*#__PURE__*/__webpack_require__(375);
-	module.exports.partial = /*#__PURE__*/__webpack_require__(376);
-	module.exports.partialRight = /*#__PURE__*/__webpack_require__(378);
-	module.exports.partition = /*#__PURE__*/__webpack_require__(379);
-	module.exports.path = /*#__PURE__*/__webpack_require__(172);
-	module.exports.pathEq = /*#__PURE__*/__webpack_require__(380);
-	module.exports.pathOr = /*#__PURE__*/__webpack_require__(381);
-	module.exports.pathSatisfies = /*#__PURE__*/__webpack_require__(382);
-	module.exports.pick = /*#__PURE__*/__webpack_require__(383);
-	module.exports.pickAll = /*#__PURE__*/__webpack_require__(384);
-	module.exports.pickBy = /*#__PURE__*/__webpack_require__(385);
-	module.exports.pipe = /*#__PURE__*/__webpack_require__(214);
-	module.exports.pipeK = /*#__PURE__*/__webpack_require__(386);
-	module.exports.pipeP = /*#__PURE__*/__webpack_require__(222);
-	module.exports.pluck = /*#__PURE__*/__webpack_require__(159);
-	module.exports.prepend = /*#__PURE__*/__webpack_require__(387);
-	module.exports.product = /*#__PURE__*/__webpack_require__(388);
-	module.exports.project = /*#__PURE__*/__webpack_require__(389);
-	module.exports.prop = /*#__PURE__*/__webpack_require__(171);
-	module.exports.propEq = /*#__PURE__*/__webpack_require__(391);
-	module.exports.propIs = /*#__PURE__*/__webpack_require__(392);
-	module.exports.propOr = /*#__PURE__*/__webpack_require__(393);
-	module.exports.propSatisfies = /*#__PURE__*/__webpack_require__(394);
-	module.exports.props = /*#__PURE__*/__webpack_require__(395);
-	module.exports.range = /*#__PURE__*/__webpack_require__(396);
-	module.exports.reduce = /*#__PURE__*/__webpack_require__(173);
-	module.exports.reduceBy = /*#__PURE__*/__webpack_require__(249);
-	module.exports.reduceRight = /*#__PURE__*/__webpack_require__(397);
-	module.exports.reduceWhile = /*#__PURE__*/__webpack_require__(398);
-	module.exports.reduced = /*#__PURE__*/__webpack_require__(399);
-	module.exports.reject = /*#__PURE__*/__webpack_require__(237);
-	module.exports.remove = /*#__PURE__*/__webpack_require__(258);
-	module.exports.repeat = /*#__PURE__*/__webpack_require__(400);
-	module.exports.replace = /*#__PURE__*/__webpack_require__(402);
-	module.exports.reverse = /*#__PURE__*/__webpack_require__(219);
-	module.exports.scan = /*#__PURE__*/__webpack_require__(403);
-	module.exports.sequence = /*#__PURE__*/__webpack_require__(404);
-	module.exports.set = /*#__PURE__*/__webpack_require__(405);
-	module.exports.slice = /*#__PURE__*/__webpack_require__(218);
-	module.exports.sort = /*#__PURE__*/__webpack_require__(406);
-	module.exports.sortBy = /*#__PURE__*/__webpack_require__(407);
-	module.exports.sortWith = /*#__PURE__*/__webpack_require__(408);
-	module.exports.split = /*#__PURE__*/__webpack_require__(409);
-	module.exports.splitAt = /*#__PURE__*/__webpack_require__(410);
-	module.exports.splitEvery = /*#__PURE__*/__webpack_require__(411);
-	module.exports.splitWhen = /*#__PURE__*/__webpack_require__(412);
-	module.exports.startsWith = /*#__PURE__*/__webpack_require__(413);
-	module.exports.subtract = /*#__PURE__*/__webpack_require__(414);
-	module.exports.sum = /*#__PURE__*/__webpack_require__(350);
-	module.exports.symmetricDifference = /*#__PURE__*/__webpack_require__(415);
-	module.exports.symmetricDifferenceWith = /*#__PURE__*/__webpack_require__(416);
-	module.exports.tail = /*#__PURE__*/__webpack_require__(216);
-	module.exports.take = /*#__PURE__*/__webpack_require__(265);
-	module.exports.takeLast = /*#__PURE__*/__webpack_require__(282);
-	module.exports.takeLastWhile = /*#__PURE__*/__webpack_require__(417);
-	module.exports.takeWhile = /*#__PURE__*/__webpack_require__(418);
-	module.exports.tap = /*#__PURE__*/__webpack_require__(420);
-	module.exports.test = /*#__PURE__*/__webpack_require__(422);
-	module.exports.times = /*#__PURE__*/__webpack_require__(401);
-	module.exports.toLower = /*#__PURE__*/__webpack_require__(424);
-	module.exports.toPairs = /*#__PURE__*/__webpack_require__(425);
-	module.exports.toPairsIn = /*#__PURE__*/__webpack_require__(426);
-	module.exports.toString = /*#__PURE__*/__webpack_require__(225);
-	module.exports.toUpper = /*#__PURE__*/__webpack_require__(427);
-	module.exports.transduce = /*#__PURE__*/__webpack_require__(428);
-	module.exports.transpose = /*#__PURE__*/__webpack_require__(429);
-	module.exports.traverse = /*#__PURE__*/__webpack_require__(430);
-	module.exports.trim = /*#__PURE__*/__webpack_require__(431);
-	module.exports.tryCatch = /*#__PURE__*/__webpack_require__(432);
-	module.exports.type = /*#__PURE__*/__webpack_require__(209);
-	module.exports.unapply = /*#__PURE__*/__webpack_require__(433);
-	module.exports.unary = /*#__PURE__*/__webpack_require__(434);
-	module.exports.uncurryN = /*#__PURE__*/__webpack_require__(435);
-	module.exports.unfold = /*#__PURE__*/__webpack_require__(436);
-	module.exports.union = /*#__PURE__*/__webpack_require__(437);
-	module.exports.unionWith = /*#__PURE__*/__webpack_require__(438);
-	module.exports.uniq = /*#__PURE__*/__webpack_require__(317);
-	module.exports.uniqBy = /*#__PURE__*/__webpack_require__(318);
-	module.exports.uniqWith = /*#__PURE__*/__webpack_require__(439);
-	module.exports.unless = /*#__PURE__*/__webpack_require__(440);
-	module.exports.unnest = /*#__PURE__*/__webpack_require__(441);
-	module.exports.until = /*#__PURE__*/__webpack_require__(442);
-	module.exports.update = /*#__PURE__*/__webpack_require__(259);
-	module.exports.useWith = /*#__PURE__*/__webpack_require__(390);
-	module.exports.values = /*#__PURE__*/__webpack_require__(185);
-	module.exports.valuesIn = /*#__PURE__*/__webpack_require__(443);
-	module.exports.view = /*#__PURE__*/__webpack_require__(444);
-	module.exports.when = /*#__PURE__*/__webpack_require__(445);
-	module.exports.where = /*#__PURE__*/__webpack_require__(446);
-	module.exports.whereEq = /*#__PURE__*/__webpack_require__(447);
-	module.exports.without = /*#__PURE__*/__webpack_require__(448);
-	module.exports.xprod = /*#__PURE__*/__webpack_require__(449);
-	module.exports.zip = /*#__PURE__*/__webpack_require__(450);
-	module.exports.zipObj = /*#__PURE__*/__webpack_require__(451);
-	module.exports.zipWith = /*#__PURE__*/__webpack_require__(452);
+	module.exports.F = /*#__PURE__*/__webpack_require__(134);
+	module.exports.T = /*#__PURE__*/__webpack_require__(138);
+	module.exports.__ = /*#__PURE__*/__webpack_require__(139);
+	module.exports.add = /*#__PURE__*/__webpack_require__(140);
+	module.exports.addIndex = /*#__PURE__*/__webpack_require__(142);
+	module.exports.adjust = /*#__PURE__*/__webpack_require__(147);
+	module.exports.all = /*#__PURE__*/__webpack_require__(149);
+	module.exports.allPass = /*#__PURE__*/__webpack_require__(156);
+	module.exports.always = /*#__PURE__*/__webpack_require__(135);
+	module.exports.and = /*#__PURE__*/__webpack_require__(173);
+	module.exports.any = /*#__PURE__*/__webpack_require__(174);
+	module.exports.anyPass = /*#__PURE__*/__webpack_require__(176);
+	module.exports.ap = /*#__PURE__*/__webpack_require__(177);
+	module.exports.aperture = /*#__PURE__*/__webpack_require__(178);
+	module.exports.append = /*#__PURE__*/__webpack_require__(181);
+	module.exports.apply = /*#__PURE__*/__webpack_require__(182);
+	module.exports.applySpec = /*#__PURE__*/__webpack_require__(183);
+	module.exports.applyTo = /*#__PURE__*/__webpack_require__(185);
+	module.exports.ascend = /*#__PURE__*/__webpack_require__(186);
+	module.exports.assoc = /*#__PURE__*/__webpack_require__(187);
+	module.exports.assocPath = /*#__PURE__*/__webpack_require__(188);
+	module.exports.binary = /*#__PURE__*/__webpack_require__(191);
+	module.exports.bind = /*#__PURE__*/__webpack_require__(165);
+	module.exports.both = /*#__PURE__*/__webpack_require__(193);
+	module.exports.call = /*#__PURE__*/__webpack_require__(197);
+	module.exports.chain = /*#__PURE__*/__webpack_require__(199);
+	module.exports.clamp = /*#__PURE__*/__webpack_require__(204);
+	module.exports.clone = /*#__PURE__*/__webpack_require__(205);
+	module.exports.comparator = /*#__PURE__*/__webpack_require__(209);
+	module.exports.complement = /*#__PURE__*/__webpack_require__(210);
+	module.exports.compose = /*#__PURE__*/__webpack_require__(212);
+	module.exports.composeK = /*#__PURE__*/__webpack_require__(219);
+	module.exports.composeP = /*#__PURE__*/__webpack_require__(220);
+	module.exports.concat = /*#__PURE__*/__webpack_require__(223);
+	module.exports.cond = /*#__PURE__*/__webpack_require__(242);
+	module.exports.construct = /*#__PURE__*/__webpack_require__(243);
+	module.exports.constructN = /*#__PURE__*/__webpack_require__(244);
+	module.exports.contains = /*#__PURE__*/__webpack_require__(245);
+	module.exports.converge = /*#__PURE__*/__webpack_require__(246);
+	module.exports.countBy = /*#__PURE__*/__webpack_require__(247);
+	module.exports.curry = /*#__PURE__*/__webpack_require__(198);
+	module.exports.curryN = /*#__PURE__*/__webpack_require__(144);
+	module.exports.dec = /*#__PURE__*/__webpack_require__(250);
+	module.exports.defaultTo = /*#__PURE__*/__webpack_require__(251);
+	module.exports.descend = /*#__PURE__*/__webpack_require__(252);
+	module.exports.difference = /*#__PURE__*/__webpack_require__(253);
+	module.exports.differenceWith = /*#__PURE__*/__webpack_require__(254);
+	module.exports.dissoc = /*#__PURE__*/__webpack_require__(255);
+	module.exports.dissocPath = /*#__PURE__*/__webpack_require__(256);
+	module.exports.divide = /*#__PURE__*/__webpack_require__(259);
+	module.exports.drop = /*#__PURE__*/__webpack_require__(260);
+	module.exports.dropLast = /*#__PURE__*/__webpack_require__(262);
+	module.exports.dropLastWhile = /*#__PURE__*/__webpack_require__(267);
+	module.exports.dropRepeats = /*#__PURE__*/__webpack_require__(270);
+	module.exports.dropRepeatsWith = /*#__PURE__*/__webpack_require__(272);
+	module.exports.dropWhile = /*#__PURE__*/__webpack_require__(275);
+	module.exports.either = /*#__PURE__*/__webpack_require__(277);
+	module.exports.empty = /*#__PURE__*/__webpack_require__(279);
+	module.exports.endsWith = /*#__PURE__*/__webpack_require__(280);
+	module.exports.eqBy = /*#__PURE__*/__webpack_require__(282);
+	module.exports.eqProps = /*#__PURE__*/__webpack_require__(283);
+	module.exports.equals = /*#__PURE__*/__webpack_require__(228);
+	module.exports.evolve = /*#__PURE__*/__webpack_require__(284);
+	module.exports.filter = /*#__PURE__*/__webpack_require__(238);
+	module.exports.find = /*#__PURE__*/__webpack_require__(285);
+	module.exports.findIndex = /*#__PURE__*/__webpack_require__(287);
+	module.exports.findLast = /*#__PURE__*/__webpack_require__(289);
+	module.exports.findLastIndex = /*#__PURE__*/__webpack_require__(291);
+	module.exports.flatten = /*#__PURE__*/__webpack_require__(293);
+	module.exports.flip = /*#__PURE__*/__webpack_require__(294);
+	module.exports.forEach = /*#__PURE__*/__webpack_require__(295);
+	module.exports.forEachObjIndexed = /*#__PURE__*/__webpack_require__(296);
+	module.exports.fromPairs = /*#__PURE__*/__webpack_require__(297);
+	module.exports.groupBy = /*#__PURE__*/__webpack_require__(298);
+	module.exports.groupWith = /*#__PURE__*/__webpack_require__(299);
+	module.exports.gt = /*#__PURE__*/__webpack_require__(300);
+	module.exports.gte = /*#__PURE__*/__webpack_require__(301);
+	module.exports.has = /*#__PURE__*/__webpack_require__(302);
+	module.exports.hasIn = /*#__PURE__*/__webpack_require__(303);
+	module.exports.head = /*#__PURE__*/__webpack_require__(304);
+	module.exports.identical = /*#__PURE__*/__webpack_require__(233);
+	module.exports.identity = /*#__PURE__*/__webpack_require__(305);
+	module.exports.ifElse = /*#__PURE__*/__webpack_require__(307);
+	module.exports.inc = /*#__PURE__*/__webpack_require__(308);
+	module.exports.indexBy = /*#__PURE__*/__webpack_require__(309);
+	module.exports.indexOf = /*#__PURE__*/__webpack_require__(310);
+	module.exports.init = /*#__PURE__*/__webpack_require__(311);
+	module.exports.innerJoin = /*#__PURE__*/__webpack_require__(312);
+	module.exports.insert = /*#__PURE__*/__webpack_require__(313);
+	module.exports.insertAll = /*#__PURE__*/__webpack_require__(314);
+	module.exports.intersection = /*#__PURE__*/__webpack_require__(315);
+	module.exports.intersperse = /*#__PURE__*/__webpack_require__(319);
+	module.exports.into = /*#__PURE__*/__webpack_require__(320);
+	module.exports.invert = /*#__PURE__*/__webpack_require__(325);
+	module.exports.invertObj = /*#__PURE__*/__webpack_require__(326);
+	module.exports.invoker = /*#__PURE__*/__webpack_require__(327);
+	module.exports.is = /*#__PURE__*/__webpack_require__(328);
+	module.exports.isEmpty = /*#__PURE__*/__webpack_require__(329);
+	module.exports.isNil = /*#__PURE__*/__webpack_require__(190);
+	module.exports.join = /*#__PURE__*/__webpack_require__(330);
+	module.exports.juxt = /*#__PURE__*/__webpack_require__(331);
+	module.exports.keys = /*#__PURE__*/__webpack_require__(167);
+	module.exports.keysIn = /*#__PURE__*/__webpack_require__(332);
+	module.exports.last = /*#__PURE__*/__webpack_require__(273);
+	module.exports.lastIndexOf = /*#__PURE__*/__webpack_require__(333);
+	module.exports.length = /*#__PURE__*/__webpack_require__(334);
+	module.exports.lens = /*#__PURE__*/__webpack_require__(336);
+	module.exports.lensIndex = /*#__PURE__*/__webpack_require__(337);
+	module.exports.lensPath = /*#__PURE__*/__webpack_require__(338);
+	module.exports.lensProp = /*#__PURE__*/__webpack_require__(339);
+	module.exports.lift = /*#__PURE__*/__webpack_require__(195);
+	module.exports.liftN = /*#__PURE__*/__webpack_require__(196);
+	module.exports.lt = /*#__PURE__*/__webpack_require__(340);
+	module.exports.lte = /*#__PURE__*/__webpack_require__(341);
+	module.exports.map = /*#__PURE__*/__webpack_require__(159);
+	module.exports.mapAccum = /*#__PURE__*/__webpack_require__(342);
+	module.exports.mapAccumRight = /*#__PURE__*/__webpack_require__(343);
+	module.exports.mapObjIndexed = /*#__PURE__*/__webpack_require__(344);
+	module.exports.match = /*#__PURE__*/__webpack_require__(345);
+	module.exports.mathMod = /*#__PURE__*/__webpack_require__(346);
+	module.exports.max = /*#__PURE__*/__webpack_require__(157);
+	module.exports.maxBy = /*#__PURE__*/__webpack_require__(347);
+	module.exports.mean = /*#__PURE__*/__webpack_require__(348);
+	module.exports.median = /*#__PURE__*/__webpack_require__(350);
+	module.exports.memoize = /*#__PURE__*/__webpack_require__(351);
+	module.exports.memoizeWith = /*#__PURE__*/__webpack_require__(352);
+	module.exports.merge = /*#__PURE__*/__webpack_require__(353);
+	module.exports.mergeAll = /*#__PURE__*/__webpack_require__(354);
+	module.exports.mergeDeepLeft = /*#__PURE__*/__webpack_require__(355);
+	module.exports.mergeDeepRight = /*#__PURE__*/__webpack_require__(358);
+	module.exports.mergeDeepWith = /*#__PURE__*/__webpack_require__(359);
+	module.exports.mergeDeepWithKey = /*#__PURE__*/__webpack_require__(356);
+	module.exports.mergeWith = /*#__PURE__*/__webpack_require__(360);
+	module.exports.mergeWithKey = /*#__PURE__*/__webpack_require__(357);
+	module.exports.min = /*#__PURE__*/__webpack_require__(361);
+	module.exports.minBy = /*#__PURE__*/__webpack_require__(362);
+	module.exports.modulo = /*#__PURE__*/__webpack_require__(363);
+	module.exports.multiply = /*#__PURE__*/__webpack_require__(364);
+	module.exports.nAry = /*#__PURE__*/__webpack_require__(192);
+	module.exports.negate = /*#__PURE__*/__webpack_require__(365);
+	module.exports.none = /*#__PURE__*/__webpack_require__(366);
+	module.exports.not = /*#__PURE__*/__webpack_require__(211);
+	module.exports.nth = /*#__PURE__*/__webpack_require__(274);
+	module.exports.nthArg = /*#__PURE__*/__webpack_require__(367);
+	module.exports.o = /*#__PURE__*/__webpack_require__(368);
+	module.exports.objOf = /*#__PURE__*/__webpack_require__(324);
+	module.exports.of = /*#__PURE__*/__webpack_require__(369);
+	module.exports.omit = /*#__PURE__*/__webpack_require__(371);
+	module.exports.once = /*#__PURE__*/__webpack_require__(372);
+	module.exports.or = /*#__PURE__*/__webpack_require__(278);
+	module.exports.over = /*#__PURE__*/__webpack_require__(373);
+	module.exports.pair = /*#__PURE__*/__webpack_require__(374);
+	module.exports.partial = /*#__PURE__*/__webpack_require__(375);
+	module.exports.partialRight = /*#__PURE__*/__webpack_require__(377);
+	module.exports.partition = /*#__PURE__*/__webpack_require__(378);
+	module.exports.path = /*#__PURE__*/__webpack_require__(171);
+	module.exports.pathEq = /*#__PURE__*/__webpack_require__(379);
+	module.exports.pathOr = /*#__PURE__*/__webpack_require__(380);
+	module.exports.pathSatisfies = /*#__PURE__*/__webpack_require__(381);
+	module.exports.pick = /*#__PURE__*/__webpack_require__(382);
+	module.exports.pickAll = /*#__PURE__*/__webpack_require__(383);
+	module.exports.pickBy = /*#__PURE__*/__webpack_require__(384);
+	module.exports.pipe = /*#__PURE__*/__webpack_require__(213);
+	module.exports.pipeK = /*#__PURE__*/__webpack_require__(385);
+	module.exports.pipeP = /*#__PURE__*/__webpack_require__(221);
+	module.exports.pluck = /*#__PURE__*/__webpack_require__(158);
+	module.exports.prepend = /*#__PURE__*/__webpack_require__(386);
+	module.exports.product = /*#__PURE__*/__webpack_require__(387);
+	module.exports.project = /*#__PURE__*/__webpack_require__(388);
+	module.exports.prop = /*#__PURE__*/__webpack_require__(170);
+	module.exports.propEq = /*#__PURE__*/__webpack_require__(390);
+	module.exports.propIs = /*#__PURE__*/__webpack_require__(391);
+	module.exports.propOr = /*#__PURE__*/__webpack_require__(392);
+	module.exports.propSatisfies = /*#__PURE__*/__webpack_require__(393);
+	module.exports.props = /*#__PURE__*/__webpack_require__(394);
+	module.exports.range = /*#__PURE__*/__webpack_require__(395);
+	module.exports.reduce = /*#__PURE__*/__webpack_require__(172);
+	module.exports.reduceBy = /*#__PURE__*/__webpack_require__(248);
+	module.exports.reduceRight = /*#__PURE__*/__webpack_require__(396);
+	module.exports.reduceWhile = /*#__PURE__*/__webpack_require__(397);
+	module.exports.reduced = /*#__PURE__*/__webpack_require__(398);
+	module.exports.reject = /*#__PURE__*/__webpack_require__(236);
+	module.exports.remove = /*#__PURE__*/__webpack_require__(257);
+	module.exports.repeat = /*#__PURE__*/__webpack_require__(399);
+	module.exports.replace = /*#__PURE__*/__webpack_require__(401);
+	module.exports.reverse = /*#__PURE__*/__webpack_require__(218);
+	module.exports.scan = /*#__PURE__*/__webpack_require__(402);
+	module.exports.sequence = /*#__PURE__*/__webpack_require__(403);
+	module.exports.set = /*#__PURE__*/__webpack_require__(404);
+	module.exports.slice = /*#__PURE__*/__webpack_require__(217);
+	module.exports.sort = /*#__PURE__*/__webpack_require__(405);
+	module.exports.sortBy = /*#__PURE__*/__webpack_require__(406);
+	module.exports.sortWith = /*#__PURE__*/__webpack_require__(407);
+	module.exports.split = /*#__PURE__*/__webpack_require__(408);
+	module.exports.splitAt = /*#__PURE__*/__webpack_require__(409);
+	module.exports.splitEvery = /*#__PURE__*/__webpack_require__(410);
+	module.exports.splitWhen = /*#__PURE__*/__webpack_require__(411);
+	module.exports.startsWith = /*#__PURE__*/__webpack_require__(412);
+	module.exports.subtract = /*#__PURE__*/__webpack_require__(413);
+	module.exports.sum = /*#__PURE__*/__webpack_require__(349);
+	module.exports.symmetricDifference = /*#__PURE__*/__webpack_require__(414);
+	module.exports.symmetricDifferenceWith = /*#__PURE__*/__webpack_require__(415);
+	module.exports.tail = /*#__PURE__*/__webpack_require__(215);
+	module.exports.take = /*#__PURE__*/__webpack_require__(264);
+	module.exports.takeLast = /*#__PURE__*/__webpack_require__(281);
+	module.exports.takeLastWhile = /*#__PURE__*/__webpack_require__(416);
+	module.exports.takeWhile = /*#__PURE__*/__webpack_require__(417);
+	module.exports.tap = /*#__PURE__*/__webpack_require__(419);
+	module.exports.test = /*#__PURE__*/__webpack_require__(421);
+	module.exports.times = /*#__PURE__*/__webpack_require__(400);
+	module.exports.toLower = /*#__PURE__*/__webpack_require__(423);
+	module.exports.toPairs = /*#__PURE__*/__webpack_require__(424);
+	module.exports.toPairsIn = /*#__PURE__*/__webpack_require__(425);
+	module.exports.toString = /*#__PURE__*/__webpack_require__(224);
+	module.exports.toUpper = /*#__PURE__*/__webpack_require__(426);
+	module.exports.transduce = /*#__PURE__*/__webpack_require__(427);
+	module.exports.transpose = /*#__PURE__*/__webpack_require__(428);
+	module.exports.traverse = /*#__PURE__*/__webpack_require__(429);
+	module.exports.trim = /*#__PURE__*/__webpack_require__(430);
+	module.exports.tryCatch = /*#__PURE__*/__webpack_require__(431);
+	module.exports.type = /*#__PURE__*/__webpack_require__(208);
+	module.exports.unapply = /*#__PURE__*/__webpack_require__(432);
+	module.exports.unary = /*#__PURE__*/__webpack_require__(433);
+	module.exports.uncurryN = /*#__PURE__*/__webpack_require__(434);
+	module.exports.unfold = /*#__PURE__*/__webpack_require__(435);
+	module.exports.union = /*#__PURE__*/__webpack_require__(436);
+	module.exports.unionWith = /*#__PURE__*/__webpack_require__(437);
+	module.exports.uniq = /*#__PURE__*/__webpack_require__(316);
+	module.exports.uniqBy = /*#__PURE__*/__webpack_require__(317);
+	module.exports.uniqWith = /*#__PURE__*/__webpack_require__(438);
+	module.exports.unless = /*#__PURE__*/__webpack_require__(439);
+	module.exports.unnest = /*#__PURE__*/__webpack_require__(440);
+	module.exports.until = /*#__PURE__*/__webpack_require__(441);
+	module.exports.update = /*#__PURE__*/__webpack_require__(258);
+	module.exports.useWith = /*#__PURE__*/__webpack_require__(389);
+	module.exports.values = /*#__PURE__*/__webpack_require__(184);
+	module.exports.valuesIn = /*#__PURE__*/__webpack_require__(442);
+	module.exports.view = /*#__PURE__*/__webpack_require__(443);
+	module.exports.when = /*#__PURE__*/__webpack_require__(444);
+	module.exports.where = /*#__PURE__*/__webpack_require__(445);
+	module.exports.whereEq = /*#__PURE__*/__webpack_require__(446);
+	module.exports.without = /*#__PURE__*/__webpack_require__(447);
+	module.exports.xprod = /*#__PURE__*/__webpack_require__(448);
+	module.exports.zip = /*#__PURE__*/__webpack_require__(449);
+	module.exports.zipObj = /*#__PURE__*/__webpack_require__(450);
+	module.exports.zipWith = /*#__PURE__*/__webpack_require__(451);
 
 /***/ }),
-/* 135 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var always = /*#__PURE__*/__webpack_require__(136);
+	var always = /*#__PURE__*/__webpack_require__(135);
 
 	/**
 	 * A function that always returns `false`. Any passed in parameters are ignored.
@@ -11009,10 +11131,10 @@
 	module.exports = F;
 
 /***/ }),
-/* 136 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
 	/**
 	 * Returns a function that always returns the given value. Note that for
@@ -11043,10 +11165,10 @@
 	module.exports = always;
 
 /***/ }),
-/* 137 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _isPlaceholder = /*#__PURE__*/__webpack_require__(138);
+	var _isPlaceholder = /*#__PURE__*/__webpack_require__(137);
 
 	/**
 	 * Optimized internal one-arity curry function.
@@ -11070,7 +11192,7 @@
 	module.exports = _curry1;
 
 /***/ }),
-/* 138 */
+/* 137 */
 /***/ (function(module, exports) {
 
 	function _isPlaceholder(a) {
@@ -11079,10 +11201,10 @@
 	module.exports = _isPlaceholder;
 
 /***/ }),
-/* 139 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var always = /*#__PURE__*/__webpack_require__(136);
+	var always = /*#__PURE__*/__webpack_require__(135);
 
 	/**
 	 * A function that always returns `true`. Any passed in parameters are ignored.
@@ -11105,7 +11227,7 @@
 	module.exports = T;
 
 /***/ }),
-/* 140 */
+/* 139 */
 /***/ (function(module, exports) {
 
 	/**
@@ -11137,10 +11259,10 @@
 	module.exports = { '@@functional/placeholder': true };
 
 /***/ }),
-/* 141 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Adds two values.
@@ -11167,12 +11289,12 @@
 	module.exports = add;
 
 /***/ }),
-/* 142 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var _isPlaceholder = /*#__PURE__*/__webpack_require__(138);
+	var _isPlaceholder = /*#__PURE__*/__webpack_require__(137);
 
 	/**
 	 * Optimized internal two-arity curry function.
@@ -11205,14 +11327,14 @@
 	module.exports = _curry2;
 
 /***/ }),
-/* 143 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _concat = /*#__PURE__*/__webpack_require__(144);
+	var _concat = /*#__PURE__*/__webpack_require__(143);
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var curryN = /*#__PURE__*/__webpack_require__(145);
+	var curryN = /*#__PURE__*/__webpack_require__(144);
 
 	/**
 	 * Creates a new list iteration function from an existing one by adding two new
@@ -11257,7 +11379,7 @@
 	module.exports = addIndex;
 
 /***/ }),
-/* 144 */
+/* 143 */
 /***/ (function(module, exports) {
 
 	/**
@@ -11294,16 +11416,16 @@
 	module.exports = _concat;
 
 /***/ }),
-/* 145 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _arity = /*#__PURE__*/__webpack_require__(146);
+	var _arity = /*#__PURE__*/__webpack_require__(145);
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _curryN = /*#__PURE__*/__webpack_require__(147);
+	var _curryN = /*#__PURE__*/__webpack_require__(146);
 
 	/**
 	 * Returns a curried equivalent of the provided function, with the specified
@@ -11358,7 +11480,7 @@
 	module.exports = curryN;
 
 /***/ }),
-/* 146 */
+/* 145 */
 /***/ (function(module, exports) {
 
 	function _arity(n, fn) {
@@ -11415,12 +11537,12 @@
 	module.exports = _arity;
 
 /***/ }),
-/* 147 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _arity = /*#__PURE__*/__webpack_require__(146);
+	var _arity = /*#__PURE__*/__webpack_require__(145);
 
-	var _isPlaceholder = /*#__PURE__*/__webpack_require__(138);
+	var _isPlaceholder = /*#__PURE__*/__webpack_require__(137);
 
 	/**
 	 * Internal curryN function.
@@ -11460,12 +11582,12 @@
 	module.exports = _curryN;
 
 /***/ }),
-/* 148 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _concat = /*#__PURE__*/__webpack_require__(144);
+	var _concat = /*#__PURE__*/__webpack_require__(143);
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Applies a function to the value at the given index of an array, returning a
@@ -11507,14 +11629,14 @@
 	module.exports = adjust;
 
 /***/ }),
-/* 149 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _isPlaceholder = /*#__PURE__*/__webpack_require__(138);
+	var _isPlaceholder = /*#__PURE__*/__webpack_require__(137);
 
 	/**
 	 * Optimized internal three-arity curry function.
@@ -11563,14 +11685,14 @@
 	module.exports = _curry3;
 
 /***/ }),
-/* 150 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _xall = /*#__PURE__*/__webpack_require__(154);
+	var _xall = /*#__PURE__*/__webpack_require__(153);
 
 	/**
 	 * Returns `true` if all elements of the list match the predicate, `false` if
@@ -11611,12 +11733,12 @@
 	module.exports = all;
 
 /***/ }),
-/* 151 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _isArray = /*#__PURE__*/__webpack_require__(152);
+	var _isArray = /*#__PURE__*/__webpack_require__(151);
 
-	var _isTransformer = /*#__PURE__*/__webpack_require__(153);
+	var _isTransformer = /*#__PURE__*/__webpack_require__(152);
 
 	/**
 	 * Returns a function that dispatches with different strategies based on the
@@ -11660,7 +11782,7 @@
 	module.exports = _dispatchable;
 
 /***/ }),
-/* 152 */
+/* 151 */
 /***/ (function(module, exports) {
 
 	/**
@@ -11680,7 +11802,7 @@
 	};
 
 /***/ }),
-/* 153 */
+/* 152 */
 /***/ (function(module, exports) {
 
 	function _isTransformer(obj) {
@@ -11689,14 +11811,14 @@
 	module.exports = _isTransformer;
 
 /***/ }),
-/* 154 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _reduced = /*#__PURE__*/__webpack_require__(155);
+	var _reduced = /*#__PURE__*/__webpack_require__(154);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XAll = /*#__PURE__*/function () {
 
@@ -11729,7 +11851,7 @@
 	module.exports = _xall;
 
 /***/ }),
-/* 155 */
+/* 154 */
 /***/ (function(module, exports) {
 
 	function _reduced(x) {
@@ -11741,7 +11863,7 @@
 	module.exports = _reduced;
 
 /***/ }),
-/* 156 */
+/* 155 */
 /***/ (function(module, exports) {
 
 	module.exports = {
@@ -11754,18 +11876,18 @@
 	};
 
 /***/ }),
-/* 157 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var curryN = /*#__PURE__*/__webpack_require__(145);
+	var curryN = /*#__PURE__*/__webpack_require__(144);
 
-	var max = /*#__PURE__*/__webpack_require__(158);
+	var max = /*#__PURE__*/__webpack_require__(157);
 
-	var pluck = /*#__PURE__*/__webpack_require__(159);
+	var pluck = /*#__PURE__*/__webpack_require__(158);
 
-	var reduce = /*#__PURE__*/__webpack_require__(173);
+	var reduce = /*#__PURE__*/__webpack_require__(172);
 
 	/**
 	 * Takes a list of predicates and returns a predicate that returns true for a
@@ -11810,10 +11932,10 @@
 	module.exports = allPass;
 
 /***/ }),
-/* 158 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns the larger of its two arguments.
@@ -11840,14 +11962,14 @@
 	module.exports = max;
 
 /***/ }),
-/* 159 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var map = /*#__PURE__*/__webpack_require__(160);
+	var map = /*#__PURE__*/__webpack_require__(159);
 
-	var prop = /*#__PURE__*/__webpack_require__(171);
+	var prop = /*#__PURE__*/__webpack_require__(170);
 
 	/**
 	 * Returns a new list by plucking the same named property off all objects in
@@ -11882,22 +12004,22 @@
 	module.exports = pluck;
 
 /***/ }),
-/* 160 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _map = /*#__PURE__*/__webpack_require__(161);
+	var _map = /*#__PURE__*/__webpack_require__(160);
 
-	var _reduce = /*#__PURE__*/__webpack_require__(162);
+	var _reduce = /*#__PURE__*/__webpack_require__(161);
 
-	var _xmap = /*#__PURE__*/__webpack_require__(167);
+	var _xmap = /*#__PURE__*/__webpack_require__(166);
 
-	var curryN = /*#__PURE__*/__webpack_require__(145);
+	var curryN = /*#__PURE__*/__webpack_require__(144);
 
-	var keys = /*#__PURE__*/__webpack_require__(168);
+	var keys = /*#__PURE__*/__webpack_require__(167);
 
 	/**
 	 * Takes a function and
@@ -11954,7 +12076,7 @@
 	module.exports = map;
 
 /***/ }),
-/* 161 */
+/* 160 */
 /***/ (function(module, exports) {
 
 	function _map(fn, functor) {
@@ -11970,14 +12092,14 @@
 	module.exports = _map;
 
 /***/ }),
-/* 162 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _isArrayLike = /*#__PURE__*/__webpack_require__(163);
+	var _isArrayLike = /*#__PURE__*/__webpack_require__(162);
 
-	var _xwrap = /*#__PURE__*/__webpack_require__(165);
+	var _xwrap = /*#__PURE__*/__webpack_require__(164);
 
-	var bind = /*#__PURE__*/__webpack_require__(166);
+	var bind = /*#__PURE__*/__webpack_require__(165);
 
 	function _arrayReduce(xf, acc, list) {
 	  var idx = 0;
@@ -12037,14 +12159,14 @@
 	module.exports = _reduce;
 
 /***/ }),
-/* 163 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var _isArray = /*#__PURE__*/__webpack_require__(152);
+	var _isArray = /*#__PURE__*/__webpack_require__(151);
 
-	var _isString = /*#__PURE__*/__webpack_require__(164);
+	var _isString = /*#__PURE__*/__webpack_require__(163);
 
 	/**
 	 * Tests whether or not an object is similar to an array.
@@ -12092,7 +12214,7 @@
 	module.exports = _isArrayLike;
 
 /***/ }),
-/* 164 */
+/* 163 */
 /***/ (function(module, exports) {
 
 	function _isString(x) {
@@ -12101,7 +12223,7 @@
 	module.exports = _isString;
 
 /***/ }),
-/* 165 */
+/* 164 */
 /***/ (function(module, exports) {
 
 	var XWrap = /*#__PURE__*/function () {
@@ -12127,12 +12249,12 @@
 	module.exports = _xwrap;
 
 /***/ }),
-/* 166 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _arity = /*#__PURE__*/__webpack_require__(146);
+	var _arity = /*#__PURE__*/__webpack_require__(145);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Creates a function that is bound to a context.
@@ -12166,12 +12288,12 @@
 	module.exports = bind;
 
 /***/ }),
-/* 167 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XMap = /*#__PURE__*/function () {
 
@@ -12194,14 +12316,14 @@
 	module.exports = _xmap;
 
 /***/ }),
-/* 168 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var _has = /*#__PURE__*/__webpack_require__(169);
+	var _has = /*#__PURE__*/__webpack_require__(168);
 
-	var _isArguments = /*#__PURE__*/__webpack_require__(170);
+	var _isArguments = /*#__PURE__*/__webpack_require__(169);
 
 	// cover IE < 9 keys issues
 
@@ -12274,7 +12396,7 @@
 	module.exports = keys;
 
 /***/ }),
-/* 169 */
+/* 168 */
 /***/ (function(module, exports) {
 
 	function _has(prop, obj) {
@@ -12283,10 +12405,10 @@
 	module.exports = _has;
 
 /***/ }),
-/* 170 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _has = /*#__PURE__*/__webpack_require__(169);
+	var _has = /*#__PURE__*/__webpack_require__(168);
 
 	var toString = Object.prototype.toString;
 	var _isArguments = function () {
@@ -12300,12 +12422,12 @@
 	module.exports = _isArguments;
 
 /***/ }),
-/* 171 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var path = /*#__PURE__*/__webpack_require__(172);
+	var path = /*#__PURE__*/__webpack_require__(171);
 
 	/**
 	 * Returns a function that when supplied an object returns the indicated
@@ -12332,10 +12454,10 @@
 	module.exports = prop;
 
 /***/ }),
-/* 172 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Retrieve the value at a given path.
@@ -12372,12 +12494,12 @@
 	module.exports = path;
 
 /***/ }),
-/* 173 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var _reduce = /*#__PURE__*/__webpack_require__(162);
+	var _reduce = /*#__PURE__*/__webpack_require__(161);
 
 	/**
 	 * Returns a single item by iterating through the list, successively calling
@@ -12431,10 +12553,10 @@
 	module.exports = reduce;
 
 /***/ }),
-/* 174 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns `true` if both arguments are `true`; `false` otherwise.
@@ -12463,14 +12585,14 @@
 	module.exports = and;
 
 /***/ }),
-/* 175 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _xany = /*#__PURE__*/__webpack_require__(176);
+	var _xany = /*#__PURE__*/__webpack_require__(175);
 
 	/**
 	 * Returns `true` if at least one of elements of the list match the predicate,
@@ -12512,14 +12634,14 @@
 	module.exports = any;
 
 /***/ }),
-/* 176 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _reduced = /*#__PURE__*/__webpack_require__(155);
+	var _reduced = /*#__PURE__*/__webpack_require__(154);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XAny = /*#__PURE__*/function () {
 
@@ -12552,18 +12674,18 @@
 	module.exports = _xany;
 
 /***/ }),
-/* 177 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var curryN = /*#__PURE__*/__webpack_require__(145);
+	var curryN = /*#__PURE__*/__webpack_require__(144);
 
-	var max = /*#__PURE__*/__webpack_require__(158);
+	var max = /*#__PURE__*/__webpack_require__(157);
 
-	var pluck = /*#__PURE__*/__webpack_require__(159);
+	var pluck = /*#__PURE__*/__webpack_require__(158);
 
-	var reduce = /*#__PURE__*/__webpack_require__(173);
+	var reduce = /*#__PURE__*/__webpack_require__(172);
 
 	/**
 	 * Takes a list of predicates and returns a predicate that returns true for a
@@ -12609,16 +12731,16 @@
 	module.exports = anyPass;
 
 /***/ }),
-/* 178 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _concat = /*#__PURE__*/__webpack_require__(144);
+	var _concat = /*#__PURE__*/__webpack_require__(143);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _reduce = /*#__PURE__*/__webpack_require__(162);
+	var _reduce = /*#__PURE__*/__webpack_require__(161);
 
-	var map = /*#__PURE__*/__webpack_require__(160);
+	var map = /*#__PURE__*/__webpack_require__(159);
 
 	/**
 	 * ap applies a list of functions to a list of values.
@@ -12660,16 +12782,16 @@
 	module.exports = ap;
 
 /***/ }),
-/* 179 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _aperture = /*#__PURE__*/__webpack_require__(180);
+	var _aperture = /*#__PURE__*/__webpack_require__(179);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _xaperture = /*#__PURE__*/__webpack_require__(181);
+	var _xaperture = /*#__PURE__*/__webpack_require__(180);
 
 	/**
 	 * Returns a new list, composed of n-tuples of consecutive elements. If `n` is
@@ -12698,7 +12820,7 @@
 	module.exports = aperture;
 
 /***/ }),
-/* 180 */
+/* 179 */
 /***/ (function(module, exports) {
 
 	function _aperture(n, list) {
@@ -12714,14 +12836,14 @@
 	module.exports = _aperture;
 
 /***/ }),
-/* 181 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _concat = /*#__PURE__*/__webpack_require__(144);
+	var _concat = /*#__PURE__*/__webpack_require__(143);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XAperture = /*#__PURE__*/function () {
 
@@ -12761,12 +12883,12 @@
 	module.exports = _xaperture;
 
 /***/ }),
-/* 182 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _concat = /*#__PURE__*/__webpack_require__(144);
+	var _concat = /*#__PURE__*/__webpack_require__(143);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns a new list containing the contents of the given list, followed by
@@ -12796,10 +12918,10 @@
 	module.exports = append;
 
 /***/ }),
-/* 183 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Applies function `fn` to the argument list `args`. This is useful for
@@ -12829,24 +12951,24 @@
 	module.exports = apply;
 
 /***/ }),
-/* 184 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var apply = /*#__PURE__*/__webpack_require__(183);
+	var apply = /*#__PURE__*/__webpack_require__(182);
 
-	var curryN = /*#__PURE__*/__webpack_require__(145);
+	var curryN = /*#__PURE__*/__webpack_require__(144);
 
-	var map = /*#__PURE__*/__webpack_require__(160);
+	var map = /*#__PURE__*/__webpack_require__(159);
 
-	var max = /*#__PURE__*/__webpack_require__(158);
+	var max = /*#__PURE__*/__webpack_require__(157);
 
-	var pluck = /*#__PURE__*/__webpack_require__(159);
+	var pluck = /*#__PURE__*/__webpack_require__(158);
 
-	var reduce = /*#__PURE__*/__webpack_require__(173);
+	var reduce = /*#__PURE__*/__webpack_require__(172);
 
-	var values = /*#__PURE__*/__webpack_require__(185);
+	var values = /*#__PURE__*/__webpack_require__(184);
 
 	/**
 	 * Given a spec object recursively mapping properties to functions, creates a
@@ -12889,12 +13011,12 @@
 	module.exports = applySpec;
 
 /***/ }),
-/* 185 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var keys = /*#__PURE__*/__webpack_require__(168);
+	var keys = /*#__PURE__*/__webpack_require__(167);
 
 	/**
 	 * Returns a list of all the enumerable own properties of the supplied object.
@@ -12929,10 +13051,10 @@
 	module.exports = values;
 
 /***/ }),
-/* 186 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	* Takes a value and applies a function to it.
@@ -12961,10 +13083,10 @@
 	module.exports = applyTo;
 
 /***/ }),
-/* 187 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Makes an ascending comparator function out of a function that returns a value
@@ -12998,10 +13120,10 @@
 	module.exports = ascend;
 
 /***/ }),
-/* 188 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Makes a shallow clone of an object, setting or overriding the specified
@@ -13036,20 +13158,20 @@
 	module.exports = assoc;
 
 /***/ }),
-/* 189 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var _has = /*#__PURE__*/__webpack_require__(169);
+	var _has = /*#__PURE__*/__webpack_require__(168);
 
-	var _isArray = /*#__PURE__*/__webpack_require__(152);
+	var _isArray = /*#__PURE__*/__webpack_require__(151);
 
-	var _isInteger = /*#__PURE__*/__webpack_require__(190);
+	var _isInteger = /*#__PURE__*/__webpack_require__(189);
 
-	var assoc = /*#__PURE__*/__webpack_require__(188);
+	var assoc = /*#__PURE__*/__webpack_require__(187);
 
-	var isNil = /*#__PURE__*/__webpack_require__(191);
+	var isNil = /*#__PURE__*/__webpack_require__(190);
 
 	/**
 	 * Makes a shallow clone of an object, setting or overriding the nodes required
@@ -13097,7 +13219,7 @@
 	module.exports = assocPath;
 
 /***/ }),
-/* 190 */
+/* 189 */
 /***/ (function(module, exports) {
 
 	/**
@@ -13113,10 +13235,10 @@
 	};
 
 /***/ }),
-/* 191 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
 	/**
 	 * Checks if the input value is `null` or `undefined`.
@@ -13143,12 +13265,12 @@
 	module.exports = isNil;
 
 /***/ }),
-/* 192 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var nAry = /*#__PURE__*/__webpack_require__(193);
+	var nAry = /*#__PURE__*/__webpack_require__(192);
 
 	/**
 	 * Wraps a function of any arity (including nullary) in a function that accepts
@@ -13186,10 +13308,10 @@
 	module.exports = binary;
 
 /***/ }),
-/* 193 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Wraps a function of any arity (including nullary) in a function that accepts
@@ -13276,16 +13398,16 @@
 	module.exports = nAry;
 
 /***/ }),
-/* 194 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _isFunction = /*#__PURE__*/__webpack_require__(195);
+	var _isFunction = /*#__PURE__*/__webpack_require__(194);
 
-	var and = /*#__PURE__*/__webpack_require__(174);
+	var and = /*#__PURE__*/__webpack_require__(173);
 
-	var lift = /*#__PURE__*/__webpack_require__(196);
+	var lift = /*#__PURE__*/__webpack_require__(195);
 
 	/**
 	 * A function which calls the two provided functions and returns the `&&`
@@ -13325,7 +13447,7 @@
 	module.exports = both;
 
 /***/ }),
-/* 195 */
+/* 194 */
 /***/ (function(module, exports) {
 
 	function _isFunction(x) {
@@ -13334,12 +13456,12 @@
 	module.exports = _isFunction;
 
 /***/ }),
-/* 196 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var liftN = /*#__PURE__*/__webpack_require__(197);
+	var liftN = /*#__PURE__*/__webpack_require__(196);
 
 	/**
 	 * "lifts" a function of arity > 1 so that it may "map over" a list, Function or other
@@ -13371,18 +13493,18 @@
 	module.exports = lift;
 
 /***/ }),
-/* 197 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _reduce = /*#__PURE__*/__webpack_require__(162);
+	var _reduce = /*#__PURE__*/__webpack_require__(161);
 
-	var ap = /*#__PURE__*/__webpack_require__(178);
+	var ap = /*#__PURE__*/__webpack_require__(177);
 
-	var curryN = /*#__PURE__*/__webpack_require__(145);
+	var curryN = /*#__PURE__*/__webpack_require__(144);
 
-	var map = /*#__PURE__*/__webpack_require__(160);
+	var map = /*#__PURE__*/__webpack_require__(159);
 
 	/**
 	 * "lifts" a function to be the specified arity, so that it may "map over" that
@@ -13412,10 +13534,10 @@
 	module.exports = liftN;
 
 /***/ }),
-/* 198 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var curry = /*#__PURE__*/__webpack_require__(199);
+	var curry = /*#__PURE__*/__webpack_require__(198);
 
 	/**
 	 * Returns the result of calling its first argument with the remaining
@@ -13457,12 +13579,12 @@
 	module.exports = call;
 
 /***/ }),
-/* 199 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var curryN = /*#__PURE__*/__webpack_require__(145);
+	var curryN = /*#__PURE__*/__webpack_require__(144);
 
 	/**
 	 * Returns a curried equivalent of the provided function. The curried function
@@ -13513,18 +13635,18 @@
 	module.exports = curry;
 
 /***/ }),
-/* 200 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _makeFlat = /*#__PURE__*/__webpack_require__(201);
+	var _makeFlat = /*#__PURE__*/__webpack_require__(200);
 
-	var _xchain = /*#__PURE__*/__webpack_require__(202);
+	var _xchain = /*#__PURE__*/__webpack_require__(201);
 
-	var map = /*#__PURE__*/__webpack_require__(160);
+	var map = /*#__PURE__*/__webpack_require__(159);
 
 	/**
 	 * `chain` maps a function over a list and concatenates the results. `chain`
@@ -13561,10 +13683,10 @@
 	module.exports = chain;
 
 /***/ }),
-/* 201 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _isArrayLike = /*#__PURE__*/__webpack_require__(163);
+	var _isArrayLike = /*#__PURE__*/__webpack_require__(162);
 
 	/**
 	 * `_makeFlat` is a helper function that returns a one-level or fully recursive
@@ -13601,14 +13723,14 @@
 	module.exports = _makeFlat;
 
 /***/ }),
-/* 202 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _flatCat = /*#__PURE__*/__webpack_require__(203);
+	var _flatCat = /*#__PURE__*/__webpack_require__(202);
 
-	var map = /*#__PURE__*/__webpack_require__(160);
+	var map = /*#__PURE__*/__webpack_require__(159);
 
 	var _xchain = /*#__PURE__*/_curry2(function _xchain(f, xf) {
 	  return map(f, _flatCat(xf));
@@ -13616,16 +13738,16 @@
 	module.exports = _xchain;
 
 /***/ }),
-/* 203 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _forceReduced = /*#__PURE__*/__webpack_require__(204);
+	var _forceReduced = /*#__PURE__*/__webpack_require__(203);
 
-	var _isArrayLike = /*#__PURE__*/__webpack_require__(163);
+	var _isArrayLike = /*#__PURE__*/__webpack_require__(162);
 
-	var _reduce = /*#__PURE__*/__webpack_require__(162);
+	var _reduce = /*#__PURE__*/__webpack_require__(161);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var preservingReduced = function (xf) {
 	  return {
@@ -13656,7 +13778,7 @@
 	module.exports = _flatCat;
 
 /***/ }),
-/* 204 */
+/* 203 */
 /***/ (function(module, exports) {
 
 	function _forceReduced(x) {
@@ -13668,10 +13790,10 @@
 	module.exports = _forceReduced;
 
 /***/ }),
-/* 205 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Restricts a number to be within a range.
@@ -13704,12 +13826,12 @@
 	module.exports = clamp;
 
 /***/ }),
-/* 206 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _clone = /*#__PURE__*/__webpack_require__(207);
+	var _clone = /*#__PURE__*/__webpack_require__(206);
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
 	/**
 	 * Creates a deep copy of the value which may contain (nested) `Array`s and
@@ -13740,12 +13862,12 @@
 	module.exports = clone;
 
 /***/ }),
-/* 207 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _cloneRegExp = /*#__PURE__*/__webpack_require__(208);
+	var _cloneRegExp = /*#__PURE__*/__webpack_require__(207);
 
-	var type = /*#__PURE__*/__webpack_require__(209);
+	var type = /*#__PURE__*/__webpack_require__(208);
 
 	/**
 	 * Copies an object.
@@ -13792,7 +13914,7 @@
 	module.exports = _clone;
 
 /***/ }),
-/* 208 */
+/* 207 */
 /***/ (function(module, exports) {
 
 	function _cloneRegExp(pattern) {
@@ -13801,10 +13923,10 @@
 	module.exports = _cloneRegExp;
 
 /***/ }),
-/* 209 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
 	/**
 	 * Gives a single-word string description of the (native) type of a value,
@@ -13839,10 +13961,10 @@
 	module.exports = type;
 
 /***/ }),
-/* 210 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
 	/**
 	 * Makes a comparator function out of a function that reports whether the first
@@ -13874,12 +13996,12 @@
 	module.exports = comparator;
 
 /***/ }),
-/* 211 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var lift = /*#__PURE__*/__webpack_require__(196);
+	var lift = /*#__PURE__*/__webpack_require__(195);
 
-	var not = /*#__PURE__*/__webpack_require__(212);
+	var not = /*#__PURE__*/__webpack_require__(211);
 
 	/**
 	 * Takes a function `f` and returns a function `g` such that if called with the same arguments
@@ -13909,10 +14031,10 @@
 	module.exports = complement;
 
 /***/ }),
-/* 212 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
 	/**
 	 * A function that returns the `!` of its argument. It will return `true` when
@@ -13941,12 +14063,12 @@
 	module.exports = not;
 
 /***/ }),
-/* 213 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var pipe = /*#__PURE__*/__webpack_require__(214);
+	var pipe = /*#__PURE__*/__webpack_require__(213);
 
-	var reverse = /*#__PURE__*/__webpack_require__(219);
+	var reverse = /*#__PURE__*/__webpack_require__(218);
 
 	/**
 	 * Performs right-to-left function composition. The rightmost function may have
@@ -13983,16 +14105,16 @@
 	module.exports = compose;
 
 /***/ }),
-/* 214 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _arity = /*#__PURE__*/__webpack_require__(146);
+	var _arity = /*#__PURE__*/__webpack_require__(145);
 
-	var _pipe = /*#__PURE__*/__webpack_require__(215);
+	var _pipe = /*#__PURE__*/__webpack_require__(214);
 
-	var reduce = /*#__PURE__*/__webpack_require__(173);
+	var reduce = /*#__PURE__*/__webpack_require__(172);
 
-	var tail = /*#__PURE__*/__webpack_require__(216);
+	var tail = /*#__PURE__*/__webpack_require__(215);
 
 	/**
 	 * Performs left-to-right function composition. The leftmost function may have
@@ -14028,7 +14150,7 @@
 	module.exports = pipe;
 
 /***/ }),
-/* 215 */
+/* 214 */
 /***/ (function(module, exports) {
 
 	function _pipe(f, g) {
@@ -14039,14 +14161,14 @@
 	module.exports = _pipe;
 
 /***/ }),
-/* 216 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _checkForMethod = /*#__PURE__*/__webpack_require__(217);
+	var _checkForMethod = /*#__PURE__*/__webpack_require__(216);
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var slice = /*#__PURE__*/__webpack_require__(218);
+	var slice = /*#__PURE__*/__webpack_require__(217);
 
 	/**
 	 * Returns all but the first element of the given list or string (or object
@@ -14081,10 +14203,10 @@
 	module.exports = tail;
 
 /***/ }),
-/* 217 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _isArray = /*#__PURE__*/__webpack_require__(152);
+	var _isArray = /*#__PURE__*/__webpack_require__(151);
 
 	/**
 	 * This checks whether a function has a [methodname] function. If it isn't an
@@ -14111,12 +14233,12 @@
 	module.exports = _checkForMethod;
 
 /***/ }),
-/* 218 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _checkForMethod = /*#__PURE__*/__webpack_require__(217);
+	var _checkForMethod = /*#__PURE__*/__webpack_require__(216);
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Returns the elements of the given list or string (or object with a `slice`
@@ -14150,12 +14272,12 @@
 	module.exports = slice;
 
 /***/ }),
-/* 219 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var _isString = /*#__PURE__*/__webpack_require__(164);
+	var _isString = /*#__PURE__*/__webpack_require__(163);
 
 	/**
 	 * Returns a new list or string with the elements or characters in reverse
@@ -14189,14 +14311,14 @@
 	module.exports = reverse;
 
 /***/ }),
-/* 220 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var chain = /*#__PURE__*/__webpack_require__(200);
+	var chain = /*#__PURE__*/__webpack_require__(199);
 
-	var compose = /*#__PURE__*/__webpack_require__(213);
+	var compose = /*#__PURE__*/__webpack_require__(212);
 
-	var map = /*#__PURE__*/__webpack_require__(160);
+	var map = /*#__PURE__*/__webpack_require__(159);
 
 	/**
 	 * Returns the right-to-left Kleisli composition of the provided functions,
@@ -14241,12 +14363,12 @@
 	module.exports = composeK;
 
 /***/ }),
-/* 221 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var pipeP = /*#__PURE__*/__webpack_require__(222);
+	var pipeP = /*#__PURE__*/__webpack_require__(221);
 
-	var reverse = /*#__PURE__*/__webpack_require__(219);
+	var reverse = /*#__PURE__*/__webpack_require__(218);
 
 	/**
 	 * Performs right-to-left composition of one or more Promise-returning
@@ -14293,16 +14415,16 @@
 	module.exports = composeP;
 
 /***/ }),
-/* 222 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _arity = /*#__PURE__*/__webpack_require__(146);
+	var _arity = /*#__PURE__*/__webpack_require__(145);
 
-	var _pipeP = /*#__PURE__*/__webpack_require__(223);
+	var _pipeP = /*#__PURE__*/__webpack_require__(222);
 
-	var reduce = /*#__PURE__*/__webpack_require__(173);
+	var reduce = /*#__PURE__*/__webpack_require__(172);
 
-	var tail = /*#__PURE__*/__webpack_require__(216);
+	var tail = /*#__PURE__*/__webpack_require__(215);
 
 	/**
 	 * Performs left-to-right composition of one or more Promise-returning
@@ -14333,7 +14455,7 @@
 	module.exports = pipeP;
 
 /***/ }),
-/* 223 */
+/* 222 */
 /***/ (function(module, exports) {
 
 	function _pipeP(f, g) {
@@ -14347,18 +14469,18 @@
 	module.exports = _pipeP;
 
 /***/ }),
-/* 224 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _isArray = /*#__PURE__*/__webpack_require__(152);
+	var _isArray = /*#__PURE__*/__webpack_require__(151);
 
-	var _isFunction = /*#__PURE__*/__webpack_require__(195);
+	var _isFunction = /*#__PURE__*/__webpack_require__(194);
 
-	var _isString = /*#__PURE__*/__webpack_require__(164);
+	var _isString = /*#__PURE__*/__webpack_require__(163);
 
-	var toString = /*#__PURE__*/__webpack_require__(225);
+	var toString = /*#__PURE__*/__webpack_require__(224);
 
 	/**
 	 * Returns the result of concatenating the given lists or strings.
@@ -14414,12 +14536,12 @@
 	module.exports = concat;
 
 /***/ }),
-/* 225 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var _toString = /*#__PURE__*/__webpack_require__(226);
+	var _toString = /*#__PURE__*/__webpack_require__(225);
 
 	/**
 	 * Returns the string representation of the given value. `eval`'ing the output
@@ -14465,20 +14587,20 @@
 	module.exports = toString;
 
 /***/ }),
-/* 226 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _contains = /*#__PURE__*/__webpack_require__(227);
+	var _contains = /*#__PURE__*/__webpack_require__(226);
 
-	var _map = /*#__PURE__*/__webpack_require__(161);
+	var _map = /*#__PURE__*/__webpack_require__(160);
 
-	var _quote = /*#__PURE__*/__webpack_require__(235);
+	var _quote = /*#__PURE__*/__webpack_require__(234);
 
-	var _toISOString = /*#__PURE__*/__webpack_require__(236);
+	var _toISOString = /*#__PURE__*/__webpack_require__(235);
 
-	var keys = /*#__PURE__*/__webpack_require__(168);
+	var keys = /*#__PURE__*/__webpack_require__(167);
 
-	var reject = /*#__PURE__*/__webpack_require__(237);
+	var reject = /*#__PURE__*/__webpack_require__(236);
 
 	function _toString(x, seen) {
 	  var recur = function recur(y) {
@@ -14526,10 +14648,10 @@
 	module.exports = _toString;
 
 /***/ }),
-/* 227 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _indexOf = /*#__PURE__*/__webpack_require__(228);
+	var _indexOf = /*#__PURE__*/__webpack_require__(227);
 
 	function _contains(a, list) {
 	  return _indexOf(list, a, 0) >= 0;
@@ -14537,10 +14659,10 @@
 	module.exports = _contains;
 
 /***/ }),
-/* 228 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var equals = /*#__PURE__*/__webpack_require__(229);
+	var equals = /*#__PURE__*/__webpack_require__(228);
 
 	function _indexOf(list, a, idx) {
 	  var inf, item;
@@ -14599,12 +14721,12 @@
 	module.exports = _indexOf;
 
 /***/ }),
-/* 229 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _equals = /*#__PURE__*/__webpack_require__(230);
+	var _equals = /*#__PURE__*/__webpack_require__(229);
 
 	/**
 	 * Returns `true` if its arguments are equivalent, `false` otherwise. Handles
@@ -14639,22 +14761,22 @@
 	module.exports = equals;
 
 /***/ }),
-/* 230 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _arrayFromIterator = /*#__PURE__*/__webpack_require__(231);
+	var _arrayFromIterator = /*#__PURE__*/__webpack_require__(230);
 
-	var _containsWith = /*#__PURE__*/__webpack_require__(232);
+	var _containsWith = /*#__PURE__*/__webpack_require__(231);
 
-	var _functionName = /*#__PURE__*/__webpack_require__(233);
+	var _functionName = /*#__PURE__*/__webpack_require__(232);
 
-	var _has = /*#__PURE__*/__webpack_require__(169);
+	var _has = /*#__PURE__*/__webpack_require__(168);
 
-	var identical = /*#__PURE__*/__webpack_require__(234);
+	var identical = /*#__PURE__*/__webpack_require__(233);
 
-	var keys = /*#__PURE__*/__webpack_require__(168);
+	var keys = /*#__PURE__*/__webpack_require__(167);
 
-	var type = /*#__PURE__*/__webpack_require__(209);
+	var type = /*#__PURE__*/__webpack_require__(208);
 
 	/**
 	 * private _uniqContentEquals function.
@@ -14800,7 +14922,7 @@
 	module.exports = _equals;
 
 /***/ }),
-/* 231 */
+/* 230 */
 /***/ (function(module, exports) {
 
 	function _arrayFromIterator(iter) {
@@ -14814,7 +14936,7 @@
 	module.exports = _arrayFromIterator;
 
 /***/ }),
-/* 232 */
+/* 231 */
 /***/ (function(module, exports) {
 
 	function _containsWith(pred, x, list) {
@@ -14832,7 +14954,7 @@
 	module.exports = _containsWith;
 
 /***/ }),
-/* 233 */
+/* 232 */
 /***/ (function(module, exports) {
 
 	function _functionName(f) {
@@ -14843,10 +14965,10 @@
 	module.exports = _functionName;
 
 /***/ }),
-/* 234 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns true if its arguments are identical, false otherwise. Values are
@@ -14887,7 +15009,7 @@
 	module.exports = identical;
 
 /***/ }),
-/* 235 */
+/* 234 */
 /***/ (function(module, exports) {
 
 	function _quote(s) {
@@ -14899,7 +15021,7 @@
 	module.exports = _quote;
 
 /***/ }),
-/* 236 */
+/* 235 */
 /***/ (function(module, exports) {
 
 	/**
@@ -14918,14 +15040,14 @@
 	module.exports = _toISOString;
 
 /***/ }),
-/* 237 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _complement = /*#__PURE__*/__webpack_require__(238);
+	var _complement = /*#__PURE__*/__webpack_require__(237);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var filter = /*#__PURE__*/__webpack_require__(239);
+	var filter = /*#__PURE__*/__webpack_require__(238);
 
 	/**
 	 * The complement of [`filter`](#filter).
@@ -14959,7 +15081,7 @@
 	module.exports = reject;
 
 /***/ }),
-/* 238 */
+/* 237 */
 /***/ (function(module, exports) {
 
 	function _complement(f) {
@@ -14970,22 +15092,22 @@
 	module.exports = _complement;
 
 /***/ }),
-/* 239 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _filter = /*#__PURE__*/__webpack_require__(240);
+	var _filter = /*#__PURE__*/__webpack_require__(239);
 
-	var _isObject = /*#__PURE__*/__webpack_require__(241);
+	var _isObject = /*#__PURE__*/__webpack_require__(240);
 
-	var _reduce = /*#__PURE__*/__webpack_require__(162);
+	var _reduce = /*#__PURE__*/__webpack_require__(161);
 
-	var _xfilter = /*#__PURE__*/__webpack_require__(242);
+	var _xfilter = /*#__PURE__*/__webpack_require__(241);
 
-	var keys = /*#__PURE__*/__webpack_require__(168);
+	var keys = /*#__PURE__*/__webpack_require__(167);
 
 	/**
 	 * Takes a predicate and a `Filterable`, and returns a new filterable of the
@@ -15029,7 +15151,7 @@
 	module.exports = filter;
 
 /***/ }),
-/* 240 */
+/* 239 */
 /***/ (function(module, exports) {
 
 	function _filter(fn, list) {
@@ -15048,7 +15170,7 @@
 	module.exports = _filter;
 
 /***/ }),
-/* 241 */
+/* 240 */
 /***/ (function(module, exports) {
 
 	function _isObject(x) {
@@ -15057,12 +15179,12 @@
 	module.exports = _isObject;
 
 /***/ }),
-/* 242 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XFilter = /*#__PURE__*/function () {
 
@@ -15085,18 +15207,18 @@
 	module.exports = _xfilter;
 
 /***/ }),
-/* 243 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _arity = /*#__PURE__*/__webpack_require__(146);
+	var _arity = /*#__PURE__*/__webpack_require__(145);
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var map = /*#__PURE__*/__webpack_require__(160);
+	var map = /*#__PURE__*/__webpack_require__(159);
 
-	var max = /*#__PURE__*/__webpack_require__(158);
+	var max = /*#__PURE__*/__webpack_require__(157);
 
-	var reduce = /*#__PURE__*/__webpack_require__(173);
+	var reduce = /*#__PURE__*/__webpack_require__(172);
 
 	/**
 	 * Returns a function, `fn`, which encapsulates `if/else, if/else, ...` logic.
@@ -15143,12 +15265,12 @@
 	module.exports = cond;
 
 /***/ }),
-/* 244 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var constructN = /*#__PURE__*/__webpack_require__(245);
+	var constructN = /*#__PURE__*/__webpack_require__(244);
 
 	/**
 	 * Wraps a constructor function inside a curried function that can be called
@@ -15190,14 +15312,14 @@
 	module.exports = construct;
 
 /***/ }),
-/* 245 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var curry = /*#__PURE__*/__webpack_require__(199);
+	var curry = /*#__PURE__*/__webpack_require__(198);
 
-	var nAry = /*#__PURE__*/__webpack_require__(193);
+	var nAry = /*#__PURE__*/__webpack_require__(192);
 
 	/**
 	 * Wraps a constructor function inside a curried function that can be called
@@ -15273,12 +15395,12 @@
 	module.exports = constructN;
 
 /***/ }),
-/* 246 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _contains = /*#__PURE__*/__webpack_require__(227);
+	var _contains = /*#__PURE__*/__webpack_require__(226);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns `true` if the specified value is equal, in [`R.equals`](#equals)
@@ -15306,20 +15428,20 @@
 	module.exports = contains;
 
 /***/ }),
-/* 247 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _map = /*#__PURE__*/__webpack_require__(161);
+	var _map = /*#__PURE__*/__webpack_require__(160);
 
-	var curryN = /*#__PURE__*/__webpack_require__(145);
+	var curryN = /*#__PURE__*/__webpack_require__(144);
 
-	var max = /*#__PURE__*/__webpack_require__(158);
+	var max = /*#__PURE__*/__webpack_require__(157);
 
-	var pluck = /*#__PURE__*/__webpack_require__(159);
+	var pluck = /*#__PURE__*/__webpack_require__(158);
 
-	var reduce = /*#__PURE__*/__webpack_require__(173);
+	var reduce = /*#__PURE__*/__webpack_require__(172);
 
 	/**
 	 * Accepts a converging function and a list of branching functions and returns
@@ -15362,10 +15484,10 @@
 	module.exports = converge;
 
 /***/ }),
-/* 248 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var reduceBy = /*#__PURE__*/__webpack_require__(249);
+	var reduceBy = /*#__PURE__*/__webpack_require__(248);
 
 	/**
 	 * Counts the elements of a list according to how many match each value of a
@@ -15399,18 +15521,18 @@
 	module.exports = countBy;
 
 /***/ }),
-/* 249 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curryN = /*#__PURE__*/__webpack_require__(147);
+	var _curryN = /*#__PURE__*/__webpack_require__(146);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _has = /*#__PURE__*/__webpack_require__(169);
+	var _has = /*#__PURE__*/__webpack_require__(168);
 
-	var _reduce = /*#__PURE__*/__webpack_require__(162);
+	var _reduce = /*#__PURE__*/__webpack_require__(161);
 
-	var _xreduceBy = /*#__PURE__*/__webpack_require__(250);
+	var _xreduceBy = /*#__PURE__*/__webpack_require__(249);
 
 	/**
 	 * Groups the elements of the list according to the result of calling
@@ -15468,14 +15590,14 @@
 	module.exports = reduceBy;
 
 /***/ }),
-/* 250 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curryN = /*#__PURE__*/__webpack_require__(147);
+	var _curryN = /*#__PURE__*/__webpack_require__(146);
 
-	var _has = /*#__PURE__*/__webpack_require__(169);
+	var _has = /*#__PURE__*/__webpack_require__(168);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XReduceBy = /*#__PURE__*/function () {
 
@@ -15517,10 +15639,10 @@
 	module.exports = _xreduceBy;
 
 /***/ }),
-/* 251 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var add = /*#__PURE__*/__webpack_require__(141);
+	var add = /*#__PURE__*/__webpack_require__(140);
 
 	/**
 	 * Decrements its argument.
@@ -15543,10 +15665,10 @@
 	module.exports = dec;
 
 /***/ }),
-/* 252 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns the second argument if it is not `null`, `undefined` or `NaN`;
@@ -15578,10 +15700,10 @@
 	module.exports = defaultTo;
 
 /***/ }),
-/* 253 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Makes a descending comparator function out of a function that returns a value
@@ -15615,12 +15737,12 @@
 	module.exports = descend;
 
 /***/ }),
-/* 254 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _contains = /*#__PURE__*/__webpack_require__(227);
+	var _contains = /*#__PURE__*/__webpack_require__(226);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Finds the set (i.e. no duplicates) of all elements in the first list not
@@ -15659,12 +15781,12 @@
 	module.exports = difference;
 
 /***/ }),
-/* 255 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _containsWith = /*#__PURE__*/__webpack_require__(232);
+	var _containsWith = /*#__PURE__*/__webpack_require__(231);
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Finds the set (i.e. no duplicates) of all elements in the first list not
@@ -15705,10 +15827,10 @@
 	module.exports = differenceWith;
 
 /***/ }),
-/* 256 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns a new object that does not contain a `prop` property.
@@ -15739,20 +15861,20 @@
 	module.exports = dissoc;
 
 /***/ }),
-/* 257 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _isInteger = /*#__PURE__*/__webpack_require__(190);
+	var _isInteger = /*#__PURE__*/__webpack_require__(189);
 
-	var assoc = /*#__PURE__*/__webpack_require__(188);
+	var assoc = /*#__PURE__*/__webpack_require__(187);
 
-	var dissoc = /*#__PURE__*/__webpack_require__(256);
+	var dissoc = /*#__PURE__*/__webpack_require__(255);
 
-	var remove = /*#__PURE__*/__webpack_require__(258);
+	var remove = /*#__PURE__*/__webpack_require__(257);
 
-	var update = /*#__PURE__*/__webpack_require__(259);
+	var update = /*#__PURE__*/__webpack_require__(258);
 
 	/**
 	 * Makes a shallow clone of an object, omitting the property at the given path.
@@ -15796,10 +15918,10 @@
 	module.exports = dissocPath;
 
 /***/ }),
-/* 258 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Removes the sub-list of `list` starting at index `start` and containing
@@ -15830,14 +15952,14 @@
 	module.exports = remove;
 
 /***/ }),
-/* 259 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var adjust = /*#__PURE__*/__webpack_require__(148);
+	var adjust = /*#__PURE__*/__webpack_require__(147);
 
-	var always = /*#__PURE__*/__webpack_require__(136);
+	var always = /*#__PURE__*/__webpack_require__(135);
 
 	/**
 	 * Returns a new copy of the array with the element at the provided index
@@ -15869,10 +15991,10 @@
 	module.exports = update;
 
 /***/ }),
-/* 260 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Divides two numbers. Equivalent to `a / b`.
@@ -15904,16 +16026,16 @@
 	module.exports = divide;
 
 /***/ }),
-/* 261 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _xdrop = /*#__PURE__*/__webpack_require__(262);
+	var _xdrop = /*#__PURE__*/__webpack_require__(261);
 
-	var slice = /*#__PURE__*/__webpack_require__(218);
+	var slice = /*#__PURE__*/__webpack_require__(217);
 
 	/**
 	 * Returns all but the first `n` elements of the given list, string, or
@@ -15947,12 +16069,12 @@
 	module.exports = drop;
 
 /***/ }),
-/* 262 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XDrop = /*#__PURE__*/function () {
 
@@ -15979,16 +16101,16 @@
 	module.exports = _xdrop;
 
 /***/ }),
-/* 263 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _dropLast = /*#__PURE__*/__webpack_require__(264);
+	var _dropLast = /*#__PURE__*/__webpack_require__(263);
 
-	var _xdropLast = /*#__PURE__*/__webpack_require__(267);
+	var _xdropLast = /*#__PURE__*/__webpack_require__(266);
 
 	/**
 	 * Returns a list containing all but the last `n` elements of the given `list`.
@@ -16017,10 +16139,10 @@
 	module.exports = dropLast;
 
 /***/ }),
-/* 264 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var take = /*#__PURE__*/__webpack_require__(265);
+	var take = /*#__PURE__*/__webpack_require__(264);
 
 	function dropLast(n, xs) {
 	  return take(n < xs.length ? xs.length - n : 0, xs);
@@ -16028,16 +16150,16 @@
 	module.exports = dropLast;
 
 /***/ }),
-/* 265 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _xtake = /*#__PURE__*/__webpack_require__(266);
+	var _xtake = /*#__PURE__*/__webpack_require__(265);
 
-	var slice = /*#__PURE__*/__webpack_require__(218);
+	var slice = /*#__PURE__*/__webpack_require__(217);
 
 	/**
 	 * Returns the first `n` elements of the given list, string, or
@@ -16090,14 +16212,14 @@
 	module.exports = take;
 
 /***/ }),
-/* 266 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _reduced = /*#__PURE__*/__webpack_require__(155);
+	var _reduced = /*#__PURE__*/__webpack_require__(154);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XTake = /*#__PURE__*/function () {
 
@@ -16123,12 +16245,12 @@
 	module.exports = _xtake;
 
 /***/ }),
-/* 267 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XDropLast = /*#__PURE__*/function () {
 
@@ -16168,16 +16290,16 @@
 	module.exports = _xdropLast;
 
 /***/ }),
-/* 268 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _dropLastWhile = /*#__PURE__*/__webpack_require__(269);
+	var _dropLastWhile = /*#__PURE__*/__webpack_require__(268);
 
-	var _xdropLastWhile = /*#__PURE__*/__webpack_require__(270);
+	var _xdropLastWhile = /*#__PURE__*/__webpack_require__(269);
 
 	/**
 	 * Returns a new list excluding all the tailing elements of a given list which
@@ -16210,10 +16332,10 @@
 	module.exports = dropLastWhile;
 
 /***/ }),
-/* 269 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var slice = /*#__PURE__*/__webpack_require__(218);
+	var slice = /*#__PURE__*/__webpack_require__(217);
 
 	function dropLastWhile(pred, xs) {
 	  var idx = xs.length - 1;
@@ -16225,14 +16347,14 @@
 	module.exports = dropLastWhile;
 
 /***/ }),
-/* 270 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _reduce = /*#__PURE__*/__webpack_require__(162);
+	var _reduce = /*#__PURE__*/__webpack_require__(161);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XDropLastWhile = /*#__PURE__*/function () {
 
@@ -16268,18 +16390,18 @@
 	module.exports = _xdropLastWhile;
 
 /***/ }),
-/* 271 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _xdropRepeatsWith = /*#__PURE__*/__webpack_require__(272);
+	var _xdropRepeatsWith = /*#__PURE__*/__webpack_require__(271);
 
-	var dropRepeatsWith = /*#__PURE__*/__webpack_require__(273);
+	var dropRepeatsWith = /*#__PURE__*/__webpack_require__(272);
 
-	var equals = /*#__PURE__*/__webpack_require__(229);
+	var equals = /*#__PURE__*/__webpack_require__(228);
 
 	/**
 	 * Returns a new list without any consecutively repeating elements.
@@ -16305,12 +16427,12 @@
 	module.exports = dropRepeats;
 
 /***/ }),
-/* 272 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XDropRepeatsWith = /*#__PURE__*/function () {
 
@@ -16343,16 +16465,16 @@
 	module.exports = _xdropRepeatsWith;
 
 /***/ }),
-/* 273 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _xdropRepeatsWith = /*#__PURE__*/__webpack_require__(272);
+	var _xdropRepeatsWith = /*#__PURE__*/__webpack_require__(271);
 
-	var last = /*#__PURE__*/__webpack_require__(274);
+	var last = /*#__PURE__*/__webpack_require__(273);
 
 	/**
 	 * Returns a new list without any consecutively repeating elements. Equality is
@@ -16395,10 +16517,10 @@
 	module.exports = dropRepeatsWith;
 
 /***/ }),
-/* 274 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var nth = /*#__PURE__*/__webpack_require__(275);
+	var nth = /*#__PURE__*/__webpack_require__(274);
 
 	/**
 	 * Returns the last element of the given list or string.
@@ -16426,12 +16548,12 @@
 	module.exports = last;
 
 /***/ }),
-/* 275 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _isString = /*#__PURE__*/__webpack_require__(164);
+	var _isString = /*#__PURE__*/__webpack_require__(163);
 
 	/**
 	 * Returns the nth element of the given list or string. If n is negative the
@@ -16468,16 +16590,16 @@
 	module.exports = nth;
 
 /***/ }),
-/* 276 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _xdropWhile = /*#__PURE__*/__webpack_require__(277);
+	var _xdropWhile = /*#__PURE__*/__webpack_require__(276);
 
-	var slice = /*#__PURE__*/__webpack_require__(218);
+	var slice = /*#__PURE__*/__webpack_require__(217);
 
 	/**
 	 * Returns a new list excluding the leading elements of a given list which
@@ -16520,12 +16642,12 @@
 	module.exports = dropWhile;
 
 /***/ }),
-/* 277 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XDropWhile = /*#__PURE__*/function () {
 
@@ -16554,16 +16676,16 @@
 	module.exports = _xdropWhile;
 
 /***/ }),
-/* 278 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _isFunction = /*#__PURE__*/__webpack_require__(195);
+	var _isFunction = /*#__PURE__*/__webpack_require__(194);
 
-	var lift = /*#__PURE__*/__webpack_require__(196);
+	var lift = /*#__PURE__*/__webpack_require__(195);
 
-	var or = /*#__PURE__*/__webpack_require__(279);
+	var or = /*#__PURE__*/__webpack_require__(278);
 
 	/**
 	 * A function wrapping calls to the two functions in an `||` operation,
@@ -16602,10 +16724,10 @@
 	module.exports = either;
 
 /***/ }),
-/* 279 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns `true` if one or both of its arguments are `true`. Returns `false`
@@ -16635,18 +16757,18 @@
 	module.exports = or;
 
 /***/ }),
-/* 280 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var _isArguments = /*#__PURE__*/__webpack_require__(170);
+	var _isArguments = /*#__PURE__*/__webpack_require__(169);
 
-	var _isArray = /*#__PURE__*/__webpack_require__(152);
+	var _isArray = /*#__PURE__*/__webpack_require__(151);
 
-	var _isObject = /*#__PURE__*/__webpack_require__(241);
+	var _isObject = /*#__PURE__*/__webpack_require__(240);
 
-	var _isString = /*#__PURE__*/__webpack_require__(164);
+	var _isString = /*#__PURE__*/__webpack_require__(163);
 
 	/**
 	 * Returns the empty value of its argument's type. Ramda defines the empty
@@ -16683,14 +16805,14 @@
 	module.exports = empty;
 
 /***/ }),
-/* 281 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var equals = /*#__PURE__*/__webpack_require__(229);
+	var equals = /*#__PURE__*/__webpack_require__(228);
 
-	var takeLast = /*#__PURE__*/__webpack_require__(282);
+	var takeLast = /*#__PURE__*/__webpack_require__(281);
 
 	/**
 	 * Checks if a list ends with the provided values
@@ -16719,12 +16841,12 @@
 	module.exports = endsWith;
 
 /***/ }),
-/* 282 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var drop = /*#__PURE__*/__webpack_require__(261);
+	var drop = /*#__PURE__*/__webpack_require__(260);
 
 	/**
 	 * Returns a new list containing the last `n` elements of the given list.
@@ -16756,12 +16878,12 @@
 	module.exports = takeLast;
 
 /***/ }),
-/* 283 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var equals = /*#__PURE__*/__webpack_require__(229);
+	var equals = /*#__PURE__*/__webpack_require__(228);
 
 	/**
 	 * Takes a function and two values in its domain and returns `true` if the
@@ -16788,12 +16910,12 @@
 	module.exports = eqBy;
 
 /***/ }),
-/* 284 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var equals = /*#__PURE__*/__webpack_require__(229);
+	var equals = /*#__PURE__*/__webpack_require__(228);
 
 	/**
 	 * Reports whether two objects have the same value, in [`R.equals`](#equals)
@@ -16824,10 +16946,10 @@
 	module.exports = eqProps;
 
 /***/ }),
-/* 285 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Creates a new object by recursively evolving a shallow copy of `object`,
@@ -16871,14 +16993,14 @@
 	module.exports = evolve;
 
 /***/ }),
-/* 286 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _xfind = /*#__PURE__*/__webpack_require__(287);
+	var _xfind = /*#__PURE__*/__webpack_require__(286);
 
 	/**
 	 * Returns the first element of the list which matches the predicate, or
@@ -16919,14 +17041,14 @@
 	module.exports = find;
 
 /***/ }),
-/* 287 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _reduced = /*#__PURE__*/__webpack_require__(155);
+	var _reduced = /*#__PURE__*/__webpack_require__(154);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XFind = /*#__PURE__*/function () {
 
@@ -16959,14 +17081,14 @@
 	module.exports = _xfind;
 
 /***/ }),
-/* 288 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _xfindIndex = /*#__PURE__*/__webpack_require__(289);
+	var _xfindIndex = /*#__PURE__*/__webpack_require__(288);
 
 	/**
 	 * Returns the index of the first element of the list which matches the
@@ -17006,14 +17128,14 @@
 	module.exports = findIndex;
 
 /***/ }),
-/* 289 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _reduced = /*#__PURE__*/__webpack_require__(155);
+	var _reduced = /*#__PURE__*/__webpack_require__(154);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XFindIndex = /*#__PURE__*/function () {
 
@@ -17048,14 +17170,14 @@
 	module.exports = _xfindIndex;
 
 /***/ }),
-/* 290 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _xfindLast = /*#__PURE__*/__webpack_require__(291);
+	var _xfindLast = /*#__PURE__*/__webpack_require__(290);
 
 	/**
 	 * Returns the last element of the list which matches the predicate, or
@@ -17093,12 +17215,12 @@
 	module.exports = findLast;
 
 /***/ }),
-/* 291 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XFindLast = /*#__PURE__*/function () {
 
@@ -17126,14 +17248,14 @@
 	module.exports = _xfindLast;
 
 /***/ }),
-/* 292 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _xfindLastIndex = /*#__PURE__*/__webpack_require__(293);
+	var _xfindLastIndex = /*#__PURE__*/__webpack_require__(292);
 
 	/**
 	 * Returns the index of the last element of the list which matches the
@@ -17172,12 +17294,12 @@
 	module.exports = findLastIndex;
 
 /***/ }),
-/* 293 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XFindLastIndex = /*#__PURE__*/function () {
 
@@ -17208,12 +17330,12 @@
 	module.exports = _xfindLastIndex;
 
 /***/ }),
-/* 294 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var _makeFlat = /*#__PURE__*/__webpack_require__(201);
+	var _makeFlat = /*#__PURE__*/__webpack_require__(200);
 
 	/**
 	 * Returns a new list by pulling every item out of it (and all its sub-arrays)
@@ -17238,12 +17360,12 @@
 	module.exports = flatten;
 
 /***/ }),
-/* 295 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var curryN = /*#__PURE__*/__webpack_require__(145);
+	var curryN = /*#__PURE__*/__webpack_require__(144);
 
 	/**
 	 * Returns a new function much like the supplied one, except that the first two
@@ -17278,12 +17400,12 @@
 	module.exports = flip;
 
 /***/ }),
-/* 296 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _checkForMethod = /*#__PURE__*/__webpack_require__(217);
+	var _checkForMethod = /*#__PURE__*/__webpack_require__(216);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Iterate over an input `list`, calling a provided function `fn` for each
@@ -17333,12 +17455,12 @@
 	module.exports = forEach;
 
 /***/ }),
-/* 297 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var keys = /*#__PURE__*/__webpack_require__(168);
+	var keys = /*#__PURE__*/__webpack_require__(167);
 
 	/**
 	 * Iterate over an input `object`, calling a provided function `fn` for each
@@ -17377,10 +17499,10 @@
 	module.exports = forEachObjIndexed;
 
 /***/ }),
-/* 298 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
 	/**
 	 * Creates a new object from a list key-value pairs. If a key appears in
@@ -17412,14 +17534,14 @@
 	module.exports = fromPairs;
 
 /***/ }),
-/* 299 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _checkForMethod = /*#__PURE__*/__webpack_require__(217);
+	var _checkForMethod = /*#__PURE__*/__webpack_require__(216);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var reduceBy = /*#__PURE__*/__webpack_require__(249);
+	var reduceBy = /*#__PURE__*/__webpack_require__(248);
 
 	/**
 	 * Splits a list into sub-lists stored in an object, based on the result of
@@ -17473,10 +17595,10 @@
 	module.exports = groupBy;
 
 /***/ }),
-/* 300 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Takes a list and returns a list of lists where each sublist's elements are
@@ -17527,10 +17649,10 @@
 	module.exports = groupWith;
 
 /***/ }),
-/* 301 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns `true` if the first argument is greater than the second; `false`
@@ -17561,10 +17683,10 @@
 	module.exports = gt;
 
 /***/ }),
-/* 302 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns `true` if the first argument is greater than or equal to the second;
@@ -17595,12 +17717,12 @@
 	module.exports = gte;
 
 /***/ }),
-/* 303 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _has = /*#__PURE__*/__webpack_require__(169);
+	var _has = /*#__PURE__*/__webpack_require__(168);
 
 	/**
 	 * Returns whether or not an object has an own property with the specified name
@@ -17632,10 +17754,10 @@
 	module.exports = has;
 
 /***/ }),
-/* 304 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns whether or not an object or its prototype chain has a property with
@@ -17671,10 +17793,10 @@
 	module.exports = hasIn;
 
 /***/ }),
-/* 305 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var nth = /*#__PURE__*/__webpack_require__(275);
+	var nth = /*#__PURE__*/__webpack_require__(274);
 
 	/**
 	 * Returns the first element of the given list or string. In some libraries
@@ -17703,12 +17825,12 @@
 	module.exports = head;
 
 /***/ }),
-/* 306 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var _identity = /*#__PURE__*/__webpack_require__(307);
+	var _identity = /*#__PURE__*/__webpack_require__(306);
 
 	/**
 	 * A function that does nothing but return the parameter supplied to it. Good
@@ -17735,7 +17857,7 @@
 	module.exports = identity;
 
 /***/ }),
-/* 307 */
+/* 306 */
 /***/ (function(module, exports) {
 
 	function _identity(x) {
@@ -17744,12 +17866,12 @@
 	module.exports = _identity;
 
 /***/ }),
-/* 308 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var curryN = /*#__PURE__*/__webpack_require__(145);
+	var curryN = /*#__PURE__*/__webpack_require__(144);
 
 	/**
 	 * Creates a function that will process either the `onTrue` or the `onFalse`
@@ -17786,10 +17908,10 @@
 	module.exports = ifElse;
 
 /***/ }),
-/* 309 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var add = /*#__PURE__*/__webpack_require__(141);
+	var add = /*#__PURE__*/__webpack_require__(140);
 
 	/**
 	 * Increments its argument.
@@ -17812,10 +17934,10 @@
 	module.exports = inc;
 
 /***/ }),
-/* 310 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var reduceBy = /*#__PURE__*/__webpack_require__(249);
+	var reduceBy = /*#__PURE__*/__webpack_require__(248);
 
 	/**
 	 * Given a function that generates a key, turns a list of objects into an
@@ -17847,14 +17969,14 @@
 	module.exports = indexBy;
 
 /***/ }),
-/* 311 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _indexOf = /*#__PURE__*/__webpack_require__(228);
+	var _indexOf = /*#__PURE__*/__webpack_require__(227);
 
-	var _isArray = /*#__PURE__*/__webpack_require__(152);
+	var _isArray = /*#__PURE__*/__webpack_require__(151);
 
 	/**
 	 * Returns the position of the first occurrence of an item in an array, or -1
@@ -17883,10 +18005,10 @@
 	module.exports = indexOf;
 
 /***/ }),
-/* 312 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var slice = /*#__PURE__*/__webpack_require__(218);
+	var slice = /*#__PURE__*/__webpack_require__(217);
 
 	/**
 	 * Returns all but the last element of the given list or string.
@@ -17918,14 +18040,14 @@
 	module.exports = init;
 
 /***/ }),
-/* 313 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _containsWith = /*#__PURE__*/__webpack_require__(232);
+	var _containsWith = /*#__PURE__*/__webpack_require__(231);
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var _filter = /*#__PURE__*/__webpack_require__(240);
+	var _filter = /*#__PURE__*/__webpack_require__(239);
 
 	/**
 	 * Takes a predicate `pred`, a list `xs`, and a list `ys`, and returns a list
@@ -17972,10 +18094,10 @@
 	module.exports = innerJoin;
 
 /***/ }),
-/* 314 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Inserts the supplied element into the list, at the specified `index`. _Note that
@@ -18007,10 +18129,10 @@
 	module.exports = insert;
 
 /***/ }),
-/* 315 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Inserts the sub-list into the list, at the specified `index`. _Note that this is not
@@ -18039,18 +18161,18 @@
 	module.exports = insertAll;
 
 /***/ }),
-/* 316 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _contains = /*#__PURE__*/__webpack_require__(227);
+	var _contains = /*#__PURE__*/__webpack_require__(226);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _filter = /*#__PURE__*/__webpack_require__(240);
+	var _filter = /*#__PURE__*/__webpack_require__(239);
 
-	var flip = /*#__PURE__*/__webpack_require__(295);
+	var flip = /*#__PURE__*/__webpack_require__(294);
 
-	var uniq = /*#__PURE__*/__webpack_require__(317);
+	var uniq = /*#__PURE__*/__webpack_require__(316);
 
 	/**
 	 * Combines two lists into a set (i.e. no duplicates) composed of those
@@ -18085,12 +18207,12 @@
 	module.exports = intersection;
 
 /***/ }),
-/* 317 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var identity = /*#__PURE__*/__webpack_require__(306);
+	var identity = /*#__PURE__*/__webpack_require__(305);
 
-	var uniqBy = /*#__PURE__*/__webpack_require__(318);
+	var uniqBy = /*#__PURE__*/__webpack_require__(317);
 
 	/**
 	 * Returns a new list containing only one copy of each element in the original
@@ -18115,12 +18237,12 @@
 	module.exports = uniq;
 
 /***/ }),
-/* 318 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _Set = /*#__PURE__*/__webpack_require__(319);
+	var _Set = /*#__PURE__*/__webpack_require__(318);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns a new list containing only one copy of each element in the original
@@ -18161,10 +18283,10 @@
 	module.exports = uniqBy;
 
 /***/ }),
-/* 319 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _contains = /*#__PURE__*/__webpack_require__(227);
+	var _contains = /*#__PURE__*/__webpack_require__(226);
 
 	var _Set = /*#__PURE__*/function () {
 
@@ -18340,12 +18462,12 @@
 	module.exports = _Set;
 
 /***/ }),
-/* 320 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _checkForMethod = /*#__PURE__*/__webpack_require__(217);
+	var _checkForMethod = /*#__PURE__*/__webpack_require__(216);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Creates a new list with the separator interposed between elements.
@@ -18383,18 +18505,18 @@
 	module.exports = intersperse;
 
 /***/ }),
-/* 321 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _clone = /*#__PURE__*/__webpack_require__(207);
+	var _clone = /*#__PURE__*/__webpack_require__(206);
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var _isTransformer = /*#__PURE__*/__webpack_require__(153);
+	var _isTransformer = /*#__PURE__*/__webpack_require__(152);
 
-	var _reduce = /*#__PURE__*/__webpack_require__(162);
+	var _reduce = /*#__PURE__*/__webpack_require__(161);
 
-	var _stepCat = /*#__PURE__*/__webpack_require__(322);
+	var _stepCat = /*#__PURE__*/__webpack_require__(321);
 
 	/**
 	 * Transforms the items of the list with the transducer and appends the
@@ -18442,18 +18564,18 @@
 	module.exports = into;
 
 /***/ }),
-/* 322 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _assign = /*#__PURE__*/__webpack_require__(323);
+	var _assign = /*#__PURE__*/__webpack_require__(322);
 
-	var _identity = /*#__PURE__*/__webpack_require__(307);
+	var _identity = /*#__PURE__*/__webpack_require__(306);
 
-	var _isArrayLike = /*#__PURE__*/__webpack_require__(163);
+	var _isArrayLike = /*#__PURE__*/__webpack_require__(162);
 
-	var _isTransformer = /*#__PURE__*/__webpack_require__(153);
+	var _isTransformer = /*#__PURE__*/__webpack_require__(152);
 
-	var objOf = /*#__PURE__*/__webpack_require__(325);
+	var objOf = /*#__PURE__*/__webpack_require__(324);
 
 	var _stepCatArray = {
 	  '@@transducer/init': Array,
@@ -18496,18 +18618,18 @@
 	module.exports = _stepCat;
 
 /***/ }),
-/* 323 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _objectAssign = /*#__PURE__*/__webpack_require__(324);
+	var _objectAssign = /*#__PURE__*/__webpack_require__(323);
 
 	module.exports = typeof Object.assign === 'function' ? Object.assign : _objectAssign;
 
 /***/ }),
-/* 324 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _has = /*#__PURE__*/__webpack_require__(169);
+	var _has = /*#__PURE__*/__webpack_require__(168);
 
 	// Based on https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
 
@@ -18536,10 +18658,10 @@
 	module.exports = _objectAssign;
 
 /***/ }),
-/* 325 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Creates an object containing a single key:value pair.
@@ -18571,14 +18693,14 @@
 	module.exports = objOf;
 
 /***/ }),
-/* 326 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var _has = /*#__PURE__*/__webpack_require__(169);
+	var _has = /*#__PURE__*/__webpack_require__(168);
 
-	var keys = /*#__PURE__*/__webpack_require__(168);
+	var keys = /*#__PURE__*/__webpack_require__(167);
 
 	/**
 	 * Same as [`R.invertObj`](#invertObj), however this accounts for objects with
@@ -18622,12 +18744,12 @@
 	module.exports = invert;
 
 /***/ }),
-/* 327 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var keys = /*#__PURE__*/__webpack_require__(168);
+	var keys = /*#__PURE__*/__webpack_require__(167);
 
 	/**
 	 * Returns a new object with the keys of the given object as values, and the
@@ -18674,16 +18796,16 @@
 	module.exports = invertObj;
 
 /***/ }),
-/* 328 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _isFunction = /*#__PURE__*/__webpack_require__(195);
+	var _isFunction = /*#__PURE__*/__webpack_require__(194);
 
-	var curryN = /*#__PURE__*/__webpack_require__(145);
+	var curryN = /*#__PURE__*/__webpack_require__(144);
 
-	var toString = /*#__PURE__*/__webpack_require__(225);
+	var toString = /*#__PURE__*/__webpack_require__(224);
 
 	/**
 	 * Turns a named method with a specified arity into a function that can be
@@ -18726,10 +18848,10 @@
 	module.exports = invoker;
 
 /***/ }),
-/* 329 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * See if an object (`val`) is an instance of the supplied constructor. This
@@ -18762,14 +18884,14 @@
 	module.exports = is;
 
 /***/ }),
-/* 330 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var empty = /*#__PURE__*/__webpack_require__(280);
+	var empty = /*#__PURE__*/__webpack_require__(279);
 
-	var equals = /*#__PURE__*/__webpack_require__(229);
+	var equals = /*#__PURE__*/__webpack_require__(228);
 
 	/**
 	 * Returns `true` if the given value is its type's empty value; `false`
@@ -18800,10 +18922,10 @@
 	module.exports = isEmpty;
 
 /***/ }),
-/* 331 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var invoker = /*#__PURE__*/__webpack_require__(328);
+	var invoker = /*#__PURE__*/__webpack_require__(327);
 
 	/**
 	 * Returns a string made by inserting the `separator` between each element and
@@ -18830,12 +18952,12 @@
 	module.exports = join;
 
 /***/ }),
-/* 332 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var converge = /*#__PURE__*/__webpack_require__(247);
+	var converge = /*#__PURE__*/__webpack_require__(246);
 
 	/**
 	 * juxt applies a list of functions to a list of values.
@@ -18864,10 +18986,10 @@
 	module.exports = juxt;
 
 /***/ }),
-/* 333 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
 	/**
 	 * Returns a list containing the names of all the properties of the supplied
@@ -18903,14 +19025,14 @@
 	module.exports = keysIn;
 
 /***/ }),
-/* 334 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _isArray = /*#__PURE__*/__webpack_require__(152);
+	var _isArray = /*#__PURE__*/__webpack_require__(151);
 
-	var equals = /*#__PURE__*/__webpack_require__(229);
+	var equals = /*#__PURE__*/__webpack_require__(228);
 
 	/**
 	 * Returns the position of the last occurrence of an item in an array, or -1 if
@@ -18950,12 +19072,12 @@
 	module.exports = lastIndexOf;
 
 /***/ }),
-/* 335 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var _isNumber = /*#__PURE__*/__webpack_require__(336);
+	var _isNumber = /*#__PURE__*/__webpack_require__(335);
 
 	/**
 	 * Returns the number of elements in the array by returning `list.length`.
@@ -18980,7 +19102,7 @@
 	module.exports = length;
 
 /***/ }),
-/* 336 */
+/* 335 */
 /***/ (function(module, exports) {
 
 	function _isNumber(x) {
@@ -18989,12 +19111,12 @@
 	module.exports = _isNumber;
 
 /***/ }),
-/* 337 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var map = /*#__PURE__*/__webpack_require__(160);
+	var map = /*#__PURE__*/__webpack_require__(159);
 
 	/**
 	 * Returns a lens for the given getter and setter functions. The getter "gets"
@@ -19033,16 +19155,16 @@
 	module.exports = lens;
 
 /***/ }),
-/* 338 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var lens = /*#__PURE__*/__webpack_require__(337);
+	var lens = /*#__PURE__*/__webpack_require__(336);
 
-	var nth = /*#__PURE__*/__webpack_require__(275);
+	var nth = /*#__PURE__*/__webpack_require__(274);
 
-	var update = /*#__PURE__*/__webpack_require__(259);
+	var update = /*#__PURE__*/__webpack_require__(258);
 
 	/**
 	 * Returns a lens whose focus is the specified index.
@@ -19072,16 +19194,16 @@
 	module.exports = lensIndex;
 
 /***/ }),
-/* 339 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var assocPath = /*#__PURE__*/__webpack_require__(189);
+	var assocPath = /*#__PURE__*/__webpack_require__(188);
 
-	var lens = /*#__PURE__*/__webpack_require__(337);
+	var lens = /*#__PURE__*/__webpack_require__(336);
 
-	var path = /*#__PURE__*/__webpack_require__(172);
+	var path = /*#__PURE__*/__webpack_require__(171);
 
 	/**
 	 * Returns a lens whose focus is the specified path.
@@ -19115,16 +19237,16 @@
 	module.exports = lensPath;
 
 /***/ }),
-/* 340 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var assoc = /*#__PURE__*/__webpack_require__(188);
+	var assoc = /*#__PURE__*/__webpack_require__(187);
 
-	var lens = /*#__PURE__*/__webpack_require__(337);
+	var lens = /*#__PURE__*/__webpack_require__(336);
 
-	var prop = /*#__PURE__*/__webpack_require__(171);
+	var prop = /*#__PURE__*/__webpack_require__(170);
 
 	/**
 	 * Returns a lens whose focus is the specified property.
@@ -19154,10 +19276,10 @@
 	module.exports = lensProp;
 
 /***/ }),
-/* 341 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns `true` if the first argument is less than the second; `false`
@@ -19188,10 +19310,10 @@
 	module.exports = lt;
 
 /***/ }),
-/* 342 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns `true` if the first argument is less than or equal to the second;
@@ -19222,10 +19344,10 @@
 	module.exports = lte;
 
 /***/ }),
-/* 343 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * The `mapAccum` function behaves like a combination of map and reduce; it
@@ -19278,10 +19400,10 @@
 	module.exports = mapAccum;
 
 /***/ }),
-/* 344 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * The `mapAccumRight` function behaves like a combination of map and reduce; it
@@ -19336,14 +19458,14 @@
 	module.exports = mapAccumRight;
 
 /***/ }),
-/* 345 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _reduce = /*#__PURE__*/__webpack_require__(162);
+	var _reduce = /*#__PURE__*/__webpack_require__(161);
 
-	var keys = /*#__PURE__*/__webpack_require__(168);
+	var keys = /*#__PURE__*/__webpack_require__(167);
 
 	/**
 	 * An Object-specific version of [`map`](#map). The function is applied to three
@@ -19377,10 +19499,10 @@
 	module.exports = mapObjIndexed;
 
 /***/ }),
-/* 346 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Tests a regular expression against a String. Note that this function will
@@ -19411,12 +19533,12 @@
 	module.exports = match;
 
 /***/ }),
-/* 347 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _isInteger = /*#__PURE__*/__webpack_require__(190);
+	var _isInteger = /*#__PURE__*/__webpack_require__(189);
 
 	/**
 	 * `mathMod` behaves like the modulo operator should mathematically, unlike the
@@ -19465,10 +19587,10 @@
 	module.exports = mathMod;
 
 /***/ }),
-/* 348 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Takes a function and two values, and returns whichever value produces the
@@ -19502,12 +19624,12 @@
 	module.exports = maxBy;
 
 /***/ }),
-/* 349 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var sum = /*#__PURE__*/__webpack_require__(350);
+	var sum = /*#__PURE__*/__webpack_require__(349);
 
 	/**
 	 * Returns the mean of the given list of numbers.
@@ -19533,12 +19655,12 @@
 	module.exports = mean;
 
 /***/ }),
-/* 350 */
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var add = /*#__PURE__*/__webpack_require__(141);
+	var add = /*#__PURE__*/__webpack_require__(140);
 
-	var reduce = /*#__PURE__*/__webpack_require__(173);
+	var reduce = /*#__PURE__*/__webpack_require__(172);
 
 	/**
 	 * Adds together all the elements of a list.
@@ -19561,12 +19683,12 @@
 	module.exports = sum;
 
 /***/ }),
-/* 351 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var mean = /*#__PURE__*/__webpack_require__(349);
+	var mean = /*#__PURE__*/__webpack_require__(348);
 
 	/**
 	 * Returns the median of the given list of numbers.
@@ -19601,12 +19723,12 @@
 	module.exports = median;
 
 /***/ }),
-/* 352 */
+/* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var memoizeWith = /*#__PURE__*/__webpack_require__(353);
+	var memoizeWith = /*#__PURE__*/__webpack_require__(352);
 
-	var toString = /*#__PURE__*/__webpack_require__(225);
+	var toString = /*#__PURE__*/__webpack_require__(224);
 
 	/**
 	 * Creates a new function that, when invoked, caches the result of calling `fn`
@@ -19644,14 +19766,14 @@
 	module.exports = memoize;
 
 /***/ }),
-/* 353 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _arity = /*#__PURE__*/__webpack_require__(146);
+	var _arity = /*#__PURE__*/__webpack_require__(145);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _has = /*#__PURE__*/__webpack_require__(169);
+	var _has = /*#__PURE__*/__webpack_require__(168);
 
 	/**
 	 * A customisable version of [`R.memoize`](#memoize). `memoizeWith` takes an
@@ -19697,12 +19819,12 @@
 	module.exports = memoizeWith;
 
 /***/ }),
-/* 354 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _assign = /*#__PURE__*/__webpack_require__(323);
+	var _assign = /*#__PURE__*/__webpack_require__(322);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Create a new object with the own properties of the first object merged with
@@ -19735,12 +19857,12 @@
 	module.exports = merge;
 
 /***/ }),
-/* 355 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _assign = /*#__PURE__*/__webpack_require__(323);
+	var _assign = /*#__PURE__*/__webpack_require__(322);
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
 	/**
 	 * Merges a list of objects together into one object.
@@ -19767,12 +19889,12 @@
 	module.exports = mergeAll;
 
 /***/ }),
-/* 356 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var mergeDeepWithKey = /*#__PURE__*/__webpack_require__(357);
+	var mergeDeepWithKey = /*#__PURE__*/__webpack_require__(356);
 
 	/**
 	 * Creates a new object with the own properties of the first object merged with
@@ -19805,14 +19927,14 @@
 	module.exports = mergeDeepLeft;
 
 /***/ }),
-/* 357 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var _isObject = /*#__PURE__*/__webpack_require__(241);
+	var _isObject = /*#__PURE__*/__webpack_require__(240);
 
-	var mergeWithKey = /*#__PURE__*/__webpack_require__(358);
+	var mergeWithKey = /*#__PURE__*/__webpack_require__(357);
 
 	/**
 	 * Creates a new object with the own properties of the two provided objects.
@@ -19856,12 +19978,12 @@
 	module.exports = mergeDeepWithKey;
 
 /***/ }),
-/* 358 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var _has = /*#__PURE__*/__webpack_require__(169);
+	var _has = /*#__PURE__*/__webpack_require__(168);
 
 	/**
 	 * Creates a new object with the own properties of the two provided objects. If
@@ -19911,12 +20033,12 @@
 	module.exports = mergeWithKey;
 
 /***/ }),
-/* 359 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var mergeDeepWithKey = /*#__PURE__*/__webpack_require__(357);
+	var mergeDeepWithKey = /*#__PURE__*/__webpack_require__(356);
 
 	/**
 	 * Creates a new object with the own properties of the first object merged with
@@ -19949,12 +20071,12 @@
 	module.exports = mergeDeepRight;
 
 /***/ }),
-/* 360 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var mergeDeepWithKey = /*#__PURE__*/__webpack_require__(357);
+	var mergeDeepWithKey = /*#__PURE__*/__webpack_require__(356);
 
 	/**
 	 * Creates a new object with the own properties of the two provided objects.
@@ -19993,12 +20115,12 @@
 	module.exports = mergeDeepWith;
 
 /***/ }),
-/* 361 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var mergeWithKey = /*#__PURE__*/__webpack_require__(358);
+	var mergeWithKey = /*#__PURE__*/__webpack_require__(357);
 
 	/**
 	 * Creates a new object with the own properties of the two provided objects. If
@@ -20033,10 +20155,10 @@
 	module.exports = mergeWith;
 
 /***/ }),
-/* 362 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns the smaller of its two arguments.
@@ -20063,10 +20185,10 @@
 	module.exports = min;
 
 /***/ }),
-/* 363 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Takes a function and two values, and returns whichever value produces the
@@ -20100,10 +20222,10 @@
 	module.exports = minBy;
 
 /***/ }),
-/* 364 */
+/* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Divides the first parameter by the second and returns the remainder. Note
@@ -20138,10 +20260,10 @@
 	module.exports = modulo;
 
 /***/ }),
-/* 365 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Multiplies two numbers. Equivalent to `a * b` but curried.
@@ -20171,10 +20293,10 @@
 	module.exports = multiply;
 
 /***/ }),
-/* 366 */
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
 	/**
 	 * Negates its argument.
@@ -20198,18 +20320,18 @@
 	module.exports = negate;
 
 /***/ }),
-/* 367 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _complement = /*#__PURE__*/__webpack_require__(238);
+	var _complement = /*#__PURE__*/__webpack_require__(237);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _xany = /*#__PURE__*/__webpack_require__(176);
+	var _xany = /*#__PURE__*/__webpack_require__(175);
 
-	var any = /*#__PURE__*/__webpack_require__(175);
+	var any = /*#__PURE__*/__webpack_require__(174);
 
 	/**
 	 * Returns `true` if no elements of the list match the predicate, `false`
@@ -20240,14 +20362,14 @@
 	module.exports = none;
 
 /***/ }),
-/* 368 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var curryN = /*#__PURE__*/__webpack_require__(145);
+	var curryN = /*#__PURE__*/__webpack_require__(144);
 
-	var nth = /*#__PURE__*/__webpack_require__(275);
+	var nth = /*#__PURE__*/__webpack_require__(274);
 
 	/**
 	 * Returns a function which returns its nth argument.
@@ -20278,10 +20400,10 @@
 	module.exports = nthArg;
 
 /***/ }),
-/* 369 */
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * `o` is a curried composition function that returns a unary function.
@@ -20316,12 +20438,12 @@
 	module.exports = o;
 
 /***/ }),
-/* 370 */
+/* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var _of = /*#__PURE__*/__webpack_require__(371);
+	var _of = /*#__PURE__*/__webpack_require__(370);
 
 	/**
 	 * Returns a singleton array containing the value provided.
@@ -20347,7 +20469,7 @@
 	module.exports = of;
 
 /***/ }),
-/* 371 */
+/* 370 */
 /***/ (function(module, exports) {
 
 	function _of(x) {
@@ -20356,10 +20478,10 @@
 	module.exports = _of;
 
 /***/ }),
-/* 372 */
+/* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns a partial copy of an object omitting the keys specified.
@@ -20400,12 +20522,12 @@
 	module.exports = omit;
 
 /***/ }),
-/* 373 */
+/* 372 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _arity = /*#__PURE__*/__webpack_require__(146);
+	var _arity = /*#__PURE__*/__webpack_require__(145);
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
 	/**
 	 * Accepts a function `fn` and returns a function that guards invocation of
@@ -20443,10 +20565,10 @@
 	module.exports = once;
 
 /***/ }),
-/* 374 */
+/* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	// `Identity` is a functor that holds a single value, where `map` simply
 	// transforms the held value with the provided function.
@@ -20491,10 +20613,10 @@
 	module.exports = over;
 
 /***/ }),
-/* 375 */
+/* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Takes two arguments, `fst` and `snd`, and returns `[fst, snd]`.
@@ -20520,12 +20642,12 @@
 	module.exports = pair;
 
 /***/ }),
-/* 376 */
+/* 375 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _concat = /*#__PURE__*/__webpack_require__(144);
+	var _concat = /*#__PURE__*/__webpack_require__(143);
 
-	var _createPartialApplicator = /*#__PURE__*/__webpack_require__(377);
+	var _createPartialApplicator = /*#__PURE__*/__webpack_require__(376);
 
 	/**
 	 * Takes a function `f` and a list of arguments, and returns a function `g`.
@@ -20561,12 +20683,12 @@
 	module.exports = partial;
 
 /***/ }),
-/* 377 */
+/* 376 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _arity = /*#__PURE__*/__webpack_require__(146);
+	var _arity = /*#__PURE__*/__webpack_require__(145);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	function _createPartialApplicator(concat) {
 	  return _curry2(function (fn, args) {
@@ -20578,14 +20700,14 @@
 	module.exports = _createPartialApplicator;
 
 /***/ }),
-/* 378 */
+/* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _concat = /*#__PURE__*/__webpack_require__(144);
+	var _concat = /*#__PURE__*/__webpack_require__(143);
 
-	var _createPartialApplicator = /*#__PURE__*/__webpack_require__(377);
+	var _createPartialApplicator = /*#__PURE__*/__webpack_require__(376);
 
-	var flip = /*#__PURE__*/__webpack_require__(295);
+	var flip = /*#__PURE__*/__webpack_require__(294);
 
 	/**
 	 * Takes a function `f` and a list of arguments, and returns a function `g`.
@@ -20617,14 +20739,14 @@
 	module.exports = partialRight;
 
 /***/ }),
-/* 379 */
+/* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var filter = /*#__PURE__*/__webpack_require__(239);
+	var filter = /*#__PURE__*/__webpack_require__(238);
 
-	var juxt = /*#__PURE__*/__webpack_require__(332);
+	var juxt = /*#__PURE__*/__webpack_require__(331);
 
-	var reject = /*#__PURE__*/__webpack_require__(237);
+	var reject = /*#__PURE__*/__webpack_require__(236);
 
 	/**
 	 * Takes a predicate and a list or other `Filterable` object and returns the
@@ -20656,14 +20778,14 @@
 	module.exports = partition;
 
 /***/ }),
-/* 380 */
+/* 379 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var equals = /*#__PURE__*/__webpack_require__(229);
+	var equals = /*#__PURE__*/__webpack_require__(228);
 
-	var path = /*#__PURE__*/__webpack_require__(172);
+	var path = /*#__PURE__*/__webpack_require__(171);
 
 	/**
 	 * Determines whether a nested path on an object has a specific value, in
@@ -20697,14 +20819,14 @@
 	module.exports = pathEq;
 
 /***/ }),
-/* 381 */
+/* 380 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var defaultTo = /*#__PURE__*/__webpack_require__(252);
+	var defaultTo = /*#__PURE__*/__webpack_require__(251);
 
-	var path = /*#__PURE__*/__webpack_require__(172);
+	var path = /*#__PURE__*/__webpack_require__(171);
 
 	/**
 	 * If the given, non-null object has a value at the given path, returns the
@@ -20733,12 +20855,12 @@
 	module.exports = pathOr;
 
 /***/ }),
-/* 382 */
+/* 381 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var path = /*#__PURE__*/__webpack_require__(172);
+	var path = /*#__PURE__*/__webpack_require__(171);
 
 	/**
 	 * Returns `true` if the specified object property at given path satisfies the
@@ -20767,10 +20889,10 @@
 	module.exports = pathSatisfies;
 
 /***/ }),
-/* 383 */
+/* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns a partial copy of an object containing only the keys specified. If
@@ -20806,10 +20928,10 @@
 	module.exports = pick;
 
 /***/ }),
-/* 384 */
+/* 383 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Similar to `pick` except that this one includes a `key: undefined` pair for
@@ -20845,10 +20967,10 @@
 	module.exports = pickAll;
 
 /***/ }),
-/* 385 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns a partial copy of an object containing only the keys that satisfy
@@ -20884,12 +21006,12 @@
 	module.exports = pickBy;
 
 /***/ }),
-/* 386 */
+/* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var composeK = /*#__PURE__*/__webpack_require__(220);
+	var composeK = /*#__PURE__*/__webpack_require__(219);
 
-	var reverse = /*#__PURE__*/__webpack_require__(219);
+	var reverse = /*#__PURE__*/__webpack_require__(218);
 
 	/**
 	 * Returns the left-to-right Kleisli composition of the provided functions,
@@ -20936,12 +21058,12 @@
 	module.exports = pipeK;
 
 /***/ }),
-/* 387 */
+/* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _concat = /*#__PURE__*/__webpack_require__(144);
+	var _concat = /*#__PURE__*/__webpack_require__(143);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns a new list with the given element at the front, followed by the
@@ -20968,12 +21090,12 @@
 	module.exports = prepend;
 
 /***/ }),
-/* 388 */
+/* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var multiply = /*#__PURE__*/__webpack_require__(365);
+	var multiply = /*#__PURE__*/__webpack_require__(364);
 
-	var reduce = /*#__PURE__*/__webpack_require__(173);
+	var reduce = /*#__PURE__*/__webpack_require__(172);
 
 	/**
 	 * Multiplies together all the elements of a list.
@@ -20996,16 +21118,16 @@
 	module.exports = product;
 
 /***/ }),
-/* 389 */
+/* 388 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _map = /*#__PURE__*/__webpack_require__(161);
+	var _map = /*#__PURE__*/__webpack_require__(160);
 
-	var identity = /*#__PURE__*/__webpack_require__(306);
+	var identity = /*#__PURE__*/__webpack_require__(305);
 
-	var pickAll = /*#__PURE__*/__webpack_require__(384);
+	var pickAll = /*#__PURE__*/__webpack_require__(383);
 
-	var useWith = /*#__PURE__*/__webpack_require__(390);
+	var useWith = /*#__PURE__*/__webpack_require__(389);
 
 	/**
 	 * Reasonable analog to SQL `select` statement.
@@ -21032,12 +21154,12 @@
 	module.exports = project;
 
 /***/ }),
-/* 390 */
+/* 389 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var curryN = /*#__PURE__*/__webpack_require__(145);
+	var curryN = /*#__PURE__*/__webpack_require__(144);
 
 	/**
 	 * Accepts a function `fn` and a list of transformer functions and returns a
@@ -21084,12 +21206,12 @@
 	module.exports = useWith;
 
 /***/ }),
-/* 391 */
+/* 390 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var equals = /*#__PURE__*/__webpack_require__(229);
+	var equals = /*#__PURE__*/__webpack_require__(228);
 
 	/**
 	 * Returns `true` if the specified object property is equal, in
@@ -21124,12 +21246,12 @@
 	module.exports = propEq;
 
 /***/ }),
-/* 392 */
+/* 391 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var is = /*#__PURE__*/__webpack_require__(329);
+	var is = /*#__PURE__*/__webpack_require__(328);
 
 	/**
 	 * Returns `true` if the specified object property is of the given type;
@@ -21159,12 +21281,12 @@
 	module.exports = propIs;
 
 /***/ }),
-/* 393 */
+/* 392 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var _has = /*#__PURE__*/__webpack_require__(169);
+	var _has = /*#__PURE__*/__webpack_require__(168);
 
 	/**
 	 * If the given, non-null object has an own property with the specified name,
@@ -21200,10 +21322,10 @@
 	module.exports = propOr;
 
 /***/ }),
-/* 394 */
+/* 393 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Returns `true` if the specified object property satisfies the given
@@ -21232,10 +21354,10 @@
 	module.exports = propSatisfies;
 
 /***/ }),
-/* 395 */
+/* 394 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Acts as multiple `prop`: array of keys in, array of values out. Preserves
@@ -21274,12 +21396,12 @@
 	module.exports = props;
 
 /***/ }),
-/* 396 */
+/* 395 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _isNumber = /*#__PURE__*/__webpack_require__(336);
+	var _isNumber = /*#__PURE__*/__webpack_require__(335);
 
 	/**
 	 * Returns a list of numbers from `from` (inclusive) to `to` (exclusive).
@@ -21314,10 +21436,10 @@
 	module.exports = range;
 
 /***/ }),
-/* 397 */
+/* 396 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Returns a single item by iterating through the list, successively calling
@@ -21374,14 +21496,14 @@
 	module.exports = reduceRight;
 
 /***/ }),
-/* 398 */
+/* 397 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curryN = /*#__PURE__*/__webpack_require__(147);
+	var _curryN = /*#__PURE__*/__webpack_require__(146);
 
-	var _reduce = /*#__PURE__*/__webpack_require__(162);
+	var _reduce = /*#__PURE__*/__webpack_require__(161);
 
-	var _reduced = /*#__PURE__*/__webpack_require__(155);
+	var _reduced = /*#__PURE__*/__webpack_require__(154);
 
 	/**
 	 * Like [`reduce`](#reduce), `reduceWhile` returns a single item by iterating
@@ -21422,12 +21544,12 @@
 	module.exports = reduceWhile;
 
 /***/ }),
-/* 399 */
+/* 398 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var _reduced = /*#__PURE__*/__webpack_require__(155);
+	var _reduced = /*#__PURE__*/__webpack_require__(154);
 
 	/**
 	 * Returns a value wrapped to indicate that it is the final value of the reduce
@@ -21459,14 +21581,14 @@
 	module.exports = reduced;
 
 /***/ }),
-/* 400 */
+/* 399 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var always = /*#__PURE__*/__webpack_require__(136);
+	var always = /*#__PURE__*/__webpack_require__(135);
 
-	var times = /*#__PURE__*/__webpack_require__(401);
+	var times = /*#__PURE__*/__webpack_require__(400);
 
 	/**
 	 * Returns a fixed list of size `n` containing a specified identical value.
@@ -21499,10 +21621,10 @@
 	module.exports = repeat;
 
 /***/ }),
-/* 401 */
+/* 400 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Calls an input function `n` times, returning an array containing the results
@@ -21547,10 +21669,10 @@
 	module.exports = times;
 
 /***/ }),
-/* 402 */
+/* 401 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Replace a substring or regex match in a string with a replacement.
@@ -21580,10 +21702,10 @@
 	module.exports = replace;
 
 /***/ }),
-/* 403 */
+/* 402 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Scan is similar to [`reduce`](#reduce), but returns a list of successively
@@ -21622,18 +21744,18 @@
 	module.exports = scan;
 
 /***/ }),
-/* 404 */
+/* 403 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var ap = /*#__PURE__*/__webpack_require__(178);
+	var ap = /*#__PURE__*/__webpack_require__(177);
 
-	var map = /*#__PURE__*/__webpack_require__(160);
+	var map = /*#__PURE__*/__webpack_require__(159);
 
-	var prepend = /*#__PURE__*/__webpack_require__(387);
+	var prepend = /*#__PURE__*/__webpack_require__(386);
 
-	var reduceRight = /*#__PURE__*/__webpack_require__(397);
+	var reduceRight = /*#__PURE__*/__webpack_require__(396);
 
 	/**
 	 * Transforms a [Traversable](https://github.com/fantasyland/fantasy-land#traversable)
@@ -21669,14 +21791,14 @@
 	module.exports = sequence;
 
 /***/ }),
-/* 405 */
+/* 404 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var always = /*#__PURE__*/__webpack_require__(136);
+	var always = /*#__PURE__*/__webpack_require__(135);
 
-	var over = /*#__PURE__*/__webpack_require__(374);
+	var over = /*#__PURE__*/__webpack_require__(373);
 
 	/**
 	 * Returns the result of "setting" the portion of the given data structure
@@ -21708,10 +21830,10 @@
 	module.exports = set;
 
 /***/ }),
-/* 406 */
+/* 405 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns a copy of the list, sorted according to the comparator function,
@@ -21741,10 +21863,10 @@
 	module.exports = sort;
 
 /***/ }),
-/* 407 */
+/* 406 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Sorts the list according to the supplied function.
@@ -21790,10 +21912,10 @@
 	module.exports = sortBy;
 
 /***/ }),
-/* 408 */
+/* 407 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Sorts a list according to a list of comparators.
@@ -21843,10 +21965,10 @@
 	module.exports = sortWith;
 
 /***/ }),
-/* 409 */
+/* 408 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var invoker = /*#__PURE__*/__webpack_require__(328);
+	var invoker = /*#__PURE__*/__webpack_require__(327);
 
 	/**
 	 * Splits a string into an array of strings based on the given
@@ -21874,14 +21996,14 @@
 	module.exports = split;
 
 /***/ }),
-/* 410 */
+/* 409 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var length = /*#__PURE__*/__webpack_require__(335);
+	var length = /*#__PURE__*/__webpack_require__(334);
 
-	var slice = /*#__PURE__*/__webpack_require__(218);
+	var slice = /*#__PURE__*/__webpack_require__(217);
 
 	/**
 	 * Splits a given list or string at a given index.
@@ -21909,12 +22031,12 @@
 	module.exports = splitAt;
 
 /***/ }),
-/* 411 */
+/* 410 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var slice = /*#__PURE__*/__webpack_require__(218);
+	var slice = /*#__PURE__*/__webpack_require__(217);
 
 	/**
 	 * Splits a collection into slices of the specified length.
@@ -21949,10 +22071,10 @@
 	module.exports = splitEvery;
 
 /***/ }),
-/* 412 */
+/* 411 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Takes a list and a predicate and returns a pair of lists with the following properties:
@@ -21990,14 +22112,14 @@
 	module.exports = splitWhen;
 
 /***/ }),
-/* 413 */
+/* 412 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var equals = /*#__PURE__*/__webpack_require__(229);
+	var equals = /*#__PURE__*/__webpack_require__(228);
 
-	var take = /*#__PURE__*/__webpack_require__(265);
+	var take = /*#__PURE__*/__webpack_require__(264);
 
 	/**
 	 * Checks if a list starts with the provided values
@@ -22026,10 +22148,10 @@
 	module.exports = startsWith;
 
 /***/ }),
-/* 414 */
+/* 413 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Subtracts its second argument from its first argument.
@@ -22062,14 +22184,14 @@
 	module.exports = subtract;
 
 /***/ }),
-/* 415 */
+/* 414 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var concat = /*#__PURE__*/__webpack_require__(224);
+	var concat = /*#__PURE__*/__webpack_require__(223);
 
-	var difference = /*#__PURE__*/__webpack_require__(254);
+	var difference = /*#__PURE__*/__webpack_require__(253);
 
 	/**
 	 * Finds the set (i.e. no duplicates) of all elements contained in the first or
@@ -22097,14 +22219,14 @@
 	module.exports = symmetricDifference;
 
 /***/ }),
-/* 416 */
+/* 415 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var concat = /*#__PURE__*/__webpack_require__(224);
+	var concat = /*#__PURE__*/__webpack_require__(223);
 
-	var differenceWith = /*#__PURE__*/__webpack_require__(255);
+	var differenceWith = /*#__PURE__*/__webpack_require__(254);
 
 	/**
 	 * Finds the set (i.e. no duplicates) of all elements contained in the first or
@@ -22136,12 +22258,12 @@
 	module.exports = symmetricDifferenceWith;
 
 /***/ }),
-/* 417 */
+/* 416 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var slice = /*#__PURE__*/__webpack_require__(218);
+	var slice = /*#__PURE__*/__webpack_require__(217);
 
 	/**
 	 * Returns a new list containing the last `n` elements of a given list, passing
@@ -22180,16 +22302,16 @@
 	module.exports = takeLastWhile;
 
 /***/ }),
-/* 418 */
+/* 417 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _xtakeWhile = /*#__PURE__*/__webpack_require__(419);
+	var _xtakeWhile = /*#__PURE__*/__webpack_require__(418);
 
-	var slice = /*#__PURE__*/__webpack_require__(218);
+	var slice = /*#__PURE__*/__webpack_require__(217);
 
 	/**
 	 * Returns a new list containing the first `n` elements of a given list,
@@ -22233,14 +22355,14 @@
 	module.exports = takeWhile;
 
 /***/ }),
-/* 419 */
+/* 418 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _reduced = /*#__PURE__*/__webpack_require__(155);
+	var _reduced = /*#__PURE__*/__webpack_require__(154);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XTakeWhile = /*#__PURE__*/function () {
 
@@ -22263,14 +22385,14 @@
 	module.exports = _xtakeWhile;
 
 /***/ }),
-/* 420 */
+/* 419 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _dispatchable = /*#__PURE__*/__webpack_require__(151);
+	var _dispatchable = /*#__PURE__*/__webpack_require__(150);
 
-	var _xtap = /*#__PURE__*/__webpack_require__(421);
+	var _xtap = /*#__PURE__*/__webpack_require__(420);
 
 	/**
 	 * Runs the given function with the supplied object, then returns the object.
@@ -22301,12 +22423,12 @@
 	module.exports = tap;
 
 /***/ }),
-/* 421 */
+/* 420 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _xfBase = /*#__PURE__*/__webpack_require__(156);
+	var _xfBase = /*#__PURE__*/__webpack_require__(155);
 
 	var XTap = /*#__PURE__*/function () {
 
@@ -22330,16 +22452,16 @@
 	module.exports = _xtap;
 
 /***/ }),
-/* 422 */
+/* 421 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _cloneRegExp = /*#__PURE__*/__webpack_require__(208);
+	var _cloneRegExp = /*#__PURE__*/__webpack_require__(207);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _isRegExp = /*#__PURE__*/__webpack_require__(423);
+	var _isRegExp = /*#__PURE__*/__webpack_require__(422);
 
-	var toString = /*#__PURE__*/__webpack_require__(225);
+	var toString = /*#__PURE__*/__webpack_require__(224);
 
 	/**
 	 * Determines whether a given string matches a given regular expression.
@@ -22369,7 +22491,7 @@
 	module.exports = test;
 
 /***/ }),
-/* 423 */
+/* 422 */
 /***/ (function(module, exports) {
 
 	function _isRegExp(x) {
@@ -22378,10 +22500,10 @@
 	module.exports = _isRegExp;
 
 /***/ }),
-/* 424 */
+/* 423 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var invoker = /*#__PURE__*/__webpack_require__(328);
+	var invoker = /*#__PURE__*/__webpack_require__(327);
 
 	/**
 	 * The lower case version of a string.
@@ -22404,12 +22526,12 @@
 	module.exports = toLower;
 
 /***/ }),
-/* 425 */
+/* 424 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var _has = /*#__PURE__*/__webpack_require__(169);
+	var _has = /*#__PURE__*/__webpack_require__(168);
 
 	/**
 	 * Converts an object into an array of key, value arrays. Only the object's
@@ -22443,10 +22565,10 @@
 	module.exports = toPairs;
 
 /***/ }),
-/* 426 */
+/* 425 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
 	/**
 	 * Converts an object into an array of key, value arrays. The object's own
@@ -22481,10 +22603,10 @@
 	module.exports = toPairsIn;
 
 /***/ }),
-/* 427 */
+/* 426 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var invoker = /*#__PURE__*/__webpack_require__(328);
+	var invoker = /*#__PURE__*/__webpack_require__(327);
 
 	/**
 	 * The upper case version of a string.
@@ -22507,14 +22629,14 @@
 	module.exports = toUpper;
 
 /***/ }),
-/* 428 */
+/* 427 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _reduce = /*#__PURE__*/__webpack_require__(162);
+	var _reduce = /*#__PURE__*/__webpack_require__(161);
 
-	var _xwrap = /*#__PURE__*/__webpack_require__(165);
+	var _xwrap = /*#__PURE__*/__webpack_require__(164);
 
-	var curryN = /*#__PURE__*/__webpack_require__(145);
+	var curryN = /*#__PURE__*/__webpack_require__(144);
 
 	/**
 	 * Initializes a transducer using supplied iterator function. Returns a single
@@ -22571,10 +22693,10 @@
 	module.exports = transduce;
 
 /***/ }),
-/* 429 */
+/* 428 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
 	/**
 	 * Transposes the rows and columns of a 2D list.
@@ -22622,14 +22744,14 @@
 	module.exports = transpose;
 
 /***/ }),
-/* 430 */
+/* 429 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var map = /*#__PURE__*/__webpack_require__(160);
+	var map = /*#__PURE__*/__webpack_require__(159);
 
-	var sequence = /*#__PURE__*/__webpack_require__(404);
+	var sequence = /*#__PURE__*/__webpack_require__(403);
 
 	/**
 	 * Maps an [Applicative](https://github.com/fantasyland/fantasy-land#applicative)-returning
@@ -22665,10 +22787,10 @@
 	module.exports = traverse;
 
 /***/ }),
-/* 431 */
+/* 430 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
 	var ws = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003' + '\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028' + '\u2029\uFEFF';
 	var zeroWidth = '\u200b';
@@ -22699,14 +22821,14 @@
 	module.exports = trim;
 
 /***/ }),
-/* 432 */
+/* 431 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _arity = /*#__PURE__*/__webpack_require__(146);
+	var _arity = /*#__PURE__*/__webpack_require__(145);
 
-	var _concat = /*#__PURE__*/__webpack_require__(144);
+	var _concat = /*#__PURE__*/__webpack_require__(143);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * `tryCatch` takes two functions, a `tryer` and a `catcher`. The returned
@@ -22743,10 +22865,10 @@
 	module.exports = tryCatch;
 
 /***/ }),
-/* 433 */
+/* 432 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
 	/**
 	 * Takes a function `fn`, which takes a single array argument, and returns a
@@ -22782,12 +22904,12 @@
 	module.exports = unapply;
 
 /***/ }),
-/* 434 */
+/* 433 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
-	var nAry = /*#__PURE__*/__webpack_require__(193);
+	var nAry = /*#__PURE__*/__webpack_require__(192);
 
 	/**
 	 * Wraps a function of any arity (including nullary) in a function that accepts
@@ -22825,12 +22947,12 @@
 	module.exports = unary;
 
 /***/ }),
-/* 435 */
+/* 434 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var curryN = /*#__PURE__*/__webpack_require__(145);
+	var curryN = /*#__PURE__*/__webpack_require__(144);
 
 	/**
 	 * Returns a function of arity `n` from a (manually) curried function.
@@ -22871,10 +22993,10 @@
 	module.exports = uncurryN;
 
 /***/ }),
-/* 436 */
+/* 435 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Builds a list from a seed value. Accepts an iterator function, which returns
@@ -22915,16 +23037,16 @@
 	module.exports = unfold;
 
 /***/ }),
-/* 437 */
+/* 436 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _concat = /*#__PURE__*/__webpack_require__(144);
+	var _concat = /*#__PURE__*/__webpack_require__(143);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var compose = /*#__PURE__*/__webpack_require__(213);
+	var compose = /*#__PURE__*/__webpack_require__(212);
 
-	var uniq = /*#__PURE__*/__webpack_require__(317);
+	var uniq = /*#__PURE__*/__webpack_require__(316);
 
 	/**
 	 * Combines two lists into a set (i.e. no duplicates) composed of the elements
@@ -22949,14 +23071,14 @@
 	module.exports = union;
 
 /***/ }),
-/* 438 */
+/* 437 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _concat = /*#__PURE__*/__webpack_require__(144);
+	var _concat = /*#__PURE__*/__webpack_require__(143);
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
-	var uniqWith = /*#__PURE__*/__webpack_require__(439);
+	var uniqWith = /*#__PURE__*/__webpack_require__(438);
 
 	/**
 	 * Combines two lists into a set (i.e. no duplicates) composed of the elements
@@ -22988,12 +23110,12 @@
 	module.exports = unionWith;
 
 /***/ }),
-/* 439 */
+/* 438 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _containsWith = /*#__PURE__*/__webpack_require__(232);
+	var _containsWith = /*#__PURE__*/__webpack_require__(231);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Returns a new list containing only one copy of each element in the original
@@ -23036,10 +23158,10 @@
 	module.exports = uniqWith;
 
 /***/ }),
-/* 440 */
+/* 439 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Tests the final argument by passing it to the given predicate function. If
@@ -23073,12 +23195,12 @@
 	module.exports = unless;
 
 /***/ }),
-/* 441 */
+/* 440 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _identity = /*#__PURE__*/__webpack_require__(307);
+	var _identity = /*#__PURE__*/__webpack_require__(306);
 
-	var chain = /*#__PURE__*/__webpack_require__(200);
+	var chain = /*#__PURE__*/__webpack_require__(199);
 
 	/**
 	 * Shorthand for `R.chain(R.identity)`, which removes one level of nesting from
@@ -23103,10 +23225,10 @@
 	module.exports = unnest;
 
 /***/ }),
-/* 442 */
+/* 441 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Takes a predicate, a transformation function, and an initial value,
@@ -23139,10 +23261,10 @@
 	module.exports = until;
 
 /***/ }),
-/* 443 */
+/* 442 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry1 = /*#__PURE__*/__webpack_require__(137);
+	var _curry1 = /*#__PURE__*/__webpack_require__(136);
 
 	/**
 	 * Returns a list of all the properties, including prototype properties, of the
@@ -23178,10 +23300,10 @@
 	module.exports = valuesIn;
 
 /***/ }),
-/* 444 */
+/* 443 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	// `Const` is a functor that effectively ignores the function given to `map`.
 
@@ -23221,10 +23343,10 @@
 	module.exports = view;
 
 /***/ }),
-/* 445 */
+/* 444 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Tests the final argument by passing it to the given predicate function. If
@@ -23262,12 +23384,12 @@
 	module.exports = when;
 
 /***/ }),
-/* 446 */
+/* 445 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var _has = /*#__PURE__*/__webpack_require__(169);
+	var _has = /*#__PURE__*/__webpack_require__(168);
 
 	/**
 	 * Takes a spec object and a test object; returns true if the test satisfies
@@ -23317,16 +23439,16 @@
 	module.exports = where;
 
 /***/ }),
-/* 447 */
+/* 446 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var equals = /*#__PURE__*/__webpack_require__(229);
+	var equals = /*#__PURE__*/__webpack_require__(228);
 
-	var map = /*#__PURE__*/__webpack_require__(160);
+	var map = /*#__PURE__*/__webpack_require__(159);
 
-	var where = /*#__PURE__*/__webpack_require__(446);
+	var where = /*#__PURE__*/__webpack_require__(445);
 
 	/**
 	 * Takes a spec object and a test object; returns true if the test satisfies
@@ -23364,16 +23486,16 @@
 	module.exports = whereEq;
 
 /***/ }),
-/* 448 */
+/* 447 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _contains = /*#__PURE__*/__webpack_require__(227);
+	var _contains = /*#__PURE__*/__webpack_require__(226);
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
-	var flip = /*#__PURE__*/__webpack_require__(295);
+	var flip = /*#__PURE__*/__webpack_require__(294);
 
-	var reject = /*#__PURE__*/__webpack_require__(237);
+	var reject = /*#__PURE__*/__webpack_require__(236);
 
 	/**
 	 * Returns a new list without values in the first argument.
@@ -23402,10 +23524,10 @@
 	module.exports = without;
 
 /***/ }),
-/* 449 */
+/* 448 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Creates a new list out of the two supplied by creating each possible pair
@@ -23447,10 +23569,10 @@
 	module.exports = xprod;
 
 /***/ }),
-/* 450 */
+/* 449 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Creates a new list out of the two supplied by pairing up equally-positioned
@@ -23486,10 +23608,10 @@
 	module.exports = zip;
 
 /***/ }),
-/* 451 */
+/* 450 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry2 = /*#__PURE__*/__webpack_require__(142);
+	var _curry2 = /*#__PURE__*/__webpack_require__(141);
 
 	/**
 	 * Creates a new object out of a list of keys and a list of values.
@@ -23523,10 +23645,10 @@
 	module.exports = zipObj;
 
 /***/ }),
-/* 452 */
+/* 451 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var _curry3 = /*#__PURE__*/__webpack_require__(149);
+	var _curry3 = /*#__PURE__*/__webpack_require__(148);
 
 	/**
 	 * Creates a new list out of the two supplied by applying the function to each
