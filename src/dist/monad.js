@@ -751,7 +751,7 @@ var it4 = x => {
 }
 
 var it6 = x => {
-  mMZ40.bnd(x => workerH.postMessage([primesMonad.s, x]));
+  mMZ40.bnd(x => workerH.postMessage([primesMonad.s[3], x]));
 }
 
  var it7 = v => mMZ41.bnd( v => {
@@ -1695,6 +1695,11 @@ function rang(n, m) {
   return Array.from(new Array(m - n), function (x, i) { return i + n; });
 }
 
+var ranOdd = n => m => {
+  return Array.from(new Array((Math.floor(m/2 + 2)) - n), function (x, i) { return 2*i + n; });
+}   
+
+var rangOdd = ranOdd(1);
 
 function ad (a, b) { return parseInt(a,10) + parseInt(b,10); };
 
@@ -2759,6 +2764,83 @@ PingpongMaker = (name) => {
 }
 
 
+function isPrime(n) {
+   if (isNaN(n) || !isFinite(n) || n%1 || n<2) return false;
+   var m = Math.sqrt(n);
+   for (var i=2;i<=m;i++) if (n%i==0) return false;
+   return true;
+}
+
+function *gen(x) {
+  var x = x
+  while(true) {
+    if(isPrime(x)) yield x;
+    x++;
+  }
+}
+
+var primesIt = gen(primesMonad.s[2]+1);
+
+function execP (state, num) {
+  var x = state[2];
+  var primes = state[3].slice();
+  console.log('<G><G><G><G><G><G><G> ***** cow ***** In execP. primes:');
+  console.log('<G><G><G><G><G><G><G> ********** In execP. primes:', primes);
+  console.log('<G><G><G><G><G><G><G> ****** dog **** In execP. primes:');
+  if (x < num) {
+    primesMonad = new MonadState('primesMonad', state);
+    primesIt = gen(primesMonad.s[2]+1);
+    while (x < num) {
+      primes.push(primesIt.next().value);
+      x = primes[primes.length - 1];
+    }
+    return [x, primes, x, primes]
+  }
+  else {
+    var number = primes.indexOf(num) + 1;
+    var newP = primes.slice(number);
+    return [newP[newP.length - 1], newP, x, primes];
+  }
+};
+
+function execQ (prms, num) {
+  var x = prms[prms.length - 1];
+  var primes = prms.slice();
+  console.log('<G><G><G><G><G><G><G> ********** In execP. primes:');
+  console.log('<G><G><G><G><G><G><G> ********** In execP. primes:', primes);
+  console.log('<G><G><G><G><G><G><G> ********** In execP. primes:');
+  if (x < num) {
+    var end = 0;
+    var xx = Math.sqrt(num + 1);
+    var yy = Math.ceil(xx);
+    console.log('in execQ -- xx and yy are', xx, yy );
+    while (end < yy) {
+      primes.push(primesIt.next().value);
+      end = primes[primes.length - 1];
+    }
+    return [end, primes, end, primes]
+  }
+  else {
+    var number = primes.indexOf(num) + 1;
+    var newP = primes.slice(number);
+    return [newP[newP.length - 1], newP, x, primes];
+  }
+};
+
+
+function pfactors (primes, n) {
+  var ar = [];
+  while (n != 1) {
+    primes.map(p => {
+      if (n/p === Math.floor(n/p)) {
+        ar.push(p);
+        n = n/p;
+      };
+    })
+  }
+  console.log('In pfactors -- ar is', ar);
+  return ar;
+}
 
 
 

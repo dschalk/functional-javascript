@@ -95,9 +95,6 @@ function pfactors (primeState, n) {
       };
     })
   }
-  ar.sort(function(x,y) {
-    return (x - y);
-  });
   return ret(ar);
 }
 
@@ -142,8 +139,33 @@ function execP (state, num) {
   var x = state[2];
   var primes = state[3].slice();
   if (x < num) {
+    primesMonad = new MonadState('primesMonad', state);
+    primesIt = gen(primesMonad.s[2]+1);
+    while (x < num) {
+      primes.push(primesIt.next().value);
+      x = primes[primes.length - 1];
+    }
+    return [x, primes, x, primes]
+  }
+  else {
+    var number = primes.indexOf(num) + 1;
+    var newP = primes.slice(number);
+    return [newP[newP.length - 1], newP, x, primes];
+  }
+};
+
+function execQ (prms, num) {
+  var x = prms[prms.length - 1];
+  var primes = prms.slice();
+  console.log('<G><G><G><G><G><G><G> ********** In execP. primes:');
+  console.log('<G><G><G><G><G><G><G> ********** In execP. primes:', primes);
+  console.log('<G><G><G><G><G><G><G> ********** In execP. primes:');
+  if (x < num) {
     var end = 0;
-    while (end < num) {
+    var xx = Math.sqrt(num + 1);
+    var yy = Math.ceil(xx);
+    console.log('in execQ -- xx and yy are', xx, yy );
+    while (end < yy) {
       primes.push(primesIt.next().value);
       end = primes[primes.length - 1];
     }

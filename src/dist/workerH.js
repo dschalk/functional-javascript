@@ -7,34 +7,27 @@
 
 
 
-
-
-onmessage = function(ar) {
-  importScripts('script2.js');
-  var primes = execP(ar.data[0], ar.data[1] + 1)
-  primeFactors(primes, ar.data[1])
-};
-
-function primeFactors (primeState, n) {
-  var number = n;
-  var ar = [];
-  while (n != 1) {
-    primeState[3].map(p => {
-      if (n/p === Math.floor(n/p)) {
-        ar.push(p);
-        n = n/p;
-      };
-    })
+var g = prState => x => {
+  var primes = execP(prState, x);
+  var factors = pfactors(primes,x).x;
+  console.log('In workerH -- factors is', factors);
+  var z;
+  if (factors.length > 1) {
+    z = "The prime factors of " + x + " are " + factors.join(', ')
   }
-  var are_is = ar.length === 1 ? " is a prime number" : " are "
-  var blurb = ar.length === 1 ? "" : "The prime factors of  "
-  ar2 = ar.length === 1 ? [] : ar.join(', ');
-  ar.sort(function(x,y) {
-    return (x - y);
-  });
-  console.log('Message from workersH is',blurb + number + are_is + ar2);
-  postMessage(blurb + number + are_is + ar2);
+  else z = x + " is a prime number"
+  console.log(z);
+  return [z, primes[3]];
 }
+  
+onmessage = function(m) {
+  var max = m.data[0][m.data[0].length - 1];
+  primesState = [max, m.data[0], max, m.data[0]];
+  importScripts('script2.js');
+  postMessage(g(primesState)(m.data[1] + 1));
+}
+
+
 
 
 
