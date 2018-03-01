@@ -1,6 +1,5 @@
 
 
-console.log('<h><h><h> ---> --> -> h, h.h instanceof Function, and h("div", "cows, horses, and subservient women") are', h, h.h, h.h("div", "cows, horses, and subservient women"));
 
 
 var ping43 = {style: {display: "inline"}};

@@ -161,7 +161,6 @@
      });
 
      mMZ28.bnd( () => {
-       console.log('In mMZ28 - - v[3] is', v[3]);
        mMZ40.release(v[3]);
      });
 
@@ -574,35 +573,49 @@
         m42_ = [];
         console.log('In factorsAction7$ - - <W>W<>W<>W<><W>WWW<W><W>WW><><><><><>!!! e is',e); 
 
-        bind(70)(x=>x*x*x)(it4)(it6);
-        bind(70)(x=>x*x*x)(it4)(it6);
-        bind(70)(x=>x*x*x)(it4)(it6);
-        bind(70)(x=>x*x*x)(it4)(it6);
-        bind(70)(x=>x*x*x)(it4)(it6);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
 
-        bind(70)(x=>x*x*x)(it4)(it6);
-        bind(70)(x=>x*x*x)(it4)(it6);
-        bind(70)(x=>x*x*x)(it4)(it6);
-        bind(70)(x=>x*x*x)(it4)(it6);
-        bind(70)(x=>x*x*x)(it4)(it6);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
 
-        bind(70)(x=>x*x*x)(it4)(it6);
-        bind(70)(x=>x*x*x)(it4)(it6);
-        bind(70)(x=>x*x*x)(it4)(it6);
-        bind(70)(x=>x*x*x)(it4)(it6);
-        bind(70)(x=>x*x*x)(it4)(it6);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(70)(x=>x*x*x)(it4)(it6)(it7);
       });
     
       var callOrder = 0;
       var start77;
 
-      workerH$ = sources.WWH.map(m => {
-        callOrder = callOrder > 14 ? 1 : callOrder + 1;
+      workerH$ = sources.WWH.map(m => mMZ52.release(m));
+
+      it7 = () => mMZ52.bnd(m => {
+        callOrder = callOrder > 24 ? 1 : callOrder + 1;
         if (callOrder === 1) start77 = Date.now(); 
         m42_.push(callOrder + "  ");
         m42_.push(m.data[0])
         m42_.push(h('br'));
-        if (callOrder === 15) m42_.push('Elapsed time: ' + (Date.now() - start77) + " ms");
+        if (callOrder === 25) m42_.push('Elapsed time: ' + (Date.now() - start77) + " ms");
         var w = m.data[1][m.data[1].length - 1];
         var primesState = [w, m.data[1], w, m.data[1]];
         if (m.data[1].length > primesMonad.s[3].length) {
@@ -1273,7 +1286,7 @@ var pingpong4$ = pinpon4$.map(() => {
       h('br'),
       h('br'),
       h('div.content', [
-      h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' Does composing functions like this: '),
+      h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' Composing functions like this: '),
       h('br'),
       h('br'),
       h('div', styleFunc(["#FFD700",,"21px",,,"center"]), 'bind(x)(functiona1)(function2) ... (functionN)'),
@@ -1282,28 +1295,21 @@ var pingpong4$ = pinpon4$.map(() => {
       h('span', styleFunc(["#d3ead5","3%","18px",,,]), 'where '),
       h('pre', styleFunc(["#ffff00",,"18px",,,]), `        x can be any value,
 
-        there are no restrictions on argument types, 
+        there are no restrictions on the functions\' argument types, 
 
-        there are no restrictions on return value types,
+        there are no restrictions on the functions\' return value types,
 
         any function in the chain can be asynchronous,
 
         functions have access to all prior functions\' return values,
 
         functions have access to prior asynchronous functions\' resolution values. `),
-      h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' look too flexible and expressive to be possible? It\'s not. It\'s yours to use however you like, such as simplifying the composition of all kinds of functions or helping others to understand the behavior you expect from your chained functions.'), 
+      h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' looks very flexible and expressive, but you might wonder if there is a function named "bind" that cam efficiently and reliably facilitates this. I think this ' ), 
+      h('a', {props: {href: "#bind" }},  'definition of bind'),
+      h('span', ' fits the bill, as the examples below demonstrate. ' ), 
         
-      h('br'),
-      h('br'),
-      h('span.tao', ' The starting function "bind" does not depend on Cycle.js, but Cycle.js provides an excellent light weight, non-opinionated platform for exhibiting its potential usefulness in production code. The definition of "bind" is  '),
-      h('a', {props: {href: "#bind" }},  'here'),
-      h('span', '.' ),
-      h('br'),
-    h('br'),
-    h('span', styleFunc(["#FFD700","3%","20px",,,]), '\* '),
-
-    h('span', 'Functions that take multiple arguments should be curried. Otherwise, they should be placed in arrays or objects. ' ),
-    h('p', ' When promises are chained with their "then" methods, only the preceding function\'s return value is available to each link in the chain. bind() overcomes this limitation.'),
+    h('p', 'Functions that take multiple arguments should be curried, or else their arguments should be contained in single arrays or objects. The need to pass single arguments along chains does not limit what the functions can do. This is a consequence of the fact that functions can only return single values, which are the arguments of the functions to their right whenever functions are composed. ' ),
+    h('p', ' When promises are chained with their "then" methods, only the preceding function\'s resolution value is available to each link in the chain, unless you rely on values outside the scope of the chain.  The bind() factory function Bindo() efficiently deals with this limitation by creating name spaces for each clone of bind() that Bindo() creates.'),
     h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
     h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "  .flow" ),
     h('span', ' and Ramda\'s '),
@@ -1313,17 +1319,19 @@ var pingpong4$ = pinpon4$.map(() => {
     h('p', 'CAUTION - THE COMMENTARTY AFTER THE DEMONSTRATIONS STILL LAGS BEHIND RECENT REFACTORING.'),
     h('br'),
     ]),
+
+
+
     h('div#content2', [
     h('div', {style: {width: '47%', fontSize: '15px', float: 'left'}}, [ // ((************ LEFT PANEL
     h('br'),
     h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 1 - WebSocket and worker messaging.'),
-    h('span', ' The first demonstration begins with a computation. After 50 is cubed, it4 sends the result (125,000) to the Haskell WebSocket server which sends back a pseudo-random number between 0 and 125,000. '), 
-    h('p', ' When a WebSocket message containing the random number arrives, the front end app calls "mMZ37.release(v[3])" where v[3] is the new random number.  mMZ37.release(v[3]) causes it6 to send the random number to a web worker, prompting the worker to send back the random number\'s prime factors.'),
-    h('span#defsReturn', ' it4() and it6 are asynchronous functions that do not use promises. Instead, they use instances of MonadItter, which will be explained later. The definitions of it4,  and it6 are in the '),
+    h('span', ' The first demonstration consists of bind(50) followed by a math computation, a function that sends the computation result to the WebSocketr server, a function that sends the WebSocket response to a web worker, and a function that uses the worker response to update the browser display and the prime number cache. '), 
+    h('span#defsReturn', ' it4() and it6 are asynchronous functions that do not use promises. Instead, they use instances of MonadItter, which will be explained later. The definitions of the functions involved in Example 1 are in the '),
     h('a', {props: {href: "#defs" }},  'appendix'),
     h('span', '.' ),
     h('br'),
-    h('p', ' After the first run, the elapsed times of subsequent runs tend to be substantially shortened. On my computer, I have not seen a subsequent run take more than three seconds. After ten runs, elapsed times tend to stay under two seconds. This is due to the caching of prime numbers, as will be explained further down this page.'),    
+    h('p', ' After the first run, caching of prime numbers causes the elapsed times of subsequent runs to be substantially shortened. On my computer, the first run usually takes around twenty seconds to complete. Every run after that has completed in under three seconds, and usually under two seconds. If the first twenty-five random numbers happen to be small, the cache will be small, but this is so improbable that I would be very surprised to see it during testing.'),    
     h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 2 - accessing prior values and avoiding clashes.'),
     h('p', ' If you enter an argument x for test5(x) (right column), the code shown in the right column will run: '),  
     h('span.tao', 'bind() and variations on its theme are produced by a factory named "Bindo". For example, bind1 is created with the code '),
@@ -1350,10 +1358,10 @@ h('div', {style: {width: '47%', fontSize: '15px', float: 'right'}}, [  // ******
 
 
 h('h3', 'Demonstration 1' ),
-h('span', ' Click below to run bind(70)(x=>x\*x\*x)(it4)(it6) twenty-five times. The left column is the call order.'),
+h('span', ' Click below to run bind(70)(x=>x\*x\*x)(it4)(it6)(it7) twenty-five times. The left column is the call order.'),
 h('br'),
 h('br'),
-h('span', styleFunc(["rgb(7, 247, 247)","12%","20px",,,,,]), 'bind(70)(x=>x\*x\*x)(it4)(it6)'),
+h('span', styleFunc(["rgb(7, 247, 247)","12%","20px",,,,,]), 'bind(70)(x=>x\*x\*x)(it4)(it6)(it7)'),
 h('br'),
 h('br'),
 h('button#factors_Q', {style: {fontSize: '15px'}}, 'bind(70)(x=>x\*x\*x)(it4)(it6)(it7)'),
@@ -2054,328 +2062,488 @@ else if "GN#$42" \`T.isPrefixOf\` msg
         }
       }, 500 )
     }  ` ),
-    h('p', ' The function diffRender() forces Snabbdom to perform one last diff and render. It is defined as follows: ' ),
-      h('pre', `  const diffRender = () => document.getElementById("testQ").click();`),
-      h('p', ' The button "testQ" cubes the number 2 in the MonadItter demonstration. It was chosen because it does not significantly affect anything aside from forcing Snabbdom to update the DOM. '),
+h('p', ' The function diffRender() forces Snabbdom to perform one last diff and render. It is defined as follows: ' ),
+  h('pre', `  const diffRender = () => document.getElementById("testQ").click();`),
+  h('p', ' The button "testQ" cubes the number 2 in the MonadItter demonstration. It was chosen because it does not significantly affect anything aside from forcing Snabbdom to update the DOM. '),
 
-      h('p', ' The stream incF$ and the driver pingpongDrirun(main, sources) are the crucial Cycle.js application functions. sources contains the drivers. sources.PP = pingpongDriver is one of the drivers consumed by run() and made available in main() so information can be sent back to run. Round and round it goes. Here is the definition of ping$. ' ),
+  h('p', ' The stream incF$ and the driver pingpongDrirun(main, sources) are the crucial Cycle.js application functions. sources contains the drivers. sources.PP = pingpongDriver is one of the drivers consumed by run() and made available in main() so information can be sent back to run. Round and round it goes. Here is the definition of ping$. ' ),
 
-      h('span.tao', ' The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with a Haskell WebSocket server. ' ),
-      h('br'),
-      h('h2', 'Appendix A - The Game Code' ),
-      h('pre', `function MonadState(g, state) {
-      this.id = g;
-      this.s = state;
-    };  ` ),
-      h('a', {props: {href: '#gameIntro'}}, 'Back to the first group of demonstrations.'),
-      h('p'),
-      h('pre', `MonadState.prototype.run = function ([
-      score = this.s[0][this.s[1]][0],
-      goals = this.s[0][this.s[1]][1],
-      operator = this.s[0][this.s[1]][2],
-      picked = this.s[0][this.s[1]][3].slice(),
-      display = this.s[0][this.s[1]][4].slice()
-      playerName = this.s[0][this.s[1]][5] ? this.s[0][this.s[1]][5].slice() : "nobody",
-      playerGroup = this.s[0][this.s[1]][6] ? this.s[0][this.s[1]][6].slice() : "solo",
-    ]) {
-      this.s[1] += 1;
-      var newState = this.s.slice();
-      newState[0].splice(this.s[1], 0, [score, goals, operator, picked, display,playerName,playerGroup])
-       console.log("[score, goals, operator, picked, display]",
-         [score, goals, operator, picked, display,playerName,playerGroup]);
-      this.s = newState;
-      buttonNode = bNode(display);
-      return window['gameMonad'] = new MonadState('gameMonad', newState);
+  h('span.tao', ' The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with a Haskell WebSocket server. ' ),
+  h('br'),
+  h('h2', 'Appendix A - The Game Code' ),
+  h('pre', `function MonadState(g, state) {
+  this.id = g;
+  this.s = state;
+};  ` ),
+  h('a', {props: {href: '#gameIntro'}}, 'Back to the first group of demonstrations.'),
+  h('p'),
+  h('pre', `MonadState.prototype.run = function ([
+  score = this.s[0][this.s[1]][0],
+  goals = this.s[0][this.s[1]][1],
+  operator = this.s[0][this.s[1]][2],
+  picked = this.s[0][this.s[1]][3].slice(),
+  display = this.s[0][this.s[1]][4].slice()
+  playerName = this.s[0][this.s[1]][5] ? this.s[0][this.s[1]][5].slice() : "nobody",
+  playerGroup = this.s[0][this.s[1]][6] ? this.s[0][this.s[1]][6].slice() : "solo",
+]) {
+  this.s[1] += 1;
+  var newState = this.s.slice();
+  newState[0].splice(this.s[1], 0, [score, goals, operator, picked, display,playerName,playerGroup])
+   console.log("[score, goals, operator, picked, display]",
+     [score, goals, operator, picked, display,playerName,playerGroup]);
+  this.s = newState;
+  buttonNode = bNode(display);
+  return window['gameMonad'] = new MonadState('gameMonad', newState);
+}
+
+var gameMonad = new MonadState('gameMonad', [[[0,0,0,[],[1,2,3,4]],
+      [0,0,0,[],[0,0,0,0]]],1 ]);  ` ),
+  h('p', ' Here is the code that controls what happens when a player clicks a number or an operator: '),
+  h('pre', `  var numClickAction$ = numClick$.map(e => {
+    if (gameMonad.fetch3().length < 2)  {
+      var a = gameMonad.fetch3();
+      var b = gameMonad.fetch4();
+      a.push(b.splice(e.target.id, 1)[0]);
+      gameMonad.run([,,,a,b,,]);
+      if (a.length === 2 && gameMonad.fetch2() != 0) {
+        updateCalc(a, gameMonad.fetch2())
+      }
     }
+  }).startWith([0, 0, 0, 0]);
 
-    var gameMonad = new MonadState('gameMonad', [[[0,0,0,[],[1,2,3,4]],
-          [0,0,0,[],[0,0,0,0]]],1 ]);  ` ),
-      h('p', ' Here is the code that controls what happens when a player clicks a number or an operator: '),
-      h('pre', `  var numClickAction$ = numClick$.map(e => {
-        if (gameMonad.fetch3().length < 2)  {
-          var a = gameMonad.fetch3();
-          var b = gameMonad.fetch4();
-          a.push(b.splice(e.target.id, 1)[0]);
-          gameMonad.run([,,,a,b,,]);
-          if (a.length === 2 && gameMonad.fetch2() != 0) {
-            updateCalc(a, gameMonad.fetch2())
-          }
-        }
-      }).startWith([0, 0, 0, 0]);
+  var opClick$ = sources.DOM
+      .select('.op').events('click');
 
-      var opClick$ = sources.DOM
-          .select('.op').events('click');
-
-      var opClickAction$ = opClick$.map(e => {
-        var s3 = gameMonad.fetch3();
-        if (s3.length === 2) {
-          updateCalc(s3, e.target.innerHTML);
-        }
-        else {
-          gameMonad.run([,,e.target.innerHTML,,,,]);
-        }
-      });  `),
-      h('p', ' Notice the empty spaces in the arguments to gameMonad.run(). gameMonad.run()\'s argument is an array to facilitate calling it with default values. In numClickAction$ we are not changing the score, goals, or operator. The default values of these parameters are their current values. In opClickAction$, we are changing only one thing, the operator. Everything else stays as it is. ' ),
-      h('p', ' When two numbers and an operator have been selected, control passes to updateCalc(). Here\'s the code: ' ),
+  var opClickAction$ = opClick$.map(e => {
+    var s3 = gameMonad.fetch3();
+    if (s3.length === 2) {
+      updateCalc(s3, e.target.innerHTML);
+    }
+    else {
+      gameMonad.run([,,e.target.innerHTML,,,,]);
+    }
+  });  `),
+  h('p', ' Notice the empty spaces in the arguments to gameMonad.run(). gameMonad.run()\'s argument is an array to facilitate calling it with default values. In numClickAction$ we are not changing the score, goals, or operator. The default values of these parameters are their current values. In opClickAction$, we are changing only one thing, the operator. Everything else stays as it is. ' ),
+  h('p', ' When two numbers and an operator have been selected, control passes to updateCalc(). Here\'s the code: ' ),
 
 
-      h('pre', `function updateCalc(ar, op) {
-      var result = calc(ar[0], op, ar[1]);ar
-      if (result === 18 || result === 20) {
-        score(result);
-      }
-      else {
-        var a = gameMonad.fetch4().slice();
-        a.push(result);
-        gameMonad.run([,,0,[],a,,]);  // Display the result and
-                                    // reset the operator and selected values.
-      }
-    };
+  h('pre', `function updateCalc(ar, op) {
+  var result = calc(ar[0], op, ar[1]);ar
+  if (result === 18 || result === 20) {
+    score(result);
+  }
+  else {
+    var a = gameMonad.fetch4().slice();
+    a.push(result);
+    gameMonad.run([,,0,[],a,,]);  // Display the result and
+                                // reset the operator and selected values.
+  }
+};
 
-    function score(result) {
-        var sc = parseInt(gameMonad.fetch0());
-        var sco = result === 18 ? sc + 3 : sc + 1;
-        var scor = sco % 5 === 0 ? sco + 5 : sco;
-        var goals = gameMonad.fetch1();
-        if (scor === 25 && gameMonad.fetch1() === "2") {  // The player wins.
-            mMindex.ret(0);
-            gameMonad = new MonadState('gameMonad',
-               [[[0,0,0,[],[0,0,0,0]],[0,0,0,[][0,0,0,0]]],0]);
-            socket.send(\`CE#$42,${pMgroup.x},${pMname.x}\`);
-            // Ask the server to announce the winner to the entire group
-            newRoll(0,0);
-        }
-        else if (scor === 25) {
-          newRoll(0, parseInt(goals,10) + 1);
-        }
-        else newRoll(scor, goals);   // No increase in the number of goals.
-    };   ` ),
-     h('span.tao', ' Additional code is available at' ),
-     h('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript",
-       target: "_blank" } }, 'monads-in-JavaScript.'),
-      h('p', '.'),
-      h('p'),
+function score(result) {
+    var sc = parseInt(gameMonad.fetch0());
+    var sco = result === 18 ? sc + 3 : sc + 1;
+    var scor = sco % 5 === 0 ? sco + 5 : sco;
+    var goals = gameMonad.fetch1();
+    if (scor === 25 && gameMonad.fetch1() === "2") {  // The player wins.
+        mMindex.ret(0);
+        gameMonad = new MonadState('gameMonad',
+           [[[0,0,0,[],[0,0,0,0]],[0,0,0,[][0,0,0,0]]],0]);
+        socket.send(\`CE#$42,${pMgroup.x},${pMname.x}\`);
+        // Ask the server to announce the winner to the entire group
+        newRoll(0,0);
+    }
+    else if (scor === 25) {
+      newRoll(0, parseInt(goals,10) + 1);
+    }
+    else newRoll(scor, goals);   // No increase in the number of goals.
+};   ` ),
+ h('span.tao', ' Additional code is available at' ),
+ h('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript",
+   target: "_blank" } }, 'monads-in-JavaScript.'),
+  h('p', '.'),
+  h('p'),
 
-      h('h3', 'Appendix B - Curried Functions Used In Several Demonstrations'),
+  h('h3', 'Appendix B - Curried Functions Used In Several Demonstrations'),
 
-      h('pre#wait', ` function square (v) {
-        return ret(v*v)
-      };
+  h('pre#wait', ` function square (v) {
+    return ret(v*v)
+  };
 
-      function cube (v, id) {
-        return ret(v*v*v, id);
-      };
+  function cube (v, id) {
+    return ret(v*v*v, id);
+  };
 
-      function add (a, b, id) {
-        return ret((parseInt(a,10) + parseInt(b,10)),id);
-      };
+  function add (a, b, id) {
+    return ret((parseInt(a,10) + parseInt(b,10)),id);
+  };
 
-      const divCinverse = a => b => ret(e/b);
-      const divC = a => b => ret(b/a);
-      const addC = a => b => ret(a+b);
-      const cubeC = v => ret(v*v*v);
-      const multC = a => b => ret(a*b);
-      const doubleC = a => ret(a+a);
-      const squareC = a => ret(a*a);
-      const sqrtC = a => ret(Math.sqrt(a));
+  const divCinverse = a => b => ret(e/b);
+  const divC = a => b => ret(b/a);
+  const addC = a => b => ret(a+b);
+  const cubeC = v => ret(v*v*v);
+  const multC = a => b => ret(a*b);
+  const doubleC = a => ret(a+a);
+  const squareC = a => ret(a*a);
+  const sqrtC = a => ret(Math.sqrt(a));
 
-    function wait(ms) {
-      return new Promise(r => setTimeout(r, ms));
-    } h('a#it4', {props: {href: '#top'}}, 'Back to the top'),
+function wait(ms) {
+  return new Promise(r => setTimeout(r, ms));
+} h('a#it4', {props: {href: '#top'}}, 'Back to the top'),
+
+async function cubeP (x) {
+  await wait(2000)
+  return ret(x*x*x);
+} 
+
+const addP = x => async y => {
+  await wait(2000)
+  return ret(x + y);
+}
+
+async function squareP (x) {
+  await wait(2000)
+  return ret(x*x);
+}
+
+const divPinverse = a => async b => {
+  await wait (2000)
+  return ret(a/b);
+}
+
+const divP = a => async b => {
+  await wait (2000)
+  return ret(b/a);
+}
+
+const sqrtP = async a => {
+  await wait (2000)
+  return ret(Math.sqrt(a));
+}
+
+const doubleP = async a => {
+  await wait (2000)
+  return ret(a+a);
+}
+
+const multP = x => async y => {
+  await wait(2000)
+  return ret(x * y);
+}
+
+    `),
+
+h('p'),
+h('h3', 'Appendix C - Further Reading ' ),
+h('p', ' Here is a good resource: '),
+h('a',   {props: {href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" }},  'You Don\'t Know Javascript by Kyle Simpson'),
+h('span', ' You can support the open-source digital version of this book with Patreon at the above address or purchase hard copies from O\Reily, Amazon, etc. ' ),
+h('a',   {props: {href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" }},  'You Don\'t Know JavaScript'),
+h('span', ' is the thinking developer\'s answer to ' ),
+h('a',   {props: {href: "http://shop.oreilly.com/product/9780596517748.do", target: "_blank" }},  ' "JavaScript: The Good Parts" by Douglas Crockford ' ),
+h('p', ' That\'s not to say that Crockford isn\'t a thinking developer. He is a very bright guy. It\'s just that the so called "good parts" are a dummed down subset of JavaScript that help keep people out of trouble when they don\'t feel inclined understand the JavaScript programming language. ' ),
+h('span#cyclet', ', which has long been revered as a "must read" JavaScript book. Kyle Simpson recommends learning to use potentially dangerous code intelligently while Douglas Crockford advocates never using it at all. I think the phrase "eval is evil" stems from Crockford\'s book. I find eval() to be very useful from time to time. Kyle Simpson teaches programmers how to safely tap the full potential of JavaScript. ' ),
+h('p#defs'),
+h('br'),
+h('a', {props: {href: '#content2' }}, 'Return to Demonstration 1' ),
+
+  
+  
+h('h3', 'Asynchronous Processes - A deep dive into Demonstration 1' ),
+
+h('p', ' The code below shows how information flows through the functions involved in Demonstration 1. Function definitions are shown when previously undefined functions are encountered. The process begins with the click of a button and ends with execution of it7(). ' ),
+h('pre', `var factorsClick7$ = sources.DOM
+  .select('button#factors_Q').events('click');
+
+var factorsAction7$ = factorsClick7$.map( e => {
+  m42_ = [];
+  console.log('In factorsAction7$ - - <W>W<>W<>W<><W>WWW<W><W>WW><><><><><>!!! e is',e); 
+
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+}); ` ),
     
-    async function cubeP (x) {
-      await wait(2000)
-      return ret(x*x*x);
-    } 
-
-    const addP = x => async y => {
-      await wait(2000)
-      return ret(x + y);
-    }
-
-    async function squareP (x) {
-      await wait(2000)
-      return ret(x*x);
-    }
-
-    const divPinverse = a => async b => {
-      await wait (2000)
-      return ret(a/b);
-    }
-
-    const divP = a => async b => {
-      await wait (2000)
-      return ret(b/a);
-    }
-
-    const sqrtP = async a => {
-      await wait (2000)
-      return ret(Math.sqrt(a));
-    }
-
-    const doubleP = async a => {
-      await wait (2000)
-      return ret(a+a);
-    }
-
-    const multP = x => async y => {
-      await wait(2000)
-      return ret(x * y);
-    }
-
-        `),
-
-    h('p'),
-    h('h3', 'Appendix C - Further Reading ' ),
-    h('p', ' Here is a good resource: '),
-    h('a',   {props: {href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" }},  'You Don\'t Know Javascript by Kyle Simpson'),
-    h('span', ' You can support the open-source digital version of this book with Patreon at the above address or purchase hard copies from O\Reily, Amazon, etc. ' ),
-    h('a',   {props: {href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" }},  'You Don\'t Know JavaScript'),
-    h('span', ' is the thinking developer\'s answer to ' ),
-    h('a',   {props: {href: "http://shop.oreilly.com/product/9780596517748.do", target: "_blank" }},  ' "JavaScript: The Good Parts" by Douglas Crockford ' ),
-    h('span#cyclet', ', which has long been revered as a "must read" JavaScript book. Kyle Simpson recommends learning to use potentially dangerous code intelligently while Douglas Crockford advocates never using it at all. I think the phrase "eval is evil" stems from Crockford\'s book. I find eval() to be very useful from time to time. Kyle Simpson teaches programmers how to safely tap the full potential of JavaScript. ' ),
-      h('br'),
-      h('br'),
-      h('a', {props: {href: '#cycletime'}}, 'Return to the demonstration' ),
-      h('h2', 'Asynchronous Processes' ),
-      h('h3', 'Cycle.js Time ' ),
-      h('p', ' As stated above, the monads do not depend on Cycle.js. This section is for anyone who happens to be interested in how the monads achieve reactivity in this Cycle.js application.' ),
-      h('p', ' Here are the two sequences of five linked functions that we will analyze:'),
-      h('pre', `  bind(70)(cubeC)(it4)(it6)(it7) // Does not use Promises
-    bind(70)(cubeC)(prm4)(prm6)(it7) // Uses Promises     `)  ,
-      h('p', ' The first sequence is used in the live demonstration above. Both sequences fetch a random number from the server and then fetch the number\'s prime decomposition from a web worker. The sequence without promises seems to run slightly faster.  '),
-      h('p', ' it7() was defined for use with MonadItter, not promises. It is a testiment to the robustness of bind() that it7() functions as intended at the end of a sequence of promises. '),
-      h('p', ' When the code runs, a WebSocket socket requests and obtains a pseudo random number between 0 and 125,000 from the server. The number is then sent a web worker that computes its prime components. When the data arrives, Snabbdom is prompted to modify the DOM to reflect the current value of m42_RESULT. '),
-      h('p', ' These two drivers (Cycle.js terminology) are involved in the procedure: '),
-      h('pre', `  function WebSocketDriver() {
-      return xs.create({
-        start: listener => { socket.onmessage = msg => listener.next(msg)},
-        stop: () => { socket.close() }
-      });
-    };
-
-    function workerGDriver () {
-      return xs.create({
-        start: listener => { workerG.onmessage = msg => listener.next(msg)},
-        stop: () =>  workerG.terminate()
-      });
-    }; `),
-      h('p', ' These driver streams, among others, are located in an object named "sources" (shown below) ' ),
-      h('pre', `  const sources = {
-      DOM: makeDOMDriver('#main-container'),
-      WS: WebSocketDriver,
-      WWB: workerBDriver,
-      WWC: workerCDriver,
-      WWD: workerDDriver,
-      WWE: workerEDriver,
-      WWF: workerFDriver,
-      WWG: workerGDriver,
-      WW: workerDriver,
-      PP: pingpongDriver
-    } `),
-    h('p', ' run() is the function that keeps the perpetual cycle spinning. It takes two arguments, main() and sources. In main(), the drivers listen for events and map them into streams that process them and merge into calcStream, the stream that prompts main() to return and then feeds Snabbdom\'s diff and render routine the side effects generated by operations on those events. '),
-    h('p#itterDef', ' When sources.WS hears a message prefixed by "BB#$42", MonadIterator instance mMZ27 is released. It releases mMZ37 with the number returned by the server (v[3]). it4() releases mMZ37 in it6, passing the number from the server to it. it6() sends the number to a web worker that sends back the number\'s prime decomposition. Here\'s the code: ' ),
-
-    h('a#defs', {props: {href: '#top'}}, 'Back to the top'),
+h('p', 'it4() sends the number 125,000 to the server which responds by sending back a pseudo-random number between 1 and 250,000. '),
 
 h('pre', `var it4 = x => {
-  if (socket.readyState === 1) socket.send(\`BB#$42,\${pMgroup.x},\${pMname.x},\${x}\`);
+  if (socket.readyState === 1) socket
+  .send(\`BC#$42,${pMgroup.x},${pMname.x},${x}\`);
+} `),
+
+h('p', 'WS is a driver defined as follows: ' ),
+
+h('pre', `function createWebSocket(path) {
+    var host = window.location.hostname;
+    if (host === '')
+        host = 'localhost';
+    var uri = 'ws://' + host + ':3055' + path;
+    var Socket = "MozWebSocket" in window ? MozWebSocket : WebSocket;
+
+    return new Socket(uri);
 }
 
-var it6 = x => {
-  mMZ37.bnd(x => workerG.postMessage([primesMonad.s, [x]]));
+var socket = createWebSocket('/');
+
+function websocketsDriver() {
+  return xs.create({
+    start: listener => { socket.onmessage = msg => listener.next(msg)},
+    stop: () => { socket.close() }
+  });
+}; ` ),
+
+h('p', ' The prefix "xs" designates the name space for the xstream library. ' ),
+
+h('pre', `function main(sources) {
+  const messages$ = sources.WS.map( e => {
+    var v = e.data.split(',')  // The string arriving from the server is made into an array.
+    ...
+    ret(v[0]  // "ret" is defined below:
+              // v[0] is the prefix of each message from the server.
+    ...
+    .bnd(next, 'BC#$42', mMZ28)  // Executes when a "BC$#42"-prefixed message arrives from the server
+
+Instances of Monad2 encapsulate values. Here is the definition:
+
+function Monad2(z = 0) {
+  this.x = z;
+};
+
+Monad2.prototype.ret = a => new Monad2(a);
+
+Monad2.prototype.bnd = function (func, ...args) {
+  return func(this.x, ...args)
 }
 
-var it7 = v => mMZ38.bnd( v => {
-  m42_RESULT = m42_RESULT.concat(h('p', orange, v[3] + v[0] + v[4] + v[5]).text.concat(h('br'))
-  m42_RESULT2 = m42_RESULT2.concat(h('div', [h('p', orange, v[3] + v[0] + v[4] + v[5]).text]))
-  m42_RESULT3 = m42_RESULT3.concat(h('p', orange, v[5]).text).concat(h('br'))
-});  `),
+function ret (val = 0) {
+  return new Monad2(val);
+} ` ),
 
-    h('h3', 'MonadItter'),
-    h('p', ' The MonadItter section of the page has a detailed discussion and live demonstrations. This is the definition: '),
-    h('pre', `  var MonadItter = function MonadItter() {
-      this.p = function () {};
-      this.release = function () {
-        return this.p.apply(this, arguments);
-      };
-      this.bnd = function (func) {
-        return this.p = func;
-      };
-    }; `),
-    h('h3', 'Promises'),
+h('p', ' Back to messages$: ' ),
 
-    h('p', ' As the definition of MonadItter shows, bnd() saves functions until release() causes them to execute. MonadItter instances are usually used on this webpage where promises, generators, and async/await could also do the job. '),
-    h('p', 'Here are the Promises-based functions prm4() and prm6() that can be substituted for it4() and it6() in the expression bind(70)(cubeC)(it4)(it6): '),
-    h('pre', `  const prm4 = x => {
-      if (socket.readyState === 1) socket.send(\'BB#\$42,pMgroup,pMname,' + x);
-      return new Promise( (resolve, reject) => {
-         mMZ37.bnd((y) => resolve(ret(y)))
-      })
+h('pre', `ret(v[0])
+...
+  .bnd(next, 'BC#$42', mMZ28)  
+ ) ` ),
+
+h('p', ' When anything prefixed by mMZ28 comes in from the server, mMZ28 isreleased, releasing mMZ40 with the random number. ' ),
+
+h('pre', `mMZ28.bnd( () => {
+  mMZ40.release(v[3]);
+}); ` ),
+
+h('p', ' The cached prime numbers and the random number obtained from the serverare then sent to workerH. ' ),
+
+h('pre', `var it6 = x => {
+  mMZ40.bnd(x => workerH.postMessage([primesMonad.s[3], x])); ` ),
+
+h('p', 'Here\'s the definition of workerH.js: ' ),
+
+h('pre', `*****************************************************
+var g = prState => x => {
+  var primes = execP(prState, x);
+
+  var factors = pfactors(primes,x).x;
+  var z;
+  if (factors.length > 1) {
+    z = "The prime factors of " + x + " are " + factors.join(', ')
+  }
+  else z = x + " is a prime number"
+  return [z, primes[3]];
+}
+  
+onmessage = function(m) {
+  var max = m.data[0][m.data[0].length - 1];
+  primesState = [max, m.data[0], max, m.data[0]];
+  importScripts('script2.js');
+  postMessage(g(primesState)(m.data[1] + 1));
+}
+*****************************************************
+
+function pfactors (primeState, n) {
+  var ar = [];
+  while (n != 1) {
+    primeState[3].map(p => {
+      if (n/p === Math.floor(n/p)) {
+        ar.push(p);
+        n = n/p;
+      };
+    })
+  }
+  return ret(ar);
+}
+
+function ret(v, id = 'generic') {
+  self[id] = new Monad(v, id);
+  return self[id];
+}
+
+var mMfactors = new Monad('', 'mMfactors');
+
+function MonadState(g, state) {
+  this.id = g;
+  this.s = state;
+  this.bnd = (func, ...args) => func(this.s, ...args);  
+};
+
+function isPrime(n) {
+   if (isNaN(n) || !isFinite(n) || n%1 || n<2) return false;
+   var m = Math.sqrt(n);
+   for (var i=2;i<=m;i++) if (n%i==0) return false;
+   return true;
+}
+
+function *gen(x) {
+  var x = x
+  while(true) {
+    if(isPrime(x)) yield x;
+    x++;
+  }
+}
+
+var primesIt = gen(primesMonad.s[2]+1);
+
+function execP (state, num) {
+  var x = state[2];
+  var primes = state[3].slice();
+  if (x < num) {
+    primesMonad = new MonadState('primesMonad', state);
+    primesIt = gen(primesMonad.s[2]+1);
+    while (x < num) {
+      primes.push(primesIt.next().value);
+      x = primes[primes.length - 1];
     }
+    return [x, primes, x, primes]
+  }
+  else {
+    var number = primes.indexOf(num) + 1;
+    var newP = primes.slice(number);
+    return [newP[newP.length - 1], newP, x, primes];
+  }
+}; ` ),
 
-    const prm6 = x => {
-      workerG.postMessage([primesMonad.s, [x]]);
-      return "Done"
-    } `),
+h('p', ' workerH$ intercepts the message from worderH.js as follows: ' ),
 
-    h('p', ' Error handling is easy when using MonadItter instances, and is entirely optional. '), 
-    h('p', ' After "bind(70)(cubeC)(it4)(it6) runs, the prime decomposition of the number it recieved arrives from workerG. The workerGDriver (sources.WWG) detects the message and adds it to the workerG$ stream. Here is the definition of workerGDriver:  ' ),
-      h('pre', `  function workerGDriver () {
-      return xs.create({
-        start: listener => { workerG.onmessage = msg => listener.next(msg)},
-        stop: () => { workerG.terminate() }
-      });
-    }; `),
-      h('p', ' Clicking the "decompose fifteen random numbers" button causes factorsRecursion(0) to execute. Here\'s the code: '),
-      h('pre', blue,  `  const factorsRecursion = n => bind(70)(cubeC)(it4)
-        (it6)(() => { if (n < 15) factorsRecursion(n+1)}); `),
-      h('p', 'result778(m.data) is called each time a message from workerG arrives. The definition of result778 is:   ' ),
-      h('pre', blue, `var result778 = x => h('div', [
-          m778_RESULT,
-          h('br'),
-          h('span', bigBlue, x[3] ),
-          h('span', bigGreen, x[0] ),
-          h('span', bigBlue, x[4] ),
-          h('span', bigRed, x[5] ),
-      ]); `),
-      h('p', ' The stream that listens for workerG messages adds to the vnode m778_RESULT as follows: '),
-      h('pre', `const workerG$ = sources.WWG.map(m => {
-          m778_RESULT = result778(m.data);
-          primesMonad = new MonadState('primesMonad', m.data[2]);
-      }); `),
-    h('pre', bigGreen, `const factorsRecursion = n => bind(70)(cubeC)(it4)
-    (it6)(pause)(() => { if (n < 15) factorsRecursion(n+1)}); `),
+h('pre', ` workerH$ = sources.WWH.map(m => mMZ52.release(m)); ` ),
 
-  h('pre', bigGold, `  var test5 = x => {
-    var n = toInt(x);
-    Bindo.bind1 = []; 
-    Bindo.bind2 = []; 
-    Bindo.bind3 = []; 
-    
-    bind1(n+0)(cubeP)(() => idP(Bindo.bind1[0] -
-    Bindo.bind1[1]))(v=>addP(Bindo.bind1[1])(v));
+h('p', ' mMZ52.bnd is inside of it7. ' ),
 
-    bind2(n+1)(cubeP)(() => idP(Bindo.bind2[0] -
-    Bindo.bind2[1]))(v=>addP(Bindo.bind2[1])(v)); 
+h('pre', `it7 = () => mMZ52.bnd(m => {
+  callOrder = callOrder > 24 ? 1 : callOrder + 1;
+  if (callOrder === 1) start77 = Date.now(); 
+  m42_.push(callOrder + "  ");
+  m42_.push(m.data[0])
+  m42_.push(h('br'));
+  if (callOrder === 25) m42_.push('Elapsed time: ' + 
+    (Date.now() - start77) + " ms");
+  var w = m.data[1][m.data[1].length - 1];
+  var primesState = [w, m.data[1], w, m.data[1]];
+  if (m.data[1].length > primesMonad.s[3].length) {
+    window['primesMonad'] = new MonadState('primesMonad', primesState );
+  }
+}); ` ),
 
-    bind3(n+2)(cubeP)(() => idP(Bindo.bind3[0] -
-    Bindo.bind3[1]))(v=>addP(Bindo.bind3[1])(v));} `), 
+h('p', ' "mMZ52.bnd(m => { ... " could have been placed anywhere. Putting it at the end of "bind(50)(x => x*x*x)(it4)(it6)(it7)"illustrates the flexibility of bind for the purposes of Example 1, but in production it would also make Demonstration 1 easier to understand by people responsible for maintaining the code. ' ),
 
-  h('button#fredButton', fredButton ),
+
+h('h3', 'MonadItter'),
+h('p', ' The MonadItter section of the page has a detailed discussion and live demonstrations. This is the definition: '),
+h('pre', `  var MonadItter = function MonadItter() {
+  this.p = function () {};
+  this.release = function () {
+    return this.p.apply(this, arguments);
+  };
+  this.bnd = function (func) {
+    return this.p = func;
+  };
+}; `),
+h('h3', 'Promises'),
+
+h('p', ' As the definition of MonadItter shows, bnd() saves functions until release() causes them to execute. MonadItter instances are usually used on this webpage where promises, generators, and async/await could also do the job. '),
+h('p', 'Here are the Promises-based functions prm4() and prm6() that can be substituted for it4() and it6() in the expression bind(70)(cubeC)(it4)(it6): '),
+h('pre', `  const prm4 = x => {
+  if (socket.readyState === 1) socket.send(\'BB#\$42,pMgroup,pMname,' + x);
+  return new Promise( (resolve, reject) => {
+     mMZ37.bnd((y) => resolve(ret(y)))
+  })
+}
+
+const prm6 = x => {
+  workerG.postMessage([primesMonad.s, [x]]);
+  return "Done"
+} `),
+
+h('p', ' Error handling is easy when using MonadItter instances, and is entirely optional. '), 
+h('p', ' After "bind(70)(cubeC)(it4)(it6)(it7) runs, the prime decomposition of the number it recieved arrives from workerG. The workerGDriver (sources.WWG) detects the message and adds it to the workerG$ stream. Here is the definition of workerGDriver:  ' ),
+h('pre', `  function workerGDriver () {
+  return xs.create({
+    start: listener => { workerG.onmessage = msg => listener.next(msg)},
+    stop: () => { workerG.terminate() }
+  });
+}; `),
+h('p', ' Clicking the "decompose fifteen random numbers" button causes factorsRecursion(0) to execute. Here\'s the code: '),
+h('pre', blue,  `  const factorsRecursion = n => bind(70)(cubeC)(it4)
+  (it6)(() => { if (n < 15) factorsRecursion(n+1)}); `),
+h('p', 'result778(m.data) is called each time a message from workerG arrives. The definition of result778 is:   ' ),
+h('pre', blue, `var result778 = x => h('div', [
+    m778_RESULT,
+    h('br'),
+    h('span', bigBlue, x[3] ),
+    h('span', bigGreen, x[0] ),
+    h('span', bigBlue, x[4] ),
+    h('span', bigRed, x[5] ),
+]); `),
+h('p', ' The stream that listens for workerG messages adds to the vnode m778_RESULT as follows: '),
+h('pre', `const workerG$ = sources.WWG.map(m => {
+    m778_RESULT = result778(m.data);
+    primesMonad = new MonadState('primesMonad', m.data[2]);
+    }); `),
+  h('pre', bigGreen, `const factorsRecursion = n => bind(70)(cubeC)(it4)
+  (it6)(pause)(() => { if (n < 15) factorsRecursion(n+1)}); `),
+
+h('pre', bigGold, `  var test5 = x => {
+  var n = toInt(x);
+  Bindo.bind1 = []; 
+  Bindo.bind2 = []; 
+  Bindo.bind3 = []; 
+  
+  bind1(n+0)(cubeP)(() => idP(Bindo.bind1[0] -
+  Bindo.bind1[1]))(v=>addP(Bindo.bind1[1])(v));
+
+  bind2(n+1)(cubeP)(() => idP(Bindo.bind2[0] -
+  Bindo.bind2[1]))(v=>addP(Bindo.bind2[1])(v)); 
+
+  bind3(n+2)(cubeP)(() => idP(Bindo.bind3[0] -
+  Bindo.bind3[1]))(v=>addP(Bindo.bind3[1])(v));} `), 
+
 h('a', {props: {href: '#top'}}, 'Back to the top'),
-  h('br'),
-  h('input#change', diffRend ),
-  h('div#changeDisplay', [diffRend] ),
-  h('button#diffRender', 'diffRender()' ),
-  h('br'),
-
-
-  h('div#pingmaker'),
-  h('br'),
-
-  h('br'),
-h('p', ' This is the code involved in the pingpong demonstration. PingpongMaker\'s argument creates a namespace. The demonstration features three such namespaces. It verifies that each game proceeds with its own state, oblivious of the states of the other two games in progress. Bindo uses its closure to achieve a similar effect. ' ),
+('p', ' This is the code involved in the pingpong demonstration. PingpongMaker\'s argument creates a namespace. The demonstration features three such namespaces. It verifies that each game proceeds with its own state, oblivious of the states of the other two games in progress. Bindo uses its closure to achieve a similar effect. ' ),
 h('pre',  `var pingD = a => b => c => h('div', [
   h('pre', a, \` ping        ---> \`), 
   h('pre', b, \`                 <---        pong \`), 
@@ -2429,6 +2597,14 @@ PingpongMaker('m69_RESULT')  `),
 h('p', ' m67_RESULT, m68_RESULT, and m69_RESULT are permanent fixtures in the virtual DOM description returned by main()'),
 
   h('br'),
+  h('br'),
+
+  h('button#fredButton', fredButton ),
+h('a', {props: {href: '#top'}}, 'Back to the top'),
+  h('br'),
+  h('input#change', diffRend ),
+  h('div#changeDisplay', [diffRend] ),
+  h('button#diffRender', 'diffRender()' ),
   h('br'),
   h('br'),
   h('br')
