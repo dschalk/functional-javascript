@@ -1349,8 +1349,9 @@ var pingpong4$ = pinpon4$.map(() => {
     h('div', {style: {width: '47%', fontSize: '15px', float: 'left'}}, [ // ((************ LEFT PANEL
     h('br'),
     h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 1 - WebSocket and worker messaging.'),
-    h('span', ' The first demonstration consists of bind(130) followed by a math computation, a function that sends the computation result to the WebSocketr server, a function that sends the WebSocket response to a web worker, and a function that uses the worker response to update the browser display and the prime number cache. '), 
-    h('span#defsReturn', ' it4() and it6 are asynchronous functions that use the more efficient (less featured) callback handler "MonadItter" rather than promises but, as Demonstration 2 illustrates, Ecmascript 2015 promises work nicely with bind and its clones. MonadItter is discussed in several places further down this page. The definitions of the functions involved in Example 1 are shown, with comments, in the order in which they are encountered in the '),
+    h('span.tao', ' The first demonstration consists of bind(130) followed by a math computation, a function that sends the computation result to the WebSocketr server, a function that sends the WebSocket response to a web worker, and a function that uses the worker response to update the browser display and the prime number cache. '), 
+    h('p#defsReturn'),
+    h('span.tao', ' it4() and it6 are asynchronous functions that use the more efficient (less featured) callback handler "MonadItter" rather than promises but, as Demonstration 2 illustrates, Ecmascript 2015 promises work nicely with bind and its clones. MonadItter is discussed in several places further down this page. The definitions of the functions involved in Example 1 are shown, with comments, in the order in which they are encountered in the '),
     h('a', {props: {href: "#defs" }},  'appendix'),
     h('span', '.' ),
     h('br'),
@@ -1560,7 +1561,7 @@ h('div.content', [
 h('a#bind', {props: {href: '#top'}}, 'Back to the top'),
 
 h('p', 'CAUTION - SOME OF THE COMMENTARTY AFTER THIS POINT STILL LAGS BEHIND RECENT REFACTORING.'),
-h('p', ' Here are the definitions of bind and four other similar functions: '),
+h('p', ' Here are the definitions of bind: '),
 h('pre', {style: {color: "lightBlue"}}, `function bind (x, ar=[]) {
   var ar = ar;
   if (ar.length === 0) ar = [x];
