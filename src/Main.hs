@@ -1,6 +1,7 @@
 {-# LANGUAGE DataKinds, FlexibleContexts, GeneralizedNewtypeDeriving, OverloadedStrings, TemplateHaskell #-}
 module Main where
 import           System.IO
+import           System.Random
 import           Control.Concurrent             (forkIO)
 import qualified Control.Concurrent.STM.Lock as L
 import           Data.Tuple.Select
@@ -383,9 +384,11 @@ talk conn state client = forever $ do
      else if "BB#$42" `T.isPrefixOf` msg     -- Generate a random number          
         then                                          
             do
-                print "extraNum:"
-                print extraNum
-                z <- Fm.rM extraNum 
+                let eNum = read (mArr !! 3) :: Integer;
+                print "eNum:"
+                print eNum
+                z <- getStdRandom (System.Random.randomR ((1,eNum) :: (Integer,Integer)))
+                print "z is: "
                 print z
                 st <- atomically $ readTVar state
                 broadcast ("BB#$42," `mappend` group `mappend` "," 

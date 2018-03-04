@@ -456,10 +456,10 @@
       var demo2Action$ = printingPress$.map(function (e) { 
         if (e.target.value === '') return;
         if (e.keyCode === 13) {
-        Bindo.bind1 = [];
+        Bind.bind1 = [];
         bind1(e.target.value)(cubeP)
-        (() => idP(Bindo.bind1[0]-Bindo.bind1[1])) 
-        (v=>addP(Bindo.bind1[1])(v))
+        (() => idP(Bind.bind1[0]-Bind.bind1[1])) 
+        (v=>addP(Bind.bind1[1])(v))
         };
       });
 
@@ -559,6 +559,22 @@
 
   });
 
+function bind (x, ar=[]) {
+  var ar = ar;
+  if (ar.length === 0) ar = [x];
+  if (x instanceof Promise) x.then(y => ar.push(y));
+  else ar.push(x)
+  return function debug8 (func) {
+    if (func.name === "terminate") return ar;
+    var p;
+    if (x instanceof Promise) {
+      p = x.then(v => func(v));
+    }
+    else p = func(x);
+    return bind(p, ar);
+  };
+};
+
       var clearClick7$ = sources.DOM
           .select('button.clear_Q').events('click')
           .map((() => {
@@ -573,35 +589,35 @@
         m42_ = [];
         console.log('In factorsAction7$ - - <W>W<>W<>W<><W>WWW<W><W>WW><><><><><>!!! e is',e); 
 
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
 
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
 
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
         
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
 
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
-        bind(70)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
+        bind(130)(x=>x*x*x)(it4)(it6)(it7);
       });
     
       var callOrder = 0;
@@ -1301,20 +1317,27 @@ var pingpong4$ = pinpon4$.map(() => {
 
         any function in the chain can be asynchronous,
 
-        functions have access to all prior functions\' return values,
+        functions have built-in access to all prior functions\' return values,
 
-        functions have access to prior asynchronous functions\' resolution values. `),
-      h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' looks very flexible and expressive, but you might wonder if there is a function named "bind" that cam efficiently and reliably facilitates this. I think this ' ), 
+        functions have built-in access to all prior promises\' resolution values. `),
+      h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' looks very flexible and expressive, but you might wonder if there is a function named "bind" that cam efficiently and reliably facilitates this. Well, here is thw ' ),      
       h('a', {props: {href: "#bind" }},  'definition of bind'),
-      h('span', ' fits the bill, as the examples below demonstrate. ' ), 
+      h('span', ' used in "Demonstration 1". It consists of fifteen short lines of straightforward code. Testing confirms that it is as robust as it is easy for experienced JavaScript programmers to understand, tweak, and use. All they need only to make it reactive in whatever platform they are using. I show, in the '),
+    h('a', {props: {href: "#defs" }},  'appendix'),
+      h('span', ', one way of doing this using features of Cycle.js. ' ), 
+      h('br'),
+      h('br'),  
+      h('span.tao', ' "bind" can easily be expanded to intercept runtime errors, check types, etc. For example, the factory function "Bind" creates versions of bind with unique namespaces. "Demonstration 2" shows ten functions created by "Bind" executing in parallel. The '),
+
         
-    h('p', 'Functions that take multiple arguments should be curried, or else their arguments should be contained in single arrays or objects. The need to pass single arguments along chains does not limit what the functions can do. This is a consequence of the fact that functions can only return single values, which are the arguments of the functions to their right whenever functions are composed. ' ),
-    h('p', ' When promises are chained with their "then" methods, only the preceding function\'s resolution value is available to each link in the chain, unless you rely on values outside the scope of the chain.  The bind() factory function Bindo() efficiently deals with this limitation by creating name spaces for each clone of bind() that Bindo() creates.'),
+      h('a', {props: {href: "#bind2" }},  "definition of Bind" ),
+      h('span', ' is presented in the appendix.'),
+    h('p', 'Functions that take multiple arguments should be curried, or else their arguments should be contained in single arrays or objects. This is a consequence of the fact that functions can only return single values, which are the arguments provided to the functions to their right in composit procedures. This does not restrict what linked functions can do. ' ),
     h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
     h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "  .flow" ),
     h('span', ' and Ramda\'s '),
     h('a', {props: {href: "http://ramdajs.com/docs/#compose"}}, 'R.compose' ),
-    h('span', ', that facilitate simple function composition; i.e., a function\'s arguments is the preceding function\'s return value. bind() does this while also giving every linked function along a pipeline access to the return values of every function that preceded it.  '),
+    h('span', ', that facilitate simple function composition; i.e., each function\'s argument is the preceding function\'s return value. bind() does this while also giving every linked function along a pipeline access to the return values of every function that preceded it.  '),
     h('br'),
     h('p', 'CAUTION - THE COMMENTARTY AFTER THE DEMONSTRATIONS STILL LAGS BEHIND RECENT REFACTORING.'),
     h('br'),
@@ -1326,28 +1349,28 @@ var pingpong4$ = pinpon4$.map(() => {
     h('div', {style: {width: '47%', fontSize: '15px', float: 'left'}}, [ // ((************ LEFT PANEL
     h('br'),
     h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 1 - WebSocket and worker messaging.'),
-    h('span', ' The first demonstration consists of bind(50) followed by a math computation, a function that sends the computation result to the WebSocketr server, a function that sends the WebSocket response to a web worker, and a function that uses the worker response to update the browser display and the prime number cache. '), 
-    h('span#defsReturn', ' it4() and it6 are asynchronous functions that do not use promises. Instead, they use instances of MonadItter, which will be explained later. The definitions of the functions involved in Example 1 are in the '),
+    h('span', ' The first demonstration consists of bind(130) followed by a math computation, a function that sends the computation result to the WebSocketr server, a function that sends the WebSocket response to a web worker, and a function that uses the worker response to update the browser display and the prime number cache. '), 
+    h('span#defsReturn', ' it4() and it6 are asynchronous functions that use the more efficient (less featured) callback handler "MonadItter" rather than promises but, as Demonstration 2 illustrates, Ecmascript 2015 promises work nicely with bind and its clones. MonadItter is discussed in several places further down this page. The definitions of the functions involved in Example 1 are shown, with comments, in the order in which they are encountered in the '),
     h('a', {props: {href: "#defs" }},  'appendix'),
     h('span', '.' ),
     h('br'),
-    h('p', ' After the first run, caching of prime numbers causes the elapsed times of subsequent runs to be substantially shortened. On my computer, the first run usually takes around twenty seconds to complete. Every run after that has completed in under three seconds, and usually under two seconds. If the first twenty-five random numbers happen to be small, the cache will be small, but this is so improbable that I would be very surprised to see it during testing.'),    
+    h('p', ' After the first run, caching of prime numbers causes the elapsed times of subsequent runs to be substantially shortened. On my computer, subsequent runs take around one-third the time of the first.'),    
     h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 2 - accessing prior values and avoiding clashes.'),
-    h('p', ' If you enter an argument x for test5(x) (right column), the code shown in the right column will run: '),  
-    h('span.tao', 'bind() and variations on its theme are produced by a factory named "Bindo". For example, bind1 is created with the code '),
-    h('span', orange, `var bind1 = Bindo("bind1")  `), 
+    h('p', ' If you enter an argument x for test5(x) (right column), the code shown in the right column will run. The delays are caused by ES6 promises. '),  
+    h('span.tao', 'bind() and variations on its theme are produced by a factory named "Bind". For example, bind1 is created with the code '),
+    h('span', orange, `var bind1 = Bind("bind1")  `), 
     h('span', '.'), 
-    h('p', ' bind1 is a function. Bindo.bind1 is an array not of the promises returned by each function, but rather it is an array of the values that are produced as each promise resolves. The display on the right shows bind1 using Bindo.bind1[0] and Bindo.bind1[1] as if they were existing values. Bindo.bind1 is augmented each time a promise resolves. '),
-    h('p', ' Demonstration 2 also shows that Bindo effectively insulates the nine sequences from one another. They can\'t corrupt data or running functions and nothing can touch then. '),  
+    h('p', ' bind1 is a function. Bind.bind1 is an array not of the promises returned by each function, but rather it is an array of the values that are produced as each promise resolves. "Bind.bind1" is a permanent fixture in the virtual DOM description returned by main(). You can watch it and similar arrays as they grows by entering an integer in the right column.'),
+    h('p', ' Demonstration 2 also shows that Bind effectively insulates the nine sequences from one another. They can\'t corrupt data or other running functions and nothing can touch then. '),  
       
   h('span.tao', orange, `bind1(e.target.value)(cubeP)` ),
-  h('span', ' cubes user inpup. The first element of the Bindo.bindo array is the user input. It is encapsulated in a promise that resolves after 1200 ms. When it resolves, its cube becomes the resolution value of the next promise and when it resolves, it becomes the argument of the next promise\'s then method and so on. '),
+  h('span', ' cubes user inpup. The first element of the Bind.bindo array is the user input. It is encapsulated in a promise that resolves after 1200 ms. When it resolves, its cube becomes the resolution value of the next promise and when it resolves, it becomes the argument of the next promise\'s then method and so on. '),
 
 
 h('p', '     '),
 
 h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 3 '),
-h('span', ' This demonstation uses a closure to define separate namespaces, which is what Bindo() does in the previous demonstrations. '),
+h('span', ' This demonstation uses a closure to define separate namespaces, which is what Bind() does in the previous demonstrations. '),
 h('a', {props: {href: '#pingmaker'}}, 'Click' ),
 h('br'),
 ]),
@@ -1358,13 +1381,13 @@ h('div', {style: {width: '47%', fontSize: '15px', float: 'right'}}, [  // ******
 
 
 h('h3', 'Demonstration 1' ),
-h('span', ' Click below to run bind(70)(x=>x\*x\*x)(it4)(it6)(it7) twenty-five times. The left column is the call order.'),
+h('span', ' Click below to run bind(130)(x=>x\*x\*x)(it4)(it6)(it7) twenty-five times. The left column is the call order.'),
 h('br'),
 h('br'),
-h('span', styleFunc(["rgb(7, 247, 247)","12%","20px",,,,,]), 'bind(70)(x=>x\*x\*x)(it4)(it6)(it7)'),
+h('span', styleFunc(["rgb(7, 247, 247)","12%","20px",,,,,]), 'bind(130)(x=>x\*x\*x)(it4)(it6)(it7)'),
 h('br'),
 h('br'),
-h('button#factors_Q', {style: {fontSize: '15px'}}, 'bind(70)(x=>x\*x\*x)(it4)(it6)(it7)'),
+h('button#factors_Q', {style: {fontSize: '15px'}}, 'bind(130)(x=>x\*x\*x)(it4)(it6)(it7)'),
 h('span', "~~"),
 h('button.clear_Q', {style: {fontSize: '15px', marginLeft: "0"}},  'clear results'),
 h('br'),
@@ -1377,29 +1400,29 @@ h('br'),
 
 h('h3', 'Demonstration 2' ),
 
-h('pre', green, `bind1(n+0)(cubeP)(() => idP(Bindo.bind1[0] -
-Bindo.bind1[1]))(v=>addP(Bindo.bind1[1])(v));
-bind2(n+1)(cubeP)(() => idP(Bindo.bind2[0] -
-Bindo.bind2[1]))(v=>addP(Bindo.bind2[1])(v)); 
+h('pre', green, `bind1(n+0)(cubeP)(() => idP(Bind.bind1[0] -
+Bind.bind1[1]))(v=>addP(Bind.bind1[1])(v));
+bind2(n+1)(cubeP)(() => idP(Bind.bind2[0] -
+Bind.bind2[1]))(v=>addP(Bind.bind2[1])(v)); 
   . . .
-bind9(n+8)(cubeP)(() => idP(Bindo.bind9j[0] -
-Bindo.bind9[1]))(v=>addP(Bindo.bind9[1])(v)); `), 
+bind9(n+8)(cubeP)(() => idP(Bind.bind9j[0] -
+Bind.bind9[1]))(v=>addP(Bind.bind9[1])(v)); `), 
 
 
 
-h('div#zero', bigRed, Bindo.bind1.join(', ') ),
+h('div#zero', bigRed, Bind.bind1.join(', ') ),
 h('span', ' value of n --> '),
 h('input#test5', {style: {height: "15px" }}, ),
 h('br'),
-h('div#z1', bigGreen, Bindo.bind1.join(', ') ),
-h('div#z2', bigGreen, Bindo.bind2.join(', ') ),
-h('div#z3', bigGreen, Bindo.bind3.join(', ') ),
-h('div#z4', bigGreen, Bindo.bind4.join(', ') ),
-h('div#z5', bigGreen, Bindo.bind5.join(', ') ),
-h('div#z6', bigGreen, Bindo.bind6.join(', ') ),
-h('div#z7', bigGreen, Bindo.bind7.join(', ') ),
-h('div#z8', bigGreen, Bindo.bind8.join(', ') ),
-h('div#z9', bigGreen, Bindo.bind9.join(', ') ),
+h('div#z1', bigGreen, Bind.bind1.join(', ') ),
+h('div#z2', bigGreen, Bind.bind2.join(', ') ),
+h('div#z3', bigGreen, Bind.bind3.join(', ') ),
+h('div#z4', bigGreen, Bind.bind4.join(', ') ),
+h('div#z5', bigGreen, Bind.bind5.join(', ') ),
+h('div#z6', bigGreen, Bind.bind6.join(', ') ),
+h('div#z7', bigGreen, Bind.bind7.join(', ') ),
+h('div#z8', bigGreen, Bind.bind8.join(', ') ),
+h('div#z9', bigGreen, Bind.bind9.join(', ') ),
 
 h('br'),
 h('br'),
@@ -1538,42 +1561,24 @@ h('a#bind', {props: {href: '#top'}}, 'Back to the top'),
 
 h('p', 'CAUTION - SOME OF THE COMMENTARTY AFTER THIS POINT STILL LAGS BEHIND RECENT REFACTORING.'),
 h('p', ' Here are the definitions of bind and four other similar functions: '),
-h('pre', {style: {color: "lightBlue"}}, `var bind = Bindo("bindo");
-var bind1 = Bindo("bind1");
-var bind2 = Bindo("bind2");
-var bind3 = Bindo("bind3");
-var bind4 = Bindo("bind4");
-
-function Bindo (str) {
-  Bindo[str] = [];
-  return function bindo ( x ) {
-    if (x instanceof Promise) x.then(y => {
-      Bindo[str].push(y);
-      diffRender();
-      console.log(Bindo[str]);
-    })
-    else {
-      Bindo[str].push(x)
-      diffRender();
+h('pre', {style: {color: "lightBlue"}}, `function bind (x, ar=[]) {
+  var ar = ar;
+  if (ar.length === 0) ar = [x];
+  if (x instanceof Promise) x.then(y => ar.push(y));
+  else ar.push(x)
+  return function debug8 (func) {
+    if (func.name === "terminate") return ar;
+    var p;
+    if (x instanceof Promise) {
+      p = x.then(v => func(v));
     }
-    console.log(Bindo[str]);
-    return function debug8 (func) {
-      var p;
-      if (func.name === "terminate") return Bindo[str];
-      if (x instanceof Promise) {
-        p = x.then(v => func(v));
-      }
-      else p = func(x);
-      return bindo(p,Bindo[str]);
-    };
+    else p = func(x);
+    return bind(p, ar);
   };
 }; ` ),
-h('p', ' "bind"\s result array "Bindo.bindo" couldn\'t be named "Bindo.bind" without overriding Bind\'s prototypical bind method. As you see, "Bindo" provides a namespace for functions returned by Bindo. Creating unique names for different uses of Bindo avoids clashes. ' ),
 h('a', {props: {href: '#content2'}}, 'Back to the preview demos'),
-h('p', italicYellow, ' Sequences beginning with bind() reveal exactly what is happening while hiding a confusing mess of nested promises. They provide an excellent alternative to "Callback Hell". '),
-h('p#cycle', ' bind() overcomes the Promises API\'s lack of any way to access prior results linked by the "then()" method. The number ar[0] as well as the promise ar[5] were used used in the sequence above. A short distance down this page you can see asynchronous procedures based on MonadItter rather than Promises. MonadItter and Cycle.js working together can do everything promises and generators do but with greater flexibility and easier access to all values returned by the function calls is chained procedures. The links can be various functions rather than  ' ),
-
-
+h('p', italicYellow, ' Sequences beginning with bind() reveal exactly what is happening while sometimes hiding confusing conglomerations of nested promises intermingled with other types of functions. In other words, they provide a way out of "Callback Hell". '),
+h('p#cycle'),
 h('a', { props: { href: '#top' } }, 'Back To The Top'),
 h('br'),
 h('a', {props: {href: '#cyclet'}}, 'Async Procedures' ),
@@ -2249,45 +2254,61 @@ h('a', {props: {href: '#content2' }}, 'Return to Demonstration 1' ),
 
   
   
-h('h3', 'Asynchronous Processes - A deep dive into Demonstration 1' ),
+h('pre', h3Simulation, 'Asynchronous Processes - A deep dive into Demonstration 1' ),
 
-h('p', ' The code below shows how information flows through the functions involved in Demonstration 1. Function definitions are shown when previously undefined functions are encountered. The process begins with the click of a button and ends with execution of it7(). ' ),
-h('pre', `var factorsClick7$ = sources.DOM
+h('p', ' The code below shows how information flows through the functions involved in Demonstration 1. Function definitions are shown when previously undefined functions are encountered. The process begins with the click of a button and ends with execution of it7(), but before showing "factorsClick7$", I want to repeat the definition of "bind". ' ),
+h('pre', `function bind (x, ar=[]) {
+  var ar = ar;
+  if (ar.length === 0) ar = [x];
+  if (x instanceof Promise) x.then(y => ar.push(y));
+  else ar.push(x)
+  return function debug8 (func) {
+    if (func.name === "terminate") return ar;
+    var p;
+    if (x instanceof Promise) {
+      p = x.then(v => func(v));
+    }
+    else p = func(x);
+    return bind(p, ar);
+  };
+};
+
+var factorsClick7$ = sources.DOM
   .select('button#factors_Q').events('click');
 
 var factorsAction7$ = factorsClick7$.map( e => {
   m42_ = [];
   console.log('In factorsAction7$ - - <W>W<>W<>W<><W>WWW<W><W>WW><><><><><>!!! e is',e); 
 
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
 
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
 
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
   
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
 
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
-  bind(70)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
+  bind(130)(x=>x*x*x)(it4)(it6)(it7);
 }); ` ),
     
 h('p', 'it4() sends the number 125,000 to the server which responds by sending back a pseudo-random number between 1 and 250,000. '),
@@ -2313,7 +2334,7 @@ var socket = createWebSocket('/');
 
 function websocketsDriver() {
   return xs.create({
-    start: listener => { socket.onmessage = msg => listener.next(msg)},
+    start: listener => { socket.onmessage = msg => listener.next(msg)}, is augmented each time a promise resolves. 
     stop: () => { socket.close() }
   });
 }; ` ),
@@ -2445,7 +2466,7 @@ function execP (state, num) {
     var number = primes.indexOf(num) + 1;
     var newP = primes.slice(number);
     return [newP[newP.length - 1], newP, x, primes];
-  }
+  } is augmented each time a promise resolves. 
 }; ` ),
 
 h('p', ' workerH$ intercepts the message from worderH.js as follows: ' ),
@@ -2486,7 +2507,7 @@ h('pre', `  var MonadItter = function MonadItter() {
 h('h3', 'Promises'),
 
 h('p', ' As the definition of MonadItter shows, bnd() saves functions until release() causes them to execute. MonadItter instances are usually used on this webpage where promises, generators, and async/await could also do the job. '),
-h('p', 'Here are the Promises-based functions prm4() and prm6() that can be substituted for it4() and it6() in the expression bind(70)(cubeC)(it4)(it6): '),
+h('p', 'Here are the Promises-based functions prm4() and prm6() that can be substituted for it4() and it6() in the expression bind(130)(cubeC)(it4)(it6): '),
 h('pre', `  const prm4 = x => {
   if (socket.readyState === 1) socket.send(\'BB#\$42,pMgroup,pMname,' + x);
   return new Promise( (resolve, reject) => {
@@ -2500,7 +2521,7 @@ const prm6 = x => {
 } `),
 
 h('p', ' Error handling is easy when using MonadItter instances, and is entirely optional. '), 
-h('p', ' After "bind(70)(cubeC)(it4)(it6)(it7) runs, the prime decomposition of the number it recieved arrives from workerG. The workerGDriver (sources.WWG) detects the message and adds it to the workerG$ stream. Here is the definition of workerGDriver:  ' ),
+h('p', ' After "bind(130)(cubeC)(it4)(it6)(it7) runs, the prime decomposition of the number it recieved arrives from workerG. The workerGDriver (sources.WWG) detects the message and adds it to the workerG$ stream. Here is the definition of workerGDriver:  ' ),
 h('pre', `  function workerGDriver () {
   return xs.create({
     start: listener => { workerG.onmessage = msg => listener.next(msg)},
@@ -2508,7 +2529,7 @@ h('pre', `  function workerGDriver () {
   });
 }; `),
 h('p', ' Clicking the "decompose fifteen random numbers" button causes factorsRecursion(0) to execute. Here\'s the code: '),
-h('pre', blue,  `  const factorsRecursion = n => bind(70)(cubeC)(it4)
+h('pre', blue,  `  const factorsRecursion = n => bind(130)(cubeC)(it4)
   (it6)(() => { if (n < 15) factorsRecursion(n+1)}); `),
 h('p', 'result778(m.data) is called each time a message from workerG arrives. The definition of result778 is:   ' ),
 h('pre', blue, `var result778 = x => h('div', [
@@ -2524,26 +2545,78 @@ h('pre', `const workerG$ = sources.WWG.map(m => {
     m778_RESULT = result778(m.data);
     primesMonad = new MonadState('primesMonad', m.data[2]);
     }); `),
-  h('pre', bigGreen, `const factorsRecursion = n => bind(70)(cubeC)(it4)
+  h('pre', bigGreen, `const factorsRecursion = n => bind(130)(cubeC)(it4)
   (it6)(pause)(() => { if (n < 15) factorsRecursion(n+1)}); `),
 
 h('pre', bigGold, `  var test5 = x => {
   var n = toInt(x);
-  Bindo.bind1 = []; 
-  Bindo.bind2 = []; 
-  Bindo.bind3 = []; 
+  Bind.bind1 = []; 
+  Bind.bind2 = []; 
+  Bind.bind3 = []; 
   
-  bind1(n+0)(cubeP)(() => idP(Bindo.bind1[0] -
-  Bindo.bind1[1]))(v=>addP(Bindo.bind1[1])(v));
+  bind1(n+0)(cubeP)(() => idP(Bind.bind1[0] -
+  Bind.bind1[1]))(v=>addP(Bind.bind1[1])(v));
 
-  bind2(n+1)(cubeP)(() => idP(Bindo.bind2[0] -
-  Bindo.bind2[1]))(v=>addP(Bindo.bind2[1])(v)); 
+  bind2(n+1)(cubeP)(() => idP(Bind.bind2[0] -
+  Bind.bind2[1]))(v=>addP(Bind.bind2[1])(v)); 
 
-  bind3(n+2)(cubeP)(() => idP(Bindo.bind3[0] -
-  Bindo.bind3[1]))(v=>addP(Bindo.bind3[1])(v));} `), 
+  bind3(n+2)(cubeP)(() => idP(Bind.bind3[0] -
+  Bind.bind3[1]))(v=>addP(Bind.bind3[1])(v));} `), 
+h('p#bind2', ''),
+h('a', {props: {href: '#top'}}, 'Back to the top'),
+
+h('pre',  `function Bind (str) {
+  Bind[str] = [];
+  return function bindo ( x ) {
+    if (x instanceof Promise) x.then(y => {
+      Bind[str].push(y);
+      diffRender();
+      console.log(Bind[str]);
+    })
+    else {
+      Bind[str].push(x)
+      diffRender();
+    }
+    console.log(Bind[str]);
+    return function debug8 (func) {
+      var p;
+      if (func.name === "terminate") return Bind[str];
+      if (x instanceof Promise) {
+        p = x.then(v => func(v));
+      }
+      else p = func(x);
+      return bindo(p);
+    };
+  };
+};
+
+var bind$ = n => xs.of(n);
+
+function bindDriver () {
+  return xs.create({
+    start: listener => { bind$ = a => listener.next(a) },
+    stop: () => {}
+  })
+};
+
+var bind1 = Bind("bind1");
+var bind2 = Bind("bind2");
+var bind3 = Bind("bind3");
+var bind4 = Bind("bind4");
+var bind5 = Bind("bind5");
+var bind6 = Bind("bind6");
+var bind7 = Bind("bind7");
+var bind8 = Bind("bind8");
+var bind9 = Bind("bind9"); ` ),
+
+
+
+
+
+
 
 h('a', {props: {href: '#top'}}, 'Back to the top'),
-('p', ' This is the code involved in the pingpong demonstration. PingpongMaker\'s argument creates a namespace. The demonstration features three such namespaces. It verifies that each game proceeds with its own state, oblivious of the states of the other two games in progress. Bindo uses its closure to achieve a similar effect. ' ),
+('p', ' This is the code involved in the pingpong demonstration. PingpongMaker\'s argument creates a namespace. The demonstration features three such namespaces. It verifies that each game proceeds with its own state, oblivious of the states of the other two games in progress. Bind uses its closure to achieve a similar effect. ' ),
 h('pre',  `var pingD = a => b => c => h('div', [
   h('pre', a, \` ping        ---> \`), 
   h('pre', b, \`                 <---        pong \`), 

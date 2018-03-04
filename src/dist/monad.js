@@ -88,6 +88,7 @@ var nl = '\n';
 var blue = {style: {color: "#96f9ff"}}
 var bigBlue = {style: {color: "#96f9ff",fontSize: "17"}}
 var bigGold = {style: {color: "#FFD700",fontSize: "17"}}
+var h3Simulation = {style: {color: "#FFD700",fontSize: "22"}}
 
 var pingL = ar => ar.filter(v => v === true).length;
 var pongL = ar => ar.filter(v => v === false).lengt;
@@ -152,36 +153,36 @@ var toInt = tInt(10);
 
 var test5 = x => {
   var n = toInt(x);
-  Bindo.bind1 = []; Bindo.bind2 = []; Bindo.bind3=[]; 
-  Bindo.bind4 = []; Bindo.bind5 = []; Bindo.bind6=[]; 
-  Bindo.bind7 = []; Bindo.bind8 = []; Bindo.bind9=[]; 
+  Bind.bind1 = []; Bind.bind2 = []; Bind.bind3=[]; 
+  Bind.bind4 = []; Bind.bind5 = []; Bind.bind6=[]; 
+  Bind.bind7 = []; Bind.bind8 = []; Bind.bind9=[]; 
   
-  bind1(n+0)(cubeP)(() => idP(Bindo.bind1[0]-Bindo.bind1[1]))
-  (v=>addP(Bindo.bind1[1])(v));
+  bind1(n+0)(cubeP)(() => idP(Bind.bind1[0]-Bind.bind1[1]))
+  (v=>addP(Bind.bind1[1])(v));
 
-  bind2(n+1)(cubeP)(() => idP(Bindo.bind2[0]-Bindo.bind2[1]))
-  (v=>addP(Bindo.bind2[1])(v)); 
+  bind2(n+1)(cubeP)(() => idP(Bind.bind2[0]-Bind.bind2[1]))
+  (v=>addP(Bind.bind2[1])(v)); 
 
-  bind3(n+2)(cubeP)(() => idP(Bindo.bind3[0]-Bindo.bind3[1]))
-  (v=>addP(Bindo.bind3[1])(v)); 
+  bind3(n+2)(cubeP)(() => idP(Bind.bind3[0]-Bind.bind3[1]))
+  (v=>addP(Bind.bind3[1])(v)); 
 
-  bind4(n+3)(cubeP)(() => idP(Bindo.bind4[0]-Bindo.bind4[1]))
-  (v=>addP(Bindo.bind4[1])(v)); 
+  bind4(n+3)(cubeP)(() => idP(Bind.bind4[0]-Bind.bind4[1]))
+  (v=>addP(Bind.bind4[1])(v)); 
 
-  bind5(n+4)(cubeP)(() => idP(Bindo.bind5[0]-Bindo.bind5[1]))
-  (v=>addP(Bindo.bind5[1])(v)); 
+  bind5(n+4)(cubeP)(() => idP(Bind.bind5[0]-Bind.bind5[1]))
+  (v=>addP(Bind.bind5[1])(v)); 
 
-  bind6(n+5)(cubeP)(() => idP(Bindo.bind6[0]-Bindo.bind6[1]))
-  (v=>addP(Bindo.bind6[1])(v)); 
+  bind6(n+5)(cubeP)(() => idP(Bind.bind6[0]-Bind.bind6[1]))
+  (v=>addP(Bind.bind6[1])(v)); 
 
-  bind7(n+6)(cubeP)(() => idP(Bindo.bind7[0]-Bindo.bind7[1]))
-  (v=>addP(Bindo.bind7[1])(v)); 
+  bind7(n+6)(cubeP)(() => idP(Bind.bind7[0]-Bind.bind7[1]))
+  (v=>addP(Bind.bind7[1])(v)); 
 
-  bind8(n+7)(cubeP)(() => idP(Bindo.bind8[0]-Bindo.bind8[1]))
-  (v=>addP(Bindo.bind8[1])(v)); 
+  bind8(n+7)(cubeP)(() => idP(Bind.bind8[0]-Bind.bind8[1]))
+  (v=>addP(Bind.bind8[1])(v)); 
 
-  bind9(n+8)(cubeP)(() => idP(Bindo.bind9[0]-Bindo.bind9[1]))
-  (v=>addP(Bindo.bind9[1])(v)); 
+  bind9(n+8)(cubeP)(() => idP(Bind.bind9[0]-Bind.bind9[1]))
+  (v=>addP(Bind.bind9[1])(v)); 
 
 }
 
@@ -408,7 +409,7 @@ function bind (x, array9=[]) {
   }
 };
 
-function bind (x, ar=[], str="susan") {
+function bind (x, ar=[] {
   this.ar = ar;
   if (this.ar.length === 0) this.ar = [x];
   if (x instanceof Promise) x.then(y => ar.push(y));
@@ -460,34 +461,39 @@ var O_004 = {ar: []};
 
 
 h('h3#bindDef',  'The Definition of bind'  )
+  
+function bind (x, ar=[]) {
+  var ar = ar;
+  if (ar.length === 0) ar = [x];
+  if (x instanceof Promise) x.then(y => ar.push(y));
+  else ar.push(x)
+  return function debug8 (func) {
+    if (func.name === "terminate") return ar;
+    var p;
+    if (x instanceof Promise) {
+      p = x.then(v => func(v));
+    }
+    else p = func(x);
+    return bind(p, ar);
+  };
+};
 
-var bind = Bindo("bindo");
-var bind1 = Bindo("bind1");
-var bind2 = Bindo("bind2");
-var bind3 = Bindo("bind3");
-var bind4 = Bindo("bind4");
-var bind5 = Bindo("bind5");
-var bind6 = Bindo("bind6");
-var bind7 = Bindo("bind7");
-var bind8 = Bindo("bind8");
-var bind9 = Bindo("bind9");
-
-function Bindo (str) {
-  Bindo[str] = [];
+function Bind (str) {
+  Bind[str] = [];
   return function bindo ( x ) {
     if (x instanceof Promise) x.then(y => {
-      Bindo[str].push(y);
+      Bind[str].push(y);
       diffRender();
-      console.log(Bindo[str]);
+      console.log(Bind[str]);
     })
     else {
-      Bindo[str].push(x)
+      Bind[str].push(x)
       diffRender();
     }
-    console.log(Bindo[str]);
+    console.log(Bind[str]);
     return function debug8 (func) {
       var p;
-      if (func.name === "terminate") return Bindo[str];
+      if (func.name === "terminate") return Bind[str];
       if (x instanceof Promise) {
         p = x.then(v => func(v));
       }
@@ -506,35 +512,45 @@ function bindDriver () {
   })
 };
 
-function BindoSimple (str) {
-  Bindo[str] = [];
+var bind1 = Bind("bind1");
+var bind2 = Bind("bind2");
+var bind3 = Bind("bind3");
+var bind4 = Bind("bind4");
+var bind5 = Bind("bind5");
+var bind6 = Bind("bind6");
+var bind7 = Bind("bind7");
+var bind8 = Bind("bind8");
+var bind9 = Bind("bind9");
+
+function BindSimple (str) {
+  Bind[str] = [];
   return function bindo ( x, ob = {ar: []} ) {
     if (x instanceof Promise) x.then(y => {
-      Bindo[str].push(y);
+      Bind[str].push(y);
       diffRender();
-      console.log(Bindo[str]);
+      console.log(Bind[str]);
     })
     else {
-      Bindo[str].push(x)
+      Bind[str].push(x)
       diffRender();
     }
-    console.log(Bindo[str]);
+    console.log(Bind[str]);
     return function debug8 (func) {
       var p;
-      if (func.name === "terminate") return Bindo[str];
+      if (func.name === "terminate") return Bind[str];
       if (x instanceof Promise) {
         p = x.then(v => func(v));
       }
       else p = func(x);
-      return bindo(p,Bindo[str]);
+      return bindo(p,Bind[str]);
     };
   };
 };
 
-var b0 = () => Bindo.bind;
-var b3 = () => Bindo.bind3;
-var bindArr = Bindo("bindoArr")([]);
-var bindOb = Bindo("bindoOb")({ar: []});
+var b0 = () => Bind.bind;
+var b3 = () => Bind.bind3;
+var bindArr = Bind("bindoArr")([]);
+var bindOb = Bind("bindoOb")({ar: []});
 
 
 var aBind = [];
@@ -738,6 +754,22 @@ function bindEmitterDriver () {
 
 var bindAr$ = ar => xs.of(ar);
 
+function bind (x, ar=[]) {
+  var ar = ar;
+  if (ar.length === 0) ar = [x];
+  if (x instanceof Promise) x.then(y => ar.push(y));
+  else ar.push(x)
+  return function debug8 (func) {
+    if (func.name === "terminate") return ar;
+    var p;
+    if (x instanceof Promise) {
+      p = x.then(v => func(v));
+    }
+    else p = func(x);
+    return bind(p, ar);
+  };
+};
+
 function Driver () {
   return xs.create({
     start: listener => { freddy$ = k => listener.next(k)},
@@ -921,6 +953,11 @@ async function cubeP (x) {
 
 async function idP (x) {
   await wait(1200)
+  return x;
+}
+
+async function idQ (x) {
+  await wait(100)
   return x;
 }
 

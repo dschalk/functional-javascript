@@ -22,7 +22,7 @@ onmessage = function(m) {
   var max = m.data[0][m.data[0].length - 1];
   primesState = [max, m.data[0], max, m.data[0]];
   importScripts('script2.js');
-  postMessage(g(primesState)(m.data[1] + 1));
+  postMessage(g(primesState)(parseInt(m.data[1],10) + 1));
 }
 
 
