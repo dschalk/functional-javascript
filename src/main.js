@@ -1340,11 +1340,11 @@ var pingpong4$ = pinpon4$.map(() => {
       h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 1 - WebSocket and worker messaging.'),
       h('span.tao', ' The first demonstration consists of bind(125) followed by a math computation, a function that sends the computation result to the WebSocketr server, a function that sends the WebSocket response to a web worker, and a function that uses the worker response to update the browser display and the prime number cache. '), 
       h('p#defsReturn'),
-      h('span.tao', ' it4() and it6 are asynchronous functions that use the more efficient (but less featured) callback handler "MonadItter" rather than promises but, as Demonstration 2 illustrates, Ecmascript 2015 promises work nicely with bind and its clones. MonadItter is discussed in several places further down this page. The definitions of the functions involved in Example 1 are shown, with comments, in the order in which they are encountered in the '),
+      h('span.tao', ' it4() and it6() are asynchronous functions that use the more efficient (but less featured) callback handler "MonadItter" rather than promises but, as Demonstration 2 illustrates, Ecmascript 2015 promises work nicely with bind and its clones. MonadItter is discussed in several places further down this page. The definitions of the functions involved in Example 1 are shown, with comments, in the order in which they are encountered in the '),
       h('a', {props: {href: "#defs" }},  'appendix'),
       h('span', '.' ),
       h('br'),
-      h('p', ' After the first run, caching of prime numbers shortens the elapsed times of subsequent runs. On my computer, using the server address "localhost:3055", the first run takes around 4 seconds. Subsequent runs usually take 1.3 to 1.4 seconts. I say "usually" because in certain extremely improbable circumstances, for example if all twenty-five numbers received from the server are less than 100, the cache would be small and the performance boost negligible. I haven\'t seen anything even approaching this during testing. '),
+      h('p', ' After the first run, caching of prime numbers shortens the elapsed times of subsequent runs Chrome but degrades preformance on Firefox. On my computer, the first run takes around 4 seconds on Chrome but only around 1.4 seconds on Firefox. Subsequent runs start out slower and become increasingly slower, sometimes taking more than six seconds. This suggests that the cache lookup algorithm should be revised or replaced. Something for another day. '),
 
 
       h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 2 - accessing prior values and avoiding clashes.'),

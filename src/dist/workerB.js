@@ -17,7 +17,6 @@ onmessage = function(m) {
 
   postMessage(['red', 'yellow', 'yellow', 'color', 
     'computing fibs', 'pending', 'pending']);
-  console.log('Hello Nurse');
   execF(ar[1]).bnd(fpTransformer, ar[0], x)
 }
 
