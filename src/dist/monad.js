@@ -1,6 +1,6 @@
 
 
-
+var primeState = [2,3,5];
 
 var ping43 = {style: {display: "inline"}};
 var ping44 = {style: {display: "inline"}};
@@ -781,15 +781,24 @@ var it4 = x => {
   if (socket.readyState === 1) socket.send(`BC#$42,${pMgroup.x},${pMname.x},${x}`);
 }
 
-var it6 = x => {
-  mMZ40.bnd(x => workerH.postMessage([primesMonad.s[3], x]));
+var it6 = y => {
+  console.log('******* In it6 == primeState and y are', primeState, y);
+  mMZ40.bnd(y => workerH.postMessage([primeState,y]));
 }
 
- var it7 = v => mMZ41.bnd( v => {
-    m42_RESULT7.unshift(h('p', orange,
-    'The prime factors of ' + v[0] + v[4] + v[5]));
-  });
+var callOrder = 0;
+var start77;
 
+var it7 = () => mMZ52.bnd(string => {
+  callOrder = callOrder > 24 ? 1 : callOrder + 1;
+  if (callOrder === 1) start77 = Date.now(); 
+  m42_.push(callOrder + "  ");
+  m42_.push(string)
+  m42_.push(h('br'));
+  if (callOrder === 25) m42_.push('Elapsed time: ' + (Date.now() - start77) + " ms");
+});
+
+  
 var RESULT_7 = [];
 
 var it8 = x => {
@@ -2130,7 +2139,6 @@ function execP (state, num) {
   if (num == state[0] || num == top) {
     result = new MonadState('primesMonad', state);
   }
-
   else if (num < top) {
     var temp = primes.filter(v => v <= num);
     var q = temp.indexOf(temp[temp.length - 1]);
