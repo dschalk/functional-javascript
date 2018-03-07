@@ -1344,8 +1344,7 @@ var pingpong4$ = pinpon4$.map(() => {
       h('a', {props: {href: "#defs" }},  'appendix'),
       h('span', '.' ),
       h('br'),
-      h('p', ' After the first run, caching of prime numbers shortens the elapsed times of subsequent runs Chrome but degrades preformance on Firefox. On my computer, the first run takes around 4 seconds on Chrome but only around 1.4 seconds on Firefox. Subsequent runs start out slower and become increasingly slower, sometimes taking more than six seconds. This suggests that the cache lookup algorithm should be revised or replaced. Something for another day. '),
-
+      h('p', ' After the first run, caching of prime numbers usually shortens time it takes to complete subsequent runs. I say \"usually\" because if, for example, the first twenty-five pseudo-random numbers obtained from the server happened to be less than 100, which is extremely improbable, the cache size would be so small that there would be no noticeable shortening of next elapsed time. ' ),
 
       h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 2 - accessing prior values and avoiding clashes.'),
       h('p', ' If you enter an argument x for test5(x) (right column), the code shown in the right column will run. The delays are caused by ES6 promises. '),  
