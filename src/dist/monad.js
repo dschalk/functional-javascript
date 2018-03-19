@@ -783,7 +783,7 @@ var it4 = x => {
 
 var it6 = y => {
   console.log('******* In it6 == primeState and y are', primeState, y);
-  mMZ40.bnd(y => workerH.postMessage([primeState,y]));
+  mMZ40.bnd(y => workerH.postMessage([primeState, y, playerName]));
 }
 
 var callOrder = 0;

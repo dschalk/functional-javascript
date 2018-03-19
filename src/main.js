@@ -161,7 +161,8 @@
      });
 
      mMZ28.bnd( () => {
-       mMZ40.release(v[3]);
+       if (playerName === sender) mMZ40.release(v[3]);
+       else console.log('message from sender to BC#$42')
      });
 
      ret(v[0])
@@ -587,35 +588,35 @@ function bind (x, ar=[]) {
 
       var factorsAction7$ = factorsClick7$.map( e => {
         m42_ = [];
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
 
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
 
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
         
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
 
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
-        bind(125)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
       });
     
       workerH$ = sources.WWH.map(m => {
@@ -1338,13 +1339,13 @@ var pingpong4$ = pinpon4$.map(() => {
 
 
       h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 1 - WebSocket and worker messaging.'),
-      h('span.tao', ' The first demonstration consists of bind(125) followed by a math computation, a function that sends the computation result to the WebSocketr server, a function that sends the WebSocket response to a web worker, and a function that uses the worker response to update the browser display and the prime number cache. '), 
+      h('span.tao', ' The first demonstration consists of bind(145) followed by a math computation, a function that sends the computation result to the WebSocketr server, a function that sends the WebSocket response to a web worker, and a function that uses the worker response to update the browser display and the prime number cache. '), 
       h('p#defsReturn'),
       h('span.tao', ' it4() and it6() are asynchronous functions that use the more efficient (but less featured) callback handler "MonadItter" rather than promises but, as Demonstration 2 illustrates, Ecmascript 2015 promises work nicely with bind and its clones. MonadItter is discussed in several places further down this page. The definitions of the functions involved in Example 1 are shown, with comments, in the order in which they are encountered in the '),
       h('a', {props: {href: "#defs" }},  'appendix'),
       h('span', '.' ),
       h('br'),
-      h('p', ' After the first run, caching of prime numbers usually shortens time it takes to complete subsequent runs. I say \"usually\" because if, for example, the first twenty-five pseudo-random numbers obtained from the server happened to be less than 100, which is extremely improbable, the cache size would be so small that there would be no noticeable shortening of next elapsed time. ' ),
+      h('p', ' After the first run, caching of prime numbers usually shortens time it takes to complete subsequent runs. The effects was very pronounced in the Chrome browser, but in Firefox, the first run was so fast that hardly any effect was observed durning testing. ' ),
 
       h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 2 - accessing prior values and avoiding clashes.'),
       h('p', ' If you enter an argument x for test5(x) (right column), the code shown in the right column will run. The delays are caused by ES6 promises. '),  
@@ -1372,13 +1373,13 @@ h('br'),
 h('div', {style: {width: '47%', fontSize: '15px', float: 'right'}}, [  // ********* RIGHT PANEL
 
 h('h3', 'Demonstration 1' ),
-h('span', ' Click below to run bind(125)(x=>x\*x\*x)(it4)(it6)(it7) twenty-five times. The left column is the call order.'),
+h('span', ' Click below to run bind(145)(x=>x\*x\*x)(it4)(it6)(it7) twenty-five times. The left column is the call order.'),
 h('br'),
 h('br'),
-h('span', styleFunc(["rgb(7, 247, 247)","12%","20px",,,,,]), 'bind(125)(x=>x\*x\*x)(it4)(it6)(it7)'),
+h('span', styleFunc(["rgb(7, 247, 247)","12%","20px",,,,,]), 'bind(145)(x=>x\*x\*x)(it4)(it6)(it7)'),
 h('br'),
 h('br'),
-h('button#factors_Q', {style: {fontSize: '15px'}}, 'bind(125)(x=>x\*x\*x)(it4)(it6)(it7)'),
+h('button#factors_Q', {style: {fontSize: '15px'}}, 'bind(145)(x=>x\*x\*x)(it4)(it6)(it7)'),
 h('span', "~~"),
 h('button.clear_Q', {style: {fontSize: '15px', marginLeft: "0"}},  'clear results'),
 h('br'),
@@ -2270,35 +2271,35 @@ var factorsClick7$ = sources.DOM
 var factorsAction7$ = factorsClick7$.map( e => {
   m42_ = [];
 
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
 
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
 
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
   
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
 
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
-  bind(125)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
+  bind(145)(x=>x*x*x)(it4)(it6)(it7);
 }); ` ),
     
 h('p', 'it4() sends the number 2,197,000 to the server which responds by sending back a pseudo-random number between 1 and 2,197,000. '),
@@ -2440,7 +2441,7 @@ h('pre', `  var MonadItter = function MonadItter() {
 h('h3', 'Promises'),
 
 h('p', ' As the definition of MonadItter shows, bnd() saves functions until release() causes them to execute. MonadItter instances are usually used on this webpage where promises, generators, and async/await could also do the job. '),
-h('p', 'Here are the Promises-based functions prm4() and prm6() that can be substituted for it4() and it6() in the expression bind(125)(cubeC)(it4)(it6): '),
+h('p', 'Here are the Promises-based functions prm4() and prm6() that can be substituted for it4() and it6() in the expression bind(145)(cubeC)(it4)(it6): '),
 h('pre', `  const prm4 = x => {
   if (socket.readyState === 1) socket.send(\'BB#\$42,pMgroup,pMname,' + x);
   return new Promise( (resolve, reject) => {
@@ -2454,7 +2455,7 @@ const prm6 = x => {
 } `),
 
 h('p', ' Error handling is easy when using MonadItter instances, and is entirely optional. '), 
-h('p', ' After "bind(125)(cubeC)(it4)(it6)(it7) runs, the prime decomposition of the number it recieved arrives from workerG. The workerGDriver (sources.WWG) detects the message and adds it to the workerG$ stream. Here is the definition of workerGDriver:  ' ),
+h('p', ' After "bind(145)(cubeC)(it4)(it6)(it7) runs, the prime decomposition of the number it recieved arrives from workerG. The workerGDriver (sources.WWG) detects the message and adds it to the workerG$ stream. Here is the definition of workerGDriver:  ' ),
 h('pre', `  function workerGDriver () {
   return xs.create({
     start: listener => { workerG.onmessage = msg => listener.next(msg)},
@@ -2462,7 +2463,7 @@ h('pre', `  function workerGDriver () {
   });
 }; `),
 h('p', ' Clicking the "decompose fifteen random numbers" button causes factorsRecursion(0) to execute. Here\'s the code: '),
-h('pre', blue,  `  const factorsRecursion = n => bind(125)(cubeC)(it4)
+h('pre', blue,  `  const factorsRecursion = n => bind(145)(cubeC)(it4)
   (it6)(() => { if (n < 15) factorsRecursion(n+1)}); `),
 h('p', 'result778(m.data) is called each time a message from workerG arrives. The definition of result778 is:   ' ),
 h('pre', blue, `var result778 = x => h('div', [
@@ -2478,7 +2479,7 @@ h('pre', `const workerG$ = sources.WWG.map(m => {
     m778_RESULT = result778(m.data);
     primesMonad = new MonadState('primesMonad', m.data[2]);
     }); `),
-  h('pre', bigGreen, `const factorsRecursion = n => bind(125)(cubeC)(it4)
+  h('pre', bigGreen, `const factorsRecursion = n => bind(145)(cubeC)(it4)
   (it6)(pause)(() => { if (n < 15) factorsRecursion(n+1)}); `),
 
 h('pre', bigGold, `  var test5 = x => {
