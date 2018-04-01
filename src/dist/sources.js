@@ -84,6 +84,13 @@ function workerJDriver () {
   });
 };
 
+function workerKDriver () {
+  return xs.create({
+    start: listener => { workerK.onmessage = msg => listener.next(msg)},
+    stop: () => { workerK.terminate() }
+  });
+};
+
 
 function workerDriver () {
   return xs.create({
@@ -151,6 +158,7 @@ sources = {
   WWH: workerHDriver,
   WWI: workerIDriver,
   WWJ: workerJDriver,
+  WWJ: workerKDriver,
   WW: workerDriver,
   PP: pingpongDriver,
   FD: fredDriver,

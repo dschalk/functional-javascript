@@ -1,6 +1,23 @@
 
+var wolf = 223;
+console.log('h is', h, 'PLOWAZUPI!');
 
-var primeState = [2,3,5];
+function wait(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
+var S7;
+var store;
+var cow19 = 0 
+
+var primeState = [2];
+var counter;
+
+function counter (n, acc = 0) {
+  return n === 0 ? acc : counter(n - 1, acc + 1)
+}
+
+exports = counter
 
 var ping43 = {style: {display: "inline"}};
 var ping44 = {style: {display: "inline"}};
@@ -23,6 +40,7 @@ var workerG = new Worker("workerG.js");
 var workerH = new Worker("workerH.js");
 var workerI = new Worker("workerI.js");
 var workerJ = new Worker("workerJ.js");
+var workerK = new Worker("workerK.js");
 
 var m42_ = ['ready'];
 
@@ -671,7 +689,7 @@ function bind3 (x, ar=[], str="fred") {
 
 var logger = () => {console.log('(*)(*)(*)', arm ); return x};
 
-function bind6 (x, ar = [], o = {a: 0}) {
+/*function bind6 (x, ar = [], o = {a: 0}) {
   var arm = ar;
   var ob = o 
   if (x instanceof Promise) x.then(y => arm.push(y));
@@ -692,7 +710,7 @@ function bind6 (x, ar = [], o = {a: 0}) {
       return bind2(p, arm);
     };
   };
-};
+};  */
 
 var runDemo = n => {
   bind2(n)(cubeP)(addP(3))(a=>a+arm[0]+arm[1]-18)
@@ -780,6 +798,11 @@ function Driver () {
 var it4 = x => {
   if (socket.readyState === 1) socket.send(`BC#$42,${pMgroup.x},${pMname.x},${x}`);
 }
+ 
+var wH$ = sources.WWH();
+var worker$ = sources.WWH();
+
+worker$._ils = [2];
 
 var it6 = y => {
   console.log('******* In it6 == primeState and y are', primeState, y);
@@ -797,7 +820,6 @@ var it7 = () => mMZ52.bnd(string => {
   m42_.push(h('br'));
   if (callOrder === 25) m42_.push('Elapsed time: ' + (Date.now() - start77) + " ms");
 });
-
   
 var RESULT_7 = [];
 
@@ -890,6 +912,12 @@ var release = t => instance => async param => {
   instance.release(param);
 }
 
+var logDelay = async x => {
+  await wait(3000)
+  console.log(x)
+}
+  
+logDelay("Demonstrating logDelay");
 
 
 async function pause (x) {
@@ -909,15 +937,6 @@ async function pauseX (x) {
 async function squareP (x) {
   await wait(1200)
   return x*x;
-}
-
-function wait(ms) {
-  return new Promise(r => setTimeout(r, ms));
-}
-
-var wai = async x => {
-  await setTimeout(x = x, 1200);
-  return x;
 }
 
 const divPinverse = a => async b => {
@@ -942,7 +961,7 @@ const doubleP = async a => {
 
 const addP = x => async y => {
   await wait(1200)
-  return x + y;
+  return toInt(x) + toInt(y);
 }
 
 const addPA = x => async y => {

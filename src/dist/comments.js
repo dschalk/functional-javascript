@@ -53,16 +53,12 @@ MonadState3.prototype.remove = function (num) {
 function process (a) { //Assembles the HTML for display.
   var arr = a;
   commentMonad.html = [];
-  console.log('In process in comments.js. ************************ arr is', arr);
   var n = -1;
   arr.map(a => { 
-    console.log('In arr.map - - - - - - - a is ', a );
     var x = a.split("<o>");
     if (x.length != 2) x = ['malfunction', '8888']
-    console.log('In arr.map o o o o o o o x is ', x );  
     x[1] = x[1].replace(/<<>>/g, ',');
     show = showFunc(x[0], pMname.x);
-    console.log('<><><><> in process. x[0],pMname.x, show', x[0],pMname.x,show);
     n+=1;
     commentMonad.html.push(h('div#'+n, [
       h('span', x[0] + ' commented: ' + x[1].replace(/<<>>/g, ",")),

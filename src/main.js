@@ -1,13 +1,16 @@
-  import {run} from '@cycle/xstream-run';
-  import {h, p, span, h1, h2, h3, pre, br, div, label, input, hr, makeDOMDriver} from '@cycle/dom';
-  import code from './code.js';
   import {curry, flip, compose} from 'ramda'
+  import {h, p, span, h1, h2, h3, pre, br, div, label, input, hr, makeDOMDriver} from '@cycle/dom';
+  import Cycle from '@cycle/xstream-run'
+  import code from './code.js';
+  import { operator } from 'sweet-core'
+  import { run } from './cycle-run.js'
 
-  console.log(' Now loading main.js <@><@><@><@> <<< @ >>> <@><@><@><@>');
+  console.log('operator', operator);
+
   var textA = h('textarea', 'You bet!' );
   var formA = h('form#horses', 'You bet!' );
   console.log(xs);
-
+  console.log("BLOW ME"); 
 
   login();
   function login () {
@@ -609,23 +612,45 @@ function bind (x, ar=[]) {
         bind(145)(x=>x*x*x)(it4)(it6)(it7);
         bind(145)(x=>x*x*x)(it4)(it6)(it7);
         bind(145)(x=>x*x*x)(it4)(it6)(it7);
+
         bind(145)(x=>x*x*x)(it4)(it6)(it7);
+        bind(145)(x=>x*x*x)(it4)(it6)(it7);
+
+
         bind(145)(x=>x*x*x)(it4)(it6)(it7);
 
         bind(145)(x=>x*x*x)(it4)(it6)(it7);
         bind(145)(x=>x*x*x)(it4)(it6)(it7);
         bind(145)(x=>x*x*x)(it4)(it6)(it7);
         bind(145)(x=>x*x*x)(it4)(it6)(it7);
-        bind(145)(x=>x*x*x)(it4)(it6)(it7);
       });
-    
+      
+
+   /*      var sortFactors = ar => ar.sort(function(x,y) {
+        return (x - y);
+      });
+
+      workerH$ = sources.WWH.map(m => {
+        console.log('m.data <D><D><D><D><D><D> ', m.data);
+        var promes = m.data[0];
+        var factors = m.data[1];
+        var p = primeState.concat(primes);
+        var z;
+        if (factors.length > 1) {
+          z = "The prime factors of " + x + " are " + sortFactors(factors).join(', ')
+        }
+        else z = x + " is a prime number"
+        mMZ52.release(z);
+      });
+*/
+
       workerH$ = sources.WWH.map(m => {
         console.log('In workerH\$.js. <m><m><m> Incoming message m is', m);
         mMZ52.release(m.data[1]);
         var w = m.data[0][m.data[0].length - 1];
         if (m.data[0].length > primeState.length) primeState = m.data[0];
       });   
-
+  
       var factors3Press$ = sources.DOM
           .select('input#factors').events('keypress');
 
@@ -1268,6 +1293,26 @@ var pingpong4$ = pinpon4$.map(() => {
     };
   }); 
 
+counter = function counter(n, acc = 0) {
+  var _repeat = true;
+
+  var _n, _acc;
+
+  while (_repeat) {
+    _repeat = false;
+
+    if (n === 0) {
+      return acc;
+    } else {
+      _n = n - 1
+      _acc = acc + 1
+      n = _n
+      acc = _acc
+      _repeat = true;
+      continue;
+    }
+  }
+}
 
 
 
@@ -1289,44 +1334,44 @@ var pingpong4$ = pinpon4$.map(() => {
         h('br'),
         h('br'),
         h('div.content', [
-        h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' Composing functions like this: '),
+        h('span', styleFunc(["#d3ead5",,"18px",,,]), ' Composing functions like this: '),
         h('br'),
         h('br'),
-        h('div', styleFunc(["#FFD700",,"21px",,,"center"]), 'bind(x)(functiona1)(function2) ... (functionN)'),
+        h('div', styleFunc(["#FFD700","3%","21px",,,]), 'bind(x)(functiona1)(function2) ... (functionN)'),
         h('br'),
 
-        h('span', styleFunc(["#d3ead5","3%","18px",,,]), 'where '),
-        h('pre', styleFunc(["#ffff00",,"18px",,,]), `        x can be any value,
+        h('span', styleFunc(["#d3ead5",,"18px",,,]), 'where '),
+        h('pre', styleFunc(["#FFD700",,"18px",,,]), `  x can be any value,
 
-          there are no restrictions on the functions\' argument types, 
+  there are no restrictions on the functions\' argument types, 
 
-          there are no restrictions on the functions\' return value types,
+  there are no restrictions on the functions\' return value types,
 
-          any function in the chain can be asynchronous,
+  any function in the chain can be asynchronous,
 
-          functions have built-in access to all prior functions\' return values,
+  functions have built-in access to all prior functions\' return values,
 
-          functions have built-in access to all prior promises\' resolution values. `),
-        h('span', styleFunc(["#d3ead5","3%","18px",,,]), ' looks very flexible and expressive, but you might wonder if there is a function named "bind" that cam efficiently and reliably facilitates this. Well, here is thw ' ),      
+  functions have built-in access to all prior promises\' resolution values. `),
+        h('span', styleFunc(["#d3ead5",,"18px",,,]), ' looks very flexible and expressive, but you might wonder if there is a function named "bind" that can efficiently and reliably facilitate this. Well, here is the ' ),      
         h('a', {props: {href: "#bind" }},  'definition of bind'),
-        h('span', ' used in "Demonstration 1". It consists of fifteen short lines of straightforward code. Testing confirms that it is as robust as it is easy for experienced JavaScript programmers to understand, tweak, and use. They need only to make it reactive in the platforms (if any) they +use. I show, in the '),
+        h('span', ' that is used in "Demonstration 1". It consists of fifteen short lines of straightforward code. Testing confirms that it is as robust as it is easy to understand, tweak, and use. Programmers do need to make it reactive in the platforms (if any) they use. I show, in the '),
       h('a', {props: {href: "#defs" }},  'appendix'),
-        h('span', ', one way of doing this using features of Cycle.js. ' ), 
+        h('span', ', one way of doing this using features of Cycle.js. In another platform, perhaps with error handling type checking, and another name, "bind" might look very different. My purpose here is to encourage web application developers to break free from any confining composition methods that might be hindering their creativity.' ), 
         h('br'),
         h('br'),  
-        h('span.tao', ' "bind" can easily be expanded to intercept runtime errors, check types, etc. For example, the factory function "Bind" creates versions of bind with unique namespaces. "Demonstration 2" shows ten functions created by "Bind" seeming to execute in parallel (they actually run in a single thread). The '),
+        h('span.tao', ' "bind" can easily be expanded to intercept runtime errors, check types, etc. "Demonstration 2" shows ten functions created by the factory function "Bind" that seem to execute in parallel while actually running in a single thread). The '),
 
+        h('a', {props: {href: "#Bind" }},  'definition of Bind'),
           
-        h('a', {props: {href: "#bind2" }},  "definition of Bind" ),
         h('span', ' is presented in the appendix.'),
       h('p', 'Functions that take multiple arguments should be curried, or else their arguments should be contained in single arrays or objects. This is a consequence of the fact that functions can only return single values, and those return values are the arguments of the functions linked to their right sides. ' ),
       h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
       h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "  .flow" ),
       h('span', ' and Ramda\'s '),
       h('a', {props: {href: "http://ramdajs.com/docs/#compose"}}, 'R.compose' ),
-      h('span', ', that facilitate simple function composition; i.e., each function\'s argument is the preceding function\'s return value. bind() does this while also giving every linked function along a pipeline access to the return values of every function that preceded it.  '),
+      h('span', ', that facilitate simple function composition; i.e., each function\'s argument is the preceding function\'s return value. bind() does this while also giving every linked function along a pipeline access to the return values of every function and resolution value of every promise that preceded it.  '),
       h('br'),
-      h('p', 'CAUTION - THE COMMENTARTY AFTER THE DEMONSTRATIONS STILL LAGS BEHIND RECENT REFACTORING.'),
+      h('p', 'CAUTION - THE COMMENTARY AFTER THE DEMONSTRATIONS STILL LAGS BEHIND RECENT REFACTORING.'),
       h('br'),
       ]),
 
@@ -1339,7 +1384,7 @@ var pingpong4$ = pinpon4$.map(() => {
 
 
       h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 1 - WebSocket and worker messaging.'),
-      h('span.tao', ' The first demonstration consists of bind(145) followed by a math computation, a function that sends the computation result to the WebSocketr server, a function that sends the WebSocket response to a web worker, and a function that uses the worker response to update the browser display and the prime number cache. '), 
+      h('span.tao', ' The first demonstration consists of bind(145) followed by a math computation, a function that sends the computation result to the WebSocket server, a function that sends the WebSocket response to a web worker, and a function that uses the worker response to update the browser display and the prime number cache. '), 
       h('p#defsReturn'),
       h('span.tao', ' it4() and it6() are asynchronous functions that use the more efficient (but less featured) callback handler "MonadItter" rather than promises but, as Demonstration 2 illustrates, Ecmascript 2015 promises work nicely with bind and its clones. MonadItter is discussed in several places further down this page. The definitions of the functions involved in Example 1 are shown, with comments, in the order in which they are encountered in the '),
       h('a', {props: {href: "#defs" }},  'appendix'),
@@ -1351,7 +1396,8 @@ var pingpong4$ = pinpon4$.map(() => {
       h('p', ' If you enter an argument x for test5(x) (right column), the code shown in the right column will run. The delays are caused by ES6 promises. '),  
       h('span.tao', 'bind() and variations on its theme are produced by a factory named "Bind". For example, bind1 is created with the code '),
       h('span',  {style: {color: "#FFD700"}}, `"var bind1 = Bind(\'bind1\')"  `), 
-      h('span', '.'), 
+      h('span', '. Here is the '), 
+      h('a', {props: {href: "#bind2" }},  "definition of Bind" ),
       h('p', ' bind1 is a function. Bind.bind1 is an array not of the promises returned by each function, but rather it is an array of the values that are produced as each promise resolves. "Bind.bind1" is a permanent fixture in the virtual DOM description returned by main(). You can watch it and nine similar arrays as their lengths seem to increase in parallel by entering an integer in the right column.'),
       h('p', ' Demonstration 2 shows that the nine sequences do not interfere with one another. They can\'t corrupt data outside of the namespace created by Bind, nor can they be corrupted by outside processes. '),  
         
@@ -1364,7 +1410,7 @@ var pingpong4$ = pinpon4$.map(() => {
 
 
   h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 3 '),
-  h('span', ' This demonstation uses a closure PingpongMaker, not Bind, to define clones of the function "ping" with separate namespaces. Here is '),
+  h('span', ' This demonstration uses a closure PingpongMaker, not Bind, to define clones of the function "ping" with separate namespaces. Here is '),
   h('a', {props: {href: '#pingmaker'}}, 'more information about Demonstration 3.' ),
 h('br'),
 ]),
@@ -1404,7 +1450,7 @@ Bind.bind9[1]))(v=>addP(Bind.bind9[1])(v)); `),
 
 h('div#zero', bigRed, Bind.bind1.join(', ') ),
 h('span', ' value of n --> '),
-h('input#test5', {style: {height: "15px" }}, ),
+h('input#test5', {style: {height: "15px" }} ),
 h('br'),
 h('div#z1', bigGreen, Bind.bind1.join(', ') ),
 h('div#z2', bigGreen, Bind.bind2.join(', ') ),
@@ -1502,7 +1548,7 @@ h('p', mMsoloAlert.x ),
 h('p', ' You can change your name by entering a comma-separated name and password below. The combination will go into a persistent file. You can use this combination in the future to edit or delete your saved comments. ' ),
 h('span.red', mMregister.x ),
 h('label', {style: {display: mMshowRegister.x }}, 'Register or log in here:'),
-h('input.register', {style: {display: mMshowRegister.x }},),
+h('input.register', {style: {display: mMshowRegister.x }} ),
 ])]),
 h('div#rightanel', { style: { display: 'block', float: 'right' } }, [
 h('br'),
@@ -1551,7 +1597,7 @@ h('h1', '________________________________________________' ),
 h('div.content', [
 h('a#bind', {props: {href: '#top'}}, 'Back to the top'),
 
-h('p', 'CAUTION - SOME OF THE COMMENTARTY AFTER THIS POINT STILL LAGS BEHIND RECENT REFACTORING.'),
+h('p', 'CAUTION - SOME OF THE COMMENTARY AFTER THIS POINT STILL LAGS BEHIND RECENT REFACTORING.'),
 h('p', ' Here are the definitions of bind: '),
 h('pre', {style: {color: "lightBlue"}}, `function bind (x, ar=[]) {
   var ar = ar;
@@ -1592,7 +1638,7 @@ h('a', { props: { href: "https://egghead.io/courses/cycle-js-fundamentals", targ
 h('span', ' Its elegance might take your breath away. ' ),
 h('br' ),
 h('br' ),
-h('a.tao', {props: {href: 'https://github.com/snabbdom/snabbdom'}}, ' Snabbdom', ),
+h('a.tao', {props: {href: 'https://github.com/snabbdom/snabbdom'}}, ' Snabbdom' ),
 h('span', ', ' ),
 h('a', {props: {href: 'http://x-stream.github.io/'}}, ' xstream,' ),
 h('span', ' and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimentation and learning so many supporting files are included as scripts in the index.html page. ' ),
@@ -1757,7 +1803,7 @@ h('pre', `  ret(2).bnd(v => add(v,1)
   h('p', 'For any instance of MonadItter, say "it", "it.bnd(func)" causes it.p === func. Calling the method "it.release(...args)" causes p(...args) to run, possibly with arguments supplied by the caller. '),
   h('p',' MonadItter instances control the routing of incoming WebSocket messages. In one of the demonstrations below, they behave much like ES2015 iterators.'),
   h('h3', ' A Basic Itterator '),
-  h('p', 'The following example illustrates the use of release() with an argument. It also shows a lambda expressions being provided as an argument for the method mMZ1.bnd() (thereby becoming the value of mMZ1.p), and then mMZ1.release providing an arguments for the function mMZ1.p. The code is shown beneith the following two buttons. '),
+  h('p', 'The following example illustrates the use of release() with an argument. It also shows a lambda expressions being provided as an argument for the method mMZ1.bnd() (thereby becoming the value of mMZ1.p), and then mMZ1.release providing an arguments for the function mMZ1.p. The code is shown beneath the following two buttons. '),
   h('button#testZ', 'mMZ33.release(1)'),
   h('p', mMt33.x ),
   h('span', 'Refresh button: '),
@@ -1800,13 +1846,13 @@ h('pre', `  ret(2).bnd(v => add(v,1)
       t.ret(0).bnd(v => add3(v,3).bnd(cube3)).x  ` ),
 
   h('h3', 'Feedback From the Error Monad' ),
-  h('span#comments', ),
+  h('span#comments' ),
   h('img.image', {props: {src: "error2.png"}}  ),
   h('div#comment'),
     h('h2', {style: {color: "red" }}, 'Comments' ),
 
   h('a', {props: {href: '#top'}}, 'Back to the top'),
-    h('div#com2',  { style: { display: abcde} }, ),
+    h('div#com2',  { style: { display: abcde} } ),
     h('p', ' When this page loads in the browser, a user name is automatically generated in order to establish a unique WebSocket connection. This makes it possible to exchange text messages with other group members, play the game, and work on a shared todo list. If you want to leave a comment, you need to log in with a user name and a password of your choice. Each can be a single character or you could use a hard-to-hack combination of alphabet letter, numbers, and special characters. The main requirement is that there be only one comma, and that it be placed between the name and the password. ' ),
     h('p', 'The server will keep your user name and password in a text file. If you use your saved user name and password sometime in the future, you will be able to edit or delete any comments you previously made. '),
     h('p', ' If you enter a user name that has not been recorded, you will be logged in as that user. The user name and password will be saved. This means that you do not need to first register and then log in. This is an all-in-one process. If you enter a recognized user name but the password does not match the password in the record, you will be asked to try again. ' ),
@@ -1993,7 +2039,7 @@ else if "GN#$42" \`T.isPrefixOf\` msg
   h('a', { props: { href: '#top' } }, 'Back To The Top'),
   h('br'),
 
-  h('div#reactivity', ),
+  h('div#reactivity' ),
   h('br'),
   h('a', {props: {href: "#reactivity2"}}, 'Back to the pingpong demo' ),
 
@@ -2415,14 +2461,12 @@ var g = p => x => {
   else z = x + " is a prime number"
   return [primes, z];
 }
-  
+
 onmessage = function(m) {
   var a = m.data[0];
-  var b = parseInt(m.data[1],10) + 1;
-  var c = g(a)(b);
-  console.log("In workerH.js -- a, b and c", a, b, c);
-  postMessage(c);
-};   ` ),
+  var b = parseInt(m.data[1],10);
+  postMessage(g(a)(b));
+}  ` ),
 
 h('p', ' "mMZ52.bnd(m => { ... " could have been placed anywhere. Putting it at the end of "bind(50)(x => x*x*x)(it4)(it6)(it7)"illustrates the flexibility of bind for the purposes of Example 1, but in production it would also make Demonstration 1 easier to understand by people responsible for maintaining the code. ' ),
 
@@ -2496,7 +2540,7 @@ h('pre', bigGold, `  var test5 = x => {
 
   bind3(n+2)(cubeP)(() => idP(Bind.bind3[0] -
   Bind.bind3[1]))(v=>addP(Bind.bind3[1])(v));} `), 
-h('p#bind2', ''),
+h('p#Bind', ''),
 h('a', {props: {href: '#top'}}, 'Back to the top'),
 
 h('pre',  `function Bind (str) {
@@ -2628,7 +2672,7 @@ diffRender = () => document.getElementById('diffRender').click()
 sources.DOM = makeDOMDriver('#main-container'),
 sources.WS = websocketsDriver,
 
-run(main, sources);
+Cycle.run(main, sources);
 
 
 

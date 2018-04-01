@@ -1,5 +1,6 @@
 
 
+
 function pNums(start, n) {
   var store  = [], i, j, primes = [];
   for (i = start; i <= n; ++i) {
@@ -10,6 +11,7 @@ function pNums(start, n) {
       }
     }
   }
+  console.log('In pNums <D><D><D> primes:', primes);
   return primes;
 }
 
@@ -23,7 +25,7 @@ function primeNums (p,x) {
   var q = p[p.length - 1];
   var arr = pNums(q,x); 
   // for (var i = q - 1; i < Math.ceil(x+1)+1; i+=1) if (isPrime(i)) arr.push(i);
-  arr = p.concat(arr)
+  // arr = p.concat(arr)
   return arr
 }  
 
@@ -45,12 +47,7 @@ sortFactors = ar => ar.sort(function(x,y) {
 var g = p => x => {
   var primes = primeNums(p,x);
   var factors = pfactors(primes,x);
-  var z;
-  if (factors.length > 1) {
-    z = "The prime factors of " + x + " are " + sortFactors(factors).join(', ')
-  }
-  else z = x + " is a prime number"
-  return [primes, z];
+  return ([primes,factors]);
 }
   
 onmessage = function(m) {
@@ -58,12 +55,5 @@ onmessage = function(m) {
   var b = parseInt(m.data[1],10);
   postMessage(g(a)(b));
 }
-
-
-
-
-
-
-
 
 
