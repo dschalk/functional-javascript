@@ -8,6 +8,15 @@
 
 
 
+function bind (x, ar=[]) {
+  var ar = ar;
+  ar.push(x)
+  return function debug8 (func) {
+    var p = func(x);
+    return bind(p, ar);
+  };
+};
+
 
 onmessage = function(m) {
   console.log('In workerB. m is', m);
@@ -17,9 +26,7 @@ onmessage = function(m) {
 
   postMessage(['red', 'yellow', 'yellow', 'color', 
     'computing fibs', 'pending', 'pending']);
-  execF(ar[1]).bnd(fpTransformer, ar[0], x)
+  // fpTransformer(execF(ar[1]), ar[0], x);
+  bind(ar[1])(execF)(fpFunc(ar[0])(x));
 }
-
-
-
 

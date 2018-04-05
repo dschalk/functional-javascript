@@ -1,4 +1,9 @@
 
+
+
+
+
+
 var wolf = 223;
 console.log('h is', h, 'PLOWAZUPI!');
 
@@ -11,6 +16,9 @@ var store;
 var cow19 = 0 
 
 var primeState = [2];
+var fibState = [0,1]; 
+
+
 var counter;
 
 function counter (n, acc = 0) {
@@ -106,6 +114,9 @@ var nl = '\n';
 var blue = {style: {color: "#96f9ff"}}
 var bigBlue = {style: {color: "#96f9ff",fontSize: "17"}}
 var bigGold = {style: {color: "#FFD700",fontSize: "17"}}
+var mediumGold = {style: {color: "#FFD700",fontSize: "15"}}
+var smG = {style: {color: "#FFD700",fontSize: "13"}}
+var medG = {style: {color: "#FFD700",fontSize: "15"}}
 var h3Simulation = {style: {color: "#FFD700",fontSize: "22"}}
 
 var pingL = ar => ar.filter(v => v === true).length;
@@ -577,7 +588,6 @@ var cBind = [];
 var dBind = [];
 
 function barfly (x) { 
-  console.log('x is',x);
   var foo = x; 
   return function farfly () { 
     foo+=1; 
@@ -595,11 +605,9 @@ var makeBind = name => x => {
     return function debug8 (func) {
       if (func.name === "terminate") return ar;
       name = ar;
-      console.log(ar);
       if (x instanceof Promise) {
         x = x.then(v => func(v));
         name = ar;
-        console.log(ar);
       }
       else x = func(x);
       return bin();
@@ -805,8 +813,7 @@ var worker$ = sources.WWH();
 worker$._ils = [2];
 
 var it6 = y => {
-  console.log('******* In it6 == primeState and y are', primeState, y);
-  mMZ40.bnd(y => workerH.postMessage([primeState, y, playerName]));
+  mMZ40.bnd(y => workerH.postMessage([primeState, y]));
 }
 
 var callOrder = 0;
@@ -820,7 +827,6 @@ var it7 = () => mMZ52.bnd(string => {
   m42_.push(h('br'));
   if (callOrder === 25) m42_.push('Elapsed time: ' + (Date.now() - start77) + " ms");
 });
-  
 var RESULT_7 = [];
 
 var it8 = x => {
@@ -838,7 +844,6 @@ const prm4 = x => {
   if (socket.readyState === 1) socket.send('BB#$42,pMgroup,pMname,' + x);
   return new Promise( (resolve, reject) => {
      mMZ37.bnd((y) => {
-       console.log('In prm4 - <><><><><> - y is',y);
        resolve(ret(y));
      })
   })
@@ -852,9 +857,7 @@ const prm6 = x => {
 
  async function trylock () {
    await wait(1000);
-   console.log('<%><>%<%><><%><><%><><%><><%> in tryLock');
    if (this.lock === true) {
-     console.log('this.lock = true');
      return trylock()
    }
    else { this.lock = true }
@@ -1708,7 +1711,6 @@ function factors_state3(a) {
 
 function primes_state(v) {
   if (v[0] == "CE#$42" && Array.isArray(v[1]) && typeof v[2] === 'number' ) {
-    console.log('In main thread Daddy-Oh and v is ', v );
     worker.postMessage(v)
   }
   else {
@@ -2143,7 +2145,6 @@ return ar
 }
 
 var x = f7();
-console.log(x)
 
 console.log('Almost at the bottom of monad.js primesMonad is', primesMonad );
 
@@ -2220,7 +2221,6 @@ function execD(listState, primeState, n) {
 
 function fact(v) {
   var ar = [];
-  console.log('Entering fact. v2 and v[1] are:', v2, v[1] );
   while (v2 != 1) {
     for (let p of v[1]) {
       if (v2 / p === Math.floor(v2 / p)) {
@@ -2239,13 +2239,10 @@ function fact2(s, b) {
   var ar = [];
   var n = b;
   while (n != 1) {
-    console.log('In fact2 n is ', n );
     s.map(p => {
       if (n/p === Math.floor(n/p)) {
-        console.log('In fact2. ar is', ar );
         ar.push(p);
         n = n/p;
-        console.log(n);
       };
     })
   }
@@ -2264,20 +2261,17 @@ var fibs_state = function fibs_state(ar) {
 };
 
 function lcm (cx,dx) {
-  console.log('************In lcm cx, dx ', cx, dx );
   var ar= [];
   var r;
   var c = cx.slice();
   var d = dx.slice();
   d.map(v => {
-    console.log('Hello from lcm, most excellent friend of mine.');
     if (c.some(x => x === v)) {
       ar.push(v)
       c.splice(c.indexOf(v),1)
       d.splice(d.indexOf(v),1)
     }
       r = ar.concat(d).concat(c).reduce(function (a,b) {return a*b})
-      console.log('Bottom of map in lcm ar, d, c, r', ar, d, c, r );
     }
   )
   return r
@@ -2309,7 +2303,6 @@ function fdTransformer (primeState, decompState, n) {
   var k;
   var result = new MonadState('decompMonad', decompState);
   if (n-1 < d) {
-    console.log('In fdTransformer ### n < d block. n and d are:', n, d )
     factors2[1].length = n;
     result = new MonadState('decompMonad', [n+1, factors2[1], factors.length+1, factors]);
   }
@@ -2317,7 +2310,6 @@ function fdTransformer (primeState, decompState, n) {
     while (d < n) {
       k = d;
       while (k != 1) {
-      console.log('In fdTransformer else block. n, d, k', n, d, k )
         primeState[3].map(p => {
           if (k/p === Math.floor(k/p)) {
             ar.push(p);
@@ -2372,17 +2364,14 @@ function elapsed (t) {
 }
 
 function simpleWay (a,b) {
-  console.log('In simpleWay a, b', a, b );
   var r = a*b;
   var a2 = a;
   var b2 = b;
   while (b % a !== 0) {
-    console.log('In the simpleWay while block. a, b', a, b );
     let z = a;
     a = b % a;
     b = z;
   }
-  console.log(a2, b2, a, a2*b2/a);
   return [a2, b2, a2*b2/a, a];
 }
 
@@ -2403,7 +2392,6 @@ function styl (s) {
 }
 
 function bNode (arr) {
-  console.log('In bNode - - - arr is', arr);
   var x = styl(arr.length);
   var node = h('div#bNode', [
     h('button#0.num', { style: { display: x[0] }}, ' ' + arr[0] + ' '),
@@ -2463,7 +2451,6 @@ function updateCalc(ar, op) {
   }
   else {
     var a = gameMonad.fetch4().slice();
-    console.log('OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO in update calc. a is', a);
     a.push(result);
     gameMonad.run([,,0,[],a,,]);
   }
@@ -2570,7 +2557,6 @@ function newRoll (a,b) {
   socket.send(`CA#$42,${pMgroup.x},${pMname.x},6,6,12,20,${a},${b}`);
 }
 function MonadState4(g, state) {
-    console.log('someone called with g and state in MonadState4', g, state);
     this.id = g;
     this.s = state;
     this.bnd = (func, ...args) => func(this.s, ...args);
@@ -2588,7 +2574,6 @@ MonadState4.prototype.run = function (str) {
   .map(x => x = x.split('<o>'))
   .map(v => s[v[0]] = v[1])
   this.s = s;
-  console.log('In MonadState4.run. &&&&&&&&&&&&&&&&&& s is', s);
 };
 
 MonadState4.prototype.test = function (name) {
@@ -2609,12 +2594,6 @@ function rand () {
 };
 
 var rand$ = xs.of(rand());
-
-  console.log('*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*');
-  console.log( 'Hello Nurse' );
-  console.log('*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*');
-
-
 
 function MonadEvents(z = 'default', ID = 'temp') {
   var _this = this;
@@ -2647,9 +2626,7 @@ function monadConstructor (v,b) {
   c.x = v;
   c.id = b;
   c.bnd = function (func, ...args) {
-    console.log(func);
     var m = func(c.x, ...args)
-    console.log(m);
     var ID;
     if (m instanceof MonadEmitter) {
       ID = testPrefix(args, c.id);
@@ -2659,14 +2636,12 @@ function monadConstructor (v,b) {
     else return m;
   }
   c.on(0, v => {
-    console.log(v)
     return v
   });
   c.on(1, v => {
       var mon = monadConstructor(v, c.id);
       return window[c.id] = mon;
   })
-  console.log(v);
   c.on(2, v => c.bnd(v))
   return c;
 };
@@ -2749,7 +2724,6 @@ var funcP = () => {
 }
     
     var ping = n => ar => {
-      console.log('#1 In ping -- n and ar[0] and ar[1] are',n,ar[0],ar[1]);
       var k = Math.floor(Math.random() * 5)+1;
       if(ar[0] > 10 || ar[1] > 10) {
         diffRender();
@@ -2774,7 +2748,6 @@ var funcP = () => {
           ping(0)(ar);
           diffRender();
         }
-        console.log('#2 In ping -- n and ar[0] and ar[1] are',n,ar[0],ar[1]);
       },500);
     }  
 
@@ -2796,7 +2769,6 @@ PingpongMaker = (name) => {
   return function train () {
     if (c[0] > 10 || c[1] > 10) return;
     var ms = 400;
-    console.log('a.style.color, b.style.color, c', a.style.display, b.style.display, c);
     if (a === _A3) {a = _A1; b = _A3}
     else if (a === _A1) {a = _A3; b = _A2};
     if (n <= k) {
@@ -2847,9 +2819,6 @@ var primesIt = gen(primesMonad.s[2]+1);
 function execP (state, num) {
   var x = state[2];
   var primes = state[3].slice();
-  console.log('<G><G><G><G><G><G><G> ***** cow ***** In execP. primes:');
-  console.log('<G><G><G><G><G><G><G> ********** In execP. primes:', primes);
-  console.log('<G><G><G><G><G><G><G> ****** dog **** In execP. primes:');
   if (x < num) {
     primesMonad = new MonadState('primesMonad', state);
     primesIt = gen(primesMonad.s[2]+1);
@@ -2869,14 +2838,10 @@ function execP (state, num) {
 function execQ (prms, num) {
   var x = prms[prms.length - 1];
   var primes = prms.slice();
-  console.log('<G><G><G><G><G><G><G> ********** In execP. primes:');
-  console.log('<G><G><G><G><G><G><G> ********** In execP. primes:', primes);
-  console.log('<G><G><G><G><G><G><G> ********** In execP. primes:');
   if (x < num) {
     var end = 0;
     var xx = Math.sqrt(num + 1);
     var yy = Math.ceil(xx);
-    console.log('in execQ -- xx and yy are', xx, yy );
     while (end < yy) {
       primes.push(primesIt.next().value);
       end = primes[primes.length - 1];
@@ -2901,7 +2866,6 @@ function pfactors (primes, n) {
       };
     })
   }
-  console.log('In pfactors -- ar is', ar);
   return ar;
 }
 

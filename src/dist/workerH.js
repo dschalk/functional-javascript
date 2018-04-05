@@ -13,19 +13,18 @@ function pNums(start, n) {
   return primes;
 }
 
-function isPrime(n) {
-   var m = Math.ceil(Math.sqrt(n));
-   for (var i=2;i<=m;i++) if (n%i==0) return false;
-   return true;
-}
+function small (primes, v) {
+  return primes.slice(0, primes.indexOf(primes.find(e => e > v)));
+};
 
 function primeNums (p,x) {
   var q = p[p.length - 1];
-  var arr = pNums(q,x); 
-  // for (var i = q - 1; i < Math.ceil(x+1)+1; i+=1) if (isPrime(i)) arr.push(i);
-  arr = p.concat(arr)
-  return arr
-}  
+  if (q > x) return small(p,x)
+  else {
+    var arr = pNums(q,x,p); 
+    return p.concat(arr);
+  }
+};
 
 function pfactors (prms, n) {
   var ar = [];
@@ -54,6 +53,7 @@ var g = p => x => {
 }
   
 onmessage = function(m) {
+  console.log('In onmesage in workerH.js')
   var a = m.data[0];
   var b = parseInt(m.data[1],10);
   postMessage(g(a)(b));

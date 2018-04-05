@@ -2,15 +2,10 @@
   import {h, p, span, h1, h2, h3, pre, br, div, label, input, hr, makeDOMDriver} from '@cycle/dom';
   import Cycle from '@cycle/xstream-run'
   import code from './code.js';
-  import { operator } from 'sweet-core'
   import { run } from './cycle-run.js'
-
-  console.log('operator', operator);
 
   var textA = h('textarea', 'You bet!' );
   var formA = h('form#horses', 'You bet!' );
-  console.log(xs);
-  console.log("BLOW ME"); 
 
   login();
   function login () {
@@ -155,7 +150,6 @@
 
      mMZ25.bnd( () => {        // Receive tasks when group changes
        console.log('QQQQQQQQQQQQQWWWWWWWWWWQQQQQQQQ in mMZ25.bnd. extra is ',extra);
-
        taskMonad.init(extra);
      });
 
@@ -190,7 +184,6 @@
     .bnd(next, 'BC#$42', mMZ28)  // works in conjunction with it4
    });
 
-   console.log('1^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ got this far');
   function next(x, y, instance, z) {
     if (x == y) {
         instance.release(z);
@@ -242,7 +235,6 @@
   var commentAction$ = comment$.map(e => {
     if (e.keyCode == 13) {
       e.preventDefault();
-      console.log('In commentAction$ eeeeeeeeeeeeeeeee e is', e );
       var comment = e.target.value.replace(/,/g, "<<>>");
       comment = pMname.x + "<o>" + comment
       socket.send(`GN#$42,${pMgroup.x},${pMname.x},<@>${comment}<@>`);
@@ -263,13 +255,10 @@
 
   var editBAction$ = editB$.map( function (e) {
     if (e.keyCode == 13) {
-      console.log("!!! <MAGNOLIA BLOSSOMS> !!! we are in editBAction$");
-      console.log('Here is e',e);
       var index = parseInt(e.target.parentElement.id, 10);
       var w = e.target.value.split(",");
       var nu = pMname.x + "<o>" + w.join('<<>>');
       var old = commentMonad.s[1].slice(index,index+1)[0];
-      console.log('This goes to the server from editBAction$',index,old,nu+'<@>');
       socket.send(`GE#$42,${pMgroup.x},${pMname.x},${index},${old},${nu}`);
     }
   })
@@ -308,7 +297,6 @@
         .select('input#group').events('keypress');
 
     var groupPressAction$ = groupPress$.map(e => {
-      console.log("BAMM! You");
       if (e.keyCode === 13) {
         send("CO#$42", e.target.value);
         gameMonad.run([0,0,0,[],[0,0,0,0],,e.target.value]);
@@ -347,7 +335,6 @@
       .select('#m80').events('change');
 
     var m80Action$ = m80Change$.map(() => {
-      console.log('Hot dog, we got a live one. m80.x is', m80.x);
     });
 
     var rollClick$ = sources.DOM
@@ -367,7 +354,6 @@
         var a = gameMonad.fetch3();
         var b = gameMonad.fetch4();
         a.push(b.splice(e.target.id, 1)[0]);
-        console.log('In numClickAction$ - - - gameMonad.index and gameMonad.s ', gameMonad.index, gameMonad.s );
         gameMonad.run([,,,a,b,,]);
         if (a.length === 2 && gameMonad.fetch2() != 0) {
           updateCalc(a, gameMonad.fetch2())
@@ -419,7 +405,6 @@
         .select('#double').events('keypress');
 
     var doubleAction$ = doublePress$.map(e => {
-      console.log('In doubleAction - - e is',e);
       var dRes = "";
       if (e.keyCode === 13) {
         bind(3)
@@ -473,7 +458,6 @@
       // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START PRIME FIB
 
       const workerB$ = sources.WWB.map(m => {
-        console.log('In workerB stream in the main thread. m, m[3] ', m, m.data[3] );
         if (m.data[3] === 'color') {
           fill1Monad.ret(m.data[0]);
           fill2Monad.ret(m.data[1]);
@@ -483,11 +467,8 @@
           mMprimeFibBlurb.ret(m.data[6]);
         }
         else {
-          console.log('m.data[3] ********************', m.data[3] );
           mMelapsed.ret(elapsed(m.data[0][3]))
-          .bnd(v =>  console.log(v));
           mMres.ret(m.data[0])
-          window['primesMonad'] = new MonadState('primesMonad', m.data[1], primes_state);
         }
       });
 
@@ -495,7 +476,7 @@
           .select('input#fib92').events('keyup');
 
       var primeFib$ = fibKeyPress5$.map(e => {
-        workerB.postMessage([primesMonad.s, e.target.value]);
+        workerB.postMessage([primeState, e.target.value]);
       });
 
       var clearprimes$ = sources.DOM
@@ -509,7 +490,6 @@
           .select('input#factors_1').events('keydown');
 
       var factorsAction$ = factorsPress$.map(function (e) {
-      console.log('&&&&&>>> >>  factorsAction$. e is', e );
         var factors = [];
         mMfactors3.ret('');
         if (e.keyCode === 13) {
@@ -519,8 +499,9 @@
           }
           else {
             var n = parseInt(num, 10);
-            workerC.postMessage([primesMonad.s, [n]]);
-            bind(n)(prm5)(split2)(pop)(largest)(terminate).map(x => m777.ret(x));
+            console.log('sending primeState and n to workerC ' ),
+            workerC.postMessage([primeState, n]);
+            // bind(n)(prm5)(split2)(pop)(largest)(terminate).map(x => m777.ret(x));
           }
         }
       });
@@ -533,7 +514,6 @@
     var clearClick$ = sources.DOM
         .select('button.clear_P').events('click')
         .map(e => {
-          console.log('In clearClick$ - - - e is', e);
           m42_RESULT = [];
           m42_RESULT2 = [];
         })
@@ -542,7 +522,6 @@
         .select('button.factors_P').events('click');
 
     var factors2Action$ = factors2Press$.map(function (e) {
-      console.log('&&&&&>>> >> in factors2action$. e is', e );
       var factors = [];
       mMfactors3.ret('');
       bind(65)(cubeC)(it4)(it6)(it7);
@@ -551,15 +530,10 @@
   workerG$ = sources.WWG.map(m => {
     m778_RESULT = result778(m.data);
     mMZ38.release(m.data);
-    console.log('<><><><><><><><><><>< prime factors ><><><><><><><><><><><><><><><><>');
-    console.log('<><><><><><><><><><><>< e.data><>< e.target.ar2 ><><><><><><><><><><><><>');
     if (m.data) {console.log('GOOD m.data')} else { return "cow" }
       if (m.target) {console.log('GOOD m.target')} else { return "shit" }
         if (m.data[1]) {console.log('GOOD m.data[1]')} else { return 'donkey'}
           if (m.target.ar2) {console.log('GOOD m.data.ar2')} else { return 'dung'}
-    console.log('The prime factors of ' + m.data[1] + ' are ' + m.target.ar2.join(', '))
-    console.log('<><><><><><><><><><><><><><><><><><><><><><><><><><><>');
-    console.log('<><><><><><><><><><><><><><><><><><><><><><><><><><><>');
 
   });
 
@@ -645,7 +619,7 @@ function bind (x, ar=[]) {
 */
 
       workerH$ = sources.WWH.map(m => {
-        console.log('In workerH\$.js. <m><m><m> Incoming message m is', m);
+        console.log('The message arriving from workerH is', m.data);
         mMZ52.release(m.data[1]);
         var w = m.data[0][m.data[0].length - 1];
         if (m.data[0].length > primeState.length) primeState = m.data[0];
@@ -661,8 +635,7 @@ function bind (x, ar=[]) {
       });
 
       mMZ40.bnd(v => {
-        console.log('In mMZ40.bnd -- v is', v)
-        workerH.postMessage([primesMonad.s[3], v])
+        workerH.postMessage([primeState, v])
       });
 
     /*  workerH$ = sources.WWH.map(m => {
@@ -745,7 +718,6 @@ pingCompute = bool => aa => bb => cc =>
 var pingScore = [0,0];
 
 pp4 = ()  => {
-  console.log('In pp4 <4><7><4> ---> --> -> COW');
   var a = _A3;
   var b = _A2;
   var c = _A3;
@@ -782,7 +754,6 @@ pp4 = ()  => {
         ms = (turns < random) ? 300 : 900;
         turns+=1;
         diffRender()
-        console.log('In car - - - a.style, b.style, and c are',a.style, b.style, c[0],'to', c[1])
         car()
     },ms )          
   }
@@ -828,8 +799,6 @@ const otherP = bool => a => b => c =>  {
 };
 
 const workerI$ = sources.WWI.map(m => { 
-  console.log( ' *** ALPHA *** pingScore', pingScore[0], pingScore[1] ); 
-  console.log('***** ONE ***** m.data, ping43, ping44', m.data, ping43.style.display, ping44.style.display ); 
 
   if (m.data === "game over") return;
   otherP(m.data)('ping43')('ping44')('pingScore');
@@ -837,9 +806,6 @@ const workerI$ = sources.WWI.map(m => {
   otherP(m.data)('ping47')('ping48')('pingScore3');
   workerI.postMessage(m.data);
   diffRender();
-  
-  console.log('***** TWO ***** m.data, ping43, ping44', m.data, ping43.style.display, ping44.style.display ); 
-  console.log( ' *** BETA *** pingScore', pingScore[0], pingScore[1] ); 
 }); 
 
 
@@ -849,7 +815,6 @@ var pinpon4$ = sources.DOM
     .select('button.pingpong4').events('click')
 
 var pingpong4$ = pinpon4$.map(() => {
-  console.log("You clicked pingpong4. How does it feel?");
  
   pp4('ping43')('ping44')('pingScr1');
  // pp4('ping45')('ping46')('pingScr2'); 
@@ -868,7 +833,6 @@ var pingpong4$ = pinpon4$.map(() => {
         var fredAction$ = frd$.map((e) => {
             freday = [];
             diffRender()
-            console.log("Goodness gracious great balls of fire, freday, e", freday,e);
         });
 
         var fredGo$ = sources.DOM
@@ -902,22 +866,14 @@ var pingpong4$ = pinpon4$.map(() => {
         */
           // **********************************************************************
 
-  var bindBD$ = sources.BD.map(m => console.log("Happy and proud",m))
+  var bindBD$ = sources.BD.map(m => console.log("Say what?",m))
 
   const workerC$ = sources.WWC.map(m => {
-    console.log('Back in the main thread. m is', m );
-    mMfactors.ret(m.data[0]);
-    mMfactors23.ret(m.data[1]);
-    mMZ39.release(m.data[1]);
-    window['primesMonad'] = new MonadState('primesMonad', m.data[2]);
+    console.log('The message arriving from workerC is', m.data);
+    mMfactors.ret(m.data[1]);
+    var w = m.data[0][m.data[0].length - 1];
+    if (m.data[0].length > primeState.length) primeState = m.data[0];
   });
-
-  function prom (n) {
-    setTimeout(() => {workerC.postMessage([primesMonad.s, [n]])},20 );
-    return new Promise ((resolve,reject) => {
-      resolve ( sources.WWC.map(e => console.log(e.data[1])))
-    });
-  };
 
   var factorsP$ = sources.DOM
     .select('input#factors_5').events('keyup');
@@ -927,7 +883,6 @@ var pingpong4$ = pinpon4$.map(() => {
     var factors = [];
     if (e.keyCode === 13) {
       var ar = (e.target.value).split(',').map(v => parseInt(v,10));
-      console.log('In fA$ ar is', ar );
       if (ar[0] !== ar[0] || ar[1] !== ar[1] || typeof ar[0] !== 'number' || typeof ar[1] !== 'number') {
         mMfactors7.ret('It works only if you enter two integers separated by a comma.');
         return;
@@ -940,7 +895,6 @@ var pingpong4$ = pinpon4$.map(() => {
   });
 
   const workerD$ = sources.WWD.map(m => {
-    console.log('Back in the main thread. m is', m );
     mMfactors6.ret(m.data[0][3]);
     window['primesMonad'] = new MonadState('primesMonad', m.data[0], primes_state);
     mMfactors8.ret(m.data[1]);
@@ -953,7 +907,6 @@ var pingpong4$ = pinpon4$.map(() => {
       .select('input#factors_1b').events('keydown');
 
   var factorsAction_b$ = factorsPress_b$.map(function (e) {
-  console.log('Cordial greetings from factorsAction$_b$. e is', e );
     var factors = [];
     mMfactors3_b.ret('');
     if (e.keyCode === 13) {
@@ -1006,18 +959,15 @@ var pingpong4$ = pinpon4$.map(() => {
     .select('input#factors800').events('keyup');
 
   var fA_c$ = factorsP_c$.map(function (e) {
-    console.log('In fa_c$ *************************************************************'),
     mMfactors800.ret('');
     var factors = [];
     var ar = (e.target.value).split(',').map(v => parseInt(v,10));
     if (e.keyCode === 13) {
-      console.log('In fA_c$ ar is', ar );
       if (ar[0] !== ar[0] || ar[1] !== ar[1] || typeof ar[0] !== 'number' || typeof ar[1] !== 'number') {
         mMfactors7.ret('It works only if you enter two integers separated by a comma.');
         return;
       }
     else {
-      console.log('In fA_c$ else block. ar is', ar );
       mMfactors800.ret(simpleWay(ar[0], ar[1]));
       }
     }
@@ -1145,36 +1095,26 @@ var pingpong4$ = pinpon4$.map(() => {
   var box$ = sources.DOM.select('.box').events('click');
 
   var boxAction$ = box$.map(e => {
-    console.log('+++++++ PROGRESS OF boxAction$ ++++++ .box was clicked');
     var index = parseInt(e.target.parentNode.id, 10);
-    console.log(index);
-    console.log(taskMonad.s[1].slice(index,index+1) );
     var task = taskMonad.s[1].slice(index,index+1)[0];
-    console.log('task:',task);
     var old = task;
     var ar = task.split("<$>");
     ar = ar.filter(v => v !== "");
     ar[1] = ar[1] === "false" ? "true" : "false"
     var newTask = ar.join("<$>");
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ In boxAction$. newTask is',newTask);
     socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
   });
 
   var cbx2$ = sources.DOM.select('.cbx2').events('click');
 
   var cbx2Action$ = cbx2$.map(e => {
-    console.log('+++++++ PROGRESS OF cbx2Action$ ++++++ .cbx2 was clicked');
     var index = parseInt(e.target.parentNode.id, 10);
-    console.log(index);
-    console.log(taskMonad.s[1].slice(index,index+1) );
     var task = taskMonad.s[1].slice(index,index+1)[0];
-    console.log('task:',task);
     var old = task;
     var ar = task.split("<$>");
     ar = ar.filter(v => v !== "");
     ar[1] = ar[1] === "false" ? "true" : "false"
     var newTask = ar.join("<$>");
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ In cbx2Action$. newTask is',newTask);
     socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
   });
 
@@ -1205,13 +1145,9 @@ var pingpong4$ = pinpon4$.map(() => {
       var ar = old.split("<$>");
       var newAr = e.target.value.split(',');
       var newString = newAr.join("<<>>");
-      console.log('()()()()()()()() In editAction$. ar is', ar);
       ar.shift();
-      console.log('()()()()()()()() In editAction$. ar is', ar);
       ar.unshift(newString);
-      console.log('()()()()()()()() In editAction$. ar is', ar);
       var newTask = ar.join("<$>");
-      console.log('4.3.2.1. >> In editAction$.index, old and newTask are',index,old,newTask);
       socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
     }
   });
@@ -1220,7 +1156,6 @@ var pingpong4$ = pinpon4$.map(() => {
       .select('input.newTask').events('keydown');
 
   var newTaskAction$ = newTask$.map(function (e) {
-    console.log("-------------ONE TWO THREE In newTaskAction$. e is",e);
     if (e.keyCode === 13) {
     var alert = '';
         var ar = e.target.value.split(',');
@@ -1287,7 +1222,6 @@ var pingpong4$ = pinpon4$.map(() => {
     .select('input#test5').events('keypress');
 
   var test5Action$ = test5Press$.map(function (e) {
-    console.log('In testAction$');
     if (e.keyCode === 13) {
       test5(e.target.value);
     };
@@ -1410,12 +1344,47 @@ counter = function counter(n, acc = 0) {
 
 
   h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 3 '),
-  h('span', ' This demonstration uses a closure PingpongMaker, not Bind, to define clones of the function "ping" with separate namespaces. Here is '),
+  h('span', ' This demonstration uses a closure named "PingpongMaker" instead of Bind to define clones of the function "ping". Three instances of ping operate independently of one another in the demonstration on the right. Here is '),
   h('a', {props: {href: '#pingmaker'}}, 'more information about Demonstration 3.' ),
 h('br'),
+
+
+h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 4 - The >>= operator'),
+h('pre', `  ret(3) >>= cube >>= add(3) >>= square >>= Math.sqrt // 30` ), 
+
+h('span.tao', ' The >>= operator was created with the help of the '),
+h('a', {props: {href: "https://www.sweetjs.org/"}}, 'sweet.js library'),
+h('span', '. Here is the definition:'),
+h('pre', `operator >>= left 11 = (left, right) => {
+  return #\`\${right}(\${left}.x)\`;
+}; `),
+h('p', ' The number "11" is the operator priority on the JavaScript scale of 1 to 12. ">>=" links functions that return their values wrapped in anonymous objects called "monads". Monad(), ret(), and three functions that map values to values wrapped in instances of Monad() are defined below: '), 
+
+h('pre', `function Monad2(z) {
+  this.x = z;
+};
+
+function ret (v) {
+  return new Monad2(v);
+}
+
+var cube = x => ret(x*x*x);
+var add = a => b => ret(a+b);
+var square = v => ret(v*v); 
+
+operator >>= left 11 = (left, right) => {
+  return #\`\${left}.then(\${v => right(v)})\`;
+};  `),
+
+h('p', ' In the right column, You can see the result of iusing these definitions to compile: ' ), 
+h('pre', `ret(3) >>= cube >>= add(3) >>= square >>= Math.sqrt` ),
+h('br'),
+h('span', ' using "sjs" from the "sweet.js" library. '),        
+
+  
+h('p', ' Toward the end of the appendix, I show how functions can be defined to provide all the features of bind() in conjunction with >>=. It would be nice if someday JavaScript would provide a way to define operators inside of the language. ' ),  
+
 ]),
-
-
 h('div', {style: {width: '47%', fontSize: '15px', float: 'right'}}, [  // ********* RIGHT PANEL
 
 h('h3', 'Demonstration 1' ),
@@ -1438,7 +1407,7 @@ h('br'),
 
 h('h3', 'Demonstration 2' ),
 
-h('pre', green, `bind1(n+0)(cubeP)(() => idP(Bind.bind1[0] -
+h('pre', `bind1(n+0)(cubeP)(() => idP(Bind.bind1[0] -
 Bind.bind1[1]))(v=>addP(Bind.bind1[1])(v));
 bind2(n+1)(cubeP)(() => idP(Bind.bind2[0] -
 Bind.bind2[1]))(v=>addP(Bind.bind2[1])(v)); 
@@ -1479,6 +1448,25 @@ h('br'),
   m69_RESULT,
 h('br'),
 h('br'),
+  
+
+h('h3', 'Demonstration 4' ),
+h('p', ' The following following code, along with the function definitions on the left, compiles to the code shown  benieth it: '),  
+h('pre', {style: {color: "#FFFFFF", fontSize: "15"}},  `  ret(3) >>= cube >>= add(3) >>= square >>= Math.sqrt // 30` ), 
+h('pre', {style: {color: "#FFD700", fontSize: "15"}}, `function Monad2(z_146) {
+  this.x = z_146;
+}
+function ret(v_147) {
+  return new Monad2(v_147);
+}
+var cube_139 = (x_148) => ret(x_148 * x_148 * x_148);
+var add_140 = (a_149) => (b_150) => ret(a_149 + b_150);
+var square_141 = (v_151) => ret(v_151 * v_151);
+
+Math.sqrt(square_141(add_140(3)(cube_139(ret(3).x).x).x).x);
+  // 30  ` ),
+h('p', ' Notice how sweet.js changes the names of the functions and variables to prevent name clashes. ' ),
+
 h('br'),
 h('br'),
 h('br'),
@@ -1643,12 +1631,17 @@ h('span', ', ' ),
 h('a', {props: {href: 'http://x-stream.github.io/'}}, ' xstream,' ),
 h('span', ' and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimentation and learning so many supporting files are included as scripts in the index.html page. ' ),
 h('br' ),
+
+h('p', ' The next interactive demonstration accepts user input and executes the following statement in a web worker: ' ),
+h('pre', `bind(ar[1])(execF)(fpFunc(ar[0])(x)); ` ),
+h('span', ' The parameters are defined in the ' ),
+h('a', {props: {href: "fp"}}, 'appendix' ),
+h('span', '. ' ),
 h('br'),
-h('a', {props: {href: '#top'}}, 'Back to the top'),
-h('br'),
-h('br'),
-      code.async1,
-  h('br'),
+h('pre', {style: {color: "red", fontStyle: "italic"}} , `Red Indicates Am Ongoing Computation` ),
+
+h('pre', `Fibonacci numbers   Prime Numbers   Prime Fibonacci Numbers `), 
+
   h('span', mMfibBlurb.x ),
   h('span', [
     h('svg', {attrs: {width: 50, height: 50}}, [
@@ -1741,7 +1734,7 @@ h('br'),
 h('a', {props: {href: '#top'}}, 'Back to the top'),
 h('h3', 'More Examples'),
 h('p', ' The result of every computation in a chain of synchronous functions is available to every computation that comes after it. This can be seen in the next example: ' ),
-h('pre', {style: {fontSize: "12px"}}, `  bind(1)(addC(2))(cubeC)(addC(3))
+h('pre', `  bind(1)(addC(2))(cubeC)(addC(3))
   (multC(this.ar[1]))(multC(this.ar[1]))
   (addC(30))(multC(1/(ar[3]*2)))(terminate)
    // [1, 3, 27, 30, 90, 270, 300, 5] `),
@@ -1870,7 +1863,7 @@ h('pre', `  ret(2).bnd(v => add(v,1)
     h('p', ' When this website loads, it receives from the server a string containing all of the comments. The string is saved in commentMonad.s[0]. The string is transformed into an array of comments which is saved in commentMonad.s]1]. '),
     h('p', ' When a comment is created, modified, or deleted, a WebSocket message goes to the server which performs some of its own housekeeping and broadcasts a message to all online browsers. It is received in messages$ and forwarded comments.js. ' ),
   h('p', ' The functions in the comments.js file mutate commentsMonad. There is no reason to create fresh instances of commentMonad, other than out of devout devotion to the doctrine of non-mutation. How silly that would be! Nothing touches commentMonad outside of the comments.js file; there is no danger. ' ),
-  h('p', ' commentMonad stands in stark contrast to the gameMonad, which is never mutated although it sees much action during game play. Here he entire Comments.js file: ' ),
+  h('p', ' commentMonad stands in stark contrast to the gameMonad, which is never mutated although it sees much action during game play. Immutability is necessary for game history traversal. Here is the entire Comments.js file: ' ),
   h('pre', `function showFunc (name, name2)
 {return name == name2 ? 'inline-block' : 'none'}
 
@@ -1881,7 +1874,9 @@ var MonadState3 = function MonadState3(g, state) {
   this.ret = function (a) {
     return window[this.id] = new MonadState(this.id, a);
   };
-}  bind2(n)(cubeP)(addP(3))(a=>a+ar[0]+ar[1]-18)(multP(1/3))
+}  
+
+bind2(n)(cubeP)(addP(3))(a=>a+ar[0]+ar[1]-18)(multP(1/3))
   (addP(-11))(()=>ar[1]+ar[2]+ar[3])(terminate) ;
 
 var commentMonad = new MonadState3('commentMonad',   [ '', [] ]);
@@ -1921,10 +1916,8 @@ function process (a) { //Assembles the HTML for display.
   mMcomments.ret([]);
   var n = -1;
   arr.map(a => {
-    console.log('In arr.map - - - - - - - a is ', a );
     var x = a.split("<o>");
     if (x.length != 2) x = ['malfunction', '8888']
-    console.log('In arr.map o o o o o o o x is ', x );
     x[1] = x[1].replace(/<<>>/g, ',');
     show = showFunc(x[0], pMname.x);
     n+=1;
@@ -2080,8 +2073,6 @@ else if "GN#$42" \`T.isPrefixOf\` msg
 
 
     var ping = n => ar => {
-      console.log("Piles of cow shit");
-      console.log("Piles of cow shit");
       var k = Math.floor(Math.random() * 5)+1;
       if(ar[0] > 10 || ar[1] > 10) {
         diffRender();
@@ -2650,6 +2641,65 @@ PingpongMaker('m69_RESULT')  `),
 h('p', ' m67_RESULT, m68_RESULT, and m69_RESULT are permanent fixtures in the virtual DOM description returned by main()'),
 
   h('br'),
+h('h3', 'The >>= operator'),
+h('span.tao', ' Using the "operator" function from the '),
+h('a', {props: {href: "https://www.sweetjs.org/"}}, 'sweet.js library'),
+h('span', ' ">>=" is defined as:'),
+h('pre', `operator >>= left 11 = (left, right) => {
+  return #\`\${right}(\${left}.x)\`;
+}; `),
+
+h('pre', `'lang sweet.js';
+
+function Monad2(z) {
+  this.x = z;
+};
+
+function ret (v) {
+  return new Monad2(v);
+}
+
+var id = x => ret(x[0], x[1]);
+var cube = x => ret([x[0]*x[0]*x[0], x[1].concat(x[0]*x[0]*x[0])]);
+var square = x => ret([x[0]*x[0], x[1].concat(x[0]*x[0])]);
+var add = a => b => ret([a+b[0], b[1].concat(a+b[0])]);
+
+operator >>= left 11 = (left, right) => {
+  return #\`\${right}(\${left}.x)\`;
+};
+
+var a = (ret([3, []]) >>= cube >>= add(3) >>= square).x[1].reduce( (a,b) => a+b );
+
+var b = ( ret([0, []]) >>= add(3) >>= cube >>= 
+(x => add(x[1][1])([x[1][1],x[1]])) >>=
+(x => add(x[0])([-4 * x[1][0], x[1]]))).x[1]
+
+console.log('ret([3, []]) >>= cube >>= add(3) >>= square).x[1].reduce( (a,b) => a+b ) = ', a);
+
+console.log(\`(ret([0, []]) >>= add(3) >>= cube >>=  
+(x => add(x[1][1])([x[1][1],x[1]])) >>= 
+(x => add(x[0])([-4 * x[1][0], x[1]]))).x[1] = \`, b); ` ),
+
+h('pre', `function Monad2(z_10) {
+  this.x = z_10;
+}
+function ret(v_11) {
+  return new Monad2(v_11);
+}
+var id_0 = x_12 => ret(x_12[0], x_12[1]);
+var cube_1 = x_13 => ret([x_13[0] * x_13[0] * x_13[0], x_13[1].concat(x_13[0] * x_13[0] * x_13[0])]);
+var square_2 = x_14 => ret([x_14[0] * x_14[0], x_14[1].concat(x_14[0] * x_14[0])]);
+var add_3 = a_15 => b_16 => ret([a_15 + b_16[0], b_16[1].concat(a_15 + b_16[0])]);
+var a_8 = square_2(add_3(3)(cube_1(ret([3, []]).x).x).x).x[1].reduce((a_17, b_18) => a_17 + b_18);
+var b_9 = (x_19 => add_3(x_19[0])([-4 * x_19[1][0], x_19[1]]))((x_20 => add_3(x_20[1][1])([x_20[1][1], x_20[1]]))(cube_1(add_3(3)(ret([0, []]).x).x).x).x).x[1];
+console.log("ret([3, []]) >>= cube >>= add(3) >>= square).x[1].reduce( (a,b) => a+b ) = ", a_8);
+console.log(\`(ret([0, []]) >>= add(3) >>= cube >>=  
+(x => add(x[1][1])([x[1][1],x[1]])) >>= 
+(x => add(x[0])([-4 * x[1][0], x[1]]))).x[1] = \`, b_9);  ` ),
+
+
+
+
   h('br'),
 
   h('button#fredButton', fredButton ),

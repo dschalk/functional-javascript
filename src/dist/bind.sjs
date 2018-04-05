@@ -1,5 +1,7 @@
-operator >>= left 1 = (left, right) => {
-  return #`${left}.bnd(${right})`;
+'lang sweet.js';
+
+operator >>= left 12 = (left, right) => {
+  return #`${right}(${left}.x)`;
 };
 
-
+export default {>>=}

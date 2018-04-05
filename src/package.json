@@ -22,6 +22,7 @@
     "cycle-webworker": "^2.1.0",
     "dual-emitter": "0.7.0",
     "elm-simple-loader": "^1.1.0",
+    "es2015-macros": "^1.1.0",
     "events": "^1.1.1",
     "hyperscript-helpers": "^3.0.3",
     "install": "^0.8.1",

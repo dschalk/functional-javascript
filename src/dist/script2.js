@@ -37,18 +37,82 @@ var primesMonad = new MonadState('primesMonad', [3, [], 3, [2,3]]);
 
 //*************************************** BEGIN prime Fibonacci numbers
 
-var fpTransformer = function fpTransformer(fibsState, primesState, then) {
+var fpFunc = primesState => x => fibsState => {
   var ar = [];
-  var top = Math.ceil(Math.sqrt(fibsState[1]));
-  var state = execP(primesState, top);
-  var top2 = state[2];
+  var top = Math.ceil(Math.sqrt(fibsState[fibsState.length - 1]) + 3);
+  var state = primeNums(primesState, top);
+  var top2 = state[state.length - 1];
   postMessage(['green', 'green', 'red', 'color', 'done', 'done', 'computing prime fibs'])
-  fibsState[3].map(fib => {
-    if (state[1].every(p => (fib % p || fib == p))) {ar.push(fib)}
+  fibsState.map(fib => {
+    if (state.every(p => (fib % p || fib == p))) {ar.push(fib)}
   })  
   postMessage(['green', 'green', 'green', 'color', 'done', 'done', 'done']);
-  postMessage( [ [fibsState[3].join(', '), top2, ar.join(', '), then], state ] )
+  postMessage( [ [fibsState.join(', '), top2, ar.join(', '), x], state ] )
 }
+
+function execF(n) {
+  var a = [0,1];
+  var b = [];
+  while ((a[0] + a[1]) < n) {
+   a = [a[1], a[0] + a[1]];
+   b.push(a[0]);
+  }
+  b.push(a[1]);
+  b.shift();
+  b.shift();
+  postMessage(['green', 'red', 'yellow', 'color', 'done', 'computing primes', 'pending'])
+  return b;
+};
+
+function pNums(start, n) {
+  var store  = [], i, j, primes = [];
+  for (i = start; i <= n; ++i) {
+    if (!store [i]) {
+      primes.push(i);
+      for (j = i << 1; j <= n; j += i) {
+        store[j] = true;
+      }
+    }
+  }
+  return primes;
+}
+
+function primeNums (p,x) {
+  var q = p[p.length - 1];
+  if (q >= x) return p 
+  var arr = pNums(q,x); 
+  // for (var i = q - 1; i < Math.ceil(x+1)+1; i+=1) if (isPrime(i)) arr.push(i);
+  arr = p.concat(arr)
+  return arr
+}  
+
+
+
+
+function execP (state, num) {
+  var x = state[state.length - 1];
+  var primes = state.slice();
+  if (x < num) {
+    primesMonad = new MonadState('primesMonad', state);
+    primesIt = gen(primesMonad.s[2]+1);
+    while (x < num) {
+      primes.push(primesIt.next().value);
+      x = primes[primes.length - 1];
+    }
+    return [x, primes, x, primes]
+  }
+  else {
+    var number = primes.indexOf(num) + 1;
+    var newP = primes.slice(number);
+    return [newP[newP.length - 1], newP, x, primes];
+  }
+};
+
+
+
+
+
+
 
 //*************************************** END prime Fibonacci numbers
 
@@ -134,25 +198,6 @@ function *gen(x) {
 
 var primesIt = gen(primesMonad.s[2]+1);
 
-function execP (state, num) {
-  var x = state[2];
-  var primes = state[3].slice();
-  if (x < num) {
-    primesMonad = new MonadState('primesMonad', state);
-    primesIt = gen(primesMonad.s[2]+1);
-    while (x < num) {
-      primes.push(primesIt.next().value);
-      x = primes[primes.length - 1];
-    }
-    return [x, primes, x, primes]
-  }
-  else {
-    var number = primes.indexOf(num) + 1;
-    var newP = primes.slice(number);
-    return [newP[newP.length - 1], newP, x, primes];
-  }
-};
-
 function execQ (prms, num) {
   var x = prms[prms.length - 1];
   var primes = prms.slice();
@@ -195,19 +240,6 @@ function execP (state, num) {
     return [newP[newP.length - 1], newP, x, primes];
   }
 }  */
-
-function execF(n) {
-  var a = [0,1];
-  var b = [];
-  while ((a[0] + a[1]) < n) {
-   a = [a[1], a[0] + a[1]];
-   b.push(a[0]);
-  }
-  b.push(a[1]);
-  postMessage(['green', 'red', 'yellow', 'color', 'done', 'computing primes', 'pending'])
-  console.log('Hello again Nurse');
-  return new MonadState('fibsMonad', [a[0], a[1], n, b]);
-};
 
 function execD(decompState, primeState, n, a, b) {
   var c = decompState[3].slice();
@@ -306,5 +338,45 @@ function gcf (a, bx) {
   else return 1;
 }
 
+/* function bind (x, ar=[]) {
+  var ar = ar;
+  if (ar.length === 0) ar = [x];
+  if (x instanceof Promise) x.then(y => ar.push(y));
+  else ar.push(x)
+  return function debug8 (func) {
+    if (func.name === "terminate") return ar;
+    var p;
+    if (x instanceof Promise) {
+      p = x.then(v => func(v));
+    }
+    else p = func(x);
+    return bind(p, ar);
+  };
+}; */
+
+function Bind (str) {
+  Bind[str] = [];
+  return function bindo ( x ) {
+    if (x instanceof Promise) x.then(y => {
+      Bind[str].push(y);
+      diffRender();
+      console.log(Bind[str]);
+    })
+    else {
+      Bind[str].push(x)
+      diffRender();
+    }
+    console.log(Bind[str]);
+    return function debug8 (func) {
+      var p;
+      if (func.name === "terminate") return Bind[str];
+      if (x instanceof Promise) {
+        p = x.then(v => func(v));
+      }
+      else p = func(x);
+      return bindo(p);
+    };
+  };
+};
 
 

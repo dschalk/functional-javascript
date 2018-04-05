@@ -1,9 +1,6 @@
 
 var rep = new RegExp('<<>>', 'g');
 var rep2 = new RegExp(',', 'g');
-console.log('111111111111111111111111  mule shit  1111111111111111111111111111');
-console.log('22222222222222222222  In tasks.js  222222222222222222222222222222');
-console.log('33333333333333333333333333333333333333333333333333333333333333333');
 function MonadState2(g, state) {
   console.log('someone called with g and state', g, state);
   this.id = g;
@@ -17,16 +14,10 @@ function MonadState2(g, state) {
 MonadState2.prototype.html = [];
 
 MonadState2.prototype.init = function (str) {
-  console.log('Progression of init --------------------------------- str', str);
   this.s[0] = str;
-  console.log(this.s[0]);
   this.s[1] = str.split("<@>");
-  console.log('In init this.s[1]',this.s[1]);
   this.s[1] = this.s[1].filter(v => (v != ""));
-  console.log(this.s[1]);
   this.html = bp2(this.s[1]);
-  console.log(this.html);
-  console.log('Progression of init --------------------------------- END');
   return this.html;
 }
 
