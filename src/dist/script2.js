@@ -77,17 +77,19 @@ function pNums(start, n) {
   return primes;
 }
 
+function small (primes, v) {
+  return primes.slice(0, primes.indexOf(primes.find(e => e > v)));
+};
+
 function primeNums (p,x) {
   var q = p[p.length - 1];
-  if (q >= x) return p 
-  var arr = pNums(q,x); 
+  if (q > x) return small(p,x)
+  else {
+    var arr = pNums(q,x,p); 
   // for (var i = q - 1; i < Math.ceil(x+1)+1; i+=1) if (isPrime(i)) arr.push(i);
-  arr = p.concat(arr)
-  return arr
-}  
-
-
-
+    return p.concat(arr);
+  }
+};
 
 function execP (state, num) {
   var x = state[state.length - 1];

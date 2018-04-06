@@ -1315,19 +1315,18 @@ counter = function counter(n, acc = 0) {
       h('div', {style: {width: '47%', fontSize: '15px', float: 'left'}}, [ // ((************ LEFT PANEL
       h('br'),
 
-
-
       h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 1 - WebSocket and worker messaging.'),
+
       h('span.tao', ' The first demonstration consists of bind(145) followed by a math computation, a function that sends the computation result to the WebSocket server, a function that sends the WebSocket response to a web worker, and a function that uses the worker response to update the browser display and the prime number cache. '), 
       h('p#defsReturn'),
-      h('span.tao', ' it4() and it6() are asynchronous functions that use the more efficient (but less featured) callback handler "MonadItter" rather than promises but, as Demonstration 2 illustrates, Ecmascript 2015 promises work nicely with bind and its clones. MonadItter is discussed in several places further down this page. The definitions of the functions involved in Example 1 are shown, with comments, in the order in which they are encountered in the '),
+      h('span.tao', ' it4() and it6() are asynchronous functions that use "MonadItter" callback handlers in conjunction with Ecmascript 2015 promises. MonadItter is discussed in the '),
       h('a', {props: {href: "#defs" }},  'appendix'),
       h('span', '.' ),
       h('br'),
-      h('p', ' After the first run, caching of prime numbers usually shortens time it takes to complete subsequent runs. The effects was very pronounced in the Chrome browser, but in Firefox, the first run was so fast that hardly any effect was observed durning testing. ' ),
+      h('p', ' After the first run, caching of prime numbers usually shortens execution time by around 80%. Run times on Firefox 59 are somewhat shorter than on Chrome 65 (both 64 bit) in my Ubuntu 17.10 desktop computer. ' ),
 
       h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 2 - accessing prior values and avoiding clashes.'),
-      h('p', ' If you enter an argument x for test5(x) (right column), the code shown in the right column will run. The delays are caused by ES6 promises. '),  
+      h('p', ' If you enter an argument x for test5(x) (right column), the code shown in the right column will run. Asynchronous computations are performed in a dedicated web worker and handled by by ES6 promises. '),  
       h('span.tao', 'bind() and variations on its theme are produced by a factory named "Bind". For example, bind1 is created with the code '),
       h('span',  {style: {color: "#FFD700"}}, `"var bind1 = Bind(\'bind1\')"  `), 
       h('span', '. Here is the '), 
