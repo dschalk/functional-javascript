@@ -321,8 +321,6 @@ talk conn state client = forever $ do
   msg <- WS.receiveData conn
   let msg2 = T.unpack msg
   let mArr = splitOn "," msg2
-  print $! "<%>-<%>********************<$>*******************<%>-<%> In talk. The incoming message is " ++ msg2
-  --hFlush stdout
   let msgArray = T.splitOn "," msg
   let message = snd $ splitAt 3 msgArray
   let group = msgArray !! 1
@@ -336,11 +334,6 @@ talk conn state client = forever $ do
   let mes = "<><><><><> Outgoing message from Main.hs " 
   st <- atomically $ readTVar state
   let currentState = [a `mappend` dash `mappend` (pack.show $ b)  `mappend` dash `mappend`  (pack.show $ c)  `mappend` dash `mappend` d  `mappend` dash `mappend` (pack.show $ g) | (a,b,c,d,_,_,g,_) <- st]
-  print "<!><@><#>$ currentState OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-  print currentState
- -- let tState = T.intercalate at currentState
- -- broadcast ("ST#$42," `mappend` group `mappend` com
- --   `mappend` sender `mappend` com `mappend` tState) st
   let tsks = (T.unpack group) :: FilePath
   TIO.appendFile tsks mempty
   tks <- TIO.readFile tsks

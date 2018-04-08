@@ -1268,7 +1268,7 @@ counter = function counter(n, acc = 0) {
         h('br'),
         h('br'),
         h('div.content', [
-        h('span', styleFunc(["#d3ead5",,"18px",,,]), ' Composing functions like this: '),
+        h('span', styleFunc(["#d3ead5",,"18px",,,]), ' Consider this, if you will: '),
         h('br'),
         h('br'),
         h('div', styleFunc(["#FFD700","3%","21px",,,]), 'bind(x)(functiona1)(function2) ... (functionN)'),
@@ -1286,14 +1286,17 @@ counter = function counter(n, acc = 0) {
   functions have built-in access to all prior functions\' return values,
 
   functions have built-in access to all prior promises\' resolution values. `),
-        h('span', styleFunc(["#d3ead5",,"18px",,,]), ' looks very flexible and expressive, but you might wonder if there is a function named "bind" that can efficiently and reliably facilitate this. Well, here is the ' ),      
-        h('a', {props: {href: "#bind" }},  'definition of bind'),
-        h('span', ' that is used in "Demonstration 1". It consists of fifteen short lines of straightforward code. Testing confirms that it is as robust as it is easy to understand, tweak, and use. Programmers do need to make it reactive in the platforms (if any) they use. I show, in the '),
+        h('span.tao', styleFunc(["#d3ead5",'3%',"18px",,,]), ' Composition doesn\'t get more flexible and expressive than this. Here is the ' ),      
+h('a', {props: {href: "#bind" }},  'definition of bind'),
+h('span', ' that is used in some of the demonstrations below. ' ),
+h('br'),
+h('br'),
+h('span.tao', ' bind() is not inherently reactive. I show, in the '),
       h('a', {props: {href: "#defs" }},  'appendix'),
-        h('span', ', one way of doing this using features of Cycle.js. In another platform, perhaps with error handling type checking, and another name, "bind" might look very different. My purpose here is to encourage web application developers to break free from any confining composition methods that might be hindering their creativity.' ), 
+        h('span', ', a way to make bind() reactive in Cycle.js. In another platform, perhaps with error handling type checking, and another name, "bind" might look very different.' ), 
         h('br'),
         h('br'),  
-        h('span.tao', ' "bind" can easily be expanded to intercept runtime errors, check types, etc. "Demonstration 2" shows ten functions created by the factory function "Bind" that seem to execute in parallel while actually running in a single thread). The '),
+        h('span.tao', ' "bind" can easily be expanded to intercept runtime errors, check types, etc. "Demonstration 2" shows ten functions created by the factory function "Bind" that seem to execute in parallel while actually running in a single thread. The '),
 
         h('a', {props: {href: "#Bind" }},  'definition of Bind'),
           
@@ -1303,9 +1306,12 @@ counter = function counter(n, acc = 0) {
       h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "  .flow" ),
       h('span', ' and Ramda\'s '),
       h('a', {props: {href: "http://ramdajs.com/docs/#compose"}}, 'R.compose' ),
-      h('span', ', that facilitate simple function composition; i.e., each function\'s argument is the preceding function\'s return value. bind() does this while also giving every linked function along a pipeline access to the return values of every function and resolution value of every promise that preceded it.  '),
+      h('span', ', that facilitate simple function composition; i.e., each function\'s argument is the preceding function\'s return value. bind() does this while also giving every linked function along a chain access to the return values of every function, and the resolution values of every promise that preceds it.  '),
       h('br'),
-      h('p', 'CAUTION - THE COMMENTARY AFTER THE DEMONSTRATIONS STILL LAGS BEHIND RECENT REFACTORING.'),
+      h('br'),
+      h('span.tao', {style: {color: '#FDFDFD'}}, 'NOTICE: I encapsulated data in little objects called "monads" during the early stages of this project. Gradually it dawned on me that mimicking the Haskell programming language wasn\'t bringing value to JavaScript; it was making things cumbersome. You can read about the monads in the '), 
+      h('a', {props: {href: '#monads'}}, '>>= section' ),
+      h('span', ' below.'),
       h('br'),
       ]),
 
@@ -1349,40 +1355,22 @@ h('br'),
 
 
 h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 4 - The >>= operator'),
-h('pre', `  ret(3) >>= cube >>= add(3) >>= square >>= Math.sqrt // 30` ), 
-
-h('span.tao', ' The >>= operator was created with the help of the '),
-h('a', {props: {href: "https://www.sweetjs.org/"}}, 'sweet.js library'),
-h('span', '. Here is the definition:'),
-h('pre', `operator >>= left 11 = (left, right) => {
-  return #\`\${right}(\${left}.x)\`;
-}; `),
-h('p', ' The number "11" is the operator priority on the JavaScript scale of 1 to 12. ">>=" links functions that return their values wrapped in anonymous objects called "monads". Monad(), ret(), and three functions that map values to values wrapped in instances of Monad() are defined below: '), 
-
-h('pre', `function Monad2(z) {
-  this.x = z;
+h('p', ' This is not JavaScript: ' ),
+  
+h('pre', {style: {color: 'orange' }},  `operator >>= left 11 = (left, right) => {
+  return #\`\${right}(\${left})\`;
 };
 
-function ret (v) {
-  return new Monad2(v);
-}
-
-var cube = x => ret(x*x*x);
-var add = a => b => ret(a+b);
-var square = v => ret(v*v); 
-
-operator >>= left 11 = (left, right) => {
-  return #\`\${left}.then(\${v => right(v)})\`;
-};  `),
-
-h('p', ' In the right column, You can see the result of iusing these definitions to compile: ' ), 
-h('pre', `ret(3) >>= cube >>= add(3) >>= square >>= Math.sqrt` ),
-h('br'),
-h('span', ' using "sjs" from the "sweet.js" library. '),        
-
-  
-h('p', ' Toward the end of the appendix, I show how functions can be defined to provide all the features of bind() in conjunction with >>=. It would be nice if someday JavaScript would provide a way to define operators inside of the language. ' ),  
-
+3 >>= x=>x*x*x >>= (a=>b=>a+b)(3) >>= 
+x=>x*x >>= Math.sqrt  `),
+h('span.tao', ' The '),
+h('a', {props: {href: "https://www.sweetjs.org/"}}, 'sweet.js library'),
+h('span', ', however, compiles it to this JavaScript code: ' ),
+h('pre', `((x_138) => ((x_139) => 
+Math.sqrt(x_139 * x_139))(((a_140) =>
+(b_141) => a_140 + b_141)(3)
+(x_138 * x_138 * x_138)))(3); `),
+h('p', ' We could easily define >>= to provide access to prior return values or resolution values for promises. Another approach is keep the definition of >>= and define specialized functions. These would be good exercises for people getting accustomed to functional programming. Until a future version of JavaScript provides a way to define operators, custom operators will remain novelties with no practical value. ' ),
 ]),
 h('div', {style: {width: '47%', fontSize: '15px', float: 'right'}}, [  // ********* RIGHT PANEL
 
@@ -1448,24 +1436,6 @@ h('br'),
 h('br'),
 h('br'),
   
-
-h('h3', 'Demonstration 4' ),
-h('p', ' The following following code, along with the function definitions on the left, compiles to the code shown  benieth it: '),  
-h('pre', {style: {color: "#FFFFFF", fontSize: "15"}},  `  ret(3) >>= cube >>= add(3) >>= square >>= Math.sqrt // 30` ), 
-h('pre', {style: {color: "#FFD700", fontSize: "15"}}, `function Monad2(z_146) {
-  this.x = z_146;
-}
-function ret(v_147) {
-  return new Monad2(v_147);
-}
-var cube_139 = (x_148) => ret(x_148 * x_148 * x_148);
-var add_140 = (a_149) => (b_150) => ret(a_149 + b_150);
-var square_141 = (v_151) => ret(v_151 * v_151);
-
-Math.sqrt(square_141(add_140(3)(cube_139(ret(3).x).x).x).x);
-  // 30  ` ),
-h('p', ' Notice how sweet.js changes the names of the functions and variables to prevent name clashes. ' ),
-
 h('br'),
 h('br'),
 h('br'),
@@ -1484,7 +1454,7 @@ h('br'),
 h('br'),
 
 h('span.tao', 'This project was created by and is actively maintained by me, David Schalk. It is a work in progress. The code repository is at '),
-h('a', { props: { href: "https://github.com/dschalk/monads-in-JavaScript", target: "_blank" } }, 'monads-in-JavaScript'),
+h('a', { props: { href: "https://github.com/dschalk/functional-javascript", target: "_blank" }}, 'functional-javascript'),
 h('span', '. Please leave a comment in the '),
 h('a', {props: {href: "#comments"}}, 'comments'),
 h('span', ' section near the end of this page. You can email me at pyschalk@gmail.com. '),
@@ -1680,7 +1650,7 @@ h('pre', `Fibonacci numbers   Prime Numbers   Prime Fibonacci Numbers `),
   h('span#PF_22.turk', mMres.x[1]  ),
   h('br'),
   h('h3', ' Promises are not needed ' ),
-  h('p', ' Asynchronous code can be handled without reliance on Ecmascript 2015 promises either explicitly or implicitly (e.g. using async/await). Cycle.js drivers eliminate any need to explicitly use functions from reactive library, but Xstrean is an integral component of Cycle.js. ' ),
+  h('p', ' Asynchronous code can be handled without reliance on Ecmascript 2015 promises either explicitly or implicitly (e.g. using async/await). Cycle.js drivers eliminate any need to explicitly use functions from a reactive library, but Xstrean is an integral component of Cycle.js. ' ),
 
   h('p', ' The second demonstration in this series decomposes numbers into its their prime factors. Testing with sequences of 9\'s, the first substantial lag occurs at 9,999,999 - unless a large array of prime numbers has already been generated in the previous demonstration or elsewhere. Here it is:' ),
   h('input#factors_1'),
@@ -2284,9 +2254,8 @@ h('a', {props: {href: '#content2' }}, 'Return to Demonstration 1' ),
   
 h('pre', h3Simulation, 'Asynchronous Processes - A deep dive into Demonstration 1' ),
 
-h('p', ' The code below shows how information flows through the functions involved in Demonstration 1. Function definitions are shown when previously undefined functions are encountered. The process begins with the click of a button and ends with execution of it7(), but before showing "factorsClick7$", I want to repeat the definition of "bind". ' ),
+h('p', ' Demonstration 1 begins with the click of a button with id "factors_Q" and ends with fifteen browser updates. The activity after each click is tied together by: ' ),
 h('pre', `function bind (x, ar=[]) {
-  var ar = ar;
   if (ar.length === 0) ar = [x];
   if (x instanceof Promise) x.then(y => ar.push(y));
   else ar.push(x)
@@ -2299,9 +2268,9 @@ h('pre', `function bind (x, ar=[]) {
     else p = func(x);
     return bind(p, ar);
   };
-};
-
-var factorsClick7$ = sources.DOM
+}; ` ),
+h('p', ' Clicking the button with id "factors_Q" creates an event to which factorsClick7$ stream responds by prompting "bind(145)(x=>x*x*x)(it4)(it6)(it7)" to execute fifteen times. The factorsAction7$ stream flows into the virtual DOM where changes cause the Snabbdom diff and render process to update the browser. Here\'s some of the relevant code: ' ),
+h('pre',  `var factorsClick7$ = sources.DOM
   .select('button#factors_Q').events('click');
 
 var factorsAction7$ = factorsClick7$.map( e => {
@@ -2338,7 +2307,7 @@ var factorsAction7$ = factorsClick7$.map( e => {
   bind(145)(x=>x*x*x)(it4)(it6)(it7);
 }); ` ),
     
-h('p', 'it4() sends the number 2,197,000 to the server which responds by sending back a pseudo-random number between 1 and 2,197,000. '),
+h('p', 'it4() sends the number 3,048,625 to the server which responds by sending back a pseudo-random number between 1 and 3,048,625. '),
 
 h('pre', `var it4 = x => {
   if (socket.readyState === 1) socket
@@ -2637,18 +2606,62 @@ PingpongMaker('m67_RESULT')
 PingpongMaker('m68_RESULT')
 PingpongMaker('m69_RESULT')  `),
 
-h('p', ' m67_RESULT, m68_RESULT, and m69_RESULT are permanent fixtures in the virtual DOM description returned by main()'),
+h('p#monads', ' m67_RESULT, m68_RESULT, and m69_RESULT are permanent fixtures in the virtual DOM description returned by main()'),
 
+h('a', {props: {href: '#top'}}, 'Back to the top'),
   h('br'),
-h('h3', 'The >>= operator'),
-h('span.tao', ' Using the "operator" function from the '),
-h('a', {props: {href: "https://www.sweetjs.org/"}}, 'sweet.js library'),
-h('span', ' ">>=" is defined as:'),
+h('h2', 'The >>= operator'),
+h('p', ' The definition of >>= (pronounced "bind") used below is a variation that uses monads. As you see, encapsulating values in monads works smoothly, but adds nothing of value. Useful monads are in the Haskell server on the backend of this web page. Here it is: ' ), 
 h('pre', `operator >>= left 11 = (left, right) => {
   return #\`\${right}(\${left}.x)\`;
 }; `),
+h('span', ' >>= and expressions using >>= are compiled to JavaScript code with help from the ' ), 
+h('a', {props: {href: "https://www.sweetjs.org/"}}, 'sweet.js library'),
+h('span', '.' ),
 
-h('pre', `'lang sweet.js';
+h('h3', 'Simple Functions' ),  
+
+h('p', ' The sweet.js code (orange color) below compiles to the golden Javascript code beneith it: '),
+h('span', 'sweet.js' ),
+h('pre', {style: {color: 'orange' }}, `function Monad2(z) {
+  this.x = z;
+};
+
+function ret (v) {
+  return new Monad2(v);
+}
+
+var cube = x => ret(x*x*x);
+var add = a => b => ret(a+b);
+var square = v => ret(v*v); 
+
+operator >>= left 11 = (left, right) => {
+  return #\`\${left}.then(\${v => right(v)})\`;
+};  
+
+ret(3) >>= cube >>= add(3) >>= square >>= Math.sqrt ), ` ),
+
+h('span', 'JavaScript' ),
+h('pre', {style: {color: "#FFD700", fontSize: "15"}}, `function Monad2(z_146) {
+  this.x = z_146;
+} 
+
+function ret(v_147) {
+  return new Monad2(v_147);
+}
+
+var cube_139 = (x_148) => ret(x_148 * x_148 * x_148);
+var add_140 = (a_149) => (b_150) => ret(a_149 + b_150);
+var square_141 = (v_151) => ret(v_151 * v_151);
+
+Math.sqrt(square_141(add_140(3)(cube_139(ret(3).x).x).x).x);
+  // 30  ` ),
+h('p', ' Notice how sweet.js changes the names of the functions and variables to prevent name clashes. ' ),
+
+h('h3', 'Functions That Carry State' ),
+h('p', ' The following sweet.js code (orange color) compiles to the golden JavaScript code benieth it: ' ),
+h('span', 'sweet.js' ),
+h('pre', {style: {color: 'orange' }}, `'lang sweet.js';
 
 function Monad2(z) {
   this.x = z;
@@ -2673,12 +2686,11 @@ var b = ( ret([0, []]) >>= add(3) >>= cube >>=
 (x => add(x[1][1])([x[1][1],x[1]])) >>=
 (x => add(x[0])([-4 * x[1][0], x[1]]))).x[1]
 
-console.log('ret([3, []]) >>= cube >>= add(3) >>= square).x[1].reduce( (a,b) => a+b ) = ', a);
+console.log(a);
 
-console.log(\`(ret([0, []]) >>= add(3) >>= cube >>=  
-(x => add(x[1][1])([x[1][1],x[1]])) >>= 
-(x => add(x[0])([-4 * x[1][0], x[1]]))).x[1] = \`, b); ` ),
+console.log(b); ` ),
 
+h('span', 'JavaScript' ),
 h('pre', `function Monad2(z_10) {
   this.x = z_10;
 }
@@ -2686,15 +2698,18 @@ function ret(v_11) {
   return new Monad2(v_11);
 }
 var id_0 = x_12 => ret(x_12[0], x_12[1]);
+
 var cube_1 = x_13 => ret([x_13[0] * x_13[0] * x_13[0], x_13[1].concat(x_13[0] * x_13[0] * x_13[0])]);
+
 var square_2 = x_14 => ret([x_14[0] * x_14[0], x_14[1].concat(x_14[0] * x_14[0])]);
 var add_3 = a_15 => b_16 => ret([a_15 + b_16[0], b_16[1].concat(a_15 + b_16[0])]);
 var a_8 = square_2(add_3(3)(cube_1(ret([3, []]).x).x).x).x[1].reduce((a_17, b_18) => a_17 + b_18);
+
 var b_9 = (x_19 => add_3(x_19[0])([-4 * x_19[1][0], x_19[1]]))((x_20 => add_3(x_20[1][1])([x_20[1][1], x_20[1]]))(cube_1(add_3(3)(ret([0, []]).x).x).x).x).x[1];
-console.log("ret([3, []]) >>= cube >>= add(3) >>= square).x[1].reduce( (a,b) => a+b ) = ", a_8);
-console.log(\`(ret([0, []]) >>= add(3) >>= cube >>=  
-(x => add(x[1][1])([x[1][1],x[1]])) >>= 
-(x => add(x[0])([-4 * x[1][0], x[1]]))).x[1] = \`, b_9);  ` ),
+
+console.log("a_8);
+
+console.log(b_9);  ` ),
 
 
 

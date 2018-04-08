@@ -781,7 +781,7 @@ function bindEmitterDriver () {
 var bindAr$ = ar => xs.of(ar);
 
 function bind (x, ar=[]) {
-  var ar = ar;
+  // var ar = ar;
   if (ar.length === 0) ar = [x];
   if (x instanceof Promise) x.then(y => ar.push(y));
   else ar.push(x)
