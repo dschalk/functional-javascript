@@ -10,6 +10,7 @@
     "ardent": "^1.0.0",
     "babel-core": "^6.8.0",
     "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-overload": "0.0.2",
     "babel-plugin-syntax-async-functions": "^6.13.0",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-object-assign": "^6.8.0",
@@ -44,13 +45,9 @@
     "xstream": "^9.3.0",
     "yarn": "^1.3.2"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dschalk/JS-monads-stable.git"
+    "url": "git+https://github.com/dschalk/functional-javascript.git"
   },
   "keywords": [
     "functional",

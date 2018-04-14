@@ -1,4 +1,3 @@
-  import {curry, flip, compose} from 'ramda'
   import {h, p, span, h1, h2, h3, pre, br, div, label, input, hr, makeDOMDriver} from '@cycle/dom';
   import Cycle from '@cycle/xstream-run'
   import code from './code.js';
@@ -456,86 +455,98 @@
       // *******************************************n****************************** ENDOM iginal Fibonacci END
 
       // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START PRIME FIB
+var topPrime = 2;
+var topP = 2;
+var pS = [2];
+var fS = [2]
+var pFS = [2];
 
-      const workerB$ = sources.WWB.map(m => {
-        if (m.data[3] === 'color') {
-          fill1Monad.ret(m.data[0]);
-          fill2Monad.ret(m.data[1]);
-          fill3Monad.ret(m.data[2]);
-          mMprimeBlurb.ret(m.data[5]);
-          mMfibBlurb.ret(m.data[4]);
-          mMprimeFibBlurb.ret(m.data[6]);
-        }
-        else {
-          mMelapsed.ret(elapsed(m.data[0][3]))
-          mMres.ret(m.data[0])
-        }
-      });
 
-      var fibKeyPress5$ = sources.DOM
-          .select('input#fib92').events('keyup');
+      
+const workerB$ = sources.WWB.map(m => {
+  if (m.data[3] === 'color') {
+    fill1Monad.ret(m.data[0]);
+    fill2Monad.ret(m.data[1]);
+    fill3Monad.ret(m.data[2]);
+    mMprimeBlurb.ret(m.data[5]);
+    mMfibBlurb.ret(m.data[4]);
+    mMprimeFibBlurb.ret(m.data[6]);
+  }
+  else {
+    pS = m.data[0].join(', ');
+    fS = m.data[1].join(', '); 
+    pFS = m.data[2].join(', ');
+    mMelapsed.ret(elapsed(m.data[3]))
+    if (m.data[0].length > primeState.length) {
+      primeState = m.data[0];
+      fibState = m.data[1];
+      prFibState = m.data[2];
+      topP = primeState.slice(-1);
+      topPrime = topP.toString();
+    }
+  }
+});
 
-      var primeFib$ = fibKeyPress5$.map(e => {
-        workerB.postMessage([primeState, e.target.value]);
-      });
+var fibKeyPress5$ = sources.DOM
+    .select('input#fib92').events('keyup');
 
-      var clearprimes$ = sources.DOM
-        .select('#clearprimes').events('click')
-        .map(() => mMres.ret([mMres.x[0], '', mMres.x[2], mMres.x[3]]));
+var primeFib$ = fibKeyPress5$.map(num => {
+  var n = num.target.value;
+  var j = Math.sqrt(n);
+  var k = primeState.slice(-1)[0];
+  if (k > j) {
+    console.log('<@> 1 <@><@><@><@><@><@><@><@>>>>> >> > In primeFib$ -- n,k,j,k>j', n,k,j,k>j);
+    var t = Date.now();
+    var fibs = fibState.slice(0, fibState.indexOf(fibState.find(e => e > n)));
+    fS = fibs.join(', ');
+    var prFibs = fibs.filter(n => prFibState.indexOf(n) !== -1);                  
+    pFS = prFibs.join(', ');
+    mMelapsed.ret(elapsed(t));
+    diffRender();
+  }
+  else { 
+    console.log('<@> 2 <@><@><@><@><@><@><@><@>>>>> >> > In primeFib$ -- n,k,j,k>j', n,k,j,k>j);
+    workerB.postMessage([primeState, fibState, prFibState, n]);
+  }
+});
+
+var clearprimes$ = sources.DOM
+  .select('#clearprimes').events('click')
+  .map(() => mMres.ret([mMres.x[0], '', mMres.x[2], mMres.x[3]]));
 
 
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  Begin Easy
-
-      var factorsPress$ = sources.DOM
-          .select('input#factors_1').events('keydown');
-
-      var factorsAction$ = factorsPress$.map(function (e) {
-        var factors = [];
-        mMfactors3.ret('');
-        if (e.keyCode === 13) {
-          var num = e.target.value;
-          if (!num.match(/^[0-9]+$/)) {
-            mMfactors3.ret('This works only if you enter a number. ' + num + ' is not a number');
-          }
-          else {
-            var n = parseInt(num, 10);
-            console.log('sending primeState and n to workerC ' ),
-            workerC.postMessage([primeState, n]);
-            // bind(n)(prm5)(split2)(pop)(largest)(terminate).map(x => m777.ret(x));
-          }
-        }
-      });
 
 
     //******************************************************************* worker
       m42_RES = [];
 
 
-    var clearClick$ = sources.DOM
-        .select('button.clear_P').events('click')
-        .map(e => {
-          m42_RESULT = [];
-          m42_RESULT2 = [];
-        })
+var clearClick$ = sources.DOM
+    .select('button.clear_P').events('click')
+    .map(e => {
+      m42_RESULT = [];
+      m42_RESULT2 = [];
+    })
 
-    var factors2Press$ = sources.DOM
-        .select('button.factors_P').events('click');
+var factors2Press$ = sources.DOM
+    .select('button.factors_P').events('click');
 
-    var factors2Action$ = factors2Press$.map(function (e) {
-      var factors = [];
-      mMfactors3.ret('');
-      bind(65)(cubeC)(it4)(it6)(it7);
-    });
+var factors2Action$ = factors2Press$.map(function (e) {
+  var factors = [];
+  mMfactors3.ret('');
+  bind(65)(cubeC)(it4)(it6)(it7);
+});
 
-  workerG$ = sources.WWG.map(m => {
-    m778_RESULT = result778(m.data);
-    mMZ38.release(m.data);
-    if (m.data) {console.log('GOOD m.data')} else { return "cow" }
-      if (m.target) {console.log('GOOD m.target')} else { return "shit" }
-        if (m.data[1]) {console.log('GOOD m.data[1]')} else { return 'donkey'}
-          if (m.target.ar2) {console.log('GOOD m.data.ar2')} else { return 'dung'}
+workerG$ = sources.WWG.map(m => {
+  m778_RESULT = result778(m.data);
+  mMZ38.release(m.data);
+  if (m.data) {console.log('GOOD m.data')} else { return "cow" }
+    if (m.target) {console.log('GOOD m.target')} else { return "shit" }
+      if (m.data[1]) {console.log('GOOD m.data[1]')} else { return 'donkey'}
+        if (m.target.ar2) {console.log('GOOD m.data.ar2')} else { return 'dung'}
 
-  });
+});
 
 function bind (x, ar=[]) {
   var ar = ar;
@@ -903,30 +914,26 @@ var pingpong4$ = pinpon4$.map(() => {
 
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  End Easy
   const largestFactor = x => bind(1111111)(prm5)(split2)(largest)(terminate).pop()
+  
+    
+    
   var factorsPress_b$ = sources.DOM
-      .select('input#factors_1b').events('keydown');
+      .select('input#factors_1').events('keydown');
 
-  var factorsAction_b$ = factorsPress_b$.map(function (e) {
-    var factors = [];
-    mMfactors3_b.ret('');
-    if (e.keyCode === 13) {
-      var num = e.target.value;
-      if (!num.match(/^[0-9]+$/)) {
-        mMfactors3_b.ret('This works only if you enter a number. ' + num + ' is not a number');
-      }
-      else {
-        var n = parseInt(num, 10);
-        workerE.postMessage([primesMonad.s, n, decompMonad.s]);
-      }
-    }
-  });
+  var factorsAction$ = factorsPress_b$.map(function (num) {
+  var n = num.target.value;
+  var j = Math.sqrt(n);
+  var k = primeState.slice(-1)[0];
+  if (k > j) {
+    var primes = primeState.slice(0, primeState.indexOf(primeState.find(e => e > n)));
+  }
+  else primes = primeState;
+  workerE.postMessage([primes, n]);
+});
 
   const workerE$ = sources.WWE.map(m => {
-    // console.log('Back in the main thread. m is', m );
-    mMfactors_b.ret(m.data[0]);
-    window['primesMonad'] = new MonadState('primesMonad', m.data[1]);
-    window['decompMonad'] = new MonadState('decompMonad', m.data[2]);
-  });
+    mMfactors.ret(m.data[1]);
+   });
 
   var factorsP_b$ = sources.DOM
     .select('input#factors_5b').events('keyup');
@@ -1250,7 +1257,7 @@ counter = function counter(n, acc = 0) {
 
 
 
-        var calcStream$ = xs.merge( pingpong$, test5Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterAction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, factorsAction_b$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, workerG$, workerH$, clearAction$, factorsAction$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$) 
+        var calcStream$ = xs.merge( pingpong$, test5Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterAction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, workerG$, workerH$, clearAction$, factorsAction$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$) 
 
 
 
@@ -1288,12 +1295,9 @@ counter = function counter(n, acc = 0) {
   functions have built-in access to all prior promises\' resolution values. `),
         h('span.tao', styleFunc(["#d3ead5",'3%',"18px",,,]), ' Composition doesn\'t get more flexible and expressive than this. Here is the ' ),      
 h('a', {props: {href: "#bind" }},  'definition of bind'),
-h('span', ' that is used in some of the demonstrations below. ' ),
-h('br'),
-h('br'),
-h('span.tao', ' bind() is not inherently reactive. I show, in the '),
+h('span', ' that is used in some of the demonstrations below. I show in the '),
       h('a', {props: {href: "#defs" }},  'appendix'),
-        h('span', ', a way to make bind() reactive in Cycle.js. In another platform, perhaps with error handling type checking, and another name, "bind" might look very different.' ), 
+        h('span', ', how it was made reactive in this Cycle.js application. ' ), 
         h('br'),
         h('br'),  
         h('span.tao', ' "bind" can easily be expanded to intercept runtime errors, check types, etc. "Demonstration 2" shows ten functions created by the factory function "Bind" that seem to execute in parallel while actually running in a single thread. The '),
@@ -1301,15 +1305,21 @@ h('span.tao', ' bind() is not inherently reactive. I show, in the '),
         h('a', {props: {href: "#Bind" }},  'definition of Bind'),
           
         h('span', ' is presented in the appendix.'),
-      h('p', 'Functions that take multiple arguments should be curried, or else their arguments should be contained in single arrays or objects. This is a consequence of the fact that functions can only return single values, and those return values are the arguments of the functions linked to their right sides. ' ),
+      h('br'),
+      h('br'),
+      h('span.tao', 'Functions that take multiple arguments should be curried, or else their arguments should be contained in single arrays or objects. This is a consequence of the fact that functions can only return single values, and those return values (or resolution values) are the arguments of the functions linked to their right sides. Here are functions that curry and reverse curry multiargument functions: ' ),
+      h('a', {props: {href: "#curryDef"}}, "curry and reverseCurry " ),
+      h('br'),
+      h('br'),
       h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
+      h('br'),
       h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "  .flow" ),
       h('span', ' and Ramda\'s '),
       h('a', {props: {href: "http://ramdajs.com/docs/#compose"}}, 'R.compose' ),
       h('span', ', that facilitate simple function composition; i.e., each function\'s argument is the preceding function\'s return value. bind() does this while also giving every linked function along a chain access to the return values of every function, and the resolution values of every promise that preceds it.  '),
       h('br'),
       h('br'),
-      h('span.tao', {style: {color: '#FDFDFD'}}, 'NOTICE: I encapsulated data in little objects called "monads" during the early stages of this project. Gradually it dawned on me that mimicking the Haskell programming language wasn\'t bringing value to JavaScript; it was making things cumbersome. You can read about the monads in the '), 
+      h('span.tao', {style: {color: '#FDFDFD'}}, 'NOTICE: I encapsulated data in little objects called "monads" during the early stages of this project. Gradually it dawned on me that mimicking the Haskell programming language wasn\'t bringing value sufficient to overcome the overhead.  it was making things cumbersome. You can read about the monads in the '), 
       h('a', {props: {href: '#monads'}}, '>>= section' ),
       h('span', ' below.'),
       h('br'),
@@ -1607,7 +1617,7 @@ h('span', ' The parameters are defined in the ' ),
 h('a', {props: {href: "fp"}}, 'appendix' ),
 h('span', '. ' ),
 h('br'),
-h('pre', {style: {color: "red", fontStyle: "italic"}} , `Red Indicates Am Ongoing Computation` ),
+h('pre', {style: {color: "red", fontStyle: "italic"}} , `Red Indicates An Ongoing Computation` ),
 
 h('pre', `Fibonacci numbers   Prime Numbers   Prime Fibonacci Numbers `), 
 
@@ -1639,15 +1649,15 @@ h('pre', `Fibonacci numbers   Prime Numbers   Prime Fibonacci Numbers `),
   h('br'),
   h('span#PF_7.red6', 'Fibonacci Numbers'),
   h('br'),
-  h('span#PF_9.turk', mMres.x[0]  ),
+  h('span#PF_9.turk', fS  ),
   h('br'),
   h('span#PF_8.red6', 'Prime Fibonacci Numbers'),
   h('br'),
-  h('span#primeFibs.turk', mMres.x[2]  ),
+  h('span#primeFibs.turk', pFS  ),
   h('br'),
   h('span#PF_21.red6', 'The largest generated prime number.'),
   h('br'),
-  h('span#PF_22.turk', mMres.x[1]  ),
+  h('span.turk', topPrime  ),
   h('br'),
   h('h3', ' Promises are not needed ' ),
   h('p', ' Asynchronous code can be handled without reliance on Ecmascript 2015 promises either explicitly or implicitly (e.g. using async/await). Cycle.js drivers eliminate any need to explicitly use functions from a reactive library, but Xstrean is an integral component of Cycle.js. ' ),

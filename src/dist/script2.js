@@ -50,7 +50,7 @@ var fpFunc = primesState => x => fibsState => {
   postMessage( [ [fibsState.join(', '), top2, ar.join(', '), x], state ] )
 }
 
-function execF(n) {
+function execF(fibState,n) {
   var a = [0,1];
   var b = [];
   while ((a[0] + a[1]) < n) {

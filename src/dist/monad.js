@@ -4,6 +4,22 @@
 
 
 
+function intersect (array1, array2)  {
+  var intersection = array1.filter(n => array2.indexOf(n) !== -1) 
+};
+
+
+var topPrime = 2;
+var topP = 2;
+var pS = [2];
+var fS = [2]
+var pFS = [2];
+
+var primeState = [2];
+var fibState = [0,1]; 
+var prFibState = [2];
+
+
 var wolf = 223;
 console.log('h is', h, 'PLOWAZUPI!');
 
@@ -14,9 +30,6 @@ function wait(ms) {
 var S7;
 var store;
 var cow19 = 0 
-
-var primeState = [2];
-var fibState = [0,1]; 
 
 
 var counter;
@@ -86,7 +99,6 @@ var fredButton = h('button#fredButton', "fredButton");
 var cow = 0;
 var diffR = h('button#diffRender', "diffRender");
 var diffRender = () => 8;   ;  // See document.onload in maim
-// var fredButton = h('button#fredButton', "fredButton");
 const messages = [];
 var buttonNode;
 var stat;
@@ -215,11 +227,6 @@ var test5 = x => {
 
 }
 
-
-/*
-bind(3)(s => s*s*s)(w => async() => {
-  await wait(1000); return w})(terminate)// (v => console.log(v()))(terminate).then(b => ar[1] + b + ar[0] + ar[1]/9 )))(terminate)    
-*/
 function add3 (a,b,c) {return a+b+c};
 function mult2 (a,b) {return a*b};
 
@@ -245,8 +252,6 @@ const center = {style: {textAlign: "center", float: "center"}}
 const italicRed = {style: {fontStyle: "italic", color: "#ff5b5b"}}
 const italicYellow = {style: {fontStyle: "italic", color: "#fbfca9"}}
 
-
-
 function styleFunc ([color = '#361B01', marginLeft = '0px',
   fontSize = '15px', fontStyle = 'norma', width = '100%', textAlign = 'left']) {
     return {style:{
@@ -261,7 +266,6 @@ function styleFunc ([color = '#361B01', marginLeft = '0px',
 const italicOrange = {style: {fontStyle: "italic", color: "#96f9ff"}}
 
 const retern = x => y => window[y] = new Monad(x,y);
-
 
 const parseIntC = a => b => parseInt(b,a)
 const pInt = parseIntC(10) //  useful function
@@ -279,17 +283,6 @@ var format = b => {b instanceof Promise ?
 
 var format2 = b => { var a = new Date(); (b.then) ?
   b.then(c => (new Date() - a) + ': ' + c): (Date() - a) + ": " + b};
-
-
-
-
-/*
-var arno = [];
-var format3 = b => { var a = new Date();(b.then) ?
-
-  b.then(c => {arno.push(new Date() - a, c.x ?
-  c.x : c);console.log(arno)}) : {arno.push(new Date() - a, b);console.log(arno };
-*/
 
 var m778_RESULT = h('div', "" );
 var m42_RESULT = [];
@@ -421,68 +414,6 @@ bindEmitter.emit(123,"personal pie in the sky");
 var mM40 = new Monad([], 'mM40');
 var RESULT_bind = [];
 
-/*
-function bind (x, array9=[]) {
-  let arm = array9;
-  this.arm = arm;
-  if (x instanceof Promise) x.then(y => this.arm.push(y));
-  else this.arm.push(x)
-  return function debug8 (func) {
-    if (func.name === "terminate") return this.arm;
-    var p;
-    if (x instanceof Promise) {
-      p = x.then(v => func(v));
-    }
-    else p = func(x);
-    return bind(p, this.arm);
-  }
-};
-
-function bind (x, ar=[] {
-  this.ar = ar;
-  if (this.ar.length === 0) this.ar = [x];
-  if (x instanceof Promise) x.then(y => ar.push(y));
-  else ar.push(x)
-  return function debug8 (func) {
-    if (func.name === "terminate") return ar;
-    var p;
-    if (x instanceof Promise) {
-      p = x.then(v => func(v));
-    }
-    else p = func(x);
-    return bind(p, this.ar);
-  };
-};
-
-function bind2 (x, ar=[], str="fred") {
-  typeof window[str] === 'undefined' ? console.log("bind3", str, ": GOOD CHOICE") : console.log("WARNING - bind3 potential name clash");
-  this[str] = ar;
-  this.ar = ar;
-  if (this.ar.length === 0) this.ar = [x];
-  if (x instanceof Promise) {x.then(y => {
-    ar.push(y);
-    RESULT_bind = ar;
-    console.log(ar.join(', '));
-    dcoiffRender();
-  })}
-  else {
-    ar.push(x);
-    RESULT_bind = ar;
-    console.log(ar.join(', '));
-    if (socket.readyState === 1) diffRender();
-  }
-  return function debug8 (func) {
-    if (func.name === "terminate") return ar;
-    var p;
-    if (x instanceof Promise) {
-      p = x.then(v => func(v));
-    }
-    else p = func(x);
-    return bind2(p, this.ar);
-  };
-};
-
-*/
 var O_001 = {ar: []};
 var O_002 = {ar: []};
 var O_003 = {ar: []};
@@ -639,86 +570,8 @@ function binda (x, ar=[], str="susan", name ) {
     return binda(p, this[str]);
   };
 };
-/*
-function bind2 (x, ar=[], str="fred") {
-  typeof window[str] === 'undefined' ? console.log("bind3", str, ": GOOD CHOICE") : console.log("WARNING - bind3 potential name clash");
-  this[str] = ar;
-  if (this[str].length === 0) this[str] = [x];
-  if (x instanceof Promise) {x.then(y => {
-    this[str].push(y);
-    RESULT_bind = this[str];
-    console.log(this[str].join(', '));
-    diffRender();
-  })}
-  else {
-    this[str].push(x);
-    RESULT_bind = this[str];
-    console.log(this[str].join(', '));
-    if (socket.readyState === 1) diffRender();
-  }
-  return function debug8 (func) {
-    if (func.name === "terminate") return this[str];
-    var p;
-    if (x instanceof Promise) {
-      p = x.then(v => func(v));
-    }
-    else p = func(x);
-    return bind2(p, this[str]);
-  };
-};
-
-function bind3 (x, ar=[], str="fred") {
-  typeof window[str] === 'undefined' ? console.log("bind3", str, ": GOOD CHOICE") : console.log("WARNING - bind3 potential name clash");
-  this[str] = ar;
-  //if (this[str].length === 0) this[str] = [x];
-  if (x instanceof Promise) {x.then(y => {
-    this[str].push(y);
-    RESULT_bind = this[str];
-    console.log(this.str.join(', '));
-    diffRender();
-  })}
-  else {
-    this[str].push(x);
-    RESULT_bind = this[str];
-    console.log(this[str].join(', '));
-    if (socket.readyState === 1) diffRender();
-  }
-  return function debug8 (func) {
-    if (func.name === "terminate") return this[str];
-    var p;
-    if (x instanceof Promise) {
-      p = x.then(v => func(v));
-    }
-    else p = func(x);
-    return bind2(p, this[str]);
-  };
-};
-*/
 
 var logger = () => {console.log('(*)(*)(*)', arm ); return x};
-
-/*function bind6 (x, ar = [], o = {a: 0}) {
-  var arm = ar;
-  var ob = o 
-  if (x instanceof Promise) x.then(y => arm.push(y));
-  else arm.push(x)
-  return function debug8 (func) {
-    if (func.name === "terminate") return arm;
-    var p;
-    if (x instanceof Promise) {
-      p = x.then(v => func(v));
-      RESULT_bind = arm;
-      console.log(arm.join(', '));
-      diffRender();
-    }
-    else {
-      p = func(x);
-      RESULT_bind = arm;
-      if (socket.readyState === 1) diffRender();
-      return bind2(p, arm);
-    };
-  };
-};  */
 
 var runDemo = n => {
   bind2(n)(cubeP)(addP(3))(a=>a+arm[0]+arm[1]-18)
@@ -726,49 +579,6 @@ var runDemo = n => {
   (terminate);
   diffRender();
 }
-
-
-
-
-
-
-
-/*var Ob = {
-  a: function arm () {},
-  f: function g (x) {
-    if (x instanceof Promise) {x.then(y => {
-      RESULT_bind = Ob.arm;
-      that.arm.push(y);
-      console.log(Ob.arm.join(', '));
-      diffRender();
-    })}
-    else {
-      Ob.arm.push(x);
-      console.log(Ob.arm.join(', '));
-      RESULT_bind = Ob.arm;
-      if (socket.readyState === 1) diffRender();
-    }
-
-    return function debug8 (func) {
-      if (func.name === "terminate") return this.arm;
-      var p;
-      if (x instanceof Promise) {
-        p = x.then(v => func(v));
-      }
-      else p = func(x);
-      console.log("this",this);
-      return g(p, Ob.arm);
-    };
-  },
-};
-*/
-
-
-
-
-
-
-
 
 
 function bindEmitterDriver () {
@@ -2869,7 +2679,10 @@ function pfactors (primes, n) {
   return ar;
 }
 
-
-
+class Addable {
+  [Symbol.for('+')] (other) {
+    return // some computation which uses this and other 
+  }
+}
 
 
