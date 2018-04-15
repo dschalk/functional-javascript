@@ -495,7 +495,6 @@ var primeFib$ = fibKeyPress5$.map(num => {
   var j = Math.sqrt(n);
   var k = primeState2.slice(-1)[0];
   if (k > j) {
-    console.log('<@> 1 <@><@><@><@><@><@><@><@>>>>> >> > In primeFib$ -- n,k,j,k>j', n,k,j,k>j);
     var t = Date.now();
     var fibs = fibState.slice(0, fibState.indexOf(fibState.find(e => e > n)));
     fS = fibs.join(', ');
@@ -505,7 +504,6 @@ var primeFib$ = fibKeyPress5$.map(num => {
     diffRender();
   }
   else { 
-    console.log('<@> 2 <@><@><@><@><@><@><@><@>>>>> >> > In primeFib$ -- n,k,j,k>j', n,k,j,k>j);
     workerB.postMessage([primeState2, fibState, prFibState, n]);
   }
 });
@@ -1463,16 +1461,17 @@ h('br'),
 h('br'),
 h('br'),
 
-h('span.tao', 'This project was created by and is actively maintained by me, David Schalk. It is a work in progress. The code repository is at '),
+h('span.tao', 'This project was created by and is actively maintained by David Schalk. The code repository is at '),
 h('a', { props: { href: "https://github.com/dschalk/functional-javascript", target: "_blank" }}, 'functional-javascript'),
 h('span', '. Please leave a comment in the '),
 h('a', {props: {href: "#comments"}}, 'comments'),
 h('span', ' section near the end of this page. You can email me at pyschalk@gmail.com. '),
 h('p', ' '),
-h('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history. All group members see your score decrease or increase as you navigate backwards and forwards. ' ),
-h('p', ' You are automatically logged in with randomly generated numbers as your user name and password. Your group is the non-group "solo". '),
-h('p', ' You can select a persistent name and password. These will make it possible for you to return later to delete or edit comments that you might have saved. '),
-h('p#gameIntro', ' The demonstration section also has a text box where you can create or join groups. Changing groups resets your game score and goal tally to zeros. ' ),
+h('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history. All group members see other members\' scores decrease or increase as they navigate backwards and forwards. ' ),
+  
+h('p', ' Visitors to this site are automatically logged in with pseudo-randomly generated numbers as their user names and passwords. The default "group" is the non-group "solo". '),
+h('p', ' You can select a persistent name and password. These will make it possible for you to return at any time and delete or edit your comments. '),
+h('p#gameIntro', ' The demonstration section also has a text box where you can create or join a group by entering a group name. Changing groups resets your game score and goal tally to zeros. ' ),
       h('span.tao', ' The game code is fairly concise and intuitive. A quick walk-through is presented at.' ),
 h('a', { props: { href: '#gameCode' } }, 'here'),
 h('span', '. To see monadic functionality at work, I suggest that you take a look at the section captioned ' ),
