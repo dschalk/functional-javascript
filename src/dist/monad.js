@@ -16,6 +16,7 @@ var fS = [2]
 var pFS = [2];
 
 var primeState = [2];
+var primeState2 = [2];
 var fibState = [0,1]; 
 var prFibState = [2];
 

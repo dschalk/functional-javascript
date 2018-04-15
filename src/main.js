@@ -477,11 +477,11 @@ const workerB$ = sources.WWB.map(m => {
     fS = m.data[1].join(', '); 
     pFS = m.data[2].join(', ');
     mMelapsed.ret(elapsed(m.data[3]))
-    if (m.data[0].length > primeState.length) {
-      primeState = m.data[0];
+    if (m.data[0].length > primeState2.length) {
+      primeState2 = m.data[0];
       fibState = m.data[1];
       prFibState = m.data[2];
-      topP = primeState.slice(-1);
+      topP = primeState2.slice(-1);
       topPrime = topP.toString();
     }
   }
@@ -493,7 +493,7 @@ var fibKeyPress5$ = sources.DOM
 var primeFib$ = fibKeyPress5$.map(num => {
   var n = num.target.value;
   var j = Math.sqrt(n);
-  var k = primeState.slice(-1)[0];
+  var k = primeState2.slice(-1)[0];
   if (k > j) {
     console.log('<@> 1 <@><@><@><@><@><@><@><@>>>>> >> > In primeFib$ -- n,k,j,k>j', n,k,j,k>j);
     var t = Date.now();
@@ -506,7 +506,7 @@ var primeFib$ = fibKeyPress5$.map(num => {
   }
   else { 
     console.log('<@> 2 <@><@><@><@><@><@><@><@>>>>> >> > In primeFib$ -- n,k,j,k>j', n,k,j,k>j);
-    workerB.postMessage([primeState, fibState, prFibState, n]);
+    workerB.postMessage([primeState2, fibState, prFibState, n]);
   }
 });
 

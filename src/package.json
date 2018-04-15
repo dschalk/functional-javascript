@@ -7,6 +7,7 @@
     "@cycle/base": "^4.3.0",
     "@cycle/dom": "^12.2.8",
     "@cycle/run": "^4.1.0",
+    "@cycle/xstream-run": "^4.2.0",
     "ardent": "^1.0.0",
     "babel-core": "^6.8.0",
     "babel-plugin-external-helpers": "^6.22.0",
