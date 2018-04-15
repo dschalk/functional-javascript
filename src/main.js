@@ -456,8 +456,6 @@
 
       // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START PRIME FIB
 var topPrime = 2;
-var topP = 2;
-var pS = [2];
 var fS = [2]
 var pFS = [2];
 
@@ -473,7 +471,6 @@ const workerB$ = sources.WWB.map(m => {
     mMprimeFibBlurb.ret(m.data[6]);
   }
   else {
-    pS = m.data[0].join(', ');
     fS = m.data[1].join(', '); 
     pFS = m.data[2].join(', ');
     mMelapsed.ret(elapsed(m.data[3]))
@@ -481,7 +478,7 @@ const workerB$ = sources.WWB.map(m => {
       primeState2 = m.data[0];
       fibState = m.data[1];
       prFibState = m.data[2];
-      topP = primeState2.slice(-1);
+      var topP = primeState2.slice(-1);
       topPrime = topP.toString();
     }
   }
@@ -919,6 +916,7 @@ var pingpong4$ = pinpon4$.map(() => {
       .select('input#factors_1').events('keydown');
 
   var factorsAction$ = factorsPress_b$.map(function (num) {
+    if (num.keyCode === 13) {
   var n = num.target.value;
   var j = Math.sqrt(n);
   var k = primeState.slice(-1)[0];
@@ -927,7 +925,7 @@ var pingpong4$ = pinpon4$.map(() => {
   }
   else primes = primeState;
   workerE.postMessage([primes, n]);
-});
+}});
 
   const workerE$ = sources.WWE.map(m => {
     mMfactors.ret(m.data[1]);
@@ -1564,7 +1562,7 @@ h('div.content', [
 h('a#bind', {props: {href: '#top'}}, 'Back to the top'),
 
 h('p', 'CAUTION - SOME OF THE COMMENTARY AFTER THIS POINT STILL LAGS BEHIND RECENT REFACTORING.'),
-h('p', ' Here are the definitions of bind: '),
+h('p', ' Here is the definition of bind: '),
 h('pre', {style: {color: "lightBlue"}}, `function bind (x, ar=[]) {
   var ar = ar;
   if (ar.length === 0) ar = [x];
@@ -1587,7 +1585,7 @@ h('a', { props: { href: '#top' } }, 'Back To The Top'),
 h('br'),
 h('a', {props: {href: '#cyclet'}}, 'Async Procedures' ),
 h('p', ' "h(\'div\', m42_RESULT)" is a permanent fixture in the Snabbdom virtual DOM that is returned by main() and updated by calcStream$. When it7() executes, Snabbdom performs its diff and render routine, updating the browser window. '),
-h('p', ' The asynchronous functions in Demonstration 1 use monadItter instances mMZ40 and mMZ41 instead of Promises. Here\'s the definition of MonadItter: '),
+h('p', ' The asynchronous functions in Demonstration 1 use monadItter instances mMZ40 and mMZ52 instead of Promises. Here\'s the definition of MonadItter: '),
 h('pre', `  var MonadItter = function MonadItter() {
     this.p = function () {};
     this.release = function () {
@@ -1597,7 +1595,7 @@ h('pre', `  var MonadItter = function MonadItter() {
       return this.p = func;
     };
   }; `),
-h('p', ' When obtaining data from unreliable sources, one should add error checking functionality or use promises. '),
+h('p', ' When obtaining data from unreliable sources, adding error checking to MonadItter or using promises\' error- checking feature would be helpful. '),
 h('h3', 'Reactivity In Cycle.js' ),
 h('span.tao', ' Reactivity occurs naturally in the Cycle.js framework. Many developers find that Cycle.js has an unusually steep learning curve. It isn\'t so bad if you start with Andrew Staltz\' '),
 h('a', { props: { href: "https://egghead.io/courses/cycle-js-fundamentals", target: "_blank" } }, ' Overview of Cycle.js.'),
@@ -1607,7 +1605,7 @@ h('br' ),
 h('a.tao', {props: {href: 'https://github.com/snabbdom/snabbdom'}}, ' Snabbdom' ),
 h('span', ', ' ),
 h('a', {props: {href: 'http://x-stream.github.io/'}}, ' xstream,' ),
-h('span', ' and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimentation and learning so many supporting files are included as scripts in the index.html page. ' ),
+h('span', ' and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimentation and fun so many of its functions and variable definitions are included in scripts in the index.html page. ' ),
 h('br' ),
 
 h('p', ' The next interactive demonstration accepts user input and executes the following statement in a web worker: ' ),
@@ -1659,7 +1657,7 @@ h('pre', `Fibonacci numbers   Prime Numbers   Prime Fibonacci Numbers `),
   h('span.turk', topPrime  ),
   h('br'),
   h('h3', ' Promises are not needed ' ),
-  h('p', ' Asynchronous code can be handled without reliance on Ecmascript 2015 promises either explicitly or implicitly (e.g. using async/await). Cycle.js drivers eliminate any need to explicitly use functions from a reactive library, but Xstrean is an integral component of Cycle.js. ' ),
+  h('p', ' Asynchronous code can be handled without reliance on Ecmascript 2015 promises either explicitly or implicitly (e.g. using async/await). Cycle.js drivers eliminate any need to explicitly use functions from a reactive library, but xstream is an integral component of Cycle.js unless you choose most.js or RxJS. ' ),
 
   h('p', ' The second demonstration in this series decomposes numbers into its their prime factors. Testing with sequences of 9\'s, the first substantial lag occurs at 9,999,999 - unless a large array of prime numbers has already been generated in the previous demonstration or elsewhere. Here it is:' ),
   h('input#factors_1'),
@@ -1792,8 +1790,10 @@ h('pre', `  ret(2).bnd(v => add(v,1)
   h('p#quad6.red2', mMquad6.x  ),
   h('p', 'Run mMZ3.release(v) three times for three numbers. The numbers are a, b, and c in ax*x + b*x + c = 0. Remember to press <ENTER> after each number. '),
   h('input#quad'),
-  h('p', 'Here is the code:'),
+  h('p', ' The function "solve()" is at the center of the algorithm. See how mMZ3.bind() appears three times. Each time a user enters a number, say "x", mMZ3.release(x) executes. After the third number, solve calls itself so the process can start again. I prefer this approach over ES6 generators. Here\'s solve(): '),
   code.quad,
+  h('p', ' And here are the supporting functions: '),
+  code.quad2,
   h('p', ' fmap (above) facilitated using qS4 in a monadic sequence. qS4 returns an array, not an instance of Monad, but fmap lifts qS4 into the monadic sequence. '),
   h('p', ' The function solve() is recursive. It invokes itself after release() executes three times. The expression "solve()" resets solve to the top, where mMZ3.p becomes a function containing two nested occurrences of mMZ3.bnd. After mMZ3.release() executes, mMZ3.p becomes the function that is the argument to the next occurrence of mMZ3.bnd. That function contains yet another occurrence of mMZ3.bnd. MonadItter is syntactic sugar for nested callbacks. ' ),
 

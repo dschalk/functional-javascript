@@ -6,18 +6,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 function pNums(start, n) {
   var store  = [], i, j, primes = [];
   for (i = start; i <= n; ++i) {

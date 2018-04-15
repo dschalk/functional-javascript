@@ -133,9 +133,9 @@ const monadIt = h('pre', {style: {color: '#AFEEEE' }}, `  var MonadItter = funct
       solve();   // Continuing the endless loop.
       }) }) }) })
   };
-  solve();
+  solve(); `)
 
-  function gMap(x, f, id) {
+  var quad2 = h('pre', `  function gMap(x, f, id) {
     var mon = new Monad(f(x), id);
     window[id] = mon;
     return mon;
@@ -180,5 +180,5 @@ const monadIt = h('pre', {style: {color: '#AFEEEE' }}, `  var MonadItter = funct
   }); `  )
 
 
-export default {quad, monadIt, primes, primes2, primes3, primes4}
+export default {quad, quad2, monadIt, primes, primes2, primes3, primes4}
 
