@@ -1267,13 +1267,10 @@ counter = function counter(n, acc = 0) {
         h('div', {style: {textAlign:"center", fontWeight: "bold"}}, [
         h('div', {style: {fontSize: "27px", color: "#FFD700"}}, 'FUNCTIONAL PROGRAMMING'),
         h('br'),
-        h('div', {style: {fontSize: "22px", fontStyle: "italic", color: "#07f7f7"}},'WITH CYCLE.JS' ) ]),
-        h('br'),
-        h('br'),
+        h('div', {style: {fontSize: "19px", fontStyle: "italic", color: "#07f7f7"}},'MADE REACTIVE WITH CYCLE.JS' ) ]),
         h('div.content', [
-        h('span', styleFunc(["#d3ead5",,"18px",,,]), ' Consider this, if you will: '),
-        h('br'),
-        h('br'),
+        h('p', styleFunc(["#a2f2e8",,"18px","italic",,]), 'PROLOGUE: For me, functional programming is not a quazi-religous doctrine to which I scrupulously adhere. Mutating variables inside of functions can minimize lines of code and promote efficiency. An appropriately named global variable might be preferred over a global namespace or global stream. And there might occasionally be a good reason for letting a function fish for data outside of its scope. You can call me an "anarchist" and accuse me of having too much fun. That\'s OK. The Muses are most communicative when we\'re having fun and thinking outside the box. -- David Schalk ' ),
+        h('p', ' Higher order functions are the jewels of functional programming. Isn\'t tayloring such functions to suit the unique needs of each project more fun than always working inside the confines of libraries and platforms? A team might be locked into certain libraries and a certain platform, but custom higher-order functions can still blossom, pass tests, and be incorporated in group efforts. Here\'s an example of one that facilitates function composition: '  ),
         h('div', styleFunc(["#FFD700","3%","21px",,,]), 'bind(x)(functiona1)(function2) ... (functionN)'),
         h('br'),
 
@@ -1291,7 +1288,7 @@ counter = function counter(n, acc = 0) {
   functions have built-in access to all prior promises\' resolution values. `),
         h('span.tao', styleFunc(["#d3ead5",'3%',"18px",,,]), ' Composition doesn\'t get more flexible and expressive than this. Here is the ' ),      
 h('a', {props: {href: "#bind" }},  'definition of bind'),
-h('span', ' that is used in some of the demonstrations below. I show in the '),
+h('span', '. I show in the '),
       h('a', {props: {href: "#defs" }},  'appendix'),
         h('span', ', how it was made reactive in this Cycle.js application. ' ), 
         h('br'),
@@ -1305,8 +1302,11 @@ h('span', ' that is used in some of the demonstrations below. I show in the '),
       h('br'),
       h('span.tao', 'Functions that take multiple arguments should be curried, or else their arguments should be contained in single arrays or objects. This is a consequence of the fact that functions can only return single values, and those return values (or resolution values) are the arguments of the functions linked to their right sides. Here are functions that curry and reverse curry multiargument functions: ' ),
       h('a', {props: {href: "#curryDef"}}, "curry and reverseCurry " ),
-      h('br'),
-      h('br'),
+      h('span', ', and here is an example: ' ),
+      h('pre', `  curryReverse(parseInt)(6)("000111") === 43 // true;  
+  const toInt = curryReverse(parseInt)(6); // A curried function
+  toInt("000111") === 43 // true `),
+
       h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
       h('br'),
       h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "  .flow" ),
@@ -1928,7 +1928,6 @@ h('pre', `function curry(func) {
 }
 
 function curryReverse(func) {
-
   return function curried(...args) {
     if (args.length >= func.length) {
       return func.apply(this, args.reverse());
