@@ -23,6 +23,13 @@ a {
   color: #cc72f9;
 }
 
+#donkey {
+  font-size: 40px;
+  margin-left: 3%;
+  width: 200px;
+  line-height: 0.5;
+}
+
 a:hover {
   color: #f7f700;
 }
@@ -83,6 +90,24 @@ a:hover {
   #logo {
     background-color: transparent;
     padding-left: 2%;
+  }
+
+  .mR {
+    margin-right: 3%;
+  }
+
+  .mR {
+    margin: 0;
+    width: 50px;
+    background-color: #331903;
+    border-width: 1px;
+    border-color: #E8F7C1;
+    border-radius: 0px;
+    color: #00ffdd;
+    font-size: 24px;
+    -webkit-box-shadow: 0px 0px 5px 0px rgb(255, 215, 0);
+    -moz-box-shadow:    0px 0px 5px 0px rgb(255, 215, 0);
+    box-shadow:         0px 0px 5px 0px rgb(255, 215, 0);
   }
 
   button {

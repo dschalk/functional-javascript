@@ -183,114 +183,116 @@
     .bnd(next, 'BC#$42', mMZ28)  // works in conjunction with it4
    });
 
-  function next(x, y, instance, z) {
-    if (x == y) {
-        instance.release(z);
-    }
-    return ret(x);
-  };
-
-  /*
-  async function waitP (f, args) {
-    var z = await (p);
-    m80.ret(z);
-    console.log(m80.x);
-    return m80.x;
+function next(x, y, instance, z) {
+  if (x == y) {
+      instance.release(z);
   }
-  console.log('m80.x',m80.x);
-   function bind (x, ar = [], args) {
-      this.ar = ar;
-      var xano = "Charles"
-      ar.push(x);
-      if (ar.length === 0) ar = [x];
-      console.log('Entering bind. x and ar are',x,ar);
-      return function debug8 (func, args=[]) {
-        if (func.name === "terminate") return ar;
+  return ret(x);
+};
 
-        if (func(x, ...args) instanceof Promise) {
-          console.log('bind: func(x, ...args) instanceof Promise');
-          return async () => {
-            await waitP(func(x, ...args))
-            return bind(m80, ar);
-          }
+/*
+async function waitP (f, args) {
+  var z = await (p);
+  m80.ret(z);
+  console.log(m80.x);
+  return m80.x;
+}
+console.log('m80.x',m80.x);
+ function bind (x, ar = [], args) {
+    this.ar = ar;
+    var xano = "Charles"
+    ar.push(x);
+    if (ar.length === 0) ar = [x];
+    console.log('Entering bind. x and ar are',x,ar);
+    return function debug8 (func, args=[]) {
+      if (func.name === "terminate") return ar;
+
+      if (func(x, ...args) instanceof Promise) {
+        console.log('bind: func(x, ...args) instanceof Promise');
+        return async () => {
+          await waitP(func(x, ...args))
+          return bind(m80, ar);
         }
-
-        var y = func(x, ...args)
-
-        if (func(x, ...args) instanceof Monad) {
-          console.log('bind: y is a monad. y.x and ar',y.x,ar);
-          return bind(y.x, ar);
-        }
-        else {
-          console.log('bind: func(x, ...args) is not a Monad or a Promise. y',y);
-          return bind(y, ar);
-        }
-      };
-    };
-  */
-
-  var comment$ = sources.DOM.select('#comment').events('keydown');
-
-  var commentAction$ = comment$.map(e => {
-    if (e.keyCode == 13) {
-      e.preventDefault();
-      var comment = e.target.value.replace(/,/g, "<<>>");
-      comment = pMname.x + "<o>" + comment
-      socket.send(`GN#$42,${pMgroup.x},${pMname.x},<@>${comment}<@>`);
-    }
-  });
-
-  var deleteClick2$ = sources.DOM
-      .select('#deleteB').events('click');
-
-  var deleteAction2$ = deleteClick2$.map(function (e) {
-      var index = parseInt(e.target.parentElement.id, 10);
-      var old = commentMonad.s[1].slice(index,index+1)[0];
-      socket.send(`GD#$42,${pMgroup.x},${pMname.x},${index},${old}`);
-  });
-
-  var editB$ = sources.DOM
-      .select('textarea#commit').events('keydown');
-
-  var editBAction$ = editB$.map( function (e) {
-    if (e.keyCode == 13) {
-      var index = parseInt(e.target.parentElement.id, 10);
-      var w = e.target.value.split(",");
-      var nu = pMname.x + "<o>" + w.join('<<>>');
-      var old = commentMonad.s[1].slice(index,index+1)[0];
-      socket.send(`GE#$42,${pMgroup.x},${pMname.x},${index},${old},${nu}`);
-    }
-  })
-
-  var abcde = 'inline';
-  var fghij = 'inline';
-
-    var registerPress$ = sources.DOM
-        .select('input.register').events('keypress');
-
-    var registerPressAction$ = registerPress$.map(e => {
-      mMerror.ret('');
-      var str = e.target.value;
-      var art = str.split(',');
-      if (e.keyCode === 13) {
-        mMerror.ret('');
-        if (art.length != 2) {
-          mMerror.ret(' There should be one and only one comma' );
-          return;
-        }
-        else {
-          var name = art[0];
-          var x = art.join('<o>');
-          mMshowRegister.ret('none');
-          pMname.bnd(backupMonad.ret)
-          pMname.ret(name);
-          console.log('pMname.x is', pMname.x );
-          socket.send(`RR#$42,${pMgroup.x},${pMoldName.x},${x}`); }
-          setTimeout(function () {
-            socket.send(`CG#$42,${pMgroup.x},${name},${pMscore.x},${pMgoals.x}`);
-          },700);
       }
-    });
+
+      var y = func(x, ...args)
+
+      if (func(x, ...args) instanceof Monad) {
+        console.log('bind: y is a monad. y.x and ar',y.x,ar);
+        return bind(y.x, ar);
+      }
+      else {
+        console.log('bind: func(x, ...args) is not a Monad or a Promise. y',y);
+        return bind(y, ar);
+      }
+    };
+  };
+*/
+
+var comment$ = sources.DOM.select('#comment').events('keydown');
+
+var commentAction$ = comment$.map(e => {
+  if (e.keyCode == 13) {
+    e.preventDefault();
+    var comment = e.target.value.replace(/,/g, "<<>>");
+    comment = pMname.x + "<o>" + comment
+    socket.send(`GN#$42,${pMgroup.x},${pMname.x},<@>${comment}<@>`);
+  }
+});
+
+var deleteClick2$ = sources.DOM
+    .select('#deleteB').events('click');
+
+var deleteAction2$ = deleteClick2$.map(function (e) {
+    var index = parseInt(e.target.parentElement.id, 10);
+    var old = commentMonad.s[1].slice(index,index+1)[0];
+    socket.send(`GD#$42,${pMgroup.x},${pMname.x},${index},${old}`);
+});
+
+var editB$ = sources.DOM
+    .select('textarea#commit').events('keydown');
+
+var editBAction$ = editB$.map( function (e) {
+  if (e.keyCode == 13) {
+    var index = parseInt(e.target.parentElement.id, 10);
+    var w = e.target.value.split(",");
+    var nu = pMname.x + "<o>" + w.join('<<>>');
+    var old = commentMonad.s[1].slice(index,index+1)[0];
+    socket.send(`GE#$42,${pMgroup.x},${pMname.x},${index},${old},${nu}`);
+  }
+})
+
+var abcde = 'inline';
+var fghij = 'inline';
+
+var registerPress$ = sources.DOM
+    .select('input.register').events('keypress');
+
+var registerPressAction$ = registerPress$.map(e => {
+  mMerror.ret('');
+  var str = e.target.value;
+  var art = str.split(',');
+  if (e.keyCode === 13) {
+    mMerror.ret('');
+    if (art.length != 2) {
+      mMerror.ret(' There should be one and only one comma' );
+      return;
+    }
+    else {
+      var name = art[0];
+      var x = art.join('<o>');
+      mMshowRegister.ret('none');
+      pMname.bnd(backupMonad.ret)
+      pMname.ret(name);
+      console.log('pMname.x is', pMname.x );
+      socket.send(`RR#$42,${pMgroup.x},${pMoldName.x},${x}`); }
+      setTimeout(function () {
+        socket.send(`CG#$42,${pMgroup.x},${name},${pMscore.x},${pMgoals.x}`);
+      },700);
+  }
+});
+
+console.log("Wake up, you horse's ass");
 
     var groupPress$ = sources.DOM
         .select('input#group').events('keypress');
@@ -304,97 +306,355 @@
       }
     });
 
-    var messagePress$ = sources.DOM
-        .select('input.inputMessage').events('keydown');
+var messagePress$ = sources.DOM
+    .select('input.inputMessage').events('keydown');
 
-    var messagePressAction$ = messagePress$.map(function (e) {
-        if (e.keyCode === 13) {
-            socket.send(`CD#$42,${pMgroup.x},${pMname.x},${e.target.value}`);
-            e.target.value = '';
-        }
-    });
-
-    var updatePlayers = function updatePlayers (data) {
-      sMplayers.s.clear();
-      var namesL = data.split("<br>");
-      namesList = namesL.slice(1);
-      updateScore(namesList);
-      namesList.forEach(player => sMplayers.s.add(player.trim()));
+var messagePressAction$ = messagePress$.map(function (e) {
+    if (e.keyCode === 13) {
+        socket.send(`CD#$42,${pMgroup.x},${pMname.x},${e.target.value}`);
+        e.target.value = '';
     }
+});
 
-    function updateScore(v) {
-      var g = [];
-      for (let k of v) {
-          g.push(h('div', '  ' + k));
-      };
-      return g
-    };
+var updatePlayers = function updatePlayers (data) {
+  sMplayers.s.clear();
+  var namesL = data.split("<br>");
+  namesList = namesL.slice(1);
+  updateScore(namesList);
+  namesList.forEach(player => sMplayers.s.add(player.trim()));
+}
 
-    var m80Change$ = sources.DOM
-      .select('#m80').events('change');
+function updateScore(v) {
+  var g = [];
+  for (let k of v) {
+      g.push(h('div', '  ' + k));
+  };
+  return g
+};
 
-    var m80Action$ = m80Change$.map(() => {
-    });
+var m80Change$ = sources.DOM
+  .select('#m80').events('change');
 
-    var rollClick$ = sources.DOM
-      .select('#roll').events('click');
+var m80Action$ = m80Change$.map(() => {
+});
 
-    var rollClickAction$ = rollClick$.map(() => {
-      var a = gameMonad.fetch0() - 1;
-      var b = gameMonad.fetch1();
-      socket.send(`CA#$42,${pMgroup.x},${pMname.x},6,6,12,20,${a},${b}`);
-    });
+//******************************************************** MATRIX
 
-    var numClick$ = sources.DOM
-        .select('.num').events('click');
+/*
+var rNumsDS = [0,1,2,3]
+console.log('rNumsDS', rNumsDS);
+var rADS = [];
 
-    var numClickAction$ = numClick$.map(e => {
-      if (gameMonad.fetch3().length < 2)  {
-        var a = gameMonad.fetch3();
-        var b = gameMonad.fetch4();
-        a.push(b.splice(e.target.id, 1)[0]);
-        gameMonad.run([,,,a,b,,]);
-        if (a.length === 2 && gameMonad.fetch2() != 0) {
-          updateCalc(a, gameMonad.fetch2())
-        }
-      }
-    }).startWith([0, 0, 0, 0]);
+var rDataDS = [
+  h('button#mR0', 0 ),
+  h('button#mR1', 1 ),
+  h('button#mR2', 2 ),
+  h('button#mR3', 3 )
+];
 
-    var opClick$ = sources.DOM
-        .select('.op').events('click');
+function rFuncDS (j,k,r) {
+  var a = r[j];
+  r[j] = r[k];
+  r[k] = a;
+  return r;
+}  
 
-    var opClickAction$ = opClick$.map(e => {
-      var s3 = gameMonad.fetch3();
-      if (s3.length === 2) {
-        updateCalc(s3, e.target.innerHTML);
-      }
-      else {
-        gameMonad.run([,,e.target.innerHTML,,,,]);
-      }
-    });
+function makeRDS (arr) {
+  var r = arr.slice();
+  return [
+    h('button#mR0', r[0] ), 
+    h('button#mR2', r[1] ),
+    h('button#mR1', r[2] ), 
+    h('button#mR3', r[3] ) 
+  ];
+};
+*/
 
-  var forwardClick$ = sources.DOM
-    .select('#ahead.tao1').events('click')
+var indexDS = 0;
 
-  var backClick$ = sources.DOM
-    .select('#back.tao100').events('click');
+var m80$ = sources.DOM
+.select('#mR0').events('click')
+.map(e => {
+  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  console.log('rADS.length:', rADS.length );
+  if (rADS.length === 2) {
+    mMindexDS.ret(mMindexDS.x + 1);
+   rExchange (rADS[0], rADS[1]); 
+   rADS = [];
+  }
+});
 
-  var backAction$ = backClick$.map(() => {
-    if (gameMonad.s[1] > 0) {
-      gameMonad.dec();
+var m81$ = sources.DOM
+.select('button#mR1.mR').events('click')
+.map(e => {
+  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  console.log('rADS.length:', rADS.length );
+  if (rADS.length === 2) {
+    mMindexDS.ret(mMindexDS.x + 1);
+   rExchange (rADS[0], rADS[1]); 
+   rADS = [];
+  }
+});
+
+var m82$ = sources.DOM
+.select('#mR2.mR').events('click')
+.map(e => {
+  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  if (rADS.length === 2) {
+    mMindexDS.ret(mMindexDS.x + 1);
+   rExchange (rADS[0], rADS[1]); 
+   rADS = [];
+  }
+});
+
+var m83$ = sources.DOM
+.select('button#mR3').events('click')
+.map(e => {
+  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  if (rADS.length === 2) {
+    mMindexDS.ret(mMindexDS.x + 1);
+   rExchange (rADS[0], rADS[1]); 
+   rADS = [];
+  }
+});
+
+var m84$ = sources.DOM
+.select('button#mR4').events('click')
+.map(e => {
+  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  if (rADS.length === 2) {
+    mMindexDS.ret(mMindexDS.x + 1);
+   rExchange (rADS[0], rADS[1]); 
+   rADS = [];
+  }
+});
+
+var m85$ = sources.DOM
+.select('button#mR5').events('click')
+.map(e => {
+  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  if (rADS.length === 2) {
+    mMindexDS.ret(mMindexDS.x + 1);
+   rExchange (rADS[0], rADS[1]); 
+   rADS = [];
+  }
+});
+
+var m86$ = sources.DOM
+.select('button#mR6').events('click')
+.map(e => {
+  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  if (rADS.length === 2) {
+    mMindexDS.ret(mMindexDS.x + 1);
+   rExchange (rADS[0], rADS[1]); 
+   rADS = [];
+  }
+});
+
+var m87$ = sources.DOM
+.select('button#mR7').events('click')
+.map(e => {
+  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  if (rADS.length === 2) {
+    mMindexDS.ret(mMindexDS.x + 1);
+   rExchange (rADS[0], rADS[1]); 
+   rADS = [];
+  }
+});
+
+var m88$ = sources.DOM
+.select('button#mR8').events('click')
+.map(e => {
+  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  if (rADS.length === 2) {
+    mMindexDS.ret(mMindexDS.x + 1);
+   rExchange (rADS[0], rADS[1]); 
+   rADS = [];
+  }
+});
+
+var m89$ = sources.DOM
+.select('button#mR9').events('click')
+.map(e => {
+  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  if (rADS.length === 2) {
+    mMindexDS.ret(mMindexDS.x + 1);
+   rExchange (rADS[0], rADS[1]); 
+   rADS = [];
+  }
+});
+
+var m810$ = sources.DOM
+.select('button#mR10').events('click')
+.map(e => {
+  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  if (rADS.length === 2) {
+    mMindexDS.ret(mMindexDS.x + 1);
+   rExchange (rADS[0], rADS[1]); 
+   rADS = [];
+  }
+});
+
+var m811$ = sources.DOM
+.select('button#mR11').events('click')
+.map(e => {
+  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  if (rADS.length === 2) {
+    mMindexDS.ret(mMindexDS.x + 1);
+   rExchange (rADS[0], rADS[1]); 
+   rADS = [];
+  }
+});
+
+var m812$ = sources.DOM
+.select('button#mR12').events('click')
+.map(e => {
+  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  if (rADS.length === 2) {
+    mMindexDS.ret(mMindexDS.x + 1);
+   rExchange (rADS[0], rADS[1]); 
+   rADS = [];
+  }
+});
+
+var m813$ = sources.DOM
+.select('button#mR13').events('click')
+.map(e => {
+  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  if (rADS.length === 2) {
+    mMindexDS.ret(mMindexDS.x + 1);
+    rExchange (rADS[0], rADS[1]); 
+    rADS = [];
+  }
+});
+
+var m814$ = sources.DOM
+.select('button#mR14').events('click')
+.map(e => {
+  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  if (rADS.length === 2) {
+    mMindexDS.ret(mMindexDS.x + 1);
+    rExchange (rADS[0], rADS[1]); 
+    rADS = [];
+  }
+});
+
+var m815$ = sources.DOM
+.select('button#mR15').events('click')
+.map(e => {
+  rADS.push(toInt(e.path[0].id.slice(2,4))); 
+  if (rADS.length === 2) {
+    mMindexDS.ret(mMindexDS.x + 1);
+    rExchange (rADS[0], rADS[1]); 
+    rADS = [];
+  }
+});
+function rGridFunc (a=rADS, i=mMindexDS) {
+  i.ret(i.x + 1);
+  rExchange (a[0], a[1]); 
+  a = [];
+};
+
+var gridCh$ = sources.DOM
+.select('#gridInput').events('change');
+
+/*function rExchange (k,n,ar=rNumsDS,AR=ArrDS) {
+  var a = ar[k];
+  ar[k] = ar[n];
+  ar[n] = a;
+  return makeRDS(rNumsDS);
+}; */
+
+var backCl$ = sources.DOM
+  .select('#gridBack').events('click')
+
+var bAction$ = backCl$.map(() => {
+  if(mMindexDS.x > 0) {
+    mMindexDS.ret(mMindexDS.x - 1);
+    console.log("Blow me");
+    rNumsDS = ArrDS[mMindexDS.x].slice();
+  };
+});
+
+var forwardCl$ = sources.DOM
+  .select('#gridForward').events('click')
+
+var fAction$ = forwardCl$.map(() => {
+  if(mMindexDS.x+1 < ArrDS.length) {
+    mMindexDS.ret(mMindexDS.x + 1);
+    rNumsDS = ArrDS[mMindexDS.x].slice();
+  };
+});
+
+
+
+
+
+
+//*********************** ZULU ********************************* END MATRIX
+
+
+
+
+var rollClick$ = sources.DOM
+  .select('#roll').events('click');
+
+var rollClickAction$ = rollClick$.map(() => {
+  var a = gameMonad.fetch0() - 1;
+  var b = gameMonad.fetch1();
+  socket.send(`CA#$42,${pMgroup.x},${pMname.x},6,6,12,20,${a},${b}`);
+});
+
+var numClick$ = sources.DOM
+    .select('.num').events('click');
+
+var numClickAction$ = numClick$.map(e => {
+  if (gameMonad.fetch3().length < 2)  {
+    var a = gameMonad.fetch3();
+    var b = gameMonad.fetch4();
+    a.push(b.splice(e.target.id, 1)[0]);
+    gameMonad.run([,,,a,b,,]);
+    if (a.length === 2 && gameMonad.fetch2() != 0) {
+      updateCalc(a, gameMonad.fetch2())
     }
-  });
+  }
+}).startWith([0, 0, 0, 0]);
 
-  var forwardAction$ = forwardClick$.map(() => {
-    if (gameMonad.s[1] < gameMonad.s[0].length - 1) {
-      gameMonad.inc();
-    }
-  });
+var opClick$ = sources.DOM
+    .select('.op').events('click');
+
+var opClickAction$ = opClick$.map(e => {
+  var s3 = gameMonad.fetch3();
+  if (s3.length === 2) {
+    updateCalc(s3, e.target.innerHTML);
+  }
+  else {
+    gameMonad.run([,,e.target.innerHTML,,,,]);
+  }
+});
+
+var forwardClick$ = sources.DOM
+  .select('#ahead.tao1').events('click')
+
+var backClick$ = sources.DOM
+  .select('#back.tao100').events('click');
+
+var backAction$ = backClick$.map(() => {
+  if (gameMonad.s[1] > 0) {
+    gameMonad.dec();
+  }
+});
+
+var forwardAction$ = forwardClick$.map(() => {
+  if (gameMonad.s[1] < gameMonad.s[0].length - 1) {
+    gameMonad.inc();
+  }
+});
 
 // ******************************************************************** <><><><><><> -> End Demos
     var itterPress$ = sources.DOM
         .select('#itter').events('keypress');
-    var itterAction$ = itterPress$.map(e => {
+    var itterADSction$ = itterPress$.map(e => {
       if (e.keyCode === 13) {
         itterResult = h('div', styleFunc(["#FFD700",,"16px",,,]), bind(pInt(e.target.value))(v => v)(() => mMZ23.bnd(v => v*v*v))(()=>3)(x => mMZ23.release(3)+x)(q => q*q/ar[1])(terminate).join(', ') );
       }
@@ -1074,11 +1334,11 @@ var pingpong4$ = pinpon4$.map(() => {
   var clearPicked$ = sources.DOM
       .select('#clear').events('click');
 
-  var clearAction$ = clearPicked$.map( () => {
+  var clearADSction$ = clearPicked$.map( () => {
     gameMonad.clearPicked();
   });
 
-  var elemB$ = sources.DOM.select('input#message2').events('keyup')
+  var elemB$ = sources.DOM.select('input#group').events('keypress')
     .map(e => {
     mM10.ret(e.target.value);
     worker.postMessage([mM9.x, e.target.value]);
@@ -1087,7 +1347,7 @@ var pingpong4$ = pinpon4$.map(() => {
   var pr$ = sources.DOM
       .select('#primeNumbers').events('keypress');
 
-  var prAction$ = pr$.map(function (e) {
+  var prADSction$ = pr$.map(function (e) {
       if (e.keyCode === 13) {
         worker.postMessage(["CE#$42", primesMonad.s, e.target.value]);
       }
@@ -1253,7 +1513,7 @@ counter = function counter(n, acc = 0) {
 
 
 
-        var calcStream$ = xs.merge( pingpong$, test5Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterAction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prAction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, workerG$, workerH$, clearAction$, factorsAction$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$) 
+        var calcStream$ = xs.merge( gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, workerG$, workerH$, clearADSction$, factorsAction$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$) 
 
 
 
@@ -1265,13 +1525,22 @@ counter = function counter(n, acc = 0) {
         h('span', ' ' ),
         h('a', { props: { href: "https://cycle.js.org/", target: "_blank" } }, 'A Cycle.js application')    ]),
         h('div', {style: {textAlign:"center", fontWeight: "bold"}}, [
-        h('div', {style: {fontSize: "27px", color: "#FFD700"}}, 'FUNCTIONAL PROGRAMMING'),
+        h('div', {style: {fontSize: "27px", color: "#FFD700"}}, 'FUNCTIONAL JAVASCRIPT'),
         h('br'),
-        h('div', {style: {fontSize: "19px", fontStyle: "italic", color: "#07f7f7"}},'MADE REACTIVE WITH CYCLE.JS' ) ]),
+        h('div', {style: {fontSize: "19px", fontStyle: "italic", color: "#07f7f7"}},'MADE REACTIVE WITH CYCLE.JS' )]),
         h('div.content', [
-        h('p', styleFunc(["#a2f2e8",,"18px","italic",,]), 'PROLOGUE: For me, functional programming is not a quazi-religous doctrine to which I scrupulously adhere. Mutating variables inside of functions can minimize lines of code and promote efficiency. An appropriately named global variable might be preferred over a global namespace or global stream. And there might occasionally be a good reason for letting a function fish for data outside of its scope. You can call me an "anarchist" and accuse me of having too much fun. That\'s OK. The Muses are most communicative when we\'re having fun and thinking outside the box. -- David Schalk ' ),
-        h('p', ' Higher order functions are the jewels of functional programming. Isn\'t tayloring such functions to suit the unique needs of each project more fun than always working inside the confines of libraries and platforms? A team might be locked into certain libraries and a certain platform, but custom higher-order functions can still blossom, pass tests, and be incorporated in group efforts. Here\'s an example of one that facilitates function composition: '  ),
-        h('div', styleFunc(["#FFD700","3%","21px",,,]), 'bind(x)(functiona1)(function2) ... (functionN)'),
+        h('br'),
+        h('h3', ' Meaning of \"Functional JavaScript Programs\" ' ),
+        h('p', ' As used herein, a "functional JavaScript program" is an ES7 program in which all functions are pure.  Identical arguments always yield identical results without causing side effects. Functional Javascript programming encourages the use of higher order functions; i.e., functions that return values that are themselves functions and/or accept functions as arguments. ' ),
+h('p', ' A Functional JavaScript program can have some variable mutation,including mutations of the form "x = f(x)" as well as mutations confined to the scopes of functions. So "const f = x => x + 1; x = f(x);" is an acceptable counter that does not overly burden the call stack. Proper tail call optimization can make a more esthetically pleasing counter.'),
+h('p', 'You might want to implement universal immutability, especially if efficiency is a low priority, but that is not what we do here; nor do we superimpose any data type requirements over the ECMAScript® 2016 Language Specification. ' ), 
+        h('h3', ' Higher order functions ' ),
+        h('p', ' We begin with an example of a higher order function that facilitates concise, readable, and very flexible function composition. Later, we demonstrate techniques that we hope the reader will find interesting, including the use of ersatz monads to maintain traversable histories of computations. ' ), 
+h('span', ' As discussed ' ),
+h('a', {props: {href: "#haskell"}}, 'below' ), 
+h('span', ', tHaskell Programming Language, which supports the back end of this website, draws inspiration from Category theory, but that is as far as it goes. '),
+h('p', ' Tailoring functions to suit projects\' unique needs is more professionally satisfying (and more efficient) that importing libraries to accomplish the same things. A teams might be locked into specific libraries and platforms, but team members should still be free to devise custom higher-order functions for the group effort. Here\'s a higher order function that some group might modify, test, and use: '  ),
+h('div', styleFunc(["#FFD700","3%","21px",,,]), 'bind(x)(functiona1)(function2) ... (functionN)'),
         h('br'),
 
         h('span', styleFunc(["#d3ead5",,"18px",,,]), 'where '),
@@ -1300,7 +1569,7 @@ h('span', '. I show in the '),
         h('span', ' is presented in the appendix.'),
       h('br'),
       h('br'),
-      h('span.tao', 'Functions that take multiple arguments should be curried, or else their arguments should be contained in single arrays or objects. This is a consequence of the fact that functions can only return single values, and those return values (or resolution values) are the arguments of the functions linked to their right sides. Here are functions that curry and reverse curry multiargument functions: ' ),
+      h('span.tao', 'Functions that take multiple arguments should be curried, or else their arguments should be contained in single arrays or objects. This is a consequence of the fact that functions can only return single values, and those return values (or resolution values) are the arguments of the functions linked to their right sides. Here are functions that curry and reverse curry multi-argument functions: ' ),
       h('a', {props: {href: "#curryDef"}}, "curry and reverseCurry " ),
       h('span', ', and here is an example: ' ),
       h('pre', `  curryReverse(parseInt)(6)("000111") === 43 // true;  
@@ -1312,10 +1581,10 @@ h('span', '. I show in the '),
       h('a', {props: {href: "https://lodash.com/docs/4.17.4#flow"}}, "  .flow" ),
       h('span', ' and Ramda\'s '),
       h('a', {props: {href: "http://ramdajs.com/docs/#compose"}}, 'R.compose' ),
-      h('span', ', that facilitate simple function composition; i.e., each function\'s argument is the preceding function\'s return value. bind() does this while also giving every linked function along a chain access to the return values of every function, and the resolution values of every promise that preceds it.  '),
+      h('span', ', that facilitate simple function composition; i.e., each function\'s argument is the preceding function\'s return value. bind() does this while also giving every linked function along a chain access to the return values of every function, and the resolution values of every promise that precedes it.  '),
       h('br'),
       h('br'),
-      h('span.tao', {style: {color: '#FDFDFD'}}, 'NOTICE: I encapsulated data in little objects called "monads" during the early stages of this project. Gradually it dawned on me that mimicking the Haskell programming language wasn\'t bringing value sufficient to overcome the overhead.  it was making things cumbersome. You can read about the monads in the '), 
+      h('span.tao', {style: {color: '#FDFDFD'}}, 'NOTICE: I encapsulated data in little objects called "monads" during the early stages of this project. Gradually it dawned on me that mimicking the Haskell programming language was not bringing value sufficient to overcome the overhead; it was making things cumbersome. You can read about the monads in the '), 
       h('a', {props: {href: '#monads'}}, '>>= section' ),
       h('span', ' below.'),
       h('br'),
@@ -1639,7 +1908,7 @@ h('pre', `Fibonacci numbers   Prime Numbers   Prime Fibonacci Numbers `),
     ])
   ]),
   h('br'),
-
+  h('br'),
   h('p.red',  'The elapsed time is ' + mMelapsed.x + ' milliseconds.' ),
   h('input#fib92'),
   h('br'),
@@ -1744,7 +2013,7 @@ h('pre',  {style: {color: "rgb(236, 242, 186)"   }}, `  Monad.prototype.bnd = fu
      var t = y;  // y is the id of the monad calling testPrefix
      if (Array.isArray(x)) {
       x.map(v => {
-        if (typeof v == 'string' && v.charAt() == '$') {
+        if (typeof v == 'string' && v.charADSt() == '$') {
            t = v.slice(1);  // Remove "$"
         }
       })
@@ -1771,7 +2040,7 @@ h('pre', `  ret(2).bnd(v => add(v,1)
   h('p', ' MonadItter instances don\'t link to one another. They exist to facilitate the work of instances of Monad, MonadState, etc. Here\'s how they work: '),
   h('p', 'For any instance of MonadItter, say "it", "it.bnd(func)" causes it.p === func. Calling the method "it.release(...args)" causes p(...args) to run, possibly with arguments supplied by the caller. '),
   h('p',' MonadItter instances control the routing of incoming WebSocket messages. In one of the demonstrations below, they behave much like ES2015 iterators.'),
-  h('h3', ' A Basic Itterator '),
+  h('h3', ' A Basic Iterator '),
   h('p', 'The following example illustrates the use of release() with an argument. It also shows a lambda expressions being provided as an argument for the method mMZ1.bnd() (thereby becoming the value of mMZ1.p), and then mMZ1.release providing an arguments for the function mMZ1.p. The code is shown beneath the following two buttons. '),
   h('button#testZ', 'mMZ33.release(1)'),
   h('p', mMt33.x ),
@@ -1796,6 +2065,103 @@ h('pre', `  ret(2).bnd(v => add(v,1)
   code.quad2,
   h('p', ' fmap (above) facilitated using qS4 in a monadic sequence. qS4 returns an array, not an instance of Monad, but fmap lifts qS4 into the monadic sequence. '),
   h('p', ' The function solve() is recursive. It invokes itself after release() executes three times. The expression "solve()" resets solve to the top, where mMZ3.p becomes a function containing two nested occurrences of mMZ3.bnd. After mMZ3.release() executes, mMZ3.p becomes the function that is the argument to the next occurrence of mMZ3.bnd. That function contains yet another occurrence of mMZ3.bnd. MonadItter is syntactic sugar for nested callbacks. ' ),
+
+h('h3', ' Preserve Archives By Sidestepping Mutation '),
+h('p', ' When you assign a variable to an array, for example "var arr = [1,2,3]", arr points to a location in memory. Suppose you want to preserve a record of previous values of arr. You might try saving them in an array like this: ' ),
+h('pre', `  var arr = [1,2,3]
+  var b = [arr];
+  arr.push(4);
+  b.push(arr);
+  console.log(b[0]);  // [1,2,3,4]
+  console.log(b[1]);  // [1,2,3,4]  
+  b[0] == b[1]  // true` ),
+h('p', ' That didn\'t work! b points to [arr] and arr still points to its original location in memory. "arr.push(4)" mutated the value in arr\'s location and "b.push(arr)" added a copy. "b[0] == b[1]" returning true verifies that both elements of b point to the same place in memory because in JavaScript, the "==" operator on objects (including arrays) is defined to return true if and only if the objects\' ' ),
+h('p', ' Here is what happens when "arr.slice()" is pushed into b: ' ), 
+h('pre', `  var arr = [1,2,3];
+  var b = [arr.slice()];
+  arr.push(4);
+  b.push(arr.slice());
+  console.log(b[0]);  // [1,2,3]
+  console.log(b[1]);  // [1,2,3,4] ` ),
+h('p', ' Success! "arr.slice()" returned a copy of arr assigned to a new location in memory. It is anonymous, so the only way to access it is through b. b[0], b[1], and arr each have unique locations in memory so mutating one has no effect on the others. ' ), 
+h('p', ' The sixteen-square grid below puts these concepts into practice. If you click two squares, they exchange locations on the grid. If you do this several times, the "BACK" and "FORWARD" buttons will display the result of each pair of clicks. ' ),
+h('div#donkey', makeRDS( ArrDS[mMindexDS.x] )),
+h('br'),
+h('button#gridBack', 'back' ),
+h('button#gridForward', 'forward' ),
+h('p', "index: " + mMindexDS.x  ),
+h('p', "rNumsDS: " + rNumsDS.join(', ') ),
+h('p', "rMatrixF(rNumsDS: " + rMatrixF(rNumsDS) ),
+h('br'),
+h('br'),
+h('p', ' Reactivity is achieved in these demonstrations through Cycle.js rather than RxJS, Bacon, or something else that could work just as well, though perhaps not quite as elegantly. This section provides a glimpse of how I use (some might say, \"misuse\") Cycle.js. '),
+h('p', ' If you click any two numbers above they will exchange places with one another. The array "rNumsDS" keeps track of the positions of numbers on the grid. ' ),
+h('pre', `var rNumsDS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] `),
+h('p', ' Each square on the grid is a button. This is the initial setup: '),
+h('pre', `  var rDataDS = [
+    h('button#mR0.mR', 0 ),
+    h('button#mR1.mR', 1 ),
+    h('button#mR2.mR', 2 ),
+    h('button#mR3.mR', 3 ),
+    h('button#mR4.mR', 4 ),
+    h('button#mR5.mR', 5 ),
+    h('button#mR6.mR', 6 ),
+    h('button#mR7.mR', 7 ),
+    h('button#mR8.mR', 8 ),
+    h('button#mR9.mR', 9 ),
+    h('button#mR10.mR', 10 ),
+    h('button#mR11.mR', 11 ),
+    h('button#mR12.mR', 12 ),
+    h('button#mR13.mR', 13 ),
+    h('button#mR14.mR', 14 ),
+    h('button#mR15.mR', 15 ) ] ` ),
+h('p', ' The following line of code is a fixture of the virtual DOM. It accounts for the sixteen-square grid shown above: ' ),
+h('pre', `  h('div#donkey', ArrDS[indexDS] ) `),
+h('p', ' If you begin exploring the demonstration by clicking the upper right square, this code in main() responds by placing the number 3 in rADS: ' ),
+h('pre', `  var m83$ = sources.DOM
+  .select('button#mR3').events('click')
+  .map(e => {
+    rADS.push(toInt(e.path[0].id.slice(2,4)));
+    if (rADS.x.length === 2) {
+     rDataDS = rExchange (rADS[0], rADS[1]); 
+    }
+  }) ` ),
+h('p', ' Then if you click the bottom right square (var m815), rADS expands to contain "3" and "15". This causes rExchange(3,15) to run and return the updated value of rDataDS. ' ),
+h('pre', `  function rExchange (k,n) {
+    var a = rNumsDS[k];
+    rNumsDS[k] = rNumsDS[n];
+    rNumsDS[n] = a;
+    rADS = [];
+    return makeRDS(rNumsDS);
+  } `),
+h('p', ' The last line of rExchange is a call to makeRDS, which is defined as follows: ' ),
+h('pre', `  function makeRDS (arr) {
+    var r = arr.slice();
+    return [
+      h('button#mR0.mR', r[0] ), 
+      h('button#mR1.mR', r[1] ),
+      h('button#mR2.mR', r[2] ), 
+      h('button#mR3.mR', r[3] ), 
+      h('button#mR4.mR', r[4] ), 
+      h('button#mR5.mR', r[5] ),
+      h('button#mR6.mR', r[6] ), 
+      h('button#mR7.mR', r[7] ), 
+      h('button#mR8.mR', r[8] ), 
+      h('button#mR9.mR', r[9] ),
+      h('button#mR10.mR', r[10] ), 
+      h('button#mR11.mR', r[11] ), 
+      h('button#mR12.mR', r[12] ), 
+      h('button#mR13.mR', r[13] ),
+      h('button#mR14.mR', r[14] ), 
+      h('button#mR15.mR', r[15] ) 
+    ];
+  } `),
+
+
+
+h('p', ' button#R9.mR has id "#R9" and formatting class "mR". When numbers are rearranged, the id\'s remain in fixed positions. ' ),
+h('p', ' The process is responsive because r83 and r815 are merged in the stream that feeds the virtual DOM; i.e., the stream returned by main() and fed back into main() by run(). Cycle.run(main, sources) is the last line of the front-end code. ' ),
+h('p', ' This code undoubtedly deviates from Cycle.js and functional programming recommended practices. After all, rNumsDS and rDataDS are global variables tracking the state of the grid. Cycle.js favors maintaining state in streams and functional aficionados eschew global variables, period. Me, I just like to make things work as neatly and efficiently as I can. Making a state stream would be a hassle and, since this is not a group effort, nobody is going to hijack my variable names. So, for now, grid state will hang out in global scope. ' ),
 
 
 
@@ -1942,6 +2308,14 @@ function curryReverse(func) {
 
 h('a', {props: {href: '#top'}}, 'Back to the top'),
   h('p', ' *************************************************************************************** ' ),
+
+h('h3', ' STATEMENT OF DAVID SCHALK ' ),
+h('p', styleFunc(["#a2f2e8",,"18px","italic",,]), 'Functional programming aficionados will have noticed by now that I do not scrupulously avoid mutation of variables, variables in global scope, functions that fish data from outside their scopes, or functions that produce side effects before they return. Is there method to my madness? Am I crazy like a fox? Or am I just setting bad examples with sloppy code? Here\'s what I say about all of that: '),
+h('p', ' For me, functional programming is not a religious cult to whose dogmas I must scrupulously adhere. Mutating variables inside of functions can minimize lines of code and promote efficiency. The global variable that starts out as: '),
+h('pre', `  var rNumsDS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] `),
+h('p', ' feels elegant to me. It is a simple proxy for the sixteen square grid that never needs to be operated upon directly because the placement of its numbers are in one-to-one correspondence with the placement of its (rNumsDS\'s) elements. I could have tucked it away in an object or closure, but I like it so much that I dignified it with the designation "window.rNumsDS". I ignored an important rule. I did it more than once, and it isn\'t the only important rule I ignored. But in every case, there was an advantage (if only in efficiency), and I made sure that no harm could come from my deviations. ' ),
+h('p', ' If I were working in a group, or providing something that would be maintained by anyone other than me, I would code by the book. I\'m not getting paid for this work; I\'m just having fun. Dig it! '),
+
   h('h3', 'Haskell Time'),
   h('p', ' This page is for front end developers, but in case anyone is interested, here are the server functions responsible for deleting or amending a comment: ' ),
   h('pre', `    removeOne _ []                 = []
@@ -2247,12 +2621,12 @@ const multP = x => async y => {
 h('p'),
 h('h3', 'Appendix C - Further Reading ' ),
 h('p', ' Here is a good resource: '),
-h('a',   {props: {href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" }},  'You Don\'t Know Javascript by Kyle Simpson'),
+h('a',   {props: {href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" }},  'You Don\'t Know JavaScript by Kyle Simpson'),
 h('span', ' You can support the open-source digital version of this book with Patreon at the above address or purchase hard copies from O\Reily, Amazon, etc. ' ),
 h('a',   {props: {href: "https://github.com/getify/You-Dont-Know-JS", target: "_blank" }},  'You Don\'t Know JavaScript'),
 h('span', ' is the thinking developer\'s answer to ' ),
 h('a',   {props: {href: "http://shop.oreilly.com/product/9780596517748.do", target: "_blank" }},  ' "JavaScript: The Good Parts" by Douglas Crockford ' ),
-h('p', ' That\'s not to say that Crockford isn\'t a thinking developer. He is a very bright guy. It\'s just that the so called "good parts" are a dummed down subset of JavaScript that help keep people out of trouble when they don\'t feel inclined understand the JavaScript programming language. ' ),
+h('p', ' That\'s not to say that Crockford isn\'t a thinking developer. He is a very bright guy. It\'s just that the so called "good parts" are a dumbed down subset of JavaScript that help keep people out of trouble when they don\'t feel inclined understand the JavaScript programming language. ' ),
 h('span#cyclet', ', which has long been revered as a "must read" JavaScript book. Kyle Simpson recommends learning to use potentially dangerous code intelligently while Douglas Crockford advocates never using it at all. I think the phrase "eval is evil" stems from Crockford\'s book. I find eval() to be very useful from time to time. Kyle Simpson teaches programmers how to safely tap the full potential of JavaScript. ' ),
 h('p#defs'),
 h('br'),
@@ -2718,11 +3092,34 @@ var b_9 = (x_19 => add_3(x_19[0])([-4 * x_19[1][0], x_19[1]]))((x_20 => add_3(x_
 console.log("a_8);
 
 console.log(b_9);  ` ),
-
-
-
-
   h('br'),
+
+h('br' ),
+      h('p', ' Snabbdom, xstream, and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimention and learning. ' ),
+      h('span.italic', ' Instances of Monad and Monad2 aren\'t Category Theory monads. They are inspired by Haskell monads which, in turn, are inspired by Category Theory. The modified subset of the Haskell Programming Language named "Hask" has true Category Theory monads, but the restrictions on Haskell necessay to make Hask a true Category render it nearly useless. ' ), 
+h('p', ' Taking inspiration from Category Theory and replicating, to the extent feasable, some of its essential features was the stroke of genius that lifted Haskell into the realm of robust enterprise ready programming languages. Compilers that could infer types and reliably implement fail-safe programs made Haskell the language of choice for several large banks. Now Haskell runs the back ends of a great variety of websites, including websites supporting lots of traffic for major enterprises. The "Functional JavaScript" site that you are on right now has a Cycle.js front end and a Haskell websocket server in the back. It is proving to be very robust, reliable, and easily adaptable to the changing needs of this project. ' ),
+      h('a', { props: { href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/", target: "_blank" } }, 'Hask is not a category.'),
+          h('span', ' by Andrej Bauer and the ' ),
+          h('a', { props: { href: '#discussion' } }, 'Discussion'),
+          h('span', ' below. They provide a convenient interface for dealing with uncertainty and side effects in a purely functional manner. Adherence to the monad laws (see below) helps instill confidence that the monads are robust, versatile, and reliable tools for isolating and chaining sequences of javascript functions. ' ),
+          h('p', ' The demonstrations include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history (all group members see your score decrease or increase as you navegate backwards and forwards). Monads are shown performing lengthy mathematical computations asycronously in web workers. Monads encapsulate state. The error checking monad carries occurances of NaN and runtime errors through sequences of computations much like the Haskell Maybe monad. ' ),
+
+
+
+
+
+
+  code.monad,
+
+
+
+
+
+
+
+
+
+
 
   h('button#fredButton', fredButton ),
 h('a', {props: {href: '#top'}}, 'Back to the top'),
@@ -2734,15 +3131,16 @@ h('a', {props: {href: '#top'}}, 'Back to the top'),
   h('br'),
   h('br')
         ])
-      ])
+      ]) 
     })
   }
 }
 
 diffRender = () => document.getElementById('diffRender').click()
 
-sources.DOM = makeDOMDriver('#main-container'),
-sources.WS = websocketsDriver,
+sources.DOM = makeDOMDriver('#main-container');
+sources.WS = websocketsDriver;
+sources.GD = gridDriver;
 
 Cycle.run(main, sources);
 

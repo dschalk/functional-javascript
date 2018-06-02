@@ -2,6 +2,7 @@ var connection;
 var sources;
 var _AR_ = [];
 
+
 function createWebSocket(path) {
     var host = window.location.hostname;
     if (host === '')

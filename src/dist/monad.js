@@ -2,7 +2,47 @@
 
 
 
+/*
+  var Monad = function Monad(z = 42, g = 'generic') {
+    var that = this;
+    this.x = z;
+    this.id = g;
+    this.bnd = function (func, ...args) {
+      var m = func(this.x, ...args)
+      var mon;
+      if (m instanceof Monad) {
+        mon = testPrefix(args,this.id);
+        return window[mon] = new Monad(m.x, mon);
+      }
+      else return m;
+    };
+    this.ret = function (a) {
+      return window[that.id] = new Monad(a,that.id);
+    };
+  };
 
+  function testPrefix (x,y) {
+    var t = y;
+    var s;
+    if (Array.isArray(x)) {
+      x.some(v => {
+        if (typeof v === 'string' && v.charAt() === '$') {
+           t = v.slice(1, v.length);
+        }
+      })
+    }
+    return t;
+  }  
+  */
+
+function rett (x, id="default") {return new Monad(x,id)};
+
+var rADS = [];
+
+var roadFunc;
+
+
+var roadAr = [];
 
 function intersect (array1, array2)  {
   var intersection = array1.filter(n => array2.indexOf(n) !== -1) 
@@ -352,7 +392,7 @@ var arf = async p => {
      var t = y;  // y is the id of the monad calling testPrefix
      if (Array.isArray(x)) {
       x.map(v => {
-        if (typeof v == 'string' && v.charAt() == '$') {
+        if (typeof v == 'string' && v.charADSt() == '$') {
            t = v.slice(1);  // Remove "$"
         }
       })
@@ -1343,7 +1383,7 @@ function testPrefix3 (x,y) {
   else if (eval(x) !== eval(x)) return "code5"
   else return "code6"
     x.some(v => {
-      if (typeof v == 'string' && v.charAt() == '$') {
+      if (typeof v == 'string' && v.charADSt() == '$') {
          t = v.slice(1);
       }
     })
@@ -1881,7 +1921,7 @@ function MonadEr (val, ID, er = []) {
     }
 
     if (args.length > 0) {
-      arr = args.filter(v => !(typeof v == 'string' && v.charAt() == '$' && v.slice(0,4) !== 'Math'))
+      arr = args.filter(v => !(typeof v == 'string' && v.charADSt() == '$' && v.slice(0,4) !== 'Math'))
 
       arr.map(v => {
         test = testP(v, this.id)
@@ -2152,6 +2192,7 @@ function lcf (a,b) {
   return ar.reduce((j,k) => j*k)
 }
 
+var fillMonad = new Monad('blue', 'fillMonad');
 var stroke1Monad = new Monad('green', 'stroke1Monad');
 var fill1Monad = new Monad('blue', 'fill1Monad');
 
@@ -2160,6 +2201,18 @@ var fill2Monad = new Monad('blue', 'fill2Monad');
 
 var stroke3Monad = new Monad('green', 'stroke3Monad');
 var fill3Monad = new Monad('blue', 'fill3Monad');
+
+var gri, grid, grid1, grid2, grid3, grid4; 
+  
+var f0 = "1";
+var f1 = "2";
+var f2 = "3";
+var f3 = "4";
+var f4 = "1";
+var f5 = "2";
+var f6 = "3";
+var f7 = "4";
+sBool = true;
 
 var mMfibBlurb = new Monad('', 'mMfibBlurb');
 var mMprimeBlurb = new Monad('','mMprimeBlurb');
@@ -2212,6 +2265,47 @@ function bNode (arr) {
   ]);
   return node;
 }
+/*
+var num0 = 0;
+var num1 = 1;
+var num2 = 2;
+var num3 = 3;
+
+var rNum = [1,2,3,4]
+
+  var rNode = [
+    h('button#r0', rNum[0] ),
+    h('button#r1', rNun[1] ),
+    h('button#r2', rNum[2] ),
+    h('button#r3', rNum[3] )
+  ];
+
+var rN = [rNum[0],rNum[1],rNum[2],rNum[3]];
+
+function bRoad (n,k,arr) {
+  var r = arr.slice();
+  var a = r[n];
+  r[n] = r[k];
+  r[k] = a;
+  return a;
+}
+
+function makeRDS (arr) {
+  var r = arr.slice();
+  return [
+    h('button#r0', r[0] ), h('button#r1', r[1] ),
+    h('button#r2', r[2] ), h('button#r3', r[3] ) 
+  ];
+};
+
+rNode = makeRDS ( bRoad(0,3,rN )
+
+*/
+
+
+
+
+
 
 function isPrime(n) {
    if (isNaN(n) || !isFinite(n) || n%1 || n<2) return false;
@@ -2685,5 +2779,98 @@ class Addable {
     return // some computation which uses this and other 
   }
 }
+
+//****************************************************************** START MATRIX
+var indexDS = 0;
+var mMindexDS = new Monad (0,'mMindexDS');
+
+function rMatrixF (a) {
+  var cw1 = Math.sqrt(a[0]*a[5] + a[1]*a[4]);
+  var cw2 = Math.sqrt(a[2]*a[7] + a[3]*a[6]);
+  var cw3 = Math.sqrt(a[8]*a[13] + a[9]*a[12]);
+  var cw4 = Math.sqrt(a[10]*a[15] + a[14]*a[11]);
+  var cw = Math.sqrt(cw1*cw4 + cw2*cw3);
+  return cw
+}
+
+
+
+var rNumsDS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
+var ArrDS = [ [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] ];
+
+function makeRDS (arr) {
+  var r = arr;
+  return [
+    h('button#mR0.mR', r[0] ), 
+    h('button#mR1.mR', r[1] ),
+    h('button#mR2.mR', r[2] ), 
+    h('button#mR3.mR', r[3] ), 
+    h('button#mR4.mR', r[4] ), 
+    h('button#mR5.mR', r[5] ),
+    h('button#mR6.mR', r[6] ), 
+    h('button#mR7.mR', r[7] ), 
+    h('button#mR8.mR', r[8] ), 
+    h('button#mR9.mR', r[9] ),
+    h('button#mR10.mR', r[10] ), 
+    h('button#mR11.mR', r[11] ), 
+    h('button#mR12.mR', r[12] ), 
+    h('button#mR13.mR', r[13] ),
+    h('button#mR14.mR', r[14] ), 
+    h('button#mR15.mR', r[15] ) 
+  ];
+};
+
+var rDataDS = [
+  h('button#mR0.mR', 0 ),
+  h('button#mR1.mR', 1 ),
+  h('button#mR2.mR', 2 ),
+  h('button#mR3.mR', 3 ),
+  h('button#mR4.mR', 4 ),
+  h('button#mR5.mR', 5 ),
+  h('button#mR6.mR', 6 ),
+  h('button#mR7.mR', 7 ),
+  h('button#mR8.mR', 8 ),
+  h('button#mR9.mR', 9 ),
+  h('button#mR10.mR', 10 ),
+  h('button#mR11.mR', 11 ),
+  h('button#mR12.mR', 12 ),
+  h('button#mR13.mR', 13 ),
+  h('button#mR14.mR', 14 ),
+  h('button#mR15.mR', 15 )
+];
+
+function rExchange (j, k, rN=rNumsDS, AR=ArrDS, rD = rDataDS, i = mMindexDS) {
+  console.log("In rExchange i is", i);
+  var r = rN;
+  var a = r[j];
+  r[j] = r[k];
+  r[k] = a;
+  console.log(r);
+  var g = r.slice();
+  AR.splice(i.x, 0, g);
+  console.log(AR)
+  rD = makeRDS(r); 
+  return rD;
+} 
+
+var horseDS = rDataDS;
+//****************************************************************** END MATRIX
+
+var rNuS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+var rGrid$ = rNuS => xs.of(rNuS);
+
+function gridDriver () {
+  return xs.create({
+    start: listener => { rGrid$ = ar => listener.next(ar)},
+    stop: () => {}
+  })
+};
+
+/*  Highest possible number: 17.3
+ *  rNumsDS: 6, 9, 4, 11, 8, 7, 10, 5, 2, 13, 0, 15, 12, 3, 14, 1
+    rMatrixF(rNumsDS: 17.3160677686392   */
+
+
 
 

@@ -1,1 +1,1 @@
-rm ~/.vim/tmp/*sw*
+cd ~/.vim/tmp && rm *.swp && rm *.swo
