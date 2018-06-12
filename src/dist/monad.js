@@ -1,6 +1,7 @@
 
 
 
+var mMindexDS = new Monad (0,'mMindexDS');
 
 /*
   var Monad = function Monad(z = 42, g = 'generic') {
@@ -40,7 +41,7 @@ function rett (x, id="default") {return new Monad(x,id)};
 var rADS = [];
 
 var roadFunc;
-
+var nameMess = '';
 
 var roadAr = [];
 
@@ -2782,7 +2783,6 @@ class Addable {
 
 //****************************************************************** START MATRIX
 var indexDS = 0;
-var mMindexDS = new Monad (0,'mMindexDS');
 
 function rMatrixF (a) {
   var cw1 = Math.sqrt(a[0]*a[5] + a[1]*a[4]);
@@ -2871,6 +2871,24 @@ function gridDriver () {
  *  rNumsDS: 6, 9, 4, 11, 8, 7, 10, 5, 2, 13, 0, 15, 12, 3, 14, 1
     rMatrixF(rNumsDS: 17.3160677686392   */
 
+function rExDS ([, rN=rNumsDS, AR=ArrDS, rD = rDataDS, i = mMindexDS]) {
+  console.log("In rExchange i is", i);
+  var j = ar[0];
+  var k = ar[1];
+  var r = rN;
+  var a = r[j];
+  r[j] = r[k];
+  r[k] = a;
+  console.log(r);
+  var g = r.slice();
+  AR.splice(i.x, 0, g);
+  console.log(AR)
+  rD = makeRDS(r); 
+  return rD;
+} 
+
+
+function rClick () {document.getElementById('rNums').click()};
 
 
 

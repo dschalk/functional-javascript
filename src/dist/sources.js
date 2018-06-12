@@ -1,3 +1,6 @@
+
+console.log('----->>>>>>>>>>>>>> fsWeb', fsWeb);
+console.log('>>>>>>>>>>>>>>> https', https);
 var connection;
 var sources;
 var _AR_ = [];
@@ -14,6 +17,12 @@ function createWebSocket(path) {
 }
 
 var socket = createWebSocket('/');
+
+
+
+
+
+
 
 function websocketsDriver() {
   return xs.create({

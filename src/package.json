@@ -26,6 +26,7 @@
     "elm-simple-loader": "^1.1.0",
     "es2015-macros": "^1.1.0",
     "events": "^1.1.1",
+    "fs": "0.0.1-security",
     "hyperscript-helpers": "^3.0.3",
     "install": "^0.8.1",
     "json5": "^0.5.1",

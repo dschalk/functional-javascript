@@ -1,7 +1,8 @@
   import {h, p, span, h1, h2, h3, pre, br, div, label, input, hr, makeDOMDriver} from '@cycle/dom';
   import Cycle from '@cycle/xstream-run'
   import code from './code.js';
-  import { run } from './cycle-run.js'
+  import { run } from './cycle-run.js';
+  console.log('In main.js >>>>>*************<<<<<<<< fsWeb', fsWeb)
 
   var textA = h('textarea', 'You bet!' );
   var formA = h('form#horses', 'You bet!' );
@@ -271,6 +272,10 @@ var registerPress$ = sources.DOM
 var registerPressAction$ = registerPress$.map(e => {
   mMerror.ret('');
   var str = e.target.value;
+  var count = (str.match(/,/g) || []).length;
+  if (count === 0) nameMess = "Please enter a name, a comma, and a password";
+  else if (count > 1) nameMess = "Commas are not allowed in names or passwords";
+  else nameMess = '';
   var art = str.split(',');
   if (e.keyCode === 13) {
     mMerror.ret('');
@@ -298,11 +303,12 @@ console.log("Wake up, you horse's ass");
         .select('input#group').events('keypress');
 
     var groupPressAction$ = groupPress$.map(e => {
-      if (e.keyCode === 13) {
-        send("CO#$42", e.target.value);
-        gameMonad.run([0,0,0,[],[0,0,0,0],,e.target.value]);
-        socket.send(`TI#$42,${e.target.value},${pMname.x}`);
-        setTimeout ( () => send("CO#$42", e.target.value),500);
+      if (e.keyCode === 13 && e.target.value ) {
+        var g = e.target.value.replace(/,/g, '');
+        send("CO#$42", g);
+        gameMonad.run([0,0,0,[],[0,0,0,0],,g]);
+        socket.send(`TI#$42,${g},${pMname.x}`);
+        setTimeout ( () => send("CO#$42", g),500);
       }
     });
 
@@ -375,53 +381,52 @@ var indexDS = 0;
 var m80$ = sources.DOM
 .select('#mR0').events('click')
 .map(e => {
-  rADS.push(toInt(e.path[0].id.slice(2,4)));
-  console.log('rADS.length:', rADS.length );
+  console.log("e is",e);
+  rADS.push(toInt(e.target.id.slice(2,4)));
   if (rADS.length === 2) {
     mMindexDS.ret(mMindexDS.x + 1);
-   rExchange (rADS[0], rADS[1]); 
-   rADS = [];
+    rExchange (rADS[0], rADS[1]); 
+    rADS = [];
   }
 });
 
 var m81$ = sources.DOM
 .select('button#mR1.mR').events('click')
 .map(e => {
-  rADS.push(toInt(e.path[0].id.slice(2,4)));
-  console.log('rADS.length:', rADS.length );
+  rADS.push(toInt(e.target.id.slice(2,4)));
   if (rADS.length === 2) {
     mMindexDS.ret(mMindexDS.x + 1);
-   rExchange (rADS[0], rADS[1]); 
-   rADS = [];
+    rExchange (rADS[0], rADS[1]); 
+    rADS = [];
   }
 });
 
 var m82$ = sources.DOM
 .select('#mR2.mR').events('click')
 .map(e => {
-  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  rADS.push(toInt(e.target.id.slice(2,4)));
   if (rADS.length === 2) {
     mMindexDS.ret(mMindexDS.x + 1);
-   rExchange (rADS[0], rADS[1]); 
-   rADS = [];
+    rExchange (rADS[0], rADS[1]); 
+    rADS = [];
   }
 });
 
 var m83$ = sources.DOM
 .select('button#mR3').events('click')
 .map(e => {
-  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  rADS.push(toInt(e.target.id.slice(2,4)));
   if (rADS.length === 2) {
     mMindexDS.ret(mMindexDS.x + 1);
-   rExchange (rADS[0], rADS[1]); 
-   rADS = [];
+    rExchange (rADS[0], rADS[1]); 
+    rADS = [];
   }
 });
 
 var m84$ = sources.DOM
 .select('button#mR4').events('click')
 .map(e => {
-  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  rADS.push(toInt(e.target.id.slice(2,4)));
   if (rADS.length === 2) {
     mMindexDS.ret(mMindexDS.x + 1);
    rExchange (rADS[0], rADS[1]); 
@@ -432,7 +437,7 @@ var m84$ = sources.DOM
 var m85$ = sources.DOM
 .select('button#mR5').events('click')
 .map(e => {
-  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  rADS.push(toInt(e.target.id.slice(2,4)));
   if (rADS.length === 2) {
     mMindexDS.ret(mMindexDS.x + 1);
    rExchange (rADS[0], rADS[1]); 
@@ -443,7 +448,7 @@ var m85$ = sources.DOM
 var m86$ = sources.DOM
 .select('button#mR6').events('click')
 .map(e => {
-  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  rADS.push(toInt(e.target.id.slice(2,4)));
   if (rADS.length === 2) {
     mMindexDS.ret(mMindexDS.x + 1);
    rExchange (rADS[0], rADS[1]); 
@@ -454,7 +459,7 @@ var m86$ = sources.DOM
 var m87$ = sources.DOM
 .select('button#mR7').events('click')
 .map(e => {
-  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  rADS.push(toInt(e.target.id.slice(2,4)));
   if (rADS.length === 2) {
     mMindexDS.ret(mMindexDS.x + 1);
    rExchange (rADS[0], rADS[1]); 
@@ -465,7 +470,7 @@ var m87$ = sources.DOM
 var m88$ = sources.DOM
 .select('button#mR8').events('click')
 .map(e => {
-  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  rADS.push(toInt(e.target.id.slice(2,4)));
   if (rADS.length === 2) {
     mMindexDS.ret(mMindexDS.x + 1);
    rExchange (rADS[0], rADS[1]); 
@@ -476,7 +481,7 @@ var m88$ = sources.DOM
 var m89$ = sources.DOM
 .select('button#mR9').events('click')
 .map(e => {
-  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  rADS.push(toInt(e.target.id.slice(2,4)));
   if (rADS.length === 2) {
     mMindexDS.ret(mMindexDS.x + 1);
    rExchange (rADS[0], rADS[1]); 
@@ -487,7 +492,7 @@ var m89$ = sources.DOM
 var m810$ = sources.DOM
 .select('button#mR10').events('click')
 .map(e => {
-  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  rADS.push(toInt(e.target.id.slice(2,4)));
   if (rADS.length === 2) {
     mMindexDS.ret(mMindexDS.x + 1);
    rExchange (rADS[0], rADS[1]); 
@@ -498,7 +503,7 @@ var m810$ = sources.DOM
 var m811$ = sources.DOM
 .select('button#mR11').events('click')
 .map(e => {
-  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  rADS.push(toInt(e.target.id.slice(2,4)));
   if (rADS.length === 2) {
     mMindexDS.ret(mMindexDS.x + 1);
    rExchange (rADS[0], rADS[1]); 
@@ -509,7 +514,7 @@ var m811$ = sources.DOM
 var m812$ = sources.DOM
 .select('button#mR12').events('click')
 .map(e => {
-  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  rADS.push(toInt(e.target.id.slice(2,4)));
   if (rADS.length === 2) {
     mMindexDS.ret(mMindexDS.x + 1);
    rExchange (rADS[0], rADS[1]); 
@@ -520,7 +525,7 @@ var m812$ = sources.DOM
 var m813$ = sources.DOM
 .select('button#mR13').events('click')
 .map(e => {
-  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  rADS.push(toInt(e.target.id.slice(2,4)));
   if (rADS.length === 2) {
     mMindexDS.ret(mMindexDS.x + 1);
     rExchange (rADS[0], rADS[1]); 
@@ -531,7 +536,7 @@ var m813$ = sources.DOM
 var m814$ = sources.DOM
 .select('button#mR14').events('click')
 .map(e => {
-  rADS.push(toInt(e.path[0].id.slice(2,4)));
+  rADS.push(toInt(e.target.id.slice(2,4)));
   if (rADS.length === 2) {
     mMindexDS.ret(mMindexDS.x + 1);
     rExchange (rADS[0], rADS[1]); 
@@ -542,7 +547,7 @@ var m814$ = sources.DOM
 var m815$ = sources.DOM
 .select('button#mR15').events('click')
 .map(e => {
-  rADS.push(toInt(e.path[0].id.slice(2,4))); 
+  rADS.push(toInt(e.target.id.slice(2,4))); 
   if (rADS.length === 2) {
     mMindexDS.ret(mMindexDS.x + 1);
     rExchange (rADS[0], rADS[1]); 
@@ -1525,14 +1530,14 @@ counter = function counter(n, acc = 0) {
         h('span', ' ' ),
         h('a', { props: { href: "https://cycle.js.org/", target: "_blank" } }, 'A Cycle.js application')    ]),
         h('div', {style: {textAlign:"center", fontWeight: "bold"}}, [
-        h('div', {style: {fontSize: "27px", color: "#FFD700"}}, 'FUNCTIONAL JAVASCRIPT'),
+        h('div', {style: {fontSize: "22px", color: "#FFD700"}}, 'FUNCTIONAL JAVASCRIPT TECHNIQUES'),
         h('br'),
         h('div', {style: {fontSize: "19px", fontStyle: "italic", color: "#07f7f7"}},'MADE REACTIVE WITH CYCLE.JS' )]),
         h('div.content', [
         h('br'),
-        h('h3', ' Meaning of \"Functional JavaScript Programs\" ' ),
-        h('p', ' As used herein, a "functional JavaScript program" is an ES7 program in which all functions are pure.  Identical arguments always yield identical results without causing side effects. Functional Javascript programming encourages the use of higher order functions; i.e., functions that return values that are themselves functions and/or accept functions as arguments. ' ),
-h('p', ' A Functional JavaScript program can have some variable mutation,including mutations of the form "x = f(x)" as well as mutations confined to the scopes of functions. So "const f = x => x + 1; x = f(x);" is an acceptable counter that does not overly burden the call stack. Proper tail call optimization can make a more esthetically pleasing counter.'),
+        h('h3', ' Introduction ' ),
+        h('p', '                   This presentation is about exploring Ecmastipt 2017. Webpack uses Babel to pull the front-end files together into    This presentation demonstrates is not about imposing constraints on JavaScript               As used herein, a "functional JavaScript program" is an ES7 program in which all functions are pure.  Identical arguments always yield identical results without causing side effects. Functional JavaScript programming encourages the use of higher order functions; i.e., functions that return values that are themselves functions and/or accept functions as arguments. ' ),
+h('p', ' A Functional JavaScript program can have some variable mutation,including mutations of the form "x = f(x)" as well as mutations confined to the scopes of functions. So "const f = x => x + 1; x = f(x);" is an acceptable counter that does not overly burden the call stack. Proper tail call optimization can make a more aesthetically pleasing counter.'),
 h('p', 'You might want to implement universal immutability, especially if efficiency is a low priority, but that is not what we do here; nor do we superimpose any data type requirements over the ECMAScript® 2016 Language Specification. ' ), 
         h('h3', ' Higher order functions ' ),
         h('p', ' We begin with an example of a higher order function that facilitates concise, readable, and very flexible function composition. Later, we demonstrate techniques that we hope the reader will find interesting, including the use of ersatz monads to maintain traversable histories of computations. ' ), 
@@ -1653,10 +1658,10 @@ h('h3', 'Demonstration 1' ),
 h('span', ' Click below to run bind(145)(x=>x\*x\*x)(it4)(it6)(it7) twenty-five times. The left column is the call order.'),
 h('br'),
 h('br'),
-h('span', styleFunc(["rgb(7, 247, 247)","12%","20px",,,,,]), 'bind(145)(x=>x\*x\*x)(it4)(it6)(it7)'),
+h('span', styleFunc(["rgb(7, 247, 247)","12%","20px",,,,,]), 'bind(145)(x=>x**3)(it4)(it6)(it7)'),
 h('br'),
 h('br'),
-h('button#factors_Q', {style: {fontSize: '15px'}}, 'bind(145)(x=>x\*x\*x)(it4)(it6)(it7)'),
+h('button#factors_Q', {style: {fontSize: '15px'}}, 'bind(145)(x=>x**3)(it4)(it6)(it7)'),
 h('span', "~~"),
 h('button.clear_Q', {style: {fontSize: '15px', marginLeft: "0"}},  'clear results'),
 h('br'),
@@ -1775,11 +1780,13 @@ h('div.tao', `Operator: ${gameMonad.fetch2()} ` ),
 h('div.tao', 'Index: ' + gameMonad.s[1] ),
 h('button#clear', 'Clear selected numbers' ),
 h('p', ' When traversing the game history, any time there are two selected numbers and a selected operator, a computation will be performed. You can clear the selected numbers and substitute others, and if you don\'t want a selected operator you can select another one.'),
+h('p', ' Create a group or join an existing group. ' ),
 h('span', 'Change group: '),
 h('input#group', 'test' ),
 h('p', mMsoloAlert.x ),
 h('p', ' You can change your name by entering a comma-separated name and password below. The combination will go into a persistent file. You can use this combination in the future to edit or delete your saved comments. ' ),
 h('span.red', mMregister.x ),
+h('p', {style: {color: "red"}}, nameMess ),
 h('label', {style: {display: mMshowRegister.x }}, 'Register or log in here:'),
 h('input.register', {style: {display: mMshowRegister.x }} ),
 ])]),
@@ -2121,7 +2128,7 @@ h('p', ' If you begin exploring the demonstration by clicking the upper right sq
 h('pre', `  var m83$ = sources.DOM
   .select('button#mR3').events('click')
   .map(e => {
-    rADS.push(toInt(e.path[0].id.slice(2,4)));
+    rADS.push(toInt(e.target.id.slice(2,4)));
     if (rADS.x.length === 2) {
      rDataDS = rExchange (rADS[0], rADS[1]); 
     }

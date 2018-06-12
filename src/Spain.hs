@@ -26,7 +26,8 @@ import           Fm                             (rText, truck)
 import qualified Fm                             as Fm 
 import qualified Network.Wai
 import qualified Network.Wai.Application.Static as Static
-import qualified Network.Wai.Handler.Warp       as Warp
+import qualified Network.Wai.Handler.WarpTLS    as Warp
+import           Network.Wai.Handler.Warp       (defaultSettings, run, setPort, setTimeout)
 import qualified Network.Wai.Handler.WebSockets as WaiWS
 import           Network.WebSockets             (sendClose)
 import qualified Network.WebSockets             as WS
@@ -254,11 +255,7 @@ main = do
     -- let port = read por
     print "In main"
     state <- atomically $ newTVar newServerState
-    Warp.runSettings
-     (Warp.setPort 3055 $
-       Warp.setTimeout 36000
-         Warp.defaultSettings) $
-           WaiWS.websocketsOr WS.defaultConnectionOptions (application state) staticApp
+    WaiWS.websocketsOr WS.defaultConnectionOptions (application state) staticApp
 staticApp :: Network.Wai.Application
 staticApp = Static.staticApp $ Static.embeddedSettings $(embedDir "./dist")
 application :: TVar ServerState -> WS.ServerApp
