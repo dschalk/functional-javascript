@@ -1,11 +1,13 @@
 
 console.log('----->>>>>>>>>>>>>> fsWeb', fsWeb);
 console.log('>>>>>>>>>>>>>>> https', https);
+var fs = fsWeb;
+
 var connection;
 var sources;
 var _AR_ = [];
 
-
+/*
 function createWebSocket(path) {
     var host = window.location.hostname;
     if (host === '')
@@ -15,14 +17,11 @@ function createWebSocket(path) {
 
     return new Socket(uri);
 }
-
 var socket = createWebSocket('/');
+*/
 
 
-
-
-
-
+var socket = new WebSocket('ws://localhost:3055/');
 
 function websocketsDriver() {
   return xs.create({

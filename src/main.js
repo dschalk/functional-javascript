@@ -38,7 +38,7 @@
    console.log('0^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ got this far');
 
    const messages$ = sources.WS.map( e => {
-     console.log(e);
+     console.log('In messages$ -<e><e><e>- e is', e);
      var v = e.data.split(',')
      var group = v[1]
      var sender =  v[2];
@@ -1530,17 +1530,26 @@ counter = function counter(n, acc = 0) {
         h('span', ' ' ),
         h('a', { props: { href: "https://cycle.js.org/", target: "_blank" } }, 'A Cycle.js application')    ]),
         h('div', {style: {textAlign:"center", fontWeight: "bold"}}, [
-        h('div', {style: {fontSize: "22px", color: "#FFD700"}}, 'FUNCTIONAL JAVASCRIPT TECHNIQUES'),
-        h('br'),
-        h('div', {style: {fontSize: "19px", fontStyle: "italic", color: "#07f7f7"}},'MADE REACTIVE WITH CYCLE.JS' )]),
+          h('br'),  
+          h('div', {style: {fontSize: "22px", color: "#FFD700"}}, 'JAVASCRIPT UNLEASHED'),
+        ]),
         h('div.content', [
-        h('br'),
+
+
+
+        h('br'),  
         h('h3', ' Introduction ' ),
-        h('p', '                   This presentation is about exploring Ecmastipt 2017. Webpack uses Babel to pull the front-end files together into    This presentation demonstrates is not about imposing constraints on JavaScript               As used herein, a "functional JavaScript program" is an ES7 program in which all functions are pure.  Identical arguments always yield identical results without causing side effects. Functional JavaScript programming encourages the use of higher order functions; i.e., functions that return values that are themselves functions and/or accept functions as arguments. ' ),
-h('p', ' A Functional JavaScript program can have some variable mutation,including mutations of the form "x = f(x)" as well as mutations confined to the scopes of functions. So "const f = x => x + 1; x = f(x);" is an acceptable counter that does not overly burden the call stack. Proper tail call optimization can make a more aesthetically pleasing counter.'),
-h('p', 'You might want to implement universal immutability, especially if efficiency is a low priority, but that is not what we do here; nor do we superimpose any data type requirements over the ECMAScript® 2016 Language Specification. ' ), 
-        h('h3', ' Higher order functions ' ),
-        h('p', ' We begin with an example of a higher order function that facilitates concise, readable, and very flexible function composition. Later, we demonstrate techniques that we hope the reader will find interesting, including the use of ersatz monads to maintain traversable histories of computations. ' ), 
+        h('p', '  Libraries and language modifications that impose immutability, universal purity of functions, and/or strict type constraints can be useful, but this project is different. Rather than constrain the language, we constrain ourselves, as much as practical, from writing functions that alter data that might be used by another function. The full potential of JavaScript is allowed to shine in all its naked wonder. ' ),
+          
+        h('p', ' The first example is a higher order function that facilitates concise, readable, and very flexible function composition. If its arguments have no side effects, it resembles Haskell monads more than other ersatz monads that link objects instead of functions. ' ), 
+h('span.tao', ' As discussed ' ),
+h('a', {props: {href: "#haskell"}}, 'below' ), 
+h('span', ', The Haskell Programming Language (which supports this website\'s server) draws inspiration from Category theory, but contains no rigorous category theory objects or morphisms.'),
+
+
+
+
+
 h('span', ' As discussed ' ),
 h('a', {props: {href: "#haskell"}}, 'below' ), 
 h('span', ', tHaskell Programming Language, which supports the back end of this website, draws inspiration from Category theory, but that is as far as it goes. '),

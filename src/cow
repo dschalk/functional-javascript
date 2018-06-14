@@ -1,0 +1,9 @@
+
+        h('h3', ' Introduction ' ),
+        h('p', '  Libraries and language modifications that impose immutability, universal purity of functions, and/or strict type constraints can be useful, but this project is different. Rather than constrain the language, we constrain ourselves, as much as practical, from writing functions whose executions could affect the executions of other functions. The full potential of JavaScript is allowed to shine in all its naked wonder. ' ),
+          
+        h('h3', ' Higher order functions ' ),
+        h('p', ' The first example is a higher order function that facilitates concise, readable, and very flexible function composition. If its arguments have no side effects, it resembles Haskell monads more than other ersatz monads that link objects rather than functions. ' ), 
+h('span', ' As discussed ' ),
+h('a', {props: {href: "#haskell"}}, 'below' ), 
+h('span', ', The Haskell Programming Language, which supports the server at the back end of this website, draws inspiration from Category theory, but does not support mathematically correct category theory data structures.'),
