@@ -106,7 +106,8 @@
        }
        if (extra2 === "code3") {
          pMname.ret(sender);
-         mMregister.ret('The password you entered is not the password that is registered for ' + extra + '.' );
+         mMregister.ret('The password you entered is not the password that is registered for ' + tempName + '.' );
+         mMshowRegister.ret('inline');
        }
      });
 
@@ -285,6 +286,7 @@ var registerPressAction$ = registerPress$.map(e => {
     }
     else {
       var name = art[0];
+      tempName = name;
       var x = art.join('<o>');
       mMshowRegister.ret('none');
       pMname.bnd(backupMonad.ret)
