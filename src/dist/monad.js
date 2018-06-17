@@ -1,6 +1,6 @@
 
 var tempName = "Jim";
-
+var socket;
 var mMindexDS = new Monad (0,'mMindexDS');
 
 /*
@@ -2889,6 +2889,7 @@ function rExDS ([, rN=rNumsDS, AR=ArrDS, rD = rDataDS, i = mMindexDS]) {
 
 
 function rClick () {document.getElementById('rNums').click()};
+
 
 
 

@@ -20,16 +20,6 @@ function createWebSocket(path) {
 var socket = createWebSocket('/');
 */
 
-
-var socket = new WebSocket('ws://localhost:3055/');
-
-function websocketsDriver() {
-  return xs.create({
-    start: listener => { socket.onmessage = msg => listener.next(msg)},
-    stop: () => { socket.close() }
-  });
-};
-
 function workerBDriver () {
   return xs.create({
     start: listener => { workerB.onmessage = msg => listener.next(msg)},
@@ -106,10 +96,6 @@ function workerDriver () {
     start: listener => { worker.onmessage = msg => listener.next(msg)},
     stop: () => { worker.terminate() }
   });
-};
-
-socket.onclose = function (event) {
-    console.log('<><><> ALERT - socket is closing. <><><> ', event);
 };
 
 var incF$ = n => xs.of(n);

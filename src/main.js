@@ -1,11 +1,25 @@
   import {h, p, span, h1, h2, h3, pre, br, div, label, input, hr, makeDOMDriver} from '@cycle/dom';
-  import Cycle from '@cycle/xstream-run'
+  import Cycle from '@cycle/xstream-run';
+  import {makeHTTPDriver} from '@cycle/http';
   import code from './code.js';
   import { run } from './cycle-run.js';
   console.log('In main.js >>>>>*************<<<<<<<< fsWeb', fsWeb)
 
   var textA = h('textarea', 'You bet!' );
   var formA = h('form#horses', 'You bet!' );
+
+socket = "MozWebSocket" in window ? new MozWebSocket('ws://localhost:3055/') : new WebSocket('ws://localhost:3055/');
+
+function websocketsDriver() {
+  return xs.create({
+    start: listener => { socket.onmessage = msg => listener.next(msg)},
+    stop: () => { socket.close() }
+  });
+};
+
+socket.onclose = function (event) {
+    console.log('<><><> ALERT - socket is closing. <><><> ', event);
+};
 
   login();
   function login () {
@@ -3138,7 +3152,6 @@ h('p', ' Taking inspiration from Category Theory and replicating, to the extent 
 
 
 
-
   h('button#fredButton', fredButton ),
 h('a', {props: {href: '#top'}}, 'Back to the top'),
   h('br'),
@@ -3154,7 +3167,7 @@ h('a', {props: {href: '#top'}}, 'Back to the top'),
   }
 }
 
-diffRender = () => document.getElementById('diffRender').click()
+diffRender = () => document.getElementById('diffRender').click();
 
 sources.DOM = makeDOMDriver('#main-container');
 sources.WS = websocketsDriver;
