@@ -1,4 +1,8 @@
 
+
+var tiger = "ready"
+
+var bxA1=0, bxA2=0, bxA3=0, bxA4=0, bxA5=0, bxA6=0, bxA7=0, bxA8=0, bxA9=0;
 var tempName = "Jim";
 var socket;
 var mMindexDS = new Monad (0,'mMindexDS');
@@ -234,39 +238,39 @@ var m42_RESULT7 = "ready"
 var tInt = a => b => parseInt(b,a);  
 var toInt = tInt(10);
 
-var test5 = x => {
+function test5 (x) {
   var n = toInt(x);
+  var a1,a2,a3,a4,a5,a6,a7,a8,a9;
   Bind.bind1 = []; Bind.bind2 = []; Bind.bind3=[]; 
-  Bind.bind4 = []; Bind.bind5 = []; Bind.bind6=[]; 
-  Bind.bind7 = []; Bind.bind8 = []; Bind.bind9=[]; 
+    Bind.bind4 = []; Bind.bind5 = []; Bind.bind6=[]; 
+    Bind.bind7 = []; Bind.bind8 = []; Bind.bind9=[]; 
   
-  bind1(n+0)(cubeP)(() => idP(Bind.bind1[0]-Bind.bind1[1]))
-  (v=>addP(Bind.bind1[1])(v));
+  return [ bind1(n+0)(cubeP)(() => idP(Bind.bind1[0]-Bind.bind1[1]))
+  (v=>addP(Bind.bind1[1])(v)), 
 
   bind2(n+1)(cubeP)(() => idP(Bind.bind2[0]-Bind.bind2[1]))
-  (v=>addP(Bind.bind2[1])(v)); 
+  (v=>addP(Bind.bind2[1])(v)), 
 
   bind3(n+2)(cubeP)(() => idP(Bind.bind3[0]-Bind.bind3[1]))
-  (v=>addP(Bind.bind3[1])(v)); 
+  (v=>addP(Bind.bind3[1])(v)),  
 
   bind4(n+3)(cubeP)(() => idP(Bind.bind4[0]-Bind.bind4[1]))
-  (v=>addP(Bind.bind4[1])(v)); 
+  (v=>addP(Bind.bind4[1])(v)), 
 
   bind5(n+4)(cubeP)(() => idP(Bind.bind5[0]-Bind.bind5[1]))
-  (v=>addP(Bind.bind5[1])(v)); 
+  (v=>addP(Bind.bind5[1])(v)),  
 
   bind6(n+5)(cubeP)(() => idP(Bind.bind6[0]-Bind.bind6[1]))
-  (v=>addP(Bind.bind6[1])(v)); 
+  (v=>addP(Bind.bind6[1])(v)), 
 
   bind7(n+6)(cubeP)(() => idP(Bind.bind7[0]-Bind.bind7[1]))
-  (v=>addP(Bind.bind7[1])(v)); 
+  (v=>addP(Bind.bind7[1])(v)), 
 
   bind8(n+7)(cubeP)(() => idP(Bind.bind8[0]-Bind.bind8[1]))
-  (v=>addP(Bind.bind8[1])(v)); 
+  (v=>addP(Bind.bind8[1])(v)), 
 
   bind9(n+8)(cubeP)(() => idP(Bind.bind9[0]-Bind.bind9[1]))
-  (v=>addP(Bind.bind9[1])(v)); 
-
+  (v=>addP(Bind.bind9[1])(v)) ];  
 }
 
 function add3 (a,b,c) {return a+b+c};
@@ -418,15 +422,6 @@ function testProm(f,v,args) {
   else return false;
 }
 
-var m80 = new Monad("Amanda", 'm80');
-
-async function waitP (f, args) {
-  var z = await (p);
-  m80.ret(z);
-  console.log(m80.x);
-  return m80.x;
-}
-
 const wait2 = x => {
   setTimeout( function (x) {return x},2000 )
 }
@@ -485,21 +480,23 @@ function Bind (str) {
   return function bindo ( x ) {
     if (x instanceof Promise) x.then(y => {
       Bind[str].push(y);
-      diffRender();
       console.log(Bind[str]);
+      diffRender();
     })
     else {
       Bind[str].push(x)
+      console.log(Bind[str]);
       diffRender();
     }
-    console.log(Bind[str]);
     return function debug8 (func) {
       var p;
       if (func.name === "terminate") return Bind[str];
       if (x instanceof Promise) {
         p = x.then(v => func(v));
+        //diffRender();
       }
       else p = func(x);
+      //diffRender();
       return bindo(p);
     };
   };
@@ -833,6 +830,11 @@ async function cubeP (x) {
   await wait(1200)
   return x*x*x;
 }
+async function cubeFormat (x) {
+  var a; 
+  await cubeP(x).then(v => a = v); 
+  return x + " cubed is " + a;
+};
 
 async function idP (x) {
   await wait(1200)
@@ -1121,12 +1123,6 @@ const prm5 = x => {
      mMZ39.bnd((y) => resolve(y))
   }).then(workerC.postMessage([primesMonad.s, [x]]));
 }
-
-function largestPrime (x) {bind(x)(prm5)(split2)(terminate)
-.pop()
-.then(v => console.log(v.pop(),"Is the largest prime factor of",x))}
-
-function split2(str) {return str.split(',')}
 
 var fx = async () => {await ar[1].then(x => m779.ret(x)); return m779.x}
 
@@ -1696,9 +1692,6 @@ function primes(n, ar) {
       return s;
   };
 
-  var split = function split(x, mon) {
-      return retrn(mon, x.split(','));
-  };
   var stringify = function stringify(ob) {
       var str = ob.task + ',' + ob.color + ',' + ob.textdecoration + ',' + ob.checked.tostring() +
           ',' + ob.author + ',' + ob.responsible;
