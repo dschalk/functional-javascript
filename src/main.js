@@ -4,7 +4,8 @@
   import code from './code.js';
   import { run } from './cycle-run.js';
 
-socket = "MozWebSocket" in window ? new MozWebSocket('ws://localhost:3055/') : new WebSocket('ws://localhost:3055/');
+socket = "MozWebSocket" in window ? new MozWebSocket('ws://127.0.0.1:3055/') : new WebSocket('ws://127.0.0.1:3055/');
+// socket = new WebSocket('wss://127.0.0.1:3055/');
 
 function websocketsDriver() {
   return xs.create({
@@ -1593,7 +1594,7 @@ h('p', ' After the first run, caching of prime numbers usually shortens executio
 
 
 h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 2 - avoiding clashes.'),
-h('span', ' Demonstration 2 shows the results of computations run sequentially from top to bottom in four columns. Nine similar functions run orthogonally to one another thanks to the constructor "Bind". Bind.bind1, Bind.bind2, ..., Bind.bind9 are inside of nine "div" elements in the virtual DOM. Demonstration 2 shows the arrays as they grow from empty to four-membered arrays. '),  
+h('span', ' Demonstration 2 shows the results of computations run sequentially from top to bottom in columns from left to right. Nine similar functions run orthogonally to one another thanks to the constructor "Bind". Bind.bind1, Bind.bind2, ..., Bind.bind9 are inside of nine "div" elements in the virtual DOM. Demonstration 2 shows the arrays as they grow from empty to four-membered arrays. '),  
 h('span', '. Here is the '), 
 h('a', {props: {href: "#bind2" }},  "definition of Bind" ),
 h('p', ' bind1 is a function. Bind.bind1 is an array not of the promises returned by each function, but rather it is an array of the values that are produced as each promise resolves. "Bind.bind1" is a permanent fixture in the virtual DOM description returned by main(). You can watch it and nine similar arrays as their lengths seem to increase in parallel by entering an integer in the right column.'),
@@ -3120,7 +3121,6 @@ h('a', {props: {href: '#top'}}, 'Back to the top'),
 }
 
 diffRender = () => document.getElementById('diffRender').click();
-console.log('String.prototype.split', String.prototype.split)
 sources.DOM = makeDOMDriver('#main-container');
 sources.WS = websocketsDriver;
 sources.GD = gridDriver;

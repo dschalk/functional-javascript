@@ -493,10 +493,8 @@ function Bind (str) {
       if (func.name === "terminate") return Bind[str];
       if (x instanceof Promise) {
         p = x.then(v => func(v));
-        //diffRender();
       }
       else p = func(x);
-      //diffRender();
       return bindo(p);
     };
   };
