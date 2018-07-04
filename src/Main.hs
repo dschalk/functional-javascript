@@ -30,6 +30,8 @@ module Main where
   import qualified Network.Wai.Application.Static as Static
   import qualified Network.Wai.Handler.Warp       as Warp
   import qualified Network.Wai.Handler.WebSockets as WaiWS
+  import           Network.Wai.Handler.Warp (defaultSettings, setPort, setTimeout, runSettings)
+  import           Network.Wai.Handler.WarpTLS (runTLS, tlsSettings) 
   import           Network.WebSockets             (sendClose)
   import qualified Network.WebSockets             as WS
   import           System.Directory
@@ -256,10 +258,10 @@ module Main where
     -- let port = read por
     print "In main"
     state <- atomically $ newTVar newServerState
-    Warp.runSettings
-     (Warp.setPort 3055 $
-       Warp.setTimeout 36000
-         Warp.defaultSettings) $
+    runSettings
+     (setPort 3055 $
+       setTimeout 36000
+         defaultSettings) $
            WaiWS.websocketsOr WS.defaultConnectionOptions (application state) staticApp
   staticApp :: Network.Wai.Application
   staticApp = Static.staticApp $ Static.embeddedSettings $(embedDir "./dist")
@@ -318,6 +320,10 @@ module Main where
                       `mappend` (pack "<br>") `mappend`
                         T.concat (intersperse "<br>" (textState subSt))) subSt   
 
+  serveApp :: IO ()
+  serveApp = do
+   let tls = tlsSettings "./certificate.pem" "./key.pem"
+   runTLS tls (setPort 443 defaultSettings) staticApp
   talk :: WS.Connection -> TVar ServerState -> Client -> IO ()
   talk conn state client = forever $ do
     msg <- WS.receiveData conn
