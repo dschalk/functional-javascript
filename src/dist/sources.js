@@ -1,8 +1,4 @@
 
-console.log('----->>>>>>>>>>>>>> fsWeb', fsWeb);
-console.log('>>>>>>>>>>>>>>> https', https);
-var fs = fsWeb;
-
 var connection;
 var sources;
 var _AR_ = [];

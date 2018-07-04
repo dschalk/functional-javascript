@@ -5,4 +5,4 @@
 
 
 
-kill -9 `pidof ghc` && webpack && stack runghc Main &
+kill -9 `pidof ghc` && webpack && stack runghc Main.hs &

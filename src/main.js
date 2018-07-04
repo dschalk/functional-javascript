@@ -4,7 +4,20 @@
   import code from './code.js';
   import { run } from './cycle-run.js';
 
-socket = "MozWebSocket" in window ? new MozWebSocket('ws://127.0.0.1:3055/') : new WebSocket('ws://127.0.0.1:3055/');
+
+function createWebSocket(path) {
+    var host = window.location.hostname;
+    if (host === '')
+        host = 'localhost';
+    var uri = 'ws://' + host + ':3055' + path;
+    var Socket = "MozWebSocket" in window ? MozWebSocket : WebSocket;
+
+    return new Socket(uri);
+}
+// socket = createWebSocket('/');
+
+// socket = "MozWebSocket" in window ? new MozWebSocket('ws://127.0.0.1:3055/') : 
+socket = new WebSocket('ws://127.0.0.1:3055/');
 // socket = new WebSocket('wss://127.0.0.1:3055/');
 
 function websocketsDriver() {
@@ -42,20 +55,18 @@ socket.onclose = function (event) {
       else {
         login();
       }
-    },650 )
+    },1000 )
   }
 
   function main(sources) {
-   console.log('0^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ got this far');
+   console.log('0^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ got to main()');
 
    const messages$ = sources.WS.map( e => {
-     console.log('In messages$ -<e><e><e>- e is', e);
      var v = e.data.split(',')
      var group = v[1]
      var sender =  v[2];
      var extra = v[3];
      var extra2 = v[4];
-     console.log('In messages$ - - v is', v );
 
      mMZ9.bnd( () => {
        // pMname.ret(sender);
@@ -302,7 +313,9 @@ var registerPressAction$ = registerPress$.map(e => {
       mMshowRegister.ret('none');
       pMname.bnd(backupMonad.ret)
       pMname.ret(name);
+      playerName = name;
       console.log('pMname.x is', pMname.x );
+      console.log(pMname.x === playerName);
       socket.send(`RR#$42,${pMgroup.x},${pMoldName.x},${x}`); }
       setTimeout(function () {
         socket.send(`CG#$42,${pMgroup.x},${name},${pMscore.x},${pMgoals.x}`);
@@ -903,7 +916,6 @@ function bind (x, ar=[]) {
 */
 
       workerH$ = sources.WWH.map(m => {
-        console.log('The message arriving from workerH is', m.data);
         mMZ52.release(m.data[1]);
         var w = m.data[0][m.data[0].length - 1];
         if (m.data[0].length > primeState.length) primeState = m.data[0];
@@ -1454,7 +1466,7 @@ var pingpong4$ = pinpon4$.map(() => {
     }
   });
 
-  console.log('Just before calcStream@');
+  console.log('Getting close to calcStream@');
 
   var chatClick$ = sources.DOM
       .select('#chat2').events('click')
@@ -1508,6 +1520,16 @@ var pingpong4$ = pinpon4$.map(() => {
     }
   }); 
 
+
+  var test7Press$ = sources.DOM
+    .select('input#test7').events('keypress');
+
+  var test7Action$ = test7Press$.map(function (e) {
+    if (e.keyCode === 13) {
+      runTestResult = runTest(toInt(e.target.value));
+    }
+  }); 
+
 counter = function counter(n, acc = 0) {
   var _repeat = true;
 
@@ -1529,7 +1551,7 @@ counter = function counter(n, acc = 0) {
   }
 }
 
-var calcStream$ = xs.merge( gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, workerG$, workerH$, clearADSction$, factorsAction$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$) 
+var calcStream$ = xs.merge( gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, workerG$, workerH$, clearADSction$, factorsAction$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$) 
 
 return { DOM: calcStream$.map(() => { 
   return h('div.main', [
@@ -1540,16 +1562,22 @@ h('span', ' ' ),
 h('a', { props: { href: "https://cycle.js.org/", target: "_blank" } }, 'A Cycle.js application')    ]),
 h('div', {style: {textAlign:"center", fontWeight: "bold"}}, [
   h('br'),  
-  h('div', {style: {fontSize: "22px", color: "#FFD700"}}, 'FUNCTIONAL TECHNIQUES IN JAVASCRIPT'),
+  h('div', {style: {fontSize: "25px", color: "#FFD700",textAlign: "center"}}, 'BETTER THAN MONADS'),
+  h('div', styleFunc(['#FFF700',,'20px','italic',,'center']), 'Higher-Order Functions In JavaScript'),
 ]),
 h('div.content', [
 
 
-
-h('p', '  Libraries and language modifications that impose constraints such as immutability, universal purity of functions, and strict typing can be useful, but this project takes a different approach. The JavaScript used herein is plain, unadorned, unrestricted Ecamascript 2018. ' ),
-h('p', ' Objects are cloned so past states remain accessible but they are mutated inside of functions for efficiency and to keep the stack from overflowing. Functions ordinarily don\'t interact with the environments outside of their scopes but methods might cause side effects in the objects that contain them. "Functional programming" in this project is about using all that the language offers to create functions that streamline applications and make them readable, maintainable, and robust. Just be sure to cause side effects, alter the contents of specific addresses in memory, and define global variables with the utmost restraint and care.' ),
-  
-h('p', ' The first example is a higher order function named "bind". It facilitates concise, readable, and flexible function composition. It has no dependencies, so think of bind() as a concept rather than a static library function. Here\'s how it works: ' ), 
+h('p', ' This project was originally titled "JavaScript Monads". My monads, like Category Theory monads and Haskell monads, are objects. Monads compose in the Haskell programming language by means of the ">>=" (pronounced "bind") operator. ' ),
+h('p', '"Monad" is not defined in EcmaScript 2018. Loosely speaking, a JavaScript monad "m"(not a Category Theory monad) has a value "m.val" and composes by means of a method "m.b" that operate on functions, say "func1", that operates on m.val returning a monad "m2" such that m2.val is func1(m.val) or, in more sophistocated variations on the theme, func(m.val, ...args). Therefore m2.b(func2) results in a monad, let\'s call it "m3", with m3.val === func2(func(m.val)). "m" can have multiple methods that behave like "b". JQuery and Lodash objects are monads according to this definition. '),
+h('span.tao', ' My monads are constricted, sort of Haskell-like variations on the theme. They have only one method that behaves like "m.b" (above) and a method "ret" that directly changes a monad\'s value to ret\'s argument. Others, including Douglas Crockford, author of '),
+h('a', {props: {href: "http://shop.oreilly.com/product/9780596517748.do", target: "_blank" }}, 'Javascript: The Good Parts' ),  
+h('span', ', have defined monads that are superficially even more Haskell-like. Mr. Crockford explained his in the video presentation ' ),
+h('a', {props: {href: "https://www.reddit.com/r/haskell/comments/16rsb7/monads_and_gonads_talk_by_douglas_crockford/", target: "_blank" }}, '\"Monads And Gonads\"' ),  
+h('span', '. ' ),
+h('p', ' JavaScript has tremendous untapped potential. Procedures and values stored in objects such as String and Array is an essential language feature; but it is a rather pedestrian way of composing functions. JavaScript shines brightly when it works with higher-order functions instead of the ordinary objects. Case in point: compare Ramda (higher-order functions) with Underscore (objects). Or, more starkly and succinctly, compare composition using bind() (next paragraph) with any procedure that links objects à la monads. ' ),
+h('h3', 'Composing With Higher-Order Functions' ),  
+h('p', ' The examples below demonstrate function composition with functions instead of object methods. Syntax consists of calling "bind(x)" for some value "x" and then naming or defining the functions to be composed on "x". A \"(terminate)\" flag at the end causes the internal array of return values (or resolution values of Promises) to be returned. Consider:' ), 
 h('div', styleFunc(["#FFD700","3%","21px",,,]), 'bind(x)(functiona1)(function2) ... (functionN)'),
         h('br'),
 
@@ -1560,28 +1588,35 @@ h('div', styleFunc(["#FFD700","3%","21px",,,]), 'bind(x)(functiona1)(function2) 
 
   there are no restrictions on the functions\' return value types,
 
-  any function in the chain can be asynchronous,
+  functions can even return promises,
 
   functions have built-in access to all prior functions\' return values,
 
   functions have built-in access to all prior promises\' resolution values. `),
-        h('span.tao', styleFunc(["#d3ead5",'3%',"18px",,,]), ' Composition doesn\'t get more flexible and expressive than this. Calling bind(x)(function1)(function2)... creates a sequence of functions consuming functions and returning functions that consume functions and so on to the end. Here is the ' ),      
+        h('span#lion', '' ),
+        h('span.tao', styleFunc(["#d3ead5",'3%',"18px",,,]), ' Composition doesn\'t get more flexible and expressive than this. Calling bind(x)(function1)(function2)... creates a sequence of functions consuming functions and returning functions that consume functions. Here is the ' ),      
 h('a', {props: {href: "#bind" }},  'definition of bind'),
-h('span', '. The "terminate" flag yields an ordered array of the return values of each function in the sequence. I show in the '),
-    h('a', {props: {href: "#defs" }},  'appendix'),
-      h('span', ', how it was made reactive in this Cycle.js application. ' ), 
-      h('br'),  
-      h('p', ' "bind" can easily be expanded to intercept runtime errors, check types, etc. "Demonstration 2" shows ten functions created by the factory function "Bind" that seem to execute in parallel while actually running in a single thread. '),
 
 ]),
-
-
 
 h('div#content2', [
 h('div', {style: {width: '47%', fontSize: '15px', float: 'left'}}, [ // ((************ LEFT PANEL
 h('br'),
 
-h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 1 - WebSocket and worker messaging.'),
+h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 1 - A Simple Example.'),
+h('span.tao', ' If you understand why "result === Bind.foo" (below) returns true, you have a pretty good grasp of how foo and, more generally, ' ),
+h('a', {props: {href: "#bind2" }},  "Bind" ),
+h('span', ' work. ' ),
+h('br'),
+h('pre', `  var foo = Bind('foo');
+
+  var result = foo(1)(v=>v+2)(v=>v*v*v)(v=>v+3)
+  (v=>v*Bind.foo[1])(z=>z/Bind.foo[3] - 2)(terminate);
+ 
+  console.log(result) // [1, 3, 27, 30, 90, 1]
+  console.log(result === Bind.foo) // true  `),
+h('p', ' In the demonstration on the right, enter a value for "x" in runTest(x) and see the result. ' ),
+h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 2 - WebSocket and worker messaging.'),
 
 h('span.tao', ' The first demonstration consists of bind(145) followed by a math computation, a function that sends the computation result to the WebSocket server, a function that sends the WebSocket response to a web worker, and a function that uses the worker response to update the browser display and the prime number cache. '), 
 h('p#defsReturn'),
@@ -1593,7 +1628,7 @@ h('p', ' After the first run, caching of prime numbers usually shortens executio
 
 
 
-h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 2 - avoiding clashes.'),
+h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 3 - avoiding clashes.'),
 h('span', ' Demonstration 2 shows the results of computations run sequentially from top to bottom in columns from left to right. Nine similar functions run orthogonally to one another thanks to the constructor "Bind". Bind.bind1, Bind.bind2, ..., Bind.bind9 are inside of nine "div" elements in the virtual DOM. Demonstration 2 shows the arrays as they grow from empty to four-membered arrays. '),  
 h('span', '. Here is the '), 
 h('a', {props: {href: "#bind2" }},  "definition of Bind" ),
@@ -1603,7 +1638,7 @@ h('p', ' Demonstration 2 shows that the nine sequences do not interfere with one
 h('span.tao', {style: {color: "#FFD700"}}, `"bind1(e.target.value)(cubeP)"` ),
 h('span', ' cubes user inpup. The first element of each Bind array attribute (Bind.bind1, Bind.bind2, etc) is the a number that is encapsulated in a promise. The promise resolves after 1200 ms, providing its resolution value to cubeP. When cubeP resolves, its resolution value becomes the argument of the next promise\'s then method. The delayed identity function "idP" takes the difference of the original value and its cube as its argument. After this resolves, the original value\'s cube is added to its resolution value. '),
 h('p#backToDem3', '     '), 
-h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 3 '),
+h('h3', styleFunc(["#8ffc95","3%",,,,]), ' Demonstration 4 '),
 h('span#backToDem2', ' This demonstration uses a closure named "PingpongMaker" instead of Bind to define clones of the function "ping". Three instances of ping operate independently of one another in the demonstration on the right. Here is '),
 h('a', {props: {href: '#pingmaker'}}, 'more information about Demonstration 3.' ),
 h('br'),
@@ -1611,6 +1646,31 @@ h('br'),
 h('div', {style: {width: '47%', fontSize: '15px', float: 'right'}}, [  // ********* RIGHT PANEL
 
 h('h3', 'Demonstration 1' ),
+h('pre', `  function demoFunc(x) {
+    return foo(x)(v=>v+2)(v=>v*v*v)
+    (v=>v+3)(v=>v*Bind.foo[1])
+    (z=>z/Bind.foo[3] - 2)(terminate)
+  };
+
+  function runTest(x) {
+    Bind.foo = [];
+    var u = demoFunc(x); 
+    return [u, u === Bind.foo]
+  } ` ),
+
+h('span', ' runTestResult = runTest(n): Enter n here --> '),
+h('input#test7', {style: {height: "15px" }} ),
+h('br'),
+h('br'),
+h('div', {style: {color: "#9fe0f4" }}, [
+  h('span', "runTestResult[0]: " ),
+  h('span', {style: {color: "red"}}, runTestResult[0].join(', ') ),
+  h('br'),
+  h('span', "runTestResult[1] === Bind.foo: " ),
+  h('span', {style: {color: "red"}}, runTestResult[1].toString() )
+]),
+
+h('h3', 'Demonstration 2' ),
 h('span', ' Click below to run bind(145)(x=>x\*x\*x)(it4)(it6)(it7) twenty-five times. The left column is the call order.'),
 h('br'),
 h('br'),
@@ -1628,7 +1688,7 @@ h('br'),
 
 
 
-h('h3', 'Demonstration 2' ),
+h('h3', 'Demonstration 3' ),
 
 h('pre', `bind1(n+0)(cubeP)(() => idP(Bind.bind1[0] -
 Bind.bind1[1]))(v=>addP(Bind.bind1[1])(v));
@@ -1658,7 +1718,7 @@ h('br'),
 h('br'),
 h('br'), 
 
-h('h3', 'Demonstration 3' ),
+h('h3', 'Demonstration 4' ),
 h('br'),
 h('button.pingpong', {style: {fontSize: '17px'}}, 'start pingpong'),
 pingDisplay, 
@@ -1807,25 +1867,43 @@ h('br'),
 h('br'),
 h('h1', '________________________________________________' ),
 h('div.content', [
-h('a#bind', {props: {href: '#top'}}, 'Back to the top'),
+h('a#bind', {props: {href: '#lion'}}, 'Back to the bind discussion.'),
 
 h('p', 'CAUTION - SOME OF THE COMMENTARY AFTER THIS POINT STILL LAGS BEHIND RECENT REFACTORING.'),
-h('p', ' Here is the definition of bind: '),
-h('pre', {style: {color: "lightBlue"}}, `function bind (x, ar=[]) {
-  var ar = ar;
-  if (ar.length === 0) ar = [x];
-  if (x instanceof Promise) x.then(y => ar.push(y));
-  else ar.push(x)
-  return function debug8 (func) {
-    if (func.name === "terminate") return ar;
-    var p;
-    if (x instanceof Promise) {
-      p = x.then(v => func(v));
-    }
-    else p = func(x);
-    return bind(p, ar);
-  };
-}; ` ),
+h('p', ' bind() and similar functions are created by the constructor named "Bind". Here is Bind()\'s definition: '),
+h('pre', {style: {color: "lightBlue"}}, `  function Bind (str) {
+    Bind[str] = [];
+    return function bindo ( x ) {
+      if (x instanceof Promise) x.then(y => {
+        Bind[str].push(y);
+        diffRender();
+      })
+      else {
+        Bind[str].push(x)
+        diffRender();
+      }
+      return function debug8 (func) {
+        var p;
+        if (func.name === "terminate") return Bind[str];
+        if (x instanceof Promise) {
+          p = x.then(v => func(v));
+        }
+        else p = func(x);
+        return bindo(p);
+      };
+    };
+  }; ` ),
+h('p', ' And here are the definitions of bind() and several similar functions: ' ),
+h('pre', `  var bind = Bind("bind0");
+  var bind1 = Bind("bind1");
+  var bind2 = Bind("bind2");
+  var bind3 = Bind("bind3");
+  var bind4 = Bind("bind4");
+  var bind5 = Bind("bind5");
+  var bind6 = Bind("bind6");
+  var bind7 = Bind("bind7");
+  var bind8 = Bind("bind8");
+  var bind9 = Bind("bind9"); ` ),
 h('a', {props: {href: '#content2'}}, 'Back to the preview demos'),
 h('p', italicYellow, ' Sequences beginning with bind() reveal exactly what is happening while sometimes hiding confusing conglomerations of nested promises intermingled with other types of functions. In other words, they provide a way out of "Callback Hell". '),
 h('p#cycle'),
@@ -1913,37 +1991,7 @@ h('pre', `Fibonacci numbers   Prime Numbers   Prime Fibonacci Numbers `),
   h('br'),
   h('span', mMfactors.x ),
   h('span.tao3', mMfactors23.x ),
-
-  h('p', ' Next, two comma-separated numbers are decomposed into arrays of their prime factors, and those arrays are used to compute their lowest common multiple (lcm). For example, the lcm of 6 and 9 is 18 because 3\*6 and 2\*9 are both 18. The lcm of the denominators of two fractions is useful in fraction arithmetic; specifically, addition and subtraction. On my desktop computer, two seven digit numbers resulted in a lag of a few seconds when prime numbers had not been previously generated. ' ),
-
-  h('input#factors_5'),
-  h('br'),
-  h('br'),
-  h('div.tao3', mMfactors7.x ),
-  h('span', `The least common multiple of  ${mMfactors8.x[0]} and ${mMfactors8.x[1]} is ` ),
-  h('span.tao3', `${mMfactors8.x[2]}` ),
-  h('br'),
-  h('span', `The largest common factor of ${mMfactors8.x[0]} and ${mMfactors8.x[1]} is ` ),
-  h('span.tao3', `${mMfactors8.x[3]}` ),
-  h('br'),
-  h('div', `TEST: ${mMfactors8.x[0]} * ${mMfactors8.x[1]} === ${mMfactors8.x[2]} * ${mMfactors8.x[3]} `  ),
-  h('span', 'RESULT: ' ),
-  h('span.tao3', `${ (mMfactors8.x[0]  *  mMfactors8.x[1])  ===  (mMfactors8.x[2]  *  mMfactors8.x[3]) }` ),
-    h('h3', ' The Easy Way ' ),
-    h('p', ' This has been a demonstration of MonadState and MonadState transformers. If you really want the least common multiple or the largest common factor of two positive integers, there is no need to generate prime numbers. The next and final demonstration in this section does not use a web worker. The computations block the main thread, but only for a few microseconds.' ),
-    h('br' ),
-    h('input#factors800'),
-    h('br' ),
-    h('span', `The least common multiple of  ${mMfactors800.x[0]} and ${mMfactors800.x[1]} is ` ),
-    h('span.tao3', `${mMfactors800.x[2]}` ),
-    h('br'),
-    h('span', `The largest common factor of ${mMfactors800.x[0]} and ${mMfactors800.x[1]} is ` ),
-    h('span.tao3', `${mMfactors800.x[3]}` ),
-    h('br'),
-    h('div', `TEST: ${mMfactors800.x[0]} * ${mMfactors800.x[1]} === ${mMfactors800.x[2]} * ${mMfactors800.x[3]} `  ),
-    h('span', 'RESULT: ' ),
-    h('span.tao3', `${ (mMfactors800.x[0]  *  mMfactors800.x[1])  ===  (mMfactors800.x[2]  *  mMfactors800.x[3]) }` ),
-  h('p', ' The code for the previous demonstrations is available at the Github repository, and will soon be available here in an appendix. primesMonad and the functions primarily involved in its transformation are shown below: ' ),
+  h('p', ' primesMonad and the functions primarily involved in its transformation are shown below: ' ),
     code.primes,
     h('p', ' primesMonad state updates are generated in workerB.js and stored in the main thread. Users set new upper bounds on the size of the largest Fibonacci number in the series to be considered by entering a number in a browser input box. Here is the relevant code: ' ),
     code.primes3,
@@ -1953,24 +2001,20 @@ h('pre', `Fibonacci numbers   Prime Numbers   Prime Fibonacci Numbers `),
       code.primes2,
 
 h('h3', 'Type Checking' ),
-h('p', ' Type checking is useful for avoiding runtime errors and for optimization of user interfaces. For example, if a user enters the wrong type of data it is helpful to display a message explaining why nothing is happening. Not allowing defective user input to be transmitted to a WebSocket server prevents sockets from disconnecting. Some developers like to superimpose strong typing over JavaScript or write code in a strongly typed language that compiles to JavaScript. Others like to retain all of JavaScript\'s possibilities, checking types in only a few functions.  '),
+h('p', ' Type checking is useful for avoiding runtime errors and for optimization of user interfaces. For example, if a user enters the wrong type of data it is helpful to display a message explaining why nothing is happening. Not allowing defective user input to be transmitted to a WebSocket server prevents sockets from disconnecting. Some developers like to superimpose strong typing over JavaScript or write code in a strongly typed language that compiles to JavaScript. I leave JavaScript (ES7, to be precise) as it is and check types only where user input is involved. If this project were a team effort, other team members might be users of functions I write so more extensive type-checking would be prudent.'),
 h('br'),
 h('a', {props: {href: '#top'}}, 'Back to the top'),
-h('h3', 'More Examples'),
-h('p', ' The result of every computation in a chain of synchronous functions is available to every computation that comes after it. This can be seen in the next example: ' ),
-h('pre', `  bind(1)(addC(2))(cubeC)(addC(3))
-  (multC(this.ar[1]))(multC(this.ar[1]))
-  (addC(30))(multC(1/(ar[3]*2)))(terminate)
-   // [1, 3, 27, 30, 90, 270, 300, 5] `),
-h('p', ' Or, equivalently: ' ),
-h('pre', orange, `  bind(1)(v=>v+2)(v=>v*v*v)(v=>v+3)
-  (v=>v*ar[1])(v=>v*ar[1])(v=>v+30)
-  (v=>v*1/(ar[3]*2))(terminate)
-   // [1, 3, 27, 30, 90, 270, 300, 5] `),
-h('p#cycletime', ' Or if you want just the final result '),
-h('pre', `  bind(1)(v=>v+2)(v=>v*v*v)(v=>v+3)
-  (v=>v*ar[1])(v=>v*ar[1])(v=>v+30)
-  (v=>v*1/(ar[3]*2))(terminate).pop()  // 5] `),
+h('h3', 'Another Example'),
+h('p', ' The result of every computation in a chain of synchronous functions is available to every computation that comes after it. This can be seen in the next example where the result of each computation is pushed into Bind.foo: ' ),
+h('pre', `  var foo = Bind("foo"); 
+
+  var result = foo(1)(v=>v+2)(v=>v*v*v)(v=>v+3)
+  (v=>v*Bind.foo[1])(v=>v*Bind.foo[1])(v=>v+30)
+  (v=>v*1/(Bind.foo[3]*2))(terminate)
+
+  console.log(result) // [1, 3, 27, 30, 90, 270, 300, 5] 
+  console.log(result === Bind.foo) // true  `),
+
 h('h2', 'Alternative Monad Functionality' ),
 h('p', ' Instances of Monad can also link by means of the method "bnd()". It, along with the method "ret()", were made available as follows: ' ),
 h('pre',  {style: {color: "rgb(236, 242, 186)"   }}, `  Monad.prototype.bnd = function (func, ...args) {
@@ -2609,9 +2653,8 @@ h('p', ' That\'s not to say that Crockford isn\'t a thinking developer. He is a 
 h('span#cyclet', ', which has long been revered as a "must read" JavaScript book. Kyle Simpson recommends learning to use potentially dangerous code intelligently while Douglas Crockford advocates never using it at all. I think the phrase "eval is evil" stems from Crockford\'s book. I find eval() to be very useful from time to time. Kyle Simpson teaches programmers how to safely tap the full potential of JavaScript. ' ),
 h('p#defs'),
 h('br'),
-h('a', {props: {href: '#content2' }}, 'Return to Demonstration 1' ),
 
-  
+h('a', {props: {href: '#lion'}}, 'Back to the bind discussion.'),
   
 h('pre', h3Simulation, 'Asynchronous Processes - A deep dive into Demonstration 1' ),
 
@@ -3098,7 +3141,9 @@ h('span', ' As discussed ' ),
 h('a', {props: {href: "#haskell"}}, 'below' ), 
 h('span', ', tHaskell Programming Language, which supports the back end of this website, draws inspiration from Category theory, but that is as far as it goes. '),
 
-
+h('h3', 'More Random Snippits' ),
+h('p', '  Libraries and language modifications that impose constraints such as immutability, universal purity of functions, and strict typing can be useful, but this project takes a different approach. The JavaScript used herein is plain, unadorned, unrestricted Ecamascript 2018. ' ),
+h('p', ' Objects are cloned so past states remain accessible but they are mutated inside of functions for efficiency and to keep the stack from overflowing. Functions ordinarily don\'t interact with the environments outside of their scopes but methods might cause side effects in the objects that contain them. "Functional programming" in this project is about using all that the language offers to create functions that streamline applications and make them readable, maintainable, and robust. Just be sure to cause side effects, alter the contents of specific addresses in memory, and define global variables with the utmost restraint and care.' ),
 
 
 

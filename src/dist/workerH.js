@@ -53,7 +53,6 @@ var g = p => x => {
 }
   
 onmessage = function(m) {
-  console.log('In onmesage in workerH.js')
   var a = m.data[0];
   var b = parseInt(m.data[1],10);
   postMessage(g(a)(b));

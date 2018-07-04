@@ -238,6 +238,20 @@ var m42_RESULT7 = "ready"
 var tInt = a => b => parseInt(b,a);  
 var toInt = tInt(10);
 
+  var runTestResult = [['ready'], 'ready'];
+  var foo = Bind('foo'); 
+  function demoFunc(x) {
+    return foo(x)(v=>v+2)(v=>v*v*v)
+    (v=>v+3)(v=>v*Bind.foo[1])
+    (z=>z/Bind.foo[3] - 2)(terminate)
+  };
+
+  function runTest(x) {
+    Bind.foo = [];
+    var u = demoFunc(x); 
+    return [u, u === Bind.foo]
+  } 
+
 function test5 (x) {
   var n = toInt(x);
   var a1,a2,a3,a4,a5,a6,a7,a8,a9;
@@ -456,10 +470,9 @@ var O_002 = {ar: []};
 var O_003 = {ar: []};
 var O_004 = {ar: []};
 
-
 h('h3#bindDef',  'The Definition of bind'  )
   
-function bind (x, ar=[]) {
+/*function bind (x, ar=[]) {
   var ar = ar;
   if (ar.length === 0) ar = [x];
   if (x instanceof Promise) x.then(y => ar.push(y));
@@ -473,19 +486,17 @@ function bind (x, ar=[]) {
     else p = func(x);
     return bind(p, ar);
   };
-};
+}; */
 
 function Bind (str) {
   Bind[str] = [];
   return function bindo ( x ) {
     if (x instanceof Promise) x.then(y => {
       Bind[str].push(y);
-      console.log(Bind[str]);
       diffRender();
     })
     else {
       Bind[str].push(x)
-      console.log(Bind[str]);
       diffRender();
     }
     return function debug8 (func) {
@@ -509,6 +520,7 @@ function bindDriver () {
   })
 };
 
+var bind = Bind("bind0");
 var bind1 = Bind("bind1");
 var bind2 = Bind("bind2");
 var bind3 = Bind("bind3");
@@ -628,7 +640,7 @@ function bindEmitterDriver () {
 var bindAr$ = ar => xs.of(ar);
 
 function bind (x, ar=[]) {
-  // var ar = ar;
+  var ar = ar;
   if (ar.length === 0) ar = [x];
   if (x instanceof Promise) x.then(y => ar.push(y));
   else ar.push(x)
