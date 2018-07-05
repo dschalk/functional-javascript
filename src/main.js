@@ -1569,7 +1569,7 @@ h('div.content', [
 
 
 h('p', ' This project was originally titled "JavaScript Monads". My monads, like Category Theory monads and Haskell monads, are objects. Monads compose in the Haskell programming language by means of the ">>=" (pronounced "bind") operator. ' ),
-h('p', '"Monad" is not defined in EcmaScript 2018. Loosely speaking, a JavaScript monad "m"(not a Category Theory monad) has a value "m.val" and composes by means of a method "m.b" that operate on functions, say "func1", that operates on m.val returning a monad "m2" such that m2.val is func1(m.val) or, in more sophistocated variations on the theme, func(m.val, ...args). Therefore m2.b(func2) results in a monad, let\'s call it "m3", with m3.val === func2(func(m.val)). "m" can have multiple methods that behave like "b". JQuery and Lodash objects are monads according to this definition. '),
+h('p', '"monad" is not defined in Ecmascript 2018. Loosely speaking, a JavaScript monad "m" (not a Category Theory monad) has a value "m.val" and composes by means of a method "m.b" that operate on functions, say "func1", that operates on m.val returning a monad "m2" such that m2.val is func1(m.val) or, in more sophisticated variations on the theme, func(m.val, ...args). Therefore m2.b(func2) results in a monad, let\'s call it "m3", with m3.val === func2(func(m.val)). "m" can have multiple methods that behave like "b". Lodash and jQuery objects are monads according to this definition. '),
 h('span.tao', ' My monads are constricted, sort of Haskell-like variations on the theme. They have only one method that behaves like "m.b" (above) and a method "ret" that directly changes a monad\'s value to ret\'s argument. Others, including Douglas Crockford, author of '),
 h('a', {props: {href: "http://shop.oreilly.com/product/9780596517748.do", target: "_blank" }}, 'Javascript: The Good Parts' ),  
 h('span', ', have defined monads that are superficially even more Haskell-like. Mr. Crockford explained his in the video presentation ' ),
@@ -1751,10 +1751,13 @@ h('br'),
 h('br'),
 h('span.tao', 'Functions that take multiple arguments should be curried, or else their arguments should be contained in single arrays or objects. This is a consequence of the fact that functions can only return single values, and those return values (or resolution values) are the arguments of the functions linked to their right sides. Here are functions that curry and reverse curry multi-argument functions: ' ),
 h('a', {props: {href: "#curryDef"}}, "curry and reverseCurry " ),
-h('span', ', and here is an example: ' ),
-h('pre', `  curryReverse(parseInt)(6)("000111") === 43 // true;  
-const toInt = curryReverse(parseInt)(6); // A curried function
-toInt("000111") === 43 // true `),
+h('span', '. curryReverse(parseInt) can be used to define convenient functions like "binaryToInt" and "toInt". ' ),
+h('pre', `  const binaryToInt = curryReverse(parseInt)(2); 
+  binaryToInt("010101")  // 21
+
+  const toInt = curryReverse(parseInt)(10)
+  toInt("42")  // 42
+`),
 
 h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
 h('br'),
@@ -1905,7 +1908,7 @@ h('pre', `  var bind = Bind("bind0");
   var bind8 = Bind("bind8");
   var bind9 = Bind("bind9"); ` ),
 h('a', {props: {href: '#content2'}}, 'Back to the preview demos'),
-h('p', italicYellow, ' Sequences beginning with bind() reveal exactly what is happening while sometimes hiding confusing conglomerations of nested promises intermingled with other types of functions. In other words, they provide a way out of "Callback Hell". '),
+h('p', italicYellow, ' Sequences beginning with bind() reveal exactly what is happening while sometimes hiding confusing conglomerations of nested functions, object methods, and promises. They are a flexible way out of "Callback Hell". '),
 h('p#cycle'),
 h('a', { props: { href: '#top' } }, 'Back To The Top'),
 h('br'),
