@@ -164,7 +164,8 @@ socket.onclose = function (event) {
      });
 
      mMZ23.bnd( () => {
-       taskMonad.toggle(v[3]+1);
+       console.log('In mMZ23 -- v[3] is', v[3]);
+       taskMonad.toggle(v[3]);
      });
 
      mMZ24.bnd( () => {        //Delete a task
@@ -308,11 +309,10 @@ var registerPressAction$ = registerPress$.map(e => {
     }
     else {
       var name = art[0];
+      pMname.ret(art[0]);
       tempName = name;
       var x = art.join('<o>');
       mMshowRegister.ret('none');
-      pMname.bnd(backupMonad.ret)
-      pMname.ret(name);
       playerName = name;
       console.log('pMname.x is', pMname.x );
       console.log(pMname.x === playerName);
@@ -322,8 +322,6 @@ var registerPressAction$ = registerPress$.map(e => {
       },700);
   }
 });
-
-console.log("Wake up, you horse's ass");
 
     var groupPress$ = sources.DOM
         .select('input#group').events('keypress');
@@ -1388,19 +1386,29 @@ var pingpong4$ = pinpon4$.map(() => {
   var box$ = sources.DOM.select('.box').events('click');
 
   var boxAction$ = box$.map(e => {
-    var index = parseInt(e.target.parentNode.id, 10);
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    console.log('In boxAction$ -- e is', e );
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    var index = parseInt(e.target.parentElement.id, 10);
     var task = taskMonad.s[1].slice(index,index+1)[0];
     var old = task;
     var ar = task.split("<$>");
     ar = ar.filter(v => v !== "");
     ar[1] = ar[1] === "false" ? "true" : "false"
     var newTask = ar.join("<$>");
-    socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
+    socket.send(`TT#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
   });
 
   var cbx2$ = sources.DOM.select('.cbx2').events('click');
 
   var cbx2Action$ = cbx2$.map(e => {
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    console.log('In cbxAction$ -- e is', e );
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
     var index = parseInt(e.target.parentNode.id, 10);
     var task = taskMonad.s[1].slice(index,index+1)[0];
     var old = task;
@@ -1408,7 +1416,7 @@ var pingpong4$ = pinpon4$.map(() => {
     ar = ar.filter(v => v !== "");
     ar[1] = ar[1] === "false" ? "true" : "false"
     var newTask = ar.join("<$>");
-    socket.send(`TE#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
+    socket.send(`TT#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
   });
 
 
@@ -1434,7 +1442,7 @@ var pingpong4$ = pinpon4$.map(() => {
     var str;
     if (e.keyCode === 13) {
       var index = parseInt(e.target.parentElement.id, 10);
-      var old = taskMonad.s[1].slice(index,index+1)[0];
+      var old = taskMonad.s[1][index];
       var ar = old.split("<$>");
       var newAr = e.target.value.split(',');
       var newString = newAr.join("<<>>");

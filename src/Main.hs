@@ -322,6 +322,10 @@ module Main where
   talk conn state client = forever $ do
     msg <- WS.receiveData conn
     let msg2 = T.unpack msg
+    print "*********** Incoming message ***********"
+    print msg
+    print msg2
+    print "*********** Incoming message ***********"
     let mArr = splitOn "," msg2
     let msgArray = T.splitOn "," msg
     let message = snd $ splitAt 3 msgArray
@@ -679,16 +683,17 @@ module Main where
                   broadcast ("TX#$42," `mappend` group `mappend` com
                     `mappend` sender `mappend` com `mappend` extra) subSt
 
-       else if "ST#$42" `T.isPrefixOf` msg  
+       else if "TT#$42" `T.isPrefixOf` msg  
           then
               do
                   st <- atomically $ readTVar state
-                  let currentState = [[a,pack.show $ b,pack.show $ c,d] | (a,b,c,d,_,_,_,_) <- st]
-                  let txtState = map (\[w,x,y,z] -> w `mappend` dash `mappend` x `mappend` dash `mappend` y `mappend` dash `mappend` z) currentState
-                  mapM_ TIO.putStrLn txtState
-                  let textState = T.intercalate at txtState
-                  broadcast ("ST#$42," `mappend` group `mappend` com
-                    `mappend` sender `mappend` com `mappend` textState) st
+                  let txt = T.replace extra2 extra3 taskFile
+                  lk <- atomically L.new
+                  L.with lk $ TIO.writeFile tsks txt 
+                  atomically $ writeTVar taskTVar txt
+                  let subSt = subState sender group st
+                  broadcast ("TT#$42," `mappend` group `mappend` com
+                    `mappend` sender `mappend` com `mappend` extra) subSt
 
 
 

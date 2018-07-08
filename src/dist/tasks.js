@@ -18,6 +18,7 @@ MonadState2.prototype.init = function (str) {
   this.s[1] = str.split("<@>");
   this.s[1] = this.s[1].filter(v => (v != ""));
   this.html = bp2(this.s[1]);
+  console.log('In init -- this.html is', this.html);
   return this.html;
 }
 
@@ -25,6 +26,7 @@ MonadState2.prototype.delete = function (k) {
   this.s[1].splice(k,1);
   this.s[0] = this.s[1].join("<@>");
   this.html = bp2(this.s[1]);
+  console.log('In delete -- this.html is', this.html);
   return this.html;
 }
 
@@ -32,6 +34,7 @@ MonadState2.prototype.append = function (str) {
   this.s[0] = this.s[0] + str;
   this.s[1] = this.s[0].split("<@>");
   this.html = bp2(this.s[1]);
+  console.log('In append, this.html is', this.html);
   return this.html
 }
 
@@ -40,59 +43,22 @@ MonadState2.prototype.edit = function(k, s) {
   this.s[1].splice(k,1,s);
   this.s[0] = this.s[1].join("<@>");
   this.html = bp2(this.s[1]);
+  console.log('In edit, html is', this.html);
   return this.html;
 }
 
 MonadState2.prototype.toggle = function(k) {
-  var a  = taskMonad.s[1][1].split("<$>")[1] === "true" ? "false" : "true"
-  var b = taskMonad.s[1][1]
+  console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -- In toggle, k is', k);
+  var j = toInt(k);
+  var a  = taskMonad.s[1][j].split("<$>")[1] === "true" ? "false" : "true";
+  var b = taskMonad.s[1][j];
   var c = b.split("<$>");
-  taskMonad.s[1][1] = c[0]+"<$>"+a+"<$>"+c[2]+"<$>"+c[3]
+  taskMonad.s[1][k] = c[0]+"<$>"+a+"<$>"+c[2]+"<$>"+c[3];
   this.html = bp2(this.s[1]);
   return this.html;
 }
 
 taskMonad = new MonadState2( 'taskMonad', [] );
-
-function bp (ar) {
-  console.log('At the start of bp. ar is', ar);
-  taskMonad.html = [];
-  var n = -1;
-  var html = [];
-  var arr = ar.filter(v => (v != ""));
-  arr.map(x => {
-  var showCheck, showUnCheck, showGreen;
-    let v = x.split("<$>");
-    let task = v[0].replace(/<<>>/g, ","); 
-    let bool = v[1] === "true" ? true : false;
-    let auth = v[2];
-    let resp = v[3];
-    n = parseInt(n,10) + 1;
-    showCheck = bool ? "none" : "inline"
-    showUnCheck = bool ? "inline" : "none"
-    showGreen = bool ? "green" : "yellow"
-    showLineThrough = bool ? "line-through" : "none"
-    html.push(h('div#' + n, [
-      h('span.task3', {style: {color: showGreen, textDecoration: showLineThrough }},'Task: ' + task),
-      h('br'),
-      h('input#cbx', { props: { type: 'checkbox', color: 'white', checked: bool, width: "2%", height: "2%", fontSize: "22px", font: "22px Arial" }}, " "), 
-      h('span.tao4', { for: 'cbx', style: {display: showUnCheck}}, 'The task is completed' ),
-      h('span.tao4', { for: 'cbx', style: {display: showCheck}}, 'The task is not completed' ),
-      h('br'),
-      h('span.tao', 'Author: ' + auth + ' / ' + 'Responsibility: ' + resp),
-      h('br'),
-      h('span#taskEdit', 'Edit -> '),
-      h('input#edit2', {style: {width: "75%"}}, {props: { type:'textarea', value: task }}, task),
-      h('button#deleteTask', {style: {fontSize: "18px"}}, 'delete'),
-      h('br'),
-      h('button.cbx2', {style: {display: showUnCheck, fontSize: "16px"}}, 'change to not completed'),
-      h('button.cbx2', {style: {display: showCheck, fontSize: "16px"}}, 'change to completed'),
-      h('hr')   
-    ]))
-  })
-  console.log('In bp <><><><><><><><><><><> html is',html);
-  return html;
-}
 
 function bp2 (ar) {
   taskMonad.html = [];
