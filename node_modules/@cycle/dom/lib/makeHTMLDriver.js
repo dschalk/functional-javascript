@@ -1,0 +1,28 @@
+"use strict";
+var xstream_adapter_1 = require('@cycle/xstream-adapter');
+var transposition_1 = require('./transposition');
+var HTMLSource_1 = require('./HTMLSource');
+var toHTML = require('snabbdom-to-html');
+var noop = function () { };
+function makeHTMLDriver(effect, options) {
+    if (!options) {
+        options = {};
+    }
+    var transposition = options.transposition || false;
+    function htmlDriver(vnode$, runStreamAdapter, name) {
+        var transposeVNode = transposition_1.makeTransposeVNode(runStreamAdapter);
+        var preprocessedVNode$ = (transposition ? vnode$.map(transposeVNode).flatten() : vnode$);
+        var html$ = preprocessedVNode$.map(toHTML);
+        html$.addListener({
+            next: effect || noop,
+            error: noop,
+            complete: noop,
+        });
+        return new HTMLSource_1.HTMLSource(html$, runStreamAdapter, name);
+    }
+    ;
+    htmlDriver.streamAdapter = xstream_adapter_1.default;
+    return htmlDriver;
+}
+exports.makeHTMLDriver = makeHTMLDriver;
+//# sourceMappingURL=makeHTMLDriver.js.map

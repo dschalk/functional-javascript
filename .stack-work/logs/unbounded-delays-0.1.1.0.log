@@ -1,0 +1,7 @@
+Configuring unbounded-delays-0.1.1.0...
+Preprocessing library for unbounded-delays-0.1.1.0..
+Building library for unbounded-delays-0.1.1.0..
+[1 of 2] Compiling Control.Concurrent.Thread.Delay ( Control/Concurrent/Thread/Delay.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Control/Concurrent/Thread/Delay.o )
+[2 of 2] Compiling Control.Concurrent.Timeout ( Control/Concurrent/Timeout.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Control/Concurrent/Timeout.o )
+Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/unbounded-delays-0.1.1.0-KvddZgm6oGyK2gQebOtQdi
+Registering library for unbounded-delays-0.1.1.0..

@@ -1,0 +1,13 @@
+import { Stream } from 'xstream';
+import { StreamAdapter } from '@cycle/base';
+import { DOMSource, EventsFnOptions } from './DOMSource';
+export declare class HTMLSource implements DOMSource {
+    private runSA;
+    private _name;
+    private _html$;
+    private _empty$;
+    constructor(html$: Stream<string>, runSA: StreamAdapter, _name: string);
+    elements(): any;
+    select(selector: string): DOMSource;
+    events(eventType: string, options?: EventsFnOptions): any;
+}
