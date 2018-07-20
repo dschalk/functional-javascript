@@ -78,8 +78,7 @@ module Main where
   type Group = Text
   type Password = Text
   type Comments = Text
-  type Conn = WS.Connection
-  type Client = (Name, Score, Goal, Group, Conn, Password, Int, Comments)
+  type Client = (Name, Score, Goal, Group, WS.Connection, Password, Int, Comments)
 
   type ServerState = [Client]
 
@@ -263,15 +262,13 @@ module Main where
          Warp.defaultSettings) $
            WaiWS.websocketsOr WS.defaultConnectionOptions (application state) staticApp
   staticApp :: Network.Wai.Application
-  staticApp = Static.staticApp $ Static.embeddedSettings $(embedDir "./dist")
+  staticApp = Static.staticApp $ Static.embeddedSettings $(embedDir "./cow")
   application :: TVar ServerState -> WS.ServerApp
   application state pending = do
     print $!  "App is fired up"
     conn <- WS.acceptRequest pending
     msg <- WS.receiveData conn
     hFlush stdout
-    WS.sendTextData conn ("CC#$42,solo," `mappend` (pack "") `mappend`(pack "Howdy Doody Time\n\n") `mappend` (pack "Alfred E. Neuman just joined") :: Text)
-    
     count <- atomically counter
     id0 <- atomically $ readTVar count
     let id = id0 + 1

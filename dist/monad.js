@@ -1,11 +1,12 @@
 
+// import {h, p, span, h1, h2, h3, pre, br, div, label, input, hr, makeDOMDriver} from '@cycle/dom';
 
-var tiger = "ready"
+var tiger = "ready";
 
 var bxA1=0, bxA2=0, bxA3=0, bxA4=0, bxA5=0, bxA6=0, bxA7=0, bxA8=0, bxA9=0;
 var tempName = "Jim";
-var socket;
 var mMindexDS = new Monad (0,'mMindexDS');
+var socket;
 
 /*
   var Monad = function Monad(z = 42, g = 'generic') {
@@ -67,7 +68,7 @@ var prFibState = [2];
 
 
 var wolf = 223;
-console.log('h is', h, 'PLOWAZUPI!');
+// console.log('h is', h, 'PLOWAZUPI!');
 
 function wait(ms) {
   return new Promise(r => setTimeout(r, ms));
@@ -139,11 +140,10 @@ var CHANGE = 'cow';
 var chatNode;
 var captionDiv = 'block';
 var xs = xstream.default;
-var h = h.h;
-var freday = ["waiting"];
-var fredButton = h('button#fredButton', "fredButton");
 var cow = 0;
-var diffR = h('button#diffRender', "diffRender");
+var fredButton;
+var diffR;
+var freday = ["waiting"];
 var diffRender = () => 8;   ;  // See document.onload in maim
 const messages = [];
 var buttonNode;
@@ -202,8 +202,6 @@ var _A4 = (pingScore[0] < pingScore[1]) ? _A2 : _A1
 
 var ppStyle = false;
 
-var m66_RESULT = h('span', ppR, ' -- start -- ' );
-
 var pingScore2 = [0,0];
 var pingScore3 = [0,0];
 var pingScore4 = [0,0];
@@ -227,8 +225,6 @@ var bluetao = {style: {color: "#96f9ff", marginLeft: "3%"}}
 var diffRend = 0;
 var mMt32 = new Monad(0,'mMt32');
 var mMt33 = new Monad(0,'mMt33');
-var itterResult = h('div', 'ready' );
-var doubleResult = h('div', 'ready' );
 var playerName = "nobody";
 var playerGroup = "solo"
 var workerH$;
@@ -344,7 +340,7 @@ var format = b => {b instanceof Promise ?
 var format2 = b => { var a = new Date(); (b.then) ?
   b.then(c => (new Date() - a) + ': ' + c): (Date() - a) + ": " + b};
 
-var m778_RESULT = h('div', "" );
+var m778_RESULT;
 var m42_RESULT = [];
 var m42_RES = [];
 var m42_R = "";
@@ -457,10 +453,11 @@ var MI = function MI() {
 var m42_RESULT3 = []
 
 var mMZ60 = new MonadItter();
-
+/*
 var bindEmitter = new EventEmitter();
 bindEmitter.on(123,v => console.log('My',v));
 bindEmitter.emit(123,"personal pie in the sky");
+*/
 
 var mM40 = new Monad([], 'mM40');
 var RESULT_bind = [];
@@ -470,7 +467,6 @@ var O_002 = {ar: []};
 var O_003 = {ar: []};
 var O_004 = {ar: []};
 
-h('h3#bindDef',  'The Definition of bind'  )
   
 /*function bind (x, ar=[]) {
   var ar = ar;
@@ -677,7 +673,7 @@ var it6 = y => {
 
 var callOrder = 0;
 var start77;
-
+/*
 var it7 = () => mMZ52.bnd(string => {
   callOrder = callOrder > 24 ? 1 : callOrder + 1;
   if (callOrder === 1) start77 = Date.now(); 
@@ -686,6 +682,7 @@ var it7 = () => mMZ52.bnd(string => {
   m42_.push(h('br'));
   if (callOrder === 25) m42_.push('Elapsed time: ' + (Date.now() - start77) + " ms");
 });
+*/
 var RESULT_7 = [];
 
 var it8 = x => {
@@ -2259,16 +2256,6 @@ function styl (s) {
   }
 }
 
-function bNode (arr) {
-  var x = styl(arr.length);
-  var node = h('div#bNode', [
-    h('button#0.num', { style: { display: x[0] }}, ' ' + arr[0] + ' '),
-    h('button#1.num', { style: { display: x[1] }}, ' ' + arr[1] + ' '),
-    h('button#2.num', { style: { display: x[2] }}, ' ' + arr[2] + ' '),
-    h('button#3.num', { style: { display: x[3] }}, ' ' + arr[3] + ' ')
-  ]);
-  return node;
-}
 /*
 var num0 = 0;
 var num1 = 1;
@@ -2353,18 +2340,6 @@ function calc (a, op, b) {
   return result;
 };
 
-function updateCalc(ar, op) {
-  var result = calc(ar[0], op, ar[1]);ar
-  if (result === 18 || result === 20) {
-    score(result);
-  }
-  else {
-    var a = gameMonad.fetch4().slice();
-    a.push(result);
-    gameMonad.run([,,0,[],a,,]);
-  }
-};
-
 function score(result) {
     var sc = parseInt(gameMonad.fetch0());
     var sco = result === 18 ? sc + 3 : sc + 1;
@@ -2442,26 +2417,6 @@ MonadState.prototype.clearPicked = function () {
   return new MonadState('gameMonad', st);
 }
 
-MonadState.prototype.run = function ([
-  score = this.s[0][this.s[1]][0],
-  goals = this.s[0][this.s[1]][1],
-  operator = this.s[0][this.s[1]][2],
-  picked = this.s[0][this.s[1]][3].slice(),
-  display = this.s[0][this.s[1]][4].slice(),
-  playerName = pMname.x,
-  playerGroup = pMgroup.x
-]) {
-  pMscore.ret(score);
-  pMgoals.ret(goals);
-  pMgroup.ret(playerGroup);
-  this.s[1] += 1;
-  var newState = this.s.slice();
-  newState[0].splice(this.s[1], 0, [score, goals, operator, picked, display, playerName, playerGroup])
-  this.s = newState;
-  buttonNode = bNode(display);
-  return window['gameMonad'] = new MonadState('gameMonad', newState);
-}
-
 function newRoll (a,b) {
   socket.send(`CA#$42,${pMgroup.x},${pMname.x},6,6,12,20,${a},${b}`);
 }
@@ -2504,6 +2459,7 @@ function rand () {
 
 var rand$ = xs.of(rand());
 
+/*
 function MonadEvents(z = 'default', ID = 'temp') {
   var _this = this;
   this.x = z;
@@ -2526,10 +2482,8 @@ function MonadEvents(z = 'default', ID = 'temp') {
   this.stream.on(2, v => _this.ret(v));
 };
 
-
-
 class MonadEmitter extends EventEmitter {};
-
+*/
 function monadConstructor (v,b) {
   var c = new MonadEmitter();
   c.x = v;
@@ -2555,10 +2509,12 @@ function monadConstructor (v,b) {
   return c;
 };
 
+/*
 var em = new EventEmitter;
 var eventEmitter = new EventEmitter;
 var em2 = new EventEmitter;
 em2.on('42',x => console.log(x));
+*/
 
 var producer = {
   start: function (listener) {
@@ -2621,6 +2577,7 @@ function curryReverse(func) {
   var cRev = curryReverse(parseInt)(10);  // Useful function
   ["1","2","3","4","5"].map(v => cRev(v));  // returns [1,2,3,4,5]
 
+/*
 var funcP = () => {
   var fred = [];
   bind(1)(addP(2))(cubeC)(addC(3))(multP(2))(multC(3))
@@ -2631,82 +2588,7 @@ var funcP = () => {
     diffRender()
   }))
 }
-    
-    var ping = n => ar => {
-      var k = Math.floor(Math.random() * 5)+1;
-      if(ar[0] > 10 || ar[1] > 10) {
-        diffRender();
-        return;
-      }
-      setTimeout(() => {
-        if (n <= k) {
-          ppStyle = !ppStyle;
-          incF$(n);
-          ping(n+1)(ar);
-          diffRender();
-        }
-        else if (n % 2 === 0) {
-          ar[0]+=1;
-          m67_RESULT = h('pre', ppYR, `     SCORE: ping  \${ar[0]} pong: \${ar[1]}  ` )
-          ping(0)(ar);
-          diffRender();
-        }
-        else {
-          ar[1]+=1
-          m67_RESULT = h('pre', ppY, `     SCORE: ping  \${ar[0]} pong: \${ar[1]}  ` );
-          ping(0)(ar);
-          diffRender();
-        }
-      },500);
-    }  
-
-var pingD = a => b => c => h('div', [
-  h('pre', a, ` ping        ---> `), 
-  h('pre', b, `                 <---        pong `), 
-  h('pre',  `          -- SCORE: ping: ` + c[0]  + ` pong: ` + c[1]  ),
-]);
-
-m67_RESULT = pingD(_A1)(_A3)([3,2]); 
-
-PingpongMaker = (name) => {
-  var a = _A1;
-  var b = _A3;
-  var c = [0,0];
-  var n = 0;
-  var bool = true;
-  var k = Math.floor(Math.random() * 7)+1;
-  return function train () {
-    if (c[0] > 10 || c[1] > 10) return;
-    var ms = 400;
-    if (a === _A3) {a = _A1; b = _A3}
-    else if (a === _A1) {a = _A3; b = _A2};
-    if (n <= k) {
-      n+=1;
-      window[name] = pingD(a)(b)(c);
-      diffRender();
-    }
-    else if (n % 2 === 0) {
-      ms = 1200
-      n = 0
-      c[0]+=1;
-      window[name] = pingD(_A1)(_A3)(c);
-      diffRender();
-      k = Math.floor(Math.random() * 7)+1;
-    }
-    else if (n % 2 === 1) {
-      ms = 1200;
-      n = 0;
-      c[1]+=1;
-      window[name] = pingD(_A3)(_A2)(c);
-      diffRender();
-      k = Math.floor(Math.random() * 7)+1;
-    }
-    setTimeout( function () {
-      train();
-    },ms );
-  }
-}
-
+*/
 
 function isPrime(n) {
    if (isNaN(n) || !isFinite(n) || n%1 || n<2) return false;
@@ -2764,7 +2646,7 @@ function execQ (prms, num) {
   }
 };
 
-
+/*
 function pfactors (primes, n) {
   var ar = [];
   while (n != 1) {
@@ -2777,13 +2659,13 @@ function pfactors (primes, n) {
   }
   return ar;
 }
-
+*/
 class Addable {
   [Symbol.for('+')] (other) {
     return // some computation which uses this and other 
   }
 }
-
+/*
 //****************************************************************** START MATRIX
 var indexDS = 0;
 
@@ -2859,7 +2741,7 @@ function rExchange (j, k, rN=rNumsDS, AR=ArrDS, rD = rDataDS, i = mMindexDS) {
 
 var horseDS = rDataDS;
 //****************************************************************** END MATRIX
-
+*/
 var rNuS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 var rGrid$ = rNuS => xs.of(rNuS);
 
@@ -2870,9 +2752,9 @@ function gridDriver () {
   })
 };
 
-/*  Highest possible number: 17.3
- *  rNumsDS: 6, 9, 4, 11, 8, 7, 10, 5, 2, 13, 0, 15, 12, 3, 14, 1
-    rMatrixF(rNumsDS: 17.3160677686392   */
+//  Highest possible number: 17.3
+//  rNumsDS: 6, 9, 4, 11, 8, 7, 10, 5, 2, 13, 0, 15, 12, 3, 14, 1
+//    rMatrixF(rNumsDS: 17.3160677686392   
 
 function rExDS ([, rN=rNumsDS, AR=ArrDS, rD = rDataDS, i = mMindexDS]) {
   console.log("In rExchange i is", i);
@@ -2892,7 +2774,4 @@ function rExDS ([, rN=rNumsDS, AR=ArrDS, rD = rDataDS, i = mMindexDS]) {
 
 
 function rClick () {document.getElementById('rNums').click()};
-
-
-
 

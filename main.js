@@ -4,21 +4,177 @@
   import code from './code.js';
   import { run } from './cycle-run.js';
 
+console.log('WebSocket', WebSocket);
 
-function createWebSocket(path) {
-    var host = window.location.hostname;
-    if (host === '')
-        host = 'localhost';
-    var uri = 'ws://' + host + ':3055' + path;
-    var Socket = "MozWebSocket" in window ? MozWebSocket : WebSocket;
+socket = new WebSocket("ws://localhost:3055");
 
-    return new Socket(uri);
+function bNode (arr) {
+  var x = styl(arr.length);
+  var node = h('div#bNode', [
+    h('button#0.num', { style: { display: x[0] }}, ' ' + arr[0] + ' '),
+    h('button#1.num', { style: { display: x[1] }}, ' ' + arr[1] + ' '),
+    h('button#2.num', { style: { display: x[2] }}, ' ' + arr[2] + ' '),
+    h('button#3.num', { style: { display: x[3] }}, ' ' + arr[3] + ' ')
+  ]);
+  return node;
 }
-// socket = createWebSocket('/');
 
-// socket = "MozWebSocket" in window ? new MozWebSocket('ws://127.0.0.1:3055/') : 
-socket = new WebSocket("ws://localhost:3055/");
-// socket = new WebSocket('wss://127.0.0.1:3055/');
+MonadState.prototype.run = function ([
+  score = this.s[0][this.s[1]][0],
+  goals = this.s[0][this.s[1]][1],
+  operator = this.s[0][this.s[1]][2],
+  picked = this.s[0][this.s[1]][3].slice(),
+  display = this.s[0][this.s[1]][4].slice(),
+  playerName = pMname.x,
+  playerGroup = pMgroup.x
+]) {
+  pMscore.ret(score);
+  pMgoals.ret(goals);
+  pMgroup.ret(playerGroup);
+  this.s[1] += 1;
+  var newState = this.s.slice();
+  newState[0].splice(this.s[1], 0, [score, goals, operator, picked, display, playerName, playerGroup])
+  this.s = newState;
+  buttonNode = bNode(display);
+  return window['gameMonad'] = new MonadState('gameMonad', newState);
+}
+
+function updateCalc(ar, op) {
+  var result = calc(ar[0], op, ar[1]);ar
+  if (result === 18 || result === 20) {
+    score(result);
+  }
+  else {
+    var a = gameMonad.fetch4().slice();
+    a.push(result);
+    gameMonad.run([,,0,[],a,,]);
+  }
+};
+
+function process (a) { //Assembles the HTML for display.
+  var arr = a;
+  commentMonad.html = [];
+  var n = -1;
+  arr.map(a => { 
+    var x = a.split("<o>");
+    if (x.length != 2) x = ['malfunction', '8888']
+    x[1] = x[1].replace(/<<>>/g, ',');
+    var show = showFunc(x[0], pMname.x);
+    n+=1;
+    commentMonad.html.push(h('div#'+n, [
+      h('span', x[0] + ' commented: ' + x[1].replace(/<<>>/g, ",")),
+      h('br'),
+      h('textarea#commit', {props: {cols: 55, rows: 2},
+         style: {display: show }}, x[1]),
+      h('button#deleteB', {props: {innerHTML: 'delete'}, style: {display: show, fontSize:14}}),
+      h('br' ),
+      h('span', '***************************************************************')
+    ]))
+  })
+}
+
+function pfactors (primes, n) {
+  var ar = [];
+  while (n != 1) {
+    primes.map(p => {
+      if (n/p === Math.floor(n/p)) {
+        ar.push(p);
+        n = n/p;
+      };
+    })
+  }
+  return ar;
+}
+
+MonadState3.prototype.init = function (str) { // All comments delivered on load.
+  this.s[0] = str;
+  this.s[1] = this.s[0].split("<@>");
+  this.s[1] = this.s[1].filter(v => (v != ""));
+  result444 = process(this.s[1]);
+}
+
+MonadState3.prototype.append = function (str) {
+  this.s[0] = this.s[0] + str;
+  this.s[1] = this.s[0].split('<@>').filter(v => (v != ""));
+  process(this.s[1]);
+}
+
+MonadState3.prototype.edit = function (num,txt) {
+  console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedit in edit');
+  this.s[1].splice(num,1,txt);
+  this.s[0] = this.s[1].join("<@>");
+  this.s[1] = this.s[0].split('<@>').filter(v => (v != ""));
+  console.log('this.s[1]',this.s[1]);  
+  console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedit in edit');
+  process(this.s[1]);
+};
+
+MonadState3.prototype.remove = function (num) {
+  console.log('QQQQQQQQQQQQQQQQQQQQQQQQQQ In remove. this.s[1]')
+  console.log(this.s[1]);
+  this.s[1] = this.s[1].filter(v => v!== '');
+  console.log(this.s[1]);
+  this.s[1].splice(num,1);
+  console.log(this.s[1]);
+  console.log('QQQQQQQQQQQQQQQQQQQQQQQQQQ In remove. this.s[1]')
+  this.s[0] = this.s[1].join("<@>");
+  process(this.s[1]);
+};
+
+MonadState3.prototype.init = function (str) { // All comments delivered on load.
+  this.s[0] = str;
+  this.s[1] = this.s[0].split("<@>");
+  this.s[1] = this.s[1].filter(v => (v != ""));
+  result444 = process(this.s[1]);
+}
+
+MonadState3.prototype.append = function (str) {
+  this.s[0] = this.s[0] + str;
+  this.s[1] = this.s[0].split('<@>').filter(v => (v != ""));
+  process(this.s[1]);
+}
+
+MonadState3.prototype.edit = function (num,txt) {
+  console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedit in edit');
+  this.s[1].splice(num,1,txt);
+  this.s[0] = this.s[1].join("<@>");
+  this.s[1] = this.s[0].split('<@>').filter(v => (v != ""));
+  console.log('this.s[1]',this.s[1]);  
+  console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedit in edit');
+  process(this.s[1]);
+};
+
+MonadState3.prototype.remove = function (num) {
+  console.log('QQQQQQQQQQQQQQQQQQQQQQQQQQ In remove. this.s[1]')
+  console.log(this.s[1]);
+  this.s[1] = this.s[1].filter(v => v!== '');
+  console.log(this.s[1]);
+  this.s[1].splice(num,1);
+  console.log(this.s[1]);
+  console.log('QQQQQQQQQQQQQQQQQQQQQQQQQQ In remove. this.s[1]')
+  this.s[0] = this.s[1].join("<@>");
+  process(this.s[1]);
+};
+
+var it7 = () => mMZ52.bnd(string => {
+  callOrder = callOrder > 24 ? 1 : callOrder + 1;
+  if (callOrder === 1) start77 = Date.now(); 
+  m42_.push(callOrder + "  ");
+  m42_.push(string)
+  m42_.push(h('br'));
+  if (callOrder === 25) m42_.push('Elapsed time: ' + (Date.now() - start77) + " ms");
+});
+
+var funcP = () => {
+  var fred = [];
+  bind(1)(addP(2))(cubeC)(addC(3))(multP(2))(multC(3))
+  (addC(30))(multP(1/5))(it4)(it6)(it7)(terminate).slice(1,9)
+  .map(v => v.then(q => {
+    fred.push(q.x);
+    freday = fred.join(' ')
+    diffRender()
+  }))
+}
 
 function websocketsDriver() {
   return xs.create({
@@ -69,8 +225,10 @@ socket.onclose = function (event) {
      var extra2 = v[4];
 
      mMZ9.bnd( () => {
-       console.log(sender);
-       console.log(extra);
+       console.log("sender is",sender);
+       console.log("extra is", extra);
+       console.log("The full message is", e);
+       console.log("v is", v);
      });
 
      mMZ10.bnd( () => {
@@ -174,8 +332,8 @@ socket.onclose = function (event) {
      });
 
      mMZ25.bnd( () => {        // Receive tasks when group changes
-       console.log('QQQQQQQQQQQQQWWWWWWWWWWQQQQQQQQ in mMZ25.bnd. extra is ',extra);
-       taskMonad.init(extra);
+       console.log('QQQQQQ  Bingo! extra is QQQQQQQWWWWWWWWWWQQQQQQQQ in mMZ25.bnd. ',extra);
+       taskMonad.html = taskMonad.init(extra);
      });
 
      mMZ27.bnd( () => {
@@ -216,44 +374,8 @@ function next(x, y, instance, z) {
   return ret(x);
 };
 
-/*
-async function waitP (f, args) {
-  var z = await (p);
-  m80.ret(z);
-  console.log(m80.x);
-  return m80.x;
-}
-console.log('m80.x',m80.x);
- function bind (x, ar = [], args) {
-    this.ar = ar;
-    var xano = "Charles"
-    ar.push(x);
-    if (ar.length === 0) ar = [x];
-    console.log('Entering bind. x and ar are',x,ar);
-    return function debug8 (func, args=[]) {
-      if (func.name === "terminate") return ar;
-
-      if (func(x, ...args) instanceof Promise) {
-        console.log('bind: func(x, ...args) instanceof Promise');
-        return async () => {
-          await waitP(func(x, ...args))
-          return bind(m80, ar);
-        }
-      }
-
-      var y = func(x, ...args)
-
-      if (func(x, ...args) instanceof Monad) {
-        console.log('bind: y is a monad. y.x and ar',y.x,ar);
-        return bind(y.x, ar);
-      }
-      else {
-        console.log('bind: func(x, ...args) is not a Monad or a Promise. y',y);
-        return bind(y, ar);
-      }
-    };
-  };
-*/
+var itterResult = h('div', 'ready' );
+var doubleResult = h('div', 'ready' );
 
 var comment$ = sources.DOM.select('#comment').events('keydown');
 
@@ -333,7 +455,6 @@ var registerPressAction$ = registerPress$.map(e => {
         send("CO#$42", g);
         gameMonad.run([0,0,0,[],[0,0,0,0],,g]);
         socket.send(`TI#$42,${g},${pMname.x}`);
-        setTimeout ( () => send("CO#$42", g),500);
       }
     });
 
@@ -400,6 +521,116 @@ function makeRDS (arr) {
   ];
 };
 */
+
+
+//****************************************************************** START MATRIX
+var indexDS = 0;
+
+function rMatrixF (a) {
+  var cw1 = Math.sqrt(a[0]*a[5] + a[1]*a[4]);
+  var cw2 = Math.sqrt(a[2]*a[7] + a[3]*a[6]);
+  var cw3 = Math.sqrt(a[8]*a[13] + a[9]*a[12]);
+  var cw4 = Math.sqrt(a[10]*a[15] + a[14]*a[11]);
+  var cw = Math.sqrt(cw1*cw4 + cw2*cw3);
+  return cw
+}
+
+
+
+var rNumsDS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
+var ArrDS = [ [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] ];
+
+function makeRDS (arr) {
+  var r = arr;
+  return [
+    h('button#mR0.mR', r[0] ), 
+    h('button#mR1.mR', r[1] ),
+    h('button#mR2.mR', r[2] ), 
+    h('button#mR3.mR', r[3] ), 
+    h('button#mR4.mR', r[4] ), 
+    h('button#mR5.mR', r[5] ),
+    h('button#mR6.mR', r[6] ), 
+    h('button#mR7.mR', r[7] ), 
+    h('button#mR8.mR', r[8] ), 
+    h('button#mR9.mR', r[9] ),
+    h('button#mR10.mR', r[10] ), 
+    h('button#mR11.mR', r[11] ), 
+    h('button#mR12.mR', r[12] ), 
+    h('button#mR13.mR', r[13] ),
+    h('button#mR14.mR', r[14] ), 
+    h('button#mR15.mR', r[15] ) 
+  ];
+};
+
+var rDataDS = [
+  h('button#mR0.mR', 0 ),
+  h('button#mR1.mR', 1 ),
+  h('button#mR2.mR', 2 ),
+  h('button#mR3.mR', 3 ),
+  h('button#mR4.mR', 4 ),
+  h('button#mR5.mR', 5 ),
+  h('button#mR6.mR', 6 ),
+  h('button#mR7.mR', 7 ),
+  h('button#mR8.mR', 8 ),
+  h('button#mR9.mR', 9 ),
+  h('button#mR10.mR', 10 ),
+  h('button#mR11.mR', 11 ),
+  h('button#mR12.mR', 12 ),
+  h('button#mR13.mR', 13 ),
+  h('button#mR14.mR', 14 ),
+  h('button#mR15.mR', 15 )
+];
+
+function rExchange (j, k, rN=rNumsDS, AR=ArrDS, rD = rDataDS, i = mMindexDS) {
+  console.log("In rExchange i is", i);
+  var r = rN;
+  var a = r[j];
+  r[j] = r[k];
+  r[k] = a;
+  console.log(r);
+  var g = r.slice();
+  AR.splice(i.x, 0, g);
+  console.log(AR)
+  rD = makeRDS(r); 
+  return rD;
+} 
+
+var horseDS = rDataDS;
+//****************************************************************** END MATRIX
+
+var rNuS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+var rGrid$ = rNuS => xs.of(rNuS);
+
+function gridDriver () {
+  return xs.create({
+    start: listener => { rGrid$ = ar => listener.next(ar)},
+    stop: () => {}
+  })
+};
+
+/*  Highest possible number: 17.3
+ *  rNumsDS: 6, 9, 4, 11, 8, 7, 10, 5, 2, 13, 0, 15, 12, 3, 14, 1
+    rMatrixF(rNumsDS: 17.3160677686392   */
+
+function rExDS ([, rN=rNumsDS, AR=ArrDS, rD = rDataDS, i = mMindexDS]) {
+  console.log("In rExchange i is", i);
+  var j = ar[0];
+  var k = ar[1];
+  var r = rN;
+  var a = r[j];
+  r[j] = r[k];
+  r[k] = a;
+  console.log(r);
+  var g = r.slice();
+  AR.splice(i.x, 0, g);
+  console.log(AR)
+  rD = makeRDS(r); 
+  return rD;
+} 
+
+
+function rClick () {document.getElementById('rNums').click()};
 
 var indexDS = 0;
 
@@ -991,6 +1222,82 @@ function bind (x, ar=[]) {
         });
 //*********************************** pingpong ***************  START
 
+    
+    var ping = n => ar => {
+      var k = Math.floor(Math.random() * 5)+1;
+      if(ar[0] > 10 || ar[1] > 10) {
+        diffRender();
+        return;
+      }
+      setTimeout(() => {
+        if (n <= k) {
+          ppStyle = !ppStyle;
+          incF$(n);
+          ping(n+1)(ar);
+          diffRender();
+        }
+        else if (n % 2 === 0) {
+          ar[0]+=1;
+          m67_RESULT = h('pre', ppYR, `     SCORE: ping  \${ar[0]} pong: \${ar[1]}  ` )
+          ping(0)(ar);
+          diffRender();
+        }
+        else {
+          ar[1]+=1
+          m67_RESULT = h('pre', ppY, `     SCORE: ping  \${ar[0]} pong: \${ar[1]}  ` );
+          ping(0)(ar);
+          diffRender();
+        }
+      },500);
+    }  
+
+var pingD = a => b => c => h('div', [
+  h('pre', a, ` ping        ---> `), 
+  h('pre', b, `                 <---        pong `), 
+  h('pre',  `          -- SCORE: ping: ` + c[0]  + ` pong: ` + c[1]  ),
+]);
+
+m67_RESULT = pingD(_A1)(_A3)([3,2]); 
+
+PingpongMaker = (name) => {
+  var a = _A1;
+  var b = _A3;
+  var c = [0,0];
+  var n = 0;
+  var bool = true;
+  var k = Math.floor(Math.random() * 7)+1;
+  return function train () {
+    if (c[0] > 10 || c[1] > 10) return;
+    var ms = 400;
+    if (a === _A3) {a = _A1; b = _A3}
+    else if (a === _A1) {a = _A3; b = _A2};
+    if (n <= k) {
+      n+=1;
+      window[name] = pingD(a)(b)(c);
+      diffRender();
+    }
+    else if (n % 2 === 0) {
+      ms = 1200
+      n = 0
+      c[0]+=1;
+      window[name] = pingD(_A1)(_A3)(c);
+      diffRender();
+      k = Math.floor(Math.random() * 7)+1;
+    }
+    else if (n % 2 === 1) {
+      ms = 1200;
+      n = 0;
+      c[1]+=1;
+      window[name] = pingD(_A3)(_A2)(c);
+      diffRender();
+      k = Math.floor(Math.random() * 7)+1;
+    }
+    setTimeout( function () {
+      train();
+    },ms );
+  }
+}
+
 var makeDisplay = a => b => c => h('div', [
   h('pre', a, ` ping        ---> `), 
   h('pre', b, `                 <---        pong `), 
@@ -1117,6 +1424,9 @@ var pingpong4$ = pinpon4$.map(() => {
 });
 
 // *********************************** pingpong ***************  FINISH
+
+        var fredButton = h('button#fredButton', "fredButton");
+        var diffR = h('button#diffRender', "diffRender");
 
         const fred$ = sources.FD.map(e => {
           freday = e;
