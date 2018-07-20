@@ -2514,7 +2514,6 @@ var em = new EventEmitter;
 var eventEmitter = new EventEmitter;
 var em2 = new EventEmitter;
 em2.on('42',x => console.log(x));
-*/
 
 var producer = {
   start: function (listener) {
@@ -2545,6 +2544,7 @@ stream$.addListener(listener)
 
 em.on(142, v => console.log('142',v ));
 mMZ33.bnd(n => fn2(n));
+*/
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
