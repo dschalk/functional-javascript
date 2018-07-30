@@ -5,6 +5,7 @@
   import { run } from './cycle-run.js';
 
 console.log('WebSocket', WebSocket);
+console.log('socket', socket);
 
 socket = new WebSocket("ws://localhost:3055");
 
