@@ -6,5 +6,5 @@ Building library for appar-0.1.4..
 [3 of 5] Compiling Text.Appar.LazyByteString ( Text/Appar/LazyByteString.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Text/Appar/LazyByteString.o )
 [4 of 5] Compiling Text.Appar.ByteString ( Text/Appar/ByteString.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Text/Appar/ByteString.o )
 [5 of 5] Compiling Text.Appar.String ( Text/Appar/String.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Text/Appar/String.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/appar-0.1.4-4hjiMZCExd3CrJSMoeXviI
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/appar-0.1.4-4hjiMZCExd3CrJSMoeXviI
 Registering library for appar-0.1.4..

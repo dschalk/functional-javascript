@@ -169,5 +169,5 @@ Building library for Cabal-2.0.1.1..
 [166 of 168] Compiling Distribution.Simple.Haddock ( Distribution/Simple/Haddock.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Distribution/Simple/Haddock.o )
 [167 of 168] Compiling Distribution.Simple.Doctest ( Distribution/Simple/Doctest.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Distribution/Simple/Doctest.o )
 [168 of 168] Compiling Distribution.Simple ( Distribution/Simple.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Distribution/Simple.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/Cabal-2.0.1.1-ARIl7MGNKZFBAH1HVzpC6s
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/Cabal-2.0.1.1-ARIl7MGNKZFBAH1HVzpC6s
 Registering library for Cabal-2.0.1.1..

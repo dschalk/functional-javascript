@@ -1,0 +1,3 @@
+#!/bin/bash
+
+node no*/webpack/bin/webpack.js --mode=production

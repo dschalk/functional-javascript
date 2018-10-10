@@ -34,5 +34,5 @@ Building library for x509-store-1.6.6..
 [;1m[34m   |[0m[0m
 [;1m[34m13 |[0m[0m [;1m[35mimport Data.PEM (pemParseLBS, pemContent, pemName, PEM)[0m[0m
 [;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
-[0m[0m[0mInstalling library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/x509-store-1.6.6-6V5zSmrTG7HILnCujPSoy
+[0m[0m[0mInstalling library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/x509-store-1.6.6-6V5zSmrTG7HILnCujPSoy
 Registering library for x509-store-1.6.6..

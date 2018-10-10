@@ -33,5 +33,5 @@ Building library for aeson-1.2.4.0..
 [22 of 24] Compiling Data.Aeson       ( Data/Aeson.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Data/Aeson.o )
 [23 of 24] Compiling Data.Aeson.TH    ( Data/Aeson/TH.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Data/Aeson/TH.o )
 [24 of 24] Compiling Data.Aeson.Encode ( Data/Aeson/Encode.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Data/Aeson/Encode.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/aeson-1.2.4.0-JAab86GLdBJCQly9tYLEGk
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/aeson-1.2.4.0-JAab86GLdBJCQly9tYLEGk
 Registering library for aeson-1.2.4.0..

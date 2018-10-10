@@ -6,5 +6,5 @@ Building library for tuple-0.3.0.2..
 [3 of 5] Compiling Data.Tuple.Sequence ( src/Data/Tuple/Sequence.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Data/Tuple/Sequence.o )
 [4 of 5] Compiling Data.Tuple.Update ( src/Data/Tuple/Update.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Data/Tuple/Update.o )
 [5 of 5] Compiling Data.Tuple.All   ( src/Data/Tuple/All.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Data/Tuple/All.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/tuple-0.3.0.2-FfJfDaZUxKg2EbqKhc6qQj
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/tuple-0.3.0.2-FfJfDaZUxKg2EbqKhc6qQj
 Registering library for tuple-0.3.0.2..

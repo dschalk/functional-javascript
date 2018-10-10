@@ -1,6 +1,6 @@
-[1 of 2] Compiling Main             ( /tmp/stack19383/old-time-1.1.0.3/Setup.hs, /tmp/stack19383/old-time-1.1.0.3/.stack-work/dist/x86_64-linux/Cabal-2.0.1.0/setup/Main.o )
-[2 of 2] Compiling StackSetupShim   ( /home/e/.stack/setup-exe-src/setup-shim-mPHDZzAJ.hs, /tmp/stack19383/old-time-1.1.0.3/.stack-work/dist/x86_64-linux/Cabal-2.0.1.0/setup/StackSetupShim.o )
-Linking /tmp/stack19383/old-time-1.1.0.3/.stack-work/dist/x86_64-linux/Cabal-2.0.1.0/setup/setup ...
+[1 of 2] Compiling Main             ( /tmp/stack13808/old-time-1.1.0.3/Setup.hs, /tmp/stack13808/old-time-1.1.0.3/.stack-work/dist/x86_64-linux/Cabal-2.0.1.0/setup/Main.o )
+[2 of 2] Compiling StackSetupShim   ( /home/o/.stack/setup-exe-src/setup-shim-mPHDZzAJ.hs, /tmp/stack13808/old-time-1.1.0.3/.stack-work/dist/x86_64-linux/Cabal-2.0.1.0/setup/StackSetupShim.o )
+Linking /tmp/stack13808/old-time-1.1.0.3/.stack-work/dist/x86_64-linux/Cabal-2.0.1.0/setup/setup ...
 Configuring old-time-1.1.0.3...
 configure: WARNING: unrecognized options: --with-compiler
 checking for gcc... /usr/bin/gcc
@@ -49,5 +49,5 @@ configure: WARNING: unrecognized options: --with-compiler
 Preprocessing library for old-time-1.1.0.3..
 Building library for old-time-1.1.0.3..
 [1 of 1] Compiling System.Time      ( .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/System/Time.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/System/Time.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/old-time-1.1.0.3-LmKk8FUXtYwDVw5bR99HBe
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/old-time-1.1.0.3-LmKk8FUXtYwDVw5bR99HBe
 Registering library for old-time-1.1.0.3..

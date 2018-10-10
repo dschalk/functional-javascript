@@ -12,7 +12,6 @@
     color: #d3ead5;
     margin-top: 20px;
     font-size: 18px;
-    font-family: "Proxima Nova Regular,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Arial,sans-serif;";
     -webkit-box-shadow: inset 0px 0px 20px 0px rgb(0,0,0);
     -moz-box-shadow:    inset 0px 0px 20px 0px rgb(0,0,0);
     box-shadow:         inset 0px 0px 20px 0px rgb(0,0,0);
@@ -357,7 +356,6 @@ a:hover {
 
 .content {
   width: 50%;
-  font-family: "Proxima Nova Regular,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Arial,sans-serif;";
   font-size: 18px;
   margin-left: auto;
   margin-right: auto;
@@ -371,8 +369,7 @@ a:hover {
   font-size: 32px;
 }
 
-#content2{ width: 90%;
-  font-family: "Proxima Nova Regular,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Arial,sans-serif;";
+.content2{ width: 90%;
   font-size: 18px;
   margin-left: auto;
   margin-right: auto;
@@ -386,7 +383,6 @@ a:hover {
 
 #gameD {
   width: 90%;
-  font-family: "Proxima Nova Regular,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Arial,sans-serif;";
   font-size: 15px;
   margin-left: auto;
   margin-right: auto;
@@ -646,6 +642,14 @@ h3 {
   font-size:20px;
 }
 
+.green3 {
+  color: #00ffa5;
+  font-size:20px;
+}
+.green33 {
+  color: #bdfb78; 
+}
+
 .red0 {
   color: #f76565;
   font-size: 17px;
@@ -677,7 +681,7 @@ h3 {
 
 .red3 {
   margin: 1%;
-  color: #ffa100;
+  color: #EDAAAA;
   font-size:20px;
 }
 

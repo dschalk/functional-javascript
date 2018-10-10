@@ -37,7 +37,6 @@ MonadState2.prototype.append = function (str) {
   console.log('In append, this.html is', this.html);
   return this.html
 }
-
 MonadState2.prototype.edit = function(k, s) {
   this.s[1] = this.s[1].filter(v => (v != ''));
   this.s[1].splice(k,1,s);

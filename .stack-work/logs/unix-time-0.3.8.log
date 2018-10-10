@@ -1,6 +1,6 @@
-[1 of 2] Compiling Main             ( /tmp/stack19383/unix-time-0.3.8/Setup.hs, /tmp/stack19383/unix-time-0.3.8/.stack-work/dist/x86_64-linux/Cabal-2.0.1.0/setup/Main.o )
-[2 of 2] Compiling StackSetupShim   ( /home/e/.stack/setup-exe-src/setup-shim-mPHDZzAJ.hs, /tmp/stack19383/unix-time-0.3.8/.stack-work/dist/x86_64-linux/Cabal-2.0.1.0/setup/StackSetupShim.o )
-Linking /tmp/stack19383/unix-time-0.3.8/.stack-work/dist/x86_64-linux/Cabal-2.0.1.0/setup/setup ...
+[1 of 2] Compiling Main             ( /tmp/stack13808/unix-time-0.3.8/Setup.hs, /tmp/stack13808/unix-time-0.3.8/.stack-work/dist/x86_64-linux/Cabal-2.0.1.0/setup/Main.o )
+[2 of 2] Compiling StackSetupShim   ( /home/o/.stack/setup-exe-src/setup-shim-mPHDZzAJ.hs, /tmp/stack13808/unix-time-0.3.8/.stack-work/dist/x86_64-linux/Cabal-2.0.1.0/setup/StackSetupShim.o )
+Linking /tmp/stack13808/unix-time-0.3.8/.stack-work/dist/x86_64-linux/Cabal-2.0.1.0/setup/setup ...
 Configuring unix-time-0.3.8...
 checking for gcc... /usr/bin/gcc
 checking whether the C compiler works... yes
@@ -72,5 +72,5 @@ Building library for unix-time-0.3.8..
 [;1m[34m    |[0m[0m
 [;1m[34m184 |[0m[0m # [;1m[31mw[0m[0marning "_BSD_SOURCE and _SVID_SOURCE are deprecated, use _DEFAULT_SOURCE"
 [;1m[34m    |[0m[0m[;1m[31m   ^[0m[0m
-[0m[0m[0mInstalling library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/unix-time-0.3.8-1XDnYdoymCuDsUCeNRblep
+[0m[0m[0mInstalling library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/unix-time-0.3.8-1XDnYdoymCuDsUCeNRblep
 Registering library for unix-time-0.3.8..

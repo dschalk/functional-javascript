@@ -1,8 +1,4 @@
 #!/bin/bash
 
-
-
-
-
-
-kill -9 `pidof ghc` && webpack && stack runghc Main.hs &
+# cat /dev/null > nohup.out && ./wp && nohup warp -d dist &
+stack runghc Main.hs && cp /dev/null nohup.out && ./wp && nohup warp -d dist &

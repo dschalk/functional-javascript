@@ -86,6 +86,27 @@ function workerKDriver () {
   });
 };
 
+function workerLDriver () {
+  return xs.create({
+    start: listener => { workerL.onmessage = msg => listener.next(msg)},
+    stop: () => { workerL.terminate() }
+  });
+};
+
+function workerMDriver () {
+  return xs.create({
+    start: listener => { workerM.onmessage = msg => listener.next(msg)},
+    stop: () => { workerM.terminate() }
+  });
+};
+
+function workerNDriver () {
+  return xs.create({
+    start: listener => { workerN.onmessage = msg => listener.next(msg)},
+    stop: () => { workerN.terminate() }
+  });
+};
+
 
 function workerDriver () {
   return xs.create({
@@ -149,7 +170,10 @@ sources = {
   WWH: workerHDriver,
   WWI: workerIDriver,
   WWJ: workerJDriver,
-  WWJ: workerKDriver,
+  WWK: workerKDriver,
+  WWL: workerLDriver,
+  WWM: workerMDriver,
+  WWN: workerNDriver,
   WW: workerDriver,
   PP: pingpongDriver,
   FD: fredDriver,

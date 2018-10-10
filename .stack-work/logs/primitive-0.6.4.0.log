@@ -16,5 +16,5 @@ Building library for primitive-0.6.4.0..
 [13 of 15] Compiling Data.Primitive.Addr ( Data/Primitive/Addr.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Data/Primitive/Addr.o )
 [14 of 15] Compiling Data.Primitive.UnliftedArray ( Data/Primitive/UnliftedArray.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Data/Primitive/UnliftedArray.o )
 [15 of 15] Compiling Data.Primitive   ( Data/Primitive.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Data/Primitive.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/primitive-0.6.4.0-kK2x3tDWKdAgEjt22m9eJ
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/primitive-0.6.4.0-kK2x3tDWKdAgEjt22m9eJ
 Registering library for primitive-0.6.4.0..

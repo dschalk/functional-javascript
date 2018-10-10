@@ -5,5 +5,5 @@ Building library for pem-0.2.4..
 [2 of 4] Compiling Data.PEM.Parser  ( Data/PEM/Parser.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Data/PEM/Parser.o )
 [3 of 4] Compiling Data.PEM.Writer  ( Data/PEM/Writer.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Data/PEM/Writer.o )
 [4 of 4] Compiling Data.PEM         ( Data/PEM.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Data/PEM.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/pem-0.2.4-5caOOIrOknr1TM8Z9CKx1K
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/pem-0.2.4-5caOOIrOknr1TM8Z9CKx1K
 Registering library for pem-0.2.4..

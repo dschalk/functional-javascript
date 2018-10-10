@@ -1,11 +1,11 @@
 
 ==================== FINAL INTERFACE ====================
-2018-07-20 10:55:46.817752 UTC
+2018-08-28 09:09:06.968087 UTC
 
 interface main:Main 8022
-  interface hash: 52a8273a2857e19e9db58a955e4eed0f
-  ABI hash: e22d0919aab898baeca15626998e3833
-  export-list hash: c2f1ca6fab4400cb13a7096a032c9386
+  interface hash: 908756a0ff2fd14acc47936767f71cea
+  ABI hash: 8110479bf57cdccdf2a1a5aed850ddc2
+  export-list hash: 6d6f083be24fae9adf13561d74c18b8c
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: d275b939ff388c19e2fbf23785abdc56
   sig of: Nothing
@@ -17,6 +17,7 @@ exports:
   Main.at
   Main.bcast
   Main.broadcast
+  Main.certificate
   Main.changeGroup
   Main.changeGroupKeepScore
   Main.changeName
@@ -54,6 +55,7 @@ exports:
   Main.groupExists
   Main.head2
   Main.head3
+  Main.key
   Main.log
   Main.main
   Main.mark
@@ -94,26 +96,34 @@ exports:
   Main.ServerState
 module dependencies: Fm
 package dependencies: OneTuple-0.2.2 SHA-1.6.4.4 appar-0.1.4
-                      array-0.5.2.0 async-2.1.1.1 attoparsec-0.13.2.2 auto-update-0.1.4
-                      base-4.10.1.0 base64-bytestring-1.0.0.1 basement-0.0.7
-                      binary-0.8.5.1 blaze-builder-0.4.1.0 blaze-html-0.9.1.1
-                      blaze-markup-0.8.2.1 bsb-http-chunked-0.0.0.2 byteorder-1.0.4
-                      bytestring-0.10.8.2 case-insensitive-1.2.0.11
+                      array-0.5.2.0 asn1-encoding-0.9.5 asn1-parse-0.9.4 asn1-types-0.3.2
+                      async-2.1.1.1 attoparsec-0.13.2.2 auto-update-0.1.4 base-4.10.1.0
+                      base64-bytestring-1.0.0.1 basement-0.0.7 binary-0.8.5.1
+                      blaze-builder-0.4.1.0 blaze-html-0.9.1.1 blaze-markup-0.8.2.1
+                      bsb-http-chunked-0.0.0.2 byteorder-1.0.4 bytestring-0.10.8.2
+                      case-insensitive-1.2.0.11 cereal-0.5.5.0 clock-0.7.2
                       concurrent-extra-0.7.0.12 containers-0.5.10.2 cryptonite-0.25
-                      deepseq-1.4.3.0 directory-1.3.0.2 entropy-0.3.8 file-embed-0.0.10.1
-                      filepath-1.4.1.2 ghc-boot-th-8.2.2 ghc-prim-0.5.1.1
-                      hashable-1.2.7.0 http-date-0.0.7 http-types-0.12.1 http2-1.6.3
+                      data-default-class-0.1.2.0 deepseq-1.4.3.0 directory-1.3.0.2
+                      entropy-0.3.8 file-embed-0.0.10.1 filepath-1.4.1.2
+                      ghc-boot-th-8.2.2 ghc-prim-0.5.1.1 hashable-1.2.7.0
+                      hourglass-0.2.11 http-date-0.0.7 http-types-0.12.1 http2-1.6.3
                       integer-gmp-1.0.1.0 integer-logarithms-1.0.2.1 iproute-1.7.5
-                      memory-0.14.16 mime-types-0.1.0.7 network-2.6.3.5 pretty-1.1.3.3
-                      primitive-0.6.4.0 psqueues-0.2.7.0 random-1.1 scientific-0.3.6.2
-                      simple-sendfile-0.2.27 split-0.2.3.3 stm-2.4.5.0
-                      streaming-commons-0.1.19 template-haskell-2.12.0.0 text-1.2.3.0
-                      time-1.8.0.2 transformers-0.5.2.0 tuple-0.3.0.2 unix-2.7.2.2
-                      unix-compat-0.5.0.1 unordered-containers-0.2.9.0 vault-0.3.1.1
-                      wai-3.2.1.2 wai-app-static-3.1.6.2 wai-websockets-3.0.1.2
-                      warp-3.2.22 websockets-0.12.5.1 word8-0.1.3 zlib-0.6.2
+                      memory-0.14.16 mime-types-0.1.0.7 mtl-2.2.2 network-2.6.3.5
+                      pem-0.2.4 pretty-1.1.3.3 primitive-0.6.4.0 psqueues-0.2.7.0
+                      random-1.1 scientific-0.3.6.2 simple-sendfile-0.2.27 split-0.2.3.3
+                      stm-2.4.5.0 streaming-commons-0.1.19 template-haskell-2.12.0.0
+                      text-1.2.3.0 time-1.8.0.2 tls-1.4.1 tls-session-manager-0.0.0.2
+                      transformers-0.5.2.0 tuple-0.3.0.2 unix-2.7.2.2 unix-compat-0.5.0.1
+                      unordered-containers-0.2.9.0 vault-0.3.1.1 wai-3.2.1.2
+                      wai-app-static-3.1.6.2 wai-websockets-3.0.1.2 warp-3.2.22
+                      warp-tls-3.2.4.3 websockets-0.12.5.1 word8-0.1.3 x509-1.7.3
+                      x509-store-1.6.6 x509-validation-1.6.10 zlib-0.6.2
 orphans: basement-0.0.7:Basement.UArray.Base
          basement-0.0.7:Basement.Block stm-2.4.5.0:Control.Monad.STM
+         time-1.8.0.2:Data.Time.Format.Parse
+         time-1.8.0.2:Data.Time.LocalTime.Internal.ZonedTime
+         time-1.8.0.2:Data.Time.LocalTime.Internal.LocalTime
+         time-1.8.0.2:Data.Time.Calendar.Gregorian
          network-2.6.3.5:Network.Socket
          attoparsec-0.13.2.2:Data.Attoparsec.ByteString.Char8
          hashable-1.2.7.0:Data.Hashable.Generic
@@ -121,10 +131,7 @@ orphans: basement-0.0.7:Basement.UArray.Base
          text-1.2.3.0:Data.Text.Lazy text-1.2.3.0:Data.Text
          binary-0.8.5.1:Data.Binary.Generic
          bytestring-0.10.8.2:Data.ByteString.Builder
-         text-1.2.3.0:Data.Text.Show time-1.8.0.2:Data.Time.Format.Parse
-         time-1.8.0.2:Data.Time.LocalTime.Internal.ZonedTime
-         time-1.8.0.2:Data.Time.LocalTime.Internal.LocalTime
-         time-1.8.0.2:Data.Time.Calendar.Gregorian base-4.10.1.0:GHC.Float
+         text-1.2.3.0:Data.Text.Show base-4.10.1.0:GHC.Float
          base-4.10.1.0:GHC.Base
 family instance modules: attoparsec-0.13.2.2:Data.Attoparsec.Internal.Types
                          base-4.10.1.0:Control.Applicative base-4.10.1.0:Data.Complex
@@ -149,12 +156,13 @@ family instance modules: attoparsec-0.13.2.2:Data.Attoparsec.Internal.Types
                          basement-0.0.7:Basement.String.Encoding.UTF32
                          basement-0.0.7:Basement.Types.OffsetSize
                          basement-0.0.7:Basement.UArray.Base
-                         basement-0.0.7:Basement.UTF8.Base
+                         basement-0.0.7:Basement.UTF8.Base clock-0.7.2:System.Clock
                          containers-0.5.10.2:Data.IntMap.Internal
                          containers-0.5.10.2:Data.IntSet.Internal
                          containers-0.5.10.2:Data.Map.Internal
                          containers-0.5.10.2:Data.Sequence.Internal
                          containers-0.5.10.2:Data.Set.Internal containers-0.5.10.2:Data.Tree
+                         cryptonite-0.25:Crypto.ECC cryptonite-0.25:Crypto.Error.Types
                          cryptonite-0.25:Crypto.Hash.Blake2
                          cryptonite-0.25:Crypto.Hash.Blake2b
                          cryptonite-0.25:Crypto.Hash.Blake2bp
@@ -212,7 +220,6 @@ import  -/  base-4.10.1.0:Text.Read 9e862e012b3c71e83cb56fb456188f44
 import  -/  bytestring-0.10.8.2:Data.ByteString.Internal e154f5ecf6a3cd0a27df93e86ed481d7
 import  -/  bytestring-0.10.8.2:Data.ByteString.Unsafe 5d17f041f2eb6e4f6434714de163dee9
 import  -/  concurrent-extra-0.7.0.12:Control.Concurrent.STM.Lock 8d46781ecdd1ac619bbf8c774b496dde
-import  -/  directory-1.3.0.2:System.Directory c9e1b06708e6791ef125173fcae240d4
 import  -/  file-embed-0.0.10.1:Data.FileEmbed 42be5b4af1ba4f18894f4108d616f3fa
 import  -/  ghc-prim-0.5.1.1:GHC.Classes 93e2660065dce9329577e83d76d8f0d4
 import  -/  ghc-prim-0.5.1.1:GHC.Types b1fd0716441595db508c1a74387bf394
@@ -238,6 +245,7 @@ import  -/  wai-websockets-3.0.1.2:Network.Wai.Handler.WebSockets fc17b9b7c91996
 import  -/  warp-3.2.22:Network.Wai.Handler.Warp f695ffc7e1d03318b98bea6cc67c86e3
 import  -/  warp-3.2.22:Network.Wai.Handler.Warp.Run 3172d9aeb264844b29c36ffbab9e397e
 import  -/  warp-3.2.22:Network.Wai.Handler.Warp.Settings 8e7e5651e3f349bbbdec4ca64f3eaa4e
+import  -/  warp-tls-3.2.4.3:Network.Wai.Handler.WarpTLS 762686a1fd1878470a44612cd5de62f7
 import  -/  websockets-0.12.5.1:Network.WebSockets 1286961f784f7b99388500014200c9c6
 import  -/  websockets-0.12.5.1:Network.WebSockets.Connection 8262540f50cb244afdaec62324eda5b4
 import  -/  websockets-0.12.5.1:Network.WebSockets.Connection.Options 6b9bda8a460ce20b30785bbe7f6c7135
@@ -858,6 +866,12 @@ c83f626daf16d9218ff4018027a7edaa
     -> GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
   {- Arity: 3, Strictness: <L,U(U,U,U)><L,1*U><S,U> -}
+d64580757b5fafa976f9d29dcf038376
+  certificate :: GHC.IO.FilePath
+  {- Unfolding: (GHC.CString.unpackCString# Main.certificate1) -}
+ff782a4ed809c13f584934aa2d4190d5
+  certificate1 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("certificate"#) -}
 5b8f87f89da037915ef8f7a1e94fb683
   changeGroup ::
     Data.Text.Internal.Text
@@ -1831,6 +1845,12 @@ af053a8d158925d839faa16547336838
 de89fabf0b5fde3620e3598942bde60c
   head6 :: GHC.Base.String
   {- Unfolding: (GHC.CString.unpackCString# Main.head5) -}
+a8f5da2ecd59d2cb292ee79194d1cffb
+  key :: GHC.IO.FilePath
+  {- Unfolding: (GHC.CString.unpackCString# Main.key1) -}
+7bc72ec6dbced1e2522c06073d04b4e8
+  key1 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("key"#) -}
 be65ca724d133fe4d8ea9fa4f2fc02eb
   log :: GHC.IO.FilePath
   {- Unfolding: (GHC.CString.unpackCString# Main.log1) -}

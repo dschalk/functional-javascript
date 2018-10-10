@@ -10,5 +10,5 @@ Building library for lifted-base-0.2.3.12..
 [7 of 9] Compiling Data.IORef.Lifted ( Data/IORef/Lifted.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Data/IORef/Lifted.o )
 [8 of 9] Compiling Foreign.Marshal.Utils.Lifted ( Foreign/Marshal/Utils/Lifted.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Foreign/Marshal/Utils/Lifted.o )
 [9 of 9] Compiling System.Timeout.Lifted ( System/Timeout/Lifted.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/System/Timeout/Lifted.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/lifted-base-0.2.3.12-KnyxeRaMqLRBcTXo636g7H
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/lifted-base-0.2.3.12-KnyxeRaMqLRBcTXo636g7H
 Registering library for lifted-base-0.2.3.12..

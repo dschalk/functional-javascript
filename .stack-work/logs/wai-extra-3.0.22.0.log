@@ -40,5 +40,5 @@ Building library for wai-extra-3.0.22.0..
 [29 of 31] Compiling Network.Wai.Test.Internal ( Network/Wai/Test/Internal.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Wai/Test/Internal.o )
 [30 of 31] Compiling Network.Wai.Test ( Network/Wai/Test.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Wai/Test.o )
 [31 of 31] Compiling Network.Wai.UrlMap ( Network/Wai/UrlMap.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Wai/UrlMap.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/wai-extra-3.0.22.0-4wLA2oXzYwt8Rp9dbXzs3N
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/wai-extra-3.0.22.0-4wLA2oXzYwt8Rp9dbXzs3N
 Registering library for wai-extra-3.0.22.0..

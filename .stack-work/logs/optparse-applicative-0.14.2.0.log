@@ -17,5 +17,5 @@ Building library for optparse-applicative-0.14.2.0..
 [14 of 16] Compiling Options.Applicative.Extra ( Options/Applicative/Extra.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Options/Applicative/Extra.o )
 [15 of 16] Compiling Options.Applicative ( Options/Applicative.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Options/Applicative.o )
 [16 of 16] Compiling Options.Applicative.Arrows ( Options/Applicative/Arrows.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Options/Applicative/Arrows.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/optparse-applicative-0.14.2.0-HRm2K9gg7My4NoINALecSL
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/optparse-applicative-0.14.2.0-HRm2K9gg7My4NoINALecSL
 Registering library for optparse-applicative-0.14.2.0..

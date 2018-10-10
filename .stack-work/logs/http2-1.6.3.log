@@ -30,5 +30,5 @@ Building library for http2-1.6.3..
 [27 of 29] Compiling Network.HTTP2.Encode ( Network/HTTP2/Encode.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/HTTP2/Encode.o )
 [28 of 29] Compiling Network.HTTP2.Decode ( Network/HTTP2/Decode.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/HTTP2/Decode.o )
 [29 of 29] Compiling Network.HTTP2    ( Network/HTTP2.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/HTTP2.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/http2-1.6.3-GKWQo5tfxL54Q9IWYRXal8
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/http2-1.6.3-GKWQo5tfxL54Q9IWYRXal8
 Registering library for http2-1.6.3..

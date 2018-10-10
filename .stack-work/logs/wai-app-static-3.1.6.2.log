@@ -55,6 +55,6 @@ Building library for wai-app-static-3.1.6.2..
 Building executable 'warp' for wai-app-static-3.1.6.2..
 [1 of 1] Compiling Main             ( app/warp-static.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/warp/warp-tmp/Main.o )
 Linking .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/warp/warp ...
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/wai-app-static-3.1.6.2-EWtFWRBbhZd4qKOod6hnT1
-Installing executable warp in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/bin
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/wai-app-static-3.1.6.2-EWtFWRBbhZd4qKOod6hnT1
+Installing executable warp in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/bin
 Registering library for wai-app-static-3.1.6.2..

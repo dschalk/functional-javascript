@@ -30,5 +30,5 @@ Building library for http-date-0.0.7..
 [;1m[34m100 |[0m[0m     findMonth n = [;1m[35minlinePerformIO[0m[0m $ (,) <$> (peekElemOff months n) <*> (peekElemOff daysArr n)
 [;1m[34m    |[0m[0m[;1m[35m                   ^^^^^^^^^^^^^^^[0m[0m
 [0m[0m[0m[5 of 5] Compiling Network.HTTP.Date ( Network/HTTP/Date.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/HTTP/Date.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/http-date-0.0.7-9unJXE2a40e3VcD4xkqYpe
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/http-date-0.0.7-9unJXE2a40e3VcD4xkqYpe
 Registering library for http-date-0.0.7..

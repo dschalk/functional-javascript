@@ -19,6 +19,6 @@ Building executable 'wai-websockets-example' for wai-websockets-3.0.1.2..
 [;1m<no location info>: [;1m[35mwarning:[0m[0m[;1m [[;1m[35m-Wmissing-home-modules[0m[0m[;1m][0m[0m[;1m
     These modules are needed for compilation but not listed in your .cabal file's other-modules: Network.Wai.Handler.WebSockets[0m[0m
 [0m[0m[0mLinking .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/wai-websockets-example/wai-websockets-example ...
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/wai-websockets-3.0.1.2-3ewzEMSCPdMFW7LaxUGKN0
-Installing executable wai-websockets-example in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/bin
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/wai-websockets-3.0.1.2-3ewzEMSCPdMFW7LaxUGKN0
+Installing executable wai-websockets-example in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/bin
 Registering library for wai-websockets-3.0.1.2..

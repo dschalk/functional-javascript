@@ -29,10 +29,11 @@ module Main where
   import qualified Network.Wai
   import qualified Network.Wai.Application.Static as Static
   import qualified Network.Wai.Handler.Warp       as Warp
+  import qualified Network.Wai.Handler.WarpTLS    as Warp
   import qualified Network.Wai.Handler.WebSockets as WaiWS
   import           Network.WebSockets             (sendClose)
   import qualified Network.WebSockets             as WS
-  import           System.Directory
+  -- import           System.Directory
   import           Prelude as P                   hiding (readFile, writeFile, appendFile, log)
   -- import System.Environment (getEnv)a
   --
@@ -40,6 +41,8 @@ module Main where
   xnames = "xnames" :: FilePath
   namesFile = "namesFile" :: FilePath
   log = "log" :: FilePath
+  certificate = "certificate" :: FilePath
+  key = "key" :: FilePath
   count_2 = "count_2" :: FilePath
 
   unify :: String -> String
@@ -402,6 +405,28 @@ module Main where
                   print z
                   st <- atomically $ readTVar state
                   broadcast ("BC#$42," `mappend` group `mappend` "," 
+                    `mappend` sender `mappend` "," `mappend` (pack $ show z) ) st
+
+       else if "BD#$42" `T.isPrefixOf` msg     -- Generate a random number          
+          then                                          
+              do
+                  print "extraNum:"
+                  print extraNum
+                  z <- Fm.rM extraNum 
+                  print z
+                  st <- atomically $ readTVar state
+                  broadcast ("BD#$42," `mappend` group `mappend` "," 
+                    `mappend` sender `mappend` "," `mappend` (pack $ show z) ) st
+
+       else if "BE#$42" `T.isPrefixOf` msg     -- Generate a random number          
+          then                                          
+              do
+                  print "extraNum:"
+                  print extraNum
+                  z <- Fm.rM extraNum 
+                  print z
+                  st <- atomically $ readTVar state
+                  broadcast ("BE#$42," `mappend` group `mappend` "," 
                     `mappend` sender `mappend` "," `mappend` (pack $ show z) ) st
 
        else if "GN#$42" `T.isPrefixOf` msg -- RECEIVE A NEW COMMENT, UPDATE THE FILE AND THE TVAR,

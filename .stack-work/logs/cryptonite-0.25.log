@@ -124,5 +124,5 @@ Building library for cryptonite-0.25..
 [121 of 123] Compiling Crypto.PubKey.ECIES ( Crypto/PubKey/ECIES.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Crypto/PubKey/ECIES.o )
 [122 of 123] Compiling Crypto.Data.AFIS ( Crypto/Data/AFIS.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Crypto/Data/AFIS.o )
 [123 of 123] Compiling Crypto.Tutorial  ( Crypto/Tutorial.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Crypto/Tutorial.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/cryptonite-0.25-62KWfqjG1f38Ag9mk6p5ih
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/cryptonite-0.25-62KWfqjG1f38Ag9mk6p5ih
 Registering library for cryptonite-0.25..

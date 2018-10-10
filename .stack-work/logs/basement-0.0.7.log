@@ -84,5 +84,5 @@ Building library for basement-0.0.7..
 [81 of 83] Compiling Basement.From    ( Basement/From.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Basement/From.o )
 [82 of 83] Compiling Basement.Block.Builder ( Basement/Block/Builder.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Basement/Block/Builder.o )
 [83 of 83] Compiling Basement.String.Builder ( Basement/String/Builder.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Basement/String/Builder.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/basement-0.0.7-IRcTCDmYoctGxt4FUYqdQc
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/basement-0.0.7-IRcTCDmYoctGxt4FUYqdQc
 Registering library for basement-0.0.7..

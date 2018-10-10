@@ -1,4 +1,5 @@
 #!/bin/bash
 
 kill -9 `pidof ghc` v
+kill -9 `pidof warp` v
 

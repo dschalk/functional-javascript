@@ -93,5 +93,5 @@ cbits/HsUnixCompat.c: In function ‘unix_major’:
 [;1m[34m   |[0m[0m
 [;1m[34m19 |[0m[0m     return m[;1m[31ma[0m[0mkedev(maj, min);
 [;1m[34m   |[0m[0m[;1m[31m             ^[0m[0m
-[0m[0m[0mInstalling library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/unix-compat-0.5.0.1-AtNnJ204ySI1W22dRbQG6f
+[0m[0m[0mInstalling library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/unix-compat-0.5.0.1-AtNnJ204ySI1W22dRbQG6f
 Registering library for unix-compat-0.5.0.1..

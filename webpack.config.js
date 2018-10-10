@@ -1,6 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
-var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
+// var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
  
 module.exports = {
   context: __dirname + "/",
@@ -8,10 +8,10 @@ module.exports = {
   output: {
       path: __dirname + "/dist",
       filename: "bundle.js",
-  },
-    plugins: [
-        new UnminifiedWebpackPlugin()
-    ]
+  }
+//  ,plugins: [
+//        new UnminifiedWebpackPlugin()
+//    ]
 };
 
 

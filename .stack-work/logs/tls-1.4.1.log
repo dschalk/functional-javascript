@@ -60,5 +60,5 @@ Building library for tls-1.4.1..
 [50 of 52] Compiling Network.TLS.Core ( Network/TLS/Core.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/TLS/Core.o )
 [51 of 52] Compiling Network.TLS.Internal ( Network/TLS/Internal.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/TLS/Internal.o )
 [52 of 52] Compiling Network.TLS      ( Network/TLS.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/TLS.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/tls-1.4.1-GKEUJTmcnbV2VLE3MSrrKm
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/tls-1.4.1-GKEUJTmcnbV2VLE3MSrrKm
 Registering library for tls-1.4.1..

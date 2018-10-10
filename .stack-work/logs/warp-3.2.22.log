@@ -40,5 +40,5 @@ Building library for warp-3.2.22..
 [37 of 39] Compiling Network.Wai.Handler.Warp.WithApplication ( Network/Wai/Handler/Warp/WithApplication.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Wai/Handler/Warp/WithApplication.o )
 [38 of 39] Compiling Network.Wai.Handler.Warp.Internal ( Network/Wai/Handler/Warp/Internal.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Wai/Handler/Warp/Internal.o )
 [39 of 39] Compiling Network.Wai.Handler.Warp ( Network/Wai/Handler/Warp.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Wai/Handler/Warp.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/warp-3.2.22-FySRrD4dnMHKiKAWx6ksgY
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/warp-3.2.22-FySRrD4dnMHKiKAWx6ksgY
 Registering library for warp-3.2.22..

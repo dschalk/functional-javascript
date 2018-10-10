@@ -29,12 +29,12 @@ version :: Version
 version = Version [0,3,0,2] []
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 
-bindir     = "/home/e/TEST/fjTest/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/bin"
-libdir     = "/home/e/TEST/fjTest/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/functional-javascript-0.3.0.2-EndBCZiD6jG7aVhmUG7vzn-server"
-dynlibdir  = "/home/e/TEST/fjTest/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2"
-datadir    = "/home/e/TEST/fjTest/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/share/x86_64-linux-ghc-8.2.2/functional-javascript-0.3.0.2"
-libexecdir = "/home/e/TEST/fjTest/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/libexec/x86_64-linux-ghc-8.2.2/functional-javascript-0.3.0.2"
-sysconfdir = "/home/e/TEST/fjTest/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/etc"
+bindir     = "/home/o/TEST/fj/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/bin"
+libdir     = "/home/o/TEST/fj/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/functional-javascript-0.3.0.2-EowKtVb3Vqw8422Fa5uVB9-server"
+dynlibdir  = "/home/o/TEST/fj/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2"
+datadir    = "/home/o/TEST/fj/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/share/x86_64-linux-ghc-8.2.2/functional-javascript-0.3.0.2"
+libexecdir = "/home/o/TEST/fj/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/libexec/x86_64-linux-ghc-8.2.2/functional-javascript-0.3.0.2"
+sysconfdir = "/home/o/TEST/fj/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/etc"
 
 getBinDir, getLibDir, getDynLibDir, getDataDir, getLibexecDir, getSysconfDir :: IO FilePath
 getBinDir = catchIO (getEnv "functional_javascript_bindir") (\_ -> return bindir)

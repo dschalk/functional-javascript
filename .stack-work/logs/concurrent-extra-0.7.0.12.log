@@ -9,5 +9,5 @@ Building library for concurrent-extra-0.7.0.12..
 [6 of 8] Compiling Control.Concurrent.RLock ( Control/Concurrent/RLock.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Control/Concurrent/RLock.o )
 [7 of 8] Compiling Control.Concurrent.Broadcast ( Control/Concurrent/Broadcast.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Control/Concurrent/Broadcast.o )
 [8 of 8] Compiling Control.Concurrent.Event ( Control/Concurrent/Event.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Control/Concurrent/Event.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/concurrent-extra-0.7.0.12-C3371OTCXP5H4LDA3tFIux
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/concurrent-extra-0.7.0.12-C3371OTCXP5H4LDA3tFIux
 Registering library for concurrent-extra-0.7.0.12..

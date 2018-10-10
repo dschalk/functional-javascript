@@ -7,5 +7,5 @@ Building library for blaze-markup-0.8.2.1..
 [4 of 6] Compiling Text.Blaze.Renderer.Pretty ( src/Text/Blaze/Renderer/Pretty.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Text/Blaze/Renderer/Pretty.o )
 [5 of 6] Compiling Text.Blaze.Renderer.Text ( src/Text/Blaze/Renderer/Text.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Text/Blaze/Renderer/Text.o )
 [6 of 6] Compiling Text.Blaze.Renderer.Utf8 ( src/Text/Blaze/Renderer/Utf8.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Text/Blaze/Renderer/Utf8.o )
-Installing library in /home/e/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/blaze-markup-0.8.2.1-GNcNOIjy5FnGWh7cI9G2el
+Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/blaze-markup-0.8.2.1-GNcNOIjy5FnGWh7cI9G2el
 Registering library for blaze-markup-0.8.2.1..

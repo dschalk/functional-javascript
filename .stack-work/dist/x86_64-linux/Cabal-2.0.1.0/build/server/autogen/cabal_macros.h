@@ -165,16 +165,16 @@
   (major1) == 1 && (major2) == 1 && (minor) <= 0)
 #endif /* MIN_VERSION_random */
 
-/* tool alex-3.2.3 */
-#ifndef TOOL_VERSION_alex
-#define TOOL_VERSION_alex "3.2.3"
-#endif /* TOOL_VERSION_alex */
-#ifndef MIN_TOOL_VERSION_alex
-#define MIN_TOOL_VERSION_alex(major1,major2,minor) (\
+/* package warp-tls-3.2.4.3 */
+#ifndef VERSION_warp_tls
+#define VERSION_warp_tls "3.2.4.3"
+#endif /* VERSION_warp_tls */
+#ifndef MIN_VERSION_warp_tls
+#define MIN_VERSION_warp_tls(major1,major2,minor) (\
   (major1) <  3 || \
   (major1) == 3 && (major2) <  2 || \
-  (major1) == 3 && (major2) == 2 && (minor) <= 3)
-#endif /* MIN_TOOL_VERSION_alex */
+  (major1) == 3 && (major2) == 2 && (minor) <= 4)
+#endif /* MIN_VERSION_warp_tls */
 
 /* tool gcc-7 */
 #ifndef TOOL_VERSION_gcc
@@ -219,17 +219,6 @@
   (major1) == 2 && (major2) <  18 || \
   (major1) == 2 && (major2) == 18 && (minor) <= 1)
 #endif /* MIN_TOOL_VERSION_haddock */
-
-/* tool happy-1.19.8 */
-#ifndef TOOL_VERSION_happy
-#define TOOL_VERSION_happy "1.19.8"
-#endif /* TOOL_VERSION_happy */
-#ifndef MIN_TOOL_VERSION_happy
-#define MIN_TOOL_VERSION_happy(major1,major2,minor) (\
-  (major1) <  1 || \
-  (major1) == 1 && (major2) <  19 || \
-  (major1) == 1 && (major2) == 19 && (minor) <= 8)
-#endif /* MIN_TOOL_VERSION_happy */
 
 /* tool hpc-0.67 */
 #ifndef TOOL_VERSION_hpc
@@ -287,7 +276,7 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "functional-javascript-0.3.0.2-EndBCZiD6jG7aVhmUG7vzn-server"
+#define CURRENT_COMPONENT_ID "functional-javascript-0.3.0.2-EowKtVb3Vqw8422Fa5uVB9-server"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.3.0.2"
