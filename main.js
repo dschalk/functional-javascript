@@ -2104,10 +2104,12 @@ h('div', {style: {textAlign:"center", fontWeight: "bold"}}, [
 h('br'),
 h('p', ' The \"functional programming" buzz phrase means a variety of things to various teachers, authors, and bloggers. To me, it means what it literally appears to mean: programming with functions. I think it is unfortunate that "functional programming" is so frequently conflated with extraneous topics, most notabley pure functions and immutable objects. ' ), 
 h('p', ' On this page, JavaScript (Ecmascript 2015) is used just as we find it. I am in no hurry to give up, for example, the efficiency and convenience of mutations inside the scopes of functions, as in this example of elementary function composition.: ' ),
-h('pre', {style: {color: " #AADDAA", fontSize: "21px"}},`               var ar = [x=>x, x=>x**3, x=>x+3, x=>x**2, x=>x*14, x=>x/1800, x=>x*6]
-               var f = v => t => t.map(g=>v=g(v))
+h('pre', {style: {color: " #AADDAA", fontSize: "21px"}},`               var ar = [x=>x, x=>x**3, x=>x+3, x=>x**2,                      
+                             x=>x*14, x=>x/1800, x=>x*6];
 
-               f(3)(ar)  //   [3, 27, 30, 900, 12600, 7, 42]  ` ),
+               var f = v => t => t.map(g=>v=g(v));
+
+               f(3)(ar)  //   [3, 27, 30, 900, 12600, 7, 42];  ` ),
 h('span.tao', '             The first group of examples (below) demonstrate a more sophisticated kind of composition: composition using the function and array created by calling the function ' ),
 h('a', {props: {href: "#bind" }}, 'Bind' ), 
 h('span', '. As is apparent from the definition of ' ), 
@@ -2165,7 +2167,7 @@ h('a', {props: {href: "#defs" }},  'appendix'),
 h('span', '.' ),
 h('br'),
 h('p', ' For now, let\'s consider the stream factorsAction7. Note is that it would likely fail if it4(), it6(), or it7() needed to read from the array Bind.bind0 because all twenty-five simultaneously running calls to bind(145)(x=>x**3)(it4)(it6)(it7) pour data into Bind.bind0. Getting in the habit of calling functions obtained directly from Bind() is a recipe for trouble. It is akin to habitually speeding through red lights. ' ),
-h('pre', `  const bind = Bind("bind0");
+h('pre', `  const bind = Bind("bind0");     // "bind" is a reserved work, hence "bind0".
 
   const factorsAction7$ = factorsClick7$.map( e => {
       m42_ = [];
@@ -3360,7 +3362,7 @@ h('p', ' Clicking the "decompose fifteen random numbers" button causes factorsRe
 h('pre', blue,  `  const factorsRecursion = n => bind(145)(cubeC)(it4)
   (it6)(() => { if (n < 15) factorsRecursion(n+1)}); `),
 h('p', 'result778(m.data) is called each time a message from workerG arrives. The definition of result778 is:   ' ),
-h('pre', blue, `var result778 = x => h('div', [
+h('pre#defs', blue, `var result778 = x => h('div', [
     m778_RESULT,
     h('br'),
     h('span', bigBlue, x[3] ),
@@ -3368,9 +3370,132 @@ h('pre', blue, `var result778 = x => h('div', [
     h('span', bigBlue, x[4] ),
     h('span', bigRed, x[5] ),
 ]); `),
-h('p#defs'),
 h('a', {props: {href: '#demo2'}}, 'Go to Demonstration 1'),
-h('p', ' The stream that listens for workerG messages adds to the vnode m778_RESULT as follows: '),
+h('p', ' This is how Cycle.js handles click events in Demonstrations "1" and "3": ' ),
+h('pre', `  var clearClick7$ = sources.DOM
+      .select('button.clear_Q').events('click')
+      .map(() => {
+        m42_ = [];
+      })
+
+  var factorsClick7$ = sources.DOM
+    .select('button#factors_Q').events('click');
+
+  var factorsAction7$ = factorsClick7$.map( e => {
+    m42_ = [];
+    Bind.bind0 = [];
+    let ii = 0;
+    while (ii < 25) {
+        bind(145)(x=>x**3)(it4)(it6)(it7);
+        ii += 1;
+    }
+  });
+
+  var clearClick8$ = sources.DOM
+      .select('button.clear_R').events('click')
+      .map(() => {
+        m43_ = [];
+      })
+
+  var factorsClick8$ = sources.DOM
+    .select('button#factors_R').events('click');
+
+  var factorsAction8$ = factorsClick8$.map( e => { m43_ = [];
+    var i = 0;
+    m43_ = [];
+    while (i < 25) {
+        makeBind().b(145)(x=>x**3)(it4_b)(it6_b)(it7_b)();
+        i += 1;
+    }
+  }); ` ),
+h('p', ' After 145 is cubed, it4 (Demonstration 1) and it4_b (Demonstration 2) request a pseudo-random numbers as follows: ' ),
+h('pre', `  var it4 = x => {
+    if (socket.readyState === 1) socket.send(\`BC#$42,${pMgroup.x},${pMname.x},${x}\`);
+  }
+   
+  var it4_b = x => {
+    if (socket.readyState === 1) socket.send(\`BD#$42,${pMgroup.x},${pMname.x},${x}\`);
+  } ` ),
+h('p', ' The server complies by generating a pseudo-random number, "z", and broadcasts it to all members of the requestor\'s group. Users can join or create groups in the game section. Here\'s the server code: ' ),   
+h('pre', `  else if "BC#$42" \`T.isPrefixOf\` msg     -- Generate a random number          
+     then                                          
+         do
+             print "extraNum:"
+             print extraNum
+             z <- Fm.rM extraNum 
+             print z
+             st <- atomically $ readTVar state
+             broadcast ("BC#$42," \`mappend\` group \`mappend\` "," 
+               \`mappend\` sender \`mappend\` "," \`mappend\` (pack $ show z) ) st
+
+  else if "BD#$42" \`T.isPrefixOf\` msg     -- Generate a random number          
+     then                                          
+         do
+             print "extraNum:"
+             print extraNum
+             z <- Fm.rM extraNum 
+             print z
+             st <- atomically $ readTVar state
+             broadcast ("BD#$42," \`mappend\` group \`mappend\` "," 
+               \`mappend\` sender \`mappend\` "," \`mappend\` (pack $ show z) ) st ` ),
+
+h('p', ' The Cycle.js front end recieves the WebSocket message, triggering the release of mMZ29 (Demonstration 1) or mMZ29 (Demonstration 3). The "mMZ" prefix is reserved for instances of MonadItter. Here the code that was waiting to be released. ' ),
+h('pre', `  mMZ28.bnd( () => {
+    if (playerName === sender) mMZ40.release(v[3]);
+    else console.log('message from sender to BC#$42')
+  });
+
+  mMZ29.bnd( () => {
+    if (playerName === sender) mMZ41.release(v[3]);
+    else console.log('message from sender to BD#$42')
+  }); ` ),
+h('p', ' "v(3)" is the random munber recieved from the server. It is given to mMZ40 or mMZ41 when they are released. Here are it6 and it6_b, which contain the the code that is released: ' ),
+h('pre',  `  var it6 = y => {
+    mMZ40.bnd(y => workerH.postMessage([primeState, y]));
+  }
+
+  var it6_b = y => {
+    mMZ41.bnd(y => workerM.postMessage([primeState, y]));
+  } ` ),
+h('p', ' The message posted to workerH (Demonstration 1) or workerM (Demonstration 3) contains all previously generated prime numbers along with y, the randomly generated number obtained from the server. ' ),
+
+
+
+
+
+
+/*
+  it7 = () => mMZ52.bnd(string => {
+    callOrder = callOrder > 24 ? 1 : callOrder + 1;
+    if (callOrder === 1) start77 = Date.now(); 
+    m42_.push(callOrder + "  ");
+    m42_.push(string)
+    m42_.push(h('br'));
+    if (callOrder === 25) m42_.push('Elapsed time: ' + (Date.now() - start77) + " ms");
+  });
+
+  it7_b = () => mMZ53.bnd(string => {
+    callOrder2 = callOrder2 > 24 ? 1 : callOrder2 + 1;
+    if (callOrder2 === 1) start78 = Date.now(); 
+    m43_.push(callOrder2 + "  ");
+    m43_.push(string)
+    m43_.push(h('br'));
+    if (callOrder2 === 25) m43_.push('Elapsed time: ' + (Date.now() - start78) + " ms");
+  });
+
+
+  var wH$ = sources.WWH();
+  var worker$ = sources.WWH();
+
+  worker$._ils = [2];
+
+var RESULT_7 = [];
+
+*/
+
+
+
+h('p',  ' The stream that listens for workerG messages adds to the vnode m778_RESULT as follows: '),
 h('pre', `const workerG$ = sources.WWG.map(m => {
     m778_RESULT = result778(m.data);
     primesMonad = new MonadState('primesMonad', m.data[2]);
