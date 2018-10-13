@@ -2,6 +2,7 @@
   import Cycle from '@cycle/xstream-run';
   // import {makeHTTPDriver} from '@cycle/http';
   import code from './code.js';
+  import ws from 'ws';
   import { run } from './cycle-run.js';
 
 // socket = new WebSocket("ws://localhost:3055");
@@ -32,54 +33,22 @@ qFunc = a=>b=>c=> {
     console.log("In qFunc -- bb is", bb);
     console.log("In qFunc -- (aa === aa is", aa === aa);
     if (aa === aa) {
-             Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
-             Cow2 = `x = ${aa} and x = ${bb}`;
-             console.log("Cow1 and Cow2", Cow1, Cow2);
+        Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+        Cow2 = `x = ${aa} and x = ${bb}`;
+        console.log("Cow1 and Cow2", Cow1, Cow2);
     }
     if (!(aa === aa)) { 
-            Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
-            Cow2 = '';
-            console.log("Cow1 and Cow2", Cow1, Cow2);
+        Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+        Cow2 = '';
+        console.log("Cow1 and Cow2", Cow1, Cow2);
     }
 }
-
-// console.log(qFunc(1)(1)(-12));
-
-              
-/*  function qFormula () {
-     mMZ9.bnd(a => qF = qF.b(a)); 
-     mMZ9.bnd(b => qF = qF.b(b)); 
-     mMZ9.bnd(c => qF.b(c)(v=>qFunc(getAr(qF)[0])(getAr(qFunc)[1])(v)));
-  }
-  qFormula(); */
-
-/*qFormula = function qFormula () {
-   qF = makeBind();
-   console.log("In qFormula");
-   mMZ49.bnd(a => {qF.b(a); console.log(Bind[qF.a]); 
-       mMZ49.bnd(b => {qF.b(b); console.log(Bind[qF.a]); 
-           mMZ49.bnd(c => {qF.b(c)(() => { 
-               console.log(Bind[qF.a]);
-               var Co =  qFunc(getAr(qF)[0])(getAr(qF)[1])(getAr(qF)[2]);
-               console.log("In gFormula -- Co is", Co ),
-               Cow = Co.children
-               Cow1 = Cow[0].text + Cow[1].text;
-               Cow2 = Cow[2].text;
-               
-               console.log("Cow1, Cow2", Cow1, Cow1);
-               Bind[qF.a] = [];
-               qFormula();
-           })});  
-       })
-   })
-}
-qFormula();
-*/
 
 MonadState.prototype.dec = function () {
   this.s[1] -= 1;
   buttonNode = bNode(this.s[0][this.s[1]][4]);
-  socket.send(`CG#$42,${pMgroup.x},${pMname.x},${this.s[0][this.s[1]][0]},${this.s[0][this.s[1]][1]}`)
+  socket.send(`CG#$42,${pMgroup.x},${pMname.x},${
+    this.s[0][this.s[1]][0]},${this.s[0][this.s[1]][1]}`)
   window[this.id] = this;
   return this;
 };
@@ -594,39 +563,6 @@ var m80Change$ = sources.DOM
 var m80Action$ = m80Change$.map(() => {
 });
 
-//******************************************************** MATRIX
-
-/*
-var rNumsDS = [0,1,2,3]
-console.log('rNumsDS', rNumsDS);
-var rADS = [];
-
-var rDataDS = [
-  h('button#mR0', 0 ),
-  h('button#mR1', 1 ),
-  h('button#mR2', 2 ),
-  h('button#mR3', 3 )
-];
-
-function rFuncDS (j,k,r) {
-  var a = r[j];
-  r[j] = r[k];
-  r[k] = a;
-  return r;
-}  
-
-function makeRDS (arr) {
-  var r = arr.slice();
-  return [
-    h('button#mR0', r[0] ), 
-    h('button#mR2', r[1] ),
-    h('button#mR1', r[2] ), 
-    h('button#mR3', r[3] ) 
-  ];
-};
-*/
-
-
 //****************************************************************** START MATRIX
 var indexDS = 0;
 
@@ -712,10 +648,6 @@ function gridDriver () {
     stop: () => {}
   })
 };
-
-/*  Highest possible number: 17.3
- *  rNumsDS: 6, 9, 4, 11, 8, 7, 10, 5, 2, 13, 0, 15, 12, 3, 14, 1
-    rMatrixF(rNumsDS: 17.3160677686392   */
 
 function rExDS ([, rN=rNumsDS, AR=ArrDS, rD = rDataDS, i = mMindexDS]) {
   console.log("In rExchange i is", i);
@@ -922,13 +854,6 @@ function rGridFunc (a=rADS, i=mMindexDS) {
 
 var gridCh$ = sources.DOM
 .select('#gridInput').events('change');
-
-/*function rExchange (k,n,ar=rNumsDS,AR=ArrDS) {
-  var a = ar[k];
-  ar[k] = ar[n];
-  ar[n] = a;
-  return makeRDS(rNumsDS);
-}; */
 
 var backCl$ = sources.DOM
   .select('#gridBack').events('click')
@@ -1238,34 +1163,6 @@ workerL$ = sources.WWL.map(m => {
           }
       });  
 
-
-
-
-
-
-
-
-
-
-
-   /*      var sortFactors = ar => ar.sort(function(x,y) {
-        return (x - y);
-      });
-
-      workerH$ = sources.WWH.map(m => {
-        console.log('m.data <D><D><D><D><D><D> ', m.data);
-        var promes = m.data[0];
-        var factors = m.data[1];
-        var p = primeState.concat(primes);
-        var z;
-        if (factors.length > 1) {
-          z = "The prime factors of " + x + " are " + sortFactors(factors).join(', ')
-        }
-        else z = x + " is a prime number"
-        mMZ52.release(z);
-      });
-*/
-
       workerH$ = sources.WWH.map(m => {
         mMZ52.release(m.data[1]);
         var w = m.data[0][m.data[0].length - 1];
@@ -1312,17 +1209,6 @@ workerL$ = sources.WWL.map(m => {
         console.log("Now <E><E><E><E><E><E><E><Edward the Late>>>>>>>>>>posting to workerL -- v is", v);
         workerL.postMessage([primeState, v])
       });
-
-    /*  workerH$ = sources.WWH.map(m => {
-        console.log('<0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0><0> In workerH$ m is', m);
-        mMZ40.release(m.data);
-        // mMZ40.bnd(v => console.log(reduceMult(v), reducePlus));
-      });
-
-       if (m.data) {console.log('GOOD m.data')} else { return "cow" }
-       if (m.target) {console.log('GOOD m.target')} else { return "shit" }
-       if (m.data[1]) {console.log('GOOD m.data[1]')} else { return 'donkey'}
-       if (m.target.ar2) {console.log('GOOD m.data.ar2')} else { return 'dung'} */
 
       const result778 = x => h('div', [
         m778_RESULT,
@@ -1608,27 +1494,6 @@ var pingpong4$ = pinpon4$.map(() => {
               funcP()
             });
 
-
-
-      //******************************************* END pingpong END
-
-      /*
-      const redStyle = {style: {color: 'red', marginLeft: '20%', fontSize: '25px'}}
-      const yellowStyle = {style: {color: 'yellow', marginLeft: '20%', fontSize:'25px'}}
-
-        var pingpongRecursion = n => ar => bind(n,ar)(ppFna)(pause)(ppFnb)(() => {
-          if (n < 15) pingpongRecursion(n+1,ar)
-          bind(n+1,ar)(ppFna)(pause)(ppFnb)(terminate)
-        });
-
-        var ppFna = n => h('p', redStyle, 'ping' + n);
-        var ppFnb = n => h('div', [h('br'),h('p', yellowStyle, 'PONG' + n)]);
-
-
-
-          var pingpongAction$ = pingpong$.map(function (e) {  });
-
-        */
           // **********************************************************************
 
   var bindBD$ = sources.BD.map(m => console.log("Say what?",m))
@@ -1826,33 +1691,6 @@ var pingpong4$ = pinpon4$.map(() => {
       document.getElementById('qF1').value = null;
       }
   });
-
-
-/*  oneAction$ = qF1$.map(function (e) {
-      if (e.keyCode === 13) {
-          var a = e.target.value.split(",");
-          var ar = a.map(x=>toInt(x));
-          Bind[r.a] = [];
-          qR1 = r.b(a[0])(a[1])(a[2])
-              (()=>(-f(r)[1] - Math.sqrt(f(r)[1]*f(r)[1] - 
-              4*f(r)[0]*f(r)[2]))/(2*f(r)[0]))().pop()
-          Bind[r.a] = [];
-          qR2 = r.b(a[0])(a[1])(a[2])
-              (()=>(-f(r)[1] + Math.sqrt(f(r)[1]*f(r)[1] - 
-              4*f(r)[0]*f(r)[2]))/(2*f(r)[0]))().pop()
-          document.getElementById('qF1').value = null;
-      }
-  }); */
-
-
-
-
-
-
-
-
-
-
 
   // ******************************************BEGIN TODO LIST
 
@@ -2104,12 +1942,12 @@ h('div', {style: {textAlign:"center", fontWeight: "bold"}}, [
 h('br'),
 h('p', ' The \"functional programming" buzz phrase means a variety of things to various teachers, authors, and bloggers. To me, it means what it literally appears to mean: programming with functions. I think it is unfortunate that "functional programming" is so frequently conflated with extraneous topics, most notabley pure functions and immutable objects. ' ), 
 h('p', ' On this page, JavaScript (Ecmascript 2015) is used just as we find it. I am in no hurry to give up, for example, the efficiency and convenience of mutations inside the scopes of functions, as in this example of elementary function composition.: ' ),
-h('pre', {style: {color: " #AADDAA", fontSize: "21px"}},`               var ar = [x=>x, x=>x**3, x=>x+3, x=>x**2,                      
-                             x=>x*14, x=>x/1800, x=>x*6];
+h('pre', {style: {color: " #AADDAA", fontSize: "17px"}},`  var ar = [x=>x, x=>x**3, x=>x+3, x=>x**2,                      
+                x=>x*14, x=>x/1800, x=>x*6];
 
-               var f = v => t => t.map(g=>v=g(v));
+  var f = v => t => t.map(g=>v=g(v));
 
-               f(3)(ar)  //   [3, 27, 30, 900, 12600, 7, 42];  ` ),
+  f(3)(ar)  //   [3, 27, 30, 900, 12600, 7, 42];  ` ),
 h('span.tao', '             The first group of examples (below) demonstrate a more sophisticated kind of composition: composition using the function and array created by calling the function ' ),
 h('a', {props: {href: "#bind" }}, 'Bind' ), 
 h('span', '. As is apparent from the definition of ' ), 
@@ -2117,7 +1955,7 @@ h('a', {props: {href: "#bind" }}, 'Bind' ),
   
 h('span', ', "var f = Bind(\'f\')" creates a global variable "f" with a value similar to _bind() and a globally accessible array named "Bind.f".  ' ), 
 h('p', ' Demonstration 2 features the function "makeBind()". It takes no argument and returns an object "o" such that Bind[o.a] designates a previously nonexistent empty array and o.b is the function that Bind() returns; namely,  _bind(). o.b(function1)(function2) ... (functionN) populates Bind[o.a] with the return values (or resolution values) of function1, function2, ... , and functionN. You can compose with a completely anonymous function like this:  ' ),
-h('pre', {style: {color: " #AADDAA", fontSize: "21px"}},`               makeBind().b(function1)(function2) ... (functionN)(). `),
+h('pre', {style: {color: " #AADDAA", fontSize: "17px"}},`  makeBind().b(function1)(function2) ... (functionN)(). `),
 h('span.tao', ' As is apparent from the definition of ' ), 
 h('a', {props: {href: "#bind" }}, 'Bind' ),
 h('span', ', the null value at the end, \"()\", prompts the return of an array of all return values and Promise resolution values. Adding "\.pop()" to the end yields the final result. The only drawback to anonimous copies of _bind() is lack of access to return values during execution of composed functions. ' ),
@@ -2153,7 +1991,7 @@ h('div', styleFunc(["#FFD700","3%","21px",,,]), [
         h('span.tao', styleFunc(["#d3ead5",'3%',"18px",,,]), ' Composition doesn\'t get more flexible and expressive than this.  Here again is the ' ),      
 h('a', {props: {href: "#bind" }},  'definition of bind'),
 
-          ]),  /* only main => */  h('div.content2', [
+          ]), h('div.content2', [
 h('br'),
 h('br'),
 h('div', styleFunc(["#361B01",,,,"90%","center"]),   '*****************************************************************' ),
@@ -2400,16 +2238,7 @@ h('pre', `  qFunc = a=>b=>c=> {
 
 h('p', ' This demonstration could be the basis for a two-player game in which each player enters an integer. Then the player who was first to enter a number must enter another that results in a two-integer solution. A solitaire version could have the computer provide a second, randomly generated integer.' ), 
 
-
-
-
-/*
-h('div', [
-]),
-  ]),  h('div', {style: {width: '47%', fontSize: '18px', float: 'right'}}, [  // *** RIGHT PANEL
-*/
 h('br'),
-
           ]), ]), h('div.content', [
 
 h('div', styleFunc(["#361B01",,,,"90%","center"]),   '**************************************************************************************************************' ),
@@ -2886,11 +2715,11 @@ h('p', ' This code undoubtedly deviates from Cycle.js and functional programming
     h('br'),
     h('h3', 'Register' ),
     h('span.red', mMregister.x ),
-    h('input.register', {style: {display: mMshowRegister.x }} ),
+    h('input.register', {style: {display: mMshowRegister.x}} ),
     h('br' ),
     h('br' ),
-    h('h3', 'COMMENTS' ),
-    h('textarea#comment', '' ),
+    h('h3', 'COMMENTS - One paragraph at a time.' ),
+    h('textarea#comment', {style: {width: "60%", height: "90px"}}, '' ),
     h('br' ),
     h('br' ),
     h('div', commentMonad.html ),
@@ -3458,67 +3287,18 @@ h('pre',  `  var it6 = y => {
     mMZ41.bnd(y => workerM.postMessage([primeState, y]));
   } ` ),
 h('p', ' The message posted to workerH (Demonstration 1) or workerM (Demonstration 3) contains all previously generated prime numbers along with y, the randomly generated number obtained from the server. ' ),
+h('p', ' The message returned by the server prompts, in the case of Demonstration 1: ' ),
 
-
-
-
-
-
-/*
-  it7 = () => mMZ52.bnd(string => {
-    callOrder = callOrder > 24 ? 1 : callOrder + 1;
-    if (callOrder === 1) start77 = Date.now(); 
-    m42_.push(callOrder + "  ");
-    m42_.push(string)
-    m42_.push(h('br'));
-    if (callOrder === 25) m42_.push('Elapsed time: ' + (Date.now() - start77) + " ms");
-  });
-
-  it7_b = () => mMZ53.bnd(string => {
-    callOrder2 = callOrder2 > 24 ? 1 : callOrder2 + 1;
-    if (callOrder2 === 1) start78 = Date.now(); 
-    m43_.push(callOrder2 + "  ");
-    m43_.push(string)
-    m43_.push(h('br'));
-    if (callOrder2 === 25) m43_.push('Elapsed time: ' + (Date.now() - start78) + " ms");
-  });
-
-
-  var wH$ = sources.WWH();
-  var worker$ = sources.WWH();
-
-  worker$._ils = [2];
-
-var RESULT_7 = [];
-
-*/
-
-
-
-h('p',  ' The stream that listens for workerG messages adds to the vnode m778_RESULT as follows: '),
-h('pre', `const workerG$ = sources.WWG.map(m => {
-    m778_RESULT = result778(m.data);
-    primesMonad = new MonadState('primesMonad', m.data[2]);
-    }); `),
-  h('pre', bigGreen, `const factorsRecursion = n => bind(145)(cubeC)(it4)
-  (it6)(pause)(() => { if (n < 15) factorsRecursion(n+1)}); `),
-
-h('pre', bigGold, `  var test5 = x => {
-  var n = toInt(x);
-  Bind.bind1 = []; 
-  Bind.bind2 = []; 
-  Bind.bind3 = []; 
-  
-  bind1(n+0)(cubeP)(() => idP(Bind.bind1[0] -
-  Bind.bind1[1]))(v=>addP(Bind.bind1[1])(v));
-
-  bind2(n+1)(cubeP)(() => idP(Bind.bind2[0] -
-  Bind.bind2[1]))(v=>addP(Bind.bind2[1])(v)); 
-
-  bind3(n+2)(cubeP)(() => idP(Bind.bind3[0] -
-  Bind.bind3[1]))(v=>addP(Bind.bind3[1])(v));} `), 
-h('br'),
-h('span#bind2', ''),
+h('pre', bigGold, `  const factorsAction7$ = factorsClick7$.map( e => {
+      m42_ = [];
+      Bind.bind0 = [];
+      let i = 0;
+      while (i < 25) {
+          bind(145)(x=>x**3)(it4)(it6)(it7);
+          i += 1;
+      }
+  } ` ), 
+h('p', ' And that is where this discussion began. ' ),  
 h('br'),
 h('br'),
 h('a', {props: {href: '#top'}}, 'Go to the top'),
@@ -3762,50 +3542,6 @@ h('span', ', tHaskell Programming Language, which supports the back end of this 
 h('h3', 'More Random Snippits' ),
 h('p', '  Libraries and language modifications that impose constraints such as immutability, universal purity of functions, and strict typing can be useful, but this project takes a different approach. The JavaScript used herein is plain, unadorned, unrestricted Ecamascript 2018. ' ),
 h('p', ' Objects are cloned so past states remain accessible but they are mutated inside of functions for efficiency and to keep the stack from overflowing. Functions ordinarily don\'t interact with the environments outside of their scopes but methods might cause side effects in the objects that contain them. "Functional programming" in this project is about using all that the language offers to create functions that streamline applications and make them readable, maintainable, and robust. Just be sure to cause side effects, alter the contents of specific addresses in memory, and define global variables with the utmost restraint and care.' ),
-
-/*
-h('div', styleFunc(["#361B01",,,,"90%","center"]),   '**************************************************************************************************************' ),
-
-h('h3', styleFunc(["#8ffc95",,"23px",,,"center"]), ' Demonstration 3 '),
-
-h('div', {style: {width: '47%', fontSize: '18px', float: 'left'}}, [ // ((************ LEFT PANEL
-
-h('span#backToDem2', ' This demonstration uses a closure named "PingpongMaker" instead of Bind to define clones of the function "ping". Three instances of ping operate independently of one another in the demonstration on the right. Here is '),
-h('a', {props: {href: '#pingmaker'}}, 'more information about Demonstration 3.' ),
-h('br'),
-
-    ]),
-
-h('div', {style: {width: '47%', fontSize: '15px', float: 'right'}}, [  // ********* RIGHT PANEL
-h('br'),
-h('button.pingpong', {style: {fontSize: '17px'}}, 'start pingpong'),
-pingDisplay, 
-h('br'),
-h('br'),
-h('br'),
-h('br'),
-  m67_RESULT,
-h('br'),
-  m68_RESULT,
-h('br'),
-  m69_RESULT,
-h('br'),
-h('br'),
-  
-h('br'),
-h('br'),
-h('br'),
-            ]),
-h('br'),
-h('br'),
-]),
-h('br'),
-h('br'),
-h('h1', '_____________________________________________________________' ),
-h('br'),
-
-]),
-*/ 
 
 h('pre', `
 var compose = (...fns) =>

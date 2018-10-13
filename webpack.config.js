@@ -1,7 +1,8 @@
-var path = require('path');
 var webpack = require('webpack');
-// var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
- 
+var path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
   context: __dirname + "/",
   entry: "./main.js",
@@ -9,9 +10,25 @@ module.exports = {
       path: __dirname + "/dist",
       filename: "bundle.js",
   }
-//  ,plugins: [
-//        new UnminifiedWebpackPlugin()
-//    ]
-};
+}
+/*  ,plugins: [
+        new UnminifiedWebpackPlugin()
+    ]
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new UglifyJsPlugin()
+        ],
+        usedExports: true,
+        sideEffects: true
+    },
+    plugins: [
+        new HtmlWebpackPlugin()
+    ]
+}
+ */
+
+// var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
+ 
 
 
