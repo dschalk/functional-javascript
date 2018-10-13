@@ -2987,6 +2987,22 @@ console.log(pr66(30,[2,3,5,7,11,13,17,19,23,29]).reverse().join("  "))
 
 
 
+var ar = ['crap'];
+function pr (x,p) {
+
+  var primes = p.filter(p => (p < x));
+  primes.map(e => {
+    primes.map(p => {
+    if (( e + p ) == x && e > (x + 1)/2) {ar.push([p,e])};
+      })
+  })
+  return ar;  
+}
+ 
+console.log(pr(30,[2,3,5,7,11,13,17,19,23,29]))
+
+
+
 
 
 

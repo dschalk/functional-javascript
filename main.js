@@ -2162,9 +2162,9 @@ h('h3', styleFunc(["#8ffc95",,"23px",,,"center"]),  ' Demonstration 1 - WebSocke
 
           h('div', {style: {width: '47%', fontSize: '18px', float: 'left'}}, [ // ((************ LEFT PANEL 
 
-h('span.tao', ' This demonstration features twenty-five calls to "bind(145)(x=>x**3)(it4)(it6)(it7)" where it4 requests a pseudo-random number from the WebSocket server, it6 requests its prime factors from a web worker, and it7 formats the data returned by the web workerk for display in the browser. A detailed discussion will soon be placed in the ' ), 
+h('span.tao', ' This demonstration features twenty-five calls to "bind(145)(x=>x**3)(it4)(it6)(it7)" where it4 requests a pseudo-random number from the WebSocket server, it6 requests its prime factors from a web worker, and it7 formats the data returned by the web workerk for display in the browser. The ' ), 
 h('a', {props: {href: "#defs" }},  'appendix'),
-h('span', '.' ),
+h('span', ' contains a detailed explanation.' ),
 h('br'),
 h('p', ' For now, let\'s consider the stream factorsAction7. Note is that it would likely fail if it4(), it6(), or it7() needed to read from the array Bind.bind0 because all twenty-five simultaneously running calls to bind(145)(x=>x**3)(it4)(it6)(it7) pour data into Bind.bind0. Getting in the habit of calling functions obtained directly from Bind() is a recipe for trouble. It is akin to habitually speeding through red lights. ' ),
 h('pre', `  const bind = Bind("bind0");     // "bind" is a reserved work, hence "bind0".
