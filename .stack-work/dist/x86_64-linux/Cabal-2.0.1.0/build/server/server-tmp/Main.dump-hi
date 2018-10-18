@@ -1,10 +1,10 @@
 
 ==================== FINAL INTERFACE ====================
-2018-08-28 09:09:06.968087 UTC
+2018-10-15 15:29:16.137739 UTC
 
 interface main:Main 8022
-  interface hash: 908756a0ff2fd14acc47936767f71cea
-  ABI hash: 8110479bf57cdccdf2a1a5aed850ddc2
+  interface hash: c5f086a046b17357f963b41f064c696e
+  ABI hash: 4c36b3a54218a338f79805085ce73946
   export-list hash: 6d6f083be24fae9adf13561d74c18b8c
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: d275b939ff388c19e2fbf23785abdc56
@@ -741,7 +741,7 @@ f3f4b4b742c775f33ddf3f8dd8e1dbfd
 21c120dda347c3aee8efc80ba02de567
   at1 :: GHC.Prim.Addr#
   {- HasNoCafRefs, Unfolding: ("<@>"#) -}
-9fa84bc5655586344c09dfb6bc9712ad
+4576e34d3d8467c0d8c41341ece8b835
   bcast ::
     Data.Text.Internal.Text -> Main.ServerState -> GHC.Types.IO ()
   {- Arity: 3, Strictness: <L,U(U,U,U)><L,1*U><S,U>,
@@ -751,7 +751,7 @@ f3f4b4b742c775f33ddf3f8dd8e1dbfd
                 (<Data.Text.Internal.Text>_R
                  ->_R <Main.ServerState>_R
                  ->_R Sym (GHC.Types.N:IO[0] <()>_R)) -}
-f196a2d717b348460668c35107328b25
+8fdc0dcf85d40c1a865fe013dfb94494
   bcast1 ::
     Data.Text.Internal.Text
     -> Main.ServerState
@@ -770,7 +770,7 @@ f196a2d717b348460668c35107328b25
                         '\n'#
                         ipv of ds2 { (#,#) ipv2 ipv3 ->
                  let {
-                   lvl277 :: Data.ByteString.Lazy.Internal.ByteString
+                   lvl285 :: Data.ByteString.Lazy.Internal.ByteString
                    = Data.Text.Lazy.Encoding.encodeUtf8
                        (Data.Text.Lazy.fromChunks_go
                           (GHC.Types.:
@@ -779,24 +779,24 @@ f196a2d717b348460668c35107328b25
                              (GHC.Types.[] @ Data.Text.Internal.Text)))
                  } in
                  let {
-                   lvl278 :: Network.WebSockets.Types.DataMessage
+                   lvl286 :: Network.WebSockets.Types.DataMessage
                    = Network.WebSockets.Types.Text
-                       lvl277
+                       lvl285
                        (GHC.Base.Nothing @ Data.Text.Internal.Lazy.Text)
                  } in
                  let {
-                   lvl279 :: Network.WebSockets.Types.Message
+                   lvl287 :: Network.WebSockets.Types.Message
                    = Network.WebSockets.Types.DataMessage
                        GHC.Types.False
                        GHC.Types.False
                        GHC.Types.False
-                       lvl278
+                       lvl286
                  } in
                  let {
-                   lvl280 :: [Network.WebSockets.Types.Message]
+                   lvl288 :: [Network.WebSockets.Types.Message]
                    = GHC.Types.:
                        @ Network.WebSockets.Types.Message
-                       lvl279
+                       lvl287
                        (GHC.Types.[] @ Network.WebSockets.Types.Message)
                  } in
                  letrec {
@@ -819,14 +819,14 @@ f196a2d717b348460668c35107328b25
                                      dt
                                      GHC.Types.True
                                      eta of s2# { DEFAULT ->
-                              case (ds13 lvl280) `cast` (GHC.Types.N:IO[0] <()>_R)
+                              case (ds13 lvl288) `cast` (GHC.Types.N:IO[0] <()>_R)
                                      s2# of ds14 { (#,#) ipv4 ipv5 ->
                               go6 ys ipv4 } } }
                           } in
                           let {
                             $j1 :: (# GHC.Prim.State# GHC.Prim.RealWorld, () #) <join 0>
                             = case conn of wild2 { Network.WebSockets.Connection.Connection ds10 ds11 ds12 ds13 dt ->
-                              case (ds13 lvl280) `cast` (GHC.Types.N:IO[0] <()>_R)
+                              case (ds13 lvl288) `cast` (GHC.Types.N:IO[0] <()>_R)
                                      eta of ds14 { (#,#) ipv4 ipv5 ->
                               go6 ys ipv4 } }
                           } in
@@ -846,7 +846,7 @@ f196a2d717b348460668c35107328b25
                                      Network.WebSockets.Types.DataMessage ipv4 ipv5 ipv6 ipv7
                                      -> go7 ys1 } }
                           } in
-                          go7 lvl280 } }
+                          go7 lvl288 } }
                  } in
                  go6 clients ipv2 } }) -}
 c83f626daf16d9218ff4018027a7edaa

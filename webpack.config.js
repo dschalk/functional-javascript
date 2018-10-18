@@ -1,34 +1,35 @@
 var webpack = require('webpack');
 var path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+var htmlWebpackPlugin = require( "html-webpack-plugin" );
 
 module.exports = {
   context: __dirname + "/",
   entry: "./main.js",
   output: {
       path: __dirname + "/dist",
-      filename: "bundle.js",
-  }
-}
-/*  ,plugins: [
-        new UnminifiedWebpackPlugin()
-    ]
-    optimization: {
-        minimize: true,
-        minimizer: [
-            new UglifyJsPlugin()
-        ],
-        usedExports: true,
-        sideEffects: true
-    },
-    plugins: [
-        new HtmlWebpackPlugin()
-    ]
-}
- */
+      filename: "bundle.js"
+  },
 
-// var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
- 
+/*    module: {
+        rules: [
+            {
+                loader: "babel-loader",
+                options: {
+                    "presets" : [ "es2015" ]
+                },
+                exclude: [/node_modules/],
+           } 
+        ]
+    }, */
+
+    plugins: [
+            new htmlWebpackPlugin({
+                filename: __dirname + "/dist/index.html",
+                template: __dirname + "/dist/template.html" 
+            }),
+            new webpack.NamedModulesPlugin(),
+            new webpack.HotModuleReplacementPlugin()
+        ]
+}
 
 

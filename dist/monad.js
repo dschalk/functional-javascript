@@ -1,5 +1,13 @@
 
 
+console.log("What about head and tail?");
+
+var head = function head([ a, ...b ]) { 
+  return a;
+}
+var tail = function tail([ a, ...b ]) {
+  return b;
+}
 
 var diffRender = function () {return 8};   ;  // See document.onload in maim
 
@@ -118,6 +126,59 @@ var _B6 = ["ready"];
 var _B7 = ["ready"];
 var _B8 = ["ready"];
 var _B9 = ["ready"];
+
+
+  function test5 (n) {
+    var x = toInt(n);
+
+    _B1 = test4(makeBind())(x+0)
+    _B2 = test4(makeBind())(x+1)
+    _B3 = test4(makeBind())(x+2)
+    _B4 = test4(makeBind())(x+3)
+    _B5 = test4(makeBind())(x+4)
+    _B6 = test4(makeBind())(x+5)
+    _B7 = test4(makeBind())(x+6)
+    _B8 = test4(makeBind())(x+7)
+    _B9 = test4(makeBind())(x+8)
+    
+    a11 = Bind('a11');
+    a12 = Bind('a12');
+    a13 = Bind('a13');
+    a14 = Bind('a14');
+    a15 = Bind('a15');
+    a16 = Bind('a16');
+    a17 = Bind('a17');
+    a18 = Bind('a18');
+    a19 = Bind('a19');
+
+    Bind.a11 = [];
+    a11 = Bind('a11');
+    test6('a11')(x+0)
+    Bind.a12 = [];
+    a12 = Bind('a12');
+    test6('a12')(x+1)
+    Bind.a13 = [];
+    a13 = Bind('a13');
+    test6('a13')(x+2)
+    Bind.a14 = [];
+    a14 = Bind('a14');
+    test6('a14')(x+3)
+    Bind.a15 = [];
+    a15 = Bind('a15');
+    test6('a15')(x+4)
+    Bind.a16 = [];
+    a16 = Bind('a16');
+    test6('a16')(x+5)
+    Bind.a17 = [];
+    a17 = Bind('a17');
+    test6('a17')(x+6)
+    Bind.a18 = [];
+    a18 = Bind('a18');
+    test6('a18')(x+7)
+    Bind.a19 = [];
+    a19 = Bind('a19');
+    test6('a19')(x+8)
+  }
 
 function test9 () {
   test5(-4);
@@ -516,6 +577,11 @@ function bindTest  () {
   var m42_RESULT3 = []
 
   var mMZ60 = new MonadItter();
+  /*
+  var bindEmitter = new EventEmitter();
+  bindEmitter.on(123,v => console.log('My',v));
+  bindEmitter.emit(123,"personal pie in the sky");
+  */
 
   var mM40 = new Monad([], 'mM40');
   var RESULT_bind = [];
@@ -525,134 +591,251 @@ function bindTest  () {
   var O_003 = {ar: []};
   var O_004 = {ar: []};
 
-function Bind (str) {
-    Bind[str] = [];
-    var p;
-    var _bind = function _bind ( x ) {
-        if (x instanceof Promise) x.then(y => {
-            Bind[str].push(y);
-            diffRender();
-        })
-        else {
-            Bind[str].push(x)
-            diffRender();
+    
+  /*function bind (x, ar=[]) {
+    var ar = ar;
+    if (ar.length === 0) ar = [x];
+    if (x instanceof Promise) x.then(y => ar.push(y));
+    else ar.push(x)
+    return function debug8 (func) {
+      if (func.name === "terminate") return ar;
+      var p;
+      if (x instanceof Promise) {
+        p = x.then(v => func(v));
+      }
+      else p = func(x);
+      return bind(p, ar);
+    };
+  }; */
+
+    function Bind (str) {
+        Bind[str] = [];
+        var p;
+        var _bind = function _bind ( x ) {
+            if (x instanceof Promise) x.then(y => {
+                Bind[str].push(y);
+                diffRender();
+            })
+            else {
+                Bind[str].push(x)
+                diffRender();
+            }
+            return func => {
+                if (func == undefined) return Bind[str];
+                if (typeof func !== "function") p = func;
+                else if (x instanceof Promise) p = x.then(v => func(v));
+                else p = func(x);
+                return _bind(p);
+            };
+      };
+      return _bind;
+    };
+
+    function Bd () {
+        var p = [];
+        var _bind = function _bind ( x ) {
+            return func => {
+                if (func == undefined) return [p];
+                if (typeof func !== "function") p = func;
+                else if (x instanceof Promise) p = x.then(v => func(v));
+                else p = func(x);
+                return _bind(p);
+            };
+      };
+      return _bind;
+    };
+
+    var bnD = Bd(); 
+
+  /*
+  function makeBind (x)  {
+    this.x = x;
+    console.log("x is",x);
+    if (Bind[x] !== undefined) {
+           makeBind(x+1);
+      }
+    window["B"+x] = {a:this.x, b:Bind("B"+x)};
+    return window["B"+x];
+  }  
+
+  function makeBind (x)  {
+    if (Bind[x] !== undefined) {
+           makeBind(x+1);
+      }
+    return {a:x, b: Bind(x)};
+  }
+  */
+  var a1 = makeBind();
+  var a2 = makeBind();
+  var a3 = makeBind();
+  var a4 = makeBind();
+  var a5 = makeBind();
+  var a6 = makeBind();
+  var a7 = makeBind();
+  var a8 = makeBind();
+  var a9 = makeBind();
+
+  // var xyz = {a:7, b:function (d) {return d}};
+
+  var c = makeBind();
+  var h = c.b(4)(x=>x**3)(x=>x+Bind[c.a][0])(cubeP)()
+  console.log("h is", h)
+
+ 
+  var bind$ = n => xs.of(n);
+
+  function bindDriver () {
+    return xs.create({
+      start: listener => { bind$ = a => listener.next(a) },
+      stop: () => {}
+    })
+  };
+
+  var bind = Bind("bind0");
+  var bind1 = Bind("bind1");
+  var bind2 = Bind("bind2");
+  var bind3 = Bind("bind3");
+  var bind4 = Bind("bind4");
+  var bind5 = Bind("bind5");
+  var bind6 = Bind("bind6");
+  var bind7 = Bind("bind7");
+  var bind8 = Bind("bind8");
+  var bind9 = Bind("bind9");
+  /*
+
+var b0 = () => Bind.bind;
+var b3 = () => Bind.bind3;
+var bindArr = Bind("bindoArr")([]);
+var bindOb = Bind("bindoOb")({ar: []});
+
+
+var aBind = [];
+var bBind = [];
+var cBind = [];
+var dBind = [];
+
+function barfly (x) { 
+  var foo = x; 
+  return function farfly () { 
+    foo+=1; 
+    if (foo < 5) return barfly(foo); else console.log('foo is',foo)  
+  } 
+}      
+/*
+  var makeBind = name => x => {
+    var x = x;
+    var ar = [];
+    var name = name;
+    var bin = () => {
+      if (x instanceof Promise) x.then(y => ar.push(y));
+      else ar.push(x)
+      return function debug8 (func) {
+        if (func.name === "terminate") return ar;
+        name = ar;
+        if (x instanceof Promise) {
+          x = x.then(v => func(v));
+          name = ar;
         }
-        return func => {
-            if (func == undefined) return Bind[str];
-            if (typeof func !== "function") p = func;
-            else if (x instanceof Promise) p = x.then(v => func(v));
-            else p = func(x);
-            return _bind(p);
-        };
+        else x = func(x);
+        return bin();
+      };
+    };
+    return bin;
   };
-  return _bind;
-};
 
-function Bd () {
-    var p = [];
-    var _bind = function _bind ( x ) {
-        return func => {
-            if (func == undefined) return [p];
-            if (typeof func !== "function") p = func;
-            else if (x instanceof Promise) p = x.then(v => func(v));
-            else p = func(x);
-            return _bind(p);
-        };
+  function binda (x, ar=[], str="susan", name ) {
+    this[str] = ar;
+    window[name] = name;
+    var that = this;
+    diffRender();
+    this[str] = ar;
+    if (x instanceof Promise) x.then(y => this[str].push(y));
+    else this[str].push(x)
+    return function debug8 (func) {
+      if (func.name === "terminate") return this[str];
+      var p;
+      if (x instanceof Promise) {
+        console.log("that === this,that, this",that===this,that,this);
+        p = x.then(v => func(v));
+        window[name] = this[str];
+      }
+      else {
+        p = func(x);
+        window[name] = this[str];
+      };
+      return binda(p, this[str]);
+    };
   };
-  return _bind;
-};
+  */
+  var logger = () => {console.log('(*)(*)(*)', arm ); return x};
 
-var bnD = Bd(); 
-
-var a1 = makeBind();
-var a2 = makeBind();
-var a3 = makeBind();
-var a4 = makeBind();
-var a5 = makeBind();
-var a6 = makeBind();
-var a7 = makeBind();
-var a8 = makeBind();
-var a9 = makeBind();
-
-// var xyz = {a:7, b:function (d) {return d}};
-
-var c = makeBind();
-var h = c.b(4)(x=>x**3)(x=>x+Bind[c.a][0])(cubeP)()
-console.log("h is", h)
+  var runDemo = n => {
+    bind2(n)(cubeP)(addP(3))(a=>a+arm[0]+arm[1]-18)
+    (multP(1/3))(addP(-11))(()=>arm[1]+arm[2]+arm[3])();
+    diffRender();
+  }
 
 
-var bind$ = n => xs.of(n);
+  function bindEmitterDriver () {
+    return xs.create({
+      start: listener => { bindEmitter.on = msg => listener.next(msg)},
+      stop: () => { bindEmitter.removeAllListeners() }
+    });
+  };
 
-function bindDriver () {
-  return xs.create({
-    start: listener => { bind$ = a => listener.next(a) },
-    stop: () => {}
-  })
-};
+  var bindAr$ = ar => xs.of(ar);
+  /*
+  function bind (x, ar=[]) {
+    var ar = ar;
+    if (ar.length === 0) ar = [x];
+    if (x instanceof Promise) x.then(y => ar.push(y));
+    else ar.push(x)
+    return function debug8 (func) {
+      if (func.name === "terminate") return ar;
+      var p;
+      if (x instanceof Promise) {
+        p = x.then(v => func(v));
+      }
+      else p = func(x);
+      return bind(p, ar);
+    };
+  };
+  */
+  function Driver () {
+    return xs.create({
+      start: listener => { freddy$ = k => listener.next(k)},
+      stop: () => {}
+    })
+  };
 
-var bind = Bind("bind0");
-var bind1 = Bind("bind1");
-var bind2 = Bind("bind2");
-var bind3 = Bind("bind3");
-var bind4 = Bind("bind4");
-var bind5 = Bind("bind5");
-var bind6 = Bind("bind6");
-var bind7 = Bind("bind7");
-var bind8 = Bind("bind8");
-var bind9 = Bind("bind9");
-var logger = () => {console.log('(*)(*)(*)', arm ); return x};
+  var it4 = x => {
+    if (socket.readyState === 1) socket.send(`BC#$42,${pMgroup.x},${pMname.x},${x}`);
+  }
+   
+  var it4_b = x => {
+    if (socket.readyState === 1) socket.send(`BD#$42,${pMgroup.x},${pMname.x},${x}`);
+  }
+   
+  var it4_c = x => {
+    if (socket.readyState === 1) socket.send(`BE#$42,${pMgroup.x},${pMname.x},${x}`);
+  }
+   
+  var wH$ = sources.WWH();
+  var worker$ = sources.WWH();
 
-var runDemo = n => {
-  bind2(n)(cubeP)(addP(3))(a=>a+arm[0]+arm[1]-18)
-  (multP(1/3))(addP(-11))(()=>arm[1]+arm[2]+arm[3])();
-  diffRender();
-}
+  worker$._ils = [2];
 
+  var it6 = y => {
+    mMZ40.bnd(y => workerH.postMessage([primeState, y]));
+  }
 
-function bindEmitterDriver () {
-  return xs.create({
-    start: listener => { bindEmitter.on = msg => listener.next(msg)},
-    stop: () => { bindEmitter.removeAllListeners() }
-  });
-};
+  var it6_b = y => {
+    mMZ41.bnd(y => workerM.postMessage([primeState, y]));
+  }
 
-var bindAr$ = ar => xs.of(ar);
-
-function Driver () {
-  return xs.create({
-    start: listener => { freddy$ = k => listener.next(k)},
-    stop: () => {}
-  })
-};
-
-var it4 = x => {
-  if (socket.readyState === 1) socket.send(`BC#$42,${pMgroup.x},${pMname.x},${x}`);
-}
- 
-var it4_b = x => {
-  if (socket.readyState === 1) socket.send(`BD#$42,${pMgroup.x},${pMname.x},${x}`);
-}
- 
-var it4_c = x => {
-  if (socket.readyState === 1) socket.send(`BE#$42,${pMgroup.x},${pMname.x},${x}`);
-}
- 
-var wH$ = sources.WWH();
-var worker$ = sources.WWH();
-
-worker$._ils = [2];
-
-var it6 = y => {
-  mMZ40.bnd(y => workerH.postMessage([primeState, y]));
-}
-
-var it6_b = y => {
-  mMZ41.bnd(y => workerM.postMessage([primeState, y]));
-}
-
-var it6_c = y => {
-  console.log("In it6_c -- posting to workerN -- y is", y);
-  mMZ42.bnd(y => workerN.postMessage([primeState, y]));
+  var it6_c = y => {
+    console.log("In it6_c -- posting to workerN -- y is", y);
+    mMZ42.bnd(y => workerN.postMessage([primeState, y]));
 }
 
 var callOrder = 0;
@@ -663,11 +846,24 @@ var start79;
 var m42_;
 var m43_;
 var m44_ = ["ready"];
+/*
+var it7 = () => mMZ52.bnd(string => {
+  callOrder = callOrder > 24 ? 1 : callOrder + 1;
+  if (callOrder === 1) start77 = Date.now(); 
+  m42_.push(callOrder + "  ");
+  m42_.push(string)
+  m42_.push(h('br'));
+  if (callOrder === 25) m42_.push('Elapsed time: ' + (Date.now() - start77) + " ms");
+});
+*/
 var RESULT_7 = [];
 
 var it8 = x => {
   workerH.postMessage([primesMonad.s, [x]]);
 }
+
+//var m42_RESULT3 = [];
+//m42_RESULT3 = m42_RESULT3.concat(h('div', [h('p', orange, RESULT_7.text).concat(h('br'))] 
 
 var RESULT_6 = ""
 var ar7 = [];
@@ -2125,6 +2321,8 @@ var fpTransformer = function fpTransformer(fibsState, primeState, then) {
   })
 }
 
+
+
 //*************************************** END prime Fibonacci numbers
 
 function fdTransformer (primeState, decompState, n) {
@@ -2235,6 +2433,48 @@ function styl (s) {
     default: return;  //console.log('Bad argument in styl. s is', s );
   }
 }
+
+/*
+var num0 = 0;
+var num1 = 1;
+var num2 = 2;
+var num3 = 3;
+
+var rNum = [1,2,3,4]
+
+  var rNode = [
+    h('button#r0', rNum[0] ),
+    h('button#r1', rNun[1] ),
+    h('button#r2', rNum[2] ),
+    h('button#r3', rNum[3] )
+  ];
+
+var rN = [rNum[0],rNum[1],rNum[2],rNum[3]];
+
+function bRoad (n,k,arr) {
+  var r = arr.slice();
+  var a = r[n];
+  r[n] = r[k];
+  r[k] = a;
+  return a;
+}
+
+function makeRDS (arr) {
+  var r = arr.slice();
+  return [
+    h('button#r0', r[0] ), h('button#r1', r[1] ),
+    h('button#r2', r[2] ), h('button#r3', r[3] ) 
+  ];
+};
+
+rNode = makeRDS ( bRoad(0,3,rN )
+
+*/
+
+
+
+
+
 
 function isPrime(n) {
    if (isNaN(n) || !isFinite(n) || n%1 || n<2) return false;
@@ -2381,6 +2621,31 @@ function rand () {
 
 var rand$ = xs.of(rand());
 
+/*
+function MonadEvents(z = 'default', ID = 'temp') {
+  var _this = this;
+  this.x = z;
+  this.id = ID;
+  this.bnd = function (func, ...args) {
+    var m = func(this.x, ...args)
+    var ID;
+    if (m instanceof MonadEvents) {
+      ID = testPrefix(args, _this.id);
+      window[ID] = new MonadEvents(m.x, ID);
+      return window[ID];
+    }
+    else return m;
+  };
+  this.ret = function (a) {
+    return window[_this.id] = new MonadEvent(a,_this.id);
+  };
+  this.stream = new EventEmitter();
+  this.stream.on(1, v => _this.bnd(v[0], ...[1]));
+  this.stream.on(2, v => _this.ret(v));
+};
+
+class MonadEmitter extends EventEmitter {};
+*/
 function monadConstructor (v,b) {
   var c = new MonadEmitter();
   c.x = v;
@@ -2405,6 +2670,43 @@ function monadConstructor (v,b) {
   c.on(2, v => c.bnd(v))
   return c;
 };
+
+/*
+var em = new EventEmitter;
+var eventEmitter = new EventEmitter;
+var em2 = new EventEmitter;
+em2.on('42',x => console.log(x));
+
+var producer = {
+  start: function (listener) {
+    em.emit('cow',45)
+  },
+
+  stop: function () {
+  },
+
+  id: 0
+}
+
+var listener = {
+  next: (x) => {
+    em.on(1, x => console.log('Yes sir.',x))
+  },
+  error: (err) => {
+    console.error('The Stream gave me an error: ', err);
+  },
+  complete: () => {
+    console.log('The Stream told me it is done.');
+  },
+}
+
+var stream$ = xs.of(producer)
+
+stream$.addListener(listener)
+
+em.on(142, v => console.log('142',v ));
+mMZ33.bnd(n => fn2(n));
+*/
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -2436,6 +2738,19 @@ function curryReverse(func) {
 
   var cRev = curryReverse(parseInt)(10);  // Useful function
   ["1","2","3","4","5"].map(v => cRev(v));  // returns [1,2,3,4,5]
+
+/*
+var funcP = () => {
+  var fred = [];
+  bind(1)(addP(2))(cubeC)(addC(3))(multP(2))(multC(3))
+  (addC(30))(multP(1/5))(it4)(it6)(it7)(terminate).slice(1,9)
+  .map(v => v.then(q => {
+    fred.push(q.x);
+    freday = fred.join(' ')
+    diffRender()
+  }))
+}
+*/
 
 function isPrime(n) {
    if (isNaN(n) || !isFinite(n) || n%1 || n<2) return false;
@@ -2493,11 +2808,102 @@ function execQ (prms, num) {
   }
 };
 
+/*
+function pfactors (primes, n) {
+  var ar = [];
+  while (n != 1) {
+    primes.map(p => {
+      if (n/p === Math.floor(n/p)) {
+        ar.push(p);
+        n = n/p;
+      };
+    })
+  }
+  return ar;
+}
+*/
 class Addable {
   [Symbol.for('+')] (other) {
     return // some computation which uses this and other 
   }
 }
+/*
+//****************************************************************** START MATRIX
+var indexDS = 0;
+
+function rMatrixF (a) {
+  var cw1 = Math.sqrt(a[0]*a[5] + a[1]*a[4]);
+  var cw2 = Math.sqrt(a[2]*a[7] + a[3]*a[6]);
+  var cw3 = Math.sqrt(a[8]*a[13] + a[9]*a[12]);
+  var cw4 = Math.sqrt(a[10]*a[15] + a[14]*a[11]);
+  var cw = Math.sqrt(cw1*cw4 + cw2*cw3);
+  return cw
+}
+
+
+
+var rNumsDS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
+var ArrDS = [ [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] ];
+
+function makeRDS (arr) {
+  var r = arr;
+  return [
+    h('button#mR0.mR', r[0] ), 
+    h('button#mR1.mR', r[1] ),
+    h('button#mR2.mR', r[2] ), 
+    h('button#mR3.mR', r[3] ), 
+    h('button#mR4.mR', r[4] ), 
+    h('button#mR5.mR', r[5] ),
+    h('button#mR6.mR', r[6] ), 
+    h('button#mR7.mR', r[7] ), 
+    h('button#mR8.mR', r[8] ), 
+    h('button#mR9.mR', r[9] ),
+    h('button#mR10.mR', r[10] ), 
+    h('button#mR11.mR', r[11] ), 
+    h('button#mR12.mR', r[12] ), 
+    h('button#mR13.mR', r[13] ),
+    h('button#mR14.mR', r[14] ), 
+    h('button#mR15.mR', r[15] ) 
+  ];
+};
+
+var rDataDS = [
+  h('button#mR0.mR', 0 ),
+  h('button#mR1.mR', 1 ),
+  h('button#mR2.mR', 2 ),
+  h('button#mR3.mR', 3 ),
+  h('button#mR4.mR', 4 ),
+  h('button#mR5.mR', 5 ),
+  h('button#mR6.mR', 6 ),
+  h('button#mR7.mR', 7 ),
+  h('button#mR8.mR', 8 ),
+  h('button#mR9.mR', 9 ),
+  h('button#mR10.mR', 10 ),
+  h('button#mR11.mR', 11 ),
+  h('button#mR12.mR', 12 ),
+  h('button#mR13.mR', 13 ),
+  h('button#mR14.mR', 14 ),
+  h('button#mR15.mR', 15 )
+];
+
+function rExchange (j, k, rN=rNumsDS, AR=ArrDS, rD = rDataDS, i = mMindexDS) {
+  console.log("In rExchange i is", i);
+  var r = rN;
+  var a = r[j];
+  r[j] = r[k];
+  r[k] = a;
+  console.log(r);
+  var g = r.slice();
+  AR.splice(i.x, 0, g);
+  console.log(AR)
+  rD = makeRDS(r); 
+  return rD;
+} 
+
+var horseDS = rDataDS;
+//****************************************************************** END MATRIX
+*/
 var rNuS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 var rGrid$ = rNuS => xs.of(rNuS);
 
@@ -2507,6 +2913,10 @@ function gridDriver () {
     stop: () => {}
   })
 };
+
+//  Highest possible number: 17.3
+//  rNumsDS: 6, 9, 4, 11, 8, 7, 10, 5, 2, 13, 0, 15, 12, 3, 14, 1
+//    rMatrixF(rNumsDS: 17.3160677686392   
 
 function rExDS ([, rN=rNumsDS, AR=ArrDS, rD = rDataDS, i = mMindexDS]) {
   console.log("In rExchange i is", i);
@@ -2582,22 +2992,6 @@ console.log(pr66(30,[2,3,5,7,11,13,17,19,23,29]).reverse().join("  "))
                var f = v => t => t.map(g=>v=g(v))
 
                f(3)(ar)  //   [3, 27, 30, 900, 3, 42]
-
-
-
-var ar = ['crap'];
-function pr (x,p) {
-
-  var primes = p.filter(p => (p < x));
-  primes.map(e => {
-    primes.map(p => {
-    if (( e + p ) == x && e > (x + 1)/2) {ar.push([p,e])};
-      })
-  })
-  return ar;  
-}
- 
-console.log(pr(30,[2,3,5,7,11,13,17,19,23,29]))
 
 
 
