@@ -1,3 +1,6 @@
 #!/bin/bash
 
-./wp && stack runghc Main &
+nohup stack runghc Main.hs &
+nohup warp -d dist &
+./wp 
+

@@ -37,6 +37,7 @@
     "mkdirp": "0.5.1",
     "mobx": "2.2.2",
     "npm": "^6.2.0",
+    "on-change": "^0.1.0",
     "pinkyswear": "^2.2.3",
     "ramda": "^0.25.0",
     "raw-loader": "^0.5.1",

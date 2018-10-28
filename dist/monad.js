@@ -1,6 +1,59 @@
 
 
-console.log("What about head and tail?");
+var window = {};
+
+onChange = (e,t)=>{
+            const n = {
+                get(e, t, o) {
+                    try {
+                        return new Proxy(e[t],n)
+                    } catch (n) {
+                        return Reflect.get(e, t, o)
+                    }
+                },
+                defineProperty: (e,n,o)=>(t(),
+                Reflect.defineProperty(e, n, o)),
+                deleteProperty: (e,n)=>(t(),
+                Reflect.deleteProperty(e, n))
+            };
+            return new Proxy(e,n)
+        }
+
+function Bind(str, bool = false) {
+    arBind[str] = [];
+    if (bool)  arBind[str] = onChange(arBind[str], () => {
+      diffRender();
+    });
+    var p;
+    var _bind = function _bind(x) {
+        if (x instanceof Promise) x.then(y => {
+            arBind[str].push(y);
+         //   diffRender();
+        })
+        else {
+            arBind[str].push(x)
+        //    diffRender();
+        }
+        return func => {
+            if (func == undefined) {
+              if (bool) setTimeout(diffRender(), 75);
+              return arBind[str];
+            }
+            if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else p = func(x);
+            return _bind(p);
+        };
+    };
+    return _bind;
+};
+
+function factorial(x) {
+    if (x <= 1) return 1;
+    return x * factorial(x-1) // tail-call recursion
+};
+
+function cloneOb (o) {return JSON.parse(JSON.stringify(o))};
 
 var head = function head([ a, ...b ]) { 
   return a;
@@ -11,10 +64,95 @@ var tail = function tail([ a, ...b ]) {
 
 var diffRender = function () {return 8};   ;  // See document.onload in maim
 
-const makeBind = () => { var x = 1;
-  while (Bind[x] != undefined) {x+=1};
-  return {a:x, b:Bind(x)}; }  
+//*****************************************************************
+var arBind = [];
+/* function Bind(str) {
+    arBind[str] = [];
+    var p;
+    var _bind = function _bind(x) {
+        if (x instanceof Promise) x.then(y => {
+            arBind[str].push(y);
+        })
+        else {
+            arBind[str].push(x)
+        }
+        return func => {
+            if (func == undefined) return arBind[str];
+            if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else p = func(x);
+            return _bind(p);
+        };
+    };
+    return _bind;
+}; */
 
+function getX () {
+    var x = Math.random();
+    while (arBind[x] != undefined) {
+        x += Math.random();
+    };
+    return x;
+}
+
+var mBnd = () => {
+    var x = Symbol(); 
+    return {
+        xVal: x,
+        run: Bind(x),
+        ar: arBind[x]
+    };
+}; 
+
+var mBndTrue = () => {
+
+    var x = getX()
+
+    var o = {
+        xVal: x,
+        run: Bind(x, true),
+        ar: arBind[x]
+    };
+
+    return o;
+}; 
+
+
+var bind = mBnd();
+  bind.run(2)(x => x ** 4);
+  console.log(arBind[bind.xVal])
+
+  bind.run(3)(x => x ** 4);
+  console.log(arBind[bind.xVal])
+
+  bind.run(4)(x => x ** 4);
+  console.log(arBind[bind.xVal])
+
+  bind.run(5)(x => x ** 4);
+  console.log(arBind[bind.xVal])
+
+  bind.run(6)(x => x ** 4);
+  console.log(arBind[bind.xVal])
+
+  bind.run(7)(x => x ** 4);
+  console.log(arBind[bind.xVal])
+
+
+
+  var makeBind = () => { 
+    var x = 1;
+    while (arBind[x] != undefined) {x+=1};
+    return {a:x, b:Bind(x)}; 
+}  
+
+var mkBind = () => {
+  var x = 1;
+  while (arBind[x] != undefined) {x+=1};
+  var f = Bind(x);
+  return {ar:arBind[x], run:f};  
+};
+
+// *****************************************************************
 const _bd = x => {
     var x = x;
     return function (func) {
@@ -25,7 +163,7 @@ const _bd = x => {
     }
 };
    
-function getAr (o) {return Bind[o.a]};
+function getAr (o) {return arBind[o.a]};
    
 function mapToInt (ar) {ar.map(e => toInt(e))};
 
@@ -73,17 +211,10 @@ var sock;
 var pName;
 var pigText = 888;
 
-var tInt = a => b => parseInt(b,a);  
-var toInt = tInt(10);
-var a11 = Bind('a11');
-var a12 = Bind('a12');
-var a13 = Bind('a13');
-var a14 = Bind('a14');
-var a15 = Bind('a15');
-var a16 = Bind('a16');
-var a17 = Bind('a17');
-var a18 = Bind('a18');
-var a19 = Bind('a19');
+var _convert_ = a => b => parseInt(b,a);  
+var toInt = _convert_(10);
+var toHex = _convert_(6);
+
 
 var a1 = makeBind();
 var a2 = makeBind();
@@ -95,90 +226,69 @@ var a7 = makeBind();
 var a8 = makeBind();
 var a9 = makeBind();
 
-var test4 = a => w => {
-  return a.b(w)(cubeP)(addP(3))(squareP)(x=>addP(x)
-    (-30*Bind[a.a][1]))(s=>idP(Math.floor(s/Bind[a.a][2])))
-    (x=>idP(x+Math.floor(Bind[a.a][0]*Bind[a.a][1]*
-    (Bind[a.a][2]/Bind[a.a][3]))))(); 
+/* var test4 = w => {
+  var a = mBnd().run
+  return a.run(w)(cubeP)(addP(3))(squareP)(x=>addP(x)
+    (-30*arBind[a.xVal][1]))(s=>idP(Math.floor(s/arBind[a.xVal][2])))
+    (x=>idP(x+Math.floor(arBind[a.xVal][0]*arBind[a.xVal][1]*
+    (arBind[a.xVal][2]/arBind[a.xVal][3]))))(); 
+};  */
+
+var ant = Bind('ant');
+
+var b87 = Bind("b87");
+
+arBind.a = [1,2,3,4,5,6,7];
+
+num9 = 0;
+
+var test4 = w => {
+  var a = mBndTrue()
+  return a.run(w)(cubeP)(addP(3))(squareP)
+  (x=>addP(x)(-30*a.ar[1]))
+  (s=>idP(Math.floor(s/a.ar[2])))
+  (x=>idP(x+Math.floor(a.ar[0]*a.ar[1]*(a.ar[2]/a.ar[3]))))(); 
 };
 
-var test6 = a => w => {
-    eval(a)(w)(cubeP)
-    (addP(3))(squareP)
-    (x=>addP(x)(-30*Bind[a][1]))
-    (s=>idP(Math.floor(s/Bind[a][2])))
-    (x=>idP(x+Math.floor(Bind[a][0]*Bind[a][1]*(Bind[a][2]/Bind[a][3]))))()
+var test6 = a => w  => {
+  window[a] = Bind(a);  
+  window[a](w)(cubeP)(addP(3))(squareP)
+  (x=>addP(x)(-30*arBind[a][1]))
+  (s=>idP(Math.floor(s/arBind[a][2])))
+  (x=>idP(x+Math.floor(arBind[a][0]*arBind[a][1]*(arBind[a][2]/arBind[a][3]))))(); 
 };
-                                                                       
-var testBind = a => {
-    makeBind()(a)
-    (cubeP)
-    (() => idP(Bind[a][0]-Bind[a][1]))
-    (x=>addP(x)(Bind[a][1]))()
-};
-                                                                       
-var _B1 = ["ready"];
-var _B2 = ["ready"];
-var _B3 = ["ready"];
-var _B4 = ["ready"];
-var _B5 = ["ready"];
-var _B6 = ["ready"];
-var _B7 = ["ready"];
-var _B8 = ["ready"];
-var _B9 = ["ready"];
+
+// ************************************************** test5
+  var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready']; 
+  var _C0 = _C1 = _C2 = _C3 = _C4 = _C5 = _C6 = _C7 = _C8 = ['ready']; 
+
 
 
   function test5 (n) {
     var x = toInt(n);
 
-    _B1 = test4(makeBind())(x+0)
-    _B2 = test4(makeBind())(x+1)
-    _B3 = test4(makeBind())(x+2)
-    _B4 = test4(makeBind())(x+3)
-    _B5 = test4(makeBind())(x+4)
-    _B6 = test4(makeBind())(x+5)
-    _B7 = test4(makeBind())(x+6)
-    _B8 = test4(makeBind())(x+7)
-    _B9 = test4(makeBind())(x+8)
+    _C0 = test6('a11')(x+0);
+    _C1 = test6('a12')(x+1);
+    _C2 = test6('a13')(x+2);
+    _C3 = test6('a14')(x+3);
+    _C4 = test6('a15')(x+4);
+    _C5 = test6('a16')(x+5);
+    _C6 = test6('a17')(x+6);
+    _C7 = test6('a18')(x+7);
+    _C8 = test6('a19')(x+8);
     
-    a11 = Bind('a11');
-    a12 = Bind('a12');
-    a13 = Bind('a13');
-    a14 = Bind('a14');
-    a15 = Bind('a15');
-    a16 = Bind('a16');
-    a17 = Bind('a17');
-    a18 = Bind('a18');
-    a19 = Bind('a19');
-
-    Bind.a11 = [];
-    a11 = Bind('a11');
-    test6('a11')(x+0)
-    Bind.a12 = [];
-    a12 = Bind('a12');
-    test6('a12')(x+1)
-    Bind.a13 = [];
-    a13 = Bind('a13');
-    test6('a13')(x+2)
-    Bind.a14 = [];
-    a14 = Bind('a14');
-    test6('a14')(x+3)
-    Bind.a15 = [];
-    a15 = Bind('a15');
-    test6('a15')(x+4)
-    Bind.a16 = [];
-    a16 = Bind('a16');
-    test6('a16')(x+5)
-    Bind.a17 = [];
-    a17 = Bind('a17');
-    test6('a17')(x+6)
-    Bind.a18 = [];
-    a18 = Bind('a18');
-    test6('a18')(x+7)
-    Bind.a19 = [];
-    a19 = Bind('a19');
-    test6('a19')(x+8)
-  }
+    _B0 = test4(x+0);
+    _B1 = test4(x+1);
+    _B2 = test4(x+2);
+    _B3 = test4(x+3);
+    _B4 = test4(x+4);
+    _B5 = test4(x+5);
+    _B6 = test4(x+6);
+    _B7 = test4(x+7);
+    _B8 = test4(x+8);
+    
+   
+}
 
 function test9 () {
   test5(-4);
@@ -189,7 +299,7 @@ function bindTest  () {
   test5(-4);
   // setTimeout(() => {test5(-4); test5(-4)},1500)
   // setTimeout(() => {test5(-4); test5(-4)},2200)
-  setTimeout(() => {test5(-4); test5(-3)},5400)
+  setTimeout(() => {test5(-4)},5400)
 };
 
   function rett (x, id="default") {return new Monad(x,id)};
@@ -388,14 +498,14 @@ function bindTest  () {
     var foo = Bind('foo'); 
     function demoFunc(x) {
       return foo(x)(v=>v+2)(v=>v*v*v)
-      (v=>v+3)(v=>v*Bind.foo[1])
-      (z=>z/Bind.foo[3] - 2)()
+      (v=>v+3)(v=>v*a.arfoo[1])
+      (z=>z/a.arfoo[3] - 2)()
     };
 
     function runTest(x) {
-      Bind.foo = [];
+      a.arfoo = [];
       var u = demoFunc(x); 
-      return [u, u === Bind.foo]
+      return [u, u === a.arfoo]
     } 
 
   function add3 (a,b,c) {return a+b+c};
@@ -608,50 +718,28 @@ function bindTest  () {
     };
   }; */
 
-    function Bind (str) {
-        Bind[str] = [];
-        var p;
-        var _bind = function _bind ( x ) {
-            if (x instanceof Promise) x.then(y => {
-                Bind[str].push(y);
-                diffRender();
-            })
-            else {
-                Bind[str].push(x)
-                diffRender();
-            }
-            return func => {
-                if (func == undefined) return Bind[str];
-                if (typeof func !== "function") p = func;
-                else if (x instanceof Promise) p = x.then(v => func(v));
-                else p = func(x);
-                return _bind(p);
-            };
-      };
-      return _bind;
-    };
+//"************************************************************************************"
+
+//*************************************************************************
 
     function Bd () {
-        var p = [];
-        var _bind = function _bind ( x ) {
-            return func => {
-                if (func == undefined) return [p];
-                if (typeof func !== "function") p = func;
-                else if (x instanceof Promise) p = x.then(v => func(v));
-                else p = func(x);
-                return _bind(p);
-            };
-      };
-      return _bind;
-    };
+        var p = 8888;
+        var _bind = p => func => {
+            if (func == undefined) return [p];
+            if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else p = func(x);
+        };
+        _bind(p);
+     };
 
     var bnD = Bd(); 
-
+console.log("bnD is", bnD);
   /*
   function makeBind (x)  {
     this.x = x;
     console.log("x is",x);
-    if (Bind[x] !== undefined) {
+    if (arBind[x] !== undefined) {
            makeBind(x+1);
       }
     window["B"+x] = {a:this.x, b:Bind("B"+x)};
@@ -659,7 +747,7 @@ function bindTest  () {
   }  
 
   function makeBind (x)  {
-    if (Bind[x] !== undefined) {
+    if (arBind[x] !== undefined) {
            makeBind(x+1);
       }
     return {a:x, b: Bind(x)};
@@ -678,9 +766,8 @@ function bindTest  () {
   // var xyz = {a:7, b:function (d) {return d}};
 
   var c = makeBind();
-  var h = c.b(4)(x=>x**3)(x=>x+Bind[c.a][0])(cubeP)()
+  var h = c.b(4)(x=>x**3)(x=>x+arBind[c.a][0])(cubeP)()
   console.log("h is", h)
-
  
   var bind$ = n => xs.of(n);
 
@@ -691,7 +778,6 @@ function bindTest  () {
     })
   };
 
-  var bind = Bind("bind0");
   var bind1 = Bind("bind1");
   var bind2 = Bind("bind2");
   var bind3 = Bind("bind3");
@@ -703,8 +789,8 @@ function bindTest  () {
   var bind9 = Bind("bind9");
   /*
 
-var b0 = () => Bind.bind;
-var b3 = () => Bind.bind3;
+var b0 = () => a.arbind;
+var b3 = () => a.arbind3;
 var bindArr = Bind("bindoArr")([]);
 var bindOb = Bind("bindoOb")({ar: []});
 
@@ -1934,6 +2020,11 @@ var toFloat = function toFloat(x) {
     return ret(array, 'cloneFunc')
   }
 
+   var cloneAr = function clone(x) {
+    var array = x.slice()
+    return ret(array, 'cloneFunc')
+  }
+
   var spliceAdd = function spliceAdd(x, index, array) {
       var ar = x.slice();
       ar.splice(index, 0, array);
@@ -2958,23 +3049,7 @@ console.log(Math.random()*100000000000000000);
 
 // var s = new Set();
 
-    
-function f (o) {return Bind[o.a]}
-     
-var r = makeBind();
-
-Bind[r.a] = [];
-
-var a  = r.b(1)(1)(-12) (()=>-(f(r)[1] + Math.sqrt(f(r)[1]*f(r)[1] - 4*f(r)[0]*f(r)[2]))/2*f(r)[0])()
-     
-Bind[r.a] = [];
-var b = r.b(1)(1)(-12)(()=>-(f(r)[1] - Math.sqrt(f(r)[1]*f(r)[1] - 4*f(r)[0]*f(r)[2]))/2*f(r)[0])()
-console.log('Quadratic Time &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
-console.log(a.pop(), b.pop());
-console.log('Quadratic Time &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
-     
-     
-
+   
 function pr66 (x,p) {
   var ar = [];
   var primes = p.filter(p => (p < x));
@@ -2993,16 +3068,58 @@ console.log(pr66(30,[2,3,5,7,11,13,17,19,23,29]).reverse().join("  "))
 
                f(3)(ar)  //   [3, 27, 30, 900, 3, 42]
 
+function extend(sup, base) {
+  var descriptor = Object.getOwnPropertyDescriptor(
+    base.prototype, 'constructor'
+  );
+  base.prototype = Object.create(sup.prototype);
+  var handler = {
+    construct: function(target, args) {
+      var obj = Object.create(base.prototype);
+      this.apply(target, obj, args);
+      return obj;
+    },
+    apply: function(target, that, args) {
+      sup.apply(that, args);
+      base.apply(that, args);
+    }
+  };
+  var proxy = new Proxy(base, handler);
+  descriptor.value = proxy;
+  Object.defineProperty(base.prototype, 'constructor', descriptor);
+  return proxy;
+}
 
 
+var view = new Proxy({
+  selected: null
+},
+{
+  set: function(obj, prop, newval) {
+    let oldval = obj[prop];
+
+    if (prop === 'selected') {
+      if (oldval) {
+        oldval.setAttribute('aria-selected', 'false');
+      }
+      if (newval) {
+        newval.setAttribute('aria-selected', 'true');
+      }
+    }
+
+    // The default behavior to store the value
+    obj[prop] = newval;
+
+    // Indicate success
+    return true;
+  }
+});
 
 
+// test6(3); 
+// console.log("arBind.a11", arBind.a11, "_______________________-----__--------------------- digit");
 
+test5(7);
 
-
-
-
-
-
-
+    
 
