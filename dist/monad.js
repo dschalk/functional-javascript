@@ -22,23 +22,19 @@ onChange = (e,t)=>{
 function Bind(str, bool = false) {
     arBind[str] = [];
     if (bool)  arBind[str] = onChange(arBind[str], () => {
-      diffRender();
+      diffRender();  // Causes Snabbdom to update the DOM
     });
     var p;
     var _bind = function _bind(x) {
         if (x instanceof Promise) x.then(y => {
             arBind[str].push(y);
-         //   diffRender();
         })
         else {
             arBind[str].push(x)
         //    diffRender();
         }
         return func => {
-            if (func == undefined) {
-              if (bool) setTimeout(diffRender(), 75);
-              return arBind[str];
-            }
+            if (func == undefined) return arBind[str];
             if (typeof func !== "function") p = func;
             else if (x instanceof Promise) p = x.then(v => func(v));
             else p = func(x);
@@ -47,6 +43,25 @@ function Bind(str, bool = false) {
     };
     return _bind;
 };
+
+/* 
+function Bind(str) {
+    arBind[str] = [];
+    var p;
+    var _bind = function _bind(x) {
+        if (x instanceof Promise) x.then(y => arBind[str].push(y); 
+        else arBind[str].push(x);
+        return func => {
+            if (func == undefined) return arBind[str];
+            if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else p = func(x);
+            return _bind(p);
+        };
+    };
+    return _bind;
+}; 
+*/
 
 function factorial(x) {
     if (x <= 1) return 1;
@@ -64,28 +79,7 @@ var tail = function tail([ a, ...b ]) {
 
 var diffRender = function () {return 8};   ;  // See document.onload in maim
 
-//*****************************************************************
 var arBind = [];
-/* function Bind(str) {
-    arBind[str] = [];
-    var p;
-    var _bind = function _bind(x) {
-        if (x instanceof Promise) x.then(y => {
-            arBind[str].push(y);
-        })
-        else {
-            arBind[str].push(x)
-        }
-        return func => {
-            if (func == undefined) return arBind[str];
-            if (typeof func !== "function") p = func;
-            else if (x instanceof Promise) p = x.then(v => func(v));
-            else p = func(x);
-            return _bind(p);
-        };
-    };
-    return _bind;
-}; */
 
 function getX () {
     var x = Math.random();
@@ -95,28 +89,16 @@ function getX () {
     return x;
 }
 
-var mBnd = () => {
+//***************************************************************** mBnd
+var mBnd = (bool = null) => {
     var x = Symbol(); 
-    return {
-        xVal: x,
-        run: Bind(x),
-        ar: arBind[x]
-    };
+    return { run: Bind(x, bool), ar: arBind[x] };
 }; 
 
 var mBndTrue = () => {
-
-    var x = getX()
-
-    var o = {
-        xVal: x,
-        run: Bind(x, true),
-        ar: arBind[x]
-    };
-
-    return o;
+    var x = Symbol(); 
+    return { run: Bind(x, true), ar: arBind[x] };
 }; 
-
 
 var bind = mBnd();
   bind.run(2)(x => x ** 4);
@@ -139,7 +121,7 @@ var bind = mBnd();
 
 
 
-  var makeBind = () => { 
+var makeBind = () => { 
     var x = 1;
     while (arBind[x] != undefined) {x+=1};
     return {a:x, b:Bind(x)}; 

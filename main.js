@@ -1,12 +1,11 @@
     
-
+    
     // import ws from 'ws';
     // import {makeHTTPDriver} from '@cycle/http';
     import {h,p,span,h1,h2,h3,pre,a,br,div,label,input,hr,makeDOMDriver} from '@cycle/dom';
     import Cycle from '@cycle/xstream-run';
     import code from './code.js';
     import {run} from './cycle-run.js';
-
     console.log("onChange is", onChange);
 
      socket = new WebSocket("ws://localhost:3055");
@@ -2060,23 +2059,22 @@
     h('div', 'f(x)(functiona1)(function2) ... (functionN)(); ')
   ]),
   h('p', ' where f = mBnd() amd mBnd() is defined as: ' ),
-  h('pre', `    var mBnd = () => {
+  h('pre', `    var mBnd = (bool = null) => {
         var x = Symbol(); 
-        return {
-            xVal: x,
-            run: Bind(x),
-            ar: arBind[x]
-        };
+        return { run: Bind(x, bool), ar: arBind[x] };
     }; ` ),
   h('p', ' Bind is defined as: ' ),
-  h('pre', `    function Bind(str) {
+  h('pre', `    function Bind(str, bool = false) {
         arBind[str] = [];
+        if (bool)  arBind[str] = onChange(arBind[str], () => {
+          diffRender();  // Proxy causes Snabbdom to update the DOM
+        });
         var p;
         var _bind = function _bind(x) {
             if (x instanceof Promise) x.then(y => arBind[str].push(y); 
             else arBind[str].push(x);
             return func => {
-                if (func == undefined) {
+                if (func == undefined) return arBind[str];
                 if (typeof func !== "function") p = func;
                 else if (x instanceof Promise) p = x.then(v => func(v));
                 else p = func(x);
@@ -2085,43 +2083,36 @@
         };
         return _bind;
     }; ` ),
-  h('p', ' and ' ), 
-  h('div', styleFunc(["rgb(7, 247, 247)", "3%", "21px", , , ]), [
+  h('p', ' causing ' ), 
+  h('div', styleFunc(["#4dff4d", "3%", "21px", , , ]), [
   h('div', 'f(x)(functiona1)(function2) ... (functionN)(); ')
   ]),
-  h('p', ' has the following features: ' ),
-  h('pre', styleFunc(["rgb(7, 247, 247)", , "19px", , , ]), `    x can be any value,
+  h('p', ' to have the following features: ' ),
+  h('pre', styleFunc(["#4dff4d", , "19px", , , ]), `    x can be any value,
 
     there are no restrictions on the functions\' return values
        (they can even return promises),
 
-    it follows that there are no restrictions on the single-value arguments 
-       functions can take since these arguments are the prior functions\'
-       return values (which can be plain objects, arrays, etc.)
+    so naturally there are no restrictions on the single-value arguments 
+       (primitives, functions, arrays, etc.) functions can take since these 
+       are the prior functions\' return values,
 
     functions have built-in access to all prior functions\' return values
        (or resolution values when promises are returned),
 
     collisions between functions defined in this way are impossible,
 
-    "()" at the end of the sequence terminates the computations and causes
-        the array of every return value (or Promise resolution values) to 
-        be returned. ` ),
+    "()" or "(null)" at the end of the sequence terminates the procedure and 
+        causes the array of every return value (or Promise resolution values) 
+        to  be returned. "().pop()" gets the final result. ` ),
     h('p', ' The first example performs a computation, requests a quasi-random number from the WebSocket server, requests that number\'s prime decomposition from a web worker, and displays the result. The code runs twenty-five times. '),
   ]),
   h('div.content2', [
-    h('br'),
-              h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 1 '),
-              h('div', {
-                style: {
-                  width: '47%',
-                  fontSize: '18px',
-                  float: 'left'
-                }
-              }, [ // *** LEFT PANEL 
+  h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 1 '),
+  h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
 
-                h('p', ' This demonstration uses Bind() directly, rather than mBnd(). It even uses the same instance of _bind(), which is returned by Bind("bb"). This works because the functions to not rely on the array of return values. Demonstration 2 will show what happens when Bind() is used directly and functions try to use peviously generated return values. '),
-                h('pre', `    var factorsClick9$ = sources.DOM
+  h('p', ' This demonstration uses Bind() directly, rather than mBnd(). It even uses the same instance of _bind(), which is returned by Bind("bb"). This works because the functions to not rely on the array of return values. Demonstration 2 will show what happens when Bind() is used directly and functions try to use peviously generated return values. '),
+  h('pre', `    var factorsClick9$ = sources.DOM
       .select('button#factors_S').events('click');
 
     var factorsAction9$ = factorsClick9$.map(() => {
@@ -2135,7 +2126,7 @@
       }
     });  ` ),
 
-    h('p', ' The factorsClick9$ stream detects clicks on the button in the right column. In factorsAction9$, factorsClick9$\'s map method is called, prompting bnD(145)(x=>x*x*x)(it4_c)(it6_c)(it7_c) to execute twenty-five times. '),
+    h('p', ' The factorsClick9$ stream responds to clicks on the button in the right column. In factorsAction9$, factorsClick9$\'s map method is called, prompting bnD(145)(x=>x*x*x)(it4_c)(it6_c)(it7_c) to execute twenty-five times. As the cache of prime numbers builds, run times decrease. '),
 
   ]), 
   h('div', { style: { width: '47%', fontSize: '18px', float: 'right' }
@@ -2145,14 +2136,10 @@
   h('span', ' Click below to begin twenty-five runs of: '),
   h('br'),
   h('br'),
-  h('span', styleFunc(["rgb(7, 247, 247)", "12%", "20px", , , , , ]), 'bnD(145)(x=>x**3)(it4_b)(it6_b)(it7_b)'),
+  h('span', styleFunc(["rgb(7, 247, 247)", "12%", "20px", , , , , ]), 'bb(145)(x=>x**3)(it4_c)(it6_c)(it7_c)'),
   h('br'),
   h('br'),
-  h('button#factors_R', {
-    style: {
-      fontSize: '15px'
-    }
-  }, 'bd(145)(x=>x**3)(it4_b)(it6_b)(it7_b)'),
+  h('button#factors_R', { style: { fontSize: '15px' }}, 'bb(145)(x=>x**3)(it4_c)(it6_c)(it7_c)'),
   h('span', "~~"),
   h('button.clear_R', {
     style: {
@@ -2169,42 +2156,32 @@
     h('br'),
     h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
 
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Using makeBind() to Avoid Clashes'),
+h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // ((***** LEFT PANEL 
+h('h3', 'The Problem With Direct Calls to Bind()'),
+h('p', ' The statement "f = Bind(\'f\')") returns a fresh copy of _bind but not a fresh copy the array arBind["f"]. After f() has been created and called, subsequent calls push additional data into arBind[\'f\']. Nine distinct copies of _bind() are used in the top nine computation. arBind is cleared prior to the each start but when the procedures are re-started prior to finishing, two running processes share each array. The result, as you can see, is nonsensical data sometimes including "NaN" and "infinity". '),
+h('h3', 'The makeBind Solution'),
+h('p', ' The following four lines of code (also shown above) make it possible for a function "func" defined repeatedly by "func = mBnd()" to be called while it is still running without sharing the arrays assigned to previous calls to func().  for two running processes to share an array on arBind. '),
+  h('pre', `    var mBnd = (bool = null) => {
+        var x = Symbol(); 
+        return { run: Bind(x, bool), ar: arBind[x] };
+    }; ` ),
+h('p', ' Here\'s the code that generates the bottom nine lines displayed in the right column: '),
+h('pre', `    function test5 (n) {
+        var x = toInt(n);
 
-            h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Using makeBind() to Avoid Clashes'),
-
-            h('div', {
-              style: {
-                width: '47%',
-                fontSize: '18px',
-                float: 'left'
-              }
-            }, [ // ((***** LEFT PANEL 
-
-              h('h3', 'The Problem With Direct Calls to Bind()'),
-              h('p', ' The statement "f = Bind(\'f\')") returns a fresh copy of _bind but not of the array arBind["f"]. After f() has been created and called, subsequent calls push additional data into arBind[\'f\']. You can\'t get reliable information from an array containing entries pushed into it by concurrent calls to f().  '),
-              h('h3', 'The makeBind Solution'),
-              h('p', ' These three lines of code take the danger out of running multiple copies of _bind simultaneously:'),
-              h('pre', `  const makebind = () => { var x = 1;
-       while (bind[x] != undefined) {x+=1};
-       return {a:x, b:bind(x)}; } `),
-              h('p', ' Here\'s the code that generates the bottom nine lines displayed in the right column: '),
-              h('pre', `  function test5 (n) {
-    var x = toInt(n);
-    _B0 = test4(makeBind())(x+0)
-    _B1 = test4(makeBind())(x+1)
-    _B2 = test4(makeBind())(x+2)
-    _B3 = test4(makeBind())(x+3)
-    _B4 = test4(makeBind())(x+4)
-    _B5 = test4(makeBind())(x+5)
-    _B6 = test4(makeBind())(x+6)
-    _B7 = test4(makeBind())(x+7)
-    _B8 = test4(makeBind())(x+8)
-    . . .  `),
+        _C0 = test6('a11')(x+0);
+        _C1 = test6('a12')(x+1);
+        _C2 = test6('a13')(x+2);
+        _C3 = test6('a14')(x+3);
+        _C4 = test6('a15')(x+4);
+        _C5 = test6('a16')(x+5);
+        _C6 = test6('a17')(x+6);
+        _C7 = test6('a18')(x+7);
+        _C8 = test6('a19')(x+8);  `),
               h('p', ' The user generates "n". _B1, _B2, ... , _B9 are ensconsed in the virtual DOM. test4() is defined on the right. -> '),
                 h('p', ' Clicking the button on the right calls test6() and test4() nine times. test6() (at the top) shows what can go wrong when copies of _bind are created by direct calls to Bind(). The code normally runs to completion in 6000 ms. If you click the button, test6 and test4 are called again after 5400 ms. The results speak for themselves'),
                 h('p', ' If you enter a number on the right and press <ENTER> once, you will see that test4() and test6() produce identical results. If you Press <ENTER> during execution, you will see garbage above your entry; but below you will see just what you saw when you pressed <ENTER> once. It resembles the rollback of an interrupted atomic transaction as seen, for example, in interrupted database transactions. '),
-                h('br'),
-
 
               ]), h('div', {
                 style: {
@@ -2284,18 +2261,11 @@
 
               ]),
 
-              h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
 
               h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
               h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 3 '),
+h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
 
-              h('div', {
-                style: {
-                  width: '47%',
-                  fontSize: '18px',
-                  float: 'left'
-                }
-              }, [ // *** LEFT PANEL 
                 h('p', ' In Demonstration 2, we saw copies of _bind returning useless data when they were called more than once. That because all completed and currently running instances with the same name were dumping data in a shared array and then trying to use it. Perhaps Bind() should be modified to make named copies of _bind() empty their arrays at the start of each computation sequence. '),
 
                 h('span.tao', ' There are, however, advantages to letting data accumulate. In this demonstration, qfB() is defined by "qfB = makeBind()". qfB.b() is called three times before arBind[qfB.a] is emptied. qFunc is called on the values in arBind[qfB.a] after the third one arrives, feeding them into the '),
@@ -2334,7 +2304,7 @@
 
                 //  h('div', \`${qR1}\` ), 
                 //  h('div', \`${qR2}\` ), 
-
+h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third time you press <ENTER>, the answer will appear. ' ),
                 h('input#qF1', {
                   style: {
                     height: "15px",
@@ -2567,73 +2537,6 @@
               h('div#bind'),
 
               h('br'),
-              h('br'),
-
-              h('a', {
-                props: {
-                  href: '#top'
-                }
-              }, 'Back to the top.'),
-              h('br'),
-              h('a', {
-                props: {
-                  href: '#lion'
-                }
-              }, 'Back to the demonstrations.'),
-
-              h('p', 'CAUTION - SOME OF THE COMMENTARY AFTER THIS POINT LAGS BEHIND RECENT REVISIONS.'),
-              h('p', ' bind() is returned by mBnd(), which depends on Bind(). Here they are: ' ),
-              h('pre', {style: {color: "lightBlue" }}, `      var bind = mBnd();
-
-        var mBnd = () => {
-            var x = 1;
-            while (arBind[x] != undefined) {
-                x += 1
-            };
-            var f = Bind(x);
-
-            function g(z) {
-                this[z] = Bind(x);
-                return z;
-            }
-            var o = {
-                xVal: x,
-                ar: arBind[x],
-                run: g(f)
-            };
-            o.run = new Proxy(o.run, {   
-                  //  This Proxy removes previously accumulated elements from ar.
-              apply: function (target, thisValue, args) {
-                arBind[o.xVal] = [];
-                return target(...args);
-              }
-            }); return o;
-        }
-
-
-        function Bind (str) {
-            arBind[str] = [];
-            var p;
-            var __bind = function __bind ( x ) {
-                if (x instanceof Promise) x.then(y => {
-                    arBind[str].push(y);
-                    diffRender();
-                })
-                else {
-                    arBind[str].push(x)
-                    diffRender();
-                }
-                return func => {
-                    if (func == undefined) return arBind[str];
-                    if (typeof func !== "function") p = func;
-                    else if (x instanceof Promise) p = x.then(v => func(v));
-                    else p = func(x);
-                    return __bind(p);
-                };
-            };
-            return __bind;
-        }; `),
-              h('a', { props: {href: '#content2'}}, 'Back to the discussion'), // content2 2222222222222222
               h('p', ' The asynchronous functions in Demonstration 1 use monadItter instances mMZ40 and mMZ52 instead of Promises. Here\'s the definition of MonadItter: '),
               h('pre', `  var MonadItter = function MonadItter() {
       this.p = function () {};
