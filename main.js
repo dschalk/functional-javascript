@@ -8,8 +8,8 @@
     import {run} from './cycle-run.js';
     console.log("onChange is", onChange);
 
-     socket = new WebSocket("ws://localhost:3055");
-    // socket = new WebSocket("ws://204.48.16.214:3055");
+    //  socket = new WebSocket("ws://localhost:3055");
+    socket = new WebSocket("ws://204.48.16.214:3055");
     // socket = new WebSocket("ws://142.93.205.167:3055");
     // socket = new WebSocket("ws://schalk.net:3055");
     // socket = new WebSocket("ws://schalk.site:3055");
@@ -2086,7 +2086,7 @@
   h('p', ' causing ' ), 
   h('div', styleFunc(["#4dff4d", "3%", "21px", , , ]), [
   h('div', 'f(x)(functiona1)(function2) ... (functionN)(); ')
-  ]),
+  ]), 
   h('p', ' to have the following features: ' ),
   h('pre', styleFunc(["#4dff4d", , "19px", , , ]), `    x can be any value,
 
@@ -2166,21 +2166,52 @@ h('p', ' The following four lines of code (also shown above) make it possible fo
         var x = Symbol(); 
         return { run: Bind(x, bool), ar: arBind[x] };
     }; ` ),
-h('p', ' Here\'s the code that generates the bottom nine lines displayed in the right column: '),
-h('pre', `    function test5 (n) {
-        var x = toInt(n);
+h('p', ' Here is the code responsible for the output in the right column: ' ),
+h('pre', `  var test4 = w => {
+    var a = mBnd(true)
+    return a.run(w)(cubeP)(addP(3))(squareP)
+    (x=>addP(x)(-30*a.ar[1]))
+    (s=>idP(Math.floor(s/a.ar[2])))
+    (x=>idP(x+Math.floor(a.ar[0]*a.ar[1]*
+        (a.ar[2]/a.ar[3]))))() 
+  } 
 
-        _C0 = test6('a11')(x+0);
-        _C1 = test6('a12')(x+1);
-        _C2 = test6('a13')(x+2);
-        _C3 = test6('a14')(x+3);
-        _C4 = test6('a15')(x+4);
-        _C5 = test6('a16')(x+5);
-        _C6 = test6('a17')(x+6);
-        _C7 = test6('a18')(x+7);
-        _C8 = test6('a19')(x+8);  `),
-              h('p', ' The user generates "n". _B1, _B2, ... , _B9 are ensconsed in the virtual DOM. test4() is defined on the right. -> '),
-                h('p', ' Clicking the button on the right calls test6() and test4() nine times. test6() (at the top) shows what can go wrong when copies of _bind are created by direct calls to Bind(). The code normally runs to completion in 6000 ms. If you click the button, test6 and test4 are called again after 5400 ms. The results speak for themselves'),
+  var test6 = a => w  => {
+    window[a] = Bind(a);  
+    window[a](w)(cubeP)(addP(3))(squareP)
+    (x=>addP(x)(-30*arBind[a][1]))
+    (s=>idP(Math.floor(s/arBind[a][2])))
+    (x=>idP(x+Math.floor(arBind[a][0]*arBind[a][1]*
+        (arBind[a][2]/arBind[a][3]))))(); 
+  };
+
+    function test5 (n) {
+      var x = toInt(n);
+
+      _C0 = test6('a11')(x+0); // This code fails under stress.
+      _C1 = test6('a12')(x+1);
+      _C2 = test6('a13')(x+2);
+      _C3 = test6('a14')(x+3);
+      _C4 = test6('a15')(x+4);
+      _C5 = test6('a16')(x+5);
+      _C6 = test6('a17')(x+6);
+      _C7 = test6('a18')(x+7);
+      _C8 = test6('a19')(x+8);
+      
+      _B0 = test4(x+0);       // This code uses mBnd and is robust.
+      _B1 = test4(x+1);
+      _B2 = test4(x+2);
+      _B3 = test4(x+3);
+      _B4 = test4(x+4);
+      _B5 = test4(x+5);
+      _B6 = test4(x+6);
+      _B7 = test4(x+7);
+      _B8 = test4(x+8);
+  } ` ),
+
+              h('p', ' The user generates "n". _B0, _B1, ... _B8 and _C0, _C1, ... _C8 are permanent fixtures in the virtual DOM. ' ),
+                h('p', ' Clicking the button on the right calls test5() which calls test6() and test4() nine times. test6() (at the top) shows what can go wrong when copies of _bind are created by direct calls to Bind() are used. The code normally runs to completion in 6000 ms. If you click the button, test5 is called again after 5400 ms. The results speak for themselves'),
+                h('p', ' The situation might become clearer if you note that every time you run, say, a3 = Bind("a3"), the latest instance of a3 along with all previous ones use arBind.a3. On the other hand, repeated invocation of "a = mBnd(true)" creates a fresh, inscrutable key and initial value  "arBind.Symbol(): Symbol = []" that might appear identical to other key/value pairs but which has its own unique id in the Symbol registry. ' ),
                 h('p', ' If you enter a number on the right and press <ENTER> once, you will see that test4() and test6() produce identical results. If you Press <ENTER> during execution, you will see garbage above your entry; but below you will see just what you saw when you pressed <ENTER> once. It resembles the rollback of an interrupted atomic transaction as seen, for example, in interrupted database transactions. '),
 
               ]), h('div', {
