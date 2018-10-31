@@ -2,6 +2,7 @@
     
     // import ws from 'ws';
     // import {makeHTTPDriver} from '@cycle/http';
+    import {require} from "requirejs";
     import {h,p,span,h1,h2,h3,pre,a,br,div,label,input,hr,makeDOMDriver} from '@cycle/dom';
     import Cycle from '@cycle/xstream-run';
     import code from './code.js';
@@ -14,6 +15,11 @@
     // socket = new WebSocket("ws://schalk.net:3055");
     // socket = new WebSocket("ws://schalk.site:3055");
     // ws = new WebSocket("ws://echo.websocket.org");
+
+
+console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
+
+
 
     function bNode(arr) {
       var x = styl(arr.length);
@@ -2052,23 +2058,31 @@
 
   ]), h('div.content', [ // 2 brackets  main -> content ->
   h('br'),
-  h('p', ' This is a Cycle.js application that works in conjuntions with a Haskell Wai WebSockets server. The functions are mostly pure and data is immutable where appropriate, but the code is unrestricted ES2017 in all it\s pristine glory. ' ),   
-  h('p', ' The essence of coding functionally in JavaScript is assembling programs out of small, reusable functions that work under the direction of some specialized higher-order functions. Working with ersatz "functors" and "monads" is unlikely to get you anywhere. Religiously using only immutable objects and pure functions won\'t bring success any more than makeshift runways bring merchandise to cargo cults. ' ),
-  h('p', ' Here\'s some functional code: ' ),
+  h('p', ' This is a Cycle.js application working in conjunctions with a Haskell Wai WebSockets server. The JavaScript is plain, unrestricted ES7(Ecmascript 2016).  ' ),   
+  
+
+  h('p', ' JavaScript is more flexible than exclusively functional languages like Lisp and Haskell, which are designed to use pure functions and immutable data. While it is true that you can optimize performance, facilitate easy maintenance, and simplify debugging by constricting JavaScript to use only pure functions and avoid mutation (especially outside the scopes of functions), it is unfortunate that these restrictions are so widely thought to be necessary features of functional programming in JavaScript. Thinking this way inhibits the acquisition of important skills. ' ),
+  h('span.tao', ' The essence of functional programming is programming with small, reusable functions guided by specialized higher-order functions. One way to compose a function "f" with a function "g" is to use an object "o = {value, method}" where o.method(f) returns {f(value), method}. It follows that o.method(f).method(g) = {g(f(value)), method}. Functions like "o" are often called "monads". There\'s no harm in that. It seems to make people feel smart. In reality, these erzats "monads" scarecely resemble members of the type class Monad in Haskell, much less mathematical objects adhering to the Category Theory ' ),
+h('a', {props: {href: "https://en.wikipedia.org/wiki/Monad_(category_theory)#Formal_definition", target: "_blank"
+}}, 'definition of a monad' ), 
+h('p', ' Instead of linking erzats monads, how about using a higher-order function such as the one shown below. True, under the hood "f" still links objects containing values and methods, but look at the slick presentation and myriad possibilities inherent in this approach: ' ), 
+h('span', '. ' ),    
   h('div', styleFunc(["#FFD700", "3%", "21px", , , ]), [
-    h('div', 'f(x)(functiona1)(function2) ... (functionN)(); ')
+    h('div', 'f.run(x)(function1)(function2) ... (functionN)(); ')
   ]),
-  h('p', ' where f = mBnd() amd mBnd() is defined as: ' ),
-  h('pre', `    var mBnd = (bool = null) => {
+  h('p', ' where f = mBnd() and mBnd() is defined as: ' ),
+  h('pre', `    const mBnd = (bool = null) => {
         var x = Symbol(); 
         return { run: Bind(x, bool), ar: arBind[x] };
     }; ` ),
   h('p', ' Bind is defined as: ' ),
   h('pre', `    function Bind(str, bool = false) {
         arBind[str] = [];
-        if (bool)  arBind[str] = onChange(arBind[str], () => {
-          diffRender();  // Proxy causes Snabbdom to update the DOM
-        });
+        if (bool)  arBind[str] = onChange(
+            arBind[str], () => {     // Makes arBind[str] a Proxy of itself.
+                diffRender();         // Causes Snabbdom to update the DOM
+            }
+        );
         var p;
         var _bind = function _bind(x) {
             if (x instanceof Promise) x.then(y => arBind[str].push(y); 
@@ -2100,11 +2114,11 @@
     functions have built-in access to all prior functions\' return values
        (or resolution values when promises are returned),
 
-    collisions between functions defined in this way are impossible,
+    functions defined with mBnd and the data they generate are immutable,
 
-    "()" or "(null)" at the end of the sequence terminates the procedure and 
-        causes the array of every return value (or Promise resolution values) 
-        to  be returned. "().pop()" gets the final result. ` ),
+    "()", "(null)", or any other null value at the end of the sequence terminates 
+        the procedure and causes the array of every return value (or Promise 
+        resolution values) to be returned. "().pop()" gets the final result. ` ),
     h('p', ' The first example performs a computation, requests a quasi-random number from the WebSocket server, requests that number\'s prime decomposition from a web worker, and displays the result. The code runs twenty-five times. '),
   ]),
   h('div.content2', [
@@ -2212,7 +2226,7 @@ h('pre', `  var test4 = w => {
               h('p', ' The user generates "n". _B0, _B1, ... _B8 and _C0, _C1, ... _C8 are permanent fixtures in the virtual DOM. ' ),
                 h('p', ' Clicking the button on the right calls test5() which calls test6() and test4() nine times. test6() (at the top) shows what can go wrong when copies of _bind are created by direct calls to Bind() are used. The code normally runs to completion in 6000 ms. If you click the button, test5 is called again after 5400 ms. The results speak for themselves'),
                 h('p', ' The situation might become clearer if you note that every time you run, say, a3 = Bind("a3"), the latest instance of a3 along with all previous ones use arBind.a3. On the other hand, repeated invocation of "a = mBnd(true)" creates a fresh, inscrutable key and initial value  "arBind.Symbol(): Symbol = []" that might appear identical to other key/value pairs but which has its own unique id in the Symbol registry. ' ),
-                h('p', ' If you enter a number on the right and press <ENTER> once, you will see that test4() and test6() produce identical results. If you Press <ENTER> during execution, you will see garbage above your entry; but below you will see just what you saw when you pressed <ENTER> once. It resembles the rollback of an interrupted atomic transaction as seen, for example, in interrupted database transactions. '),
+                h('p', ' If you enter a number on the right and press <ENTER> once, you will see that test4() and test6() produce identical results. If you Press <ENTER> again during execution, you will see garbage above your entry; but below you will see just what you saw when you pressed <ENTER> once. It resembles the rollback of an interrupted atomic transaction as seen, for example, in interrupted database transactions.  '),
 
               ]), h('div', {
                 style: {
@@ -3888,7 +3902,7 @@ h('p', ' This is of little utility, but I like it: ' ),
 h('pre', {style: {color: " #AADDAA",fontSize: "17px"}}, `  var ar = [x=>x, x=>x**3, x=>x+3, x=>x**2,                      
     x=>x*14, x=>x/1800, x=>x*6];
 
-  var f = v => t => t.map(g=>v=g(v)); // repeatedly mutating "g".
+  var f = v => t => t.map(g=>v=g(v)); // repeatedly mutating "v".
 
   f(3)(ar)  //   [3, 27, 30, 900, 12600, 7, 42];  `),
             h('p', ' Objects are cloned so past states remain accessible but they are mutated inside of functions for efficiency and to keep the stack from overflowing. Functions ordinarily don\'t interact with the environments outside of their scopes but methods might cause side effects in the objects that contain them. "Functional programming" in this project is about using all that the language offers to create functions that streamline applications and make them readable, maintainable, and robust. Just be sure to cause side effects, alter the contents of specific addresses in memory, and define global variables with the utmost restraint and care.'),

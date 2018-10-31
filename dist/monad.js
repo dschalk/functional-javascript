@@ -89,38 +89,6 @@ function getX () {
     return x;
 }
 
-//***************************************************************** mBnd
-var mBnd = (bool = null) => {
-    var x = Symbol(); 
-    return { run: Bind(x, bool), ar: arBind[x] };
-}; 
-
-var mBndTrue = () => {
-    var x = Symbol(); 
-    return { run: Bind(x, true), ar: arBind[x] };
-}; 
-
-var bind = mBnd();
-  bind.run(2)(x => x ** 4);
-  console.log(arBind[bind.xVal])
-
-  bind.run(3)(x => x ** 4);
-  console.log(arBind[bind.xVal])
-
-  bind.run(4)(x => x ** 4);
-  console.log(arBind[bind.xVal])
-
-  bind.run(5)(x => x ** 4);
-  console.log(arBind[bind.xVal])
-
-  bind.run(6)(x => x ** 4);
-  console.log(arBind[bind.xVal])
-
-  bind.run(7)(x => x ** 4);
-  console.log(arBind[bind.xVal])
-
-
-
 var makeBind = () => { 
     var x = 1;
     while (arBind[x] != undefined) {x+=1};
@@ -224,8 +192,21 @@ arBind.a = [1,2,3,4,5,6,7];
 
 num9 = 0;
 
+var mBndTrue = () => {
+    var x = Symbol(); 
+    return { run: Bind(x, true), ar: arBind[x] };
+}; 
+
+//***************************************************************** mBnd, test4, test5, test6
+
+var mBnd = (bool = false) => {
+    var x = Symbol(); 
+    return { run: Bind(x, bool), ar: arBind[x] };
+}; 
+
+
 var test4 = w => {
-  var a = mBndTrue()
+  var a = mBnd(true)
   return a.run(w)(cubeP)(addP(3))(squareP)
   (x=>addP(x)(-30*a.ar[1]))
   (s=>idP(Math.floor(s/a.ar[2])))
@@ -240,11 +221,8 @@ var test6 = a => w  => {
   (x=>idP(x+Math.floor(arBind[a][0]*arBind[a][1]*(arBind[a][2]/arBind[a][3]))))(); 
 };
 
-// ************************************************** test5
   var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready']; 
   var _C0 = _C1 = _C2 = _C3 = _C4 = _C5 = _C6 = _C7 = _C8 = ['ready']; 
-
-
 
   function test5 (n) {
     var x = toInt(n);
@@ -268,9 +246,9 @@ var test6 = a => w  => {
     _B6 = test4(x+6);
     _B7 = test4(x+7);
     _B8 = test4(x+8);
-    
-   
 }
+
+//***************************************************************** DND
 
 function test9 () {
   test5(-4);
