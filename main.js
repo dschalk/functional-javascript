@@ -2062,9 +2062,9 @@ h('a.a2', {props: {href: "http://hackage.haskell.org/package/wai-websockets-3.0.
   
 h('span', ' server, each on its own ' ),
 
-                      h('a', {props: {href:"", target: "_blank" }}, 'Ubuntu 18.04' ), 
+                      h('a', {props: {href:"https://lists.ubuntu.com/archives/ubuntu-announce/2018-April/000231.html", target: "_blank" }}, 'Ubuntu 18.04' ), 
 
-                      h('a.a2', {props: {href: "", target: "_blank" }}, 'Digital Ocean' ),
+                      h('a.a2', {props: {href: "https://www.digitalocean.com/", target: "_blank" }}, 'Digital Ocean' ),
 
 h('span', ' droplet. The JavaScript is plain, unrestricted ' ),
   
@@ -2173,7 +2173,7 @@ h('p', ' Instead of composition by linking erzats monads, how about composing fu
 
     "()", "(null)", or any other null value at the end of the sequence terminates 
         the procedure and causes the array of every return value (or Promise 
-        resolution values) to be returned. "().pop()" gets the final result. ` ),
+        resolution values) to be returned. "().slice(-1)" gets the final result. ` ),
     h('p', ' The first example performs a computation, requests a quasi-random number from the WebSocket server, requests that number\'s prime decomposition from a web worker, and displays the result. The code runs twenty-five times. '),
                         
                         ]),
