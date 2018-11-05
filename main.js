@@ -2,7 +2,9 @@
     
     // import ws from 'ws';
     // import {makeHTTPDriver} from '@cycle/http';
-    import {require} from "requirejs";
+    // import {require} from "requirejs";
+    Maybe = require('folktale/maybe');
+    // compose = require('folktale/core/lambda/compose');
     import {h,p,span,h1,h2,h3,pre,a,br,div,label,input,hr,makeDOMDriver} from '@cycle/dom';
     import Cycle from '@cycle/xstream-run';
     import code from './code.js';
@@ -2031,42 +2033,95 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
         DOM: calcStream$.map(() => {
           return h('div.main', [ // 1 bracket
 
-  h('div.image_3', [
-    h('img.image_2', {
-      props: {
-        src: "logo.svg"
-      }
-    }),
-    h('span', ' '),
-    h('a', {
-      props: {
-        href: "https://cycle.js.org/",
-        target: "_blank"
-      }
-    }, 'A Cycle.js application')
-  ]),
-  h('div', {
-    style: {
-      textAlign: "center",
-      fontWeight: "bold"
-    }
-  }, [
-    h('br'),
-    h('div', {
-      style: { fontSize: "32px", color: "#FFD700", textAlign: "center" }}, 'THE ESSENCE OF FUNCTIONAL JAVASCRIPT'),
-    h('br'),
-
-  ]), h('div.content', [ // 2 brackets  main -> content ->
+h('div.image_3', [
+  h('img.image_2', { props: { src: "logo.svg" }}),
+  h('span', ' '),
+  h('a', { props: { href: "https://cycle.js.org/", target: "_blank" }}, 'A Cycle.js application') 
+]),
+h('div', { style: { textAlign: "center", fontWeight: "bold" }}, [
   h('br'),
-  h('p', ' This is a Cycle.js application working in conjunctions with a Haskell Wai WebSockets server. The JavaScript is plain, unrestricted ES7(Ecmascript 2016).  ' ),   
-  
+  h('div', {
+    style: { fontSize: "32px", color: "rgb(130,170,18", textAlign: "center" }}, 'THE ESSENCE OF FUNCTIONAL JAVASCRIPT'),
+]), 
+h('br'),
+h('div', styleFunc(["rgb(180,180,56)",, "23px", "italic", ,"center" ]), 'Small, reusable functions' ),
+h('div', styleFunc(["rgb(180,180,56)",, "23px", "italic", ,"center" ]), 'directed by program-specific functions' ),
+h('br'),
+          
+                        h('div.content', [ // 2 brackets  main -> content ->
 
-  h('p', ' JavaScript is more flexible than exclusively functional languages like Lisp and Haskell, which are designed to use pure functions and immutable data. While it is true that you can optimize performance, facilitate easy maintenance, and simplify debugging by constricting JavaScript to use only pure functions and avoid mutation (especially outside the scopes of functions), it is unfortunate that these restrictions are so widely thought to be necessary features of functional programming in JavaScript. Thinking this way inhibits the acquisition of important skills. ' ),
-  h('span.tao', ' The essence of functional programming is programming with small, reusable functions guided by specialized higher-order functions. One way to compose a function "f" with a function "g" is to use an object "o = {value, method}" where o.method(f) returns {f(value), method}. It follows that o.method(f).method(g) = {g(f(value)), method}. Functions like "o" are often called "monads". There\'s no harm in that. It seems to make people feel smart. In reality, these erzats "monads" scarecely resemble members of the type class Monad in Haskell, much less mathematical objects adhering to the Category Theory ' ),
-h('a', {props: {href: "https://en.wikipedia.org/wiki/Monad_(category_theory)#Formal_definition", target: "_blank"
-}}, 'definition of a monad' ), 
-h('p', ' Instead of linking erzats monads, how about using a higher-order function such as the one shown below. True, under the hood "f" still links objects containing values and methods, but look at the slick presentation and myriad possibilities inherent in this approach: ' ), 
-h('span', '. ' ),    
+h('span.tao', ' This is a ' ), 
+  
+                      h('a', {props: {href:"https://cycle.js.org/", target: "_blank" }}, 'Cycle.js' ), 
+
+h('span', ' application working in conjunctions with a '),
+  
+                      h('a', {props: {href:"https://www.haskell.org/#step3", target: "_blank" }}, 'Haskell ' ), 
+
+h('a.a2', {props: {href: "http://hackage.haskell.org/package/wai-websockets-3.0.1.2/docs/Network-Wai-Handler-WebSockets.html", target: "_blank" }}, 'Wai WebSockets' ),
+  
+h('span', ' server, each on its own ' ),
+
+                      h('a', {props: {href:"", target: "_blank" }}, 'Ubuntu 18.04' ), 
+
+                      h('a.a2', {props: {href: "", target: "_blank" }}, 'Digital Ocean' ),
+
+h('span', ' droplet. The JavaScript is plain, unrestricted ' ),
+  
+                     h('a', {props: {href:"https://www.ecma-international.org/ecma-262/8.0/index.html", target: "_blank" }}, 'ES8 (Ecmascript 2017)' ), 
+h('span', ', transpiled with ' ),
+
+                      h('a', {props: {href:"https://webpack.js.org/concepts/", target: "_blank" }}, 'Webpack' ), 
+h('span', ' and ' ),                          
+                      h('a', {props: {href:"https://babeljs.io/", target: "_blank" }}, 'Babel' ), 
+h('span', '.' ),
+
+
+h('br'),
+h('br'),
+
+h('span.tao', ' JavaScript is more flexible than exclusively functional languages such as '), 
+  
+                h('a', {props: {href:"https://en.wikipedia.org/wiki/Lisp_(programming_language)", target: "_blank" }}, 'Lisp' ), 
+
+h('span', ' and Haskell, which are strongly typed and designed to use pure functions and immutable data. You can assist browser optimization, facilitate easy maintenance, and simplify debugging by requiring type declarations, using only pure functions, and refraining from ever mutating objects or variables. But it is, in my opinion, very unfortunate that the phrase "functional programming" is evolving to encompass type checking, pure functions, and immutable data. I will buck that trend, hoping that it isn\'t too late, and say "functional Javascript" is JavaScript that takes full advantage of JavaScript\'s first-class functions, regardless of whether it is accomplished safely with ' ),
+                          
+                h('a', {props: {href:"https://www.typescriptlang.org/", target: "_blank" }}, 'Typescript' ), 
+                          
+ h('span', ' or the raw power of ' ), 
+                          h('a', {props: {href:"https://www.ecma-international.org/ecma-262/8.0/index.html", target: "_blank" }}, 'EcmaScript 2017' ), 
+h('span', ', if you so choose. ' ),
+h('br'),
+h('br'),
+h('span.tao', ' By the way, JavaScript "monads" don\'t deserve the blogger hype the are getting. Haskell monads aren\'t mathematical monads, as explained in ' ),
+h('a', {props: {href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/", target: "_blank"}}, 'Hask Is Not A Category' ), 
+                          
+h('span', '; how much less so are the JavaScript "monads". The ' ),
+    
+h('a', {props: {href:"https://wiki.haskell.org/Monad_laws", target: "_blank" }}, 'Haskell Monad Laws' ), 
+h('span', ', which aren\'t even mandetory in Haskell, are common sense requirements for robust function composition. If you rely on functions to make programs work, you aren\'t communicating changes of state by mutating global variables. Time travel and undo algorithms naturally use immutable data. Thousands of passes through loops inside the scopes of functions cry out for  mutable values, not factories spewing pointers and values into memory. When you program functionally, Things fall into place without enforcing rules. This is doing through inaction, in the spirit of the ' ),
+  
+                           h('a', {props: {href:"https://en.wikipedia.org/wiki/Tao_Te_Ching", target: "_blank" }}, 'Tao Te Ching' ), 
+h('br'),
+h('br'),
+
+
+h('span.tao', ' The ' ),
+h('a', {props: {href:"https://github.com/fantasyland/fantasy-land", target: "_blank" }}, 'Fantasyland' ),
+h('span', ' algebraic javascript specification is an admirable achievement. People who are familiar with Haskell can jump right in and start coding with familiar monads and functors borrowed from the Haskell ' ),
+
+
+h('a', {props: {href: "http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html", target: "_blank"}}, 'Prelude module' ), 
+
+h('span', '. The '  ),
+
+h('a', {props: {href:"https://github.com/origamitower/folktale", target: "_blank" }}, 'Folktale' ),
+
+h('span', ' library also succeeds in reflecting the Haskell Prelude module. The Folktale "Maybe" monad is being evaluated on this page as a way to catch errors. ' ),
+  
+h('br'),
+h('p', ' Instead of composition by linking erzats monads, how about composing functions with higher-order functions, as in the example below. True, "f" links objects containing values and methods, but that detail belongs under the hood. Using this approach, the presentation is clear and the possibilities are myriad. '),
+
   h('div', styleFunc(["#FFD700", "3%", "21px", , , ]), [
     h('div', 'f.run(x)(function1)(function2) ... (functionN)(); ')
   ]),
@@ -2097,11 +2152,11 @@ h('span', '. ' ),
         };
         return _bind;
     }; ` ),
-  h('p', ' causing ' ), 
+  h('p', ' People familiar functions that take functions as arguments, and with functions that return functions, will see that "f()" (above) has the features shown below. People learning about functional programming can make substantial progress by studying the code until they understand why it behaves as stated below. ' ), 
   h('div', styleFunc(["#4dff4d", "3%", "21px", , , ]), [
-  h('div', 'f(x)(functiona1)(function2) ... (functionN)(); ')
+  h('div', 'f(x).run(functiona1)(function2) ... (functionN)(); ')
   ]), 
-  h('p', ' to have the following features: ' ),
+  h('p', ' has the following features: ' ),
   h('pre', styleFunc(["#4dff4d", , "19px", , , ]), `    x can be any value,
 
     there are no restrictions on the functions\' return values
@@ -2120,11 +2175,13 @@ h('span', '. ' ),
         the procedure and causes the array of every return value (or Promise 
         resolution values) to be returned. "().pop()" gets the final result. ` ),
     h('p', ' The first example performs a computation, requests a quasi-random number from the WebSocket server, requests that number\'s prime decomposition from a web worker, and displays the result. The code runs twenty-five times. '),
-  ]),
+                        
+                        ]),
+
   h('div.content2', [
   h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 1 '),
   h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
-
+  
   h('p', ' This demonstration uses Bind() directly, rather than mBnd(). It even uses the same instance of _bind(), which is returned by Bind("bb"). This works because the functions to not rely on the array of return values. Demonstration 2 will show what happens when Bind() is used directly and functions try to use peviously generated return values. '),
   h('pre', `    var factorsClick9$ = sources.DOM
       .select('button#factors_S').events('click');
@@ -3852,25 +3909,28 @@ var b_9 = (x_19 => add_3(x_19[0])([-4 * x_19[1][0], x_19[1]]))((x_20 => add_3(x_
 console.log("a_8);
 
 console.log(b_9);  `),
-            h('br'),
+h('br'),
 
-            h('br'),
-            h('p', ' Snabbdom, xstream, and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimention and learning. '),
-            h('span.italic', ' Instances of Monad and Monad2 aren\'t Category Theory monads. They are inspired by Haskell monads which, in turn, are inspired by Category Theory. The modified subset of the Haskell Programming Language named "Hask" has true Category Theory monads, but the restrictions on Haskell necessay to make Hask a true Category render it nearly useless. '),
-            h('p', ' Taking inspiration from Category Theory and replicating, to the extent feasable, some of its essential features was the stroke of genius that lifted Haskell into the realm of robust enterprise ready programming languages. Compilers that could infer types and reliably implement fail-safe programs made Haskell the language of choice for several large banks. Now Haskell runs the back ends of a great variety of websites, including websites supporting lots of traffic for major enterprises. The "Functional JavaScript" site that you are on right now has a Cycle.js front end and a Haskell websocket server in the back. It is proving to be very robust, reliable, and easily adaptable to the changing needs of this project. '),
-            h('a', {
-              props: {
-                href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/",
-                target: "_blank"
-              }
-            }, 'Hask is not a category.'),
-            h('span', ' by Andrej Bauer and the '),
-            h('a', {
-              props: {
-                href: '#discussion'
-              }
-            }, 'Discussion'),
-            h('span', ' below. They provide a convenient interface for dealing with uncertainty and side effects in a purely functional manner. Adherence to the monad laws (see below) helps instill confidence that the monads are robust, versatile, and reliable tools for isolating and chaining sequences of javascript functions. '),
+h('br'),
+h('p', ' Snabbdom, xstream, and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimention and learning. '),
+h('span.italic', ' Instances of Monad and Monad2 aren\'t Category Theory monads. They are inspired by Haskell monads which, in turn, are inspired by Category Theory. The modified subset of the Haskell Programming Language named "Hask" has true Category Theory monads, but the restrictions on Haskell necessay to make Hask a true Category render it nearly useless. '),
+h('p', ' Taking inspiration from Category Theory and replicating, to the extent feasable, some of its essential features was the stroke of genius that lifted Haskell into the realm of robust enterprise ready programming languages. The reliably concurrent atomic transactions written in Haskell made it the language of choice for several large banks. Mimicking Haskell monads in  '),
+h('a', {
+  props: {
+    href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/",
+    target: "_blank"
+  }
+}, 'Hask is not a category.'),
+h('span', ' by Andrej Bauer and the '),
+h('a', {
+  props: {
+    href: '#discussion'
+  }
+}, 'Discussion'),
+h('span', ' below. They provide a convenient interface for dealing with uncertainty and side effects in a purely functional manner. Adherence to the monad laws ' ),
+              
+h('span', ' helps instill confidence that the monads are robust, versatile, and reliable tools for isolating and chaining sequences of javascript functions. '),
+
             h('p', ' The demonstrations include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history (all group members see your score decrease or increase as you navegate backwards and forwards). Monads are shown performing lengthy mathematical computations asycronously in web workers. Monads encapsulate state. The error checking monad carries occurances of NaN and runtime errors through sequences of computations much like the Haskell Maybe monad. '),
 
 

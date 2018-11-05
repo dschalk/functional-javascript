@@ -1,5 +1,6 @@
 
-
+var Maybe;
+var compose;
 var window = {};
 
 onChange = (e,t)=>{
