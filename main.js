@@ -1766,10 +1766,9 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
 
   function qF9 () {
       if (qfB.ar.length > 4) {
-          console.log("WOW!")
-  	qFunc(qfB.ar[0])(qfB.ar[2])(qfB.ar[4]) 
+          qFunc(qfB.ar[0])(qfB.ar[2])(qfB.ar[4]) 
       }
-  	else console.log("qfB.ar.length", qfB.ar.length)
+      else Cow1 = "coefficients: " + qfB.ar.join(' ')
   };
 
   var qfB = mBnd();
@@ -1779,18 +1778,10 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
 
   oneAction$ = qF1$.map(e => {
       if (e.keyCode === 13) {  
-          qfB.run(toInt(e.target.value))(qF9);
-          // var z = toInt(e.target.value);
-          // qfB.run(z)(x => qFunc(x));
-          // console.log("qfB is", qfB);
+          qfB.run(toFloat(e.target.value))(qF9);
           document.getElementById('qF1').value = null;
       }
   });
- /*         } else {
-            qfB.run(toInt(e.target.value));
-            (() => qFunc(qfB,ar[0])(qfB.ar[1])(qfB.ar[2]));
-            qfB = mBnd(true);
-          }  */
 
       // ******************************************BEGIN TODO LIST
 
@@ -2370,19 +2361,21 @@ h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** L
 
 h('p', ' In Demonstration 2, we saw copies of _bind returning nonsense data when they were called before other copies having the same names had finished executing. They name were using the same array and stepping all over each other. Arrays are not cleared each time run() is called so objects created by mBnd can recieve asynchronous data from sockets, workers, and user input, waiting until all the data is in before running functions on them. ' ),
 h('span.tao', ` Each time you enter a number, the following code is executed: ` ),
-h('pre', `  qfB.run(toFl(e.target.value))(qF9);   // toFl converts srings to float  ` ),
-  h('span', '  That\'s all. The every third time it runs, the data in qfB.ar is plugged into the ' ),
+h('pre', `  qfB.run(toFloat(e.target.value))(qF9); ` ),
+h('span', '  That\'s all. The third qF9 receives user data, it calls it runs, the data in qfB.ar is plugged into the ' ),
 
 h('a', { props: { href: "https://en.wikipedia.org/wiki/Quadratic_formula", target: "_blank" }}, 'quadratic formula'),
 h('span', ' The Cycle.js-specific code is shown below. The point is to call "qfB.run(toInt(e.target.value))(qF9)" each time a number is entered. ' ),
 
 
-h('pre', `  qF1$ = sources.DOM
+h('pre', `  var qfB = mBnd(true);
+
+  qF1$ = sources.DOM
   .select('#qF1').events('keypress');
 
   oneAction$ = qF1$.map(e => {
       if (e.keyCode === 13) {
-          qfB.run(toFl(e.target.value))(qF9); 
+          qfB.run( toFloat( e.target.value ) )(qF9); 
           document.getElementById('qF1').value = null;
                // clears the text box
       }
@@ -2390,10 +2383,10 @@ h('pre', `  qF1$ = sources.DOM
   
   function qF9 () {
       if (qfB.ar.length > 4) {
-          console.log("WOW!")
+        // If true, it\'s time to run the quadratic equation
   	qFunc(qfB.ar[0])(qfB.ar[2])(qfB.ar[4]) 
       }
-  	else console.log("qfB.ar.length", qfB.ar.length)
+  	else Cow1 = "coefficients: " + qfB.ar.join(', ')
   };
 
   qFunc = a => b => c => {
@@ -2412,30 +2405,11 @@ h('pre', `  qF1$ = sources.DOM
           Cow2 = '';
       }
       qfB = mBnd(true);
-  }
+  } ` )
 
-  var qfB = mBnd();
-
-  qF1$ = sources.DOM
-    .select('#qF1').events('keypress');
-
-  oneAction$ = qF1$.map(e => {
-      if (e.keyCode === 13) {  
-          qfB.run(toInt(e.target.value))(qF9);
-          // var z = toInt(e.target.value);
-          // qfB.run(z)(x => qFunc(x));
-          // console.log("qfB is", qfB);
-          document.getElementById('qF1').value = null;
-      }
-  });  ` ),
-     
 ]),
     
 h('div', { style: { width: '47%', fontSize: '18px', float: 'right' }}, [ // *** RIGHT PANEL
-h('br'),
-h('br'),
-h('br'),
-h('br'),
 h('br'),
 h('br'),
 h('br'),

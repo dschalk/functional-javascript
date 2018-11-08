@@ -168,7 +168,7 @@ var pigText = 888;
 var _convert_ = a => b => parseInt(b,a);  
 var toInt = _convert_ (10);
 var _conveNt_ = a => b => parseFloat(b,a);
-var toFl = _conveNt_ (10);
+var toFloat = _conveNt_ (10);
 
 var toHex = _conveNt_ (6);
 
@@ -1969,7 +1969,7 @@ function primes(n, ar) {
     return s;
   }
 
-var toFloat = function toFloat(x) {
+var toFloat2 = function toFloat2(x) {
   return ret(parseFloat(x));
 };
 
