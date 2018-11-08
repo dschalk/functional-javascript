@@ -1,5 +1,5 @@
     
-    
+    // onChange = require('on-change');
     // import ws from 'ws';
     // import {makeHTTPDriver} from '@cycle/http';
     // import {require} from "requirejs";
@@ -50,25 +50,6 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
       return node;
     }
 
-    qFunc = a => b => c => {
-      console.log("In qFunc a, b, c", a, b, c);
-      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-      console.log("In qFunc -- aa is", aa);
-
-      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-      console.log("In qFunc -- bb is", bb);
-      console.log("In qFunc -- (aa === aa is", aa === aa);
-      if (aa === aa) {
-        Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
-          Cow2 = `x = ${aa} and x = ${bb}`;
-        console.log("Cow1 and Cow2", Cow1, Cow2);
-      }
-      if (!(aa === aa)) {
-        Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
-        Cow2 = '';
-        console.log("Cow1 and Cow2", Cow1, Cow2);
-      }
-    }
 
     MonadState.prototype.dec = function () {
       this.s[1] -= 1;
@@ -312,11 +293,6 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
         }
       }, 1000)
     }
-
-    var qR3 = qFunc(1)(2)(-24);
-    var qR4 = qFunc(1)(2)(-120);
-    var qR5 = qFunc(1)(3)(-130);
-    var qR6 = qFunc(1)(1)(-30);
 
     function main(sources) {
       console.log('0^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ got to main()');
@@ -1768,26 +1744,53 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
       // **************************************************** START makeBind demo
 
 
+  qFunc = a => b => c => {
+      console.log('qfB.ar.length', qfB.ar.length)
+      var a = qfB.ar[0];
+      var b = qfB.ar[2];
+      var c = qfB.ar[4];
+      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      if (aa === aa) {
+          Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+          Cow2 = `x = ${aa} and x = ${bb}`;
+          // console.log("Cow1 and Cow2", Cow1, Cow2);
+      }
+      if (!(aa === aa)) {
+          Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+          Cow2 = '';
+          // console.log("Cow1 and Cow2", Cow1, Cow2);
+      }
+      qfB = mBnd(true);
+  }
 
+  function qF9 () {
+      if (qfB.ar.length > 4) {
+          console.log("WOW!")
+  	qFunc(qfB.ar[0])(qfB.ar[2])(qfB.ar[4]) 
+      }
+  	else console.log("qfB.ar.length", qfB.ar.length)
+  };
 
+  var qfB = mBnd();
 
-      var qfB = makeBind();
-      qF1$ = sources.DOM
-        .select('#qF1').events('keypress');
+  qF1$ = sources.DOM
+    .select('#qF1').events('keypress');
 
-      oneAction$ = qF1$.map(e => {
-        if (e.keyCode === 13) {
-          if (getAr(qfB).length < 2) {
-            qfB.b(toInt(e.target.value));
-          } else {
-            qfB.b(toInt(e.target.value));
-            var arr = getAr(qfB);
-            qFunc(arr[0])(arr[1])(arr[2]);
-            qfB = makeBind();
-          }
+  oneAction$ = qF1$.map(e => {
+      if (e.keyCode === 13) {  
+          qfB.run(toInt(e.target.value))(qF9);
+          // var z = toInt(e.target.value);
+          // qfB.run(z)(x => qFunc(x));
+          // console.log("qfB is", qfB);
           document.getElementById('qF1').value = null;
-        }
-      });
+      }
+  });
+ /*         } else {
+            qfB.run(toInt(e.target.value));
+            (() => qFunc(qfB,ar[0])(qfB.ar[1])(qfB.ar[2]));
+            qfB = mBnd(true);
+          }  */
 
       // ******************************************BEGIN TODO LIST
 
@@ -2237,7 +2240,7 @@ h('p', ' The following four lines of code (also shown above) make it possible fo
         var x = Symbol(); 
         return { run: Bind(x, bool), ar: arBind[x] };
     }; ` ),
-h('p', ' The statement "Bind(x, true)" returns a copy of _bind() and adds a unique attribute "Symbol()" to the arBind array. The argument "true" causes DOM updates every time arBind[Symbol()] increases in length; that is, each time a function in the pipeline is evaluated. mBnd(true) takes it one step further and returns an object with attributes "run" and "ar". run() starts the process and ar is available to every function that follows. ' )
+h('p', ' The statement "Bind(x, true)" returns a copy of _bind() and adds a unique attribute "Symbol()" to the arBind array. The argument "true" causes DOM updates every time arBind[Symbol()] increases in length; that is, each time a function in the pipeline is evaluated. mBnd(true) takes it one step further and returns an object with attributes "run" and "ar". run() starts the process and ar is available to every function that follows. test4(), shown below and demonstrated in the lower right column, uses "a.ar" six times. ' )
 
          ]),
 
@@ -2343,66 +2346,103 @@ h('pre', `  function test5 (n) {
           (a.ar[2]/a.ar[3]))))() 
     } 
 
-  var test6 = a => w  => {
-      window[a] = Bind(a);  
-      window[a](w)(cubeP)(addP(3))(squareP)
-      (x=>addP(x)(-30*arBind[a][1]))
-      (s=>idP(Math.floor(s/arBind[a][2])))
-      (x=>idP(x+Math.floor(arBind[a][0]*arBind[a][1]*
-          (arBind[a][2]/arBind[a][3]))))(); 
-    }; ` ),
-
-              h('p', ' The user generates "n". _B0, _B1, ... _B8 and _C0, _C1, ... _C8 are permanent fixtures in the virtual DOM. ' ),
-                h('p', ' Clicking the button on the right calls test5() which calls test6() and test4() nine times. test6() (at the top) shows what can go wrong when copies of _bind are created by direct calls to Bind() are used. The code normally runs to completion in 6000 ms. If you click the button, test5 is called again after 5400 ms. The results speak for themselves'),
-                h('p', ' The situation might become clearer if you note that every time you run, say, a3 = Bind("a3"), the latest instance of a3 along with all previous ones use arBind.a3. On the other hand, repeated invocation of "a = mBnd(true)" creates a fresh, inscrutable key and initial value  "arBind.Symbol(): Symbol = []" that might appear identical to other key/value pairs but which has its own unique id in the Symbol registry. ' ),
-                h('p', ' If you enter a number on the right and press <ENTER> once, you will see that test4() and test6() produce identical results. If you Press <ENTER> again during execution, you will see garbage above your entry; but below you will see just what you saw when you pressed <ENTER> once. It resembles the rollback of an interrupted atomic transaction as seen, for example, in interrupted database transactions.  '),
-
-
+  var test6 = z => w  => {
+      var a = Bind(z);    // "true" unnecessary (test4 causes refresh)  
+      return a(w)(cubeP)(addP(3))(squareP)
+      (x=>addP(x)(-30*arBind[z][1]))
+      (s=>idP(Math.floor(s/arBind[z][2])))
+      (x=>idP(x+Math.floor(arBind[z][0]*arBind[z][1]*
+          (arBind[z][2]/arBind[z][3]))))(); 
+  }; ` ),
                         ]),
 
+h('p', ' The user generates "n". _B0, _B1, ... _B8 and _C0, _C1, ... _C8 are permanent fixtures in the virtual DOM. ' ),
+h('p', ' Clicking the button on the right calls test5() which calls test6() and test4() nine times. test6() (at the top) shows what can go wrong when copies of _bind are created by direct calls to Bind() are used. The code normally runs to completion in 6000 ms. If you click the button, test5 is called again after 5400 ms. The results speak for themselves'),
+h('p', ' The situation might become clearer if you note that every time you run, say, a3 = Bind("a3"), the latest instance of a3 along with all previous ones use arBind.a3. On the other hand, repeated invocation of "a = mBnd(true)" creates a fresh, inscrutable key and initial value  "arBind.Symbol(): Symbol = []" that might appear identical to other key/value pairs but which has its own unique id in the Symbol registry. ' ),
+h('p', ' If you enter a number on the right and press <ENTER> once, you will see that test4() and test6() produce identical results. If you Press <ENTER> again during execution, you will see garbage above your entry; but below you will see just what you saw when you pressed <ENTER> once. It resembles the rollback of an interrupted atomic transaction as seen, for example, in interrupted database transactions.  '),
 
-              h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
-              h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 3 '),
+
+
+
+h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 3 '),
 h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
 
-                h('span.tao', ' In Demonstration 2, we saw copies of _bind returning useless data when they were called more than once. That because all completed and currently running instances with the same name were dumping data in a shared array and then trying to use it. Perhaps Bind() should be modified to make named copies of _bind() empty their arrays at the start of each computation sequence. '),
+h('p', ' In Demonstration 2, we saw copies of _bind returning nonsense data when they were called before other copies having the same names had finished executing. They name were using the same array and stepping all over each other. Arrays are not cleared each time run() is called so objects created by mBnd can recieve asynchronous data from sockets, workers, and user input, waiting until all the data is in before running functions on them. ' ),
+h('span.tao', ` Each time you enter a number, the following code is executed: ` ),
+h('pre', `  qfB.run(toFl(e.target.value))(qF9);   // toFl converts srings to float  ` ),
+  h('span', '  That\'s all. The every third time it runs, the data in qfB.ar is plugged into the ' ),
 
-                h('span.tao', ' There are, however, advantages to letting data accumulate. In this demonstration, qfB() is defined by "qfB = makeBind()". qfB.b() is called three times before arBind[qfB.a] is emptied. qFunc is called on the values in arBind[qfB.a] after the third one arrives, feeding them into the '),
-                h('a', {
-                  props: {
-                    href: "https://en.wikipedia.org/wiki/Quadratic_formula",
-                    target: "_blank"
-                  }
-                }, 'quadratic formula'),
+h('a', { props: { href: "https://en.wikipedia.org/wiki/Quadratic_formula", target: "_blank" }}, 'quadratic formula'),
+h('span', ' The Cycle.js-specific code is shown below. The point is to call "qfB.run(toInt(e.target.value))(qF9)" each time a number is entered. ' ),
 
-                h('pre', `  qF1$ = sources.DOM
-      .select('#qF1').events('keypress');
 
-    oneAction$ = qF1$.map(e => {
-        if (e.keyCode === 13) {
-            if (getAr(qfB).length < 2) {
-                qfB.b(toInt(e.target.value));
-            }    
-            else {
-                qfB.b(toInt(e.target.value));
-                var arr = getAr(qfB);
-                qFunc(arr[0])(arr[1])(arr[2]);
-                qfB = makeBind();
-            }
-        document.getElementById('qF1').value = null;
-        }
-    }); `),
+h('pre', `  qF1$ = sources.DOM
+  .select('#qF1').events('keypress');
 
-              ]), h('div', {
-                style: {
-                  width: '47%',
-                  fontSize: '18px',
-                  float: 'right'
-                }
-              }, [ // *** RIGHT PANEL
+  oneAction$ = qF1$.map(e => {
+      if (e.keyCode === 13) {
+          qfB.run(toFl(e.target.value))(qF9); 
+          document.getElementById('qF1').value = null;
+               // clears the text box
+      }
+  });
+  
+  function qF9 () {
+      if (qfB.ar.length > 4) {
+          console.log("WOW!")
+  	qFunc(qfB.ar[0])(qfB.ar[2])(qfB.ar[4]) 
+      }
+  	else console.log("qfB.ar.length", qfB.ar.length)
+  };
 
-                //  h('div', \`${qR1}\` ), 
-                //  h('div', \`${qR2}\` ), 
+  qFunc = a => b => c => {
+      console.log('qfB.ar.length', qfB.ar.length)
+      var a = qfB.ar[0];
+      var b = qfB.ar[2];
+      var c = qfB.ar[4];
+      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      if (aa === aa) {
+          Cow1 = \${a\}*x*x + \${b\}*x + \${c\} = 0 has the following solutions:,
+          Cow2 = x = \${aa\} and x = \${bb\};
+      }
+      if (!(aa === aa)) {
+          Cow1 = \${a\}*x*x + \${b\}*x + \${c\} = 0 has no solution;
+          Cow2 = '';
+      }
+      qfB = mBnd(true);
+  }
+
+  var qfB = mBnd();
+
+  qF1$ = sources.DOM
+    .select('#qF1').events('keypress');
+
+  oneAction$ = qF1$.map(e => {
+      if (e.keyCode === 13) {  
+          qfB.run(toInt(e.target.value))(qF9);
+          // var z = toInt(e.target.value);
+          // qfB.run(z)(x => qFunc(x));
+          // console.log("qfB is", qfB);
+          document.getElementById('qF1').value = null;
+      }
+  });  ` ),
+     
+]),
+    
+h('div', { style: { width: '47%', fontSize: '18px', float: 'right' }}, [ // *** RIGHT PANEL
+h('br'),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
+            //  h('div', \`${qR1}\` ), 
+            //  h('div', \`${qR2}\` ), 
 h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third time you press <ENTER>, the answer will appear. ' ),
                 h('input#qF1', {
                   style: {
@@ -2419,377 +2459,366 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
                 Cow2,
                 h('br'),
 
-                h('pre', `  qFunc = a=>b=>c=> {
-        var aa  = (-b - Math.sqrt(b*b - 4*a*c))/(2*f(r)[0]);
-        var bb  = (-b + Math.sqrt(b*b - 4*a*c))/(2*f(r)[0]);
-        if (aa === aa) {                                       // test for NaN
-                 Cow1 = \`${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:\`,
-                 Cow2 = \`x = ${aa} and x = ${bb}\`;
-        }
-        if (!(aa === aa)) { 
-                Cow1 = \`${a}*x*x + ${b}*x + ${c} = 0 has no solution\`;
-                Cow2 = '';
-        }
-    } `),
+                
+ 
+    h('p', ' This demonstration could be the basis for a two-player game in which each player enters an integer. Then the player who was first to enter a number must enter another that results in a two-integer solution. A solitaire version could have the computer provide a second, randomly generated integer.'),
 
-                h('p', ' This demonstration could be the basis for a two-player game in which each player enters an integer. Then the player who was first to enter a number must enter another that results in a two-integer solution. A solitaire version could have the computer provide a second, randomly generated integer.'),
+    h('br'),
+  ]),
+]), h('div.content', [
 
-                h('br'),
-              ]),
-            ]), h('div.content', [
+  h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
+  h('br'),
+  h('br'),
 
-              h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
-              h('br'),
-              h('br'),
+  h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
+  h('br'),
+  h('a', {
+    props: {
+      href: "https://lodash.com/docs/4.17.4#flow"
+    }
+  }, "  .flow"),
+  h('span', ' and Ramda\'s '),
+  h('a', {
+    props: {
+      href: "http://ramdajs.com/docs/#compose"
+    }
+  }, 'R.compose'),
+  h('span', ', that facilitate simple function composition; i.e., each function\'s argument is the preceding function\'s return value. bind() does this while also giving every linked function along a chain access to the return values of every function, and the resolution values of every promise that precedes it.  '),
+  h('br'),
+  h('br'),
 
-              h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
-              h('br'),
-              h('a', {
-                props: {
-                  href: "https://lodash.com/docs/4.17.4#flow"
-                }
-              }, "  .flow"),
-              h('span', ' and Ramda\'s '),
-              h('a', {
-                props: {
-                  href: "http://ramdajs.com/docs/#compose"
-                }
-              }, 'R.compose'),
-              h('span', ', that facilitate simple function composition; i.e., each function\'s argument is the preceding function\'s return value. bind() does this while also giving every linked function along a chain access to the return values of every function, and the resolution values of every promise that precedes it.  '),
-              h('br'),
-              h('br'),
+  h('span.tao', 'This project was created by and is actively maintained by David Schalk. The code repository is at '),
+  h('a', {
+    props: {
+      href: "https://github.com/dschalk/functional-javascript",
+      target: "_blank"
+    }
+  }, 'functional-javascript'),
+  h('span', '. Please leave a comment in the '),
+  h('a', {
+    props: {
+      href: "#comments"
+    }
+  }, 'comments'),
+  h('span', ' section near the end of this page. You can email me at pyschalk@gmail.com. '),
+  h('p', ' '),
+  h('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history. All group members see other members\' scores decrease or increase as they navigate backwards and forwards. '),
 
-              h('span.tao', 'This project was created by and is actively maintained by David Schalk. The code repository is at '),
-              h('a', {
-                props: {
-                  href: "https://github.com/dschalk/functional-javascript",
-                  target: "_blank"
-                }
-              }, 'functional-javascript'),
-              h('span', '. Please leave a comment in the '),
-              h('a', {
-                props: {
-                  href: "#comments"
-                }
-              }, 'comments'),
-              h('span', ' section near the end of this page. You can email me at pyschalk@gmail.com. '),
-              h('p', ' '),
-              h('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history. All group members see other members\' scores decrease or increase as they navigate backwards and forwards. '),
-
-              h('p', ' Visitors to this site are automatically logged in with pseudo-randomly generated numbers as their user names and passwords. The default "group" is the non-group "solo". '),
-              h('p', ' You can select a persistent name and password. These will make it possible for you to return at any time and delete or edit your comments. '),
-              h('p#gameIntro', ' The demonstration section also has a text box where you can create or join a group by entering a group name. Changing groups resets your game score and goal tally to zeros. '),
-              h('span.tao', ' The game code is fairly concise and intuitive. A quick walk-through is presented at.'),
-              h('a', {
-                props: {
-                  href: '#gameCode'
-                }
-              }, 'here'),
-              h('span', '. To see monadic functionality at work, I suggest that you take a look at the section captioned '),
-              h('a', {
-                props: {
-                  href: '#asyncExplanation'
-                }
-              }, 'Asynchronous Processes'),
-              h('br'),
-              h('p', ' But it might be best to first proceed down the page and see the examples of Monad instances manipulating data. If you are trying to wrap you head around the concept of functional programming, playing with bind() and the monads in the browser console might lift you into the comfort zone you seek. '),
-              h('h3', 'The Game'),
-              h('p', 'People who are in the same group, other than the default non-group named "solo", share the same todo list, chat messages, and simulated dice game. '),
-              h('p', ' Data for the traversable game history accumulates until a player scores three goals and wins. The data array is then emptied and the application is ready to start accumulating a new history. '),
-              h('p', ' Your user name for trying out the game, todo list, and chat demonstrations and for leaving comments is a thirteen digit random number. In the game section and in the comments section near the bottom of this page, you can chose your own persistent user name and password. As mentioned above, Knowing your password facilitates revising or removing comments.'),
-
+  h('p', ' Visitors to this site are automatically logged in with pseudo-randomly generated numbers as their user names and passwords. The default "group" is the non-group "solo". '),
+  h('p', ' You can select a persistent name and password. These will make it possible for you to return at any time and delete or edit your comments. '),
+  h('p#gameIntro', ' The demonstration section also has a text box where you can create or join a group by entering a group name. Changing groups resets your game score and goal tally to zeros. '),
+  h('span.tao', ' The game code is fairly concise and intuitive. A quick walk-through is presented at.'),
+  h('a', {
+    props: {
+      href: '#gameCode'
+    }
+  }, 'here'),
+  h('span', '. To see monadic functionality at work, I suggest that you take a look at the section captioned '),
+  h('a', {
+    props: {
+      href: '#asyncExplanation'
+    }
+  }, 'Asynchronous Processes'),
+  h('br'),
+  h('p', ' But it might be best to first proceed down the page and see the examples of Monad instances manipulating data. If you are trying to wrap you head around the concept of functional programming, playing with bind() and the monads in the browser console might lift you into the comfort zone you seek. '),
+  h('h3', 'The Game'),
+  h('p', 'People who are in the same group, other than the default non-group named "solo", share the same todo list, chat messages, and simulated dice game. '),
+  h('p', ' Data for the traversable game history accumulates until a player scores three goals and wins. The data array is then emptied and the application is ready to start accumulating a new history. '),
+  h('p', ' Your user name for trying out the game, todo list, and chat demonstrations and for leaving comments is a thirteen digit random number. In the game section and in the comments section near the bottom of this page, you can chose your own persistent user name and password. As mentioned above, Knowing your password facilitates revising or removing comments.'),
 
             ]),
-            h('h1', 'Game, Todo List, Text Messages'),
-            h('div#gameDiv2', {
-              style: {
-                display: mMgameDiv2.x
-              }
-            }, [
-              h('div#leftPanel', {
-                style: {
-                  display: mMgameDiv2.x
-                }
-              }, [
-                h('p', 'RULES: If clicking two numbers and an operator (in any order) results in 20 or 18, the score increases by 1 or 3, respectively. If the score becomes 0 or is evenly divisible by 5, 5 points are added. A score of 25 results in one goal. That can only be achieved by arriving at a score of 20, which jumps the score to 25. Directly computing 25 results in a score of 30, and no goal. Each time ROLL is clicked, one point is deducted. Three goals wins the game. The code is in an appendix.'),
-                h('p', {
-                  style: {
-                    color: 'red',
-                    fontSize: '20px'
-                  }
-                }, mMgoals2.x),
-                buttonNode,
-                h('br'),
-                h('button#4.op', 'add'),
-                h('button#5.op', 'subtract'),
-                h('button#6.op', 'mult'),
-                h('button#7.op', 'div'),
-                h('button#8.op', 'concat'),
-                h('br'),
-                h('br'),
-                h('div#dice', {
-                  style: {
-                    display: mMdice.x
-                  }
-                }, [
-                  h('button#roll.tao1', 'ROLL'),
-                  h('button#back.tao100', 'BACK'),
-                  h('button#ahead.tao1', 'FORWARD'),
-                  h('div.tao', `Selected numbers: ${gameMonad.fetch3().join(', ')}`),
-                  h('div.tao', `Operator: ${gameMonad.fetch2()} `),
-                  h('div.tao', 'Index: ' + gameMonad.s[1]),
-                  h('button#clear', 'Clear selected numbers'),
-                  h('p', ' When traversing the game history, any time there are two selected numbers and a selected operator, a computation will be performed. You can clear the selected numbers and substitute others, and if you don\'t want a selected operator you can select another one.'),
-                  h('p', ' Create a group or join an existing group. '),
-                  h('span', 'Change group: '),
-                  h('input#group', 'test'),
-                  h('p', mMsoloAlert.x),
-                  h('p', ' You can change your name by entering a comma-separated name and password below. The combination will go into a persistent file. You can use this combination in the future to edit or delete your saved comments. '),
-                  h('span.red', mMregister.x),
-                  h('p', {
-                    style: {
-                      color: "red"
-                    }
-                  }, nameMess),
-                  h('label', {
-                    style: {
-                      display: mMshowRegister.x
-                    }
-                  }, 'Register or log in here:'),
-                  h('input.register', {
-                    style: {
-                      display: mMshowRegister.x
-                    }
-                  }),
-                ])
-              ]),
-              h('div#rightanel', {
-                style: {
-                  display: 'block',
-                  float: 'right'
-                }
-              }, [
-                h('br'),
-                h('br'),
-                h('br'),
-                h('br'),
-                h('br'),
-                h('br'),
-                h('button#todoButton.cow', 'TOGGLE TODO_LIST'),
-                h('br'),
-                h('br'),
-                h('button#chat2.cow', 'TOGGLE CHAT'),
-                h('br'),
-                h('br'),
-                h('br'),
-                h('div', {
-                  style: {
-                    fontSize: "14 px"
-                  }
-                }, 'Name: ' + pMname.x),
-                h('div', {
-                  style: {
-                    fontSize: "14 px"
-                  }
-                }, 'Group: ' + pMgroup.x),
-                h('br'),
-                h('div', {
-                  style: {
-                    fontSize: "14 px"
-                  }
-                }, gameData),
-                h('br'),
-                h('div#a100', ' _____________________________________ '),
-                h('p.italic', ' Join group "t" if you want to see some previously created tasks. '),
-                h('div', {
-                  style: {
-                    display: showTodoDiv
-                  }
-                }, [
-                  h('div', taskMonad.html),
-                  h('div', 'Enter author, responsible person, and task here: '),
-                  h('input.newTask')
-                ]),
-                h('br'),
-                h('span#alert', mMalert.x),
-                h('br'),
-                h('span#alert2'),
 
-                h('br'),
-                h('div#chatDiv', {
-                  style: {
-                    display: showChatDiv
-                  }
-                }, [
-                  h('div#messages', [
-                    h('span', 'Message: '),
-                    h('input.inputMessage'),
-                    h('div', messages),
-                    h('br'),
-                  ])
-                ])
-              ])
-            ]),
-            h('br'),
-            h('h1', '___________________________________________________________'),
-            h('div.content', [ // 4
-              h('div#bind'),
+h('h1', 'Game, Todo List, Text Messages'),
+h('div#gameDiv2', {
+  style: {
+    display: mMgameDiv2.x
+  }
+}, [
+  h('div#leftPanel', {
+    style: {
+      display: mMgameDiv2.x
+    }
+  }, [
+    h('p', 'RULES: If clicking two numbers and an operator (in any order) results in 20 or 18, the score increases by 1 or 3, respectively. If the score becomes 0 or is evenly divisible by 5, 5 points are added. A score of 25 results in one goal. That can only be achieved by arriving at a score of 20, which jumps the score to 25. Directly computing 25 results in a score of 30, and no goal. Each time ROLL is clicked, one point is deducted. Three goals wins the game. The code is in an appendix.'),
+    h('p', {
+      style: {
+        color: 'red',
+        fontSize: '20px'
+      }
+    }, mMgoals2.x),
+    buttonNode,
+    h('br'),
+    h('button#4.op', 'add'),
+    h('button#5.op', 'subtract'),
+    h('button#6.op', 'mult'),
+    h('button#7.op', 'div'),
+    h('button#8.op', 'concat'),
+    h('br'),
+    h('br'),
+    h('div#dice', {
+      style: {
+        display: mMdice.x
+      }
+    }, [
+      h('button#roll.tao1', 'ROLL'),
+      h('button#back.tao100', 'BACK'),
+      h('button#ahead.tao1', 'FORWARD'),
+      h('div.tao', `Selected numbers: ${gameMonad.fetch3().join(', ')}`),
+      h('div.tao', `Operator: ${gameMonad.fetch2()} `),
+      h('div.tao', 'Index: ' + gameMonad.s[1]),
+      h('button#clear', 'Clear selected numbers'),
+      h('p', ' When traversing the game history, any time there are two selected numbers and a selected operator, a computation will be performed. You can clear the selected numbers and substitute others, and if you don\'t want a selected operator you can select another one.'),
+      h('p', ' Create a group or join an existing group. '),
+      h('span', 'Change group: '),
+      h('input#group', 'test'),
+      h('p', mMsoloAlert.x),
+      h('p', ' You can change your name by entering a comma-separated name and password below. The combination will go into a persistent file. You can use this combination in the future to edit or delete your saved comments. '),
+      h('span.red', mMregister.x),
+      h('p', {
+        style: {
+          color: "red"
+        }
+      }, nameMess),
+      h('label', {
+        style: {
+          display: mMshowRegister.x
+        }
+      }, 'Register or log in here:'),
+      h('input.register', {
+        style: {
+          display: mMshowRegister.x
+        }
+      }),
+    ])
+  ]),
+  h('div#rightanel', {
+    style: {
+      display: 'block',
+      float: 'right'
+    }
+  }, [
+    h('br'),
+    h('br'),
+    h('br'),
+    h('br'),
+    h('br'),
+    h('br'),
+    h('button#todoButton.cow', 'TOGGLE TODO_LIST'),
+    h('br'),
+    h('br'),
+    h('button#chat2.cow', 'TOGGLE CHAT'),
+    h('br'),
+    h('br'),
+    h('br'),
+    h('div', {
+      style: {
+        fontSize: "14 px"
+      }
+    }, 'Name: ' + pMname.x),
+    h('div', {
+      style: {
+        fontSize: "14 px"
+      }
+    }, 'Group: ' + pMgroup.x),
+    h('br'),
+    h('div', {
+      style: {
+        fontSize: "14 px"
+      }
+    }, gameData),
+    h('br'),
+    h('div#a100', ' _____________________________________ '),
+    h('p.italic', ' Join group "t" if you want to see some previously created tasks. '),
+    h('div', {
+      style: {
+        display: showTodoDiv
+      }
+    }, [
+      h('div', taskMonad.html),
+      h('div', 'Enter author, responsible person, and task here: '),
+      h('input.newTask')
+    ]),
+    h('br'),
+    h('span#alert', mMalert.x),
+    h('br'),
+    h('span#alert2'),
 
-              h('br'),
-              h('p', ' The asynchronous functions in Demonstration 1 use monadItter instances mMZ40 and mMZ52 instead of Promises. Here\'s the definition of MonadItter: '),
-              h('pre', `  var MonadItter = function MonadItter() {
-      this.p = function () {};
-      this.release = function () {
-        return this.p.apply(this, arguments);
-      };
-      this.bnd = function (func) {
-        return this.p = func;
-      };
-    }; `),
-              h('p', ' When obtaining data from unreliable sources, adding error checking to MonadItter or using promises\' error- checking feature would be helpful. '),
-              h('h3', 'Reactivity In Cycle.js'),
-              h('span.tao', ' Reactivity occurs naturally in the Cycle.js framework. Many developers find that Cycle.js has an unusually steep learning curve. It isn\'t so bad if you start with Andrew Staltz\' '),
-              h('a', {props: {
-                  href: "https://egghead.io/courses/cycle-js-fundamentals",
-                  target: "_blank"} 
-              }, ' Overview of Cycle.js.'),
-              h('span', ' Its elegance might take your breath away. '),
-              h('br'),
-              h('br'),
-              h('a.tao', {props: {href: 'https://github.com/snabbdom/snabbdom'}}, ' Snabbdom'),
+    h('br'),
+    h('div#chatDiv', {
+      style: {
+        display: showChatDiv
+      }
+    }, [
+      h('div#messages', [
+        h('span', 'Message: '),
+        h('input.inputMessage'),
+        h('div', messages),
+        h('br'),
+      ])
+    ])
+  ])
+]),
+h('br'),
+h('h1', '___________________________________________________________'),
+h('div.content', [ // 4
+          h('div#bind'),
 
-              h('span', ', '),
-              h('a', {props: {href: 'http://x-stream.github.io/'}}, ' xstream,'),
-              h('span', ' and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimentation and fun so many of its functions and variable definitions are included in scripts in the index.html page. '),
-              h('br'),
+          h('br'),
+          h('p', ' The asynchronous functions in Demonstration 1 use monadItter instances mMZ40 and mMZ52 instead of Promises. Here\'s the definition of MonadItter: '),
+          h('pre', `  var MonadItter = function MonadItter() {
+  this.p = function () {};
+  this.release = function () {
+    return this.p.apply(this, arguments);
+  };
+  this.bnd = function (func) {
+    return this.p = func;
+  };
+}; `),
+          h('p', ' When obtaining data from unreliable sources, adding error checking to MonadItter or using promises\' error- checking feature would be helpful. '),
+          h('h3', 'Reactivity In Cycle.js'),
+          h('span.tao', ' Reactivity occurs naturally in the Cycle.js framework. Many developers find that Cycle.js has an unusually steep learning curve. It isn\'t so bad if you start with Andrew Staltz\' '),
+          h('a', {props: {
+              href: "https://egghead.io/courses/cycle-js-fundamentals",
+              target: "_blank"} 
+          }, ' Overview of Cycle.js.'),
+          h('span', ' Its elegance might take your breath away. '),
+          h('br'),
+          h('br'),
+          h('a.tao', {props: {href: 'https://github.com/snabbdom/snabbdom'}}, ' Snabbdom'),
 
-              h('p', ' The next interactive demonstration accepts user input and executes the following statement in a web worker: '),
-              h('pre', `bind(ar[1])(execF)(fpFunc(ar[0])(x)); `),
-              h('span', ' The parameters are defined in the '),
-              h('a', {
-                props: {
-                  href: "fp"
-                }
-              }, 'appendix'),
-              h('span', '. '),
-              h('br'),
-              h('pre', {
-                style: {
-                  color: "red",
-                  fontStyle: "italic"
-                }
-              }, `Red Indicates An Ongoing Computation`),
+          h('span', ', '),
+          h('a', {props: {href: 'http://x-stream.github.io/'}}, ' xstream,'),
+          h('span', ' and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimentation and fun so many of its functions and variable definitions are included in scripts in the index.html page. '),
+          h('br'),
 
-              h('pre', `Fibonacci numbers   Prime Numbers   Prime Fibonacci Numbers `),
+          h('p', ' The next interactive demonstration accepts user input and executes the following statement in a web worker: '),
+          h('pre', `bind(ar[1])(execF)(fpFunc(ar[0])(x)); `),
+          h('span', ' The parameters are defined in the '),
+          h('a', {
+            props: {
+              href: "fp"
+            }
+          }, 'appendix'),
+          h('span', '. '),
+          h('br'),
+h('pre', {
+  style: {
+    color: "red",
+    fontStyle: "italic"
+  }
+}, `Red Indicates An Ongoing Computation`),
 
-              h('span', mMfibBlurb.x),
-              h('span', [
-                h('svg', {
-                  attrs: {
-                    width: 50,
-                    height: 50
-                  }
-                }, [
-                  h('circle', {
-                    attrs: {
-                      cx: 25,
-                      cy: 25,
-                      r: 20,
-                      stroke: 'purple',
-                      'stroke-width': 4,
-                      fill: fill1Monad.x
-                    }
-                  })
-                ])
-              ]),
+h('pre', `Fibonacci numbers   Prime Numbers   Prime Fibonacci Numbers `),
 
-              h('span', mMprimeBlurb.x),
-              h('span', [
-                h('svg', {
-                  attrs: {
-                    width: 50,
-                    height: 50
-                  }
-                }, [
-                  h('circle', {
-                    attrs: {
-                      cx: 25,
-                      cy: 25,
-                      r: 20,
-                      stroke: 'purple',
-                      'stroke-width': 4,
-                      fill: fill2Monad.x
-                    }
-                  })
-                ])
-              ]),
+h('span', mMfibBlurb.x),
+h('span', [
+  h('svg', {
+    attrs: {
+      width: 50,
+      height: 50
+    }
+  }, [
+    h('circle', {
+      attrs: {
+        cx: 25,
+        cy: 25,
+        r: 20,
+        stroke: 'purple',
+        'stroke-width': 4,
+        fill: fill1Monad.x
+      }
+    })
+  ])
+]),
 
-              h('span', mMprimeFibBlurb.x),
-              h('span', [
-                h('svg', {
-                  attrs: {
-                    width: 50,
-                    height: 50
-                  }
-                }, [
-                  h('circle', {
-                    attrs: {
-                      cx: 25,
-                      cy: 25,
-                      r: 20,
-                      stroke: 'purple',
-                      'stroke-width': 4,
-                      fill: fill3Monad.x
-                    }
-                  })
-                ])
-              ]),
-              h('br'),
-              h('br'),
-              h('p.red', 'The elapsed time is ' + mMelapsed.x + ' milliseconds.'),
-              h('input#fib92'),
-              h('br'),
-              h('br'),
-              h('span#PF_7.red6', 'Fibonacci Numbers'),
-              h('br'),
-              h('span#PF_9.turk', fS),
-              h('br'),
-              h('span#PF_8.red6', 'Prime Fibonacci Numbers'),
-              h('br'),
-              h('span#primeFibs.turk', pFS),
-              h('br'),
-              h('span#PF_21.red6', 'The largest generated prime number.'),
-              h('br'),
-              h('span.turk', topPrime),
-              h('br'),
-              h('h3', ' Promises are not needed '),
-              h('p', ' Asynchronous code can be handled without reliance on Ecmascript 2015 promises either explicitly or implicitly (e.g. using async/await). Cycle.js drivers eliminate any need to explicitly use functions from a reactive library, but xstream is an integral component of Cycle.js unless you choose most.js or RxJS. '),
+h('span', mMprimeBlurb.x),
+h('span', [
+  h('svg', {
+    attrs: {
+      width: 50,
+      height: 50
+    }
+  }, [
+    h('circle', {
+      attrs: {
+        cx: 25,
+        cy: 25,
+        r: 20,
+        stroke: 'purple',
+        'stroke-width': 4,
+        fill: fill2Monad.x
+      }
+    })
+  ])
+]),
 
-              h('p', ' The second demonstration in this series decomposes numbers into its their prime factors. Testing with sequences of 9\'s, the first substantial lag occurs at 9,999,999 - unless a large array of prime numbers has already been generated in the previous demonstration or elsewhere. Here it is:'),
-              h('input#factors_1'),
-              h('br'),
-              h('br'),
-              h('span', mMfactors.x),
-              h('span.tao3', mMfactors23.x),
-              h('p', ' primesMonad and the functions primarily involved in its transformation are shown below: '),
-              code.primes,
-              h('p', ' primesMonad state updates are generated in workerB.js and stored in the main thread. Users set new upper bounds on the size of the largest Fibonacci number in the series to be considered by entering a number in a browser input box. Here is the relevant code: '),
-              code.primes3,
-              h('p', ' The user\'s selected number along with the current state of primesMonad (primesMonad.s) gets posted to workerB, which gets functionality beyond its prototype from workerB.js, which orchestrates preparation of the return message that will be posted back to the main thread. workerB.js delegates the job to functions in script2.js by calling: '),
-              code.primes4,
-              h('p', ' execF prepares the Fibonacci series and sends its state, along with the state of primesMonad that it received from workerB.js, to fpTransformer. execP is called with the current state and the largest Fibonacci number that had been recently produced by execF as arguments. The updated state is an array with four elements, [new upper bound, new series, largest prime produced in the current browser session, largest series]. If the new result is larger than any previous one, the first and second elements of the state array are identical to the third and fourth. Otherwise, they are smaller. As is apparent in the following code, primesMonad is re-created in the main thread using the state array that was posted by workerB. '),
-              code.primes2,
+h('span', mMprimeFibBlurb.x),
+h('span', [
+  h('svg', {
+    attrs: {
+      width: 50,
+      height: 50
+    }
+  }, [
+    h('circle', {
+      attrs: {
+        cx: 25,
+        cy: 25,
+        r: 20,
+        stroke: 'purple',
+        'stroke-width': 4,
+        fill: fill3Monad.x
+      }
+    })
+  ])
+]),
+h('br'),
+h('br'),
+h('p.red', 'The elapsed time is ' + mMelapsed.x + ' milliseconds.'),
+h('input#fib92'),
+h('br'),
+h('br'),
+h('span#PF_7.red6', 'Fibonacci Numbers'),
+h('br'),
+h('span#PF_9.turk', fS),
+h('br'),
+h('span#PF_8.red6', 'Prime Fibonacci Numbers'),
+h('br'),
+h('span#primeFibs.turk', pFS),
+h('br'),
+h('span#PF_21.red6', 'The largest generated prime number.'),
+h('br'),
+h('span.turk', topPrime),
+h('br'),
+h('h3', ' Promises are not needed '),
+h('p', ' Asynchronous code can be handled without reliance on Ecmascript 2015 promises either explicitly or implicitly (e.g. using async/await). Cycle.js drivers eliminate any need to explicitly use functions from a reactive library, but xstream is an integral component of Cycle.js unless you choose most.js or RxJS. '),
 
-              h('h3', 'Type Checking'),
-              h('p', ' Type checking is useful for avoiding runtime errors and for optimization of user interfaces. For example, if a user enters the wrong type of data it is helpful to display a message explaining why nothing is happening. Not allowing defective user input to be transmitted to a WebSocket server prevents sockets from disconnecting. Some developers like to superimpose strong typing over JavaScript or write code in a strongly typed language that compiles to JavaScript. I leave JavaScript (ES7, to be precise) as it is and check types only where user input is involved. If this project were a team effort, other team members might be users of functions I write so more extensive type-checking would be prudent.'),
-              h('br'),
-              h('a', {
-                props: {
-                  href: '#top'
-                }
-              }, 'Back to the top'),
-              h('h3', 'Another Example'),
-              h('p', ' The result of every computation in a chain of synchronous functions is available to every computation that comes after it. This can be seen in the next example where the result of each computation is pushed into Bind.foo: '),
+h('p', ' The second demonstration in this series decomposes numbers into its their prime factors. Testing with sequences of 9\'s, the first substantial lag occurs at 9,999,999 - unless a large array of prime numbers has already been generated in the previous demonstration or elsewhere. Here it is:'),
+h('input#factors_1'),
+h('br'),
+h('br'),
+h('span', mMfactors.x),
+h('span.tao3', mMfactors23.x),
+h('p', ' primesMonad and the functions primarily involved in its transformation are shown below: '),
+code.primes,
+h('p', ' primesMonad state updates are generated in workerB.js and stored in the main thread. Users set new upper bounds on the size of the largest Fibonacci number in the series to be considered by entering a number in a browser input box. Here is the relevant code: '),
+code.primes3,
+h('p', ' The user\'s selected number along with the current state of primesMonad (primesMonad.s) gets posted to workerB, which gets functionality beyond its prototype from workerB.js, which orchestrates preparation of the return message that will be posted back to the main thread. workerB.js delegates the job to functions in script2.js by calling: '),
+code.primes4,
+h('p', ' execF prepares the Fibonacci series and sends its state, along with the state of primesMonad that it received from workerB.js, to fpTransformer. execP is called with the current state and the largest Fibonacci number that had been recently produced by execF as arguments. The updated state is an array with four elements, [new upper bound, new series, largest prime produced in the current browser session, largest series]. If the new result is larger than any previous one, the first and second elements of the state array are identical to the third and fourth. Otherwise, they are smaller. As is apparent in the following code, primesMonad is re-created in the main thread using the state array that was posted by workerB. '),
+code.primes2,
+
+h('h3', 'Type Checking'),
+h('p', ' Type checking is useful for avoiding runtime errors and for optimization of user interfaces. For example, if a user enters the wrong type of data it is helpful to display a message explaining why nothing is happening. Not allowing defective user input to be transmitted to a WebSocket server prevents sockets from disconnecting. Some developers like to superimpose strong typing over JavaScript or write code in a strongly typed language that compiles to JavaScript. I leave JavaScript (ES7, to be precise) as it is and check types only where user input is involved. If this project were a team effort, other team members might be users of functions I write so more extensive type-checking would be prudent.'),
+h('br'),
+h('a', {
+  props: {
+    href: '#top'
+  }
+}, 'Back to the top'),
+h('h3', 'Another Example'),
+h('p', ' The result of every computation in a chain of synchronous functions is available to every computation that comes after it. This can be seen in the next example where the result of each computation is pushed into Bind.foo: '),
               h('pre', `  var foo = Bind("foo"); 
 
     var result = foo(1)(v=>v+2)(v=>v*v*v)(v=>v+3)

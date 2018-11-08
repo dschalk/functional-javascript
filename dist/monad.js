@@ -1,4 +1,7 @@
 
+
+
+
 var Maybe;
 var compose;
 var window = {};
@@ -163,8 +166,11 @@ var pName;
 var pigText = 888;
 
 var _convert_ = a => b => parseInt(b,a);  
-var toInt = _convert_(10);
-var toHex = _convert_(6);
+var toInt = _convert_ (10);
+var _conveNt_ = a => b => parseFloat(b,a);
+var toFl = _conveNt_ (10);
+
+var toHex = _conveNt_ (6);
 
 
 var a1 = makeBind();
@@ -214,12 +220,13 @@ var test4 = w => {
   (x=>idP(x+Math.floor(a.ar[0]*a.ar[1]*(a.ar[2]/a.ar[3]))))(); 
 };
 
-var test6 = a => w  => {
-  window[a] = Bind(a);  
-  window[a](w)(cubeP)(addP(3))(squareP)
-  (x=>addP(x)(-30*arBind[a][1]))
-  (s=>idP(Math.floor(s/arBind[a][2])))
-  (x=>idP(x+Math.floor(arBind[a][0]*arBind[a][1]*(arBind[a][2]/arBind[a][3]))))(); 
+var test6 = z => w  => {
+  var a = Bind(z);  
+  return a(w)(cubeP)(addP(3))(squareP)
+  (x=>addP(x)(-30*arBind[z][1]))
+  (s=>idP(Math.floor(s/arBind[z][2])))
+  (x=>idP(x+Math.floor(arBind[z][0]*arBind[z][1]*
+    (arBind[z][2]/arBind[z][3]))))(); 
 };
 
   var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready']; 
@@ -3082,5 +3089,5 @@ var view = new Proxy({
 
 test5(7);
 
-    
+var qfB = mBnd(true);    
 
