@@ -2359,10 +2359,10 @@ h('div', styleFunc(["#361B01", , , , "90%", "center"]), '***********************
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 3 '),
 h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
 
-h('p', ' In Demonstration 2, we saw copies of _bind returning nonsense data when they were called before other copies having the same names had finished executing. They name were using the same array and stepping all over each other. Arrays are not cleared each time run() is called so objects created by mBnd can recieve asynchronous data from sockets, workers, and user input, waiting until all the data is in before running functions on them. ' ),
-h('span.tao', ` Each time you enter a number, the following code is executed: ` ),
+h('p', ' In Demonstration 2, we saw copies of _bind returning nonsense data when they were called before other copies having the same names had finished executing. They were using the same array and stepping all over each other. Let abc = mBnd. You can empty abc.ar with abc.ar = [] or abc = mBnd whenever you want, but letting it gradually fill each time you call abc.run() facilitates the handling of asynchronous data, That is the point of this demonstration. ' ),
+h('span.tao', ` Each time you enter a number in the right column, the following code is executed: ` ),
 h('pre', `  qfB.run(toFloat(e.target.value))(qF9); ` ),
-h('span', '  That\'s all. The third qF9 receives user data, it calls it runs, the data in qfB.ar is plugged into the ' ),
+h('span.tao', '  That\'s all! The third time qF9 receives user data, all three numbers are plugged into the ' ),
 
 h('a', { props: { href: "https://en.wikipedia.org/wiki/Quadratic_formula", target: "_blank" }}, 'quadratic formula'),
 h('span', ' The Cycle.js-specific code is shown below. The point is to call "qfB.run(toInt(e.target.value))(qF9)" each time a number is entered. ' ),
