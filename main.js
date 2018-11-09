@@ -1744,11 +1744,11 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
       // **************************************************** START makeBind demo
 
 
-  qFunc = a => b => c => {
+  qFunc = function (q) {
       console.log('qfB.ar.length', qfB.ar.length)
-      var a = qfB.ar[0];
-      var b = qfB.ar[2];
-      var c = qfB.ar[4];
+      var a = q.ar[0];
+      var b = q.ar[2];
+      var c = q.ar[4];
       var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
       var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
       if (aa === aa) {
@@ -1766,7 +1766,7 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
 
   function qF9 () {
       if (qfB.ar.length > 4) {
-          qFunc(qfB.ar[0])(qfB.ar[2])(qfB.ar[4]) 
+          qFunc(qfB) 
       }
       else Cow1 = "coefficients: " + qfB.ar.join(' ')
   };
@@ -2368,44 +2368,44 @@ h('a', { props: { href: "https://en.wikipedia.org/wiki/Quadratic_formula", targe
 h('span', ' The Cycle.js-specific code is shown below. The point is to call "qfB.run(toInt(e.target.value))(qF9)" each time a number is entered. ' ),
 
 
-h('pre', `  var qfB = mBnd(true);
+h('pre', `  var qfB = mBnd();
 
   qF1$ = sources.DOM
-  .select('#qF1').events('keypress');
+    .select('#qF1').events('keypress');
 
   oneAction$ = qF1$.map(e => {
-      if (e.keyCode === 13) {
-          qfB.run( toFloat( e.target.value ) )(qF9); 
+      if (e.keyCode === 13) {  
+          qfB.run(toFloat(e.target.value))(qF9);
           document.getElementById('qF1').value = null;
-               // clears the text box
       }
   });
-  
+
   function qF9 () {
       if (qfB.ar.length > 4) {
         // If true, it\'s time to run the quadratic equation
-  	qFunc(qfB.ar[0])(qfB.ar[2])(qfB.ar[4]) 
+  	qFunc(qfB); 
       }
   	else Cow1 = "coefficients: " + qfB.ar.join(', ')
   };
 
-  qFunc = a => b => c => {
+  qFunc = function (q) {
       console.log('qfB.ar.length', qfB.ar.length)
-      var a = qfB.ar[0];
-      var b = qfB.ar[2];
-      var c = qfB.ar[4];
+      var a = q.ar[0];
+      var b = q.ar[2];
+      var c = q.ar[4];
       var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
       var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
       if (aa === aa) {
-          Cow1 = \${a\}*x*x + \${b\}*x + \${c\} = 0 has the following solutions:,
-          Cow2 = x = \${aa\} and x = \${bb\};
+          Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
+          Cow2 = \`x = \${aa} and x = \${bb}\`;
       }
       if (!(aa === aa)) {
-          Cow1 = \${a\}*x*x + \${b\}*x + \${c\} = 0 has no solution;
+          Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
           Cow2 = '';
       }
       qfB = mBnd(true);
-  } ` )
+  }
+ ` )
 
 ]),
     
