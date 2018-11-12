@@ -18,7 +18,6 @@
     // socket = new WebSocket("ws://schalk.site:3055");
     // ws = new WebSocket("ws://echo.websocket.org");
 
-h = h;
 
 console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
 
@@ -557,7 +556,6 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
       var groupPressAction$ = groupPress$.map(e => {
         if (e.keyCode === 13 && e.target.value) {
           var g = e.target.value.replace(/,/g, '');
-          pMgroup.ret(g); 
           send("CO#$42", g);
           gameMonad.run([0, 0, 0, [],
             [0, 0, 0, 0], , g
@@ -1216,6 +1214,8 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
         }
       });
 
+
+
       var clearClick9$ = sources.DOM
         .select('button.clear_S').events('click')
         .map(() => {
@@ -1745,10 +1745,9 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
 
 
   qFunc = function (q) {
-      console.log('qfB.ar.length', qfB.ar.length)
       var a = q.ar[0];
-      var b = q.ar[2];
-      var c = q.ar[4];
+      var b = q.ar[1];
+      var c = q.ar[2];
       var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
       var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
       if (aa === aa) {
@@ -1761,6 +1760,7 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
           Cow2 = '';
           // console.log("Cow1 and Cow2", Cow1, Cow2);
       }
+      diffRender();
       qfB = mBnd(true);
   }
 
@@ -1773,12 +1773,56 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
 
   var qfB = mBnd();
 
+var handler = {
+	get: function (a, b) {
+		if (a.ar.length === 1) {
+			console.log("ob is", ob);
+			Cow1 = a.ar[0] + " * x * x "
+            return Reflect.get(a,b);
+		}
+		else if (a.ar.length === 2) {
+			console.log("ob is", ob);
+			Cow2 = Cow1 + " + " + a.ar[1] + " * x "
+            return Reflect.get(a,b);
+		}
+        return Reflect.get(a,b);
+	},
+	set: function(target,prop,val = []) {
+        if (prop == 'ar' && prop.length === 3) {
+        	console.log("Bingo ar.length === 3")
+            target[prop] = val;
+        }
+    }
+} 
+
+var ob_proxy = new Proxy(ob, handler)  
+
+/*qfB_proxy = new Proxy(qfB, {
+	get: function (a, b) {
+		if (a.ar.length === 1) {
+			Cow1 = a.ar[0] + " * x * x "
+                        diffRender();
+            return Reflect.get(a,b);
+		}
+		else if (a.ar.length === 2) {
+			Cow2 = Cow1 + " + " + a.ar[1] + " * x "
+                        diffRender();
+            return Reflect.get(a,b);
+		}
+		if (a.ar.length === 3) {
+			qFunc(qfB);
+		}
+        diffRender();  
+        return Reflect.get(a,b);
+	} 
+  }); */
+
   qF1$ = sources.DOM
     .select('#qF1').events('keypress');
 
   oneAction$ = qF1$.map(e => {
       if (e.keyCode === 13) {  
-          qfB.run(toFloat(e.target.value))(qF9);
+          qfB_proxy.run(toFloat(e.target.value));
           document.getElementById('qF1').value = null;
       }
   });
@@ -1823,7 +1867,6 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
       var elemB$ = sources.DOM.select('input#group').events('keypress')
         .map(e => {
           mM10.ret(e.target.value);
-          pMgroup.ret(e.target.value);
           worker.postMessage([mM9.x, e.target.value]);
         });
 
@@ -2059,7 +2102,7 @@ h('span', ' server, each on its own ' ),
 
                       h('a', {props: {href:"https://lists.ubuntu.com/archives/ubuntu-announce/2018-April/000231.html", target: "_blank" }}, 'Ubuntu 18.04' ), 
 
-                      h('a.a2', {props: {href: "https://www.digitalocean.com/", target: "_blank" }}, ' Digital Ocean' ),
+                      h('a.a2', {props: {href: "https://www.digitalocean.com/", target: "_blank" }}, 'Digital Ocean' ),
 
 h('span', ' droplet. The JavaScript is plain, unrestricted ' ),
   
@@ -2075,24 +2118,47 @@ h('span', '.' ),
 h('br'),
 h('br'),
 
+h('span.tao', ' JavaScript is more flexible than exclusively functional languages such as '), 
   
+                h('a', {props: {href:"https://en.wikipedia.org/wiki/Lisp_(programming_language)", target: "_blank" }}, 'Lisp' ), 
 
-h('span.tao', ' The term "functional programming" is vague until a context is specified. In the context of the '),
-                h('a', {props: {href: "https://en.wikipedia.org/wiki/Lambda_calculus", target: "_blank" }}, 'Lambda Calculus' ), 
-h('span', ', explained succinctly in ' ),
-h('a', {props: {href: "https://www.youtube.com/watch?v=eis11j_iGMs:", target: "_blank" }}, 'Lambda Calculus video' ), 
-h('span', ', it refers to a computational paradyme having no mutations, no impure functions, and no side effects.  Haskell started like this and became useful when (assuming adherence to recommended practice) only the main function was allowed to evaluate data held in an innovation called the "IO Monad". ' ),                            
-h('br'),                          
-h('p', ' In the context of JavaScript, "functional programming" is the source of much confustion. Many presentations, tutorials and blog posts promote the notion that functional JavaScript is JavaScript without mutation or impure functions. ' ),            
-h('span.tao', ' Type checking, avoiding mutation, and using mostly pure functions can result in fewer bugs, ease of maintenance, and shorter production times, especially in group efforts. It is nonetheless unfortunate for people trying to improve their coding skills that "functional programming" has been conflated with these coding practices. Functional Javascript is best thought of as JavaScript that takes full advantage of the language\'s first-class functions, regardless of whether it is done safely by superimposing things such as ' ),
+h('span', ' and Haskell, which are strongly typed and designed to use pure functions and immutable data. You can assist browser optimization, facilitate easy maintenance, and simplify debugging by requiring type declarations, using only pure functions, and refraining from ever mutating objects or variables. But it is, in my opinion, very unfortunate that the phrase "functional programming" is evolving to encompass type checking, pure functions, and immutable data. I will buck that trend, hoping that it isn\'t too late, and say "functional Javascript" is JavaScript that takes full advantage of JavaScript\'s first-class functions, regardless of whether it is accomplished safely with ' ),
                           
                 h('a', {props: {href:"https://www.typescriptlang.org/", target: "_blank" }}, 'Typescript' ), 
                           
- h('span', ' or dangerously by retaining all the potential of ' ), 
+ h('span', ' or the raw power of ' ), 
                           h('a', {props: {href:"https://www.ecma-international.org/ecma-262/8.0/index.html", target: "_blank" }}, 'EcmaScript 2017' ), 
+h('span', ', if you so choose. ' ),
 h('br'),
+h('br'),
+h('span.tao', ' By the way, JavaScript "monads" don\'t deserve the blogger hype the are getting. Haskell monads aren\'t mathematical monads, as explained in ' ),
+h('a', {props: {href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/", target: "_blank"}}, 'Hask Is Not A Category' ), 
                           
-h('p', ' Here\'s some functional JavaScript: ' ),
+h('span', '; how much less so are the JavaScript "monads". The ' ),
+    
+h('a', {props: {href:"https://wiki.haskell.org/Monad_laws", target: "_blank" }}, 'Haskell Monad Laws' ), 
+h('span', ', which aren\'t even mandetory in Haskell, are common sense requirements for robust function composition. If you rely on functions to make programs work, you aren\'t communicating changes of state by mutating global variables. Time travel and undo algorithms naturally use immutable data. Thousands of passes through loops inside the scopes of functions cry out for  mutable values, not factories spewing pointers and values into memory. When you program functionally, Things fall into place without enforcing rules. This is doing through inaction, in the spirit of the ' ),
+  
+                           h('a', {props: {href:"https://en.wikipedia.org/wiki/Tao_Te_Ching", target: "_blank" }}, 'Tao Te Ching' ), 
+h('br'),
+h('br'),
+
+
+h('span.tao', ' The ' ),
+h('a', {props: {href:"https://github.com/fantasyland/fantasy-land", target: "_blank" }}, 'Fantasyland' ),
+h('span', ' algebraic javascript specification is an admirable achievement. People who are familiar with Haskell can jump right in and start coding with familiar monads and functors borrowed from the Haskell ' ),
+
+
+h('a', {props: {href: "http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html", target: "_blank"}}, 'Prelude module' ), 
+
+h('span', '. The '  ),
+
+h('a', {props: {href:"https://github.com/origamitower/folktale", target: "_blank" }}, 'Folktale' ),
+
+h('span', ' library also succeeds in reflecting the Haskell Prelude module. The Folktale "Maybe" monad is being evaluated on this page as a way to catch errors. ' ),
+  
+h('br'),
+h('p', ' Instead of composition by linking erzats monads, how about composing functions with higher-order functions, as in the example below. True, "f" links objects containing values and methods, but that detail belongs under the hood. Using this approach, the presentation is clear and the possibilities are myriad. '),
 
   h('div', styleFunc(["#FFD700", "3%", "21px", , , ]), [
     h('div', 'f.run(x)(function1)(function2) ... (functionN)(); ')
@@ -2223,11 +2289,10 @@ h('p', ' The statement "Bind(x, true)" returns a copy of _bind() and adds a uniq
 
                 h('br'),
                 h('br'),
-                h('div', styleFunc(["#FffcCC", , "21px", , , ]), 'Using Bind Directly'),
-                h('pre', styleFunc(["#8ffc95", , "18px", , , ]), `  var test6 = z => w  => {
-      var a = Bind(z, true);  
-      return a(w)(cubeP)(addP(3))(. . . ` ),          
-                
+                h('div', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Using Bind Directly'),
+                h('div', styleFunc(["#ffac95", , "18px", , , "center"]), 'var name = (Bind("name"'),
+                h('div', styleFunc(["#ffac95", , "18px", , , "center"]), 'arBind[name] = []' ), // Clear the array after each use
+                h('div', styleFunc(["#ffac95", , "18px", , , "center"]), 'name(x)( . . ."'),
                 h('br'),
                 h('div', arBind.a11.join(', ') ),
                 h('div', arBind.a12.join(', ') ),
@@ -2258,12 +2323,8 @@ h('p', ' The statement "Bind(x, true)" returns a copy of _bind() and adds a uniq
                 }, 'GO'),
                 h('br'),
                 h('br'),
-                
-                h('div', styleFunc(["#FffcCC", , "21px", , , ]), 'Using mBnd'),
-                h('pre', styleFunc(["#8ffc95", , "18px", , , ]),  `  var test4 = w => {
-      var a = mBnd(true)
-      return a.run(w)(cubeP)(addP(3))(. . . ` ),
-  
+                h('div', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Using Bind Wrapped In mBnd()'),
+                h('div', styleFunc(["#8ffc95", , "18px", , , "center"]), 'mBnd().run(x)( . . .'), // Anonymous functions.
                 h('br'),
                 h('div', `${_B0.join(", ")}`),
                 h('div', `${_B1.join(", ")}`),
@@ -2342,7 +2403,7 @@ h('div', styleFunc(["#361B01", , , , "90%", "center"]), '***********************
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 3 '),
 h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
 
-h('p', ' In Demonstration 2, we saw copies of _bind returning nonsense data when they were called before other copies having the same names had finished executing. They were using the same array and stepping all over each other. Let abc = mBnd. You can empty abc.ar with abc.ar = [] or abc = mBnd() whenever you want, but letting it gradually fill each time you call abc.run() facilitates the handling of asynchronous data, That is the point of this demonstration. ' ),
+h('p', ' In Demonstration 2, we saw copies of _bind returning nonsense data when they were called before other copies having the same names had finished executing. They were using the same array and stepping all over each other. Let abc = mBnd. You can empty abc.ar with abc.ar = [] or abc = mBnd whenever you want, but letting it gradually fill each time you call abc.run() facilitates the handling of asynchronous data, That is the point of this demonstration. ' ),
 h('span.tao', ` Each time you enter a number in the right column, the following code is executed: ` ),
 h('pre', `  qfB.run(toFloat(e.target.value))(qF9); ` ),
 h('span.tao', '  That\'s all! The third time qF9 receives user data, all three numbers are plugged into the ' ),
@@ -2358,21 +2419,12 @@ h('pre', `  var qfB = mBnd();
 
   oneAction$ = qF1$.map(e => {
       if (e.keyCode === 13) {  
-          qfB.run(toFloat(e.target.value))(qF9);
+          qfB.run(toFloat(e.target.value));
           document.getElementById('qF1').value = null;
       }
   });
 
-  function qF9 () {
-      if (qfB.ar.length > 4) {
-        // If true, it\'s time to run the quadratic equation
-  	qFunc(qfB); 
-      }
-  	else Cow1 = "coefficients: " + qfB.ar.join(', ')
-  };
-
   qFunc = function (q) {
-      console.log('qfB.ar.length', qfB.ar.length)
       var a = q.ar[0];
       var b = q.ar[2];
       var c = q.ar[4];
@@ -2386,9 +2438,29 @@ h('pre', `  var qfB = mBnd();
           Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
           Cow2 = '';
       }
-      qfB = mBnd(true);
-  }
- ` )
+      q = mBnd(true);
+  };  
+
+  var qfB_proxy = new Proxy(qfB, {
+  	get: function (a, b) {
+  		if (a.ar.length === 1) {
+  			console.log("ob is", ob);
+  			Cow1 = a.ar[0] + " * x * x "
+              return Reflect.get(a,b);
+  		}
+  		else if (a.ar.length === 2) {
+  			console.log("ob is", ob);
+  			Cow2 = Cow1 + " + " + a.ar[1] + " * x "
+              return Reflect.get(a,b);
+  		}
+  		if (a.ar.length === 3) {
+  			console.log("ob is", ob);
+  			qFunc(a);
+  		}
+          return Reflect.get(a,b);
+  	} 
+  }); ` ),
+
 
 ]),
     
@@ -2418,13 +2490,15 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
 
                 
  
-    h('p', ' A generator or proxy could have been used to plug numbers into the quadratic equation , but using mBnd() is efficient, merely running the same line of code ad infinitum to repeatedly plug numbers into the quadratic formula has an elegant appearance, and mBnd() doesn\'t require an ES6 polyfill to make it work in older browsers.'),
-h('p', ' Later on this page, MonadItter is used in a similar demenstration. mMZ33.release(<coefficient>) is called repeatedly.  ' ),
+    h('p', ' This demonstration could be the basis for a two-player game in which each player enters an integer. Then the player who was first to enter a number must enter another that results in a two-integer solution. A solitaire version could have the computer provide a second, randomly generated integer.'),
 
+    h('br'),
   ]),
 ]), h('div.content', [
 
   h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
+  h('br'),
+  h('br'),
 
   h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
   h('br'),
@@ -2457,13 +2531,13 @@ h('p', ' Later on this page, MonadItter is used in a similar demenstration. mMZ3
     }
   }, 'comments'),
   h('span', ' section near the end of this page. You can email me at pyschalk@gmail.com. '),
-  h('h3', ' The Game '),
+  h('p', ' '),
   h('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history. All group members see other members\' scores decrease or increase as they navigate backwards and forwards. '),
 
   h('p', ' Visitors to this site are automatically logged in with pseudo-randomly generated numbers as their user names and passwords. The default "group" is the non-group "solo". '),
   h('p', ' You can select a persistent name and password. These will make it possible for you to return at any time and delete or edit your comments. '),
   h('p#gameIntro', ' The demonstration section also has a text box where you can create or join a group by entering a group name. Changing groups resets your game score and goal tally to zeros. '),
-  h('span.tao', ' The game code is fairly concise and intuitive. It uses little objects called "monads". A quick walk-through is presented at.'),
+  h('span.tao', ' The game code is fairly concise and intuitive. A quick walk-through is presented at.'),
   h('a', {
     props: {
       href: '#gameCode'
@@ -2477,7 +2551,7 @@ h('p', ' Later on this page, MonadItter is used in a similar demenstration. mMZ3
   }, 'Asynchronous Processes'),
   h('br'),
   h('p', ' But it might be best to first proceed down the page and see the examples of Monad instances manipulating data. If you are trying to wrap you head around the concept of functional programming, playing with bind() and the monads in the browser console might lift you into the comfort zone you seek. '),
-  h('h3', 'The Rules'),
+  h('h3', 'The Game'),
   h('p', 'People who are in the same group, other than the default non-group named "solo", share the same todo list, chat messages, and simulated dice game. '),
   h('p', ' Data for the traversable game history accumulates until a player scores three goals and wins. The data array is then emptied and the application is ready to start accumulating a new history. '),
   h('p', ' Your user name for trying out the game, todo list, and chat demonstrations and for leaving comments is a thirteen digit random number. In the game section and in the comments section near the bottom of this page, you can chose your own persistent user name and password. As mentioned above, Knowing your password facilitates revising or removing comments.'),
@@ -2524,7 +2598,7 @@ h('div#gameDiv2', {
       h('div.tao', 'Index: ' + gameMonad.s[1]),
       h('button#clear', 'Clear selected numbers'),
       h('p', ' When traversing the game history, any time there are two selected numbers and a selected operator, a computation will be performed. You can clear the selected numbers and substitute others, and if you don\'t want a selected operator you can select another one.'),
-      h('p', ' Create a group or join an existing group. If you registered a name below, press the <ENTER> key twice or hold it down for a second or two in order to display any group todo list that might exist. Group t might still have a todo list.'),
+      h('p', ' Create a group or join an existing group. '),
       h('span', 'Change group: '),
       h('input#group', 'test'),
       h('p', mMsoloAlert.x),
@@ -2630,8 +2704,7 @@ h('div.content', [ // 4
     return this.p = func;
   };
 }; `),
-          h('p', ' MonadItter instances trap incoming WebSocket messages based on their six-digit prefixes and redirect them according to their intended purposes. No error checking is needed. If a prefix is not recognized, the message falls through and is disregarded. '),
-
+          h('p', ' When obtaining data from unreliable sources, adding error checking to MonadItter or using promises\' error- checking feature would be helpful. '),
           h('h3', 'Reactivity In Cycle.js'),
           h('span.tao', ' Reactivity occurs naturally in the Cycle.js framework. Many developers find that Cycle.js has an unusually steep learning curve. It isn\'t so bad if you start with Andrew Staltz\' '),
           h('a', {props: {
@@ -2866,7 +2939,7 @@ h('p', ' The result of every computation in a chain of synchronous functions is 
               h('p', ' fmap (above) facilitated using qS4 in a monadic sequence. qS4 returns an array, not an instance of Monad, but fmap lifts qS4 into the monadic sequence. '),
               h('p', ' The function solve() is recursive. It invokes itself after release() executes three times. The expression "solve()" resets solve to the top, where mMZ3.p becomes a function containing two nested occurrences of mMZ3.bnd. After mMZ3.release() executes, mMZ3.p becomes the function that is the argument to the next occurrence of mMZ3.bnd. That function contains yet another occurrence of mMZ3.bnd. MonadItter is syntactic sugar for nested callbacks. '),
 
-              h('h3', ' Preserve Archives By Avoiding Mutation '),
+              h('h3', ' Preserve Archives By Sidestepping Mutation '),
               h('p', ' When you assign a variable to an array, for example "var arr = [1,2,3]", arr points to a location in memory. Suppose you want to preserve a record of previous values of arr. You might try saving them in an array like this: '),
               h('pre', `  var arr = [1,2,3]
     var b = [arr];
@@ -2892,6 +2965,8 @@ h('p', ' The result of every computation in a chain of synchronous functions is 
               h('p', "index: " + mMindexDS.x),
               h('p', "rNumsDS: " + rNumsDS.join(', ')),
               h('p', "rMatrixF(rNumsDS: " + rMatrixF(rNumsDS)),
+              h('br'),
+              h('br'),
               h('p', ' Reactivity is achieved in these demonstrations through Cycle.js rather than RxJS, Bacon, or something else that could work just as well, though perhaps not quite as elegantly. This section provides a glimpse of how I use (some might say, \"misuse\") Cycle.js. '),
               h('p', ' If you click any two numbers above they will exchange places with one another. The array "rNumsDS" keeps track of the positions of numbers on the grid. '),
               h('pre', `var rNumsDS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] `),
@@ -2966,7 +3041,6 @@ h('p', ' The result of every computation in a chain of synchronous functions is 
 
 
               h('h2', ' MonadEr - An Error-Catching Monad '),
-              h('p', ' NOTE: I DON\'T LIKE THIS. I WILL COME UP WITH SOMETHING LESS CONVOLUTED. ' ), 
               h('p', ' Instances of MonadEr function much the same as instances of Monad, but when an instance of MonadEr encounters an error, it ceases to perform any further computations. Instead, it passes through every subsequent stage of a sequence of MonadEr expressions, reporting where it is and repeating the error message. It will continue to do this until it is re-instantiated or until its bnd() method runs on the function clean(). '),
               h('p', 'Functions used as arguments to the MonadEr bnd() method can be placed in quotation marks to prevent the browser engine from throwing reference errors. Arguments can be protected in the same manner. Using MonadEr can prevent the silent proliferation of NaN results in math computations, and can prevent browser crashes due to attempts to evaluate undefined variables. '),
               h('p.tao1b', ' The monad laws hold for MonadEr instances. The following relationships were verified in the Chrome console: '),
@@ -3137,29 +3211,9 @@ h('p', ' The result of every computation in a chain of synchronous functions is 
               }, 'Back to the top'),
               h('p', ' *************************************************************************************** '),
 
-h('span.tao', ' The ' ),
-h('a', {props: {href:"https://wiki.haskell.org/Monad_laws", target: "_blank" }}, 'Haskell Monad Laws' ), 
-h('span', ', which aren\'t even mandetory in Haskell, are common sense requirements for robust function composition. If you rely on functions to make programs work, you aren\'t communicating changes of state by mutating global variables. Time travel and undo algorithms naturally use immutable data. Thousands of passes through loops inside the scopes of functions cry out for  mutable values, not factories spewing pointers and values into memory. When you program functionally, Things fall into place without enforcing rules. This is doing through inaction, in the spirit of the ' ),
-  
-                           h('a', {props: {href:"https://en.wikipedia.org/wiki/Tao_Te_Ching", target: "_blank" }}, 'Tao Te Ching' ), 
-h('br'),
-h('br'),
-
-
-h('span.tao', ' The ' ),
-h('a', {props: {href:"https://github.com/fantasyland/fantasy-land", target: "_blank" }}, 'Fantasyland' ),
-h('span', ' algebraic javascript specification is an admirable achievement. People who are familiar with Haskell can jump right in and start coding with familiar monads and functors borrowed from the Haskell ' ),
-
-
-h('a', {props: {href: "http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html", target: "_blank"}}, 'Prelude module' ), 
-
-h('span', '. The '  ),
-
-h('a', {props: {href:"https://github.com/origamitower/folktale", target: "_blank" }}, 'Folktale' ),
-
-h('span', ' library also succeeds in reflecting the Haskell Prelude module. The Folktale "Maybe" monad is being evaluated on this page as a way to catch errors. ' ),
-  
-h('br'),
+              h('h3', ' STATEMENT OF DAVID SCHALK '),
+              h('p', styleFunc(["#a2f2e8", , "18px", "italic", , ]), 'Functional programming aficionados will have noticed by now that I do not scrupulously avoid mutation of variables, variables in global scope, functions that fish data from outside their scopes, or functions that produce side effects before they return. Is there method to my madness? Am I crazy like a fox? Or am I just setting bad examples with sloppy code? Here\'s what I say about all of that: '),
+              h('p', ' For me, functional programming is not a religious cult to whose dogmas I must scrupulously adhere. Mutating variables inside of functions can minimize lines of code and promote efficiency. The global variable that starts out as: '),
               h('pre', `  var rNumsDS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] `),
               h('p', ' feels elegant to me. It is a simple proxy for the sixteen square grid that never needs to be operated upon directly because the placement of its numbers are in one-to-one correspondence with the placement of its (rNumsDS\'s) elements. I could have tucked it away in an object or closure, but I like it so much that I dignified it with the designation "window.rNumsDS". I ignored an important rule. I did it more than once, and it isn\'t the only important rule I ignored. But in every case, there was an advantage (if only in efficiency), and I made sure that no harm could come from my deviations. '),
               h('p', ' If I were working in a group, or providing something that would be maintained by anyone other than me, I would code by the book. I\'m not getting paid for this work; I\'m just having fun. Dig it! '),
@@ -3934,7 +3988,13 @@ h('span', ' helps instill confidence that the monads are robust, versatile, and 
 
             h('p', ' The demonstrations include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history (all group members see your score decrease or increase as you navegate backwards and forwards). Monads are shown performing lengthy mathematical computations asycronously in web workers. Monads encapsulate state. The error checking monad carries occurances of NaN and runtime errors through sequences of computations much like the Haskell Maybe monad. '),
 
+
+
+
+
+
             code.monad,
+
 
             h('span.tao', ' As discussed '),
             h('a', {

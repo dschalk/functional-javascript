@@ -1,7 +1,9 @@
 
-
-
-
+var a;
+setTimeout( () => {
+  Cow1 = h('p', ' Using @cycle/DOM imported by main.js in browser script "monad.js". '); 
+  Cow2 = h('p', {style: {fontStyle: "italic", color: "#EEAAAA"}}, 'Note: Scripts in index.html have access to everything imported by main.js. "h = h" in main.js is necessary. Settimeout in monad.js is also required because the scripts load before main.js finishes loading. The delay is two seconds. '); console.log("You bet")},2000 );
+var qfB_proxy;
 var Maybe;
 var compose;
 var window = {};
@@ -67,6 +69,8 @@ function Bind(str) {
 }; 
 */
 
+console.log(Cow1)
+console.log(Cow2)
 function factorial(x) {
     if (x <= 1) return 1;
     return x * factorial(x-1) // tail-call recursion
