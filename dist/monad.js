@@ -1,8 +1,11 @@
 
+
+
+var h;
 var a;
 setTimeout( () => {
-  Cow1 = h('p', ' Using @cycle/DOM imported by main.js in browser script "monad.js". '); 
-  Cow2 = h('p', {style: {fontStyle: "italic", color: "#EEAAAA"}}, 'Note: Scripts in index.html have access to everything imported by main.js. "h = h" in main.js is necessary. Settimeout in monad.js is also required because the scripts load before main.js finishes loading. The delay is two seconds. '); console.log("You bet")},2000 );
+  Cow1 = h('p', ' Using @cycle/DOM (imported by main.js) in browser script "monad.js". Settimeout causes a two-second delay to give main.js time to load. '); 
+},3000 );
 var qfB_proxy;
 var Maybe;
 var compose;
@@ -24,6 +27,7 @@ onChange = (e,t)=>{
             };
             return new Proxy(e,n)
         }
+
 
 function Bind(str, bool = false) {
     arBind[str] = [];
@@ -175,26 +179,6 @@ var _conveNt_ = a => b => parseFloat(b,a);
 var toFloat = _conveNt_ (10);
 
 var toHex = _conveNt_ (6);
-
-
-var a1 = makeBind();
-var a2 = makeBind();
-var a3 = makeBind();
-var a4 = makeBind();
-var a5 = makeBind();
-var a6 = makeBind();
-var a7 = makeBind();
-var a8 = makeBind();
-var a9 = makeBind();
-
-/* var test4 = w => {
-  var a = mBnd().run
-  return a.run(w)(cubeP)(addP(3))(squareP)(x=>addP(x)
-    (-30*arBind[a.xVal][1]))(s=>idP(Math.floor(s/arBind[a.xVal][2])))
-    (x=>idP(x+Math.floor(arBind[a.xVal][0]*arBind[a.xVal][1]*
-    (arBind[a.xVal][2]/arBind[a.xVal][3]))))(); 
-};  */
-
 var ant = Bind('ant');
 
 var b87 = Bind("b87");
@@ -203,34 +187,38 @@ arBind.a = [1,2,3,4,5,6,7];
 
 num9 = 0;
 
-var mBndTrue = () => {
-    var x = Symbol(); 
-    return { run: Bind(x, true), ar: arBind[x] };
-}; 
-
 //***************************************************************** mBnd, test4, test5, test6
 
+var diffR = function diffR (obj) {
+    return obj = onChange(obj, () => diffRender())
+};
+
 var mBnd = (bool = false) => {
-    var x = Symbol(); 
-    return { run: Bind(x, bool), ar: arBind[x] };
+    var x = Symbol();
+    var ob = {key:x,  run: Bind(x)}
+    arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
+    return ob;
 }; 
 
 
 var test4 = w => {
-  var a = mBnd(true)
-  return a.run(w)(cubeP)(addP(3))(squareP)
-  (x=>addP(x)(-30*a.ar[1]))
-  (s=>idP(Math.floor(s/a.ar[2])))
-  (x=>idP(x+Math.floor(a.ar[0]*a.ar[1]*(a.ar[2]/a.ar[3]))))(); 
+  var ob = mBnd(true)
+  var ar = arBind[ob.key];
+  return ob.run(w)(cubeP)(addP(3))(squareP)
+  (x=>addP(x)(-30*ar[1]))
+  (s=>idP(Math.floor(s/ar[2])))
+  (x=>idP(x+Math.floor(ar[0]*
+    ar[1]*(ar[2]/ar[3]))))(); 
 };
 
 var test6 = z => w  => {
-  var a = Bind(z);  
-  return a(w)(cubeP)(addP(3))(squareP)
-  (x=>addP(x)(-30*arBind[z][1]))
-  (s=>idP(Math.floor(s/arBind[z][2])))
-  (x=>idP(x+Math.floor(arBind[z][0]*arBind[z][1]*
-    (arBind[z][2]/arBind[z][3]))))(); 
+  window[z] = Bind(z);
+  var ar = arBind[z];
+  return window[z](w)(cubeP)(addP(3))(squareP)
+  (x=>addP(x)(-30*ar[1]))
+  (s=>idP(Math.floor(s/ar[2])))
+  (x=>idP(x+Math.floor(ar[0]*ar[1]*
+    (ar[2]/ar[3]))))(); 
 };
 
   var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready']; 
@@ -724,17 +712,7 @@ console.log("bnD is", bnD);
       }
     return {a:x, b: Bind(x)};
   }
-  */
-  var a1 = makeBind();
-  var a2 = makeBind();
-  var a3 = makeBind();
-  var a4 = makeBind();
-  var a5 = makeBind();
-  var a6 = makeBind();
-  var a7 = makeBind();
-  var a8 = makeBind();
-  var a9 = makeBind();
-
+ 
   // var xyz = {a:7, b:function (d) {return d}};
 
   var c = makeBind();
@@ -2801,19 +2779,6 @@ function curryReverse(func) {
 
   var cRev = curryReverse(parseInt)(10);  // Useful function
   ["1","2","3","4","5"].map(v => cRev(v));  // returns [1,2,3,4,5]
-
-/*
-var funcP = () => {
-  var fred = [];
-  bind(1)(addP(2))(cubeC)(addC(3))(multP(2))(multC(3))
-  (addC(30))(multP(1/5))(it4)(it6)(it7)(terminate).slice(1,9)
-  .map(v => v.then(q => {
-    fred.push(q.x);
-    freday = fred.join(' ')
-    diffRender()
-  }))
-}
-*/
 
 function isPrime(n) {
    if (isNaN(n) || !isFinite(n) || n%1 || n<2) return false;

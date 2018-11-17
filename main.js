@@ -1,9 +1,10 @@
-    
+  
     // onChange = require('on-change');
     // import ws from 'ws';
     // import {makeHTTPDriver} from '@cycle/http';
     // import {require} from "requirejs";
     Maybe = require('folktale/maybe');
+    console.log("Maybe is", Maybe);
     // compose = require('folktale/core/lambda/compose');
     import {h,p,span,h1,h2,h3,pre,a,br,div,label,input,hr,makeDOMDriver} from '@cycle/dom';
     import Cycle from '@cycle/xstream-run';
@@ -902,7 +903,6 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
       var bAction$ = backCl$.map(() => {
         if (mMindexDS.x > 0) {
           mMindexDS.ret(mMindexDS.x - 1);
-          console.log("Blow me");
           rNumsDS = ArrDS[mMindexDS.x].slice();
         };
       });
@@ -1741,14 +1741,13 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
       });
 
 
-      // **************************************************** START makeBind demo
+      // **************************************************** START mBnd demo
 
 
   qFunc = function (q) {
-      console.log('qfB.ar.length', qfB.ar.length)
-      var a = q.ar[0];
-      var b = q.ar[2];
-      var c = q.ar[4];
+      var a = arBind[q.key][0];
+      var b = arBind[q.key][2];
+      var c = arBind[q.key][4];
       var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
       var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
       if (aa === aa) {
@@ -1765,20 +1764,22 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
   }
 
   function qF9 () {
-      if (qfB.ar.length > 4) {
+      if (arBind[qfB.key].length > 4) {
           qFunc(qfB) 
       }
-      else Cow1 = "coefficients: " + qfB.ar.join(' ')
+      else Cow1 = "coefficients: " + arBind[qfB.key].join(' ')
   };
 
   var qfB = mBnd();
+
+  function quadFormula(x) {return qfB.run(toFloat(x))(qF9)};
 
   qF1$ = sources.DOM
     .select('#qF1').events('keypress');
 
   oneAction$ = qF1$.map(e => {
       if (e.keyCode === 13) {  
-          qfB.run(toFloat(e.target.value))(qF9);
+          quadFormula(e.target.value);
           document.getElementById('qF1').value = null;
       }
   });
@@ -2081,9 +2082,9 @@ h('span.tao', ' The term "functional programming" is vague until a context is sp
                 h('a', {props: {href: "https://en.wikipedia.org/wiki/Lambda_calculus", target: "_blank" }}, 'Lambda Calculus' ), 
 h('span', ', explained succinctly in ' ),
 h('a', {props: {href: "https://www.youtube.com/watch?v=eis11j_iGMs:", target: "_blank" }}, 'Lambda Calculus video' ), 
-h('span', ', it refers to a computational paradyme having no mutations, no impure functions, and no side effects.  Haskell started like this and became useful when (assuming adherence to recommended practice) only the main function was allowed to evaluate data held in an innovation called the "IO Monad". ' ),                            
+h('span', ', it refers to a computational paradigm having no mutations, no impure functions, and no side effects.  Haskell started like this and became useful when (assuming adherence to recommended practice) only the main function was allowed to evaluate data held in an innovation called the "IO Monad". ' ),                            
 h('br'),                          
-h('p', ' In the context of JavaScript, "functional programming" is the source of much confustion. Many presentations, tutorials and blog posts promote the notion that functional JavaScript is JavaScript without mutation or impure functions. ' ),            
+h('p', ' In the context of JavaScript, "functional programming" is the source of much confusion. Many presentations, tutorials and blog posts promote the notion that functional JavaScript is JavaScript without mutation or impure functions. ' ),            
 h('span.tao', ' Type checking, avoiding mutation, and using mostly pure functions can result in fewer bugs, ease of maintenance, and shorter production times, especially in group efforts. It is nonetheless unfortunate for people trying to improve their coding skills that "functional programming" has been conflated with these coding practices. Functional Javascript is best thought of as JavaScript that takes full advantage of the language\'s first-class functions, regardless of whether it is done safely by superimposing things such as ' ),
                           
                 h('a', {props: {href:"https://www.typescriptlang.org/", target: "_blank" }}, 'Typescript' ), 
@@ -2100,7 +2101,7 @@ h('p', ' Here\'s some functional JavaScript: ' ),
   h('p', ' where f = mBnd() and mBnd() is defined as: ' ),
   h('pre', `    const mBnd = (bool = null) => {
         var x = Symbol(); 
-        return { run: Bind(x, bool), ar: arBind[x] };
+        return { run: Bind(x, bool)};
     }; ` ),
   h('p', ' Bind is defined as: ' ),
   h('pre', `    function Bind(str, bool = false) {
@@ -2199,16 +2200,31 @@ h('p', ' Here\'s some functional JavaScript: ' ),
     h('br'),
     h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Using makeBind() to Avoid Clashes'),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Using mBnd() to Avoid Clashes'),
 h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // ((***** LEFT PANEL 
 h('h3', 'The Problem With Direct Calls to Bind()'),
 h('p', ' The statement "f = Bind(\'f\')") returns a fresh copy of _bind but not a fresh copy the array arBind["f"]. After f() has been created and called, subsequent calls push additional data into arBind[\'f\']. Nine distinct copies of _bind() are used in the top nine computation. arBind is cleared prior to the each start but when the procedures are re-started prior to finishing, two running processes share each array. The result, as you can see, is nonsensical data sometimes including "NaN" and "infinity". '),
-h('h3', 'The makeBind Solution'),
-h('p', ' The following four lines of code (also shown above) make it possible for a function "func" defined repeatedly by "func = mBnd()" to be called while it is still running without sharing the arrays assigned to previous calls to func().  for two running processes to share an array on arBind. '),
-  h('pre', `    var mBnd = (bool = null) => {
+h('h3', 'The mBnd Solution'),
+h('p', ' mBnd() makes it possible for an object "ob", defined repeatedly by "ob = mBnd()", to be safely called while previously created functions "ob.run()" are still running. As is evident from the definition of Bind, arBind is an object that holds key/value pairs for every array created by calling Bind(). When an object "ob" is refreshed by calling "ob = mBn()", a unique key (defined by "x = Symbol()) is assigned the the most recently created object "ob". The array arBind[ob.key] is no longer associated with older versions of "ob", each of whose "ob.key" had a unique value. If there is no reference to a replaced object "ob", it is fair game for the garbage collector. Otherwise, it is archived, possibly for logging or time travel. '),
+h('p', ' People trying to be "functional programmers" by shrinking the universe of what is possible are likely to find the Demonstration 3 code disconcerting. I hope they get past their unease and try their hand at full throttle coding with JavaScript functions. Keep the craziness inside of streams and function pipe lines when you can and have fun. ' ),    
+  h('pre', `  var diffR = function diffR (obj) {
+      return obj = onChange(obj, () => diffRender())
+  };
+
+  var mBnd = (bool = false) => {
+      var x = Symbol();
+      var ob = {key:x,  run: Bind(x)}
+      arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
+      return ob;
+  }; 
+
+  
+  
+  var mBnd = (bool = null) => {
         var x = Symbol(); 
-        return { run: Bind(x, bool), ar: arBind[x] };
+        return {key:x,  run: Bind(x, bool) }; 
     }; ` ),
+
 h('p', ' The statement "Bind(x, true)" returns a copy of _bind() and adds a unique attribute "Symbol()" to the arBind array. The argument "true" causes DOM updates every time arBind[Symbol()] increases in length; that is, each time a function in the pipeline is evaluated. mBnd(true) takes it one step further and returns an object with attributes "run" and "ar". run() starts the process and ar is available to every function that follows. test4(), shown below and demonstrated in the lower right column, uses "a.ar" six times. ' )
 
          ]),
@@ -2300,7 +2316,7 @@ h('pre', `  function test5 (n) {
       _C7 = test6('a18')(x+7);
       _C8 = test6('a19')(x+8);
       
-      _B0 = test4(x+0);       // This code uses mBnd and is robust.
+      _B0 = test4(x+0);    // This code uses mBnd and is robust.
       _B1 = test4(x+1);
       _B2 = test4(x+2);
       _B3 = test4(x+3);
@@ -2312,22 +2328,24 @@ h('pre', `  function test5 (n) {
   } 
 
   var test4 = w => {
-      var a = mBnd(true)
-      return a.run(w)(cubeP)(addP(3))(squareP)
-      (x=>addP(x)(-30*a.ar[1]))
-      (s=>idP(Math.floor(s/a.ar[2])))
-      (x=>idP(x+Math.floor(a.ar[0]*a.ar[1]*
-          (a.ar[2]/a.ar[3]))))() 
-    } 
+    var ob = mBnd(true)
+    var ar = arBind[ob.x];
+    return ob.run(w)(cubeP)(addP(3))(squareP)
+    (x=>addP(x)(-30*ar[1]))
+    (s=>idP(Math.floor(s/ar[2])))
+    (x=>idP(x+Math.floor(ar[0]*
+      ar[1]*(ar[2]/ar[3]))))(); 
+  };
 
   var test6 = z => w  => {
-      var a = Bind(z);    // "true" unnecessary (test4 causes refresh)  
-      return a(w)(cubeP)(addP(3))(squareP)
-      (x=>addP(x)(-30*arBind[z][1]))
-      (s=>idP(Math.floor(s/arBind[z][2])))
-      (x=>idP(x+Math.floor(arBind[z][0]*arBind[z][1]*
-          (arBind[z][2]/arBind[z][3]))))(); 
-  }; ` ),
+    var z = Bind("z");
+    var ar = arBind["z"];
+    return z(w)(cubeP)(addP(3))(squareP)
+    (x=>addP(x)(-30*ar[1]))
+    (s=>idP(Math.floor(s/ar[2])))
+    (x=>idP(x+Math.floor(ar[0]*ar[1]*
+      (ar[2]/ar[3]))))(); 
+  };  ` ),
                         ]),
 
 h('p', ' The user generates "n". _B0, _B1, ... _B8 and _C0, _C1, ... _C8 are permanent fixtures in the virtual DOM. ' ),
@@ -2358,37 +2376,39 @@ h('pre', `  var qfB = mBnd();
 
   oneAction$ = qF1$.map(e => {
       if (e.keyCode === 13) {  
-          qfB.run(toFloat(e.target.value))(qF9);
+          quadFormula(e.target.value);
           document.getElementById('qF1').value = null;
       }
   });
 
+  function quadFormula(x) {return qfB.run(toFloat(x))(qF9)};
+
   function qF9 () {
-      if (qfB.ar.length > 4) {
+      if (arBind[qfB.key].length > 4) {
         // If true, it\'s time to run the quadratic equation
   	qFunc(qfB); 
       }
-  	else Cow1 = "coefficients: " + qfB.ar.join(', ')
+  	else Cow1 = "coefficients: " + arBind[qfB.key].join(', ')
   };
 
   qFunc = function (q) {
-      console.log('qfB.ar.length', qfB.ar.length)
-      var a = q.ar[0];
-      var b = q.ar[2];
-      var c = q.ar[4];
+      var a = arBind[q.key][0];
+      var b = arBind[q.key][2];
+      var c = arBind[q.key][4];
       var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
       var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
       if (aa === aa) {
           Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
           Cow2 = \`x = \${aa} and x = \${bb}\`;
+          // console.log("Cow1 and Cow2", Cow1, Cow2);
       }
       if (!(aa === aa)) {
           Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
           Cow2 = '';
+          // console.log("Cow1 and Cow2", Cow1, Cow2);
       }
       qfB = mBnd(true);
-  }
- ` )
+  }  ` )
 
 ]),
     
@@ -2417,9 +2437,19 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
                 h('br'),
 
                 
- 
-    h('p', ' A generator or proxy could have been used to plug numbers into the quadratic equation , but using mBnd() is efficient, merely running the same line of code ad infinitum to repeatedly plug numbers into the quadratic formula has an elegant appearance, and mBnd() doesn\'t require an ES6 polyfill to make it work in older browsers.'),
-h('p', ' Later on this page, MonadItter is used in a similar demenstration. mMZ33.release(<coefficient>) is called repeatedly.  ' ),
+h('h3', 'A Lesson On Mindlessly Following Rules ' ),
+h('p', ' I find function "quadFormula()" very pleasing, even elegant. Every third time it is called it runs the quadratic formula on the numbers it has been given. ' ), 
+h('p', ' It doesn\'t bother me that, for example, quadFormula(-3) doesn\'t always return the same value, or that it fetches arBind[qFB.key] from the global scope. If you run "quadFormula(1);  quadFormula(2);  quadFormula(-3)", the browser always displays ' ), 
+h('pre', `  1*x*x + 2*x + -3 = 0 has the following solutions:
+  x = -3 and x = 1 ` ),
+  
+h('p', ' As for fishing arBind[qfB.key] out of the global scope, please note the discussion above. "qfB.key" belongs only to the most recently created version of qfB. It was created by running "x = Symbol()" while qfB was being defined. Previously created objects named "qfB" have their own unique secret values of "qfB.key" and their own arrays arBind[qfB.key] that only they can touch.   ' ),
+  
+  
+  
+h('p', ' Later on this page, MonadItter is used in a similar demonstration. mMZ33.release(<coefficient>) is called repeatedly. mMZ33.bind is nested three levels deep. In the third level, the coefficients are applied to the formula and control is directed back to the top level. This is not as safe as Demonstration 3 since any call to "mMZ33.release() from anywhere in the program could disrupt the computation. ' ),
+
+  
 
   ]),
 ]), h('div.content', [
