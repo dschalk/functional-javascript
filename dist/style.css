@@ -455,6 +455,13 @@ a:hover {
 }
 
 .image_3 {
+  height: 80%;
+  width:  80%;
+  margin-left: 8%;
+  background-color: transparent;
+}
+
+.image_3 {
  padding-left: 2%;
 }
 

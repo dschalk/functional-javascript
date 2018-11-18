@@ -4,36 +4,26 @@
 var h;
 var a;
 setTimeout( () => {
-  Cow1 = h('p', ' Using @cycle/DOM (imported by main.js) in browser script "monad.js". Settimeout causes a two-second delay to give main.js time to load. '); 
+  Cow1 = h('p', ' ready '); 
 },3000 );
 var qfB_proxy;
 var Maybe;
 var compose;
 var window = {};
 
-onChange = (e,t)=>{
-            const n = {
-                get(e, t, o) {
-                    try {
-                        return new Proxy(e[t],n)
-                    } catch (n) {
-                        return Reflect.get(e, t, o)
-                    }
-                },
-                defineProperty: (e,n,o)=>(t(),
-                Reflect.defineProperty(e, n, o)),
-                deleteProperty: (e,n)=>(t(),
-                Reflect.deleteProperty(e, n))
-            };
-            return new Proxy(e,n)
-        }
-
+function onChange(obj, onChange) {
+    const handler = {
+        set (obj, prop, value) {
+            onChange();
+            return Reflect.set(obj, prop, value);
+        },
+    };
+    return new Proxy(obj, handler);
+}
 
 function Bind(str, bool = false) {
     arBind[str] = [];
-    if (bool)  arBind[str] = onChange(arBind[str], () => {
-      diffRender();  // Causes Snabbdom to update the DOM
-    });
+    if (bool)  arBind[str] = onChange(arBind[str], diffRender);
     var p;
     var _bind = function _bind(x) {
         if (x instanceof Promise) x.then(y => {
@@ -136,7 +126,7 @@ var qFormula = function qFormula () {};
 var qFunc = function qFunc () {};
 var Cow = "0";
 var Cow1 = "1";
-var Cow2 = "2";
+var Cow2 = "";
 var Cow3 = "3";
 var Cow4 = "4";
 var Cow5 = "5";
@@ -148,7 +138,6 @@ var qF1$, qF2$, qF3$, oneAction$, twoAction$, threeAction$;
 var qRes1 = qRes2 = qResult1 = qResult2 = qR1 = qR2 = ["ready"];
 var aa, bb;
 var qR = ["flowers"];
-var oneQ = makeBind(); 
 var qCow;
 var it7;
 var it7_b;
@@ -179,11 +168,6 @@ var _conveNt_ = a => b => parseFloat(b,a);
 var toFloat = _conveNt_ (10);
 
 var toHex = _conveNt_ (6);
-var ant = Bind('ant');
-
-var b87 = Bind("b87");
-
-arBind.a = [1,2,3,4,5,6,7];
 
 num9 = 0;
 
@@ -193,15 +177,15 @@ var diffR = function diffR (obj) {
     return obj = onChange(obj, () => diffRender())
 };
 
-var mBnd = (bool = false) => {
-    var x = Symbol();
+var mBnd = (bool = false, val) => {
+    var x = Symbol(val);
     var ob = {key:x,  run: Bind(x)}
     arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
     return ob;
 }; 
 
 
-var test4 = w => {
+var test6 = w => {
   var ob = mBnd(true)
   var ar = arBind[ob.key];
   return ob.run(w)(cubeP)(addP(3))(squareP)
@@ -211,7 +195,7 @@ var test4 = w => {
     ar[1]*(ar[2]/ar[3]))))(); 
 };
 
-var test6 = z => w  => {
+var test4 = z => w  => {
   window[z] = Bind(z);
   var ar = arBind[z];
   return window[z](w)(cubeP)(addP(3))(squareP)
@@ -227,25 +211,25 @@ var test6 = z => w  => {
   function test5 (n) {
     var x = toInt(n);
 
-    _C0 = test6('a11')(x+0);
-    _C1 = test6('a12')(x+1);
-    _C2 = test6('a13')(x+2);
-    _C3 = test6('a14')(x+3);
-    _C4 = test6('a15')(x+4);
-    _C5 = test6('a16')(x+5);
-    _C6 = test6('a17')(x+6);
-    _C7 = test6('a18')(x+7);
-    _C8 = test6('a19')(x+8);
+    _C0 = test4('a11')(x+0);
+    _C1 = test4('a12')(x+1);
+    _C2 = test4('a13')(x+2);
+    _C3 = test4('a14')(x+3);
+    _C4 = test4('a15')(x+4);
+    _C5 = test4('a16')(x+5);
+    _C6 = test4('a17')(x+6);
+    _C7 = test4('a18')(x+7);
+    _C8 = test4('a19')(x+8);
     
-    _B0 = test4(x+0);
-    _B1 = test4(x+1);
-    _B2 = test4(x+2);
-    _B3 = test4(x+3);
-    _B4 = test4(x+4);
-    _B5 = test4(x+5);
-    _B6 = test4(x+6);
-    _B7 = test4(x+7);
-    _B8 = test4(x+8);
+    _B0 = test6(x+0);
+    _B1 = test6(x+1);
+    _B2 = test6(x+2);
+    _B3 = test6(x+3);
+    _B4 = test6(x+4);
+    _B5 = test6(x+5);
+    _B6 = test6(x+6);
+    _B7 = test6(x+7);
+    _B8 = test6(x+8);
 }
 
 //***************************************************************** DND
@@ -455,7 +439,6 @@ function bindTest  () {
   var m42_RESULT7 = "ready"
 
     var runTestResult = [['ready'], 'ready'];
-    var foo = Bind('foo'); 
     function demoFunc(x) {
       return foo(x)(v=>v+2)(v=>v*v*v)
       (v=>v+3)(v=>v*a.arfoo[1])

@@ -237,7 +237,6 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
       m43_.push(callOrder2 + "  ");
       m43_.push(string)
       m43_.push(h('br'));
-      // console.log('In local main.js, >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> it7_b -- m43_ is', m43_);
       if (callOrder2 === 25) m43_.push('Elapsed time: ' + (Date.now() - start78) + " ms");
     });
 
@@ -1204,12 +1203,9 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
         .select('button#factors_R').events('click');
 
       var factorsAction8$ = factorsClick8$.map(e => {
-        m43_ = [];
-        console.log("Boo!");
         var i = 0;
         m43_ = [];
-        var bi = mBnd();
-        var bind = bi.run();
+        var bind = Bind()   //bi.run();
         while (i < 25) {
           bind(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
           i += 1;
@@ -1744,7 +1740,8 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
       // **************************************************** START mBnd demo
 
 
-  qFunc = function (q) {
+  qFunc = function (z) {
+      var q = eval(z);
       var a = arBind[q.key][0];
       var b = arBind[q.key][2];
       var c = arBind[q.key][4];
@@ -1760,17 +1757,15 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
           Cow2 = '';
           // console.log("Cow1 and Cow2", Cow1, Cow2);
       }
-      qfB = mBnd(true);
+      window[z] = mBnd(true);
   }
 
   function qF9 () {
       if (arBind[qfB.key].length > 4) {
-          qFunc(qfB) 
+          qFunc("qfB") 
       }
       else Cow1 = "coefficients: " + arBind[qfB.key].join(' ')
   };
-
-  var qfB = mBnd();
 
   function quadFormula(x) {return qfB.run(toFloat(x))(qF9)};
 
@@ -2155,22 +2150,41 @@ h('p', ' Here\'s some functional JavaScript: ' ),
   h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 1 '),
   h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
   
-  h('p', ' This demonstration uses Bind() directly, rather than mBnd(). It even uses the same instance of _bind(), which is returned by Bind("bb"). This works because the functions to not rely on the array of return values. Demonstration 2 will show what happens when Bind() is used directly and functions try to use peviously generated return values. '),
-  h('pre', `    var factorsClick9$ = sources.DOM
+  h('p', ' This demonstration uses Bind() directly, rather than mBnd(). Each of the twenty-five computations uses a function named "bind". They run concurrently without bind() stepping on itself because the functions to not rely on the array of return values ("arBind.undefined"). The browser engine doesn\'t let quicker computations cut in front of slower ones. ' ),
+h('p', ' Demonstration 2 will show what happens when Bind() is used directly and multiple simultaneously-running functions add and fetch values from a single array. It\'s quite a mess. Here\'s the Demonstration 1 code: ' ),  
+  h('pre', `    var factorsClick8$ = sources.DOM
       .select('button#factors_S').events('click');
 
-    var factorsAction9$ = factorsClick9$.map(() => {
-      m44_ = [];
+    var factorsAction8$ = factorsClick8$.map(() => {
+      m44_ = [];  // Clears the display.
       var i = 0;
-      var bb = Bind("bb"); 
+      var bind = Bind(); 
       while (i < 25) {
-        bb(145)(x => x * x * x)(it4_c)(it6_c)(it7_c);
-        console.log("bb is", bb);
-        i += 1;
+          bind(145)(x => x * x * x)(it4_b)(it6_b)(it7_b);
+          i += 1;
       }
-    });  ` ),
+    });  
+    
+    var it4_b = x => {
+      if (socket.readyState === 1) socket.send(
+          \`BD#$42, \${pMgroup.x}, \${pMname.x}, \${x} \`
+      );
+    }
+     
+    var it6_b = y => {
+      mMZ41.bnd(y => workerM.postMessage([primeState, y]));
+    }
 
-    h('p', ' The factorsClick9$ stream responds to clicks on the button in the right column. In factorsAction9$, factorsClick9$\'s map method is called, prompting bnD(145)(x=>x*x*x)(it4_c)(it6_c)(it7_c) to execute twenty-five times. As the cache of prime numbers builds, run times decrease. '),
+    it7_b = () => mMZ53.bnd(string => {
+      callOrder2 = callOrder2 > 24 ? 1 : callOrder2 + 1;
+      if (callOrder2 === 1) start78 = Date.now();
+      m43_.push(callOrder2 + "  ");
+      m43_.push(string)
+      m43_.push(h('br'));
+      if (callOrder2 === 25) m43_.push(
+        'Elapsed time: ' + (Date.now() - start78) + " ms"
+      );
+    });  ` ),
 
   ]), 
   h('div', { style: { width: '47%', fontSize: '18px', float: 'right' }
@@ -2207,25 +2221,34 @@ h('p', ' The statement "f = Bind(\'f\')") returns a fresh copy of _bind but not 
 h('h3', 'The mBnd Solution'),
 h('p', ' mBnd() makes it possible for an object "ob", defined repeatedly by "ob = mBnd()", to be safely called while previously created functions "ob.run()" are still running. As is evident from the definition of Bind, arBind is an object that holds key/value pairs for every array created by calling Bind(). When an object "ob" is refreshed by calling "ob = mBn()", a unique key (defined by "x = Symbol()) is assigned the the most recently created object "ob". The array arBind[ob.key] is no longer associated with older versions of "ob", each of whose "ob.key" had a unique value. If there is no reference to a replaced object "ob", it is fair game for the garbage collector. Otherwise, it is archived, possibly for logging or time travel. '),
 h('p', ' People trying to be "functional programmers" by shrinking the universe of what is possible are likely to find the Demonstration 3 code disconcerting. I hope they get past their unease and try their hand at full throttle coding with JavaScript functions. Keep the craziness inside of streams and function pipe lines when you can and have fun. ' ),    
-  h('pre', `  var diffR = function diffR (obj) {
+  h('pre', `  var onChange = (e,t) => {
+      var n = {
+          get(e, t, o) {
+              try {
+                  return new Proxy(e[t],n)
+              } catch (n) {
+                  return Reflect.get(e, t, o)
+              }
+          },
+          defineProperty: (e,n,o)=>(t(),
+          Reflect.defineProperty(e, n, o)),
+          deleteProperty: (e,n)=>(t(),
+          Reflect.deleteProperty(e, n))
+      };
+      return new Proxy(e,n)
+  }
+
+  
+  var diffR = function diffR (obj) {
       return obj = onChange(obj, () => diffRender())
   };
 
-  var mBnd = (bool = false) => {
-      var x = Symbol();
+  var mBnd = (bool = false, val) => {
+      var x = Symbol(val);
       var ob = {key:x,  run: Bind(x)}
       arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
       return ob;
-  }; 
-
-  
-  
-  var mBnd = (bool = null) => {
-        var x = Symbol(); 
-        return {key:x,  run: Bind(x, bool) }; 
-    }; ` ),
-
-h('p', ' The statement "Bind(x, true)" returns a copy of _bind() and adds a unique attribute "Symbol()" to the arBind array. The argument "true" causes DOM updates every time arBind[Symbol()] increases in length; that is, each time a function in the pipeline is evaluated. mBnd(true) takes it one step further and returns an object with attributes "run" and "ar". run() starts the process and ar is available to every function that follows. test4(), shown below and demonstrated in the lower right column, uses "a.ar" six times. ' )
+  }; ` ), 
 
          ]),
 
@@ -2306,28 +2329,28 @@ h('p', ' Entering a number or clicking "GO" prompts a listener to call test5(). 
 h('pre', `  function test5 (n) {
       var x = toInt(n);
 
-      _C0 = test6('a11')(x+0); // This code fails under stress.
-      _C1 = test6('a12')(x+1);
-      _C2 = test6('a13')(x+2);
-      _C3 = test6('a14')(x+3);
-      _C4 = test6('a15')(x+4);
-      _C5 = test6('a16')(x+5);
-      _C6 = test6('a17')(x+6);
-      _C7 = test6('a18')(x+7);
-      _C8 = test6('a19')(x+8);
+      _C0 = test4('a11')(x+0); // This code fails under stress.
+      _C1 = test4('a12')(x+1);
+      _C2 = test4('a13')(x+2);
+      _C3 = test4('a14')(x+3);
+      _C4 = test4('a15')(x+4);
+      _C5 = test4('a16')(x+5);
+      _C6 = test4('a17')(x+6);
+      _C7 = test4('a18')(x+7);
+      _C8 = test4('a19')(x+8);
       
-      _B0 = test4(x+0);    // This code uses mBnd and is robust.
-      _B1 = test4(x+1);
-      _B2 = test4(x+2);
-      _B3 = test4(x+3);
-      _B4 = test4(x+4);
-      _B5 = test4(x+5);
-      _B6 = test4(x+6);
-      _B7 = test4(x+7);
-      _B8 = test4(x+8);
+      _B0 = test6(x+0);    // This code uses mBnd and is robust.
+      _B1 = test6(x+1);
+      _B2 = test6(x+2);
+      _B3 = test6(x+3);
+      _B4 = test6(x+4);
+      _B5 = test6(x+5);
+      _B6 = test6(x+6);
+      _B7 = test6(x+7);
+      _B8 = test6(x+8);
   } 
 
-  var test4 = w => {
+  var test6 = w => {
     var ob = mBnd(true)
     var ar = arBind[ob.x];
     return ob.run(w)(cubeP)(addP(3))(squareP)
@@ -2349,8 +2372,8 @@ h('pre', `  function test5 (n) {
                         ]),
 
 h('p', ' The user generates "n". _B0, _B1, ... _B8 and _C0, _C1, ... _C8 are permanent fixtures in the virtual DOM. ' ),
-h('p', ' Clicking the button on the right calls test5() which calls test6() and test4() nine times. test6() (at the top) shows what can go wrong when copies of _bind are created by direct calls to Bind() are used. The code normally runs to completion in 6000 ms. If you click the button, test5 is called again after 5400 ms. The results speak for themselves'),
-h('p', ' The situation might become clearer if you note that every time you run, say, a3 = Bind("a3"), the latest instance of a3 along with all previous ones use arBind.a3. On the other hand, repeated invocation of "a = mBnd(true)" creates a fresh, inscrutable key and initial value  "arBind.Symbol(): Symbol = []" that might appear identical to other key/value pairs but which has its own unique id in the Symbol registry. ' ),
+h('p', ' Clicking the button on the right calls test5() which calls test4() and test6() nine times. test4() (at the top) shows what can go wrong when copies of _bind are created by direct calls to Bind() are used. The code normally runs to completion in 6000 ms. If you click the button, test5 is called again after 5400 ms. The results speak for themselves'),
+h('p', ' The situation might become clearer if you note that every time you run, say, a3 = Bind("a3"), the latest instance of a3 along with all previous ones use arBind.a3. On the other hand, each invocation of "a = mBnd(true)" creates a unique key and corresponding private array on arBind. "arBind.Symbol(): Symbol = []" that might appear identical to other key/value pairs but which has its own unique id in the Symbol registry. ' ),
 h('p', ' If you enter a number on the right and press <ENTER> once, you will see that test4() and test6() produce identical results. If you Press <ENTER> again during execution, you will see garbage above your entry; but below you will see just what you saw when you pressed <ENTER> once. It resembles the rollback of an interrupted atomic transaction as seen, for example, in interrupted database transactions.  '),
 
 
@@ -2381,45 +2404,20 @@ h('pre', `  var qfB = mBnd();
       }
   });
 
-  function quadFormula(x) {return qfB.run(toFloat(x))(qF9)};
+  function quadFormula(x) {return qfB.run(toFloat(x))(qF9)}; ` ),
 
-  function qF9 () {
-      if (arBind[qfB.key].length > 4) {
-        // If true, it\'s time to run the quadratic equation
-  	qFunc(qfB); 
-      }
-  	else Cow1 = "coefficients: " + arBind[qfB.key].join(', ')
-  };
-
-  qFunc = function (q) {
-      var a = arBind[q.key][0];
-      var b = arBind[q.key][2];
-      var c = arBind[q.key][4];
-      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-      if (aa === aa) {
-          Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
-          Cow2 = \`x = \${aa} and x = \${bb}\`;
-          // console.log("Cow1 and Cow2", Cow1, Cow2);
-      }
-      if (!(aa === aa)) {
-          Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
-          Cow2 = '';
-          // console.log("Cow1 and Cow2", Cow1, Cow2);
-      }
-      qfB = mBnd(true);
-  }  ` )
-
+  h('p', ' quadFormula() and qF9 are defined below the screen shot ' ),
 ]),
     
 h('div', { style: { width: '47%', fontSize: '18px', float: 'right' }}, [ // *** RIGHT PANEL
 h('br'),
 h('br'),
+          // console.log("Cow1 and Cow2", Cow1, Cow2);
+
 h('br'),
 h('br'),
 h('br'),
-            //  h('div', \`${qR1}\` ), 
-            //  h('div', \`${qR2}\` ), 
+
 h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third time you press <ENTER>, the answer will appear. ' ),
                 h('input#qF1', {
                   style: {
@@ -2443,10 +2441,61 @@ h('p', ' It doesn\'t bother me that, for example, quadFormula(-3) doesn\'t alway
 h('pre', `  1*x*x + 2*x + -3 = 0 has the following solutions:
   x = -3 and x = 1 ` ),
   
-h('p', ' As for fishing arBind[qfB.key] out of the global scope, please note the discussion above. "qfB.key" belongs only to the most recently created version of qfB. It was created by running "x = Symbol()" while qfB was being defined. Previously created objects named "qfB" have their own unique secret values of "qfB.key" and their own arrays arBind[qfB.key] that only they can touch.   ' ),
+h('p', ' As for fishing arBind[qfB.key] out of the global scope, please note the discussion above. "qfB.key" belongs only to the most recently created version of qfB. It was created by running "x = Symbol()" while qfB was being defined. Previously created objects named "qfB" have their own unique secret values of "qfB.key" and their own private arrays. Pressing <F12> and entering "arBind", we see this: ' ),
+
+
+              ]),  ]),
+
+              h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
+
+
+  h('img.image_3', { props: { src: "demo.png" }}),
   
-  
-  
+              h('div.content2', [ // 2 brackets  main -> content ->
+
+              h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
+  h('pre',  `  function qF9 () {
+      if (arBind[qfB.key].length > 4) {
+        // If true, it\'s time to run the quadratic equation
+  	qFunc("qfB") ; 
+      }
+  	else Cow1 = "coefficients: " + arBind[qfB.key].join(', ')
+  };
+
+  qFunc = function (z) {
+      var q = eval(z);
+      var a = arBind[q.key][0];
+      var b = arBind[q.key][2];
+      var c = arBind[q.key][4];
+      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      if (aa === aa) {
+          Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
+          Cow2 = \`x = \${aa} and x = \${bb}\`;
+          // console.log("Cow1 and Cow2", Cow1, Cow2);
+      }
+      if (!(aa === aa)) {
+          Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
+          Cow2 = '';
+      }
+      if (!(aa === aa)) {
+          Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
+          Cow2 = '';
+          // console.log("Cow1 and Cow2", Cow1, Cow2);
+      }
+      window[z] = mBnd(true);
+  } ` ),  
+
+ ]), 
+              h('div', { style: { width: '47%', fontSize: '18px', float: 'right' }}, [ // *** RIGHT PANEL
+
+h('p', ' After running the following expressions in the Chrome console: ' ),
+h('pre', {style: {color: "#BBEEBB" }}, `    var ob = mBnd(0, \'mars\');
+    ob = mBnd(1, \'Deborah\') ` ),
+h('span', ' the corresponding entries in arBind were: '), 
+h('pre', `    Symbol(Deborah): Proxy {length: 0}
+    Symbol(mars): []  `  ),
+h('p', ' Tags like "Mars" and "Deborah" have limited usefulness, but they could help pinpoint trouble spots when debugging.  ' ),
 h('p', ' Later on this page, MonadItter is used in a similar demonstration. mMZ33.release(<coefficient>) is called repeatedly. mMZ33.bind is nested three levels deep. In the third level, the coefficients are applied to the formula and control is directed back to the top level. This is not as safe as Demonstration 3 since any call to "mMZ33.release() from anywhere in the program could disrupt the computation. ' ),
 
   
@@ -3686,18 +3735,22 @@ h('br'),
     mMZ41.bnd(y => workerM.postMessage([primeState, y]));
   } `),
             h('p', ' The message posted to workerH (Demonstration 1) or workerM (Demonstration 3) contains all previously generated prime numbers along with y, the randomly generated number obtained from the server. '),
-            h('p', ' The message returned by the server prompts, in the case of Demonstration 1: '),
+            h('p', ' When a user clicks the Demonstration 1 button, the event is handled in this Cycle.js application as follows: ' ),
 
-            h('pre', bigGold, `  const factorsAction7$ = factorsClick7$.map( e => {
-      m42_ = [];
-      Bind.bind0 = [];
-      let i = 0;
-      while (i < 25) {
-          bind(145)(x=>x**3)(it4)(it6)(it7);
+            h('pre', bigGold, `  var factorsClick8$ = sources.DOM
+        .select('button#factors_R').events('click');
+
+            
+    const factorsAction8$ = factorsClick8$.map(e => {
+        var i = 0;
+        m43_ = [];  // Clears the display
+        var bind = Bind();  // Next, bind() is called twenty-five times.
+        while (i < 25 {
+          bind(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
           i += 1;
-      }
-  } `),
-            h('p', ' And that is where this discussion began. '),
+        }
+    }); ` ),
+            h('p', ' This procedure creates and updates the useless array "arBind.undefined". This overhead can be avoided by calling "var preBind = mBnd; var bind = preBind.run", but we use "bind = Bind()" to show the usefulness of mBnd(). '),
             h('br'),
             h('br'),
             h('a', {
@@ -3705,54 +3758,6 @@ h('br'),
                 href: '#top'
               }
             }, 'Go to the top'),
-            h('br'),
-            h('pre', `function Bind (str) {
-  arBind[str] = [];
-  var p;
-  var __bind = function __bind ( x ) {
-    if (x instanceof Promise) x.then(y => {
-      arBind[str].push(y);
-      diffRender();
-    })
-    else {
-      arBind[str].push(x)
-      diffRender();
-    }
-    return func => {
-      if (func == undefined) {
-        return arBind[str]}
-        if (typeof func !== "function") p = func;
-      if (x instanceof Promise) {
-        p = x.then(v => func(v));
-      }
-      else p = func(x);
-      return __bind(p);
-    };
-  };
-  return __bind;
-};
-
-var bind$ = n => xs.of(n);
-
-function bindDriver () {
-  return xs.create({
-    start: listener => { bind$ = a => listener.next(a) },
-    stop: () => {}
-  })
-};
-
-var bind1 = Bind("bind1");
-var bind2 = Bind("bind2");
-var bind3 = Bind("bind3");
-var bind4 = Bind("bind4");
-var bind5 = Bind("bind5");
-var bind6 = Bind("bind6");
-var bind7 = Bind("bind7");
-var bind8 = Bind("bind8");
-var bind9 = Bind("bind9"); `),
-
-
-
 
 
             h('p#pingmaker', ' '),
