@@ -41,10 +41,10 @@ var Maybe;
 var compose;
 var window = {};
 
-function onChange(obj, onChange) {
+function autoRefresh(obj) {
     const handler = {
         set (obj, prop, value) {
-            diffRender();
+            diffRender();  // Forces DOM update 
             return Reflect.set(obj, prop, value);
         },
     };
@@ -53,7 +53,7 @@ function onChange(obj, onChange) {
 
 function Bind(str, bool = false) {
     arBind[str] = [];
-    if (bool)  arBind[str] = onChange(arBind[str]);
+    if (bool) arBind[str] = autoRefresh(arBind[str]);
     var p;
     var _bind = function _bind(x) {
         if (x instanceof Promise) x.then(y => {
@@ -204,7 +204,7 @@ num9 = 0;
 //***************************************************************** mBnd, test4, test5, test6
 
 var diffR = function diffR (obj) {
-    return obj = onChange(obj, () => diffRender())
+    return obj = autoRefresh(obj)
 };
 
 var mBnd = (bool = false, val = "mBnd") => {
@@ -262,7 +262,7 @@ var test6 = w => {
   test5(-4);
   // setTimeout(() => {test5(-4); test5(-4)},1500)
   // setTimeout(() => {test5(-4); test5(-4)},2200)
-  setTimeout(() => {test5(-4)},4400)
+  setTimeout(() => {test5(-4)},4600)
 };
 
   function rett (x, id="default") {return new Monad(x,id)};
