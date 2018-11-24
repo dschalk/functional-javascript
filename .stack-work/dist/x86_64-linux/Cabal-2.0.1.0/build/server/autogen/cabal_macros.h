@@ -176,6 +176,17 @@
   (major1) == 3 && (major2) == 2 && (minor) <= 4)
 #endif /* MIN_VERSION_warp_tls */
 
+/* package wuss-1.1.9 */
+#ifndef VERSION_wuss
+#define VERSION_wuss "1.1.9"
+#endif /* VERSION_wuss */
+#ifndef MIN_VERSION_wuss
+#define MIN_VERSION_wuss(major1,major2,minor) (\
+  (major1) <  1 || \
+  (major1) == 1 && (major2) <  1 || \
+  (major1) == 1 && (major2) == 1 && (minor) <= 9)
+#endif /* MIN_VERSION_wuss */
+
 /* tool gcc-7 */
 #ifndef TOOL_VERSION_gcc
 #define TOOL_VERSION_gcc "7"
@@ -276,7 +287,7 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "functional-javascript-0.3.0.2-EowKtVb3Vqw8422Fa5uVB9-server"
+#define CURRENT_COMPONENT_ID "functional-javascript-0.3.0.2-4AOmIHRKJKwABxOhcwzEtV-server"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.3.0.2"

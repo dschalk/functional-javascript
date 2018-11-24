@@ -1,5 +1,35 @@
 
 
+var Monad = function Monad(z = 42, g = 'generic') {
+    this.x = z;
+    this.id = g;
+    this.bnd = function (func, ...args) {
+      var m = func(this.x, ...args)
+      var mon;
+      if (m instanceof Monad) {
+        mon = testPrefix(args,this.id);
+        return window[mon] = new Monad(m.x, mon);
+      }
+      else return m;
+    };
+    this.ret = function (a) {
+      return window[this.id] = new Monad(a,this.id);
+    };
+  };
+
+  function testPrefix (x,y) {
+    var t = y;
+    var s;
+    if (Array.isArray(x)) {
+      x.some(v => {
+        if (typeof v === 'string' && v.charAt() === '$') {
+           t = v.slice(1, v.length);
+        }
+      })
+    }
+    return t;
+  }  
+
 
 var h;
 var a;
@@ -14,6 +44,15 @@ var window = {};
 function onChange(obj, onChange) {
     const handler = {
         set (obj, prop, value) {
+            diffRender();
+            return Reflect.set(obj, prop, value);
+        },
+    };
+    return new Proxy(obj, handler);
+}
+function onChange(obj = []) {
+    const handler = {
+        set (obj, prop, value) {
             onChange();
             return Reflect.set(obj, prop, value);
         },
@@ -23,7 +62,7 @@ function onChange(obj, onChange) {
 
 function Bind(str, bool = false) {
     arBind[str] = [];
-    if (bool)  arBind[str] = onChange(arBind[str], diffRender);
+    if (bool)  arBind[str] = onChange(arBind[str]);
     var p;
     var _bind = function _bind(x) {
         if (x instanceof Promise) x.then(y => {
@@ -65,11 +104,11 @@ function Bind(str) {
 
 console.log(Cow1)
 console.log(Cow2)
-function factorial(x) {
-    if (x <= 1) return 1;
-    return x * factorial(x-1) // tail-call recursion
-};
 
+var factorial = function(n) {
+    if(n >1)  return n * factorial(n - 1);
+}
+ 
 function cloneOb (o) {return JSON.parse(JSON.stringify(o))};
 
 var head = function head([ a, ...b ]) { 
@@ -184,66 +223,55 @@ var mBnd = (bool = false, val) => {
     return ob;
 }; 
 
-
-var test6 = w => {
-  var ob = mBnd(true)
-  var ar = arBind[ob.key];
-  return ob.run(w)(cubeP)(addP(3))(squareP)
-  (x=>addP(x)(-30*ar[1]))
-  (s=>idP(Math.floor(s/ar[2])))
-  (x=>idP(x+Math.floor(ar[0]*
-    ar[1]*(ar[2]/ar[3]))))(); 
-};
-
 var test4 = z => w  => {
   window[z] = Bind(z);
   var ar = arBind[z];
-  return window[z](w)(cubeP)(addP(3))(squareP)
-  (x=>addP(x)(-30*ar[1]))
-  (s=>idP(Math.floor(s/ar[2])))
-  (x=>idP(x+Math.floor(ar[0]*ar[1]*
-    (ar[2]/ar[3]))))(); 
-};
+  return window[z](w)(cubeP)(squareP)
+  (() => divP(ar[0])(ar[1]))(rootP)()}                                                                                                          
+var test6 = w => {
+  var ob = mBnd(true)
+  var ar = arBind[ob.key];
+  return ob.run(w)(cubeP)(squareP)
+  (() => divP(ar[0])(ar[1]))(rootP)()}                                                                                                          
+    var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready']; 
+    var _C0 = _C1 = _C2 = _C3 = _C4 = _C5 = _C6 = _C7 = _C8 = ['ready']; 
 
-  var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready']; 
-  var _C0 = _C1 = _C2 = _C3 = _C4 = _C5 = _C6 = _C7 = _C8 = ['ready']; 
+    function test5 (n) {
+      var x = toInt(n);
 
-  function test5 (n) {
-    var x = toInt(n);
+      _C0 = test4('a11')(x+0);
+      _C1 = test4('a12')(x+1);
+      _C2 = test4('a13')(x+2);
+      _C3 = test4('a14')(x+3);
+      _C4 = test4('a15')(x+4);
+      _C5 = test4('a16')(x+5);
+      _C6 = test4('a17')(x+6);
+      _C7 = test4('a18')(x+7);
+      _C8 = test4('a19')(x+8);
+      
+      _B0 = test6(x+0);
+      _B1 = test6(x+1);
+      _B2 = test6(x+2);
+      _B3 = test6(x+3);
+      _B4 = test6(x+4);
+      _B5 = test6(x+5);
+      _B6 = test6(x+6);
+      _B7 = test6(x+7);
+      _B8 = test6(x+8);
+  }
 
-    _C0 = test4('a11')(x+0);
-    _C1 = test4('a12')(x+1);
-    _C2 = test4('a13')(x+2);
-    _C3 = test4('a14')(x+3);
-    _C4 = test4('a15')(x+4);
-    _C5 = test4('a16')(x+5);
-    _C6 = test4('a17')(x+6);
-    _C7 = test4('a18')(x+7);
-    _C8 = test4('a19')(x+8);
-    
-    _B0 = test6(x+0);
-    _B1 = test6(x+1);
-    _B2 = test6(x+2);
-    _B3 = test6(x+3);
-    _B4 = test6(x+4);
-    _B5 = test6(x+5);
-    _B6 = test6(x+6);
-    _B7 = test6(x+7);
-    _B8 = test6(x+8);
-}
+  //***************************************************************** DND
 
-//***************************************************************** DND
+  function test9 () {
+    test5(-4);
+    setTimeout(() => {test5(-4); test5(-4)},1600)
+  }
 
-function test9 () {
-  test5(-4);
-  setTimeout(() => {test5(-4); test5(-4)},1600)
-}
-
-function bindTest  () {
+  function bindTest  () {
   test5(-4);
   // setTimeout(() => {test5(-4); test5(-4)},1500)
   // setTimeout(() => {test5(-4); test5(-4)},2200)
-  setTimeout(() => {test5(-4)},5400)
+  setTimeout(() => {test5(-4)},4400)
 };
 
   function rett (x, id="default") {return new Monad(x,id)};
@@ -551,20 +579,20 @@ function bindTest  () {
     console.log('arf',jim)
     return jim                     ;
   };
-
+/*
     function Monad(z = 'default', ID = 'tempMonad') {
       this.x = z;
       this.id = ID;
     };
 
-    Monad.prototype.bnd = function (func, ...args) {
+   Monad.prototype.bnd = function (func, ...args) {
       var _this = this;
+      var m = "cows";
       if (func instanceof Promise) {
-        _this.getVal(func,this.x,args);
+        func.then(v => m = v);
       }
-      var m = func(this.x, ...args)
       var ID;
-      if (m instanceof Monad) {
+      if (func(x, ...args) instanceof Monad) {
         ID = testPrefix(args, this.id);
         _this[ID] = new Monad(m.x, ID);
         return _this[ID];
@@ -579,6 +607,7 @@ function bindTest  () {
     Monad.prototype.getVal = async function fg (f) {
       this.ret(await(f));
     };
+*/
 
     function testPrefix (x,y) {
        var t = y;  // y is the id of the monad calling testPrefix
@@ -1034,6 +1063,12 @@ async function cubeP (x) {
   await wait(1200)
   return x*x*x;
 }
+
+async function rootP (x, t = 1200) {
+  await wait(t)
+  return Math.sqrt(x);
+}
+
 async function cubeFormat (x) {
   var a; 
   await cubeP(x).then(v => a = v); 

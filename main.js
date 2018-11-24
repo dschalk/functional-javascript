@@ -300,6 +300,7 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
 
       const messages$ = sources.WS.map(e => {
         var v = e.data.split(',')
+        console.log("ret(v[0])", ret(v[0]));
         var group = v[1]
         var sender = v[2];
         var extra = v[3];
@@ -1224,10 +1225,8 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
       var factorsAction9$ = factorsClick9$.map(() => {
         m44_ = [];
         var i = 0;
-        var bb = Bind("bb"); 
         while (i < 25) {
-          bb(145)(x => x * x * x)(it4_c)(it6_c)(it7_c);
-          console.log("bb is", bb);
+          Bind()(x => x * x * x)(it4_c)(it6_c)(it7_c);
           i += 1;
         }
       });
@@ -2066,63 +2065,10 @@ h('span', ', transpiled with ' ),
 h('span', ' and ' ),                          
                       h('a', {props: {href:"https://babeljs.io/", target: "_blank" }}, 'Babel' ), 
 h('span', '.' ),
-
-
 h('br'),
-h('br'),
-
-  
-
-h('span.tao', ' The term "functional programming" is vague until a context is specified. In the context of the '),
-                h('a', {props: {href: "https://en.wikipedia.org/wiki/Lambda_calculus", target: "_blank" }}, 'Lambda Calculus' ), 
-h('span', ', explained succinctly in ' ),
-h('a', {props: {href: "https://www.youtube.com/watch?v=eis11j_iGMs:", target: "_blank" }}, 'Lambda Calculus video' ), 
-h('span', ', it refers to a computational paradigm having no mutations, no impure functions, and no side effects.  Haskell started like this and became useful when (assuming adherence to recommended practice) only the main function was allowed to evaluate data held in an innovation called the "IO Monad". ' ),                            
-h('br'),                          
-h('p', ' In the context of JavaScript, "functional programming" is the source of much confusion. Many presentations, tutorials and blog posts promote the notion that functional JavaScript is JavaScript without mutation or impure functions. ' ),            
-h('span.tao', ' Type checking, avoiding mutation, and using mostly pure functions can result in fewer bugs, ease of maintenance, and shorter production times, especially in group efforts. It is nonetheless unfortunate for people trying to improve their coding skills that "functional programming" has been conflated with these coding practices. Functional Javascript is best thought of as JavaScript that takes full advantage of the language\'s first-class functions, regardless of whether it is done safely by superimposing things such as ' ),
-                          
-                h('a', {props: {href:"https://www.typescriptlang.org/", target: "_blank" }}, 'Typescript' ), 
-                          
- h('span', ' or dangerously by retaining all the potential of ' ), 
-                          h('a', {props: {href:"https://www.ecma-international.org/ecma-262/8.0/index.html", target: "_blank" }}, 'EcmaScript 2017' ), 
-h('br'),
-                          
-h('p', ' Here\'s some functional JavaScript: ' ),
-
-  h('div', styleFunc(["#FFD700", "3%", "21px", , , ]), [
-    h('div', 'f.run(x)(function1)(function2) ... (functionN)(); ')
-  ]),
-  h('p', ' where f = mBnd() and mBnd() is defined as: ' ),
-  h('pre', `    const mBnd = (bool = null) => {
-        var x = Symbol(); 
-        return { run: Bind(x, bool)};
-    }; ` ),
-  h('p', ' Bind is defined as: ' ),
-  h('pre', `    function Bind(str, bool = false) {
-        arBind[str] = [];
-        if (bool)  arBind[str] = onChange(
-            arBind[str], () => {     // Makes arBind[str] a Proxy of itself.
-                diffRender();         // Causes Snabbdom to update the DOM
-            }
-        );
-        var p;
-        var _bind = function _bind(x) {
-            if (x instanceof Promise) x.then(y => arBind[str].push(y); 
-            else arBind[str].push(x);
-            return func => {
-                if (func == undefined) return arBind[str];
-                if (typeof func !== "function") p = func;
-                else if (x instanceof Promise) p = x.then(v => func(v));
-                else p = func(x);
-                return _bind(p);
-            };
-        };
-        return _bind;
-    }; ` ),
-  h('p', ' People familiar functions that take functions as arguments, and with functions that return functions, will see that "f()" (above) has the features shown below. People learning about functional programming can make substantial progress by studying the code until they understand why it behaves as stated below. ' ), 
+h('p', ' The first three demonstrations (below) examine some of the possibilities inherent in higher-order functions like "Bind()" and methods that use Bind() like "mBnd". For example, we can create f.run where f = mBnd(true) and ' ),    
   h('div', styleFunc(["#4dff4d", "3%", "21px", , , ]), [
-  h('div', 'f(x).run(functiona1)(function2) ... (functionN)(); ')
+  h('div', 'f.run(x)(functiona1)(function2) ... (functionN)(); ')
   ]), 
   h('p', ' has the following features: ' ),
   h('pre', styleFunc(["#4dff4d", , "19px", , , ]), `    x can be any value,
@@ -2137,13 +2083,97 @@ h('p', ' Here\'s some functional JavaScript: ' ),
     functions have built-in access to all prior functions\' return values
        (or resolution values when promises are returned),
 
-    functions defined with mBnd and the data they generate are immutable,
+    Methods "ob.run" returned by running "ob = mBnd() are unaffected by other
+       functions named "f" created returned by mBnd(),
 
     "()", "(null)", or any other null value at the end of the sequence terminates 
         the procedure and causes the array of every return value (or Promise 
         resolution values) to be returned. "().slice(-1)" gets the final result. ` ),
-    h('p', ' The first example performs a computation, requests a quasi-random number from the WebSocket server, requests that number\'s prime decomposition from a web worker, and displays the result. The code runs twenty-five times. '),
+    h('p', ' The first example performs a computation, requests a quasi-random number from the WebSocket server, requests that number\'s prime decomposition from a web worker, and displays the result. The code runs twenty-five times. But before we get to that, a few words about functional programming in JavaScript. '),
                         
+h('h3', 'Functional JavaScript' ),
+
+h('span.tao', ' The term "functional programming" is vague until a context is specified. In the context of the '),
+                h('a', {props: {href: "https://en.wikipedia.org/wiki/Lambda_calculus", target: "_blank" }}, 'Lambda Calculus' ), 
+h('span', ', explained succinctly in ' ),
+h('a', {props: {href: "https://www.youtube.com/watch?v=eis11j_iGMs:", target: "_blank" }}, 'Lambda Calculus video' ), 
+h('span', ', it refers to a computational paradigm having no mutations, no impure functions, and no side effects.  Haskell started like this and became useful when (assuming adherence to recommended practice) side effects were allowed to be lazily computed in an inovation called a "monad" (the IO Monad, to be precise) and. if and when it is needed, evaluated in (and exclusively in) a function named "main". ' ),                            
+h('br'),                          
+h('br'),                          
+h('span.tao', ' In the context of JavaScript, "functional programming" is the source of much confusion. Many presentations, tutorials and blog posts promote the notion that functional JavaScript is JavaScript without mutation or impure functions. Some even think functional JavaScript should have erzats "monads" that can\'t possigbly be Category Theory monads (niether are Haskell monads), and can only superficially resemble Haskell monads. This is unfortunate because it hampers and distracts from learning to program with small, reusable functions guided by program-specific higher-order functions. ' ),  
+h('p', 'JavaScript programmers wanting to explore functional programming should first become familiar with curried functions, closures, recursion, function composition, and encapsulating procedures in composed functions rather than relying on shared global values. Learning tangential aspects of functional programming before becoming familiar with the essence of functional programming can discourage programmers from escaping from the confines of object-oriented programming. ' ),            
+h('br'),                          
+h('br'),                          
+h('span.tao', ' The more you accomplish your goals inside of linked functions, the more interactions with the global scope diminish. When you program functionally, many things fall into place naturally. Perhaps this is an example of "accomplishment through inaction", as observed by Lao Tsu in the ' ), 
+  
+h('a', {props: {href:"https://en.wikipedia.org/wiki/Tao_Te_Ching", target: "_blank" }}, 'Tao Te Ching' ), 
+
+h('br'),
+h('br'),
+
+h('span.tao', ' I think the fad of calling just about every composable object a "monad" is silly, but I greatly admire the work of the those involved in creating and maintaining the ' ),
+h('a', {props: {href:"https://github.com/fantasyland/fantasy-land", target: "_blank" }}, "Fantasyland specification for interoperability of common algebraic structures in JavaScript" ), 
+h('span', ', where type classes make it possible to sensibly define functors, applicative functors, monoids, and monads on well-defined collections of javascript values.   The ' ),
+
+h('a', { props: { href: "https://ramdajs.com/0.9/" } }, "Ramda"),
+
+h('span', ' library promotes functional techniques and, unlike Fantasyland, can be useful in the timely completion of real-world projects.  ' ),
+  
+h('br'),
+h('br'),
+
+h('span', ' The best approach to transitioning into a more functional style of JavaScript coding is, I firmly believe, to learn to make things happen transparently (for others and yourself in the future) with JavaScript\'s excellent and ever improving functions regardless of whether you do it safely with '),                            
+h('a', {props: {href:"https://www.typescriptlang.org/", target: "_blank" }}, 'Typescript' ), 
+                          
+ h('span', ' or carefully using all the potential of ' ), 
+h('a', {props: {href:"https://www.ecma-international.org/ecma-262/8.0/index.html", target: "_blank" }}, 'EcmaScript 2017' ), 
+h('br'),
+h('h3', ' Some Definitions ' ),
+h('pre',  `  function onChange(obj, onChange) {
+      const handler = {
+          set (obj, prop, value) {
+              onChange();
+              return Reflect.set(obj, prop, value);
+          },
+      };
+      return new Proxy(obj, handler);
+  }
+
+  function Bind(str, bool = false) {
+      arBind[str] = [];
+      if (bool)  arBind[str] = onChange(arBind[str], diffRender);
+      var p;
+      var _bind = function _bind(x) {
+          if (x instanceof Promise) x.then(y => {
+              arBind[str].push(y);
+          })
+          else {
+              arBind[str].push(x)
+          //    diffRender();
+          }
+          return func => {
+              if (func == undefined) return arBind[str];
+              if (typeof func !== "function") p = func;
+              else if (x instanceof Promise) p = x.then(v => func(v));
+              else p = func(x);
+              return _bind(p);
+          };
+      };
+      return _bind;
+  };  
+
+  var diffR = function diffR (obj) {
+      return obj = onChange(obj, () => diffRender())
+  };
+
+  var mBnd = (bool = false, val) => {
+      var x = Symbol(val);
+      var ob = {key:x,  run: Bind(x)}
+      arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
+      return ob;
+  };    ` ),
+h('h3', 'Demonstrations' ),
+
                         ]),
 
   h('div.content2', [
@@ -2844,78 +2874,16 @@ code.primes4,
 h('p', ' execF prepares the Fibonacci series and sends its state, along with the state of primesMonad that it received from workerB.js, to fpTransformer. execP is called with the current state and the largest Fibonacci number that had been recently produced by execF as arguments. The updated state is an array with four elements, [new upper bound, new series, largest prime produced in the current browser session, largest series]. If the new result is larger than any previous one, the first and second elements of the state array are identical to the third and fourth. Otherwise, they are smaller. As is apparent in the following code, primesMonad is re-created in the main thread using the state array that was posted by workerB. '),
 code.primes2,
 
-h('h3', 'Type Checking'),
-h('p', ' Type checking is useful for avoiding runtime errors and for optimization of user interfaces. For example, if a user enters the wrong type of data it is helpful to display a message explaining why nothing is happening. Not allowing defective user input to be transmitted to a WebSocket server prevents sockets from disconnecting. Some developers like to superimpose strong typing over JavaScript or write code in a strongly typed language that compiles to JavaScript. I leave JavaScript (ES7, to be precise) as it is and check types only where user input is involved. If this project were a team effort, other team members might be users of functions I write so more extensive type-checking would be prudent.'),
 h('br'),
 h('a', {
   props: {
     href: '#top'
   }
 }, 'Back to the top'),
-h('h3', 'Another Example'),
-h('p', ' The result of every computation in a chain of synchronous functions is available to every computation that comes after it. This can be seen in the next example where the result of each computation is pushed into Bind.foo: '),
-              h('pre', `  var foo = Bind("foo"); 
-
-    var result = foo(1)(v=>v+2)(v=>v*v*v)(v=>v+3)
-    (v=>v*Bind.foo[1])(v=>v*Bind.foo[1])(v=>v+30)
-    (v=>v*1/(Bind.foo[3]*2))(terminate)
-
-    console.log(result) // [1, 3, 27, 30, 90, 270, 300, 5] 
-    console.log(result === Bind.foo) // true  `),
-
-              h('h2', 'Alternative Monad Functionality'),
-              h('p', ' Instances of Monad can also link by means of the method "bnd()". It, along with the method "ret()", were made available as follows: '),
-              h('pre', {
-                style: {
-                  color: "rgb(236, 242, 186)"
-                }
-              }, `  Monad.prototype.bnd = function (func, ...args) {
-      var m = func(this.x, ...args)
-      var ID;
-      if (m instanceof Monad) {
-        ID = testPrefix(args, this.id);
-        window[ID] = new Monad(m.x, ID);
-        return window[ID];
-      }
-      else return m;
-    };
-
-    Monad.prototype.ret = function (a) {
-      return window[this.id] = new Monad(a, this.id);
-    };
-
-    function testPrefix (x,y) {
-       var t = y;  // y is the id of the monad calling testPrefix
-       if (Array.isArray(x)) {
-        x.map(v => {
-          if (typeof v == 'string' && v.charADSt() == '$') {
-             t = v.slice(1);  // Remove "$"
-          }
-        })
-      }
-      return t;
-    }; `),
-              h('p', ' This is less functional than using bind() in that it doesn\'t pass functions down the chain but instead passes objects with exposed methods. But it has appealing features. Look how values move along the chain until, at the end they combine to yield 42. Explicitly passing values from function to function along a chain is impossible with bind(); but with bind(), all chained functions share an array of return values and the resolution values of returned promises. '),
-              h('br#itter'),
-              h('pre', `  ret(2).bnd(v => add(v,1)
-    .bnd(cube).bnd(p => add(p,3)
-    .bnd(() => ret(p/3).bnd(add,3)
-    .bnd(z => v*z+p-v*p+z))))  //  9 `),
-              // ************** OOOOOOOOOOOOOO ********    BEGIN ASYNC
-
-
-              //('asyncExplanation', ' Asynchronous Processes ' ),
-
-              h('a', {
-                props: {
-                  href: '#gameIntro'
-                }
-              }, 'Back to the first set of demonstrations.'),
-
 
               h('h2', 'MonadItter'),
               h('p', ' As shown in the "Monads" section (above), the definition of MonadItter is: '),
-              code.monadIt,
+              code.monadItter,
               h('p', ' MonadItter instances don\'t link to one another. They exist to facilitate the work of instances of Monad, MonadState, etc. Here\'s how they work: '),
               h('p', 'For any instance of MonadItter, say "it", "it.bnd(func)" causes it.p === func. Calling the method "it.release(...args)" causes p(...args) to run, possibly with arguments supplied by the caller. '),
               h('p', ' MonadItter instances control the routing of incoming WebSocket messages. In one of the demonstrations below, they behave much like ES2015 iterators.'),
@@ -2946,15 +2914,14 @@ h('p', ' The result of every computation in a chain of synchronous functions is 
               h('p', ' The function solve() is recursive. It invokes itself after release() executes three times. The expression "solve()" resets solve to the top, where mMZ3.p becomes a function containing two nested occurrences of mMZ3.bnd. After mMZ3.release() executes, mMZ3.p becomes the function that is the argument to the next occurrence of mMZ3.bnd. That function contains yet another occurrence of mMZ3.bnd. MonadItter is syntactic sugar for nested callbacks. '),
 
               h('h3', ' Preserve Archives By Avoiding Mutation '),
-              h('p', ' When you assign a variable to an array, for example "var arr = [1,2,3]", arr points to a location in memory. Suppose you want to preserve a record of previous values of arr. You might try saving them in an array like this: '),
-              h('pre', `  var arr = [1,2,3]
+              h('p', ' When you assign a variable to an array, for example "var arr = [1,2,3]", arr points to a location in memory. Suppose you want to preserve a record of previous values of arr. You can\'t do it with an array such as b below: '),
+              h('pre', `    var arr = [1,2,3];
+    var c = arr;          
     var b = [arr];
-    arr.push(4);
-    b.push(arr);
-    console.log(b[0]);  // [1,2,3,4]
-    console.log(b[1]);  // [1,2,3,4]  
-    b[0] == b[1]  // true`),
-              h('p', ' That didn\'t work! b points to [arr] and arr still points to its original location in memory. "arr.push(4)" mutated the value in arr\'s location and "b.push(arr)" added a copy. "b[0] == b[1]" returning true verifies that both elements of b point to the same place in memory because in JavaScript, the "==" operator on objects (including arrays) is defined to return true if and only if the objects\' '),
+    c.push(4);
+    console.log(arr);  
+    console.log(b[0]);  // [1,2,3,4] ` ),
+              h('p', ' That didn\'t work because b[0] points to the same place in memory as arr and c. "arr.push(4)" mutated the value in arr\'s location and "b.push(arr)" added a copy. "b[0] == b[1]" returning true verifies that both elements of b point to the same place in memory because in JavaScript, the "==" operator on objects (including arrays) is defined to return true if and only if the objects\' '),
               h('p', ' Here is what happens when "arr.slice()" is pushed into b: '),
               h('pre', `  var arr = [1,2,3];
     var b = [arr.slice()];
@@ -3045,7 +3012,7 @@ h('p', ' The result of every computation in a chain of synchronous functions is 
 
 
               h('h2', ' MonadEr - An Error-Catching Monad '),
-              h('p', ' NOTE: I DON\'T LIKE THIS. I WILL COME UP WITH SOMETHING LESS CONVOLUTED. ' ), 
+              h('p', ' THIS IS A FIRST STAB AT MAKING SOMETHING THAT PERFORMS LIKE HASKELL\'S "Maybe" MONAD. THERE IS LOTS OF ROOM FOR IMPROVEMENT.  ' ), 
               h('p', ' Instances of MonadEr function much the same as instances of Monad, but when an instance of MonadEr encounters an error, it ceases to perform any further computations. Instead, it passes through every subsequent stage of a sequence of MonadEr expressions, reporting where it is and repeating the error message. It will continue to do this until it is re-instantiated or until its bnd() method runs on the function clean(). '),
               h('p', 'Functions used as arguments to the MonadEr bnd() method can be placed in quotation marks to prevent the browser engine from throwing reference errors. Arguments can be protected in the same manner. Using MonadEr can prevent the silent proliferation of NaN results in math computations, and can prevent browser crashes due to attempts to evaluate undefined variables. '),
               h('p.tao1b', ' The monad laws hold for MonadEr instances. The following relationships were verified in the Chrome console: '),
@@ -3828,67 +3795,6 @@ PingpongMaker('m69_RESULT')  `),
               }
             }, 'Back to the top'),
             h('br'),
-            h('h2', 'The >>= operator'),
-            h('p', ' The definition of >>= (pronounced "bind") used below is a variation that uses monads. As you see, encapsulating values in monads works smoothly, but adds nothing of value. Useful monads are in the Haskell server on the backend of this web page. Here it is: '),
-            h('pre', `operator >>= left 11 = (left, right) => {
-  return #\`\${right}(\${left}.x)\`;
-}; `),
-            h('span', ' >>= and expressions using >>= are compiled to JavaScript code with help from the '),
-            h('a', {
-              props: {
-                href: "https://www.sweetjs.org/"
-              }
-            }, 'sweet.js library'),
-            h('span', '.'),
-
-            h('h3', 'Simple Functions'),
-
-            h('p', ' The sweet.js code (orange color) below compiles to the golden Javascript code beneith it: '),
-            h('span', 'sweet.js'),
-            h('pre', {
-              style: {
-                color: 'orange'
-              }
-            }, `function Monad2(z) {
-  this.x = z;
-};
-
-function ret (v) {
-  return new Monad2(v);
-}
-
-var cube = x => ret(x*x*x);
-var add = a => b => ret(a+b);
-var square = v => ret(v*v); 
-
-operator >>= left 11 = (left, right) => {
-  return #\`\${left}.then(\${v => right(v)})\`;
-};  
-
-ret(3) >>= cube >>= add(3) >>= square >>= Math.sqrt ), `),
-
-            h('span', 'JavaScript'),
-            h('pre', {
-              style: {
-                color: "#FFD700",
-                fontSize: "15"
-              }
-            }, `function Monad2(z_146) {
-  this.x = z_146;
-} 
-
-function ret(v_147) {
-  return new Monad2(v_147);
-}
-
-var cube_139 = (x_148) => ret(x_148 * x_148 * x_148);
-var add_140 = (a_149) => (b_150) => ret(a_149 + b_150);
-var square_141 = (v_151) => ret(v_151 * v_151);
-
-Math.sqrt(square_141(add_140(3)(cube_139(ret(3).x).x).x).x);
-  // 30  `),
-            h('p', ' Notice how sweet.js changes the names of the functions and variables to prevent name clashes. '),
-
             h('h3', 'Functions That Carry State'),
             h('p', ' The following sweet.js code (orange color) compiles to the golden JavaScript code benieth it: '),
             h('span', 'sweet.js'),

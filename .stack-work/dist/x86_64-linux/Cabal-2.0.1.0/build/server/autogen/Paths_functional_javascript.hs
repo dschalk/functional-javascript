@@ -30,7 +30,7 @@ version = Version [0,3,0,2] []
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 
 bindir     = "/home/o/TEST/fj/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/bin"
-libdir     = "/home/o/TEST/fj/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/functional-javascript-0.3.0.2-EowKtVb3Vqw8422Fa5uVB9-server"
+libdir     = "/home/o/TEST/fj/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/functional-javascript-0.3.0.2-4AOmIHRKJKwABxOhcwzEtV-server"
 dynlibdir  = "/home/o/TEST/fj/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2"
 datadir    = "/home/o/TEST/fj/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/share/x86_64-linux-ghc-8.2.2/functional-javascript-0.3.0.2"
 libexecdir = "/home/o/TEST/fj/.stack-work/install/x86_64-linux/lts-11.15/8.2.2/libexec/x86_64-linux-ghc-8.2.2/functional-javascript-0.3.0.2"
