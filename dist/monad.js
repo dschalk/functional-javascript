@@ -50,15 +50,6 @@ function onChange(obj, onChange) {
     };
     return new Proxy(obj, handler);
 }
-function onChange(obj = []) {
-    const handler = {
-        set (obj, prop, value) {
-            onChange();
-            return Reflect.set(obj, prop, value);
-        },
-    };
-    return new Proxy(obj, handler);
-}
 
 function Bind(str, bool = false) {
     arBind[str] = [];
@@ -216,7 +207,7 @@ var diffR = function diffR (obj) {
     return obj = onChange(obj, () => diffRender())
 };
 
-var mBnd = (bool = false, val) => {
+var mBnd = (bool = false, val = "mBnd") => {
     var x = Symbol(val);
     var ob = {key:x,  run: Bind(x)}
     arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 

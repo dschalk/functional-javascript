@@ -1201,32 +1201,13 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
         })
 
       var factorsClick8$ = sources.DOM
-        .select('button#factors_R').events('click');
-
+        .select('button#factors_R').events('click'); 
       var factorsAction8$ = factorsClick8$.map(e => {
         var i = 0;
         m43_ = [];
         var bind = Bind()   //bi.run();
         while (i < 25) {
           bind(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
-          i += 1;
-        }
-      });
-
-      var clearClick9$ = sources.DOM
-        .select('button.clear_S').events('click')
-        .map(() => {
-          m44_ = [];
-        })
-
-      var factorsClick9$ = sources.DOM
-        .select('button#factors_S').events('click');
-
-      var factorsAction9$ = factorsClick9$.map(() => {
-        m44_ = [];
-        var i = 0;
-        while (i < 25) {
-          Bind()(x => x * x * x)(it4_c)(it6_c)(it7_c);
           i += 1;
         }
       });
@@ -2017,7 +1998,7 @@ console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
   */
 
 
-      var calcStream$ = xs.merge(oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factorsAction7$, factorsAction9$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
+      var calcStream$ = xs.merge(oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
         DOM: calcStream$.map(() => {
