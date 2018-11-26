@@ -3,19 +3,23 @@
 var Monad = function Monad(z = 42, g = 'generic') {
     this.x = z;
     this.id = g;
+    var that = this;
     this.bnd = function (func, ...args) {
-      var m = func(this.x, ...args)
-      var mon;
-      if (m instanceof Monad) {
-        mon = testPrefix(args,this.id);
-        return window[mon] = new Monad(m.x, mon);
-      }
-      else return m;
+        var m;
+        if (typeof func === "function") {
+            m = func(this.x, ...args)
+            var mon;
+            if (m instanceof Monad) {
+                mon = testPrefix(args,this.id);
+                return window[mon] = new Monad(m.x, mon);
+            };
+        }
+        else return m;
     };
     this.ret = function (a) {
       return window[this.id] = new Monad(a,this.id);
     };
-  };
+};
 
   function testPrefix (x,y) {
     var t = y;
@@ -208,8 +212,8 @@ var diffR = function diffR (obj) {
 };
 
 var mBnd = (bool = false, val = "mBnd") => {
-    var x = Symbol(val);
-    var ob = {key:x,  run: Bind(x)}
+    var x = Symbol(val)  // "val" can be useful in debugging;
+    var ob = {key: x, run: Bind(x)}; 
     arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
     return ob;
 }; 
@@ -218,13 +222,15 @@ var test4 = z => w  => {
   window[z] = Bind(z);
   var ar = arBind[z];
   return window[z](w)(cubeP)(squareP)
-  (() => divP(ar[0])(ar[1]))(rootP)()}                                                                                                          
+  (() => divP(ar[0])(ar[1]))(rootP)()}
+
 var test6 = w => {
   var ob = mBnd(true)
   var ar = arBind[ob.key];
   return ob.run(w)(cubeP)(squareP)
-  (() => divP(ar[0])(ar[1]))(rootP)()}                                                                                                          
-    var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready']; 
+  (() => divP(ar[0])(ar[1]))(rootP)()}
+
+var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready']; 
     var _C0 = _C1 = _C2 = _C3 = _C4 = _C5 = _C6 = _C7 = _C8 = ['ready']; 
 
     function test5 (n) {
@@ -289,7 +295,6 @@ var test6 = w => {
   var primeState2 = [2];
   var fibState = [0,1]; 
   var prFibState = [2];
-
 
   var wolf = 223;
   // console.log('h is', h, 'PLOWAZUPI!');

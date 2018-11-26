@@ -3,8 +3,8 @@
     // import ws from 'ws';
     // import {makeHTTPDriver} from '@cycle/http';
     // import {require} from "requirejs";
-    Maybe = require('folktale/maybe');
-    console.log("Maybe is", Maybe);
+    // Maybe = require('folktale/maybe');
+    // console.log("Maybe is", Maybe);
     // compose = require('folktale/core/lambda/compose');
     import {h,p,span,h1,h2,h3,pre,a,br,div,label,input,hr,makeDOMDriver} from '@cycle/dom';
     import Cycle from '@cycle/xstream-run';
@@ -19,10 +19,6 @@
     // ws = new WebSocket("ws://echo.websocket.org");
 
 h = h;
-
-console.log('<$><$><$><$><$><$><$><$><$><$><$><$><$><$> require', require);
-
-
 
     function bNode(arr) {
       var x = styl(arr.length);
@@ -2052,20 +2048,21 @@ h('p', ' The first three demonstrations (below) showcase the function "Bind"   "
   h('div', 'f.run(x)(functiona1)(function2) ... (functionN)(); ')
   ]), 
   h('p', ' has the following features: ' ),
-  h('pre', styleFunc(["#4dff4d", , "19px", , , ]), `    x can be any value,
+  h('pre', styleFunc(["#ABDDAB", , "19px", , , ]), `    x can be any value,
 
     there are no restrictions on the functions\' return values
        (they can even return promises),
 
     so naturally there are no restrictions on the single-value arguments 
-       (primitives, functions, arrays, etc.) functions can take since these 
-       are the prior functions\' return values,
+       (primitives, functions, arrays, etc.) that functions can take since these 
+       are the prior functions\' return values (or resolution values),
 
     functions have built-in access to all prior functions\' return values
        (or resolution values when promises are returned),
 
     Methods "ob.run" returned by running "ob = mBnd() are unaffected by other
-       functions named "f" created returned by mBnd(),
+       methods "ob.run" returned by subsequent calls to "ob = mBnd()". 50 such obs
+       are like 50 orthohinal vectors in a 50 dimensional vector space,
 
     "()", "(null)", or any other null value at the end of the sequence terminates 
         the procedure and causes the array of every return value (or Promise 
@@ -2078,13 +2075,12 @@ h('span.tao', ' The term "functional programming" is vague until a context is sp
                 h('a', {props: {href: "https://en.wikipedia.org/wiki/Lambda_calculus", target: "_blank" }}, 'Lambda Calculus' ), 
 h('span', ', explained succinctly in ' ),
 h('a', {props: {href: "https://www.youtube.com/watch?v=eis11j_iGMs:", target: "_blank" }}, 'Lambda Calculus video' ), 
-h('span', ', it refers to a computational paradigm having no mutations, no impure functions, and no side effects.  Haskell started like this and became useful when (assuming adherence to recommended practice) side effects were allowed to be lazily computed in an inovation called a "monad" (the IO Monad, to be precise) and. if and when it is needed, evaluated in (and exclusively in) a function named "main". ' ),                            
+h('span', ', it refers to a computational paradigm having no mutations, no impure functions, and no side effects.  Haskell started like this and became useful when (assuming adherence to recommended practice) side effects were allowed to be lazily computed in an innovation called a "monad" (the IO Monad, to be precise) and. if and when it is needed, evaluated in (and exclusively in) a function named "main". ' ),                            
 h('br'),                          
 h('br'),                          
-h('span.tao', ' In the context of JavaScript, "functional programming" is the source of much confusion. Many presentations, tutorials and blog posts promote the notion that functional JavaScript is JavaScript without mutation or impure functions. Some even think functional JavaScript should have erzats "monads" that can\'t possigbly be Category Theory monads (niether are Haskell monads), and can only superficially resemble Haskell monads. This is unfortunate because it hampers and distracts from learning to program with small, reusable functions guided by program-specific higher-order functions. ' ),  
-h('p', 'JavaScript programmers wanting to explore functional programming should first become familiar with curried functions, closures, recursion, function composition, and encapsulating procedures in composed functions rather than relying on shared global values. Learning tangential aspects of functional programming before becoming familiar with the essence of functional programming can discourage programmers from escaping from the confines of object-oriented programming. ' ),            
-h('span.tao', ' The more you accomplish your goals inside of linked functions, the more interactions with the global scope diminish. When you program functionally, many things fall into place naturally. Perhaps this is an example of "accomplishment through inaction", as observed by Lao Tsu in the ' ), 
-  
+h('span.tao', ' In the context of JavaScript, "functional programming" is the source of much confusion. Many presentations, tutorials and blog posts promote the notion that functional JavaScript is JavaScript without mutation or impure functions. Some even think functional JavaScript should have erzats "monads" that superficially resemble Haskell monads. This is unfortunate because it hampers and distracts from learning to program effectively with functions. ' ),  
+h('p', ' To learn functional programming in JavaScript, coders should become familiar with curried functions, closures, recursion, functions with functions as parameters and return values, and isolating procedures in pipelines of composed functions rather than directly modifying shared global state. Learning tangential aspects of functional programming before becoming familiar with its essence can discourage programmers from escaping the confines of object-oriented programming. ' ),            
+h('span.tao', ' The more you accomplish in function scope, the less you mutate objects in global scope. When you program functionally, some things fall into place naturally, reminiscent of Lao Tzu\'s observation of effortless accomplishment in the ' ), 
 h('a', {props: {href:"https://en.wikipedia.org/wiki/Tao_Te_Ching", target: "_blank" }}, 'Tao Te Ching' ), 
 
 h('br'),
@@ -2092,66 +2088,63 @@ h('br'),
 
 h('span.tao', ' I think the fad of calling just about every composable object a "monad" is silly, but I greatly admire the work of the those involved in creating and maintaining the ' ),
 h('a', {props: {href:"https://github.com/fantasyland/fantasy-land", target: "_blank" }}, "Fantasyland specification for interoperability of common algebraic structures in JavaScript" ), 
-h('span', ', where type classes make it possible to sensibly define functors, applicative functors, monoids, and monads on well-defined collections of javascript values.   The ' ),
+h('span', ', where type classes make it possible to sensibly define functors, applicative functors, monoids, and monads on well-defined collections of javascript values. Excellent practical libraries that more or less comply with the Fantasyland specification include: ' ),
 
-h('a', { props: { href: "https://ramdajs.com/0.9/" } }, "Ramda"),
+h('a', { props: { href: "https://folktale.origamitower.com/", target: "_blank"  } }, "Folktale, "),
+h('a', { props: { href: "https://ramdajs.com/0.9/", target: "_blank"  } }, "Ramda, "),
+h('a', { props: { href: "https://github.com/sanctuary-js/sanctuary", target: "_blank"  } }, "Sanctuary, and "),
+h('a', { props: { href: "https://github.com/fluture-js", target: "_blank"  } }, "Fluture"),
 
-h('span', ' library promotes functional techniques and, unlike Fantasyland, can be useful in the timely completion of real-world projects.  ' ),
-  
 h('br'),
 h('br'),
 
-h('span', ' The best approach to transitioning into a more functional style of JavaScript coding is, I firmly believe, to learn to make things happen transparently (for others and yourself in the future) with JavaScript\'s excellent and ever improving functions regardless of whether you do it safely with '),                            
-h('a', {props: {href:"https://www.typescriptlang.org/", target: "_blank" }}, 'Typescript' ), 
-                          
- h('span', ' or carefully using all the potential of ' ), 
+h('span.tao', ' This presentation addresses the essence of functional JavaScript, so there aren\'t any algebraic data types here - other than in the Haskell WebSocket server. Here, we carefully code with raw ' ),
 h('a', {props: {href:"https://www.ecma-international.org/ecma-262/8.0/index.html", target: "_blank" }}, 'EcmaScript 2017' ), 
+h('span', ' fresh out of the box, just as we find it. ' ),
 h('br'),
-h('h3', ' Some Definitions ' ),
-h('pre',  `  function autoRefresh(obj) {
-      const handler = {
-          set (obj, prop, value) {
-              diffRender();  // Forces DOM update 
-              return Reflect.set(obj, prop, value);
-          },
-      };
-      return new Proxy(obj, handler);
-  }
-
-  function Bind(str, bool = false) {
-      arBind[str] = [];
-      if (bool) arBind[str] = autoRefresh(arBind[str]);
-      var p;
-      var _bind = function _bind(x) {
-          if (x instanceof Promise) x.then(y => {
-              arBind[str].push(y);
-          })
-          else {
-              arBind[str].push(x)
-          //    diffRender();
-          }
-          return func => {
-              if (func == undefined) return arBind[str];
-              if (typeof func !== "function") p = func;
-              else if (x instanceof Promise) p = x.then(v => func(v));
-              else p = func(x);
-              return _bind(p);
+h('p', ' The first three demonstrations feature Bind() and the versatile, resilient next-order-higher function mBnd() with Bind() at its core. Here are some relevant definitions: ' ),                           
+h('pre',  `      function autoRefresh(obj) {
+          const handler = {
+              set (obj, prop, value) {
+                  diffRender();  // Forces DOM update 
+                  return Reflect.set(obj, prop, value);
+              },
           };
+          return new Proxy(obj, handler);
+      }
+
+      function Bind(str, bool = false) {
+          arBind[str] = [];
+          if (bool) arBind[str] = autoRefresh(arBind[str]);
+          var p;
+          var _bind = function _bind(x) {
+              if (x instanceof Promise) x.then(y => {
+                  arBind[str].push(y);
+              })
+              else {
+                  arBind[str].push(x)
+              //    diffRender();
+              }
+              return func => {
+                  if (func == undefined) return arBind[str];
+                  if (typeof func !== "function") p = func;
+                  else if (x instanceof Promise) p = x.then(v => func(v));
+                  else p = func(x);
+                  return _bind(p);
+              };
+          };
+          return _bind;
       };
-      return _bind;
-  };
 
-  var diffR = function diffR (obj) {
-      return obj = onChange(obj, () => diffRender())
-  };
+      var diffR = function diffR (obj) {
+          return obj = autoRefresh(obj)
 
-  var mBnd = (bool = false, val) => {
-      var x = Symbol(val);
-      var ob = {key:x,  run: Bind(x)}
-      arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
-      return ob;
-  };    ` ),
-h('h3', 'Demonstrations' ),
+      var mBnd = (bool = false, val = "mBnd") => {
+          var x = Symbol(val)      // "val" can be useful in debugging;
+          var ob = {key: x, run: Bind(x)}; 
+          arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
+          return ob;
+      }; ` ),
 
                         ]),
 
@@ -2203,10 +2196,10 @@ h('p', ' Demonstration 2 will show what happens when Bind() is used directly and
   h('span', ' Click below to begin twenty-five runs of: '),
   h('br'),
   h('br'),
-  h('span', styleFunc(["rgb(7, 247, 247)", "12%", "20px", , , , , ]), 'bb(145)(x=>x**3)(it4_c)(it6_c)(it7_c)'),
+  h('span', styleFunc(["rgb(7, 247, 247)", "12%", "20px", , , , , ]), 'bind(145)(x=>x**3)(it4_c)(it6_c)(it7_c)'),
   h('br'),
   h('br'),
-  h('button#factors_R', { style: { fontSize: '15px' }}, 'bb(145)(x=>x**3)(it4_c)(it6_c)(it7_c)'),
+  h('button#factors_R', { style: { fontSize: '15px' }}, 'bind(145)(x=>x**3)( . . . ' ),
   h('span', "~~"),
   h('button.clear_R', {
     style: {
@@ -2323,60 +2316,17 @@ h('pre', `  function test5 (n) {
   } 
   
   var test4 = z => w  => {
-      window[z] = Bind(z);
-      var ar = arBind[z];
-      return window[z](w)(cubeP)(squareP)
-      (() => divP(ar[0])(ar[1]))(rootP)()}
+    window[z] = Bind(z);
+    var ar = arBind[z];
+    return window[z](w)(cubeP)(squareP)
+    (() => divP(ar[0])(ar[1]))(rootP)()}
 
   var test6 = w => {
-      var ob = mBnd(true)
-      var ar = arBind[ob.key];
-      return ob.run(w)(cubeP)(squareP)
-      (() => divP(ar[0])(ar[1]))(rootP)()}                                  
+    var ob = mBnd(true)
+    var ar = arBind[ob.key];
+    return ob.run(w)(cubeP)(squareP)
+    (() => divP(ar[0])(ar[1]))(rootP)()}  ` ),
 
-  var mBnd = (bool = false, val = "mBnd") => {  // This is the precious gem!
-      var x = Symbol(val);
-      var ob = {key:x,  run: Bind(x)}
-      arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
-      return ob;
-  }; 
-
-  var diffR = function diffR (obj) {
-      return obj = autoRefresh(obj)   // Forces DOM refresh for demonstrations.
-  };
-
-  function autoRefresh(obj) {
-      const handler = {
-          set (obj, prop, value) {
-              diffRender();  // Forces DOM update 
-              return Reflect.set(obj, prop, value);
-          },
-      };
-      return new Proxy(obj, handler);
-  }
-
-  function Bind(str, bool = false) {
-      arBind[str] = [];
-      if (bool) arBind[str] = autoRefresh(arBind[str]);
-      var p;
-      var _bind = function _bind(x) {
-          if (x instanceof Promise) x.then(y => {
-              arBind[str].push(y);
-          })
-          else {
-              arBind[str].push(x)
-          //    diffRender();
-          }
-          return func => {
-              if (func == undefined) return arBind[str];
-              if (typeof func !== "function") p = func;
-              else if (x instanceof Promise) p = x.then(v => func(v));
-              else p = func(x);
-              return _bind(p);
-          };
-      };
-      return _bind;
-  };  ` ),
                         ]),
 
 h('p', ' Clicking the "GO" button (above) causes test5() to execute. It calls test4() and test6() nine times. test4() (at the top) shows what can go wrong when copies of _bind are created by direct calls to Bind(). The code normally runs to completion in 4800 ms. If you click the button, test5 is called again after 4600 ms. The results speak for themselves'),
@@ -2547,20 +2497,11 @@ h('p', ' Later on this page, MonadItter objects are used in a similar demonstrat
   h('p', ' Visitors to this site are automatically logged in with pseudo-randomly generated numbers as their user names and passwords. The default "group" is the non-group "solo". '),
   h('p', ' You can select a persistent name and password. These will make it possible for you to return at any time and delete or edit your comments. '),
   h('p#gameIntro', ' The demonstration section also has a text box where you can create or join a group by entering a group name. Changing groups resets your game score and goal tally to zeros. '),
-  h('span.tao', ' The game code is fairly concise and intuitive. It uses little objects called "monads". A quick walk-through is presented at.'),
-  h('a', {
-    props: {
-      href: '#gameCode'
-    }
-  }, 'here'),
-  h('span', '. To see monadic functionality at work, I suggest that you take a look at the section captioned '),
-  h('a', {
-    props: {
-      href: '#asyncExplanation'
-    }
-  }, 'Asynchronous Processes'),
+  h('span.tao', ' The code is at ' ), 
+  h('a', {props: {href: "http://github.com/dschalk/functional-javascript", target: "_blank"}}, 'Github' ),
+  h('span', ' and ' ),
+  h('a', {props: {href: "#gameCode" }}, "here" ),
   h('br'),
-  h('p', ' But it might be best to first proceed down the page and see the examples of Monad instances manipulating data. If you are trying to wrap you head around the concept of functional programming, playing with bind() and the monads in the browser console might lift you into the comfort zone you seek. '),
   h('h3', 'The Rules'),
   h('p', 'People who are in the same group, other than the default non-group named "solo", share the same todo list, chat messages, and simulated dice game. '),
   h('p', ' Data for the traversable game history accumulates until a player scores three goals and wins. The data array is then emptied and the application is ready to start accumulating a new history. '),
@@ -3122,45 +3063,12 @@ h('a', {
       ]))
     })
   } `),
-              h('div#curryDef'),
-              h('br'),
-              h('pre', `function curry(func) {
-
-    return function curried(...args) {
-      if (args.length >= func.length) {
-        return func.apply(this, args);
-      } else {
-        return function(...args2) {
-          return curried.apply(this, args.concat(args2));
-        }
-      }
-    };
-
-  }
-
-  function curryReverse(func) {
-    return function curried(...args) {
-      if (args.length >= func.length) {
-        return func.apply(this, args.reverse());
-      } else {
-        return function(...args2) {
-          return curried.apply(this, args.concat(args2));
-        }
-      }
-    };
-
-  } `),
-
-              h('a', {
-                props: {
-                  href: '#top'
-                }
-              }, 'Back to the top'),
+              h('a', { props: { href: '#top' }}, 'Back to the top'),
               h('p', ' *************************************************************************************** '),
 
 h('span.tao', ' The ' ),
 h('a', {props: {href:"https://wiki.haskell.org/Monad_laws", target: "_blank" }}, 'Haskell Monad Laws' ), 
-h('span', ', which aren\'t even mandetory in Haskell, are common sense requirements for robust function composition. If you rely on functions to make programs work, you aren\'t communicating changes of state by mutating global variables. Time travel and undo algorithms naturally use immutable data. Thousands of passes through loops inside the scopes of functions cry out for  mutable values, not factories spewing pointers and values into memory. When you program functionally, Things fall into place without enforcing rules. This is doing through inaction, in the spirit of the ' ),
+h('span', ', which aren\'t even mandetory in Haskell, are common sense requirements for robust function composition. If you rely on functions to make programs work, you aren\'t communicating changes of state by mutating global variables. Time travel and undo algorithms naturally use immutable data. Thousands of passes through loops inside the scopes of functions cry out for mutable values, not factories spewing pointers and values into memory. When you program functionally, Things fall into place without enforcing rules. This is doing through inaction, in the spirit of the ' ),
   
                            h('a', {props: {href:"https://en.wikipedia.org/wiki/Tao_Te_Ching", target: "_blank" }}, 'Tao Te Ching' ), 
 h('br'),
@@ -3249,89 +3157,8 @@ h('br'),
               broadcast ("GE#$42," \`mappend\` group \`mappend\` com
                 \`mappend\` sender \`mappend\` com \`mappend\` extra \`mappend\` com
                    \`mappend\` extra3) st   `),
-              h('a', {
-                props: {
-                  href: '#top'
-                }
-              }, 'Back To The Top'),
-              h('br'),
-
-              h('div#reactivity'),
-              h('br'),
-              h('a', {
-                props: {
-                  href: "#reactivity2"
-                }
-              }, 'Back to the pingpong demo'),
-
-              h('h3', 'Reactivity in Cycle.js'),
-
-              h('p', ' The stream incF$ and the driver pingpongDriver() (both defined below) are essential components of the pingpong demonstration. '),
-
-              h('pre', blue, `  var incF$ = n => xs.of(n);
-
-      function pingpongDriver () {
-        return xs.create({
-          start: listener => {
-            incF$ = k => listener.next(k)
-          },
-          stop: () => {}
-        })
-      };  `),
-              h('p', ' Whenever the stream incF$() is called, the stream returned by pingpongDriver is augmented and that causes main() to return an object whose only element is a map from the stream calcStream$ to a virtual DOM node with many children. calcStream$ is produced by merging 48 streams together including ping$ resulting from ping(n) where "n" is the number supplied by pingpongDriver (a/k/a "sources.PP"). The first two lines of main()\'s return value are shown below. '),
-              h('pre', `    return { DOM: calcStream$.map(() => {
-                                                           return h('div.main', [  `),
-
-
-              h('p', ' merged into it. Each time main returns, Snabbdom\'s diff and render routine executes inside of run(sources,main). run(sources,main) calls main() and furnishes it with the listeners provided by the drivers. New events cause the cycle to repeat. '),
-              h('p', ' ping(-5)([0,0]) is called when the pingpong button is clicked. Here\'s the relevant code:'),
-              h('pre', `  var pingpong$ = sources.DOM
-        .select(\'buttonr#ingpong\').events(\'click\').map(() => ping(0)([0,0]));
-
-      var ppR = {style: {color: 'red',
-        marginLeft: '5%', fontSize: "26"}};
-      var ppY = {style: {color: 'yellow',
-        marginLeft: '42%', fontSize: "26"}};
-      var ppRY = {style: {color: 'yellow',
-        marginLeft: '5%', fontSize: "26"}};
-      var ppYR = {style: {color: 'red',
-        marginLeft: '42%', fontSize: "26"}};
-
-      var ppStyle = false;
-
-
-      var ping = n => ar => {
-        var k = Math.floor(Math.random() * 5)+1;
-        if(ar[0] > 10 || ar[1] > 10) {
-          diffRender();
-          return;
-        }
-        setTimeout(() => {
-          if (n <= k) {
-            ppStyle = !ppStyle;
-            incF$(n);
-            ping(n+1)(ar);
-          }
-          else if (n % 2 === 0) {
-            ar[0]+=1;
-            m67_RESULT = h('pre', ppYR, \`     SCORE: ping  \${ar[0]} pong: \${ar[1]}  \` )W
-            ping(0)(ar);
-          }
-          else {
-            ar[1]+=1
-            m67_RESULT = h('pre', ppY, \`     SCORE: ping  \${ar[0]} pong: \${ar[1]}  \` );
-            ping(0)(ar);
-          }
-        }, 500 )
-      }  `),
-              h('p', ' The function diffRender() forces Snabbdom to perform one last diff and render. It is defined as follows: '),
-              h('pre', `  const diffRender = () => document.getElementById("testQ").click();`),
-              h('p', ' The button "testQ" cubes the number 2 in the MonadItter demonstration. It was chosen because it does not significantly affect anything aside from forcing Snabbdom to update the DOM. '),
-
-              h('p', ' The stream incF$ and the driver pingpongDrirun(main, sources) are the crucial Cycle.js application functions. sources contains the drivers. sources.PP = pingpongDriver is one of the drivers consumed by run() and made available in main() so information can be sent back to run. Round and round it goes. Here is the definition of ping$. '),
-
-              h('span.tao', ' The monads do not depend on Cycle.js. They can be used in React, Node, and all other browser-based applications. I happen to prefer Cycle.js working in conjunction with a Haskell WebSocket server. '),
-              h('br'),
+       
+              h('div#gameCode', ' '),
               h('h2', 'Appendix A - The Game Code'),
               h('pre', `function MonadState(g, state) {
     this.id = g;
@@ -3341,7 +3168,7 @@ h('br'),
                 props: {
                   href: '#gameIntro'
                 }
-              }, 'Back to the first group of demonstrations.'),
+              }, 'Back to the rules'),
               h('p'),
               h('pre', `MonadState.prototype.run = function ([
     score = this.s[0][this.s[1]][0],
@@ -3436,19 +3263,7 @@ h('br'),
 
               h('h3', 'Appendix B - Curried Functions Used In Several Demonstrations'),
 
-              h('pre#wait', ` function square (v) {
-      return ret(v*v)
-    };
-
-    function cube (v, id) {
-      return ret(v*v*v, id);
-    };
-
-    function add (a, b, id) {
-      return ret((parseInt(a,10) + parseInt(b,10)),id);
-    };
-
-    const divCinverse = a => b => ret(e/b);
+              h('pre#wait', `    const divCinverse = a => b => ret(e/b);
     const divC = a => b => ret(b/a);
     const addC = a => b => ret(a+b);
     const cubeC = v => ret(v*v*v);
@@ -3711,75 +3526,8 @@ h('br'),
             }, 'Back to Demonstration 2'),
             h('br'),
             h('br'),
-            h('p', ' This is the code involved in the pingpong demonstration. PingpongMaker\'s argument creates a namespace. The demonstration features three such namespaces. It verifies that each game proceeds with its own state, oblivious of the states of the other two games in progress. Bind uses its closure to achieve a similar effect. '),
-            h('pre', `var pingD = a => b => c => h('div', [
-  h('pre', a, \` ping        ---> \`), 
-  h('pre', b, \`                 <---        pong \`), 
-  h('pre',  \`          -- SCORE: ping: \` + c[0]  + \` pong: \` + c[1]  ),
-]);
 
-var PingpongMaker = (name) => {
-  var a = _A1;
-  var b = _A3;
-  var c = [0,0];
-  var n = 0;
-  var bool = true;
-  var k = Math.floor(Math.random() * 7)+1;
-  return function train () {
-    if (c[0] > 10 || c[1] > 10) return;
-    var ms = 400;
-    console.log('a.style.color, b.style.color, c', a.style.display, b.style.display, c);
-    if (a === _A3) {a = _A1; b = _A3}
-    else if (a === _A1) {a = _A3; b = _A2};
-    if (n <= k) {
-      n+=1;
-      window[name] = pingD(a)(b)(c);
-      diffRender();
-    }
-    else if (n % 2 === 0) {
-      ms = 1200
-      n = 0
-      c[0]+=1;
-      window[name] = pingD(_A1)(_A3)(c);
-      diffRender();
-      k = Math.floor(Math.random() * 7)+1;
-    }
-    else if (n % 2 === 1) {
-      ms = 1200;
-      n = 0;
-      c[1]+=1;
-      window[name] = pingD(_A3)(_A2)(c);
-      diffRender();
-      k = Math.floor(Math.random() * 7)+1;
-    }
-    setTimeout( function () {
-      train();
-    },ms );
-  }
-}  
-
-PingpongMaker('m67_RESULT')
-PingpongMaker('m68_RESULT')
-PingpongMaker('m69_RESULT')  `),
-
-            h('p#monads', ' m67_RESULT, m68_RESULT, and m69_RESULT are permanent fixtures in the virtual DOM description returned by main()'),
-
-            h('a', {
-              props: {
-                href: '#top'
-              }
-            }, 'Back to the top'),
-            h('br'),
-            h('h3', 'Functions That Carry State'),
-            h('p', ' The following sweet.js code (orange color) compiles to the golden JavaScript code benieth it: '),
-            h('span', 'sweet.js'),
-            h('pre', {
-              style: {
-                color: 'orange'
-              }
-            }, `'lang sweet.js';
-
-function Monad2(z) {
+  h('pre', `function Monad2(z) {
   this.x = z;
 };
 
@@ -3847,26 +3595,6 @@ h('a', {
 h('span', ' below. They provide a convenient interface for dealing with uncertainty and side effects in a purely functional manner. Adherence to the monad laws ' ),
               
 h('span', ' helps instill confidence that the monads are robust, versatile, and reliable tools for isolating and chaining sequences of javascript functions. '),
-
-            h('p', ' The demonstrations include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history (all group members see your score decrease or increase as you navegate backwards and forwards). Monads are shown performing lengthy mathematical computations asycronously in web workers. Monads encapsulate state. The error checking monad carries occurances of NaN and runtime errors through sequences of computations much like the Haskell Maybe monad. '),
-
-            code.monad,
-
-            h('span.tao', ' As discussed '),
-            h('a', {
-              props: {
-                href: "#haskell"
-              }
-            }, 'above'),
-            h('span', ', The Haskell Programming Language (which supports this website\'s server) draws inspiration from Category theory, but contains no rigorous category theory objects or morphisms.'),
-            h('span', ' As discussed '),
-            h('a', {
-              props: {
-                href: "#haskell"
-              }
-            }, 'below'),
-            h('span', ', tHaskell Programming Language, which supports the back end of this website, draws inspiration from Category theory, but that is as far as it goes. '),
-
             h('h3', 'More Random Snippits'),
             h('p', '  Libraries and language modifications that impose constraints such as immutability, universal purity of functions, and strict typing can be useful, but this project takes a different approach. The JavaScript used herein is plain, unadorned, unrestricted Ecamascript 2018. '),
 h('p', ' This is of little utility, but I like it: ' ),
