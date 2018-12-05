@@ -13,6 +13,18 @@ For X11-based systems (ie. Linux and most other UNIX-like systems) there are two
 
 
 
+    function runFoo (n) {
+        foocow_1 = foo(n+0));
+        foocow_1 = foo(n+1));
+        foocow_1 = foo(n+2));
+        foocow_1 = foo(n+3));
+        foocow_1 = foo(n+4));
+        foocow_1 = foo(n+5));
+        foocow_1 = foo(n+6));
+        foocow_1 = foo(n+7));
+        foocow_1 = foo(n+8));
+    } ` ),
+
 
 
 

@@ -3074,3 +3074,108 @@ test5(7);
 
 var qfB = mBnd(true);    
 
+
+// ************* CLOSURE Saves cash of Fibonacci numbers
+console.log(" ************* CLOSURE Saves cash of Fibonacci numbers");
+
+function fibb () {
+	var fibs = [];
+	var d;
+	var a = 0;
+	var b = 1;
+	function f (n) {
+  		if (a > n) {
+  		    console.log("a > n"); 
+  		    return fibs.filter(v => v <= n)
+  	 }; 
+		  while (a < n) {
+	       fibs.push(a);		
+    	   d = a;
+    	   a = b;
+        b = d + b;
+    }
+    return fibs;
+    }
+    return f;
+}
+var fib = fibb();
+console.log(fib(15));
+console.log(fib(1000))
+console.log(fib(15));
+
+console.log(" ************* Closure test END");
+
+// *************************************************** Observable
+
+function observable(obj, onChange) {
+  return new Proxy(obj, {
+    set(target, key, value)  {
+      Reflect.set(target, key,value);
+      onChange({ key, value });
+    },
+    delete(target, key) {
+      Reflect.delete(target, key);
+      onChange({ key, value: undefined})
+    }
+  })	
+}
+
+var myIterable = {}
+myIterable[Symbol.iterator] = function* () {
+    yield 1;
+    yield 2;
+    yield 3;
+};
+[...myIterable] 
+
+var f_86 = v => t => {
+    var ar = [v]; 
+    t.map(g => ar.push(v=g(v))); 
+     return ar
+};
+
+var foo = x => f_86(x)([v=>v**3, v=>v+x, v=>v**2,v=>ar[3](v),
+  v=>v**(1/4),v=>v-x,v=>Math.round(v**(1/3))]);    
+
+var foocow_0 = [];
+var foocow_1 = [];
+var foocow_2 = [];
+var foocow_3 = [];
+var foocow_4 = [];
+var foocow_5 = [];
+var foocow_6 = [];
+var foocow_7 = [];
+var foocow_8 = [];
+
+function runFoo (n) {
+    foocow_0 = foo(n+0);
+    foocow_1 = foo(n+1);
+    foocow_2 = foo(n+2);
+    foocow_3 = foo(n+3);
+    foocow_4 = foo(n+4);
+    foocow_5 = foo(n+5);
+    foocow_6 = foo(n+6);
+    foocow_7 = foo(n+7);
+    foocow_8 = foo(n+8);
+} 
+
+runFoo(-4)
+
+console.log('***** Symbol addition (not "simple addition") *****');
+var t = 0; 
+var a = Symbol.for(t); 
+var b = toInt(Symbol.keyFor(a)) + 1; 
+var c = Symbol.for(b); 
+var d = toInt(Symbol.keyFor(c))+1; 
+console.log("a",a); 
+console.log("b",b); 
+console.log("c",c); 
+console.log("d",d);
+console.log('*****                                        *****');
+
+
+
+
+
+
+

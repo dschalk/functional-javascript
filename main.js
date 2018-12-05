@@ -295,7 +295,7 @@ h = h;
 
       const messages$ = sources.WS.map(e => {
         var v = e.data.split(',')
-        console.log("ret(v[0])", ret(v[0]));
+        // console.log("ret(v[0])", ret(v[0]));
         var group = v[1]
         var sender = v[2];
         var extra = v[3];
@@ -1765,6 +1765,15 @@ h = h;
       };
 
 
+      var foo$ = sources.DOM
+        .select('#foocow').events('keypress');
+
+      var fooAction$ = foo$.map(function (e) {
+        if (e.keyCode === 13) {
+            runFoo(toInt(e.target.value));
+        }
+      });
+
       // *****************************************END TODO LIST
       var captionClick$ = sources.DOM
         .select('#caption').events('click');
@@ -1993,7 +2002,7 @@ h = h;
   */
 
 
-      var calcStream$ = xs.merge(oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
+      var calcStream$ = xs.merge( fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
         DOM: calcStream$.map(() => {
@@ -2042,32 +2051,34 @@ h('span', ' and ' ),
                       h('a', {props: {href:"https://babeljs.io/", target: "_blank" }}, 'Babel' ), 
 h('span', '.' ),
 h('br'),
-h('p', ' The first three demonstrations (below) showcase the function "Bind"   "Bind()" and methods that use Bind() like "mBnd". For example, we can create f.run where f = mBnd(true) and ' ),    
+h('p', ' The first three demonstrations (below) introduce the functions mBnd() and Bind(). An object "ob" created by calling "const ob = mBnd()" facilitates function composition with this syntax:  ' ),    
 
   h('div', styleFunc(["#4dff4d", "3%", "21px", , , ]), [
-  h('div', 'f.run(x)(functiona1)(function2) ... (functionN)(); ')
+  h('div', 'ob.run(x)(functiona1)(function2) ... (functionN)(); ')
   ]), 
-  h('p', ' has the following features: ' ),
+  h('p', ' where  ' ),
   h('pre', styleFunc(["#ABDDAB", , "19px", , , ]), `    x can be any value,
 
+    the functions operate on "x" from left to right,
+    
     there are no restrictions on the functions\' return values
        (they can even return promises),
 
-    so naturally there are no restrictions on the single-value arguments 
-       (primitives, functions, arrays, etc.) that functions can take since these 
+    hence there are no restrictions on the single-value arguments (primitives, 
+       functions, arrays, etc.) that functions can take since these 
        are the prior functions\' return values (or resolution values),
 
     functions have built-in access to all prior functions\' return values
        (or resolution values when promises are returned),
 
-    Methods "ob.run" returned by running "ob = mBnd() are unaffected by other
-       methods "ob.run" returned by subsequent calls to "ob = mBnd()". 50 such obs
-       are like 50 orthohinal vectors in a 50 dimensional vector space,
+    Methods "ob.run" returned by running "ob = mBnd()" are unaffected by other
+       methods "ob.run" returned by subsequent or previous calls to "ob = mBnd()". 
+       50 such obs resemble 50 orthogonal vectors in a 50 dimensional vector space,
 
     "()", "(null)", or any other null value at the end of the sequence terminates 
         the procedure and causes the array of every return value (or Promise 
         resolution values) to be returned. "().slice(-1)" gets the final result. ` ),
-    h('p', ' The first example (below) performs a computation, requests a quasi-random number from the WebSocket server, requests that number\'s prime decomposition from a web worker, and displays the result. The code runs twenty-five times. But before we get to that, a few words about functional programming in JavaScript. '),
+    h('p', ' The first example (below) performs a computation, requests a quasi-random number from the WebSocket server, requests that number\'s prime decomposition from a web worker, and displays the result. The code runs twenty-five times; but before displaying that, I have something to say about functional programming in JavaScript. '),
                         
 h('h3', 'Functional JavaScript' ),
 
@@ -2078,7 +2089,7 @@ h('a', {props: {href: "https://www.youtube.com/watch?v=eis11j_iGMs:", target: "_
 h('span', ', it refers to a computational paradigm having no mutations, no impure functions, and no side effects.  Haskell started like this and became useful when (assuming adherence to recommended practice) side effects were allowed to be lazily computed in an innovation called a "monad" (the IO Monad, to be precise) and. if and when it is needed, evaluated in (and exclusively in) a function named "main". ' ),                            
 h('br'),                          
 h('br'),                          
-h('span.tao', ' In the context of JavaScript, "functional programming" is the source of much confusion. Many presentations, tutorials and blog posts promote the notion that functional JavaScript is JavaScript without mutation or impure functions. Some even think functional JavaScript should have erzats "monads" that superficially resemble Haskell monads. This is unfortunate because it hampers and distracts from learning to program effectively with functions. ' ),  
+h('span.tao', ' In the context of JavaScript, "functional programming" is the source of much confusion. Many presentations, tutorials and blog posts promote the notion that functional JavaScript is JavaScript without mutation or impure functions. Some even think functional JavaScript should have erzats "monads" that superficially resemble Category Theory and Haskell monads. This is unfortunate because it distracts from learning to program effectively with functions. ' ),  
 h('p', ' To learn functional programming in JavaScript, coders should become familiar with curried functions, closures, recursion, functions with functions as parameters and return values, and isolating procedures in pipelines of composed functions rather than directly modifying shared global state. Learning tangential aspects of functional programming before becoming familiar with its essence can discourage programmers from escaping the confines of object-oriented programming. ' ),            
 h('span.tao', ' The more you accomplish in function scope, the less you mutate objects in global scope. When you program functionally, some things fall into place naturally, reminiscent of Lao Tzu\'s observation of effortless accomplishment in the ' ), 
 h('a', {props: {href:"https://en.wikipedia.org/wiki/Tao_Te_Ching", target: "_blank" }}, 'Tao Te Ching' ), 
@@ -2102,7 +2113,7 @@ h('span.tao', ' This presentation addresses the essence of functional JavaScript
 h('a', {props: {href:"https://www.ecma-international.org/ecma-262/8.0/index.html", target: "_blank" }}, 'EcmaScript 2017' ), 
 h('span', ' fresh out of the box, just as we find it. ' ),
 h('br'),
-h('p', ' The first three demonstrations feature Bind() and the versatile, resilient next-order-higher function mBnd() with Bind() at its core. Here are some relevant definitions: ' ),                           
+h('p', ' The definitions of Bind(), mBnd, autoRefresh and diffR are shown below. The latter two are anti-patterns in Cycle.js, where DOM updates normally result from updating the stream returned by main(). ' ),                           
 h('pre',  `      function autoRefresh(obj) {
           const handler = {
               set (obj, prop, value) {
@@ -2219,9 +2230,9 @@ h('p', ' Demonstration 2 will show what happens when Bind() is used directly and
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Using mBnd() to Avoid Clashes'),
 h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // ((***** LEFT PANEL 
 h('h3', 'The Problem With Direct Calls to Bind()'),
-h('p', ' The statement "f = Bind(\'f\')") returns a fresh copy of _bind but not a fresh copy the array arBind["f"]. After f() has been created and called, subsequent calls push additional data into arBind[\'f\']. Nine distinct copies of _bind() are used in the top nine computation. arBind is cleared prior to the each start but when the procedures are re-started prior to finishing, two running processes share each array. Clicking the button on the right causes this phenomenon. Clicking it ten times illustrates the point even better. '),
+h('p', ' The statement "o = Bind(\'o\')") returns a fresh copy of _bind but not a fresh copy the array arBind[o.key]. After "o"has been created and called, calling "o.run" pushes additional data into arBind[o.key]. Nine distinct copies of _bind() are used in the top nine computation. arBind is cleared prior to the each start but when the procedures are re-started prior to finishing, two running processes share each array. Clicking the button on the right causes this phenomenon. Clicking it ten times illustrates the point even better. '),
 h('h3', 'The mBnd Solution'),
-h('p', ' Repeatedly calling "ob = mBnd()" creates copies of _bind (returned by Bind()) named "ob.run", each of which has its own unique array on arBind. As is evident from the definition of Bind, arBind is an object that holds key/value pairs for every array created by calling Bind(). When an object "ob" is created by calling "ob = mBn()", a unique key (defined by "x = Symbol()) on arBind is assigned to its method "ob.run()". The global ob, window.ob in the browser, is the most recently created object named "ob", but previously created objects named "ob" continue to function independently, each with a unique key in the Symbol registry. ' ),  
+h('p', ' Repeatedly calling "ob = mBnd()" creates copies of _bind (returned by Bind()) named "ob.run", each of which has its own unique array on the object arBind. As is evident from the definition of Bind, arBind is an object that holds key/value pairs for every array created by calling Bind(). When an object "ob" is created by calling "ob = mBn()", a unique key (defined by "x = Symbol()) on arBind is assigned to its method "ob.run()". The global ob, window.ob in the browser, is the most recently created object named "ob", but previously created objects named "ob" continue to function independently, each with a unique key in the Symbol registry. ' ),  
 h('p', ' If you enter a number on the right and press <ENTER> once, you will see that test4() and test6() produce identical results. If you Press <ENTER> again during execution, you will see garbage above your entry, but below you will see just what you saw when you pressed <ENTER> once. It resembles the rollback of an interrupted atomic transaction as seen, for example, in interrupted database transactions. Click "GO" ten times in rapid succession if you want to see some crazy results above the button and sensible results below. '),
 
          ]),
@@ -2398,7 +2409,6 @@ h('pre', `  1*x*x + 2*x + -3 = 0 has the following solutions:
   
 h('p', ' As for fishing arBind[qfB.key] out of the global scope, please note the discussion above. "qfB.key" belongs only to the most recently created version of qfB. It was created by running "x = Symbol()" while qfB was being defined. Previously created objects named "qfB" have their own unique secret values of "qfB.key" and their own private arrays. Pressing <F12> and entering "arBind", we see this: ' ),
 
-
               ]),  ]),
 
               h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
@@ -2425,7 +2435,8 @@ h('p', ' As for fishing arBind[qfB.key] out of the global scope, please note the
       var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
       var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
       if (aa === aa) {
-          Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
+          Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 
+              has the following solutions:\`,
           Cow2 = \`x = \${aa} and x = \${bb}\`;
           // console.log("Cow1 and Cow2", Cow1, Cow2);
       }
@@ -2454,8 +2465,56 @@ h('p', ' Tags like "Mars" and "Deborah" have limited usefulness, but they could 
 h('p', ' Later on this page, MonadItter objects are used in a similar demonstration. mMZ33.release(<coefficient>) is called repeatedly. mMZ33.bind is nested three levels deep. In the third level, the coefficients are applied to the formula and control is directed back to the top level. MonadItter objects are used to screen incoming WebSocket messages. ' ),
 
   
+              ]),
 
-  ]),
+h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 4 '),
+h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
+
+h('p', ' Here is another approach to function composition, featuring rapid-fire redefinition of a parameter "v" by functions in an array ("ar"). "v" and "ar" are available to every function in "ar". In the example, we see "v => ar[3](v)" and "y => y - x" where y is the previously computed value and x is the starting value. A more elaborate version could be made to handle asynchronous code. "f_86", "foo", and runFoo are shown below. ' ),
+h('p', ' Enter a number "n" on the right to call "runFoo(n)". ' ),
+h('pre', `    var f_86 = v => t => {
+        var ar = [v]; 
+        t.map(g => ar.push(v=g(v))); 
+         return ar
+    }; ` ),
+
+h('pre', {style: {color: "#8ffc95"}}, `    var foo = x => f_86(x)([v=>v**3, v=>v+x, v=>v**2,v=>ar[3](v),
+        v=>v**(1/4),v=>v-x,v=>Math.round(v**(1/3))]); ` ),    
+
+h('pre', `    function runFoo (n) {
+        foocow_0 = foo(n+0));
+        foocow_1 = foo(n+1));
+        foocow_2 = foo(n+2));
+        foocow_3 = foo(n+3));
+        foocow_4 = foo(n+4));
+        foocow_5 = foo(n+5));
+        foocow_6 = foo(n+6));
+        foocow_7 = foo(n+7));
+        foocow_8 = foo(n+8));
+    } ` ),
+
+
+
+
+              ]),        
+h('div', { style: { width: '47%', fontSize: '18px', float: 'right' }}, [ // *** RIGHT PANEL
+h('div', 'Enter a number "n" below to see the result of "runFoo" executing on nine numbers' ),
+  h('br'),
+h('input#foocow',    ),
+  h('br'),
+  h('br'),
+h('div', `${foocow_0.join(", ")}`),
+h('div', `${foocow_1.join(", ")}`),
+h('div', `${foocow_2.join(", ")}`),
+h('div', `${foocow_3.join(", ")}`),
+h('div', `${foocow_4.join(", ")}`),
+h('div', `${foocow_5.join(", ")}`),
+h('div', `${foocow_6.join(", ")}`),
+h('div', `${foocow_7.join(", ")}`),
+h('div', `${foocow_8.join(", ")}`),
+          ]),
+
 ]), h('div.content', [
 
   h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
@@ -3365,7 +3424,7 @@ h('br'),
   }; `),
               h('h3', 'Promises'),
 
-              h('p', ' As the definition of MonadItter shows, bnd() saves functions until release() causes them to execute. MonadItter instances are usually used on this webpage where promises, generators, and async/await could also do the job. '),
+              h('p', ' As the definition of MonadItter shows, bnd() saves functions until release() causes them to execute. MonadItter instances are usually used on this webpage where promises, generators, and async/await could also do the job. No transpiling is needed in old browsers; MonadItter is written in ES5. '),
               h('p', 'Here are the Promises-based functions prm4() and prm6() that can be substituted for it4() and it6() in the expression bind(145)(cubeC)(it4)(it6): '),
               h('pre', `  const prm4 = x => {
     if (socket.readyState === 1) socket.send(\'BB#\$42,pMgroup,pMname,' + x);
