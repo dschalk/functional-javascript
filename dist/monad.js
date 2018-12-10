@@ -1,4 +1,25 @@
 
+var observable = (object, onChange) => {
+	const handler = {
+		get(target, property, receiver) {
+			try {
+				return new Proxy(target[property], handler);
+			} catch (err) {
+				return Reflect.get(target, property, receiver);
+			}
+		},
+		defineProperty(target, property, descriptor) {
+			onChange();
+			return Reflect.defineProperty(target, property, descriptor);
+		},
+		deleteProperty(target, property) {
+			onChange();
+			return Reflect.deleteProperty(target, property);
+		}
+	};
+
+	return new Proxy(object, handler);
+};
 
 var Monad = function Monad(z = 42, g = 'generic') {
     this.x = z;
@@ -196,12 +217,27 @@ var sock;
 var pName;
 var pigText = 888;
 
+
+
+// ******************************************** Number parsing and list generation START
 var _convert_ = a => b => parseInt(b,a);  
 var toInt = _convert_ (10);
+var toHex = _convert_ (6);
 var _conveNt_ = a => b => parseFloat(b,a);
 var toFloat = _conveNt_ (10);
 
-var toHex = _conveNt_ (6);
+function intArray (x) {
+  return Object.keys(Array.apply(0, Array(x))).map(toInt)
+}
+
+console.log(`function intArray (x) {
+  return Object.keys(Array.apply(0, Array(x))).map(toInt)
+}`);
+console.log(intArray(7))   // [1,2,3,4,5,6,7]
+
+// ******************************************** Number parsing and list generation END
+
+
 
 num9 = 0;
 
@@ -3107,19 +3143,6 @@ console.log(" ************* Closure test END");
 
 // *************************************************** Observable
 
-function observable(obj, onChange) {
-  return new Proxy(obj, {
-    set(target, key, value)  {
-      Reflect.set(target, key,value);
-      onChange({ key, value });
-    },
-    delete(target, key) {
-      Reflect.delete(target, key);
-      onChange({ key, value: undefined})
-    }
-  })	
-}
-
 var myIterable = {}
 myIterable[Symbol.iterator] = function* () {
     yield 1;
@@ -3171,7 +3194,42 @@ console.log("a",a);
 console.log("b",b); 
 console.log("c",c); 
 console.log("d",d);
-console.log('*****                                        *****');
+console.log('*****      Class Expression        *****');
+
+
+
+class Expression {  
+  constructor(pattern) {
+    this.pattern = pattern;
+  }
+  [Symbol.match](str) {
+    return str.includes(this.pattern);
+  }
+  [Symbol.replace](str, replace) {
+    return str.split(this.pattern).join(replace);
+  }
+  [Symbol.search](str) {
+      return str.indexOf(this.pattern);
+  }
+  [Symbol.split](str) {
+      return str.split(this.pattern);
+  }
+}
+
+let sunExp = new Expression('sun');  
+
+var a = 'sunny day'.match(sunExp);             
+var b = 'rainy day'.match(sunExp);              
+var c = 'sunny day'.replace(sunExp, 'rainy');  
+var d = "It's sunny".search(sunExp);          
+var e = "daysunnight".split(sunExp); 
+
+console.log(a,"\n", b, "\n", c, "\n", d, "\n", e ); 
+
+console.log("<W><W><W><W><W><W><W> Warm and friendly <F><F><F><F><F><F><F>");
+fetch('https://jsonplaceholder.typicode.com/todos/3')
+  .then(response => response.json())
+  .then(json => console.log("https://jsonplaceholder.typicode.com/todos/3",json))
 
 
 
