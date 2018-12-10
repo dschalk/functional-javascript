@@ -3111,8 +3111,8 @@ test5(7);
 var qfB = mBnd(true);    
 
 
-// ************* CLOSURE Saves cash of Fibonacci numbers
-console.log(" ************* CLOSURE Saves cash of Fibonacci numbers");
+// ************* CLOSURE Saves cache of Fibonacci numbers
+console.log(" ************* CLOSURE Saves cache of Fibonacci numbers");
 
 function fibb () {
 	var fibs = [];
