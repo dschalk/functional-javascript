@@ -3154,7 +3154,7 @@ myIterable[Symbol.iterator] = function* () {
 var f_86 = v => t => {
     var ar = [v]; 
     t.map(g => ar.push(v=g(v))); 
-     return ar
+    return ar
 };
 
 var foo = x => f_86(x)([v=>v**3, v=>v+x, v=>v**2,v=>ar[3](v),
@@ -3233,6 +3233,49 @@ fetch('https://jsonplaceholder.typicode.com/todos/3')
 
 
 
+// ************************************** Proxy handler apply demo -- call "f(0,1)"
+console.log("************************************** Proxy handler apply demo -- call \"f(0,1)\" "); 
+
+var start = [0,1];
+
+var fibs = [];
+
+function makeFibs (n) {
+  return {
+    apply: function(a, b, c) {
+    if (c[0] > n)	console.log("The Fibonacci numbers up to", n, "are", fibs.join(', '));
+    else {
+    	  fibs.push(c[0]);
+    	  start = a(c[0], c[1]);  
+    	  nextFib(start[0],start[1]);
+    }
+   }
+  }
+};
+
+function nextFib(a,b) {return [b,a+b]}; 
+nextFib = new Proxy(nextFib, makeFibs(10000));
+nextFib(0,1);
+
+
+const incState = {next: 0}
+var count = {}
+function addOne () {this.next = this.next + 1}
+
+var handlerGet = {
+ 	  get: () => {
+ 	  	   addOne.apply(incState);
+ 	  	   return incState.next;
+    }
+}
+
+count = new Proxy (count, handlerGet);
+
+console.log(count.next);
+console.log(count.next);
+console.log(count.next);
+console.log(count.next);
+console.log(count.next);
 
 
 

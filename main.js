@@ -2157,8 +2157,9 @@ h('pre',  `      function autoRefresh(obj) {
           return ob;
       }; ` ),
 
+  h('span.tao', ' An ES6 Proxy keeps the display current. A discussion of Proxy can be found below at ' ),
+  h('a#proxy2', {props: {href: "#proxies"}}, 'Fun With Proxies' ),
                         ]),
-
   h('div.content2', [
   h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 1 '),
   h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
@@ -2895,7 +2896,7 @@ h('a', {
     var c = arr;          
     var b = [arr];
     c.push(4);
-    console.log(arr);  
+    console.log(arr);   // [1,2,3,4]
     console.log(b[0]);  // [1,2,3,4] ` ),
               h('p', ' That didn\'t work because b[0] points to the same place in memory as arr and c. "arr.push(4)" mutated the value in arr\'s location and "b.push(arr)" added a copy. "b[0] == b[1]" returning true verifies that both elements of b point to the same place in memory because in JavaScript, the "==" operator on objects (including arrays) is defined to return true if and only if the objects\' '),
               h('p', ' Here is what happens when "arr.slice()" is pushed into b: '),
@@ -2934,7 +2935,11 @@ h('a', {
       h('button#mR12.mR', 12 ),
       h('button#mR13.mR', 13 ),
       h('button#mR14.mR', 14 ),
-      h('button#mR15.mR', 15 ) ] `),
+      h('button#mR15.mR', 15 ) ] 
+                
+      var ArrDS = [
+        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+      ];  `),
               h('p', ' The following line of code is a fixture of the virtual DOM. It accounts for the sixteen-square grid shown above: '),
               h('pre', `  h('div#donkey', ArrDS[indexDS] ) `),
               h('p', ' If you begin exploring the demonstration by clicking the upper right square, this code in main() responds by placing the number 3 in rADS: '),
@@ -2981,11 +2986,60 @@ h('a', {
 
               h('p', ' button#R9.mR has id "#R9" and formatting class "mR". When numbers are rearranged, the id\'s remain in fixed positions. '),
               h('p', ' The process is responsive because r83 and r815 are merged in the stream that feeds the virtual DOM; i.e., the stream returned by main() and fed back into main() by run(). Cycle.run(main, sources) is the last line of the front-end code. '),
-              h('p', ' This code undoubtedly deviates from Cycle.js and functional programming recommended practices. After all, rNumsDS and rDataDS are global variables tracking the state of the grid. Cycle.js favors maintaining state in streams and functional aficionados eschew global variables, period. Me, I just like to make things work as neatly and efficiently as I can. Making a state stream would be a hassle and, since this is not a group effort, nobody is going to hijack my variable names. So, for now, grid state will hang out in global scope. '),
+              h('p#proxies', ' This code undoubtedly deviates from Cycle.js and functional programming recommended practices. After all, rNumsDS and rDataDS are global variables tracking the state of the grid. Cycle.js favors maintaining state in streams and functional aficionados eschew global variables, period. Me, I just like to make things work as neatly and efficiently as I can. Making a state stream would be a hassle and, since this is not a group effort, nobody is going to hijack my variable names. So, for now, grid state will hang out in global scope. '),
 
+h('a', {props: {href: "#proxy2"}}, 'Back to the first demonstration' ),
+h('h2', 'FUN WITH PROXIES' ),
 
+  
+  h('p', ' Proxies can be useful for debugging and implementing reactive functionality without reliance on a library such as RxJS, Bacon, etc. But first, here\'s some fun code I recommend you not use in production. ' ),
+h('pre', `   var count = {}
 
+    console.log(count.next); // 1
+    console.log(count.next); // 2
+    console.log(count.next); // 3
+    console.log(count.next); // 4
+    console.log(count.next); // 5  ` ),
+h('p', ' Wait a minute! Isn\'t that supposed to be "ReferenceError: next is not defined"? What\'s going on here? ' ),
+h('p', ' It\'s a magic trick. Here\'s the code I didn\'t show you: ' ),
+h('pre', `    const incState = {next: 0}
 
+    function addOne () {this.next = this.next + 1}
+
+    var handlerGet = {
+        get: () => {
+            addOne.apply(incState);
+            return incState.next;
+        }
+    }
+
+    count = new Proxy (count, handlerGet); ` ),
+h('p', ' "count" is a proxy of itself. Every attempt to obtain a value from it results in addOne() being applied to the object "incState" and incState.next being returned. ' ),
+h('p', ' Here\'s another impractical but instructive example. nextFib() is a proxy of itself. nextFib() takes a pair of consecutive Fibonacci numbers and returns the succeeding pair of Fibonacci numbers. The proxy handler (below) causes nextFib to repeatedly execute until the lower number in the "start" pair exceeds the argument provided to makeFibs. Note that "(a, b, c)" is (nextFib, single argument (not applicable), [nextFib\'s two arguments]). In the previous example, the function that is get\'s value has no arguments. get\'s value can take three arguments: "get: (a,b,c) =>" represents "get: (object, attribute name, attribute value) =>".  ' ),  
+h('p', ' Here\'s the code for the Fibonacci series generating example: ' ),  
+h('pre', `    var start = [0,1];
+
+    var fibs = [];
+
+    function makeFibs (n) {
+        return {
+            apply: function(a, b, c) {
+                if (c[0] > n) console.log("The Fibonacci numbers up to", n, "are", fibs.join(', '));
+                else {
+                     fibs.push(c[0]);
+                     start = a(c[0], c[1]);  
+                     nextFib(start[0],start[1]);
+                }
+            }
+        }
+    };
+
+function nextFib(a,b) {return [b,a+b]}; 
+
+nextFib = new Proxy(nextFib, makeFibs(10000));
+
+nextFib(0,1); ` ),
+h('p', ' Similar to the previous example, mextFib does not function as one would think based on its definition, but rather as the handler dictates. Proxies lurking about altering the behavior of simple objects, arrays, and functions could create a debugging and code upkeep nightmare. ' ), 
 
               h('h2', ' MonadEr - An Error-Catching Monad '),
               h('p', ' THIS IS A FIRST STAB AT MAKING SOMETHING THAT PERFORMS LIKE HASKELL\'S "Maybe" MONAD. THERE IS LOTS OF ROOM FOR IMPROVEMENT.  ' ), 
@@ -3027,6 +3081,7 @@ h('a', {
                   display: abcde
                 }
               }),
+h('h3', 'User Names' ),
               h('p', ' When this page loads in the browser, a user name is automatically generated in order to establish a unique WebSocket connection. This makes it possible to exchange text messages with other group members, play the game, and work on a shared todo list. If you want to leave a comment, you need to log in with a user name and a password of your choice. Each can be a single character or you could use a hard-to-hack combination of alphabet letter, numbers, and special characters. The main requirement is that there be only one comma, and that it be placed between the name and the password. '),
               h('p', 'The server will keep your user name and password in a text file. If you use your saved user name and password sometime in the future, you will be able to edit or delete any comments you previously made. '),
               h('p', ' If you enter a user name that has not been recorded, you will be logged in as that user. The user name and password will be saved. This means that you do not need to first register and then log in. This is an all-in-one process. If you enter a recognized user name but the password does not match the password in the record, you will be asked to try again. '),
