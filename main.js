@@ -1,4 +1,4 @@
-  
+ 
     // onChange = require('on-change');
     // import ws from 'ws';
     // import {makeHTTPDriver} from '@cycle/http';
@@ -18,7 +18,7 @@
     // socket = new WebSocket("ws://schalk.site:3055");
     // ws = new WebSocket("ws://echo.websocket.org");
 
-h = h;
+    h = h;   // For use in monad.js
 
     function bNode(arr) {
       var x = styl(arr.length);
@@ -2992,30 +2992,64 @@ h('a', {props: {href: "#proxy2"}}, 'Back to the first demonstration' ),
 h('h2', 'FUN WITH PROXIES' ),
 
   
-  h('p', ' Proxies can be useful for debugging and implementing reactive functionality without reliance on a library such as RxJS, Bacon, etc. But first, here\'s some fun code I recommend you not use in production. ' ),
+h('p', ' Proxies can be useful for debugging, type checking, error handling, and more. Where they really shine is in reactive programming. Modern Firefox and Chrome browsers have supported them for quite some time and it seems inevitable that we will see more and more of them in production code. In this Cycle.js application, the virtual DOM diff & render procedure is provided by MobX, which is beginning the switch to reliance on ES6 Proxies for reactivity. autoRefresh() uses a proxy in conjunction with MobX to update the DOM each time a function composed with Bind(true) and mBnd(true) executes (see Demonstrations 1 and 2). The following demonstration features an empty object that seems to contain an invisible key named "attribute" along with invisible methods for which "attribute" is a parameter.' ),
 h('pre', `   var count = {}
 
-    console.log(count.next); // 1
-    console.log(count.next); // 2
-    console.log(count.next); // 3
-    console.log(count.next); // 4
-    console.log(count.next); // 5  ` ),
-h('p', ' Wait a minute! Isn\'t that supposed to be "ReferenceError: next is not defined"? What\'s going on here? ' ),
-h('p', ' It\'s a magic trick. Here\'s the code I didn\'t show you: ' ),
-h('pre', `    const incState = {next: 0}
+console.log(count.next);      // 1
+console.log(count.next);      // 2
+console.log(count.next);      // 3
+console.log(count.next);      // 4
+console.log(count.next);      // 5
+console.log(count.factorial); // 120
+console.log(count.next);      // 6
+console.log(count.next);      // 7
+console.log(count.primes);    // 2,3,5,7
+console.log(count.ints);      // 0, 1, 2, 3, 4, 5, 6, 7
+console.log(count.previous);  // 6
+console.log(count.previous);  // 5
+console.log(count.next);      // 6 ` ),
+h('p', ' What? Isn\'t count.next supposed to return "ReferenceError: next is not defined"? What\'s going on here? ' ),
+h('p', ' The following code shows why count behaves as thought it has an attribute and methods: ' ),
+h('pre', `    function addOne () {this.attribute = this.attribute + 1}
+    function takeOne () {this.attribute = this.attribute - 1}
 
-    function addOne () {this.next = this.next + 1}
+    function primeNums(n) {
+      var store  = [], i, j, primes = [];
+      for (i = 2; i <= n; ++i) {
+        if (!store [i]) {
+          primes.push(i);
+          for (j = i << 1; j <= n; j += i) {
+            store[j] = true;
+          }
+        }
+      }
+      return primes.join('. ');
+    }
+
+
+    function intArray (n) {
+         return [...Array(n+1).keys()].join(', ');
+    }
+
+    var factorial = n =>
+        n <= 1 ? n : n * factorial(n - 1);
+    var _state_ = {attribute: 0}
+    var count = {}
+
 
     var handlerGet = {
-        get: () => {
-            addOne.apply(incState);
-            return incState.next;
+        get: (a, b, c) => {
+            if (b === "next") {addOne.apply(_state_); return _state_.attribute}
+            else if (b === "previous") {takeOne.apply(_state_); return _state_.attribute}
+            else if (b === "factorial") {return factorial(_state_.attribute)}
+            else if (b === "primes") {return primeNums(_state_.attribute)}
+            else if (b === "ints") {return intArray(_state_.attribute)}
         }
     }
 
     count = new Proxy (count, handlerGet); ` ),
-h('p', ' "count" is a proxy of itself. Every attempt to obtain a value from it results in addOne() being applied to the object "incState" and incState.next being returned. ' ),
-h('p', ' Here\'s another impractical but instructive example. nextFib() is a proxy of itself. nextFib() takes a pair of consecutive Fibonacci numbers and returns the succeeding pair of Fibonacci numbers. The proxy handler (below) causes nextFib to repeatedly execute until the lower number in the "start" pair exceeds the argument provided to makeFibs. Note that "(a, b, c)" is (nextFib, single argument (not applicable), [nextFib\'s two arguments]). In the previous example, the function that is get\'s value has no arguments. get\'s value can take three arguments: "get: (a,b,c) =>" represents "get: (object, attribute name, attribute value) =>".  ' ),  
+h('p', ' "count" is a proxy of itself. Every attempt to obtain a value from it results in addOne() being applied to the object "incState" and incState.next being returned. The anonymous function that is get\'s value has no arguments. get\'s value can take three arguments: "get: (a,b,c) =>" represents "get: (object, attribute name, attribute value) =>". These parameters weren\'t needed so they were omitted. ' ),
+h('p', ' The code below is another impractical but possibly instructive example. nextFib() is a proxy of itself. It takes a pair of consecutive Fibonacci (the "start" array) numbers and returns the succeeding pair of Fibonacci numbers. The proxy handler causes nextFib to repeatedly execute until start[0] exceeds the argument provided to the function makeFibs. Note that "(a, b, c)" is (nextFib, single argument (not applicable), [nextFib\'s two arguments]).' ),  
 h('p', ' Here\'s the code for the Fibonacci series generating example: ' ),  
 h('pre', `    var start = [0,1];
 
@@ -3039,6 +3073,13 @@ function nextFib(a,b) {return [b,a+b]};
 nextFib = new Proxy(nextFib, makeFibs(10000));
 
 nextFib(0,1); ` ),
+
+
+
+
+
+
+
 h('p', ' Similar to the previous example, mextFib does not function as one would think based on its definition, but rather as the handler dictates. Proxies lurking about altering the behavior of simple objects, arrays, and functions could create a debugging and code upkeep nightmare. ' ), 
 
               h('h2', ' MonadEr - An Error-Catching Monad '),

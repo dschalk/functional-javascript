@@ -56,11 +56,9 @@ var Monad = function Monad(z = 42, g = 'generic') {
   }  
 
 
-var h;
+var h = console.log;
 var a;
-setTimeout( () => {
-  Cow1 = h('p', ' ready '); 
-},3000 );
+
 var qfB_proxy;
 var Maybe;
 var compose;
@@ -118,8 +116,8 @@ function Bind(str) {
 }; 
 */
 
-console.log(Cow1)
-console.log(Cow2)
+console.log('Cow1', Cow1);
+console.log('Cow2', Cow2);
 
 var factorial = function(n) {
     if(n >1)  return n * factorial(n - 1);
