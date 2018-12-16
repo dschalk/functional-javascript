@@ -976,6 +976,30 @@
         }
       });
 
+      var nextInt$ = sources.DOM.select('#pr1').events('click')
+      .map(e => {proxyResult = count.next});
+
+      var prevInt$ = sources.DOM.select('#pr2').events('click')
+      .map(e => {proxyResult = count.previous});
+
+      var primeInts$ = sources.DOM.select('#pr3').events('click')
+      .map(e => {proxyResult = count.factorial});
+
+      var factorialInt$ = sources.DOM.select('#pr4').events('click')
+      .map(e => {proxyResult = count.primes});
+
+      var allInts$ = sources.DOM.select('#pr5').events('click')
+      .map(e => {proxyResult = count.ints});
+
+
+      var fibNums$ = sources.DOM.select('#fibNum').events('keypress')
+      .map(e => {
+          if (e.keyCode === 13) {
+              F_17 = f17(Math.abs(Math.floor(toInt(e.target.value))));
+              F_18 = f17(Math.abs(Math.floor(toInt(e.target.value))),0,1,true);
+          }
+      });
+
       // ******************************************************************** <><><><><><> -> End Demos
       var itterPress$ = sources.DOM
         .select('#itter').events('keypress');
@@ -2002,7 +2026,7 @@
   */
 
 
-      var calcStream$ = xs.merge( fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
+      var calcStream$ = xs.merge( fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
         DOM: calcStream$.map(() => {
@@ -3009,7 +3033,21 @@ console.log(count.previous);  // 6
 console.log(count.previous);  // 5
 console.log(count.next);      // 6 ` ),
 h('p', ' What? Isn\'t count.next supposed to return "ReferenceError: next is not defined"? What\'s going on here? ' ),
-h('p', ' The following code shows why count behaves as thought it has an attribute and methods: ' ),
+h('br'),
+h('div', {style: {fontSize: "28px", color: "red", textAlign: "center"}}, proxyResult ),
+h('br'),
+h('br'),
+
+
+h('button#pr1', {style: {fontSize: "18px"}}, "count.next" ),
+h('button#pr2', {style: {fontSize: "18px"}}, "count.previous" ),
+h('button#pr3', {style: {fontSize: "18px"}}, "count.factorial" ),
+h('br'),
+h('br'),
+h('button#pr4', {style: {fontSize: "18px"}}, "count.primes" ),
+h('button#pr5', {style: {fontSize: "18px"}}, "count.ints" ),
+
+h('p', ' The following code shows why count behaves as thought it had methods and an attribute: ' ),
 h('pre', `    function addOne () {this.attribute = this.attribute + 1}
     function takeOne () {this.attribute = this.attribute - 1}
 
@@ -3048,39 +3086,53 @@ h('pre', `    function addOne () {this.attribute = this.attribute + 1}
     }
 
     count = new Proxy (count, handlerGet); ` ),
-h('p', ' "count" is a proxy of itself. Every attempt to obtain a value from it results in addOne() being applied to the object "incState" and incState.next being returned. The anonymous function that is get\'s value has no arguments. get\'s value can take three arguments: "get: (a,b,c) =>" represents "get: (object, attribute name, attribute value) =>". These parameters weren\'t needed so they were omitted. ' ),
-h('p', ' The code below is another impractical but possibly instructive example. nextFib() is a proxy of itself. It takes a pair of consecutive Fibonacci (the "start" array) numbers and returns the succeeding pair of Fibonacci numbers. The proxy handler causes nextFib to repeatedly execute until start[0] exceeds the argument provided to the function makeFibs. Note that "(a, b, c)" is (nextFib, single argument (not applicable), [nextFib\'s two arguments]).' ),  
-h('p', ' Here\'s the code for the Fibonacci series generating example: ' ),  
-h('pre', `    var start = [0,1];
 
-    var fibs = [];
-
-    function makeFibs (n) {
-        return {
-            apply: function(a, b, c) {
-                if (c[0] > n) console.log("The Fibonacci numbers up to", n, "are", fibs.join(', '));
-                else {
-                     fibs.push(c[0]);
-                     start = a(c[0], c[1]);  
-                     nextFib(start[0],start[1]);
-                }
-            }
+h('p', ' "count" is a proxy of itself. Trying to get a value from it invokes "handlerGet", overriding the default behavior (throwing a ReferenceError).  ' ),
+h('h3', 'Function Call Trap' ),
+h('p', ' The behavior of functions can be modified with the "apply" trap. While "get: (a,b,c) =>" in a handler is "get: (target object, key, value) =>", "apply: (a,b,c) =>" is "apply: (target function, single argument, argument list) =>" In the next demonstration, the function f17(c,a,b,d) returns [c,b,a+b,d] and is a proxy of itself. The default values of a, b, and d are 0, 1, and false respectively. if d is set to true, only the prime numbers in the Fibonacci series are returned ' ),  
+h('div', {style: {color: "#FFAABB"}}, "f17(x): " + F_17 ),
+h('br'),
+h('div', {style: {color: "#ffaabb"}}, "f17(x,0,1,true): " + F_18 ),
+h('br'),
+h('span', 'Enter a number "x" here: ' ),
+h('input#fibNum', ),
+h('div', ' The floor of the absolute value will be used. ' ),
+h('p', ' Here\'s the code: ' ), 
+h('pre', {style: {color: "#00DDDD"}}, `    function primeNums(n) {
+      var store  = [], i, j, primes = [];
+      for (i = 2; i <= n; ++i) {
+        if (!store [i]) {
+          primes.push(i);
+          for (j = i << 1; j <= n; j += i) {
+            store[j] = true;
+          }
         }
-    };
+      }
+      return primes;
+    }
 
-function nextFib(a,b) {return [b,a+b]}; 
+    function f17 (c, a=0, b=1, d=false) {return [c, b, a+b,d]};
 
-nextFib = new Proxy(nextFib, makeFibs(10000));
+    var fibHandler = {
+        apply: function(a, b, c) {
+             var ax = a(...c)
+             var arr = [0];
+            while (ax[2] < ax[0]) { //"the fibonacci numbers up to " + c[2] + " are" + arr.join(', ');
+                ax = a(...ax);
+                arr.push(ax[1]);
+            }
+            if (c[3]) {
+                var prms = primeNums(c[0]);
+                var prmFibs = prms.filter(v => arr.includes(v));
+                return \`The prime Fibonacci numbers up to \${c[0]} are \${prmFibs.join(', ')}\`;
+            }    
+            else return \`The Fibonacci numbers up to  \${ax[0]} are \${arr}\`
+        }
+    }
 
-nextFib(0,1); ` ),
+    f17 = new Proxy(f17, fibHandler)  ` ),
 
-
-
-
-
-
-
-h('p', ' Similar to the previous example, mextFib does not function as one would think based on its definition, but rather as the handler dictates. Proxies lurking about altering the behavior of simple objects, arrays, and functions could create a debugging and code upkeep nightmare. ' ), 
+h('p', ' ' ), 
 
               h('h2', ' MonadEr - An Error-Catching Monad '),
               h('p', ' THIS IS A FIRST STAB AT MAKING SOMETHING THAT PERFORMS LIKE HASKELL\'S "Maybe" MONAD. THERE IS LOTS OF ROOM FOR IMPROVEMENT.  ' ), 

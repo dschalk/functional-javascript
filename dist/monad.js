@@ -3230,50 +3230,84 @@ fetch('https://jsonplaceholder.typicode.com/todos/3')
   .then(json => console.log("https://jsonplaceholder.typicode.com/todos/3",json))
 
 
+// ************************************** Proxy handler apply demo
+console.log("************************************** Proxy handler apply demo");
+var F_17 = 'ready';
+var F_18 = 'ready';
 
-// ************************************** Proxy handler apply demo -- call "f(0,1)"
-console.log("************************************** Proxy handler apply demo -- call \"f(0,1)\" "); 
 
-var start = [0,1];
-
-var fibs = [];
-
-function makeFibs (n) {
-  return {
-    apply: function(a, b, c) {
-    if (c[0] > n)	console.log("The Fibonacci numbers up to", n, "are", fibs.join(', '));
-    else {
-    	  fibs.push(c[0]);
-    	  start = a(c[0], c[1]);  
-    	  nextFib(start[0],start[1]);
+function primeNums(n) {
+  var store  = [], i, j, primes = [];
+  for (i = 2; i <= n; ++i) {
+    if (!store [i]) {
+      primes.push(i);
+      for (j = i << 1; j <= n; j += i) {
+        store[j] = true;
+      }
     }
-   }
   }
-};
+  return primes;
+}
 
-function nextFib(a,b) {return [b,a+b]}; 
-nextFib = new Proxy(nextFib, makeFibs(10000));
-nextFib(0,1);
+function f17 (c, a=0, b=1, d=false) {return [c, b, a+b,d]};
+
+var fibHandler = {
+    apply: function(a, b, c) {
+         var ax = a(...c)
+         var arr = [0];
+        while (ax[2] < ax[0]) { //"the fibonacci numbers up to " + c[2] + " are" + arr.join(', ');
+            ax = a(...ax);
+            arr.push(ax[1]);
+        }
+        if (c[3]) {
+            var prms = primeNums(c[0]);
+            var prmFibs = prms.filter(v => arr.includes(v));
+            return `The prime Fibonacci numbers up to ${c[0]} are ${prmFibs.join(', ')}`;
+        }    
+    return `The Fibonacci numbers up to ${ax[0]} are ${arr.join(', ')}`
+    }
+}
+
+f17 = new Proxy(f17, fibHandler)
+console.log(f(600));
+console.log(f(600,0,1,true))
 
 
-const incState = {next: 0}
-var count = {}
-function addOne () {this.next = this.next + 1}
+
+
+
+
+
+// *********************************************************** Ghost proxy
+var proxyResult = 0;
+
+function intArray (n) {
+     return [...Array(n+1).keys()].join(', ');
+}
+
+var factorial = n =>
+    n <= 1 ? n : n * factorial(n - 1);
+
+var _state_ = {attribute: 0};
+
+var count = {};
+
+function addOne () {this.attribute = this.attribute + 1}
+function takeOne () {this.attribute = this.attribute - 1}
 
 var handlerGet = {
- 	  get: () => {
- 	  	   addOne.apply(incState);
- 	  	   return incState.next;
+    get: (a, b, c) => {
+        if (b === "next") {addOne.apply(_state_); return _state_.attribute}
+        else if (b === "previous") {takeOne.apply(_state_); return _state_.attribute}
+        else if (b === "factorial") {return factorial(_state_.attribute)}
+        else if (b === "primes") {return primeNums(_state_.attribute).join(', ')}
+        else if (b === "ints") {return intArray(_state_.attribute)}
     }
 }
 
 count = new Proxy (count, handlerGet);
 
-console.log(count.next);
-console.log(count.next);
-console.log(count.next);
-console.log(count.next);
-console.log(count.next);
+
 
 
 
