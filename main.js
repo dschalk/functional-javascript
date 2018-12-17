@@ -2433,7 +2433,8 @@ h('p', ' It doesn\'t bother me that, for example, quadFormula(-3) doesn\'t alway
 h('pre', `  1*x*x + 2*x + -3 = 0 has the following solutions:
   x = -3 and x = 1 ` ),
   
-h('p', ' As for fishing arBind[qfB.key] out of the global scope, please note the discussion above. "qfB.key" belongs only to the most recently created version of qfB. It was created by running "x = Symbol()" while qfB was being defined. Previously created objects named "qfB" have their own unique secret values of "qfB.key" and their own private arrays. Pressing <F12> and entering "arBind", we see this: ' ),
+h('p', ' As for fishing arBind[qfB.key] out of the global scope, please note the discussion above. "qfB.key" belongs only to the most recently created version of qfB. It was created by running "x = Symbol()" while qfB was being defined. Previously created objects named "qfB" have their own unique secret values of "qfB.key" and their own private arrays. '),
+h('p', ' Immediately after startup, Pressing <F12> and entering "arBind" displays this: ' ),
 
               ]),  ]),
 
@@ -2441,8 +2442,7 @@ h('p', ' As for fishing arBind[qfB.key] out of the global scope, please note the
 
 
   h('img.image_3', { props: { src: "demo.png" }}),
-  
-              h('div.content2', [ // 2 brackets  main -> content ->
+  h('p', ' Each of the nine lower entries corresponds to objects created by calling \"mBnd(\'mBnd\', true)\". Fetching attributes of arBind rather than including them as parameters isn\'t a reckless deviations from sound functional programming practices because these attributes are not easily stepped on by other parts of an application. '),              h('div.content2', [ // 2 brackets  main -> content ->
 
               h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
   h('pre',  `  function qF9 () {
@@ -2481,13 +2481,6 @@ h('p', ' As for fishing arBind[qfB.key] out of the global scope, please note the
  ]), 
               h('div', { style: { width: '47%', fontSize: '18px', float: 'right' }}, [ // *** RIGHT PANEL
 
-h('p', ' After running the following expressions in the Chrome console: ' ),
-h('pre', {style: {color: "#BBEEBB" }}, `    var ob = mBnd(0, \'mars\');
-    ob = mBnd(1, \'Deborah\') ` ),
-h('span', ' the corresponding entries in arBind were: '), 
-h('pre', `    Symbol(Deborah): Proxy {length: 0}
-    Symbol(mars): []  `  ),
-h('p', ' Tags like "Mars" and "Deborah" have limited usefulness, but they could help pinpoint trouble spots when debugging.  ' ),
 h('p', ' Later on this page, MonadItter objects are used in a similar demonstration. mMZ33.release(<coefficient>) is called repeatedly. mMZ33.bind is nested three levels deep. In the third level, the coefficients are applied to the formula and control is directed back to the top level. MonadItter objects are used to screen incoming WebSocket messages. ' ),
 
   
@@ -3117,7 +3110,7 @@ h('pre', {style: {color: "#00DDDD"}}, `    function primeNums(n) {
         apply: function(a, b, c) {
              var ax = a(...c)
              var arr = [0];
-            while (ax[2] < ax[0]) { //"the fibonacci numbers up to " + c[2] + " are" + arr.join(', ');
+            while (ax[2] < ax[0]) { 
                 ax = a(...ax);
                 arr.push(ax[1]);
             }
