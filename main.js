@@ -3022,19 +3022,9 @@ console.log(count.next);      // 1
 console.log(count.next);      // 2
 console.log(count.next);      // 3
 console.log(count.next);      // 4
-console.log(count.next);      // 5
-console.log(count.factorial); // 120
-console.log(count.next);      // 6
-console.log(count.next);      // 7
-console.log(count.primes);    // 2,3,5,7
-console.log(count.ints);      // 0, 1, 2, 3, 4, 5, 6, 7
-console.log(count.previous);  // 6
-console.log(count.previous);  // 5
-console.log(count.next);      // 6 ` ),
+console.log(count.factorial); // 24 ` ),
 h('p', ' What? Isn\'t count.next supposed to return "ReferenceError: next is not defined"? What\'s going on here? ' ),
-h('br'),
 h('div', {style: {fontSize: "28px", color: "red", textAlign: "center"}}, proxyResult ),
-h('br'),
 h('br'),
 
 
@@ -3088,8 +3078,10 @@ h('pre', `    function addOne () {this.attribute = this.attribute + 1}
 
 h('p', ' "count" is a proxy of itself. Trying to get a value from it invokes "handlerGet", overriding the default behavior (throwing a ReferenceError).  ' ),
 h('h3', 'Function Call Trap' ),
-h('p', ' The behavior of functions can be modified with the "apply" trap. While "get: (a,b,c) =>" in a handler is "get: (target object, key, value) =>", "apply: (a,b,c) =>" is "apply: (target function, single argument, argument list) =>" In the next demonstration, the function f17(c,a,b,d) returns [c,b,a+b,d] and is a proxy of itself. The default values of a, b, and d are 0, 1, and false respectively. if d is set to true, only the prime numbers in the Fibonacci series are returned ' ),  
-h('div', {style: {color: "#FFAABB"}}, "f17(x): " + F_17 ),
+h('p', ' The behavior of functions can be modified with the "apply" trap. While "get: (a,b,c) =>" in a handler is "get: (target object, key, value) =>", "apply: (a,b,c) =>" is "apply: (target function, single argument, argument list) =>" ' ),
+h('p', ' In the next demonstration, the function f17(a,b,c,d) returns [a,c,b+c,d] and is a proxy of itself. The default values of b, c, and d are 0, 1, and false respectively. if d is set to true, only the prime numbers in the Fibonacci series are returned. Because of the default values, f17(x) === f17(x,0,1,false) ' ),  
+h('div', {style: {color: "#FFAABB"}}, "f17(x): " + F_17  ),
+
 h('br'),
 h('div', {style: {color: "#ffaabb"}}, "f17(x,0,1,true): " + F_18 ),
 h('br'),
@@ -3125,7 +3117,7 @@ h('pre', {style: {color: "#00DDDD"}}, `    function primeNums(n) {
                 var prmFibs = prms.filter(v => arr.includes(v));
                 return \`The prime Fibonacci numbers up to \${c[0]} are \${prmFibs.join(', ')}\`;
             }    
-            else return \`The Fibonacci numbers up to  \${ax[0]} are \${arr}\`
+            else return \`The Fibonacci numbers up to \${ax[0]} are \${arr}\`
         }
     }
 

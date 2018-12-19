@@ -3246,8 +3246,8 @@ fetch('https://jsonplaceholder.typicode.com/todos/3')
 
 // ************************************** Proxy handler apply demo
 console.log("************************************** Proxy handler apply demo");
-var F_17 = 'ready';
-var F_18 = 'ready';
+var F_17 = '';
+var F_18 = '';
 
 
 function primeNums(n) {
@@ -3263,7 +3263,7 @@ function primeNums(n) {
   return primes;
 }
 
-function f17 (c, a=0, b=1, d=false) {return [c, b, a+b,d]};
+function f17 (a, b=0, c=1, d=false) {return [a, c, b+c,d]};
 
 var fibHandler = {
     apply: function(a, b, c) {
