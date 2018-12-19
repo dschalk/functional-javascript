@@ -1,4 +1,18 @@
 
+
+var bNode;
+
+var clone = function deepClone (obj) {
+	   obj.__proto__.obj = obj;
+	   var o = JSON.parse(JSON.stringify(obj));
+	   var o2 = JSON.parse(JSON.stringify(o.__proto__.obj))
+	      // o2 has deep-cloned attributes belonging to obj
+	   var o3 = Object.assign({}, o.__proto__.obj);
+	      // o3 has cloned shallow methods belonging to obj
+	   return Object.assign({}, o3, o2);
+	      // first assign
+}
+
 var observable = (object, onChange) => {
 	const handler = {
 		get(target, property, receiver) {

@@ -7,6 +7,7 @@
     // console.log("Maybe is", Maybe);
     // compose = require('folktale/core/lambda/compose');
     import {h,p,span,h1,h2,h3,pre,a,br,div,label,input,hr,makeDOMDriver} from '@cycle/dom';
+    import {clone} from 'ramda';
     import Cycle from '@cycle/xstream-run';
     import code from './code.js';
     import {run} from './cycle-run.js';
@@ -18,9 +19,14 @@
     // socket = new WebSocket("ws://schalk.site:3055");
     // ws = new WebSocket("ws://echo.websocket.org");
 
+console.log("************************** h and clone *****************"),
     h = h;   // For use in monad.js
 
-    function bNode(arr) {
+    clone = clone;
+    console.log(clone);
+console.log(" END ************************** h and clone ***************** EBD"),
+
+  bNode = function bNode(arr) {
       var x = styl(arr.length);
       var node = h('div#bNode', [
         h('button#0.num', {
@@ -45,7 +51,7 @@
         }, ' ' + arr[3] + ' ')
       ]);
       return node;
-    }
+    };
 
 
     MonadState.prototype.dec = function () {
@@ -2114,8 +2120,8 @@ h('span', ', it refers to a computational paradigm having no mutations, no impur
 h('br'),                          
 h('br'),                          
 h('span.tao', ' In the context of JavaScript, "functional programming" is the source of much confusion. Many presentations, tutorials and blog posts promote the notion that functional JavaScript is JavaScript without mutation or impure functions. Some even think functional JavaScript should have erzats "monads" that superficially resemble Category Theory and Haskell monads. This is unfortunate because it distracts from learning to program effectively with functions. ' ),  
-h('p', ' To learn functional programming in JavaScript, coders should become familiar with curried functions, closures, recursion, functions with functions as parameters and return values, and isolating procedures in pipelines of composed functions rather than directly modifying shared global state. Learning tangential aspects of functional programming before becoming familiar with its essence can discourage programmers from escaping the confines of object-oriented programming. ' ),            
-h('span.tao', ' The more you accomplish in function scope, the less you mutate objects in global scope. When you program functionally, some things fall into place naturally, reminiscent of Lao Tzu\'s observation of effortless accomplishment in the ' ), 
+h('p', ' To learn functional programming in JavaScript, coders should become familiar with curried functions, closures, recursion, functions with functions as parameters and return values, and isolating procedures in pipelines of composed functions rather than repeatedly modifying shared global state. Learning tangential aspects of functional programming before becoming familiar with its essence can discourage programmers from escaping the confines of object-oriented programming. ' ),            
+h('span.tao', ' The more you accomplish in function scope, the less reason you have to mutate shared objects in global scope. When you program functionally, some things fall into place naturally, reminiscent of Lao Tzu\'s observation of effortless accomplishment in the ' ), 
 h('a', {props: {href:"https://en.wikipedia.org/wiki/Tao_Te_Ching", target: "_blank" }}, 'Tao Te Ching' ), 
 
 h('br'),
@@ -2123,7 +2129,7 @@ h('br'),
 
 h('span.tao', ' I think the fad of calling just about every composable object a "monad" is silly, but I greatly admire the work of the those involved in creating and maintaining the ' ),
 h('a', {props: {href:"https://github.com/fantasyland/fantasy-land", target: "_blank" }}, "Fantasyland specification for interoperability of common algebraic structures in JavaScript" ), 
-h('span', ', where type classes make it possible to sensibly define functors, applicative functors, monoids, and monads on well-defined collections of javascript values. Excellent practical libraries that more or less comply with the Fantasyland specification include: ' ),
+h('span', ', where type classes make it possible to sensibly define functors, applicative functors, monoids, and monads on well-defined collections of JavaScript values. Excellent practical libraries that more or less comply with the Fantasyland specification include: ' ),
 
 h('a', { props: { href: "https://folktale.origamitower.com/", target: "_blank"  } }, "Folktale, "),
 h('a', { props: { href: "https://ramdajs.com/0.9/", target: "_blank"  } }, "Ramda, "),
@@ -2133,11 +2139,11 @@ h('a', { props: { href: "https://github.com/fluture-js", target: "_blank"  } }, 
 h('br'),
 h('br'),
 
-h('span.tao', ' This presentation addresses the essence of functional JavaScript, so there aren\'t any algebraic data types here - other than in the Haskell WebSocket server. Here, we carefully code with raw ' ),
+h('span.tao', ' This presentation addresses the essence of functional JavaScript, so there are no algebraic data types here - other than in the Haskell WebSocket server. Here, we carefully code with raw ' ),
 h('a', {props: {href:"https://www.ecma-international.org/ecma-262/8.0/index.html", target: "_blank" }}, 'EcmaScript 2017' ), 
 h('span', ' fresh out of the box, just as we find it. ' ),
 h('br'),
-h('p', ' The definitions of Bind(), mBnd, autoRefresh and diffR are shown below. The latter two are anti-patterns in Cycle.js, where DOM updates normally result from updating the stream returned by main(). ' ),                           
+h('p', ' The definitions of Bind(), mBnd, autoRefresh and diffR are shown below. The latter two force DOM updates by callin click() on a button, an unusual maneuver sure to raise eyebrows among Cycle.js purists. The DOM is normally updated by data streans. ' ),                           
 h('pre',  `      function autoRefresh(obj) {
           const handler = {
               set (obj, prop, value) {
@@ -2181,7 +2187,7 @@ h('pre',  `      function autoRefresh(obj) {
           return ob;
       }; ` ),
 
-  h('span.tao', ' An ES6 Proxy keeps the display current. A discussion of Proxy can be found below at ' ),
+  h('span.tao', ' As is apparent from the above code, calling mBnd(true) causes the returned object to be a proxy of itself. This feature serves no purpose other than updating the display. Other means should be employed where target audiences still use out-of-date browsers. A discussion and some interactive examples of ES6 proxies are presented at ' ),
   h('a#proxy2', {props: {href: "#proxies"}}, 'Fun With Proxies' ),
                         ]),
   h('div.content2', [
@@ -3126,13 +3132,16 @@ h('pre', {style: {color: "#00DDDD"}}, `    function primeNums(n) {
     f17 = new Proxy(f17, fibHandler)  ` ),
 
 h('p', ' ' ), 
+h('a', {props: {href: "#proxy2"}}, 'Back to the first demonstration' ),
 
-              h('h2', ' MonadEr - An Error-Catching Monad '),
-              h('p', ' THIS IS A FIRST STAB AT MAKING SOMETHING THAT PERFORMS LIKE HASKELL\'S "Maybe" MONAD. THERE IS LOTS OF ROOM FOR IMPROVEMENT.  ' ), 
-              h('p', ' Instances of MonadEr function much the same as instances of Monad, but when an instance of MonadEr encounters an error, it ceases to perform any further computations. Instead, it passes through every subsequent stage of a sequence of MonadEr expressions, reporting where it is and repeating the error message. It will continue to do this until it is re-instantiated or until its bnd() method runs on the function clean(). '),
-              h('p', 'Functions used as arguments to the MonadEr bnd() method can be placed in quotation marks to prevent the browser engine from throwing reference errors. Arguments can be protected in the same manner. Using MonadEr can prevent the silent proliferation of NaN results in math computations, and can prevent browser crashes due to attempts to evaluate undefined variables. '),
-              h('p.tao1b', ' The monad laws hold for MonadEr instances. The following relationships were verified in the Chrome console: '),
-              h('pre', `    ret3(0,'t',[])  // t is now an instance of MonadEr with t.x = 0 and t.e = [].
+
+h('h2', ' MonadEr - An Error-Catching Monad '),
+
+h('p', ' THIS IS A FIRST STAB AT MAKING SOMETHING THAT PERFORMS LIKE HASKELL\'S "Maybe" MONAD. THERE IS LOTS OF ROOM FOR IMPROVEMENT.  ' ), 
+h('p', ' Instances of MonadEr function much the same as instances of Monad, but when an instance of MonadEr encounters an error, it ceases to perform any further computations. Instead, it passes through every subsequent stage of a sequence of MonadEr expressions, reporting where it is and repeating the error message. It will continue to do this until it is re-instantiated or until its bnd() method runs on the function clean(). '),
+h('p', 'Functions used as arguments to the MonadEr bnd() method can be placed in quotation marks to prevent the browser engine from throwing reference errors. Arguments can be protected in the same manner. Using MonadEr can prevent the silent proliferation of NaN results in math computations, and can prevent browser crashes due to attempts to evaluate undefined variables. '),
+h('p.tao1b', ' The monad laws hold for MonadEr instances. The following relationships were verified in the Chrome console: '),
+h('pre', `    ret3(0,'t',[])  // t is now an instance of MonadEr with t.x = 0 and t.e = [].
 
         t.ret(3).bnd(cube3).x === cube(3).x
         ret3(3).bnd(cube3).x === cube3(3).x
@@ -3168,34 +3177,34 @@ h('p', ' ' ),
                 }
               }),
 h('h3', 'User Names' ),
-              h('p', ' When this page loads in the browser, a user name is automatically generated in order to establish a unique WebSocket connection. This makes it possible to exchange text messages with other group members, play the game, and work on a shared todo list. If you want to leave a comment, you need to log in with a user name and a password of your choice. Each can be a single character or you could use a hard-to-hack combination of alphabet letter, numbers, and special characters. The main requirement is that there be only one comma, and that it be placed between the name and the password. '),
-              h('p', 'The server will keep your user name and password in a text file. If you use your saved user name and password sometime in the future, you will be able to edit or delete any comments you previously made. '),
-              h('p', ' If you enter a user name that has not been recorded, you will be logged in as that user. The user name and password will be saved. This means that you do not need to first register and then log in. This is an all-in-one process. If you enter a recognized user name but the password does not match the password in the record, you will be asked to try again. '),
-              h('br'),
-              h('h3', 'Register'),
-              h('span.red', mMregister.x),
-              h('input.register', {
-                style: {
-                  display: mMshowRegister.x
-                }
-              }),
-              h('br'),
-              h('br'),
-              h('h3', 'COMMENTS - One paragraph at a time.'),
-              h('textarea#comment', {
-                style: {
-                  width: "60%",
-                  height: "90px"
-                }
-              }, ''),
-              h('br'),
-              h('br'),
-              h('div', commentMonad.html),
-              h('p', ' When this website loads, it receives from the server a string containing all of the comments. The string is saved in commentMonad.s[0]. The string is transformed into an array of comments which is saved in commentMonad.s]1]. '),
-              h('p', ' When a comment is created, modified, or deleted, a WebSocket message goes to the server which performs some of its own housekeeping and broadcasts a message to all online browsers. It is received in messages$ and forwarded comments.js. '),
-              h('p', ' The functions in the comments.js file mutate commentsMonad. There is no reason to create fresh instances of commentMonad, other than out of devout devotion to the doctrine of non-mutation. How silly that would be! Nothing touches commentMonad outside of the comments.js file; there is no danger. '),
-              h('p', ' commentMonad stands in stark contrast to the gameMonad, which is never mutated although it sees much action during game play. Immutability is necessary for game history traversal. Here is the entire Comments.js file: '),
-              h('pre', `function showFunc (name, name2)
+h('p', ' When this page loads in the browser, a user name is automatically generated in order to establish a unique WebSocket connection. This makes it possible to exchange text messages with other group members, play the game, and work on a shared todo list. If you want to leave a comment, you need to log in with a user name and a password of your choice. Each can be a single character or you could use a hard-to-hack combination of alphabet letter, numbers, and special characters. The main requirement is that there be only one comma, and that it be placed between the name and the password. '),
+h('p', 'The server will keep your user name and password in a text file. If you use your saved user name and password sometime in the future, you will be able to edit or delete any comments you previously made. '),
+h('p', ' If you enter a user name that has not been recorded, you will be logged in as that user. The user name and password will be saved. This means that you do not need to first register and then log in. This is an all-in-one process. If you enter a recognized user name but the password does not match the password in the record, you will be asked to try again. '),
+h('br'),
+h('h3', 'Register'),
+h('span.red', mMregister.x),
+h('input.register', {
+  style: {
+    display: mMshowRegister.x
+  }
+}),
+h('br'),
+h('br'),
+h('h3', 'COMMENTS - One paragraph at a time.'),
+h('textarea#comment', {
+  style: {
+    width: "60%",
+    height: "90px"
+  }
+}, ''),
+h('br'),
+h('br'),
+h('div', commentMonad.html),
+h('p', ' When this website loads, it receives from the server a string containing all of the comments. The string is saved in commentMonad.s[0]. The string is transformed into an array of comments which is saved in commentMonad.s]1]. '),
+h('p', ' When a comment is created, modified, or deleted, a WebSocket message goes to the server which performs some of its own housekeeping and broadcasts a message to all online browsers. It is received in messages$ and forwarded comments.js. '),
+h('p', ' The functions in the comments.js file mutate commentsMonad. There is no reason to create fresh instances of commentMonad, other than out of devout devotion to the doctrine of non-mutation. How silly that would be! Nothing touches commentMonad outside of the comments.js file; there is no danger. '),
+h('p', ' commentMonad stands in stark contrast to the gameMonad, which is never mutated although it sees much action during game play. Immutability is necessary for game history traversal. Here is the entire Comments.js file: '),
+h('pre', `function showFunc (name, name2)
   {return name == name2 ? 'inline-block' : 'none'}
 
   var MonadState3 = function MonadState3(g, state) {
