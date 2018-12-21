@@ -553,15 +553,20 @@ var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready'];
   const italicYellow = {style: {fontStyle: "italic", color: "#fbfca9"}}
 
   function styleFunc ([color = '#361B01', marginLeft = '0px',
-    fontSize = '15px', fontStyle = 'normal', width = '100%', textAlign = 'left']) {
+    fontSize = '15px', fontStyle = 'normal', width = '100%', 
+    textAlign = 'left', marginRight = '0px', position = 'relative', right = '0%']) {
       return {style:{
         color: color,
         marginLeft: marginLeft,
         fontSize: fontSize,
         fontStyle: fontStyle,
         width: width,
-        textAlign: textAlign }}
-    };
+        textAlign: textAlign,
+        marginRight: marginRight,
+        position: position,
+        right: right
+      }}
+  };
 
   const italicOrange = {style: {fontStyle: "italic", color: "#96f9ff"}}
 
@@ -1199,7 +1204,6 @@ var m0 = new Monad (0, "m0")
   var m778 = ret(function() {},'m778');
   var m779 = ret(function() {},'m779');
   var m778 = ret(function() {},'m778');
-  var count = 0;
   var mM0 = M(0, 'mM0');
   var mM1 = M([], 'mM1');
   var mMbound = M(0, 'mMbound');
@@ -3304,8 +3308,6 @@ var factorial = n =>
 
 var _state_ = {attribute: 0};
 
-var count = {};
-
 function addOne () {this.attribute = this.attribute + 1}
 function takeOne () {this.attribute = this.attribute - 1}
 
@@ -3319,7 +3321,49 @@ var handlerGet = {
     }
 }
 
-count = new Proxy (count, handlerGet);
+const count = new Proxy ({}, handlerGet);
+
+// ************************************************************ Spreadsheet
+
+
+const _state = {a: 0, b: 0, sum: 0, prod: 0 }
+
+function add_a () {this.a += 1}
+function subtract_a () {this.a -= 1}
+
+function add_b () {this.b += 1}
+function subtract_b () {this.b -= 1}
+
+function set_a (x) {this.a = x};
+function set_b (z) {this.b = z};
+
+function sum () {this.sum = this.a + this.b}
+function prod () {this.prod = this.a * this.b}
+
+function resetState () {this.a=0;this.b=0;this.sum=0;this.prod=0};
+
+var handlerUpdate = {
+    get: (a, b, c) => {
+        if (b === "add_a") add_a.apply(_state)
+        else if (b === "add_b") add_b.apply(_state)
+        else if (b === "subtract_a") subtract_a.apply(_state)
+        else if (b === "subtract_b") subtract_b.apply(_state)
+        else if (b === "resetState") resetState.apply(_state)
+        else if (b === "resetState") resetState.apply(_state)
+        sum.apply(_state);  
+        prod.apply(_state);
+        diffRender();
+    }
+}
+
+const _count = new Proxy ({}, handlerUpdate);
+
+
+console.log(`${_state.a} + ${_state.b} = ${_state.sum}`);
+console.log(`${_state.a} * ${_state.b} = ${_state.prod}`);
+
+console.log(_state.sum, _state.prod);
+
 
 
 

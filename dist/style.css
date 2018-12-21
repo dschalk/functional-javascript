@@ -18,6 +18,31 @@
     padding: 3px 0px 3px 3px;
   }
 
+
+.column {
+  float: left;
+  width: 25%;
+}
+
+.row_A {
+  float: left;
+  width: 10%;
+  padding: 10px;
+}
+
+.row_B {
+  float: left;
+  width: 40%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 a {
   color: #cc72f9;
 }

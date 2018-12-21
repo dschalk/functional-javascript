@@ -1031,456 +1031,511 @@ console.log(" END ************************** h and clone ***************** EBD")
 
       // ******************************************************************** <><><><><><> -> End Demos
 
-      var fib2 = function fib2(v) {
-        if (v[2] > 1) {
-          mMfib.ret([v[1], v[0] + v[1], v[2] - 1]);
-        } else {
-          mM19.ret(v[0]);
-        }
+var fib2 = function fib2(v) {
+  if (v[2] > 1) {
+    mMfib.ret([v[1], v[0] + v[1], v[2] - 1]);
+  } else {
+    mM19.ret(v[0]);
+  }
+};
+
+var fibPress$ = sources.DOM
+  .select('input#code').events('keydown');
+
+var fibPressAction$ = fibPress$.map(function (e) {
+  if (e.target.value === '') {
+    return;
+  };
+  if (e.keyCode === 13) {
+    mM21.ret(e.target.value);
+    fib2([0, 1, e.target.value]);
+  }
+});
+
+var printingPress$ = sources.DOM
+  .select('input#demo2').events('keydown');
+
+var demo2Action$ = printingPress$.map(function (e) {
+  if (e.target.value === '') return;
+  if (e.keyCode === 13) {
+    Bind.bind1 = [];
+    bind1(e.target.value)(cubeP)
+      (() => idP(Bind.bind1[0] - Bind.bind1[1]))
+      (v => addP(Bind.bind1[1])(v))
+  };
+});
+
+
+// *******************************************n****************************** ENDOM iginal Fibonacci END
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START PRIME FIB
+var topPrime = 2;
+var fS = [2]
+var pFS = [2];
+
+
+
+const workerB$ = sources.WWB.map(m => {
+  if (m.data[3] === 'color') {
+    fill1Monad.ret(m.data[0]);
+    fill2Monad.ret(m.data[1]);
+    fill3Monad.ret(m.data[2]);
+    mMprimeBlurb.ret(m.data[5]);
+    mMfibBlurb.ret(m.data[4]);
+    mMprimeFibBlurb.ret(m.data[6]);
+  } else {
+    fS = m.data[1].join(', ');
+    pFS = m.data[2].join(', ');
+    mMelapsed.ret(elapsed(m.data[3]))
+    if (m.data[0].length > primeState2.length) {
+      primeState2 = m.data[0];
+      fibState = m.data[1];
+      prFibState = m.data[2];
+      var topP = primeState2.slice(-1);
+      topPrime = topP.toString();
+    }
+  }
+});
+
+var fibKeyPress5$ = sources.DOM
+  .select('input#fib92').events('keyup');
+
+var primeFib$ = fibKeyPress5$.map(num => {
+  var n = num.target.value;
+  var j = Math.sqrt(n);
+  var k = primeState2.slice(-1)[0];
+  if (k > j) {
+    var t = Date.now();
+    var fibs = fibState.slice(0, fibState.indexOf(fibState.find(e => e > n)));
+    fS = fibs.join(', ');
+    var prFibs = fibs.filter(n => prFibState.indexOf(n) !== -1);
+    pFS = prFibs.join(', ');
+    mMelapsed.ret(elapsed(t));
+    diffRender();
+  } else {
+    workerB.postMessage([primeState2, fibState, prFibState, n]);
+  }
+});
+
+var clearprimes$ = sources.DOM
+  .select('#clearprimes').events('click')
+  .map(() => mMres.ret([mMres.x[0], '', mMres.x[2], mMres.x[3]]));
+
+
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  Begin Easy
+
+
+//******************************************************************* worker
+m42_RES = [];
+m43_RES = [];
+
+var clearClick$ = sources.DOM
+  .select('button.clear_P').events('click')
+  .map(e => {
+    m42_RESULT = [];
+    m42_RESULT2 = [];
+  })
+
+var factors2Press$ = sources.DOM
+  .select('button.factors_P').events('click');
+
+var factors2Action$ = factors2Press$.map(function (e) {
+  var factors = [];
+  mMfactors3.ret('');
+  bind(65)(cubeC)(it4)(it6)(it7);
+});
+
+workerG$ = sources.WWG.map(m => {
+  console.log("Message from workerG", m);
+  m778_RESULT = result778(m.data);
+  mMZ38.release(m.data);
+  if (m.data) {
+    console.log('GOOD m.data')
+  } else {
+    return "cow"
+  }
+  if (m.target) {
+    console.log('GOOD m.target')
+  } else {
+    return "shit"
+  }
+  if (m.data[1]) {
+    console.log('GOOD m.data[1]')
+  } else {
+    return 'donkey'
+  }
+  if (m.target.ar2) {
+    console.log('GOOD m.data.ar2')
+  } else {
+    return 'dung'
+  }
+
+});
+
+workerL$ = sources.WWL.map(m => {
+  console.log("Message from workerL$ MMMMMMMMMMMMMMMMMMMMMMMMMM Here it is:", m);
+  m779_RESULT = result779(m.data);
+  console.log("Still in workerL$ -- m779_RESULT is", m779_RESULT);
+  mMZ39.release(m.data);
+  if (m.data) {
+    console.log('GOOD m.data')
+  } else {
+    return "cow"
+  }
+  if (m.target) {
+    console.log('GOOD m.target')
+  } else {
+    return "shit"
+  }
+  if (m.data[1]) {
+    console.log('GOOD m.data[1]')
+  } else {
+    return 'donkey'
+  }
+  if (m.target.ar2) {
+    console.log('GOOD m.data.ar2')
+  } else {
+    return 'dung'
+  }
+
+});
+
+var clearClick7$ = sources.DOM
+  .select('button.clear_Q').events('click')
+  .map(() => {
+    m42_ = [];
+  })
+
+var factorsClick7$ = sources.DOM
+  .select('button#factors_Q').events('click');
+
+var factorsAction7$ = factorsClick7$.map(e => {
+  m42_ = [];
+  Bind.bind0 = [];
+  let ii = 0;
+  while (ii < 25) {
+    bind(145)(x => x ** 3)(it4)(it6)(it7);
+    ii += 1;
+  }
+});
+
+var clearClick8$ = sources.DOM
+  .select('button.clear_R').events('click')
+  .map(() => {
+    m43_ = [];
+  })
+
+var factorsClick8$ = sources.DOM
+  .select('button#factors_R').events('click'); 
+var factorsAction8$ = factorsClick8$.map(e => {
+  var i = 0;
+  m43_ = [];
+  var bind = Bind()   //bi.run();
+  while (i < 25) {
+    bind(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
+    i += 1;
+  }
+});
+
+
+var aplusClick$ = sources.DOM
+  .select('button#aplus').events('click')
+  .map(() => {
+    console.log("Hello Beautiful");
+    _count.add_a
+  });
+
+var aminusClick$ = sources.DOM
+  .select('button#aminus').events('click')
+  .map(() => {
+    console.log("Hello Beautiful");
+    _count.subtract_a
+  });
+
+var bplusClick$ = sources.DOM
+  .select('button#bplus').events('click')
+  .map(() => {
+    console.log("Hello Beautiful");
+    _count.add_b
+  });
+
+var bminusClick$ = sources.DOM
+  .select('button#bminus').events('click')
+  .map(() => {
+    console.log("Hello Beautiful");
+    _count.subtract_b
+  });
+
+var resetStateClick$ = sources.DOM
+  .select('button#resetState').events('click')
+  .map(() => {
+    console.log("Hello Beautiful");
+    _count.resetState
+  });
+
+var setStateA$ = sources.DOM
+  .select('#stateA').events('keyup')
+  .map(e => {
+        _state.a = toInt(e.target.value);
+        _count.go;
+  })
+
+var setStateB$ = sources.DOM
+  .select('#stateB').events('keyup')
+  .map(e => {
+        _state.b = toInt(e.target.value);
+        _count.go;
+  })
+
+
+
+
+
+
+workerH$ = sources.WWH.map(m => {
+  mMZ52.release(m.data[1]);
+  var w = m.data[0][m.data[0].length - 1];
+  if (m.data[0].length > primeState.length) primeState = m.data[0];
+});
+
+var factors3Press$ = sources.DOM
+  .select('input#factors').events('keypress');
+
+var factors3Action$ = factors3Press$.map(function (e) {
+  if (e.keyCode === 13) {
+    bind(e.target.value)(it8);
+  }
+});
+
+
+workerL$ = sources.WWL.map(m => {
+  mMZ53.release(m.data[1]);
+  var w = m.data[0][m.data[0].length - 1];
+  if (m.data[0].length > primeState.length) primeState = m.data[0];
+});
+
+workerM$ = sources.WWM.map(m => {
+  mMZ53.release(m.data[1]);
+  var w = m.data[0][m.data[0].length - 1];
+  if (m.data[0].length > primeState.length) primeState = m.data[0];
+});
+
+var factors3Press$ = sources.DOM
+  .select('input#factors').events('keypress');
+
+var factors3Action$ = factors3Press$.map(function (e) {
+  if (e.keyCode === 13) {
+    bind(e.target.value)(it8);
+  }
+});
+
+mMZ40.bnd(v => {
+  console.log("Now <E><E><E><E><E><E><E><Edward the Late>>>>>>>>>>posting to workerH -- v is", v);
+  workerH.postMessage([primeState, v])
+});
+
+mMZ41.bnd(v => {
+  console.log("Now <E><E><E><E><E><E><E><Edward the Late>>>>>>>>>>posting to workerL -- v is", v);
+  workerL.postMessage([primeState, v])
+});
+
+const result778 = x => h('div', [
+  m778_RESULT,
+  h('br'),
+  h('span', bigBlue, x[3]),
+  h('span', bigGreen, x[0]),
+  h('span', bigBlue, x[4]),
+  h('span', bigRed, x[5]),
+]);
+
+var m778_RESULT = h('div', '');
+
+const result779 = x => h('div', [
+  m779_RESULT,
+  h('br'),
+  h('span', bigBlue, x[3]),
+  h('span', bigGreen, x[0]),
+  h('span', bigBlue, x[4]),
+  h('span', bigRed, x[5]),
+]);
+
+var m779_RESULT = h('div', '');
+
+
+var mMZ33Func = x => mMZ33
+  .bnd(x => {
+    mMt32 = new Monad(x, 'mMt32');
+    mMt33.ret(x + ' cubed is ' + x * x * x)
+    mMZ33Func(x + 1);
+  });
+
+mMZ33Func(0);
+
+var testZ = sources.DOM
+  .select('#testZ').events('click');
+
+var testZAction$ = testZ.map(function () {
+  mMZ33.release(mMt32.x + 1);
+});
+
+var testQ = sources.DOM
+  .select('#testQ').events('click');
+
+var testQAction$ = testQ.map(() => {
+  mMZ33.release(0);
+  diffRender();
+});
+
+var testW = sources.DOM
+  .select('#testW').events('keypress');
+
+var testWAction$ = testW.map(function (e) {
+  if (e.keyCode === 13) {
+    mMZ33.release(parseInt(e.target.value, 10));
+    diffRender();
+  }
+});
+//*********************************** pingpong ***************  START
+
+
+var ping = n => ar => {
+  var k = Math.floor(Math.random() * 5) + 1;
+  if (ar[0] > 10 || ar[1] > 10) {
+    diffRender();
+    return;
+  }
+  setTimeout(() => {
+    if (n <= k) {
+      ppStyle = !ppStyle;
+      incF$(n);
+      ping(n + 1)(ar);
+      diffRender();
+    } else if (n % 2 === 0) {
+      ar[0] += 1;
+      m67_RESULT = h('pre', ppYR, `     SCORE: ping  \${ar[0]} pong: \${ar[1]}  `)
+      ping(0)(ar);
+      diffRender();
+    } else {
+      ar[1] += 1
+      m67_RESULT = h('pre', ppY, `     SCORE: ping  \${ar[0]} pong: \${ar[1]}  `);
+      ping(0)(ar);
+      diffRender();
+    }
+  }, 500);
+}
+
+var pingD = a => b => c => h('div', [
+  h('pre', a, ` ping        ---> `),
+  h('pre', b, `                 <---        pong `),
+  h('pre', `          -- SCORE: ping: ` + c[0] + ` pong: ` + c[1]),
+]);
+
+m67_RESULT = pingD(_A1)(_A3)([3, 2]);
+
+PingpongMaker = (name) => {
+  var a = _A1;
+  var b = _A3;
+  var c = [0, 0];
+  var n = 0;
+  var bool = true;
+  var k = Math.floor(Math.random() * 7) + 1;
+  return function train() {
+    if (c[0] > 10 || c[1] > 10) return;
+    var ms = 400;
+    if (a === _A3) {
+      a = _A1;
+      b = _A3
+    } else if (a === _A1) {
+      a = _A3;
+      b = _A2
+    };
+    if (n <= k) {
+      n += 1;
+      window[name] = pingD(a)(b)(c);
+      diffRender();
+    } else if (n % 2 === 0) {
+      ms = 1200
+      n = 0
+      c[0] += 1;
+      window[name] = pingD(_A1)(_A3)(c);
+      diffRender();
+      k = Math.floor(Math.random() * 7) + 1;
+    } else if (n % 2 === 1) {
+      ms = 1200;
+      n = 0;
+      c[1] += 1;
+      window[name] = pingD(_A3)(_A2)(c);
+      diffRender();
+      k = Math.floor(Math.random() * 7) + 1;
+    }
+    setTimeout(function () {
+      train();
+    }, ms);
+  }
+}
+
+var makeDisplay = a => b => c => h('div', [
+    h('pre', a, ` ping        ---> `),
+    h('pre', b, `                 <---        pong `),
+    h('pre', `          -- SCORE: ping: ` + c[0] + ` pong: ` + c[1]),
+  ]),
+
+  pingCompute = bool => aa => bb => cc =>
+  dd => {
+    var a;
+    var b;
+    if (a === "serve") {
+      a = _A3;
+
+    }
+    var a = aa = bool ? _A1 : _A3;
+    var b = aa = bool ? _A3 : _A2;
+    pingDisplay = makeDisplay(a)(b)(cc)(d);
+  };
+
+var pingScore = [0, 0];
+
+pp4 = () => {
+  var a = _A3;
+  var b = _A2;
+  var c = _A3;
+  var d = [0, 0];
+  var random = 0;
+  var turns = 0;
+  var bool = true;
+  var car;
+  var ms = 300;
+  return car = () => {
+    bool = !bool;
+    pingCompute(bool)(a)(b)(c)
+    diffRender()
+    if (random === 0) random = Math.floor(Math.random() * 11) + 1; // New serve flag "random === 0" detected.
+    setTimeout(function () {
+      if (pingScore[0] >= 11 || pingScore[1] >= 11) {
+        diffRender()
+        turns = 0;
+        random = 0;
+        pingScore = [0, 0];
       };
-
-      var fibPress$ = sources.DOM
-        .select('input#code').events('keydown');
-
-      var fibPressAction$ = fibPress$.map(function (e) {
-        if (e.target.value === '') {
-          return;
-        };
-        if (e.keyCode === 13) {
-          mM21.ret(e.target.value);
-          fib2([0, 1, e.target.value]);
-        }
-      });
-
-      var printingPress$ = sources.DOM
-        .select('input#demo2').events('keydown');
-
-      var demo2Action$ = printingPress$.map(function (e) {
-        if (e.target.value === '') return;
-        if (e.keyCode === 13) {
-          Bind.bind1 = [];
-          bind1(e.target.value)(cubeP)
-            (() => idP(Bind.bind1[0] - Bind.bind1[1]))
-            (v => addP(Bind.bind1[1])(v))
-        };
-      });
-
-
-      // *******************************************n****************************** ENDOM iginal Fibonacci END
-
-      // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START PRIME FIB
-      var topPrime = 2;
-      var fS = [2]
-      var pFS = [2];
-
-
-
-      const workerB$ = sources.WWB.map(m => {
-        if (m.data[3] === 'color') {
-          fill1Monad.ret(m.data[0]);
-          fill2Monad.ret(m.data[1]);
-          fill3Monad.ret(m.data[2]);
-          mMprimeBlurb.ret(m.data[5]);
-          mMfibBlurb.ret(m.data[4]);
-          mMprimeFibBlurb.ret(m.data[6]);
-        } else {
-          fS = m.data[1].join(', ');
-          pFS = m.data[2].join(', ');
-          mMelapsed.ret(elapsed(m.data[3]))
-          if (m.data[0].length > primeState2.length) {
-            primeState2 = m.data[0];
-            fibState = m.data[1];
-            prFibState = m.data[2];
-            var topP = primeState2.slice(-1);
-            topPrime = topP.toString();
-          }
-        }
-      });
-
-      var fibKeyPress5$ = sources.DOM
-        .select('input#fib92').events('keyup');
-
-      var primeFib$ = fibKeyPress5$.map(num => {
-        var n = num.target.value;
-        var j = Math.sqrt(n);
-        var k = primeState2.slice(-1)[0];
-        if (k > j) {
-          var t = Date.now();
-          var fibs = fibState.slice(0, fibState.indexOf(fibState.find(e => e > n)));
-          fS = fibs.join(', ');
-          var prFibs = fibs.filter(n => prFibState.indexOf(n) !== -1);
-          pFS = prFibs.join(', ');
-          mMelapsed.ret(elapsed(t));
-          diffRender();
-        } else {
-          workerB.postMessage([primeState2, fibState, prFibState, n]);
-        }
-      });
-
-      var clearprimes$ = sources.DOM
-        .select('#clearprimes').events('click')
-        .map(() => mMres.ret([mMres.x[0], '', mMres.x[2], mMres.x[3]]));
-
-
-      // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  Begin Easy
-
-
-      //******************************************************************* worker
-      m42_RES = [];
-      m43_RES = [];
-
-      var clearClick$ = sources.DOM
-        .select('button.clear_P').events('click')
-        .map(e => {
-          m42_RESULT = [];
-          m42_RESULT2 = [];
-        })
-
-      var factors2Press$ = sources.DOM
-        .select('button.factors_P').events('click');
-
-      var factors2Action$ = factors2Press$.map(function (e) {
-        var factors = [];
-        mMfactors3.ret('');
-        bind(65)(cubeC)(it4)(it6)(it7);
-      });
-
-      workerG$ = sources.WWG.map(m => {
-        console.log("Message from workerG", m);
-        m778_RESULT = result778(m.data);
-        mMZ38.release(m.data);
-        if (m.data) {
-          console.log('GOOD m.data')
-        } else {
-          return "cow"
-        }
-        if (m.target) {
-          console.log('GOOD m.target')
-        } else {
-          return "shit"
-        }
-        if (m.data[1]) {
-          console.log('GOOD m.data[1]')
-        } else {
-          return 'donkey'
-        }
-        if (m.target.ar2) {
-          console.log('GOOD m.data.ar2')
-        } else {
-          return 'dung'
-        }
-
-      });
-
-      workerL$ = sources.WWL.map(m => {
-        console.log("Message from workerL$ MMMMMMMMMMMMMMMMMMMMMMMMMM Here it is:", m);
-        m779_RESULT = result779(m.data);
-        console.log("Still in workerL$ -- m779_RESULT is", m779_RESULT);
-        mMZ39.release(m.data);
-        if (m.data) {
-          console.log('GOOD m.data')
-        } else {
-          return "cow"
-        }
-        if (m.target) {
-          console.log('GOOD m.target')
-        } else {
-          return "shit"
-        }
-        if (m.data[1]) {
-          console.log('GOOD m.data[1]')
-        } else {
-          return 'donkey'
-        }
-        if (m.target.ar2) {
-          console.log('GOOD m.data.ar2')
-        } else {
-          return 'dung'
-        }
-
-      });
-
-      var clearClick7$ = sources.DOM
-        .select('button.clear_Q').events('click')
-        .map(() => {
-          m42_ = [];
-        })
-
-      var factorsClick7$ = sources.DOM
-        .select('button#factors_Q').events('click');
-
-      var factorsAction7$ = factorsClick7$.map(e => {
-        m42_ = [];
-        Bind.bind0 = [];
-        let ii = 0;
-        while (ii < 25) {
-          bind(145)(x => x ** 3)(it4)(it6)(it7);
-          ii += 1;
-        }
-      });
-
-      var clearClick8$ = sources.DOM
-        .select('button.clear_R').events('click')
-        .map(() => {
-          m43_ = [];
-        })
-
-      var factorsClick8$ = sources.DOM
-        .select('button#factors_R').events('click'); 
-      var factorsAction8$ = factorsClick8$.map(e => {
-        var i = 0;
-        m43_ = [];
-        var bind = Bind()   //bi.run();
-        while (i < 25) {
-          bind(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
-          i += 1;
-        }
-      });
-
-      workerH$ = sources.WWH.map(m => {
-        mMZ52.release(m.data[1]);
-        var w = m.data[0][m.data[0].length - 1];
-        if (m.data[0].length > primeState.length) primeState = m.data[0];
-      });
-
-      var factors3Press$ = sources.DOM
-        .select('input#factors').events('keypress');
-
-      var factors3Action$ = factors3Press$.map(function (e) {
-        if (e.keyCode === 13) {
-          bind(e.target.value)(it8);
-        }
-      });
-
-
-      workerL$ = sources.WWL.map(m => {
-        mMZ53.release(m.data[1]);
-        var w = m.data[0][m.data[0].length - 1];
-        if (m.data[0].length > primeState.length) primeState = m.data[0];
-      });
-
-      workerM$ = sources.WWM.map(m => {
-        mMZ53.release(m.data[1]);
-        var w = m.data[0][m.data[0].length - 1];
-        if (m.data[0].length > primeState.length) primeState = m.data[0];
-      });
-
-      var factors3Press$ = sources.DOM
-        .select('input#factors').events('keypress');
-
-      var factors3Action$ = factors3Press$.map(function (e) {
-        if (e.keyCode === 13) {
-          bind(e.target.value)(it8);
-        }
-      });
-
-      mMZ40.bnd(v => {
-        console.log("Now <E><E><E><E><E><E><E><Edward the Late>>>>>>>>>>posting to workerH -- v is", v);
-        workerH.postMessage([primeState, v])
-      });
-
-      mMZ41.bnd(v => {
-        console.log("Now <E><E><E><E><E><E><E><Edward the Late>>>>>>>>>>posting to workerL -- v is", v);
-        workerL.postMessage([primeState, v])
-      });
-
-      const result778 = x => h('div', [
-        m778_RESULT,
-        h('br'),
-        h('span', bigBlue, x[3]),
-        h('span', bigGreen, x[0]),
-        h('span', bigBlue, x[4]),
-        h('span', bigRed, x[5]),
-      ]);
-
-      var m778_RESULT = h('div', '');
-
-      const result779 = x => h('div', [
-        m779_RESULT,
-        h('br'),
-        h('span', bigBlue, x[3]),
-        h('span', bigGreen, x[0]),
-        h('span', bigBlue, x[4]),
-        h('span', bigRed, x[5]),
-      ]);
-
-      var m779_RESULT = h('div', '');
-
-
-      var mMZ33Func = x => mMZ33
-        .bnd(x => {
-          mMt32 = new Monad(x, 'mMt32');
-          mMt33.ret(x + ' cubed is ' + x * x * x)
-          mMZ33Func(x + 1);
-        });
-
-      mMZ33Func(0);
-
-      var testZ = sources.DOM
-        .select('#testZ').events('click');
-
-      var testZAction$ = testZ.map(function () {
-        mMZ33.release(mMt32.x + 1);
-      });
-
-      var testQ = sources.DOM
-        .select('#testQ').events('click');
-
-      var testQAction$ = testQ.map(() => {
-        mMZ33.release(0);
-        diffRender();
-      });
-
-      var testW = sources.DOM
-        .select('#testW').events('keypress');
-
-      var testWAction$ = testW.map(function (e) {
-        if (e.keyCode === 13) {
-          mMZ33.release(parseInt(e.target.value, 10));
-          diffRender();
-        }
-      });
-      //*********************************** pingpong ***************  START
-
-
-      var ping = n => ar => {
-        var k = Math.floor(Math.random() * 5) + 1;
-        if (ar[0] > 10 || ar[1] > 10) {
-          diffRender();
-          return;
-        }
-        setTimeout(() => {
-          if (n <= k) {
-            ppStyle = !ppStyle;
-            incF$(n);
-            ping(n + 1)(ar);
-            diffRender();
-          } else if (n % 2 === 0) {
-            ar[0] += 1;
-            m67_RESULT = h('pre', ppYR, `     SCORE: ping  \${ar[0]} pong: \${ar[1]}  `)
-            ping(0)(ar);
-            diffRender();
-          } else {
-            ar[1] += 1
-            m67_RESULT = h('pre', ppY, `     SCORE: ping  \${ar[0]} pong: \${ar[1]}  `);
-            ping(0)(ar);
-            diffRender();
-          }
-        }, 500);
+      if (turns >= random && turns % 2 === 0) {
+        pingScore[0] += 1;
+        turns = 0;
+        random = 0; // A signal to compute a new random number when the next message comes in.
+        diffRender()
       }
-
-      var pingD = a => b => c => h('div', [
-        h('pre', a, ` ping        ---> `),
-        h('pre', b, `                 <---        pong `),
-        h('pre', `          -- SCORE: ping: ` + c[0] + ` pong: ` + c[1]),
-      ]);
-
-      m67_RESULT = pingD(_A1)(_A3)([3, 2]);
-
-      PingpongMaker = (name) => {
-        var a = _A1;
-        var b = _A3;
-        var c = [0, 0];
-        var n = 0;
-        var bool = true;
-        var k = Math.floor(Math.random() * 7) + 1;
-        return function train() {
-          if (c[0] > 10 || c[1] > 10) return;
-          var ms = 400;
-          if (a === _A3) {
-            a = _A1;
-            b = _A3
-          } else if (a === _A1) {
-            a = _A3;
-            b = _A2
-          };
-          if (n <= k) {
-            n += 1;
-            window[name] = pingD(a)(b)(c);
-            diffRender();
-          } else if (n % 2 === 0) {
-            ms = 1200
-            n = 0
-            c[0] += 1;
-            window[name] = pingD(_A1)(_A3)(c);
-            diffRender();
-            k = Math.floor(Math.random() * 7) + 1;
-          } else if (n % 2 === 1) {
-            ms = 1200;
-            n = 0;
-            c[1] += 1;
-            window[name] = pingD(_A3)(_A2)(c);
-            diffRender();
-            k = Math.floor(Math.random() * 7) + 1;
-          }
-          setTimeout(function () {
-            train();
-          }, ms);
-        }
+      if (turns >= random && turns % 2 === 1) {
+        pingScore[1] += 1;
+        turns = 0;
+        random = 0;
+        diffRender()
       }
-
-      var makeDisplay = a => b => c => h('div', [
-          h('pre', a, ` ping        ---> `),
-          h('pre', b, `                 <---        pong `),
-          h('pre', `          -- SCORE: ping: ` + c[0] + ` pong: ` + c[1]),
-        ]),
-
-        pingCompute = bool => aa => bb => cc =>
-        dd => {
-          var a;
-          var b;
-          if (a === "serve") {
-            a = _A3;
-
-          }
-          var a = aa = bool ? _A1 : _A3;
-          var b = aa = bool ? _A3 : _A2;
-          pingDisplay = makeDisplay(a)(b)(cc)(d);
-        };
-
-      var pingScore = [0, 0];
-
-      pp4 = () => {
-        var a = _A3;
-        var b = _A2;
-        var c = _A3;
-        var d = [0, 0];
-        var random = 0;
-        var turns = 0;
-        var bool = true;
-        var car;
-        var ms = 300;
-        return car = () => {
-          bool = !bool;
-          pingCompute(bool)(a)(b)(c)
-          diffRender()
-          if (random === 0) random = Math.floor(Math.random() * 11) + 1; // New serve flag "random === 0" detected.
-          setTimeout(function () {
-            if (pingScore[0] >= 11 || pingScore[1] >= 11) {
-              diffRender()
-              turns = 0;
-              random = 0;
-              pingScore = [0, 0];
-            };
-            if (turns >= random && turns % 2 === 0) {
-              pingScore[0] += 1;
-              turns = 0;
-              random = 0; // A signal to compute a new random number when the next message comes in.
-              diffRender()
-            }
-            if (turns >= random && turns % 2 === 1) {
-              pingScore[1] += 1;
-              turns = 0;
-              random = 0;
-              diffRender()
-            }
-            ms = (turns < random) ? 300 : 900;
-            turns += 1;
-            diffRender()
-            car()
-          }, ms)
-        }
-      };
+      ms = (turns < random) ? 300 : 900;
+      turns += 1;
+      diffRender()
+      car()
+    }, ms)
+  }
+};
 
 
       // ***************************** start click    
@@ -2032,7 +2087,7 @@ console.log(" END ************************** h and clone ***************** EBD")
   */
 
 
-      var calcStream$ = xs.merge( fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
+      var calcStream$ = xs.merge( setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
         DOM: calcStream$.map(() => {
@@ -3060,9 +3115,8 @@ h('pre', `    function addOne () {this.attribute = this.attribute + 1}
 
     var factorial = n =>
         n <= 1 ? n : n * factorial(n - 1);
-    var _state_ = {attribute: 0}
-    var count = {}
 
+    var _state_ = {attribute: 0}
 
     var handlerGet = {
         get: (a, b, c) => {
@@ -3075,11 +3129,14 @@ h('pre', `    function addOne () {this.attribute = this.attribute + 1}
     }
 
     count = new Proxy (count, handlerGet); ` ),
-
-h('p', ' "count" is a proxy of itself. Trying to get a value from it invokes "handlerGet", overriding the default behavior (throwing a ReferenceError).  ' ),
-h('h3', 'Function Call Trap' ),
+h('br'),
+h('span.tao', ' "count" is a proxy of itself. Trying to get a value from it invokes "handlerGet", overriding the default behavior (throwing a ReferenceError). NOTE: In order to avoid future name clashes and reduce siliness in production code, I changed the definition of count to: ' ),
+h('span', {style: {color: "#ee00bb"}}, '\"const count = new Proxy ({}, handlerGet);\"' ),
+h('span', '. Mutating \"count = {}\" into a proxy of itself was for demonstration purposes only. Both versions function alike. '),
+h('br'),
+h('h3', {style: {color: "#bbee00"}}, 'Function Call Trap' ),
 h('p', ' The behavior of functions can be modified with the "apply" trap. While "get: (a,b,c) =>" in a handler is "get: (target object, key, value) =>", "apply: (a,b,c) =>" is "apply: (target function, single argument, argument list) =>" ' ),
-h('p', ' In the next demonstration, the function f17(a,b,c,d) returns [a,c,b+c,d] and is a proxy of itself. The default values of b, c, and d are 0, 1, and false respectively. if d is set to true, only the prime numbers in the Fibonacci series are returned. Because of the default values, f17(x) === f17(x,0,1,false) ' ),  
+h('p', ' As initially defined, f17() does nothing more than this: f17(a,b,c,d) -> [a,c,b+c,d]. Re-defined as a proxy of itself, f17 generates arrays of Fibonacci numbers. The default values of b, c, and d are 0, 1, and false respectively, so f17(n) is equivalent to f17(n,0,1,false), returning the Fibonacci numbers under "n". f17(n,0,1,true) returns an array of prime Fibonacci numbers under n. Here\'s the code: ' ),  
 h('div', {style: {color: "#FFAABB"}}, "f17(x): " + F_17  ),
 
 h('br'),
@@ -3123,8 +3180,85 @@ h('pre', {style: {color: "#00DDDD"}}, `    function primeNums(n) {
 
     f17 = new Proxy(f17, fibHandler)  ` ),
 
+h('h3', {style: {color: "#bbee00"}}, 'Spreadsheet-like Behavior' ),
+h('p', ' In spreadsheets, such as Microsoft\'s Excell, when a + b = c, changing a or b automatically changes c. Such behavior is easy to implement with proxies. ' ),
+
+h('table', {style: {color: '#ffaa00', fontSize: '22px'}}, [
+  h('tr', [
+    h('td', "A"),
+    h('td', _state.a) ]),
+
+  h('tr', [
+    h('td', "B"),
+    h('td', _state.b) ]),
+
+  h('tr', [
+    h('td', "SUM"),
+    h('td', _state.sum) ]),
+
+  h('tr', [
+    h('td', {style: {paddingRight: '23px'}}, "PRODUCT     "),
+    h('td', _state.prod) ]) ]),
+
+h('br', ),
+h('br', ),
+
+h('button#aplus', {style: {fontSize: '17px'}}, ' A + ' ),
+h('button#aminus', {style: {fontSize: '17px'}}, ' A - ' ),
+h('button#bplus', {style: {fontSize: '17px'}}, ' B + ' ),
+h('button#bminus', {style: {fontSize: '17px'}}, ' B - ' ),
+h('br', ),
+h('br', ),
+h('button#resetState', {style: {fontSize: '17px'}}, ' Reset ' ),
+h('span',{style: {paddingLeft: '20px'}}, 'A :' ),
+h('input#stateA', ),
+h('span',{style: {paddingLeft: '20px'}}, 'B :' ),
+h('input#stateB', ),
+h('br'),
+h('p', ' Here\'s the code: ' ),
+h('pre', `  const _state = {a: 0, b: 0, sum: 0, prod: 0 }
+
+  function add_a () {this.a += 1}
+  function subtract_a () {this.a -= 1}
+
+  function add_b () {this.b += 1}
+  function subtract_b () {this.b -= 1}
+
+  function set_a (x) {this.a = x};
+  function set_b (z) {this.b = z};
+
+  function sum () {this.sum = this.a + this.b}
+  function prod () {this.prod = this.a * this.b}
+
+  function resetState () {this.a=0;this.b=0;this.sum=0;this.prod=0};
+
+  var handlerUpdate = {
+      get: (a, b, c) => {
+          if (b === "add_a") add_a.apply(_state)
+          else if (b === "add_b") add_b.apply(_state)
+          else if (b === "subtract_a") subtract_a.apply(_state)
+          else if (b === "subtract_b") subtract_b.apply(_state)
+          else if (b === "resetState") resetState.apply(_state)
+          else if (b === "resetState") resetState.apply(_state)
+          sum.apply(_state);  
+          prod.apply(_state);
+          diffRender();
+      }
+  }
+
+  const _count = new Proxy ({}, handlerUpdate); ` ), 
+
+
+
+
+
 h('p', ' ' ), 
 h('a', {props: {href: "#proxy2"}}, 'Back to the first demonstration' ),
+
+
+
+
+
 
 
 h('h2', ' MonadEr - An Error-Catching Monad '),
