@@ -64,7 +64,7 @@ console.log(" END ************************** h and clone ***************** EBD")
     };
 
     MonadState.prototype.inc = function () {
-      this.s[1] += 1
+      his.s[1] += 1
       buttonNode = bNode(this.s[0][this.s[1]][4]);
       socket.send(`CG#$42,${pMgroup.x},${pMname.x},${this.s[0][this.s[1]][0]},${this.s[0][this.s[1]][1]}`)
       window[this.id] = this;
@@ -2244,7 +2244,10 @@ h('pre',  `      function autoRefresh(obj) {
 
   h('span.tao', ' As is apparent from the above code, calling mBnd(true) causes the returned object to be a proxy of itself. This feature serves no purpose other than updating the display. Other means should be employed where target audiences still use out-of-date browsers. A discussion and some interactive examples of ES6 proxies are presented at ' ),
   h('a#proxy2', {props: {href: "#proxies"}}, 'Fun With Proxies' ),
+                        ]),
+  h('div.content2', [
   h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 1 '),
+  h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
   
   h('p', ' This demonstration uses Bind() directly, rather than mBnd(). Each of the twenty-five computations uses a function named "bind". They run concurrently without bind() stepping on itself because the functions to not rely on the array of return values ("arBind.undefined"). The browser engine doesn\'t let quicker computations cut in front of slower ones. ' ),
 h('p', ' Demonstration 2 will show what happens when Bind() is used directly and multiple simultaneously-running functions add and fetch values from a single array. It\'s quite a mess. Here\'s the Demonstration 1 code: ' ),  
@@ -2282,6 +2285,10 @@ h('p', ' Demonstration 2 will show what happens when Bind() is used directly and
       );
     });  ` ),
 
+  ]), 
+  h('div', { style: { width: '47%', fontSize: '18px', float: 'right' }
+}, [ // *** RIGHT PANEL
+
 
   h('span', ' Click below to begin twenty-five runs of: '),
   h('br'),
@@ -2302,14 +2309,21 @@ h('p', ' Demonstration 2 will show what happens when Bind() is used directly and
   h('div#demo2', m43_),
   h('br'),
   h('br'),
+              ]),
     h('br'),
+    h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
 
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Using mBnd() to Avoid Clashes'),
+h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // ((***** LEFT PANEL 
 h('h3', 'The Problem With Direct Calls to Bind()'),
 h('p', ' The statement "o = Bind(\'o\')") returns a fresh copy of _bind but not a fresh copy the array arBind[o.key]. After "o"has been created and called, calling "o.run" pushes additional data into arBind[o.key]. Nine distinct copies of _bind() are used in the top nine computation. arBind is cleared prior to the each start but when the procedures are re-started prior to finishing, two running processes share each array. Clicking the button on the right causes this phenomenon. Clicking it ten times illustrates the point even better. '),
 h('h3', 'The mBnd Solution'),
 h('p', ' Repeatedly calling "ob = mBnd()" creates copies of _bind (returned by Bind()) named "ob.run", each of which has its own unique array on the object arBind. As is evident from the definition of Bind, arBind is an object that holds key/value pairs for every array created by calling Bind(). When an object "ob" is created by calling "ob = mBn()", a unique key (defined by "x = Symbol()) on arBind is assigned to its method "ob.run()". The global ob, window.ob in the browser, is the most recently created object named "ob", but previously created objects named "ob" continue to function independently, each with a unique key in the Symbol registry. ' ),  
 h('p', ' If you enter a number on the right and press <ENTER> once, you will see that test4() and test6() produce identical results. If you Press <ENTER> again during execution, you will see garbage above your entry, but below you will see just what you saw when you pressed <ENTER> once. It resembles the rollback of an interrupted atomic transaction as seen, for example, in interrupted database transactions. Click "GO" ten times in rapid succession if you want to see some crazy results above the button and sensible results below. '),
+
+         ]),
+
+              h('div', { style: { width: '47%', fontSize: '15px', float: 'right' } }, [ // ********* RIGHT PANEL
 
                 h('br'),
                 h('br'),
@@ -2366,6 +2380,11 @@ h('p', ' If you enter a number on the right and press <ENTER> once, you will see
                 h('div', `${_B7.join(", ")}`),
                 h('div', `${_B8.join(", ")}`),
 
+              ]),
+
+              h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
+                        h('div.content', [ // 2 brackets  main -> content ->
+
 
 h('div', styleFunc(["#8ffc95", , "21px", , , "center"]), ' The Demonstration 2 Code' ),
 
@@ -2406,13 +2425,16 @@ h('pre', `  function test5 (n) {
     return ob.run(w)(cubeP)(squareP)
     (() => divP(ar[0])(ar[1]))(rootP)()}  ` ),
 
+                        ]),
 
 h('p', ' Clicking the "GO" button (above) causes test5() to execute. It calls test4() and test6() nine times. test4() (at the top) shows what can go wrong when copies of _bind are created by direct calls to Bind(). The code normally runs to completion in 4800 ms. If you click the button, test5 is called again after 4600 ms. The results speak for themselves'),
 h('p', ' The situation might become clearer if you note that every time you run, say, a3 = Bind("a3"), the latest instance of a3 along with all previous ones use arBind.a3. On the other hand, each invocation of "a = mBnd()" creates a unique key and corresponding private array on arBind, "arBind.Symbol(): Symbol = []", that might appear identical to other keys on arBind but which has its own unique id in the Symbol registry. ' ),
 h('p', ' People trying to be "functional programmers" by shrinking the universe of what is possible are likely to find the next demonstration disconcerting. I hope they get past their unease and try their hand at full throttle coding with JavaScript functions. Keep the craziness inside of streams and function pipe lines when you can and have fun. ' ),    
 
 
+h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 3 '),
+h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
 
 h('p', ' In Demonstration 2, we saw copies of _bind returning nonsense data when they were called before other copies having the same names had finished executing. They were using the same array and stepping all over each other. Let abc = mBnd. You can empty abc.ar with abc.ar = [] or supersede it on the global object (window in the browser) by running abc = mBnd() whenever you want, but letting it gradually fill each time you call abc.run() facilitates the handling of asynchronous data. That is the point of this demonstration. ' ),
 h('span.tao', ` Each time you enter a number in the right column, the following code is executed: ` ),
@@ -2438,9 +2460,12 @@ h('pre', `  var qfB = mBnd();
   function quadFormula(x) {return qfB.run(toFloat(x))(qF9)}; ` ),
 
   h('p', ' quadFormula() and qF9 are defined below the screen shot ' ),
+]),
     
+h('div', { style: { width: '47%', fontSize: '18px', float: 'right' }}, [ // *** RIGHT PANEL
 h('br'),
 h('br'),
+          // console.log("Cow1 and Cow2", Cow1, Cow2);
 
 h('br'),
 h('br'),
@@ -2472,8 +2497,15 @@ h('pre', `  1*x*x + 2*x + -3 = 0 has the following solutions:
 h('p', ' As for fishing arBind[qfB.key] out of the global scope, please note the discussion above. "qfB.key" belongs only to the most recently created version of qfB. It was created by running "x = Symbol()" while qfB was being defined. Previously created objects named "qfB" have their own unique secret values of "qfB.key" and their own private arrays. '),
 h('p', ' Immediately after startup, Pressing <F12> and entering "arBind" displays this: ' ),
 
-  h('img.image_3', { props: { src: "demo.png" }}),
+              ]),  ]),
 
+              h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
+
+
+  h('img.image_3', { props: { src: "demo.png" }}),
+  h('p', ' Each of the nine lower entries corresponds to objects created by calling \"mBnd(\'mBnd\', true)\". Fetching attributes of arBind rather than including them as parameters isn\'t a reckless deviations from sound functional programming practices because these attributes are not easily stepped on by other parts of an application. '),              h('div.content2', [ // 2 brackets  main -> content ->
+
+              h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
   h('pre',  `  function qF9 () {
       if (arBind[qfB.key].length > 4) {
         // If true, it\'s time to run the quadratic equation
@@ -2507,12 +2539,17 @@ h('p', ' Immediately after startup, Pressing <F12> and entering "arBind" display
       window[z] = mBnd(true);
   } ` ),  
 
+ ]), 
+              h('div', { style: { width: '47%', fontSize: '18px', float: 'right' }}, [ // *** RIGHT PANEL
 
 h('p', ' Later on this page, MonadItter objects are used in a similar demonstration. mMZ33.release(<coefficient>) is called repeatedly. mMZ33.bind is nested three levels deep. In the third level, the coefficients are applied to the formula and control is directed back to the top level. MonadItter objects are used to screen incoming WebSocket messages. ' ),
 
   
+              ]),
 
+h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 4 '),
+h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
 
 h('p', ' Here is another approach to function composition, featuring rapid-fire redefinition of a parameter "v" by functions in an array ("ar"). "v" and "ar" are available to every function in "ar". In the example, we see "v => ar[3](v)" and "y => y - x" where y is the previously computed value and x is the starting value. A more elaborate version could be made to handle asynchronous code. "f_86", "foo", and runFoo are shown below. ' ),
 h('p', ' Enter a number "n" on the right to call "runFoo(n)". ' ),
@@ -2538,6 +2575,10 @@ h('pre', `    function runFoo (n) {
     } ` ),
 
 
+
+
+              ]),        
+h('div', { style: { width: '47%', fontSize: '18px', float: 'right' }}, [ // *** RIGHT PANEL
 h('div', 'Enter a number "n" below to see the result of "runFoo" executing on nine numbers' ),
   h('br'),
 h('input#foocow',    ),
@@ -2552,7 +2593,9 @@ h('div', `${foocow_5.join(", ")}`),
 h('div', `${foocow_6.join(", ")}`),
 h('div', `${foocow_7.join(", ")}`),
 h('div', `${foocow_8.join(", ")}`),
+          ]),
 
+]), h('div.content', [
 
   h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
 

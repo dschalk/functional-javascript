@@ -1031,511 +1031,456 @@ console.log(" END ************************** h and clone ***************** EBD")
 
       // ******************************************************************** <><><><><><> -> End Demos
 
-var fib2 = function fib2(v) {
-  if (v[2] > 1) {
-    mMfib.ret([v[1], v[0] + v[1], v[2] - 1]);
-  } else {
-    mM19.ret(v[0]);
-  }
-};
-
-var fibPress$ = sources.DOM
-  .select('input#code').events('keydown');
-
-var fibPressAction$ = fibPress$.map(function (e) {
-  if (e.target.value === '') {
-    return;
-  };
-  if (e.keyCode === 13) {
-    mM21.ret(e.target.value);
-    fib2([0, 1, e.target.value]);
-  }
-});
-
-var printingPress$ = sources.DOM
-  .select('input#demo2').events('keydown');
-
-var demo2Action$ = printingPress$.map(function (e) {
-  if (e.target.value === '') return;
-  if (e.keyCode === 13) {
-    Bind.bind1 = [];
-    bind1(e.target.value)(cubeP)
-      (() => idP(Bind.bind1[0] - Bind.bind1[1]))
-      (v => addP(Bind.bind1[1])(v))
-  };
-});
-
-
-// *******************************************n****************************** ENDOM iginal Fibonacci END
-
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START PRIME FIB
-var topPrime = 2;
-var fS = [2]
-var pFS = [2];
-
-
-
-const workerB$ = sources.WWB.map(m => {
-  if (m.data[3] === 'color') {
-    fill1Monad.ret(m.data[0]);
-    fill2Monad.ret(m.data[1]);
-    fill3Monad.ret(m.data[2]);
-    mMprimeBlurb.ret(m.data[5]);
-    mMfibBlurb.ret(m.data[4]);
-    mMprimeFibBlurb.ret(m.data[6]);
-  } else {
-    fS = m.data[1].join(', ');
-    pFS = m.data[2].join(', ');
-    mMelapsed.ret(elapsed(m.data[3]))
-    if (m.data[0].length > primeState2.length) {
-      primeState2 = m.data[0];
-      fibState = m.data[1];
-      prFibState = m.data[2];
-      var topP = primeState2.slice(-1);
-      topPrime = topP.toString();
-    }
-  }
-});
-
-var fibKeyPress5$ = sources.DOM
-  .select('input#fib92').events('keyup');
-
-var primeFib$ = fibKeyPress5$.map(num => {
-  var n = num.target.value;
-  var j = Math.sqrt(n);
-  var k = primeState2.slice(-1)[0];
-  if (k > j) {
-    var t = Date.now();
-    var fibs = fibState.slice(0, fibState.indexOf(fibState.find(e => e > n)));
-    fS = fibs.join(', ');
-    var prFibs = fibs.filter(n => prFibState.indexOf(n) !== -1);
-    pFS = prFibs.join(', ');
-    mMelapsed.ret(elapsed(t));
-    diffRender();
-  } else {
-    workerB.postMessage([primeState2, fibState, prFibState, n]);
-  }
-});
-
-var clearprimes$ = sources.DOM
-  .select('#clearprimes').events('click')
-  .map(() => mMres.ret([mMres.x[0], '', mMres.x[2], mMres.x[3]]));
-
-
-// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  Begin Easy
-
-
-//******************************************************************* worker
-m42_RES = [];
-m43_RES = [];
-
-var clearClick$ = sources.DOM
-  .select('button.clear_P').events('click')
-  .map(e => {
-    m42_RESULT = [];
-    m42_RESULT2 = [];
-  })
-
-var factors2Press$ = sources.DOM
-  .select('button.factors_P').events('click');
-
-var factors2Action$ = factors2Press$.map(function (e) {
-  var factors = [];
-  mMfactors3.ret('');
-  bind(65)(cubeC)(it4)(it6)(it7);
-});
-
-workerG$ = sources.WWG.map(m => {
-  console.log("Message from workerG", m);
-  m778_RESULT = result778(m.data);
-  mMZ38.release(m.data);
-  if (m.data) {
-    console.log('GOOD m.data')
-  } else {
-    return "cow"
-  }
-  if (m.target) {
-    console.log('GOOD m.target')
-  } else {
-    return "shit"
-  }
-  if (m.data[1]) {
-    console.log('GOOD m.data[1]')
-  } else {
-    return 'donkey'
-  }
-  if (m.target.ar2) {
-    console.log('GOOD m.data.ar2')
-  } else {
-    return 'dung'
-  }
-
-});
-
-workerL$ = sources.WWL.map(m => {
-  console.log("Message from workerL$ MMMMMMMMMMMMMMMMMMMMMMMMMM Here it is:", m);
-  m779_RESULT = result779(m.data);
-  console.log("Still in workerL$ -- m779_RESULT is", m779_RESULT);
-  mMZ39.release(m.data);
-  if (m.data) {
-    console.log('GOOD m.data')
-  } else {
-    return "cow"
-  }
-  if (m.target) {
-    console.log('GOOD m.target')
-  } else {
-    return "shit"
-  }
-  if (m.data[1]) {
-    console.log('GOOD m.data[1]')
-  } else {
-    return 'donkey'
-  }
-  if (m.target.ar2) {
-    console.log('GOOD m.data.ar2')
-  } else {
-    return 'dung'
-  }
-
-});
-
-var clearClick7$ = sources.DOM
-  .select('button.clear_Q').events('click')
-  .map(() => {
-    m42_ = [];
-  })
-
-var factorsClick7$ = sources.DOM
-  .select('button#factors_Q').events('click');
-
-var factorsAction7$ = factorsClick7$.map(e => {
-  m42_ = [];
-  Bind.bind0 = [];
-  let ii = 0;
-  while (ii < 25) {
-    bind(145)(x => x ** 3)(it4)(it6)(it7);
-    ii += 1;
-  }
-});
-
-var clearClick8$ = sources.DOM
-  .select('button.clear_R').events('click')
-  .map(() => {
-    m43_ = [];
-  })
-
-var factorsClick8$ = sources.DOM
-  .select('button#factors_R').events('click'); 
-var factorsAction8$ = factorsClick8$.map(e => {
-  var i = 0;
-  m43_ = [];
-  var bind = Bind()   //bi.run();
-  while (i < 25) {
-    bind(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
-    i += 1;
-  }
-});
-
-
-var aplusClick$ = sources.DOM
-  .select('button#aplus').events('click')
-  .map(() => {
-    console.log("Hello Beautiful");
-    _count.add_a
-  });
-
-var aminusClick$ = sources.DOM
-  .select('button#aminus').events('click')
-  .map(() => {
-    console.log("Hello Beautiful");
-    _count.subtract_a
-  });
-
-var bplusClick$ = sources.DOM
-  .select('button#bplus').events('click')
-  .map(() => {
-    console.log("Hello Beautiful");
-    _count.add_b
-  });
-
-var bminusClick$ = sources.DOM
-  .select('button#bminus').events('click')
-  .map(() => {
-    console.log("Hello Beautiful");
-    _count.subtract_b
-  });
-
-var resetStateClick$ = sources.DOM
-  .select('button#resetState').events('click')
-  .map(() => {
-    console.log("Hello Beautiful");
-    _count.resetState
-  });
-
-var setStateA$ = sources.DOM
-  .select('#stateA').events('keyup')
-  .map(e => {
-        _state.a = toInt(e.target.value);
-        _count.go;
-  })
-
-var setStateB$ = sources.DOM
-  .select('#stateB').events('keyup')
-  .map(e => {
-        _state.b = toInt(e.target.value);
-        _count.go;
-  })
-
-
-
-
-
-
-workerH$ = sources.WWH.map(m => {
-  mMZ52.release(m.data[1]);
-  var w = m.data[0][m.data[0].length - 1];
-  if (m.data[0].length > primeState.length) primeState = m.data[0];
-});
-
-var factors3Press$ = sources.DOM
-  .select('input#factors').events('keypress');
-
-var factors3Action$ = factors3Press$.map(function (e) {
-  if (e.keyCode === 13) {
-    bind(e.target.value)(it8);
-  }
-});
-
-
-workerL$ = sources.WWL.map(m => {
-  mMZ53.release(m.data[1]);
-  var w = m.data[0][m.data[0].length - 1];
-  if (m.data[0].length > primeState.length) primeState = m.data[0];
-});
-
-workerM$ = sources.WWM.map(m => {
-  mMZ53.release(m.data[1]);
-  var w = m.data[0][m.data[0].length - 1];
-  if (m.data[0].length > primeState.length) primeState = m.data[0];
-});
-
-var factors3Press$ = sources.DOM
-  .select('input#factors').events('keypress');
-
-var factors3Action$ = factors3Press$.map(function (e) {
-  if (e.keyCode === 13) {
-    bind(e.target.value)(it8);
-  }
-});
-
-mMZ40.bnd(v => {
-  console.log("Now <E><E><E><E><E><E><E><Edward the Late>>>>>>>>>>posting to workerH -- v is", v);
-  workerH.postMessage([primeState, v])
-});
-
-mMZ41.bnd(v => {
-  console.log("Now <E><E><E><E><E><E><E><Edward the Late>>>>>>>>>>posting to workerL -- v is", v);
-  workerL.postMessage([primeState, v])
-});
-
-const result778 = x => h('div', [
-  m778_RESULT,
-  h('br'),
-  h('span', bigBlue, x[3]),
-  h('span', bigGreen, x[0]),
-  h('span', bigBlue, x[4]),
-  h('span', bigRed, x[5]),
-]);
-
-var m778_RESULT = h('div', '');
-
-const result779 = x => h('div', [
-  m779_RESULT,
-  h('br'),
-  h('span', bigBlue, x[3]),
-  h('span', bigGreen, x[0]),
-  h('span', bigBlue, x[4]),
-  h('span', bigRed, x[5]),
-]);
-
-var m779_RESULT = h('div', '');
-
-
-var mMZ33Func = x => mMZ33
-  .bnd(x => {
-    mMt32 = new Monad(x, 'mMt32');
-    mMt33.ret(x + ' cubed is ' + x * x * x)
-    mMZ33Func(x + 1);
-  });
-
-mMZ33Func(0);
-
-var testZ = sources.DOM
-  .select('#testZ').events('click');
-
-var testZAction$ = testZ.map(function () {
-  mMZ33.release(mMt32.x + 1);
-});
-
-var testQ = sources.DOM
-  .select('#testQ').events('click');
-
-var testQAction$ = testQ.map(() => {
-  mMZ33.release(0);
-  diffRender();
-});
-
-var testW = sources.DOM
-  .select('#testW').events('keypress');
-
-var testWAction$ = testW.map(function (e) {
-  if (e.keyCode === 13) {
-    mMZ33.release(parseInt(e.target.value, 10));
-    diffRender();
-  }
-});
-//*********************************** pingpong ***************  START
-
-
-var ping = n => ar => {
-  var k = Math.floor(Math.random() * 5) + 1;
-  if (ar[0] > 10 || ar[1] > 10) {
-    diffRender();
-    return;
-  }
-  setTimeout(() => {
-    if (n <= k) {
-      ppStyle = !ppStyle;
-      incF$(n);
-      ping(n + 1)(ar);
-      diffRender();
-    } else if (n % 2 === 0) {
-      ar[0] += 1;
-      m67_RESULT = h('pre', ppYR, `     SCORE: ping  \${ar[0]} pong: \${ar[1]}  `)
-      ping(0)(ar);
-      diffRender();
-    } else {
-      ar[1] += 1
-      m67_RESULT = h('pre', ppY, `     SCORE: ping  \${ar[0]} pong: \${ar[1]}  `);
-      ping(0)(ar);
-      diffRender();
-    }
-  }, 500);
-}
-
-var pingD = a => b => c => h('div', [
-  h('pre', a, ` ping        ---> `),
-  h('pre', b, `                 <---        pong `),
-  h('pre', `          -- SCORE: ping: ` + c[0] + ` pong: ` + c[1]),
-]);
-
-m67_RESULT = pingD(_A1)(_A3)([3, 2]);
-
-PingpongMaker = (name) => {
-  var a = _A1;
-  var b = _A3;
-  var c = [0, 0];
-  var n = 0;
-  var bool = true;
-  var k = Math.floor(Math.random() * 7) + 1;
-  return function train() {
-    if (c[0] > 10 || c[1] > 10) return;
-    var ms = 400;
-    if (a === _A3) {
-      a = _A1;
-      b = _A3
-    } else if (a === _A1) {
-      a = _A3;
-      b = _A2
-    };
-    if (n <= k) {
-      n += 1;
-      window[name] = pingD(a)(b)(c);
-      diffRender();
-    } else if (n % 2 === 0) {
-      ms = 1200
-      n = 0
-      c[0] += 1;
-      window[name] = pingD(_A1)(_A3)(c);
-      diffRender();
-      k = Math.floor(Math.random() * 7) + 1;
-    } else if (n % 2 === 1) {
-      ms = 1200;
-      n = 0;
-      c[1] += 1;
-      window[name] = pingD(_A3)(_A2)(c);
-      diffRender();
-      k = Math.floor(Math.random() * 7) + 1;
-    }
-    setTimeout(function () {
-      train();
-    }, ms);
-  }
-}
-
-var makeDisplay = a => b => c => h('div', [
-    h('pre', a, ` ping        ---> `),
-    h('pre', b, `                 <---        pong `),
-    h('pre', `          -- SCORE: ping: ` + c[0] + ` pong: ` + c[1]),
-  ]),
-
-  pingCompute = bool => aa => bb => cc =>
-  dd => {
-    var a;
-    var b;
-    if (a === "serve") {
-      a = _A3;
-
-    }
-    var a = aa = bool ? _A1 : _A3;
-    var b = aa = bool ? _A3 : _A2;
-    pingDisplay = makeDisplay(a)(b)(cc)(d);
-  };
-
-var pingScore = [0, 0];
-
-pp4 = () => {
-  var a = _A3;
-  var b = _A2;
-  var c = _A3;
-  var d = [0, 0];
-  var random = 0;
-  var turns = 0;
-  var bool = true;
-  var car;
-  var ms = 300;
-  return car = () => {
-    bool = !bool;
-    pingCompute(bool)(a)(b)(c)
-    diffRender()
-    if (random === 0) random = Math.floor(Math.random() * 11) + 1; // New serve flag "random === 0" detected.
-    setTimeout(function () {
-      if (pingScore[0] >= 11 || pingScore[1] >= 11) {
-        diffRender()
-        turns = 0;
-        random = 0;
-        pingScore = [0, 0];
+      var fib2 = function fib2(v) {
+        if (v[2] > 1) {
+          mMfib.ret([v[1], v[0] + v[1], v[2] - 1]);
+        } else {
+          mM19.ret(v[0]);
+        }
       };
-      if (turns >= random && turns % 2 === 0) {
-        pingScore[0] += 1;
-        turns = 0;
-        random = 0; // A signal to compute a new random number when the next message comes in.
-        diffRender()
+
+      var fibPress$ = sources.DOM
+        .select('input#code').events('keydown');
+
+      var fibPressAction$ = fibPress$.map(function (e) {
+        if (e.target.value === '') {
+          return;
+        };
+        if (e.keyCode === 13) {
+          mM21.ret(e.target.value);
+          fib2([0, 1, e.target.value]);
+        }
+      });
+
+      var printingPress$ = sources.DOM
+        .select('input#demo2').events('keydown');
+
+      var demo2Action$ = printingPress$.map(function (e) {
+        if (e.target.value === '') return;
+        if (e.keyCode === 13) {
+          Bind.bind1 = [];
+          bind1(e.target.value)(cubeP)
+            (() => idP(Bind.bind1[0] - Bind.bind1[1]))
+            (v => addP(Bind.bind1[1])(v))
+        };
+      });
+
+
+      // *******************************************n****************************** ENDOM iginal Fibonacci END
+
+      // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START PRIME FIB
+      var topPrime = 2;
+      var fS = [2]
+      var pFS = [2];
+
+
+
+      const workerB$ = sources.WWB.map(m => {
+        if (m.data[3] === 'color') {
+          fill1Monad.ret(m.data[0]);
+          fill2Monad.ret(m.data[1]);
+          fill3Monad.ret(m.data[2]);
+          mMprimeBlurb.ret(m.data[5]);
+          mMfibBlurb.ret(m.data[4]);
+          mMprimeFibBlurb.ret(m.data[6]);
+        } else {
+          fS = m.data[1].join(', ');
+          pFS = m.data[2].join(', ');
+          mMelapsed.ret(elapsed(m.data[3]))
+          if (m.data[0].length > primeState2.length) {
+            primeState2 = m.data[0];
+            fibState = m.data[1];
+            prFibState = m.data[2];
+            var topP = primeState2.slice(-1);
+            topPrime = topP.toString();
+          }
+        }
+      });
+
+      var fibKeyPress5$ = sources.DOM
+        .select('input#fib92').events('keyup');
+
+      var primeFib$ = fibKeyPress5$.map(num => {
+        var n = num.target.value;
+        var j = Math.sqrt(n);
+        var k = primeState2.slice(-1)[0];
+        if (k > j) {
+          var t = Date.now();
+          var fibs = fibState.slice(0, fibState.indexOf(fibState.find(e => e > n)));
+          fS = fibs.join(', ');
+          var prFibs = fibs.filter(n => prFibState.indexOf(n) !== -1);
+          pFS = prFibs.join(', ');
+          mMelapsed.ret(elapsed(t));
+          diffRender();
+        } else {
+          workerB.postMessage([primeState2, fibState, prFibState, n]);
+        }
+      });
+
+      var clearprimes$ = sources.DOM
+        .select('#clearprimes').events('click')
+        .map(() => mMres.ret([mMres.x[0], '', mMres.x[2], mMres.x[3]]));
+
+
+      // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  Begin Easy
+
+
+      //******************************************************************* worker
+      m42_RES = [];
+      m43_RES = [];
+
+      var clearClick$ = sources.DOM
+        .select('button.clear_P').events('click')
+        .map(e => {
+          m42_RESULT = [];
+          m42_RESULT2 = [];
+        })
+
+      var factors2Press$ = sources.DOM
+        .select('button.factors_P').events('click');
+
+      var factors2Action$ = factors2Press$.map(function (e) {
+        var factors = [];
+        mMfactors3.ret('');
+        bind(65)(cubeC)(it4)(it6)(it7);
+      });
+
+      workerG$ = sources.WWG.map(m => {
+        console.log("Message from workerG", m);
+        m778_RESULT = result778(m.data);
+        mMZ38.release(m.data);
+        if (m.data) {
+          console.log('GOOD m.data')
+        } else {
+          return "cow"
+        }
+        if (m.target) {
+          console.log('GOOD m.target')
+        } else {
+          return "shit"
+        }
+        if (m.data[1]) {
+          console.log('GOOD m.data[1]')
+        } else {
+          return 'donkey'
+        }
+        if (m.target.ar2) {
+          console.log('GOOD m.data.ar2')
+        } else {
+          return 'dung'
+        }
+
+      });
+
+      workerL$ = sources.WWL.map(m => {
+        console.log("Message from workerL$ MMMMMMMMMMMMMMMMMMMMMMMMMM Here it is:", m);
+        m779_RESULT = result779(m.data);
+        console.log("Still in workerL$ -- m779_RESULT is", m779_RESULT);
+        mMZ39.release(m.data);
+        if (m.data) {
+          console.log('GOOD m.data')
+        } else {
+          return "cow"
+        }
+        if (m.target) {
+          console.log('GOOD m.target')
+        } else {
+          return "shit"
+        }
+        if (m.data[1]) {
+          console.log('GOOD m.data[1]')
+        } else {
+          return 'donkey'
+        }
+        if (m.target.ar2) {
+          console.log('GOOD m.data.ar2')
+        } else {
+          return 'dung'
+        }
+
+      });
+
+      var clearClick7$ = sources.DOM
+        .select('button.clear_Q').events('click')
+        .map(() => {
+          m42_ = [];
+        })
+
+      var factorsClick7$ = sources.DOM
+        .select('button#factors_Q').events('click');
+
+      var factorsAction7$ = factorsClick7$.map(e => {
+        m42_ = [];
+        Bind.bind0 = [];
+        let ii = 0;
+        while (ii < 25) {
+          bind(145)(x => x ** 3)(it4)(it6)(it7);
+          ii += 1;
+        }
+      });
+
+      var clearClick8$ = sources.DOM
+        .select('button.clear_R').events('click')
+        .map(() => {
+          m43_ = [];
+        })
+
+      var factorsClick8$ = sources.DOM
+        .select('button#factors_R').events('click'); 
+      var factorsAction8$ = factorsClick8$.map(e => {
+        var i = 0;
+        m43_ = [];
+        var bind = Bind()   //bi.run();
+        while (i < 25) {
+          bind(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
+          i += 1;
+        }
+      });
+
+      workerH$ = sources.WWH.map(m => {
+        mMZ52.release(m.data[1]);
+        var w = m.data[0][m.data[0].length - 1];
+        if (m.data[0].length > primeState.length) primeState = m.data[0];
+      });
+
+      var factors3Press$ = sources.DOM
+        .select('input#factors').events('keypress');
+
+      var factors3Action$ = factors3Press$.map(function (e) {
+        if (e.keyCode === 13) {
+          bind(e.target.value)(it8);
+        }
+      });
+
+
+      workerL$ = sources.WWL.map(m => {
+        mMZ53.release(m.data[1]);
+        var w = m.data[0][m.data[0].length - 1];
+        if (m.data[0].length > primeState.length) primeState = m.data[0];
+      });
+
+      workerM$ = sources.WWM.map(m => {
+        mMZ53.release(m.data[1]);
+        var w = m.data[0][m.data[0].length - 1];
+        if (m.data[0].length > primeState.length) primeState = m.data[0];
+      });
+
+      var factors3Press$ = sources.DOM
+        .select('input#factors').events('keypress');
+
+      var factors3Action$ = factors3Press$.map(function (e) {
+        if (e.keyCode === 13) {
+          bind(e.target.value)(it8);
+        }
+      });
+
+      mMZ40.bnd(v => {
+        console.log("Now <E><E><E><E><E><E><E><Edward the Late>>>>>>>>>>posting to workerH -- v is", v);
+        workerH.postMessage([primeState, v])
+      });
+
+      mMZ41.bnd(v => {
+        console.log("Now <E><E><E><E><E><E><E><Edward the Late>>>>>>>>>>posting to workerL -- v is", v);
+        workerL.postMessage([primeState, v])
+      });
+
+      const result778 = x => h('div', [
+        m778_RESULT,
+        h('br'),
+        h('span', bigBlue, x[3]),
+        h('span', bigGreen, x[0]),
+        h('span', bigBlue, x[4]),
+        h('span', bigRed, x[5]),
+      ]);
+
+      var m778_RESULT = h('div', '');
+
+      const result779 = x => h('div', [
+        m779_RESULT,
+        h('br'),
+        h('span', bigBlue, x[3]),
+        h('span', bigGreen, x[0]),
+        h('span', bigBlue, x[4]),
+        h('span', bigRed, x[5]),
+      ]);
+
+      var m779_RESULT = h('div', '');
+
+
+      var mMZ33Func = x => mMZ33
+        .bnd(x => {
+          mMt32 = new Monad(x, 'mMt32');
+          mMt33.ret(x + ' cubed is ' + x * x * x)
+          mMZ33Func(x + 1);
+        });
+
+      mMZ33Func(0);
+
+      var testZ = sources.DOM
+        .select('#testZ').events('click');
+
+      var testZAction$ = testZ.map(function () {
+        mMZ33.release(mMt32.x + 1);
+      });
+
+      var testQ = sources.DOM
+        .select('#testQ').events('click');
+
+      var testQAction$ = testQ.map(() => {
+        mMZ33.release(0);
+        diffRender();
+      });
+
+      var testW = sources.DOM
+        .select('#testW').events('keypress');
+
+      var testWAction$ = testW.map(function (e) {
+        if (e.keyCode === 13) {
+          mMZ33.release(parseInt(e.target.value, 10));
+          diffRender();
+        }
+      });
+      //*********************************** pingpong ***************  START
+
+
+      var ping = n => ar => {
+        var k = Math.floor(Math.random() * 5) + 1;
+        if (ar[0] > 10 || ar[1] > 10) {
+          diffRender();
+          return;
+        }
+        setTimeout(() => {
+          if (n <= k) {
+            ppStyle = !ppStyle;
+            incF$(n);
+            ping(n + 1)(ar);
+            diffRender();
+          } else if (n % 2 === 0) {
+            ar[0] += 1;
+            m67_RESULT = h('pre', ppYR, `     SCORE: ping  \${ar[0]} pong: \${ar[1]}  `)
+            ping(0)(ar);
+            diffRender();
+          } else {
+            ar[1] += 1
+            m67_RESULT = h('pre', ppY, `     SCORE: ping  \${ar[0]} pong: \${ar[1]}  `);
+            ping(0)(ar);
+            diffRender();
+          }
+        }, 500);
       }
-      if (turns >= random && turns % 2 === 1) {
-        pingScore[1] += 1;
-        turns = 0;
-        random = 0;
-        diffRender()
+
+      var pingD = a => b => c => h('div', [
+        h('pre', a, ` ping        ---> `),
+        h('pre', b, `                 <---        pong `),
+        h('pre', `          -- SCORE: ping: ` + c[0] + ` pong: ` + c[1]),
+      ]);
+
+      m67_RESULT = pingD(_A1)(_A3)([3, 2]);
+
+      PingpongMaker = (name) => {
+        var a = _A1;
+        var b = _A3;
+        var c = [0, 0];
+        var n = 0;
+        var bool = true;
+        var k = Math.floor(Math.random() * 7) + 1;
+        return function train() {
+          if (c[0] > 10 || c[1] > 10) return;
+          var ms = 400;
+          if (a === _A3) {
+            a = _A1;
+            b = _A3
+          } else if (a === _A1) {
+            a = _A3;
+            b = _A2
+          };
+          if (n <= k) {
+            n += 1;
+            window[name] = pingD(a)(b)(c);
+            diffRender();
+          } else if (n % 2 === 0) {
+            ms = 1200
+            n = 0
+            c[0] += 1;
+            window[name] = pingD(_A1)(_A3)(c);
+            diffRender();
+            k = Math.floor(Math.random() * 7) + 1;
+          } else if (n % 2 === 1) {
+            ms = 1200;
+            n = 0;
+            c[1] += 1;
+            window[name] = pingD(_A3)(_A2)(c);
+            diffRender();
+            k = Math.floor(Math.random() * 7) + 1;
+          }
+          setTimeout(function () {
+            train();
+          }, ms);
+        }
       }
-      ms = (turns < random) ? 300 : 900;
-      turns += 1;
-      diffRender()
-      car()
-    }, ms)
-  }
-};
+
+      var makeDisplay = a => b => c => h('div', [
+          h('pre', a, ` ping        ---> `),
+          h('pre', b, `                 <---        pong `),
+          h('pre', `          -- SCORE: ping: ` + c[0] + ` pong: ` + c[1]),
+        ]),
+
+        pingCompute = bool => aa => bb => cc =>
+        dd => {
+          var a;
+          var b;
+          if (a === "serve") {
+            a = _A3;
+
+          }
+          var a = aa = bool ? _A1 : _A3;
+          var b = aa = bool ? _A3 : _A2;
+          pingDisplay = makeDisplay(a)(b)(cc)(d);
+        };
+
+      var pingScore = [0, 0];
+
+      pp4 = () => {
+        var a = _A3;
+        var b = _A2;
+        var c = _A3;
+        var d = [0, 0];
+        var random = 0;
+        var turns = 0;
+        var bool = true;
+        var car;
+        var ms = 300;
+        return car = () => {
+          bool = !bool;
+          pingCompute(bool)(a)(b)(c)
+          diffRender()
+          if (random === 0) random = Math.floor(Math.random() * 11) + 1; // New serve flag "random === 0" detected.
+          setTimeout(function () {
+            if (pingScore[0] >= 11 || pingScore[1] >= 11) {
+              diffRender()
+              turns = 0;
+              random = 0;
+              pingScore = [0, 0];
+            };
+            if (turns >= random && turns % 2 === 0) {
+              pingScore[0] += 1;
+              turns = 0;
+              random = 0; // A signal to compute a new random number when the next message comes in.
+              diffRender()
+            }
+            if (turns >= random && turns % 2 === 1) {
+              pingScore[1] += 1;
+              turns = 0;
+              random = 0;
+              diffRender()
+            }
+            ms = (turns < random) ? 300 : 900;
+            turns += 1;
+            diffRender()
+            car()
+          }, ms)
+        }
+      };
 
 
       // ***************************** start click    
@@ -2087,7 +2032,7 @@ pp4 = () => {
   */
 
 
-      var calcStream$ = xs.merge( setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
+      var calcStream$ = xs.merge( fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
         DOM: calcStream$.map(() => {
@@ -2244,7 +2189,10 @@ h('pre',  `      function autoRefresh(obj) {
 
   h('span.tao', ' As is apparent from the above code, calling mBnd(true) causes the returned object to be a proxy of itself. This feature serves no purpose other than updating the display. Other means should be employed where target audiences still use out-of-date browsers. A discussion and some interactive examples of ES6 proxies are presented at ' ),
   h('a#proxy2', {props: {href: "#proxies"}}, 'Fun With Proxies' ),
+                        ]),
+  h('div.content2', [
   h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 1 '),
+  h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
   
   h('p', ' This demonstration uses Bind() directly, rather than mBnd(). Each of the twenty-five computations uses a function named "bind". They run concurrently without bind() stepping on itself because the functions to not rely on the array of return values ("arBind.undefined"). The browser engine doesn\'t let quicker computations cut in front of slower ones. ' ),
 h('p', ' Demonstration 2 will show what happens when Bind() is used directly and multiple simultaneously-running functions add and fetch values from a single array. It\'s quite a mess. Here\'s the Demonstration 1 code: ' ),  
@@ -2282,6 +2230,10 @@ h('p', ' Demonstration 2 will show what happens when Bind() is used directly and
       );
     });  ` ),
 
+  ]), 
+  h('div', { style: { width: '47%', fontSize: '18px', float: 'right' }
+}, [ // *** RIGHT PANEL
+
 
   h('span', ' Click below to begin twenty-five runs of: '),
   h('br'),
@@ -2302,14 +2254,21 @@ h('p', ' Demonstration 2 will show what happens when Bind() is used directly and
   h('div#demo2', m43_),
   h('br'),
   h('br'),
+              ]),
     h('br'),
+    h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
 
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Using mBnd() to Avoid Clashes'),
+h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // ((***** LEFT PANEL 
 h('h3', 'The Problem With Direct Calls to Bind()'),
 h('p', ' The statement "o = Bind(\'o\')") returns a fresh copy of _bind but not a fresh copy the array arBind[o.key]. After "o"has been created and called, calling "o.run" pushes additional data into arBind[o.key]. Nine distinct copies of _bind() are used in the top nine computation. arBind is cleared prior to the each start but when the procedures are re-started prior to finishing, two running processes share each array. Clicking the button on the right causes this phenomenon. Clicking it ten times illustrates the point even better. '),
 h('h3', 'The mBnd Solution'),
 h('p', ' Repeatedly calling "ob = mBnd()" creates copies of _bind (returned by Bind()) named "ob.run", each of which has its own unique array on the object arBind. As is evident from the definition of Bind, arBind is an object that holds key/value pairs for every array created by calling Bind(). When an object "ob" is created by calling "ob = mBn()", a unique key (defined by "x = Symbol()) on arBind is assigned to its method "ob.run()". The global ob, window.ob in the browser, is the most recently created object named "ob", but previously created objects named "ob" continue to function independently, each with a unique key in the Symbol registry. ' ),  
 h('p', ' If you enter a number on the right and press <ENTER> once, you will see that test4() and test6() produce identical results. If you Press <ENTER> again during execution, you will see garbage above your entry, but below you will see just what you saw when you pressed <ENTER> once. It resembles the rollback of an interrupted atomic transaction as seen, for example, in interrupted database transactions. Click "GO" ten times in rapid succession if you want to see some crazy results above the button and sensible results below. '),
+
+         ]),
+
+              h('div', { style: { width: '47%', fontSize: '15px', float: 'right' } }, [ // ********* RIGHT PANEL
 
                 h('br'),
                 h('br'),
@@ -2366,6 +2325,11 @@ h('p', ' If you enter a number on the right and press <ENTER> once, you will see
                 h('div', `${_B7.join(", ")}`),
                 h('div', `${_B8.join(", ")}`),
 
+              ]),
+
+              h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
+                        h('div.content', [ // 2 brackets  main -> content ->
+
 
 h('div', styleFunc(["#8ffc95", , "21px", , , "center"]), ' The Demonstration 2 Code' ),
 
@@ -2406,13 +2370,16 @@ h('pre', `  function test5 (n) {
     return ob.run(w)(cubeP)(squareP)
     (() => divP(ar[0])(ar[1]))(rootP)()}  ` ),
 
+                        ]),
 
 h('p', ' Clicking the "GO" button (above) causes test5() to execute. It calls test4() and test6() nine times. test4() (at the top) shows what can go wrong when copies of _bind are created by direct calls to Bind(). The code normally runs to completion in 4800 ms. If you click the button, test5 is called again after 4600 ms. The results speak for themselves'),
 h('p', ' The situation might become clearer if you note that every time you run, say, a3 = Bind("a3"), the latest instance of a3 along with all previous ones use arBind.a3. On the other hand, each invocation of "a = mBnd()" creates a unique key and corresponding private array on arBind, "arBind.Symbol(): Symbol = []", that might appear identical to other keys on arBind but which has its own unique id in the Symbol registry. ' ),
 h('p', ' People trying to be "functional programmers" by shrinking the universe of what is possible are likely to find the next demonstration disconcerting. I hope they get past their unease and try their hand at full throttle coding with JavaScript functions. Keep the craziness inside of streams and function pipe lines when you can and have fun. ' ),    
 
 
+h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 3 '),
+h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
 
 h('p', ' In Demonstration 2, we saw copies of _bind returning nonsense data when they were called before other copies having the same names had finished executing. They were using the same array and stepping all over each other. Let abc = mBnd. You can empty abc.ar with abc.ar = [] or supersede it on the global object (window in the browser) by running abc = mBnd() whenever you want, but letting it gradually fill each time you call abc.run() facilitates the handling of asynchronous data. That is the point of this demonstration. ' ),
 h('span.tao', ` Each time you enter a number in the right column, the following code is executed: ` ),
@@ -2438,9 +2405,12 @@ h('pre', `  var qfB = mBnd();
   function quadFormula(x) {return qfB.run(toFloat(x))(qF9)}; ` ),
 
   h('p', ' quadFormula() and qF9 are defined below the screen shot ' ),
+]),
     
+h('div', { style: { width: '47%', fontSize: '18px', float: 'right' }}, [ // *** RIGHT PANEL
 h('br'),
 h('br'),
+          // console.log("Cow1 and Cow2", Cow1, Cow2);
 
 h('br'),
 h('br'),
@@ -2472,8 +2442,15 @@ h('pre', `  1*x*x + 2*x + -3 = 0 has the following solutions:
 h('p', ' As for fishing arBind[qfB.key] out of the global scope, please note the discussion above. "qfB.key" belongs only to the most recently created version of qfB. It was created by running "x = Symbol()" while qfB was being defined. Previously created objects named "qfB" have their own unique secret values of "qfB.key" and their own private arrays. '),
 h('p', ' Immediately after startup, Pressing <F12> and entering "arBind" displays this: ' ),
 
-  h('img.image_3', { props: { src: "demo.png" }}),
+              ]),  ]),
 
+              h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
+
+
+  h('img.image_3', { props: { src: "demo.png" }}),
+  h('p', ' Each of the nine lower entries corresponds to objects created by calling \"mBnd(\'mBnd\', true)\". Fetching attributes of arBind rather than including them as parameters isn\'t a reckless deviations from sound functional programming practices because these attributes are not easily stepped on by other parts of an application. '),              h('div.content2', [ // 2 brackets  main -> content ->
+
+              h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
   h('pre',  `  function qF9 () {
       if (arBind[qfB.key].length > 4) {
         // If true, it\'s time to run the quadratic equation
@@ -2507,12 +2484,17 @@ h('p', ' Immediately after startup, Pressing <F12> and entering "arBind" display
       window[z] = mBnd(true);
   } ` ),  
 
+ ]), 
+              h('div', { style: { width: '47%', fontSize: '18px', float: 'right' }}, [ // *** RIGHT PANEL
 
 h('p', ' Later on this page, MonadItter objects are used in a similar demonstration. mMZ33.release(<coefficient>) is called repeatedly. mMZ33.bind is nested three levels deep. In the third level, the coefficients are applied to the formula and control is directed back to the top level. MonadItter objects are used to screen incoming WebSocket messages. ' ),
 
   
+              ]),
 
+h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 4 '),
+h('div', { style: { width: '47%', fontSize: '18px', float: 'left' }}, [ // *** LEFT PANEL 
 
 h('p', ' Here is another approach to function composition, featuring rapid-fire redefinition of a parameter "v" by functions in an array ("ar"). "v" and "ar" are available to every function in "ar". In the example, we see "v => ar[3](v)" and "y => y - x" where y is the previously computed value and x is the starting value. A more elaborate version could be made to handle asynchronous code. "f_86", "foo", and runFoo are shown below. ' ),
 h('p', ' Enter a number "n" on the right to call "runFoo(n)". ' ),
@@ -2538,6 +2520,10 @@ h('pre', `    function runFoo (n) {
     } ` ),
 
 
+
+
+              ]),        
+h('div', { style: { width: '47%', fontSize: '18px', float: 'right' }}, [ // *** RIGHT PANEL
 h('div', 'Enter a number "n" below to see the result of "runFoo" executing on nine numbers' ),
   h('br'),
 h('input#foocow',    ),
@@ -2552,7 +2538,9 @@ h('div', `${foocow_5.join(", ")}`),
 h('div', `${foocow_6.join(", ")}`),
 h('div', `${foocow_7.join(", ")}`),
 h('div', `${foocow_8.join(", ")}`),
+          ]),
 
+]), h('div.content', [
 
   h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
 
@@ -3072,8 +3060,9 @@ h('pre', `    function addOne () {this.attribute = this.attribute + 1}
 
     var factorial = n =>
         n <= 1 ? n : n * factorial(n - 1);
-
     var _state_ = {attribute: 0}
+    var count = {}
+
 
     var handlerGet = {
         get: (a, b, c) => {
@@ -3086,14 +3075,11 @@ h('pre', `    function addOne () {this.attribute = this.attribute + 1}
     }
 
     count = new Proxy (count, handlerGet); ` ),
-h('br'),
-h('span.tao', ' "count" is a proxy of itself. Trying to get a value from it invokes "handlerGet", overriding the default behavior (throwing a ReferenceError). NOTE: In order to avoid future name clashes and reduce siliness in production code, I changed the definition of count to: ' ),
-h('span', {style: {color: "#ee00bb"}}, '\"const count = new Proxy ({}, handlerGet);\"' ),
-h('span', '. Mutating \"count = {}\" into a proxy of itself was for demonstration purposes only. Both versions function alike. '),
-h('br'),
-h('h3', {style: {color: "#bbee00"}}, 'Function Call Trap' ),
+
+h('p', ' "count" is a proxy of itself. Trying to get a value from it invokes "handlerGet", overriding the default behavior (throwing a ReferenceError).  ' ),
+h('h3', 'Function Call Trap' ),
 h('p', ' The behavior of functions can be modified with the "apply" trap. While "get: (a,b,c) =>" in a handler is "get: (target object, key, value) =>", "apply: (a,b,c) =>" is "apply: (target function, single argument, argument list) =>" ' ),
-h('p', ' As initially defined, f17() does nothing more than this: f17(a,b,c,d) -> [a,c,b+c,d]. Re-defined as a proxy of itself, f17 generates arrays of Fibonacci numbers. The default values of b, c, and d are 0, 1, and false respectively, so f17(n) is equivalent to f17(n,0,1,false), returning the Fibonacci numbers under "n". f17(n,0,1,true) returns an array of prime Fibonacci numbers under n. Here\'s the code: ' ),  
+h('p', ' In the next demonstration, the function f17(a,b,c,d) returns [a,c,b+c,d] and is a proxy of itself. The default values of b, c, and d are 0, 1, and false respectively. if d is set to true, only the prime numbers in the Fibonacci series are returned. Because of the default values, f17(x) === f17(x,0,1,false) ' ),  
 h('div', {style: {color: "#FFAABB"}}, "f17(x): " + F_17  ),
 
 h('br'),
@@ -3137,85 +3123,8 @@ h('pre', {style: {color: "#00DDDD"}}, `    function primeNums(n) {
 
     f17 = new Proxy(f17, fibHandler)  ` ),
 
-h('h3', {style: {color: "#bbee00"}}, 'Spreadsheet-like Behavior' ),
-h('p', ' In spreadsheets, such as Microsoft\'s Excell, when a + b = c, changing a or b automatically changes c. Such behavior is easy to implement with proxies. ' ),
-
-h('table', {style: {color: '#ffaa00', fontSize: '22px'}}, [
-  h('tr', [
-    h('td', "A"),
-    h('td', _state.a) ]),
-
-  h('tr', [
-    h('td', "B"),
-    h('td', _state.b) ]),
-
-  h('tr', [
-    h('td', "SUM"),
-    h('td', _state.sum) ]),
-
-  h('tr', [
-    h('td', {style: {paddingRight: '23px'}}, "PRODUCT     "),
-    h('td', _state.prod) ]) ]),
-
-h('br', ),
-h('br', ),
-
-h('button#aplus', {style: {fontSize: '17px'}}, ' A + ' ),
-h('button#aminus', {style: {fontSize: '17px'}}, ' A - ' ),
-h('button#bplus', {style: {fontSize: '17px'}}, ' B + ' ),
-h('button#bminus', {style: {fontSize: '17px'}}, ' B - ' ),
-h('br', ),
-h('br', ),
-h('button#resetState', {style: {fontSize: '17px'}}, ' Reset ' ),
-h('span',{style: {paddingLeft: '20px'}}, 'A :' ),
-h('input#stateA', ),
-h('span',{style: {paddingLeft: '20px'}}, 'B :' ),
-h('input#stateB', ),
-h('br'),
-h('p', ' Here\'s the code: ' ),
-h('pre', `  const _state = {a: 0, b: 0, sum: 0, prod: 0 }
-
-  function add_a () {this.a += 1}
-  function subtract_a () {this.a -= 1}
-
-  function add_b () {this.b += 1}
-  function subtract_b () {this.b -= 1}
-
-  function set_a (x) {this.a = x};
-  function set_b (z) {this.b = z};
-
-  function sum () {this.sum = this.a + this.b}
-  function prod () {this.prod = this.a * this.b}
-
-  function resetState () {this.a=0;this.b=0;this.sum=0;this.prod=0};
-
-  var handlerUpdate = {
-      get: (a, b, c) => {
-          if (b === "add_a") add_a.apply(_state)
-          else if (b === "add_b") add_b.apply(_state)
-          else if (b === "subtract_a") subtract_a.apply(_state)
-          else if (b === "subtract_b") subtract_b.apply(_state)
-          else if (b === "resetState") resetState.apply(_state)
-          else if (b === "resetState") resetState.apply(_state)
-          sum.apply(_state);  
-          prod.apply(_state);
-          diffRender();
-      }
-  }
-
-  const _count = new Proxy ({}, handlerUpdate); ` ), 
-
-
-
-
-
 h('p', ' ' ), 
 h('a', {props: {href: "#proxy2"}}, 'Back to the first demonstration' ),
-
-
-
-
-
 
 
 h('h2', ' MonadEr - An Error-Catching Monad '),
