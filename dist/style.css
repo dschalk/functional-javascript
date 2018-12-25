@@ -17,7 +17,15 @@
     box-shadow:         inset 0px 0px 20px 0px rgb(0,0,0);
     padding: 3px 0px 3px 3px;
   }
+  
+.flex-container {
+  display: flex;
+  flex-direction: row;
+}
 
+.flex-container > .flex-item {
+  flex: auto;
+}
 
 .column {
   float: left;

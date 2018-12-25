@@ -110,8 +110,48 @@ function Bind(str, bool = false) {
     };
     return _bind;
 };
+function Bind2() {
+    this.arB = [];
+    return _bind2 = x => {
+        return func => {
+        	   var p;
+            if (func == '_end_') console.log(`done ${arB.join(', ')}`)
+            else if (x instanceof Promise) x.then(v => p = func(v))
+            else if (typeof func !== "function") p = func
+            else p = func(x);
+            console.log("p is", p, "arB is", arB);
+            arB.push(p);
+            return _bind2(p);
+        };
+    };
+};
 
-/* 
+/*
+function Bind3() {
+    this.arB = [];
+    return _bind3 = x => {
+        if (x instanceof Promise) x.then(y => {
+            arB.push(y); console.log(arB);
+        })
+        else {
+            arB.push(x); console.log(arB);
+        //    diffRender();
+        }
+        return func => {
+            var p;
+            if (func == "stop") return arB;
+            if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else p = func(x);
+            return _bind3(p);
+        };
+    };
+};
+
+ Bind3()(idP(7))(cubeP)(x=>idP(1*x+arB[0]))(squareP)(() => idP(arB[2]**3))(x=>idP(x/arB[3]))(x=>idP(x-arB[1]))('stop')
+
+
+ 
 function Bind(str) {
     arBind[str] = [];
     var p;
@@ -252,61 +292,6 @@ console.log(intArray(7))   // [1,2,3,4,5,6,7]
 
 
 num9 = 0;
-
-//***************************************************************** mBnd, test4, test5, test6
-
-var diffR = function diffR (obj) {
-    return obj = autoRefresh(obj)
-};
-
-var mBnd = (bool = false, val = "mBnd") => {
-    var x = Symbol(val)  // "val" can be useful in debugging;
-    var ob = {key: x, run: Bind(x)}; 
-    arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
-    return ob;
-}; 
-
-var test4 = z => w  => {
-  window[z] = Bind(z);
-  var ar = arBind[z];
-  return window[z](w)(cubeP)(squareP)
-  (() => divP(ar[0])(ar[1]))(rootP)()}
-
-var test6 = w => {
-  var ob = mBnd(true)
-  var ar = arBind[ob.key];
-  return ob.run(w)(cubeP)(squareP)
-  (() => divP(ar[0])(ar[1]))(rootP)()}
-
-var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready']; 
-    var _C0 = _C1 = _C2 = _C3 = _C4 = _C5 = _C6 = _C7 = _C8 = ['ready']; 
-
-    function test5 (n) {
-      var x = toInt(n);
-
-      _C0 = test4('a11')(x+0);
-      _C1 = test4('a12')(x+1);
-      _C2 = test4('a13')(x+2);
-      _C3 = test4('a14')(x+3);
-      _C4 = test4('a15')(x+4);
-      _C5 = test4('a16')(x+5);
-      _C6 = test4('a17')(x+6);
-      _C7 = test4('a18')(x+7);
-      _C8 = test4('a19')(x+8);
-      
-      _B0 = test6(x+0);
-      _B1 = test6(x+1);
-      _B2 = test6(x+2);
-      _B3 = test6(x+3);
-      _B4 = test6(x+4);
-      _B5 = test6(x+5);
-      _B6 = test6(x+6);
-      _B7 = test6(x+7);
-      _B8 = test6(x+8);
-  }
-
-  //***************************************************************** DND
-
   function test9 () {
     test5(-4);
     setTimeout(() => {test5(-4); test5(-4)},1600)
@@ -3122,10 +3107,7 @@ var view = new Proxy({
 // test6(3); 
 // console.log("arBind.a11", arBind.a11, "_______________________-----__--------------------- digit");
 
-test5(7);
-
 var qfB = mBnd(true);    
-
 
 // ************* CLOSURE Saves cache of Fibonacci numbers
 console.log(" ************* CLOSURE Saves cache of Fibonacci numbers");
@@ -3168,9 +3150,9 @@ myIterable[Symbol.iterator] = function* () {
 [...myIterable] 
 
 var f_86 = v => t => {
-    var ar = [v]; 
-    t.map(g => ar.push(v=g(v))); 
-    return ar
+    var ar97 = [v]; 
+    t.map(g => ar97.push(v=g(v))); 
+    return ar97
 };
 
 var foo = x => f_86(x)([v=>v**3, v=>v+x, v=>v**2,v=>ar[3](v),
@@ -3364,6 +3346,101 @@ console.log(`${_state.a} * ${_state.b} = ${_state.prod}`);
 
 console.log(_state.sum, _state.prod);
 
+
+ function Bnd3 () {
+    this.ar = [];
+    this.run = x => {
+        if (x instanceof Promise) x.then(y => {
+            this.ar.push(y); diffRender();
+        })
+        else {
+            this.ar.push(x); diffRender();
+        }
+        return func => {
+            var p;
+            if (func == 'stop') return this.ar;
+            if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else p = func(x);
+            return this.run(p);
+        };
+    };
+};
+
+
+//***************************************************************** mBnd, test4, test5, test6
+function diffR (obj) {
+    return obj = autoRefresh(obj)
+};
+
+function mBnd (bool = false, val = "mBnd") {
+    var x = Symbol(val)  // "val" can be useful in debugging;
+    var ob = {key: x, run: Bind(x)}; 
+    arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
+    return ob;
+}; 
+
+function g17 () {return new Bnd3()};
+
+function test4 (w) {var f = g17(); return f.run(w)(cubeP)(x=>idP(x+f.ar[0]))
+  (squareP)(() => idP(f.ar[2]**3))(x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')};
+
+function test6 (w) {
+  var ob = mBnd(true);
+  var ar = arBind[ob.key];
+  return ob.run(w)(cubeP)(x=>idP(x+ar[0]))
+  (squareP)(() => idP(ar[2]**3))(x=>idP(x/ar[3]))(x=>idP(x-ar[1]))()};
+  
+var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready']; 
+var _C0 = _C1 = _C2 = _C3 = _C4 = _C5 = _C6 = _C7 = _C8 = ['ready']; 
+
+  function test5 (n) {
+      var x = toInt(n);
+/*
+      [0,1,2,3,4,5,6,7,8].map(v => window["_C"+v] = test4(1*n+v));
+      _C1 = test4('ar1')(x+0);
+      _C2 = test4('ar2')(x+1);
+      _C3 = test4('ar3')(x+2);
+      _C4 = test4('ar4')(x+3);
+      _C5 = test4('ar5')(x+4);
+      _C6 = test4('ar6')(x+5);
+      _C7 = test4('ar7')(x+6);
+      _C8 = test4('ar8')(x+7);
+      _C9 = test4('ar9')(x+8);
+
+
+      _C0 = test4_ob[x+0];
+      _C1 = test4_ob[x+1];
+      _C2 = test4_ob[x+2];
+      _C3 = test4_ob[x+3];
+      _C4 = test4_ob[x+4];
+      _C5 = test4_ob[x+5];
+      _C6 = test4_ob[x+6];
+      _C7 = test4_ob[x+7];
+      _C8 = test4_ob[x+8];
+*/
+      _C0 = test4(x+0);
+      _C1 = test4(x+1);
+      _C2 = test4(x+2);
+      _C3 = test4(x+3);
+      _C4 = test4(x+4);
+      _C5 = test4(x+5);
+      _C6 = test4(x+6);
+      _C7 = test4(x+7);
+      _C8 = test4(x+8);
+
+      _B0 = test6(x+0);
+      _B1 = test6(x+1);
+      _B2 = test6(x+2);
+      _B3 = test6(x+3);
+      _B4 = test6(x+4);
+      _B5 = test6(x+5);
+      _B6 = test6(x+6);
+      _B7 = test6(x+7);
+      _B8 = test6(x+8);
+  }
+
+  //***************************************************************** DND
 
 
 
