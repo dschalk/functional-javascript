@@ -2174,7 +2174,7 @@ h('p', ' The first series of demonstrations (below) address function composition
 h('br'),
 
   h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 1 '),
-  
+   
   h('pre', `    var factorsClick8$ = sources.DOM
       .select('button#factors_S').events('click');
 
@@ -2187,13 +2187,24 @@ h('br'),
           i += 1;
       }
     });  
-    
-    var it4_b = x => {
-      if (socket.readyState === 1) socket.send(
-          \`BD#$42, \${pMgroup.x}, \${pMname.x}, \${x} \`
-      );
-    }
-    
+
+    function mBnd (bool = false, val = "mBnd") { var x = Symbol(val)  // "val" can be useful in debugging;
+        var ob = {key: x, run: Bind(x)}; 
+        arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
+        return ob;
+    }; 
+
+    function g17 () {return new Bnd3()};
+
+    function test4 (w) {var f = g17(); return f.run(w)(cubeP)(x=>idP(x+f.ar[0]))
+      (squareP)(() => idP(f.ar[2]**3))(x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')};
+
+    function test6 (w) {
+      var ob = mBnd(true);
+      var ar = arBind[ob.key];
+      return ob.run(w)(cubeP)(x=>idP(x+ar[0]))
+      (squareP)(() => idP(ar[2]**3))(x=>idP(x/ar[3]))(x=>idP(x-ar[1]))()};
+      
     // MonadItter is an efficient ES5 way to handle asynchronous behavior.
     
     var MonadItter = function MonadItter() {
@@ -2205,6 +2216,10 @@ h('br'),
         return this.p = func;
       };
     };
+
+    var it4_b = x => {
+      if (socket.readyState === 1) socket.send(`BD#$42,${pMgroup.x},${pMname.x},${x}`);
+    }
 
     var mMZ41 = new MonadItter();
     var mMZ53 = new MonadItter();
@@ -2223,7 +2238,6 @@ h('br'),
         'Elapsed time: ' + (Date.now() - start78) + " ms"
       );
     });  ` ),
-
 
   h('span', ' Click below to begin twenty-five runs of: '),
   h('br'),
@@ -2293,8 +2307,22 @@ h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - The P
                 h('div', `${_B7.join(", ")}`),
                 h('div', `${_B8.join(", ")}`),
 
+                h('br'),
+h('span.tao', ' Here\'s three more proxy demos: ' ),                          
 h('a#proxy2', {props: {href: "#proxies"}}, 'Fun With Proxies' ),
+h('span', ', and here\s a screen shot showing test4() in action: ' ), 
+                          
+h('br'),
+h('br'),
 
+h('img.image', {
+  props: {
+    src: "test4.png"
+  }
+}),
+            
+h('br'),
+h('br'),
 h('div', styleFunc(["#8ffc95", , "21px", , , "center"]), ' The Demonstration 2 Code' ),
 
 h('p', ' The user generates "n" (below). _B0, _B1, ... _B8 and _C0, _C1, ... _C8 are permanent fixtures in the virtual DOM. ' ),
@@ -3148,30 +3176,25 @@ h('pre', `    ret3(0,'t',[])  // t is now an instance of MonadEr with t.x = 0 an
         t.ret(0).bnd(add3, 3).bnd(cube3).x ===
         t.ret(0).bnd(v => add3(v,3).bnd(cube3)).x  `),
 
-              h('h3', 'Feedback From the Error Monad'),
-              h('span#comments'),
-              h('img.image', {
-                props: {
-                  src: "error2.png"
-                }
-              }),
-              h('div#comment'),
-              h('h2', {
-                style: {
-                  color: "red"
-                }
-              }, 'Comments'),
+h('span#comments'),
+h('br'),
+h('div#comment'),
+h('h2', {
+  style: {
+    color: "red"
+  }
+}, 'Comments'),
 
-              h('a', {
-                props: {
-                  href: '#top'
-                }
-              }, 'Back to the top'),
-              h('div#com2', {
-                style: {
-                  display: abcde
-                }
-              }),
+h('a', {
+  props: {
+    href: '#top'
+  }
+}, 'Back to the top'),
+h('div#com2', {
+  style: {
+    display: abcde
+  }
+}),
 h('h3', 'User Names' ),
 h('p', ' When this page loads in the browser, a user name is automatically generated in order to establish a unique WebSocket connection. This makes it possible to exchange text messages with other group members, play the game, and work on a shared todo list. If you want to leave a comment, you need to log in with a user name and a password of your choice. Each can be a single character or you could use a hard-to-hack combination of alphabet letter, numbers, and special characters. The main requirement is that there be only one comma, and that it be placed between the name and the password. '),
 h('p', 'The server will keep your user name and password in a text file. If you use your saved user name and password sometime in the future, you will be able to edit or delete any comments you previously made. '),

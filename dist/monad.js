@@ -3373,8 +3373,7 @@ function diffR (obj) {
     return obj = autoRefresh(obj)
 };
 
-function mBnd (bool = false, val = "mBnd") {
-    var x = Symbol(val)  // "val" can be useful in debugging;
+function mBnd (bool = false, val = "mBnd") { var x = Symbol(val)  // "val" can be useful in debugging;
     var ob = {key: x, run: Bind(x)}; 
     arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
     return ob;
