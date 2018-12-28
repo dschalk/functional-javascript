@@ -1200,25 +1200,6 @@ workerL$ = sources.WWL.map(m => {
 
 });
 
-var clearClick7$ = sources.DOM
-  .select('button.clear_Q').events('click')
-  .map(() => {
-    m42_ = [];
-  })
-
-var factorsClick7$ = sources.DOM
-  .select('button#factors_Q').events('click');
-
-var factorsAction7$ = factorsClick7$.map(e => {
-  m42_ = [];
-  Bind.bind0 = [];
-  let ii = 0;
-  while (ii < 25) {
-    bind(145)(x => x ** 3)(it4)(it6)(it7);
-    ii += 1;
-  }
-});
-
 var clearClick8$ = sources.DOM
   .select('button.clear_R').events('click')
   .map(() => {
@@ -1231,60 +1212,54 @@ var factorsClick8$ = sources.DOM
 var factorsAction8$ = factorsClick8$.map(e => {
   var i = 0;
   m43_ = [];
-  var bind = new Bnd3(); 
+  var ob = new Bnd3(); 
   while (i < 25) {
-    bind.run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
+    ob.run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
     i += 1;
   }
 });
 
-
 var aplusClick$ = sources.DOM
   .select('button#aplus').events('click')
   .map(() => {
-    console.log("Hello Beautiful");
     _count.add_a
   });
 
 var aminusClick$ = sources.DOM
   .select('button#aminus').events('click')
   .map(() => {
-    console.log("Hello Beautiful");
     _count.subtract_a
   });
 
 var bplusClick$ = sources.DOM
   .select('button#bplus').events('click')
   .map(() => {
-    console.log("Hello Beautiful");
     _count.add_b
   });
 
 var bminusClick$ = sources.DOM
   .select('button#bminus').events('click')
   .map(() => {
-    console.log("Hello Beautiful");
     _count.subtract_b
   });
 
 var resetStateClick$ = sources.DOM
   .select('button#resetState').events('click')
   .map(() => {
-    console.log("Hello Beautiful");
     _count.resetState
   });
 
 var setStateA$ = sources.DOM
   .select('#stateA').events('keyup')
   .map(e => {
-        _state.a = toInt(e.target.value);
+        _state.a = toFloat(e.target.value);
         _count.go;
   })
 
 var setStateB$ = sources.DOM
   .select('#stateB').events('keyup')
   .map(e => {
-        _state.b = toInt(e.target.value);
+        _state.b = toFloat(e.target.value);
         _count.go;
   })
 
@@ -2086,9 +2061,7 @@ pp4 = () => {
   // var xoxo = ["this is the head", "cow", "dog", "fireworks"];
   // head(xoxo).concat(tail(xoxo) === xoxo;
   */
-
-
-      var calcStream$ = xs.merge( setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick7$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factorsAction7$, factorsClick7$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
+      var calcStream$ = xs.merge( setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
         DOM: calcStream$.map(() => {
@@ -2146,7 +2119,7 @@ h('span', ', \"Functional programming is a programming paradigm in which we try 
 h('br'),
 h('br'),
 h('span.tao', {style: {color: "#FF00DD"}}, ' WARNING:' ), 
-h('span', ' Unless you are already proficient at creating functions that use recursion, closures, currying, reactivity, proxies, and sensible composition, limiting your creativity with functional-paradigm restrictions might hold you back. ' ), 
+h('span', ' Unless you are already proficient at creating functions that use recursion, closures, currying, reactivity, proxies, and sensible composition, trying to conform to the functional-paradigm will stiffle your creativity and slow you progress toward mastering JavaScript. Demonstration 2 discusses easing into using pure functions, and understanding when side effects are appropriate. A later section is titled, "A Lesson On Mindlessly Following Rules".  ' ), 
 
 h('p', ' The first series of demonstrations (below) address function composition. Consider this:' ),    
 
@@ -2171,73 +2144,86 @@ h('p', ' The first series of demonstrations (below) address function composition
 ` ),
     h('p', ' The first example (below) performs a computation, requests a quasi-random number from the WebSocket server, requests that number\'s prime decomposition from a web worker, and displays the result. The code runs twenty-five times. '),
                         
-h('br'),
+h('br')
+
+                        ]),
+            h('div.content2',  [
+
+
+
+
+
 
   h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 1 '),
-   
-  h('pre', `    var factorsClick8$ = sources.DOM
-      .select('button#factors_S').events('click');
 
-    var factorsAction8$ = factorsClick8$.map(() => {
-      m44_ = [];  // Clears the display.
-      var i = 0;
-      var bind = new Bnd3(); 
-      while (i < 25) {
-          bind(145)(x => x * x * x)(it4_b)(it6_b)(it7_b);
-          i += 1;
-      }
-    });  
 
-    function mBnd (bool = false, val = "mBnd") { var x = Symbol(val)  // "val" can be useful in debugging;
-        var ob = {key: x, run: Bind(x)}; 
-        arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
-        return ob;
-    }; 
 
-    function g17 () {return new Bnd3()};
+h('div', {style: {display: "flex" }},  [
 
-    function test4 (w) {var f = g17(); return f.run(w)(cubeP)(x=>idP(x+f.ar[0]))
-      (squareP)(() => idP(f.ar[2]**3))(x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')};
+  h('div', {style: {marginRight: "3%" }},   [
 
-    function test6 (w) {
-      var ob = mBnd(true);
-      var ar = arBind[ob.key];
-      return ob.run(w)(cubeP)(x=>idP(x+ar[0]))
-      (squareP)(() => idP(ar[2]**3))(x=>idP(x/ar[3]))(x=>idP(x-ar[1]))()};
-      
-    // MonadItter is an efficient ES5 way to handle asynchronous behavior.
-    
-    var MonadItter = function MonadItter() {
-      this.p = function () {};
-      this.release = function () {
-        return this.p.apply(this, arguments);
-      };
-      this.bnd = function (func) {
-        return this.p = func;
-      };
+
+  h('pre', `var factorsClick8$ = sources.DOM
+  .select('button#factors_R').events('click'); 
+
+var factorsAction8$ = factorsClick8$.map(e => {
+  var i = 0;
+  m43_ = [];
+  var ob = new Bnd3(); 
+  while (i < 25) {
+    ob.run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
+    i += 1;
+  }
+});
+
+var clearClick8$ = sources.DOM
+  .select('button.clear_R').events('click')
+  .map(() => {
+    m43_ = [];
+  })
+
+
+function Bnd3 () {
+    this.ar = [];
+    this.run = x => {
+        if (x instanceof Promise) x.then(y => {
+            this.ar.push(y);
+        })
+        else {
+            this.ar.push(x); 
+        }
+        return func => {
+            var p;
+            if (func == 'stop') return this.ar;
+            if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(
+                v => func(v);
+            );
+            else p = func(x);
+            return this.run(p);
+        };
     };
+};
+     
+var MonadItter = function MonadItter() {
+  this.p = function () {};
+  this.release = function () {
+    return this.p.apply(this, arguments);
+  };
+  this.bnd = function (func) {
+    return this.p = func;
+  };
+}; ` )
 
-    var it4_b = x => {
-      if (socket.readyState === 1) socket.send(`BD#$42,${pMgroup.x},${pMname.x},${x}`);
-    }
+  ]),
 
-    var mMZ41 = new MonadItter();
-    var mMZ53 = new MonadItter();
 
-    var it6_b = y => {
-      mMZ41.bnd(y => workerM.postMessage([primeState, y]));
-    }
+  h('div',  [
 
-    it7_b = () => mMZ53.bnd(string => {
-      callOrder2 = callOrder2 > 24 ? 1 : callOrder2 + 1;
-      if (callOrder2 === 1) start78 = Date.now();
-      m43_.push(callOrder2 + "  ");
-      m43_.push(string)
-      m43_.push(h('br'));
-      if (callOrder2 === 25) m43_.push(
-        'Elapsed time: ' + (Date.now() - start78) + " ms"
-      );
-    });  ` ),
+  h('br'),
+  h('br'),
+  h('br'),
+
 
   h('span', ' Click below to begin twenty-five runs of: '),
   h('br'),
@@ -2255,17 +2241,116 @@ h('br'),
   }, 'clear results'),
   h('br'),
   h('br'),
-  h('div#demo2', m43_),
+  h('div#demo2', {style: {fontSize: "15px"}},  m43_),
   h('br'),
   h('br'),
-    h('br'),
+  h('br'),
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - The Proxy-Table Algorithm'),
+h('span.tao', ' In this demonstration, ob.ar (the array of return and resolution values) isn\'t used, so ob can be defined only once. When, as in demonstration 2, ob.ar is used during concurrent calls to ob.run, "ob = new Bnd()" is called repeatedly to define descrete objects "ob" with unique versions of "ob.ar". ' ),
+h('pre', `var it4_b = x => {
+  if (socket.readyState === 1) 
+    socket.send(\`BD#$42,\${pMgroup.x},\${pMname.x},\${x}\`);
+}
 
-                h('br'),
-                h('br'),
+var mMZ41 = new MonadItter();
+var mMZ53 = new MonadItter();
+
+var it6_b = y => {
+  mMZ41.bnd(y => workerM.postMessage([primeState, y]));
+}
+
+it7_b = () => mMZ53.bnd(string => {
+  callOrder2 = callOrder2 > 24 ? 1 : callOrder2 + 1;
+  if (callOrder2 === 1) start78 = Date.now();
+  m43_.push(callOrder2 + "  ");
+  m43_.push(string)
+  m43_.push(h('br'));
+  if (callOrder2 === 25) m43_.push(
+    'Elapsed time: ' + (Date.now() - start78) + " ms"
+  );
+});  ` ),
+
+
+  ])
+                        ])
+
+
+
+
+
+  ]),
+
+
+
+
+
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Easing into pure functions.'),
+
+
+
+h('div', {style: {display: "flex" }},  [
+  h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+
+
+
+h('span.tao', ' The user generates "n" (below). _B0, _B1, ... _B8 and _C0, _C1, ... _C8 are permanent fixtures in the virtual DOM. test6() accesses the global constructor Bnd3() and mutates the global symbol table and the global arBind object by adding an attribute to each. It also mutates _B0, _B1, ... and _B8 each time a composed function returns a value.  test4() is closer to being pure, affecting only _C0, _C1, etc before it returns. Demonstration 2 requires test4\'s side effects. _C0, _C1, etc. are for display only. ' ),
+h('br'),
+h('p', ' Side effects that affect only the DOM are unlikely to cause problems, especially if they don\'t trigger events or get fetched into functions. You certainly won\'t see "func(document.getElementById("some_id")" or anything like it on this web page. ' ),
+  
+h('pre', `function test5 (n) {
+    var x = toInt(n);
+
+    _C0 = test4(x+0, Bnd3);
+    _C1 = test4(x+1, Bnd3);
+    _C2 = test4(x+2, Bnd3);
+    _C3 = test4(x+3, Bnd3);
+    _C4 = test4(x+4, Bnd3);
+    _C5 = test4(x+5, Bnd3);
+    _C6 = test4(x+6, Bnd3);
+    _C7 = test4(x+7, Bnd3);
+    _C8 = test4(x+8, Bnd3);
+
+    _B0 = test6(x+0);    // This code uses mBnd
+    _B1 = test6(x+1);
+    _B2 = test6(x+2);
+    _B3 = test6(x+3);
+    _B4 = test6(x+4);
+    _B5 = test6(x+5);
+    _B6 = test6(x+6);
+    _B7 = test6(x+7);
+    _B8 = test6(x+8);
+} 
+
+function test4 (w, c) {  
+    var f = new c();  //  Everything happens in local scope
+    return f.run(w)(cubeP)
+      (x=>idP(x+f.ar[0]))(squareP)(() => idP(f.ar[2]**3))
+        (x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')
+};
+
+function test6 (w) {
+    var x = Symbol();         //  Mutates the global Symbol table
+    var run = Bind(x, true);  //  Mutates the global arBind object  
+    var ar = arBind[x];  
+    return run(w)(cubeP)
+      (x=>idP(x+ar[0]))(squareP)(() => idP(ar[2]**3))
+        (x=>idP(x/ar[3]))(x=>idP(x-ar[1]))()
+};
+` ),
+
+
+  ]),
+
+
+  h('div',   [
+
+
+
+
                 h('div', styleFunc(["#FffcCC", , "21px", , , ]), 'Using new Bnd() - The Array Stays In Function Scope.'),
                 h('br'),
+
                 h('div', `${_C0.join(", ")}`),
                 h('div', `${_C1.join(", ")}`),
                 h('div', `${_C2.join(", ")}`),
@@ -2307,61 +2392,61 @@ h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - The P
                 h('div', `${_B7.join(", ")}`),
                 h('div', `${_B8.join(", ")}`),
 
-                h('br'),
+h('br'),
+h('p', ' The arrays are named "f.ar" in test4() where f = new Bnd() is confined to test4()\'s scope. In test6(), the arrays are attributes of arBind with keys hidden in the Symbol table. I think it\'s best to keep things in function scope as much as possible, so I would not use the test6() algorithm in production. ' ),
+    h('pre', `  function autoRefresh(obj) {
+    const handler = {
+        set (obj, prop, value) {
+            diffRender();  // Forces DOM update 
+            return Reflect.set(obj, prop, value);
+        },
+    };
+    return new Proxy(obj, handler);
+  }
+
+  function diffR (obj) {
+      return obj = autoRefresh(obj)
+  };
+
+  function mBnd (bool = false, val = "mBnd") { var x = Symbol(val)  
+                           // "val" can be useful in debugging;
+      var ob = {key: x, run: Bind(x)}; 
+      arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
+      return ob;
+  }; ` ),
+
+
+
+
+            ])
+
+                        ]),
+
+
+
+
+h('div.content', [
+
 h('span.tao', ' Here\'s three more proxy demos: ' ),                          
 h('a#proxy2', {props: {href: "#proxies"}}, 'Fun With Proxies' ),
-h('span', ', and here\s a screen shot showing test4() in action: ' ), 
+h('span', ', and here\s a screen shot showing the results of test4(9) and test4(3): ' ), 
                           
 h('br'),
+
 h('br'),
 
-h('img.image', {
-  props: {
-    src: "test4.png"
-  }
-}),
+h('img.image', {props: {src: "test4.png" }}, {style: {textAlign: "left" }}, ),
             
-h('br'),
-h('br'),
-h('div', styleFunc(["#8ffc95", , "21px", , , "center"]), ' The Demonstration 2 Code' ),
+h('br')
 
-h('p', ' The user generates "n" (below). _B0, _B1, ... _B8 and _C0, _C1, ... _C8 are permanent fixtures in the virtual DOM. ' ),
-h('pre', `  function test5 (n) {
-      var x = toInt(n);
+]),
 
-      _C0 = test4(x+0);
-      _C1 = test4(x+1);
-      _C2 = test4(x+2);
-      _C3 = test4(x+3);
-      _C4 = test4(x+4);
-      _C5 = test4(x+5);
-      _C6 = test4(x+6);
-      _C7 = test4(x+7);
-      _C8 = test4(x+8);
+                          h('div.content', [
 
-      
-      _B0 = test6(x+0);    // This code uses mBnd
-      _B1 = test6(x+1);
-      _B2 = test6(x+2);
-      _B3 = test6(x+3);
-      _B4 = test6(x+4);
-      _B5 = test6(x+5);
-      _B6 = test6(x+6);
-      _B7 = test6(x+7);
-      _B8 = test6(x+8);
-  } 
-  
-  var test4 = z => w  => {
-    window[z] = Bind(z);
-    var ar = arBind[z];
-    return window[z](w)(cubeP)(squareP)
-    (() => divP(ar[0])(ar[1]))(rootP)()}
 
-  var test6 = w => {
-    var ob = mBnd(true)
-    var ar = arBind[ob.key];
-    return ob.run(w)(cubeP)(squareP)
-    (() => divP(ar[0])(ar[1]))(rootP)()}  ` ),
+
+
+
 
 
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 3 '),
@@ -2413,7 +2498,8 @@ h('p', ' It doesn\'t bother me that, for example, quadFormula(-3) doesn\'t alway
 h('pre', `  1*x*x + 2*x + -3 = 0 has the following solutions:
   x = -3 and x = 1 ` ),
   
-h('p', ' As for fishing arBind[qfB.key] out of the global scope, please note the discussion above. "qfB.key" belongs only to the most recently created version of qfB. It was created by running "x = Symbol()" while qfB was being defined. Previously created objects named "qfB" have their own unique secret values of "qfB.key" and their own private arrays. '),
+h('p', ' quadFormula() is just as reliable as any mathmatical function, notwithstanding the fact that every third time it is called it returns either no solution or two solutions to the quadratic formula. The same arguments always yield the same result. It demonstrates a way JavaScript functions can wait for asynchronous arguments to arrivebefore returning a result. The alternative would be a mechanism for storing incoming data and then feeding it to a multi-parameter function all at once. ' ),
+h('p', ' As for fishing arBind[qfB.key] out of the global scope, please note the discussion above. "qfB.key" belongs only to the most recently created version of qfB. It was created by running "x = Symbol()" while qfB was being defined. Previously created objects named "qfB" have their own unique secret values of "qfB.key" and their own private arrays. Subsequently created qfBs can\'t step on a current qfB any more than it could have stepped on previously created ones. '),
 
   h('pre',  `  function qF9 () {
       if (arBind[qfB.key].length > 4) {
@@ -3628,49 +3714,20 @@ h('br'),
       h('span', bigBlue, x[4] ),
       h('span', bigRed, x[5] ),
   ]); `),
-              h('a', {
-                props: {
-                  href: '#demo2'
-                }
-              }, 'Go to Demonstration 1'),
+              h('a', {props: {href: '#demo2'}}, 'Go to Demonstration 1'),
               h('p', ' This is how Cycle.js handles click events in Demonstrations "1" and "3": '),
-              h('pre', `  var clearClick7$ = sources.DOM
-        .select('button.clear_Q').events('click')
-        .map(() => {
-          m42_ = [];
-        })
+              h('pre', `  var factorsClick8$ = sources.DOM
+    .select('button#factors_R').events('click'); 
 
-    var factorsClick7$ = sources.DOM
-      .select('button#factors_Q').events('click');
-
-    var factorsAction7$ = factorsClick7$.map( e => {
-      m42_ = [];
-      Bind.bind0 = [];
-      let ii = 0;
-      while (ii < 25) {
-          bind(145)(x=>x**3)(it4)(it6)(it7);
-          ii += 1;
-      }
-    });
-
-    var clearClick8$ = sources.DOM
-        .select('button.clear_R').events('click')
-        .map(() => {
-          m43_ = [];
-        })
-
-    var factorsClick8$ = sources.DOM
-      .select('button#factors_R').events('click');
-
-  var factorsAction8$ = factorsClick8$.map( e => { m43_ = [];
+  var factorsAction8$ = factorsClick8$.map(e => {
     var i = 0;
     m43_ = [];
-    var bd = Bind("bd");
+    var bind = new Bnd3().run; 
     while (i < 25) {
-        bd(145)(x=>x**3)(it4_b)(it6_b)(it7_b)();
-        i += 1;
+      bind(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
+      i += 1;
     }
-  }); `),
+  });  ` ),
             h('p', ' After 145 is cubed, it4 (Demonstration 1) and it4_b (Demonstration 2) request a pseudo-random numbers as follows: '),
             h('pre', `  var it4 = x => {
     if (socket.readyState === 1) socket.send(\`BC#$42,${pMgroup.x},${pMname.x},${x}\`);

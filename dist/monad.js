@@ -1,4 +1,11 @@
 
+var cowShit = '';
+setTimeout(() => {
+cowShit  = h('div', {style: {color: '#000'}}, [
+  h('h1', 'Headline'),
+  h('h3', 'What the fuck do you think you are doing?.' ),
+]);
+}, 1000 );
 
 var bNode;
 
@@ -3340,21 +3347,21 @@ var handlerUpdate = {
 
 const _count = new Proxy ({}, handlerUpdate);
 
-
 console.log(`${_state.a} + ${_state.b} = ${_state.sum}`);
 console.log(`${_state.a} * ${_state.b} = ${_state.prod}`);
 
 console.log(_state.sum, _state.prod);
 
+//***************************************************************** mBnd, test4, test5, test6
 
  function Bnd3 () {
     this.ar = [];
     this.run = x => {
         if (x instanceof Promise) x.then(y => {
-            this.ar.push(y); diffRender();
+            this.ar.push(y);
         })
         else {
-            this.ar.push(x); diffRender();
+            this.ar.push(x); 
         }
         return func => {
             var p;
@@ -3367,77 +3374,66 @@ console.log(_state.sum, _state.prod);
     };
 };
 
-
-//***************************************************************** mBnd, test4, test5, test6
 function diffR (obj) {
     return obj = autoRefresh(obj)
 };
 
-function mBnd (bool = false, val = "mBnd") { var x = Symbol(val)  // "val" can be useful in debugging;
-    var ob = {key: x, run: Bind(x)}; 
-    arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
+function mBnd (bool = false) { 
+    var ob = {key: Symbol(), run: new Bnd3().run}; 
+    if (bool) ob = autoRefresh(ob); 
     return ob;
 }; 
 
-function g17 () {return new Bnd3()};
+/*  function test4 (w) {  
+    var f = new Bnd3();  // f.run and f.ar are in local scope
+    return f.run(w)(cubeP)
+      (x=>idP(x+f.ar[0]))(squareP)(() => idP(f.ar[2]**3))
+        (x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')
+};  */
 
-function test4 (w) {var f = g17(); return f.run(w)(cubeP)(x=>idP(x+f.ar[0]))
-  (squareP)(() => idP(f.ar[2]**3))(x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')};
+function test4 (w, c) {  
+    var f = new c();  // f.run and f.ar are in local scope
+    return f.run(w)(cubeP)
+      (x=>idP(x+f.ar[0]))(squareP)(() => idP(f.ar[2]**3))
+        (x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')
+};
 
 function test6 (w) {
-  var ob = mBnd(true);
-  var ar = arBind[ob.key];
-  return ob.run(w)(cubeP)(x=>idP(x+ar[0]))
-  (squareP)(() => idP(ar[2]**3))(x=>idP(x/ar[3]))(x=>idP(x-ar[1]))()};
-  
+    var x = Symbol();
+    var run = Bind(x, true);  
+    var ar = arBind[x];  // arBind is an object in global scope
+    return run(w)(cubeP)
+      (x=>idP(x+ar[0]))(squareP)(() => idP(ar[2]**3))
+        (x=>idP(x/ar[3]))(x=>idP(x-ar[1]))()
+};
+var _D0 = _D1 = _E0 = _E1 = ['cow'];
 var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready']; 
 var _C0 = _C1 = _C2 = _C3 = _C4 = _C5 = _C6 = _C7 = _C8 = ['ready']; 
 
-  function test5 (n) {
-      var x = toInt(n);
-/*
-      [0,1,2,3,4,5,6,7,8].map(v => window["_C"+v] = test4(1*n+v));
-      _C1 = test4('ar1')(x+0);
-      _C2 = test4('ar2')(x+1);
-      _C3 = test4('ar3')(x+2);
-      _C4 = test4('ar4')(x+3);
-      _C5 = test4('ar5')(x+4);
-      _C6 = test4('ar6')(x+5);
-      _C7 = test4('ar7')(x+6);
-      _C8 = test4('ar8')(x+7);
-      _C9 = test4('ar9')(x+8);
+function test5 (n) {
 
+     var x = toInt(n);
 
-      _C0 = test4_ob[x+0];
-      _C1 = test4_ob[x+1];
-      _C2 = test4_ob[x+2];
-      _C3 = test4_ob[x+3];
-      _C4 = test4_ob[x+4];
-      _C5 = test4_ob[x+5];
-      _C6 = test4_ob[x+6];
-      _C7 = test4_ob[x+7];
-      _C8 = test4_ob[x+8];
-*/
-      _C0 = test4(x+0);
-      _C1 = test4(x+1);
-      _C2 = test4(x+2);
-      _C3 = test4(x+3);
-      _C4 = test4(x+4);
-      _C5 = test4(x+5);
-      _C6 = test4(x+6);
-      _C7 = test4(x+7);
-      _C8 = test4(x+8);
+    _C0 = test4(x+0, Bnd3);
+    _C1 = test4(x+1, Bnd3);
+    _C2 = test4(x+2, Bnd3);
+    _C3 = test4(x+3, Bnd3);
+    _C4 = test4(x+4, Bnd3);
+    _C5 = test4(x+5, Bnd3);
+    _C6 = test4(x+6, Bnd3);
+    _C7 = test4(x+7, Bnd3);
+    _C8 = test4(x+8, Bnd3);
 
-      _B0 = test6(x+0);
-      _B1 = test6(x+1);
-      _B2 = test6(x+2);
-      _B3 = test6(x+3);
-      _B4 = test6(x+4);
-      _B5 = test6(x+5);
-      _B6 = test6(x+6);
-      _B7 = test6(x+7);
-      _B8 = test6(x+8);
-  }
+    _B0 = test6(x+0);
+    _B1 = test6(x+1);
+    _B2 = test6(x+2);
+    _B3 = test6(x+3);
+    _B4 = test6(x+4);
+    _B5 = test6(x+5);
+    _B6 = test6(x+6);
+    _B7 = test6(x+7);
+    _B8 = test6(x+8);
+}
 
   //***************************************************************** DND
 

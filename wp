@@ -1,3 +1,2 @@
 #!/bin/bash
-
-cp /dev/null nohup.out && node node_modules/webpack/bin/webpack.js --mode=production
+node node_modules/webpack/bin/webpack.js && date +%r
