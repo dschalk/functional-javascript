@@ -3114,8 +3114,6 @@ var view = new Proxy({
 // test6(3); 
 // console.log("arBind.a11", arBind.a11, "_______________________-----__--------------------- digit");
 
-var qfB = mBnd(true);    
-
 // ************* CLOSURE Saves cache of Fibonacci numbers
 console.log(" ************* CLOSURE Saves cache of Fibonacci numbers");
 
@@ -3378,11 +3376,20 @@ function diffR (obj) {
     return obj = autoRefresh(obj)
 };
 
-function mBnd (bool = false) { 
-    var ob = {key: Symbol(), run: new Bnd3().run}; 
-    if (bool) ob = autoRefresh(ob); 
+var mBnd = (bool = false, val = "mBnd") => {
+    var x = Symbol(val)      // "val" can be useful in debugging;
+    var ob = {key: x, run: Bind(x)}; 
+    arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
     return ob;
 }; 
+
+var _mBx = (bool) => {
+    var ob = new Bnd3();
+    ob.ar = (bool) ? autoRefresh(ob.ar) : ob.ar;
+    return ob;
+}; 
+
+
 
 /*  function test4 (w) {  
     var f = new Bnd3();  // f.run and f.ar are in local scope
@@ -3437,6 +3444,17 @@ function test5 (n) {
 
   //***************************************************************** DND
 
+
+  var qfB = mBnd();
+
+  function qF9 () {
+      if (arBind[qfB.key].length > 4) {
+          qFunc("qfB") 
+      }
+      else Cow1 = "coefficients: " + arBind[qfB.key].join(' ')
+  };
+
+  function quadFormula(x) {return qfB.run(toFloat(x))(qF9)}; 
 
 
 

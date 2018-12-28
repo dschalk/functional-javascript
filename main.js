@@ -2456,7 +2456,7 @@ h('pre', `  qfB.run(toFloat(e.target.value))(qF9); ` ),
 h('span.tao', '  That\'s all! The third time qF9 receives user data, all three numbers are plugged into the ' ),
 
 h('a', { props: { href: "https://en.wikipedia.org/wiki/Quadratic_formula", target: "_blank" }}, 'quadratic formula'),
-h('span', ' The Cycle.js-specific code is shown below. The point is to call "qfB.run(toInt(e.target.value))(qF9)" each time a number is entered. ' ),
+h('span', ' The Cycle.js-specific code is shown below. The point is to call "qfB.run(toFloat(e.target.value))(qF9)" each time a number is entered. ' ),
 
 
 h('pre', `  var qfB = mBnd();
