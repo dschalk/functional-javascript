@@ -1047,12 +1047,12 @@ logDelay("Demonstrating logDelay");
 
 
 async function pause (x) {
-  await wait(1200)
+  await wait(600)
   return x;
 }
 
 async function pauseM (x) {
-  await wait(1200)
+  await wait(600)
   return ret(x);
 }
 
@@ -1061,51 +1061,51 @@ async function pauseX (x) {
 }
 
 async function squareP (x) {
-  await wait(1200)
+  await wait(600)
   return x*x;
 }
 
 const divPinverse = a => async b => {
-  await wait (1200)
+  await wait (600)
   return a/b;
 }
 
 const divP = a => async b => {
-  await wait (1200)
+  await wait (600)
   return b/a;
 }
 
 const sqrtP = async a => {
-  await wait (1200)
+  await wait (600)
   return Math.sqrt(a);
 }
 
 const doubleP = async a => {
-  await wait (1200)
+  await wait (600)
   return a+a;
 }
 
 const addP = x => async y => {
-  await wait(1200)
+  await wait(600)
   return toInt(x) + toInt(y);
 }
 
 const addPA = x => async y => {
-  await wait(1200)
+  await wait(600)
   return x + y;
 }
 
 const multP = x => async y => {
-  await wait(1200)
+  await wait(600)
   return x * y;
 }
 
 async function cubeP (x) {
-  await wait(1200)
+  await wait(600)
   return x*x*x;
 }
 
-async function rootP (x, t = 1200) {
+async function rootP (x, t = 600) {
   await wait(t)
   return Math.sqrt(x);
 }
@@ -1117,7 +1117,7 @@ async function cubeFormat (x) {
 };
 
 async function idP (x) {
-  await wait(1200)
+  await wait(600)
   return x;
 }
 
@@ -3444,8 +3444,7 @@ function test5 (n) {
 
   //***************************************************************** DND
 
-
-  var qfB = mBnd();
+  var COW = ["pending", "pending"];
 
   function qF9 () {
       if (arBind[qfB.key].length > 4) {
@@ -3456,6 +3455,47 @@ function test5 (n) {
 
   function quadFormula(x) {return qfB.run(toFloat(x))(qF9)}; 
 
+
+function ann23 () {
+     var ob = new Bnd3()
+     return y => {
+        ob.run(toFloat(y));
+        console.log("In ann23 -- ob is", ob);
+        if (ob.ar.length === 3) {
+            var a = ob.ar[0];
+            var b = ob.ar[1];  
+            var c = ob.ar[2];  
+            ob.ar = [];
+            var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+            var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+            if (aa === aa) {
+              Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+                Cow2 = `x = ${aa} and x = ${bb}`;
+            }
+            if (!(aa === aa)) {
+                Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+                Cow2 = '';
+            }
+        }
+    }
+};
+
+var ann27 = ann23();
+
+ function  qfB (a,b,c) {
+      var C0 = [];
+      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      if (aa === aa) {
+        C0[0] = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+          C0[1] = `x = ${aa} and x = ${bb}`;
+      }
+      if (!(aa === aa)) {
+          C0[0] = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+          C0[1] = '';
+      }
+      return C0;
+  }
 
 
 

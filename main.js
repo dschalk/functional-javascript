@@ -1430,14 +1430,14 @@ PingpongMaker = (name) => {
       window[name] = pingD(a)(b)(c);
       diffRender();
     } else if (n % 2 === 0) {
-      ms = 1200
+      ms = 600
       n = 0
       c[0] += 1;
       window[name] = pingD(_A1)(_A3)(c);
       diffRender();
       k = Math.floor(Math.random() * 7) + 1;
     } else if (n % 2 === 1) {
-      ms = 1200;
+      ms = 600;
       n = 0;
       c[1] += 1;
       window[name] = pingD(_A3)(_A2)(c);
@@ -1773,49 +1773,48 @@ pp4 = () => {
       });
 
 
-      // **************************************************** START mBnd demo
 
-
-  qFunc = function (z) {
-      var q = eval(z);
-      var a = arBind[q.key][0];
-      var b = arBind[q.key][2];
-      var c = arBind[q.key][4];
-      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-      if (aa === aa) {
-          Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
-          Cow2 = `x = ${aa} and x = ${bb}`;
-          // console.log("Cow1 and Cow2", Cow1, Cow2);
-      }
-      if (!(aa === aa)) {
-          Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
-          Cow2 = '';
-          // console.log("Cow1 and Cow2", Cow1, Cow2);
-      }
-      window[z] = mBnd(true);
-  }
-
-  function qF9 () {
-      if (arBind[qfB.key].length > 4) {
-          qFunc("qfB") 
-      }
-      else Cow1 = "coefficients: " + arBind[qfB.key].join(' ')
-  };
-
-  function quadFormula(x) {return qfB.run(toFloat(x))(qF9)};
+ // **************************************************** START mBnd demo
 
   qF1$ = sources.DOM
     .select('#qF1').events('keypress');
 
   oneAction$ = qF1$.map(e => {
       if (e.keyCode === 13) {  
-          quadFormula(e.target.value);
-          document.getElementById('qF1').value = null;
+          ann27(e.target.value);
+          e.target.value = null;
       }
   });
 
-      // ******************************************BEGIN TODO LIST
+function ann23 () {
+     var ob = new Bnd3()
+     return y => {
+        ob.run(toFloat(y));
+        console.log("In ann23 -- ob is", ob);
+        if (ob.ar.length === 3) {
+            var a = ob.ar[0];
+            var b = ob.ar[1];  
+            var c = ob.ar[2];  
+            ob.ar = [];
+            var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+            var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+            if (aa === aa) {
+              Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+                Cow2 = `x = ${aa} and x = ${bb}`;
+            }
+            if (!(aa === aa)) {
+                Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+                Cow2 = '';
+            }
+        }
+    }
+};
+
+var ann27 = ann23();
+
+ // ******************************************BEGIN TODO LIST
+
+
 
       var task2 = function task2(str) {
         socket.send(`TD#$42,${get(pMgroup)},${get(pMname)},@${str}`)
@@ -2158,9 +2157,9 @@ h('br')
 
 
 
-h('div', {style: {display: "flex" }},  [
+                                                                    h('div', {style: {display: "flex" }},  [
 
-  h('div', {style: {marginRight: "3%" }},   [
+                                                                    h('div', {style: {marginRight: "3%" }},   [
 
 
   h('pre', `var factorsClick8$ = sources.DOM
@@ -2215,10 +2214,9 @@ var MonadItter = function MonadItter() {
   };
 }; ` )
 
-  ]),
+                                                                                     ]),
 
-
-  h('div',  [
+                                                                                     h('div',  [
 
   h('br'),
   h('br'),
@@ -2270,26 +2268,16 @@ it7_b = () => mMZ53.bnd(string => {
   );
 });  ` ),
 
-
   ])
-                        ])
-
-
-
-
-
   ]),
 
 
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Easing into pure functions. '  ),   
 
 
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Easing into pure functions.'),
-
-
-
-h('div', {style: {display: "flex" }},  [
-  h('div', {style: {marginRight: "2%", width: "50%" }},   [
+                                                             h('div', {style: {display: "flex" }},  [
+                                                             h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
 
 
@@ -2343,7 +2331,9 @@ function test6 (w) {
   ]),
 
 
-  h('div',   [
+                                                                           h('div',   [
+
+
 
 
 
@@ -2413,22 +2403,28 @@ h('p', ' The arrays are named "f.ar" in test4() where f = new Bnd() is confined 
       var ob = {key: x, run: Bind(x)}; 
       arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
       return ob;
-  }; ` ),
+  }; ` )
 
 
 
 
-            ])
+                                           ])
 
-                        ]),
-
-
+                                           ]),
 
 
-h('div.content', [
+
+
 
 h('span.tao', ' Here\'s three more proxy demos: ' ),                          
-h('a#proxy2', {props: {href: "#proxies"}}, 'Fun With Proxies' ),
+h('a#proxy2', {props: {href: "#proxies"}}, 'Fun With Proxies' )
+
+
+                                              ]),
+                                              h('div.content', [
+
+
+
 h('span', ', and here\s a screen shot showing the results of test4(9) and test4(3): ' ), 
                           
 h('br'),
@@ -2439,42 +2435,72 @@ h('img.image', {props: {src: "test4.png" }}, {style: {textAlign: "left" }}, ),
             
 h('br')
 
-]),
 
-                          h('div.content', [
-
-
-
-
-
-
+                                              ]),
+ 
 
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 3 '),
 
-h('span.tao', ` Each time you enter a number in the right column, the following code is executed: ` ),
-h('pre', `  qfB.run(toFloat(e.target.value))(qF9); ` ),
-h('span.tao', '  That\'s all! The third time qF9 receives user data, all three numbers are plugged into the ' ),
+                                              h('div.content2', [
 
+
+h('div', {style: {display: "flex" }},  [
+  h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+
+
+
+h('span.tao', ' Bnd3() instances can do more than facilitate composition. In this demonstration, "ob = new Bnd3()" defines an object that accumulates numbers by executing ob.run(<number>) until ob.ar.length === 3 is true. When the third number arrives, the ' ), 
 h('a', { props: { href: "https://en.wikipedia.org/wiki/Quadratic_formula", target: "_blank" }}, 'quadratic formula'),
-h('span', ' The Cycle.js-specific code is shown below. The point is to call "qfB.run(toFloat(e.target.value))(qF9)" each time a number is entered. ' ),
+h('span', ' is applied to the numbers "A", "B", and "C" entered by a user to determine if there exist numbers "x" such that "Ax**2 + Bx + C = 0". ' ),
+  
+h('p', '  Each time you enter a number "n" in the right column, "ann27(n)" executes. If solution exist, they come in pairs; so ann27(n) either mutates only Cow1 in the virtual DOM (the no-solution case) or it mutates C1 and C2. ann27() is rigorously consistent and reliable, yet it is far from being a pure function. JavaScript isn\t mathematics, and constraining it to appear as though it were is folly. Side effects that do nothing but update browser displays are not inappropriate, and neither are all functions that cause such effects every third time they run. ' ),
+h('span', ' "ann27()", the function that is called each time a user enters a number, is returned by the closure "ann23()". Demonstration 4 features a proxy doing what the closure ann23 does here.  ' ),
 
 
-h('pre', `  var qfB = mBnd();
-
-  qF1$ = sources.DOM
+h('pre', `  qF1$ = sources.DOM  // Cycle.js specific code
     .select('#qF1').events('keypress');
 
   oneAction$ = qF1$.map(e => {
       if (e.keyCode === 13) {  
-          quadFormula(e.target.value);
-          document.getElementById('qF1').value = null;
+          ann27(e.target.value);
+          e.target.value = null;
       }
   });
 
-  function quadFormula(x) {return qfB.run(toFloat(x))(qF9)}; ` ),
+var ann27 = ann23();
 
-  h('p', ' quadFormula() and qF9 are defined below the demo. ' ),
-    
+function ann23 () {
+     var ob = new Bnd3()
+     return y => {
+        ob.run(toFloat(y));
+        console.log("In ann23 -- ob is", ob);
+        if (ob.ar.length === 3) {  //  Trigger for the computation
+            var a = ob.ar[0];
+            var b = ob.ar[1];  
+            var c = ob.ar[2];  
+            ob.ar = [];
+            var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+            var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+            if (aa === aa) {
+              Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
+                Cow2 = \`x = \${aa} and x = \${bb}\`;
+            }
+            if (!(aa === aa)) {
+                Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
+                Cow2 = '';
+            }
+        }
+    }
+};  ` )
+
+                                                                 ]),
+
+  h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+
+
+
 h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third time you press <ENTER>, the answer will appear. ' ),
                 h('input#qF1', {
                   style: {
@@ -2493,53 +2519,78 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
 
                 
 h('h3', 'A Lesson On Mindlessly Following Rules ' ),
-h('p', ' I find function "quadFormula()" very pleasing, even elegant. Every third time it is called it runs the quadratic formula on the numbers it has been given. ' ), 
-h('p', ' It doesn\'t bother me that, for example, quadFormula(-3) doesn\'t always return the same value, or that it fetches arBind[qFB.key] from the global scope. If you run "quadFormula(1);  quadFormula(2);  quadFormula(-3)", the browser always displays ' ), 
-h('pre', `  1*x*x + 2*x + -3 = 0 has the following solutions:
-  x = -3 and x = 1 ` ),
-  
-h('p', ' quadFormula() is just as reliable as any mathmatical function, notwithstanding the fact that every third time it is called it returns either no solution or two solutions to the quadratic formula. The same arguments always yield the same result. It demonstrates a way JavaScript functions can wait for asynchronous arguments to arrivebefore returning a result. The alternative would be a mechanism for storing incoming data and then feeding it to a multi-parameter function all at once. ' ),
-h('p', ' As for fishing arBind[qfB.key] out of the global scope, please note the discussion above. "qfB.key" belongs only to the most recently created version of qfB. It was created by running "x = Symbol()" while qfB was being defined. Previously created objects named "qfB" have their own unique secret values of "qfB.key" and their own private arrays. Subsequently created qfBs can\'t step on a current qfB any more than it could have stepped on previously created ones. '),
-
-  h('pre',  `  function qF9 () {
-      if (arBind[qfB.key].length > 4) {
-        // If true, it\'s time to run the quadratic equation
-  	qFunc("qfB") ; 
+h('p', ' I find function "(ann27)" very pleasing, even elegant in the way it efficiently takes care of business. Bnd3() can do much more than fill an array, but choosing familiar tools makes code easier to read and edit, so it seems appropriate to me. ' ), 
+h('p', ' A curried quadratic formula function could have been fed numbers one at a time, creating a function of two variables and then a single variable function before the third number came in. It would, in my opinion anyway, be pretty silly to make a mess like that in pursuit of the Holy Grail of pure functions. ' ),
+h('pre', `  function ann23 () {
+      var ob = new Bnd3()
+      return y => {
+          ob.run(toFloat(y));
+          console.log("In ann23 -- ob is", ob);
+          if (ob.ar.length === 3) {  //  Trigger for the computation
+              var a = ob.ar[0];
+              var b = ob.ar[1];  
+              var c = ob.ar[2];  
+              ob.ar = [];
+              var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+              var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+              if (aa === aa) {
+                  Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
+                  Cow2 = \`x = \${aa} and x = \${bb}\`;
+              }
+              if (!(aa === aa)) {
+                  Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
+                  Cow2 = '';
+              }
+          }
       }
-  	else Cow1 = "coefficients: " + arBind[qfB.key].join(', ')
-  };
+  };  ` ), 
 
-  qFunc = function (z) {
-      var q = eval(z);
-      var a = arBind[q.key][0];
-      var b = arBind[q.key][2];
-      var c = arBind[q.key][4];
-      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-      if (aa === aa) {
-          Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 
-              has the following solutions:\`,
-          Cow2 = \`x = \${aa} and x = \${bb}\`;
-          // console.log("Cow1 and Cow2", Cow1, Cow2);
-      }
-      if (!(aa === aa)) {
-          Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
-          Cow2 = '';
-      }
-      if (!(aa === aa)) {
-          Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
-          Cow2 = '';
-          // console.log("Cow1 and Cow2", Cow1, Cow2);
-      }
-      window[z] = mBnd(true);
-  } ` ),  
+  ])
+
+]),
 
 
-h('p', ' Later on this page, MonadItter objects are used in a similar demonstration. mMZ33.release(<coefficient>) is called repeatedly. mMZ33.bind is nested three levels deep. In the third level, the coefficients are applied to the formula and control is directed back to the top level. MonadItter objects are used to screen incoming WebSocket messages. ' ),
 
-  
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 4 - A Proxy Instead of a Closure. '  ),   
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 4 '),
+
+
+h('div', {style: {display: "flex" }},  [
+  h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+"LEFT SIDE",
+
+  ]),
+
+  h('div',  [
+
+"RIGHT SIDE"
+
+
+  ])
+
+]),
+
+        
+
+
+
+
+
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 5 '),
+
+
+
+
+
+h('div', {style: {display: "flex" }},  [
+  h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+
+
+
+
+
 
 h('p', ' Here is another approach to function composition, featuring rapid-fire redefinition of a parameter "v" by functions in an array ("ar"). "v" and "ar" are available to every function in "ar". In the example, we see "v => ar[3](v)" and "y => y - x" where y is the previously computed value and x is the starting value. A more elaborate version could be made to handle asynchronous code. "f_86", "foo", and runFoo are shown below. ' ),
 h('p', ' Enter a number "n" on the right to call "runFoo(n)". ' ),
@@ -2562,8 +2613,10 @@ h('pre', `    function runFoo (n) {
         foocow_6 = foo(n+6));
         foocow_7 = foo(n+7));
         foocow_8 = foo(n+8));
-    } ` ),
+    } ` )
 
+                                           ]),
+                                           h('div',  [ 
 
 h('div', 'Enter a number "n" below to see the result of "runFoo" executing on nine numbers' ),
   h('br'),
@@ -2578,10 +2631,19 @@ h('div', `${foocow_4.join(", ")}`),
 h('div', `${foocow_5.join(", ")}`),
 h('div', `${foocow_6.join(", ")}`),
 h('div', `${foocow_7.join(", ")}`),
-h('div', `${foocow_8.join(", ")}`),
+h('div', `${foocow_8.join(", ")}`)
+
+                                                       ])
+                                                             ]),
 
 
-  h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
+
+
+  h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************')
+]),
+                          h('div.content', [
+
+
 
   h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
   h('br'),
