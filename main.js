@@ -13,9 +13,9 @@
     import {run} from './cycle-run.js';
 
     //  socket = new WebSocket("ws://localhost:3055");
-    socket = new WebSocket("ws://204.48.16.214:3055");
+    
     // socket = new WebSocket("ws://142.93.205.167:3055");
-    // socket = new WebSocket("ws://schalk.net:3055");
+    socket = new WebSocket("ws://schalk.net:3055");
     // socket = new WebSocket("ws://schalk.site:3055");
     // ws = new WebSocket("ws://echo.websocket.org");
 
@@ -1776,7 +1776,7 @@ pp4 = () => {
 
  // **************************************************** START mBnd demo
 
-  qF1$ = sources.DOM
+ var qF1$ = sources.DOM
     .select('#qF1').events('keypress');
 
   oneAction$ = qF1$.map(e => {
@@ -1811,6 +1811,22 @@ function ann23 () {
 };
 
 var ann27 = ann23();
+
+
+  var qF1x$ = sources.DOM
+    .select('#qF1x').events('keypress');
+
+  twoAction$ = qF1x$.map(e => {
+      if (e.keyCode === 13) {  
+          quadOb.fu(toFloat(e.target.value));
+          e.target.value = null;
+      }
+  });
+
+
+
+
+
 
  // ******************************************BEGIN TODO LIST
 
@@ -2060,7 +2076,7 @@ var ann27 = ann23();
   // var xoxo = ["this is the head", "cow", "dog", "fireworks"];
   // head(xoxo).concat(tail(xoxo) === xoxo;
   */
-      var calcStream$ = xs.merge( setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
+      var calcStream$ = xs.merge( twoAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
         DOM: calcStream$.map(() => {
@@ -2148,14 +2164,7 @@ h('br')
                         ]),
             h('div.content2',  [
 
-
-
-
-
-
   h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 1 '),
-
-
 
                                                                     h('div', {style: {display: "flex" }},  [
 
@@ -2525,7 +2534,6 @@ h('pre', `  function ann23 () {
       var ob = new Bnd3()
       return y => {
           ob.run(toFloat(y));
-          console.log("In ann23 -- ob is", ob);
           if (ob.ar.length === 3) {  //  Trigger for the computation
               var a = ob.ar[0];
               var b = ob.ar[1];  
@@ -2545,42 +2553,94 @@ h('pre', `  function ann23 () {
       }
   };  ` ), 
 
-  ])
-
-]),
 
 
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 4 - A Proxy Instead of a Closure. '  ),   
+
+
+
+                                                                     ])
+
+                                                                     ]),
+
+                                             h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 4 - A Proxy Instead of a Closure. '  ),   
+
+                                                                    h('div', {style: {display: "flex" }},  [
+
+                                                                    h('div', {style: {marginRight: "3%" }},   [
+
+
+
+
+
+
 
 
 
 h('div', {style: {display: "flex" }},  [
   h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
-"LEFT SIDE",
-
-  ]),
-
-  h('div',  [
-
-"RIGHT SIDE"
 
 
-  ])
+h('pre', `var quadOb = {ar: []};
+quadOb.fu = function fu (x) {this.ar.push(x)};
 
-]),
+var Cow1 = "Judy", Cow2 = "Judith";
+var pie = "Peach";
 
-        
+var quadHandler = {
+  get: function(target, bbb, ccc) {
+    if ( Array.isArray(target[bbb]) && target[bbb].length === 3) {
+      var a = target[bbb][0];
+      var b = target[bbb][1];  
+      var c = target[bbb][2];  
+      target[bbb] = [];
+      var aa = (-b - Math.sqrt(b*b-4*a*c)) / (2*a);
+      var bb = (-b + Math.sqrt(b*b-4*a*c)) / (2*a);
+      if (aa === aa) {
+      Cow3 = \`\${a}*x*x + \${b}*x + \${c} = 0 has 
+        the following solutions:\`,
+          Cow4 = \`x = \${aa} and x = \${bb}\`;
+      }
+      if (!(aa === aa)) {
+        Cow3 = \`\${a}*x*x + \${b}*x + \${c} = 0 has 
+                      no solution\`;
+        Cow4 = '';
+      }
+  }    
+  diffRender();
+
+  return Reflect.get(target,bbb,ccc);
+  }
+}
+var quadOb = new Proxy (quadOb, quadHandler); ` ),
+
+                                                          ]),
+                                                          h('div', [
+h('div', `${quadOb.ar.join(', ')}` ),
+
+h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third time you press <ENTER>, the answer will appear. ' ),
+                h('input#qF1x', { style: { height: "15px", color: "blue", fontSize: "18px" }}  ),
+
+                h('br'),
+                h('br'),
+                Cow3,
+                h('br'),
+                Cow4,
+                h('br'),
+                h('br'),
 
 
+h('p', ' The user experience in this and the previous demonstration are identical, but here the three coefficients of the quadratic formula accumulate in a custom object named "quadOb" rather than an instance of Bnd3. And here, the quadratic formula computation is done in a proxy handler rather than a function returned by a closure.' ),
+h('p', ' quadOb is first defined as an object containing an empty array named ar. Then a function named "fu" is added. quadOb.fu puts its arguments into quadOb.ar. Finally, quadOb is made a proxy of itself in order to keep track of the number of arguments and run the quadratic formula on them when the third number comes in. ' ),
 
+
+                                                          ]) 
+
+                                                          ]),
 
 
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 5 '),
-
-
-
 
 
 h('div', {style: {display: "flex" }},  [
@@ -2633,15 +2693,21 @@ h('div', `${foocow_6.join(", ")}`),
 h('div', `${foocow_7.join(", ")}`),
 h('div', `${foocow_8.join(", ")}`)
 
-                                                       ])
-                                                             ]),
+                                                             ])
+                                                             ])
+                                                             ])
+                                                             ])
 
 
 
 
-  h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************')
-]),
-                          h('div.content', [
+                                                             ]), 
+
+
+  h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
+
+
+                                                            h('div.content', [
 
 
 

@@ -284,6 +284,11 @@ var toInt = _convert_ (10);
 var toHex = _convert_ (6);
 var _conveNt_ = a => b => parseFloat(b,a);
 var toFloat = _conveNt_ (10);
+var _convert_ = a => b => parseInt(b,a);  
+var toInt = _convert_ (10);
+var toHex = _convert_ (6);
+var _conveNt_ = a => b => parseFloat(b,a);
+var toFloat = _conveNt_ (10);
 
 function intArray (x) {
   return Object.keys(Array.apply(0, Array(x))).map(toInt)
@@ -3460,7 +3465,6 @@ function ann23 () {
      var ob = new Bnd3()
      return y => {
         ob.run(toFloat(y));
-        console.log("In ann23 -- ob is", ob);
         if (ob.ar.length === 3) {
             var a = ob.ar[0];
             var b = ob.ar[1];  
@@ -3469,7 +3473,7 @@ function ann23 () {
             var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
             var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
             if (aa === aa) {
-              Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+                Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
                 Cow2 = `x = ${aa} and x = ${bb}`;
             }
             if (!(aa === aa)) {
@@ -3498,5 +3502,36 @@ var ann27 = ann23();
   }
 
 
+var quadOb = {ar: []};
+quadOb.fu = function fu (x) {this.ar.push(x)};
 
+var Cow1 = "Judy", Cow2 = "Judith";
+var pie = "Peach";
+
+var quadHandler = {
+    get: function(target, bbb, ccc) {
+    console.log("target[bbb]", target[bbb]);
+        if ( Array.isArray(target[bbb]) && target[bbb].length === 3) {
+            var a = target[bbb][0];
+            var b = target[bbb][1];  
+            var c = target[bbb][2];  
+            target[bbb] = [];
+            var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+            var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+            if (aa === aa) {
+                Cow3 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+                Cow4 = `x = ${aa} and x = ${bb}`;
+            }
+            if (!(aa === aa)) {
+            	   console.log("Great Balls of Fire");
+                Cow3 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+                Cow4 = '';
+            }
+        }    
+    diffRender();
+    return Reflect.get(target,bbb,ccc);
+    }
+}
+
+var quadOb = new Proxy (quadOb, quadHandler);
 
