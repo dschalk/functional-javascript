@@ -294,9 +294,6 @@ function intArray (x) {
   return Object.keys(Array.apply(0, Array(x))).map(toInt)
 }
 
-console.log(`function intArray (x) {
-  return Object.keys(Array.apply(0, Array(x))).map(toInt)
-}`);
 console.log(intArray(7))   // [1,2,3,4,5,6,7]
 
 // ******************************************** Number parsing and list generation END
@@ -311,8 +308,6 @@ num9 = 0;
 
   function bindTest  () {
   test5(-4);
-  // setTimeout(() => {test5(-4); test5(-4)},1500)
-  // setTimeout(() => {test5(-4); test5(-4)},2200)
   setTimeout(() => {test5(-4)},4600)
 };
 
@@ -3291,6 +3286,15 @@ console.log(f(600,0,1,true))
 // *********************************************************** Ghost proxy
 var proxyResult = 0;
 
+var tail = function tail([ a, ...b ]) {
+  return b;
+}
+
+// [1,2, ,,, n]
+function intAr (n) {
+     return tail([...Array(n+1).keys()]);
+}
+
 function intArray (n) {
      return [...Array(n+1).keys()].join(', ');
 }
@@ -3534,4 +3538,51 @@ var quadHandler = {
 }
 
 var quadOb = new Proxy (quadOb, quadHandler);
+
+
+
+var trip = function (x, n) {
+    var n = n;
+    var k = 0;
+    var original_f = x;
+    var f = x;
+    return function g (d) {
+        f = f(d);
+        k+=1;
+        if ( k === n) {
+            f = original_f;
+            k = 0;
+          }     
+    }
+}
+
+var foo5 =  (a) =>(b) => (c) => {
+    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    if (aa === aa) {
+         Cow7 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+         Cow8 = `x = ${aa} and x = ${bb}`;
+    }
+    else {
+        console.log("Great Balls of Fire");
+        Cow7 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+        Cow8 = '';
+    }
+    diffRender();
+} ;
+
+var go_6 = trip(foo5, 3)
+
+
+goo66(1);
+goo66(9);
+goo66(-70);
+
+
+
+
+
+
+
+
 

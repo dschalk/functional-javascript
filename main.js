@@ -1773,6 +1773,28 @@ pp4 = () => {
       });
 
 
+var trip9 = function (x) {
+    var original_f = x;
+    var f = x;
+    return function g (d) {
+         f = f(d);
+        if ( typeof f === "number") {
+            console.log("Result: ", f);
+            f = original_f;
+          }     
+}
+}
+var foo9 = trip9( (a) =>(b) => (c) => a+b+c )  
+
+
+foo(4);
+foo(5);
+foo(6);
+
+foo(7);
+foo(8);
+foo(9);
+
 
  // **************************************************** START mBnd demo
 
@@ -1823,7 +1845,16 @@ var ann27 = ann23();
       }
   });
 
+  var qF2x$ = sources.DOM
+    .select('#qF2x').events('keypress');
 
+  threeAction$ = qF2x$.map(e => {
+      if (e.keyCode === 13) {  
+          console.log("798798787657657 (*&(*&(*&(*&(*&(*&(*798798787657657%&%&%&%&%", e.target.value);
+          go_6(toFloat(e.target.value));
+          e.target.value = null;
+      }
+  });
 
 
 
@@ -2076,7 +2107,7 @@ var ann27 = ann23();
   // var xoxo = ["this is the head", "cow", "dog", "fireworks"];
   // head(xoxo).concat(tail(xoxo) === xoxo;
   */
-      var calcStream$ = xs.merge( twoAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
+      var calcStream$ = xs.merge( threeAction$, twoAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
         DOM: calcStream$.map(() => {
@@ -2253,7 +2284,7 @@ var MonadItter = function MonadItter() {
   h('br'),
   h('br'),
 
-h('span.tao', ' In this demonstration, ob.ar (the array of return and resolution values) isn\'t used, so ob can be defined only once. When, as in demonstration 2, ob.ar is used during concurrent calls to ob.run, "ob = new Bnd()" is called repeatedly to define descrete objects "ob" with unique versions of "ob.ar". ' ),
+h('span.tao', ' In this demonstration, ob.ar (the array of return and resolution values) isn\'t used, so ob can be defined only once. When, as in demonstration 2, ob.ar is used during concurrent calls to ob.run, "ob = new Bnd()" is called repeatedly to define descrete objects "ob" with unique versions of "ob.ar" to avoid clashes. ' ),
 h('pre', `var it4_b = x => {
   if (socket.readyState === 1) 
     socket.send(\`BD#$42,\${pMgroup.x},\${pMname.x},\${x}\`);
@@ -2347,7 +2378,7 @@ function test6 (w) {
 
 
 
-                h('div', styleFunc(["#FffcCC", , "21px", , , ]), 'Using new Bnd() - The Array Stays In Function Scope.'),
+                h('div', styleFunc(["#FffcCC", , "21px", , , ]), 'Using new Bnd3() - The Array Stays In Function Scope.'),
                 h('br'),
 
                 h('div', `${_C0.join(", ")}`),
@@ -2379,7 +2410,7 @@ function test6 (w) {
                 h('br'),
                 h('br'),
                 h('br'),
-                h('div', styleFunc(["#FffcCC", , "21px", , , ]), 'Using mBnd() - The Proxy Algorithm.'),
+                h('div', styleFunc(["#FffcCC", , "21px", , , ]), 'Using Bind() and storing data on arBind.'),
                 h('br'),
                 h('div', `${_B0.join(", ")}`),
                 h('div', `${_B1.join(", ")}`),
@@ -2392,7 +2423,7 @@ function test6 (w) {
                 h('div', `${_B8.join(", ")}`),
 
 h('br'),
-h('p', ' The arrays are named "f.ar" in test4() where f = new Bnd() is confined to test4()\'s scope. In test6(), the arrays are attributes of arBind with keys hidden in the Symbol table. I think it\'s best to keep things in function scope as much as possible, so I would not use the test6() algorithm in production. ' ),
+h('p', ' The arrays named "f.ar" in test4() (where f = new Bnd3()) are confined to test4()\'s scope. In test6(), the arrays are attributes of arBind with keys hidden in the Symbol table. I think it\'s best to keep things in function scope as much as possible, so I would not use the test6() algorithm in production. ' ),
     h('pre', `  function autoRefresh(obj) {
     const handler = {
         set (obj, prop, value) {
@@ -2518,68 +2549,103 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
                     fontSize: "18px"
                   }
                 }),
-
                 h('br'),
-                h('br'),
-                Cow1,
-                h('br'),
-                Cow2,
                 h('br'),
 
+                h('div', {style: {color: "#ffbaba" }}, [
+                h('div', Cow1  ),
+                h('br'),
+                h('div', Cow2  ),   ]),
+                    
                 
 h('h3', 'A Lesson On Mindlessly Following Rules ' ),
-h('p', ' I find function "(ann27)" very pleasing, even elegant in the way it efficiently takes care of business. Bnd3() can do much more than fill an array, but choosing familiar tools makes code easier to read and edit, so it seems appropriate to me. ' ), 
-h('p', ' A curried quadratic formula function could have been fed numbers one at a time, creating a function of two variables and then a single variable function before the third number came in. It would, in my opinion anyway, be pretty silly to make a mess like that in pursuit of the Holy Grail of pure functions. ' ),
-h('pre', `  function ann23 () {
-      var ob = new Bnd3()
-      return y => {
-          ob.run(toFloat(y));
-          if (ob.ar.length === 3) {  //  Trigger for the computation
-              var a = ob.ar[0];
-              var b = ob.ar[1];  
-              var c = ob.ar[2];  
-              ob.ar = [];
-              var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-              var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-              if (aa === aa) {
-                  Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
-                  Cow2 = \`x = \${aa} and x = \${bb}\`;
-              }
-              if (!(aa === aa)) {
-                  Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
-                  Cow2 = '';
-              }
-          }
+h('p', ' I find function "ann27()" very pleasing, even elegant in the way it efficiently takes care of business. Bnd3() can do much more than fill an array, but choosing familiar tools makes code easier to read and edit, so it seems appropriate to me. ' ), 
+h('p', ' A curried quadratic-formula function can evaluate arguments asynchronously. This is demonstrated in the next example. The convoluted algorithm shown in Demonstration 5 is useless, other than to show a proxy helping out with asynchronous data. Remote manipulation of data is usually better handled with closures than with proxies, as is the case here.  ' ), 
+
+
+// Car pool
+
+
+  ])
+
+]),
+
+                  h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 4 '  ),   
+
+                                                                    h('div', {style: {display: "flex", padding: "0.1%" }},  [
+                                                                    h('div', {style: {flex: "1", marginRight: "4%" }},   [
+
+  
+
+h('p', ' The expression " (a => b => a + b)(x) " evaluates to " (a => a + x) "   '  ),
+h('p', ' "  (a => b => a + b)(x)(y) === (a => a + x)(y) " evaluates to " true " for all numbers "x" and "y". We can generalize these elementary facts about the curried form of (function (a,b) {return a + b}) and observe that the curried forms of all functions can receive their arguments asynchronously. ' ),
+                                                                      
+  h('p', ' Here\'s a closure that can help curried functions receive data asynchronously. Parameter "x" is a function and "n" the number of its parameters. The returned function "g()" feeds arguments to "f()", resetting trip()\'s f and k parameters when f has all of its arguments. g() can handle a continuous stream of data, causing x() to execute an unlimited number of times. ' ),
+h('pre',  `  var trip = function (x, n) {
+      var n = n;
+      var k = 0;
+      var original_f = x;
+      var f = x;
+      return function g (d) {
+          f = f(d);
+          k+=1;
+          if ( k === n) {
+              f = original_f;
+              k = 0;
+            }     
       }
-  };  ` ), 
+  } ` ),
+
+
+
+                                                                                ]),
+            h('div', {style: {flex: "1", margin: "0.1%" }},   [
+
+h('div', `${quadOb.ar.join(', ')}` ),
+
+h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third time you press <ENTER>, the answer will appear. ' ),
+                h('input#qF2x', { style: { height: "15px", color: "blue", fontSize: "18px" }}  ),
+
+
+                h('div', {style: {color: "#ffabab"}}, [
+                h('br'),
+                Cow7,
+                h('br'),
+                Cow8,
+                h('br'),
+                h('br'),   ]),
+
+
+h('pre', `  var foo5 =  (a) =>(b) => (c) => {
+      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      if (aa === aa) {
+           Cow7 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
+           Cow8 = \`x = \${aa} and x = \${bb}\`;
+      }
+      else {
+          console.log("Great Balls of Fire");
+          Cow7 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
+          Cow8 = '';
+      }
+      diffRender();
+  } ;
+
+  var go_6 = trip(foo5, 3) ` ),
+h('p', ' The function go_6() evaluates user entries.'), 
+
+                                                          ])
+                                                          ]),
 
 
 
 
 
-
-
-                                                                     ])
-
-                                                                     ]),
-
-                                             h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 4 - A Proxy Instead of a Closure. '  ),   
+                  h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 5 - A Proxy Instead of a Closure. '  ),   
 
                                                                     h('div', {style: {display: "flex" }},  [
 
                                                                     h('div', {style: {marginRight: "3%" }},   [
-
-
-
-
-
-
-
-
-
-h('div', {style: {display: "flex" }},  [
-  h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
 
 
 h('pre', `var quadOb = {ar: []};
@@ -2595,8 +2661,8 @@ var quadHandler = {
       var b = target[bbb][1];  
       var c = target[bbb][2];  
       target[bbb] = [];
-      var aa = (-b - Math.sqrt(b*b-4*a*c)) / (2*a);
-      var bb = (-b + Math.sqrt(b*b-4*a*c)) / (2*a);
+      var aa = (-b - Math.sqrt(b*b-4*a*c))/(2*a);
+      var bb = (-b + Math.sqrt(b*b-4*a*c))/(2*a);
       if (aa === aa) {
       Cow3 = \`\${a}*x*x + \${b}*x + \${c} = 0 has 
         the following solutions:\`,
@@ -2613,34 +2679,39 @@ var quadHandler = {
   return Reflect.get(target,bbb,ccc);
   }
 }
-var quadOb = new Proxy (quadOb, quadHandler); ` ),
+var quadOb = new Proxy (quadOb, quadHandler); ` )
 
-                                                          ]),
-                                                          h('div', [
+                                                       ]),
+                                                       h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+
+
+
 h('div', `${quadOb.ar.join(', ')}` ),
 
 h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third time you press <ENTER>, the answer will appear. ' ),
                 h('input#qF1x', { style: { height: "15px", color: "blue", fontSize: "18px" }}  ),
 
-                h('br'),
+                h('div', {style: {color: "#ffabab"}}, [
                 h('br'),
                 Cow3,
                 h('br'),
                 Cow4,
                 h('br'),
-                h('br'),
+                h('br'),   ]),
 
 
-h('p', ' The user experience in this and the previous demonstration are identical, but here the three coefficients of the quadratic formula accumulate in a custom object named "quadOb" rather than an instance of Bnd3. And here, the quadratic formula computation is done in a proxy handler rather than a function returned by a closure.' ),
-h('p', ' quadOb is first defined as an object containing an empty array named ar. Then a function named "fu" is added. quadOb.fu puts its arguments into quadOb.ar. Finally, quadOb is made a proxy of itself in order to keep track of the number of arguments and run the quadratic formula on them when the third number comes in. ' ),
+h('p', ' The user experience in this and the previous two demonstrations are identical, but here the three coefficients of the quadratic formula accumulate in a custom object named "quadOb". And here, the quadratic formula computation is done in a proxy handler rather than a function returned by a closure.' ),
 
+h('p', ' quadOb contains an array and a function that populates it with the arguments it encounters. It is also a proxy of itself, making it aware (I hope you\'ll permit me to occasionally pretend that JavaScript objects are sentient) of the size of its array in order to run the quadratic formula on its contents whenever the number grows to three.' ),
 
-                                                          ]) 
+h('p', ' quadOb.fu(n1), quadOb.fu(n2), ... can continue indefinitely, evaluating the quadratic formula every third time it is called. Of course it would be simpler to provide three numbers simultaneously to a three-parameter function, but these are demonstrations of ways to deal with asynchronous streams of incoming data. ' )
 
+                                                       ])
                                                           ]),
 
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 5 '),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 6 '),
 
 
 h('div', {style: {display: "flex" }},  [
@@ -2690,16 +2761,10 @@ h('div', `${foocow_3.join(", ")}`),
 h('div', `${foocow_4.join(", ")}`),
 h('div', `${foocow_5.join(", ")}`),
 h('div', `${foocow_6.join(", ")}`),
-h('div', `${foocow_7.join(", ")}`),
-h('div', `${foocow_8.join(", ")}`)
+h('div', `${foocow_7.join(", ")}`)
 
                                                              ])
                                                              ])
-                                                             ])
-                                                             ])
-
-
-
 
                                                              ]), 
 
