@@ -308,7 +308,7 @@ num9 = 0;
 
   function bindTest  () {
   test5(-4);
-  setTimeout(() => {test5(-4)},4600)
+  setTimeout(() => {test5(-4)},3200)
 };
 
   function rett (x, id="default") {return new Monad(x,id)};
@@ -3361,6 +3361,25 @@ console.log(_state.sum, _state.prod);
 
 //***************************************************************** mBnd, test4, test5, test6
 
+ function Bnd4 () {
+    var ar = [];
+    var ob = {};
+    return obb = {ar: ar, run: x => func => {
+        if (x instanceof Promise) x.then(y => {
+            ar.push(y);
+        })
+        else {
+            ar.push(x); 
+        }
+            var p;
+            if (func == 'stop') return ar;
+            if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else p = func(x);
+            return obb.run(p);
+    } };
+};
+
  function Bnd3 () {
     this.ar = [];
     this.run = x => {
@@ -3537,7 +3556,7 @@ var quadHandler = {
     }
 }
 
-var quadOb = new Proxy (quadOb, quadHandler);
+// var quadOb = new Proxy (quadOb, quadHandler);
 
 
 
@@ -3574,9 +3593,9 @@ var foo5 =  (a) =>(b) => (c) => {
 var go_6 = trip(foo5, 3)
 
 
-goo66(1);
-goo66(9);
-goo66(-70);
+go_6(1);
+go_6(2);
+go_6(-3);
 
 
 

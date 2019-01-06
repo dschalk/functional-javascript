@@ -437,7 +437,7 @@ console.log(" END ************************** h and clone ***************** EBD")
 
         mMZ29.bnd(() => {
           if (playerName === sender) mMZ41.release(v[3]);
-          else console.log('message from sender to BD#$42')
+          // else console.log('message from sender to BD#$42')
         });
 
         mMZ30.bnd(() => {
@@ -1212,7 +1212,7 @@ var factorsClick8$ = sources.DOM
 var factorsAction8$ = factorsClick8$.map(e => {
   var i = 0;
   m43_ = [];
-  var ob = new Bnd3(); 
+  var ob = Bnd4(); 
   while (i < 25) {
     ob.run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
     i += 1;
@@ -1850,7 +1850,6 @@ var ann27 = ann23();
 
   threeAction$ = qF2x$.map(e => {
       if (e.keyCode === 13) {  
-          console.log("798798787657657 (*&(*&(*&(*&(*&(*&(*798798787657657%&%&%&%&%", e.target.value);
           go_6(toFloat(e.target.value));
           e.target.value = null;
       }
@@ -2202,13 +2201,15 @@ h('br')
                                                                     h('div', {style: {marginRight: "3%" }},   [
 
 
-  h('pre', `var factorsClick8$ = sources.DOM
+h('p', ' Belolw is Cycle.js-specific code. Even if you are unfamiliar with Cycle.js, you can see that a button click event triggers twenty-five calls to "ob.run(145) ..." ' ),
+
+h('pre', `var factorsClick8$ = sources.DOM
   .select('button#factors_R').events('click'); 
 
 var factorsAction8$ = factorsClick8$.map(e => {
   var i = 0;
   m43_ = [];
-  var ob = new Bnd3(); 
+  var ob = Bnd
   while (i < 25) {
     ob.run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
     i += 1;
@@ -2219,10 +2220,11 @@ var clearClick8$ = sources.DOM
   .select('button.clear_R').events('click')
   .map(() => {
     m43_ = [];
-  })
+  })  ` ),
 
+h('p', ' Bnd3() and Bnd4 are very similar. Calling "ob = new Bnd3()" creates an object named "ob". Calling "var obj = Bnd4()" creates an object which is essentially the same as "ob", which was created by calling "ob = new Bnd3(). For the first demonstration, we are using Bnd4(). Here are the definitions of Bnd3(), Bnd4(), and MonadItter, which handles asynchronous code related to WebSocket messages coming from  the Haskell server and messages from WorkerH.js. ' ), 
 
-function Bnd3 () {
+h('pre', `function Bnd3 () {
     this.ar = [];
     this.run = x => {
         if (x instanceof Promise) x.then(y => {
@@ -2244,6 +2246,25 @@ function Bnd3 () {
     };
 };
      
+ function Bnd4 () {
+    var ar = [];
+    var ob = {};
+    return obb = {ar: ar, run: x => func => {
+        if (x instanceof Promise) x.then(y => {
+            ar.push(y);
+        })
+        else {
+            ar.push(x); 
+        }
+            var p;
+            if (func == 'stop') return ar;
+            if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else p = func(x);
+            return obb.run(p);
+    } };
+};
+
 var MonadItter = function MonadItter() {
   this.p = function () {};
   this.release = function () {
@@ -2634,9 +2655,12 @@ h('pre', `  var foo5 =  (a) =>(b) => (c) => {
   var go_6 = trip(foo5, 3) ` ),
 h('p', ' The function go_6() evaluates user entries.'), 
 
+              /*
+               
+               
+
                                                           ])
                                                           ]),
-
 
 
 
@@ -2706,7 +2730,7 @@ h('p', ' The user experience in this and the previous two demonstrations are ide
 h('p', ' quadOb contains an array and a function that populates it with the arguments it encounters. It is also a proxy of itself, making it aware (I hope you\'ll permit me to occasionally pretend that JavaScript objects are sentient) of the size of its array in order to run the quadratic formula on its contents whenever the number grows to three.' ),
 
 h('p', ' quadOb.fu(n1), quadOb.fu(n2), ... can continue indefinitely, evaluating the quadratic formula every third time it is called. Of course it would be simpler to provide three numbers simultaneously to a three-parameter function, but these are demonstrations of ways to deal with asynchronous streams of incoming data. ' )
-
+*/
                                                        ])
                                                           ]),
 
@@ -3268,7 +3292,7 @@ h('br'),
 h('button#pr4', {style: {fontSize: "18px"}}, "count.primes" ),
 h('button#pr5', {style: {fontSize: "18px"}}, "count.ints" ),
 
-h('p', ' The following code shows why count behaves as thought it had methods and an attribute: ' ),
+h('p', ' The following code shows why count behaves as though it had methods and an attribute: ' ),
 h('pre', `    function addOne () {this.attribute = this.attribute + 1}
     function takeOne () {this.attribute = this.attribute - 1}
 

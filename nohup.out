@@ -3,3 +3,4 @@ Recompile with -threaded to work around this.
 "In main"
 Main.hs: Network.Socket.bind: resource busy (Address already in use)
 "In main"
+"In main"
