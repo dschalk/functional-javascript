@@ -1803,7 +1803,7 @@ foo(9);
 
   oneAction$ = qF1$.map(e => {
       if (e.keyCode === 13) {  
-          ann27(e.target.value);
+          obQ(toFloat(e.target.value));
           e.target.value = null;
       }
   });
@@ -2225,44 +2225,36 @@ var clearClick8$ = sources.DOM
 h('p', ' Bnd3() and Bnd4 are very similar. Calling "ob = new Bnd3()" creates an object named "ob". Calling "var obj = Bnd4()" creates an object which is essentially the same as "ob", which was created by calling "ob = new Bnd3(). For the first demonstration, we are using Bnd4(). Here are the definitions of Bnd3(), Bnd4(), and MonadItter, which handles asynchronous code related to WebSocket messages coming from  the Haskell server and messages from WorkerH.js. ' ), 
 
 h('pre', `function Bnd3 () {
-    this.ar = [];
-    this.run = x => {
-        if (x instanceof Promise) x.then(y => {
-            this.ar.push(y);
-        })
-        else {
-            this.ar.push(x); 
-        }
-        return func => {
-            var p;
-            if (func == 'stop') return this.ar;
-            if (typeof func !== "function") p = func;
-            else if (x instanceof Promise) p = x.then(
-                v => func(v);
-            );
-            else p = func(x);
-            return this.run(p);
-        };
-    };
-};
-     
+
  function Bnd4 () {
     var ar = [];
     var ob = {};
     return obb = {ar: ar, run: x => func => {
-        if (x instanceof Promise) x.then(y => {
-            ar.push(y);
-        })
-        else {
-            ar.push(x); 
-        }
+        if (x instanceof Promise) x.then(y => {ar.push(y)})
+        else ar.push(x);
+        var p;
+        if (func == 'stop') return ar;
+        if (typeof func !== "function") p = func;
+        else if (x instanceof Promise) p = x.then(v => func(v));
+        else p = func(x);
+        return obb.run(p);
+    } };
+};
+
+ function Bnd3 () {
+    this.ar = [];
+    this.run = x => {
+        if (x instanceof Promise) x.then(y => this.ar.push(y))
+        else this.ar.push(x); 
+        return func => {
             var p;
-            if (func == 'stop') return ar;
+            if (func == 'stop') return this.ar;
             if (typeof func !== "function") p = func;
             else if (x instanceof Promise) p = x.then(v => func(v));
             else p = func(x);
-            return obb.run(p);
-    } };
+            return this.run(p);
+        };
+    };
 };
 
 var MonadItter = function MonadItter() {
@@ -2481,21 +2473,7 @@ h('span.tao', ' Here\'s three more proxy demos: ' ),
 h('a#proxy2', {props: {href: "#proxies"}}, 'Fun With Proxies' )
 
 
-                                              ]),
-                                              h('div.content', [
-
-
-
-h('span', ', and here\s a screen shot showing the results of test4(9) and test4(3): ' ), 
-                          
-h('br'),
-
-h('br'),
-
-h('img.image', {props: {src: "test4.png" }}, {style: {textAlign: "left" }}, ),
-            
-h('br')
-
+                                         
 
                                               ]),
  
@@ -2593,34 +2571,30 @@ h('p', ' A curried quadratic-formula function can evaluate arguments asynchronou
 
                   h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 4 '  ),   
 
-                                                                    h('div', {style: {display: "flex", padding: "0.1%" }},  [
-                                                                    h('div', {style: {flex: "1", marginRight: "4%" }},   [
+                              h('div', {style: {display: "flex" }},  [
+                              h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
 
   
 
-h('p', ' The expression " (a => b => a + b)(x) " evaluates to " (a => a + x) "   '  ),
-h('p', ' "  (a => b => a + b)(x)(y) === (a => a + x)(y) " evaluates to " true " for all numbers "x" and "y". We can generalize these elementary facts about the curried form of (function (a,b) {return a + b}) and observe that the curried forms of all functions can receive their arguments asynchronously. ' ),
-                                                                      
-  h('p', ' Here\'s a closure that can help curried functions receive data asynchronously. Parameter "x" is a function and "n" the number of its parameters. The returned function "g()" feeds arguments to "f()", resetting trip()\'s f and k parameters when f has all of its arguments. g() can handle a continuous stream of data, causing x() to execute an unlimited number of times. ' ),
-h('pre',  `  var trip = function (x, n) {
-      var n = n;
-      var k = 0;
-      var original_f = x;
-      var f = x;
-      return function g (d) {
-          f = f(d);
-          k+=1;
-          if ( k === n) {
-              f = original_f;
-              k = 0;
-            }     
-      }
-  } ` ),
+h('p', ' Demonstration 3\'s functionality can be achieved more simply by calling "obQ.f()" repeatedly, as shown on the right. ' ),
+h('pre',  `function foo6 (a, b, c) {
+    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    if (aa === aa) {
+         Cow7 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
+         Cow8 = \`x = \${aa} and x = \${bb}\`;
+    }
+    else {
+        console.log("Great Balls of Fire");
+        Cow7 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
+        Cow8 = '';
+    }
+    diffRender();
+} ;  ` )
 
-
-
-                                                                                ]),
-            h('div', {style: {flex: "1", margin: "0.1%" }},   [
+                                                          ]),
+  h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
 h('div', `${quadOb.ar.join(', ')}` ),
 
@@ -2637,23 +2611,15 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
                 h('br'),   ]),
 
 
-h('pre', `  var foo5 =  (a) =>(b) => (c) => {
-      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-      if (aa === aa) {
-           Cow7 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
-           Cow8 = \`x = \${aa} and x = \${bb}\`;
-      }
-      else {
-          console.log("Great Balls of Fire");
-          Cow7 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
-          Cow8 = '';
-      }
-      diffRender();
-  } ;
+h('pre', `
 
-  var go_6 = trip(foo5, 3) ` ),
-h('p', ' The function go_6() evaluates user entries.'), 
+var obQ = {ar: [], f: function (x) {
+	   this.ar.push(x)
+	   if (this.ar.length === 3) {
+	  	    foo6 (this.ar[0], this.ar[1], this.ar[2]);
+	  	    this.ar = [];
+	   }
+}}; ` ),
 
               /*
                

@@ -24,7 +24,7 @@ var observable = (object, onChange) => {
 	const handler = {
 		get(target, property, receiver) {
 			try {
-				return new Proxy(target[property], handler);
+	  			return new Proxy(target[property], handler);
 			} catch (err) {
 				return Reflect.get(target, property, receiver);
 			}
@@ -3363,32 +3363,24 @@ console.log(_state.sum, _state.prod);
 
  function Bnd4 () {
     var ar = [];
-    var ob = {};
     return obb = {ar: ar, run: x => func => {
-        if (x instanceof Promise) x.then(y => {
-            ar.push(y);
-        })
-        else {
-            ar.push(x); 
-        }
-            var p;
-            if (func == 'stop') return ar;
-            if (typeof func !== "function") p = func;
-            else if (x instanceof Promise) p = x.then(v => func(v));
-            else p = func(x);
-            return obb.run(p);
+        if (x instanceof Promise) x.then(y => {ar.push(y)})
+        else ar.push(x);
+        obb.ar = ar;
+        var p;
+        if (typeof func === "undefined") return ar;
+        if (typeof func !== "function") p = func;
+        else if (x instanceof Promise) p = x.then(v => func(v));
+        else p = func(x);
+        return obb.run(p);
     } };
 };
 
  function Bnd3 () {
     this.ar = [];
     this.run = x => {
-        if (x instanceof Promise) x.then(y => {
-            this.ar.push(y);
-        })
-        else {
-            this.ar.push(x); 
-        }
+        if (x instanceof Promise) x.then(y => this.ar.push(y))
+        else this.ar.push(x); 
         return func => {
             var p;
             if (func == 'stop') return this.ar;
@@ -3597,6 +3589,43 @@ go_6(1);
 go_6(2);
 go_6(-3);
 
+
+
+// ****************************************************************
+
+function foo6 (a, b, c) {
+    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    if (aa === aa) {
+         Cow7 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+         Cow8 = `x = ${aa} and x = ${bb}`;
+    }
+    else {
+        console.log("Great Balls of Fire");
+        Cow7 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+        Cow8 = '';
+    }
+    diffRender();
+} ;
+
+var obQ = {ar: [], f: function (x) {
+	   this.ar.push(x)
+	   if (this.ar.length === 3) {
+	  	    var a = foo6 (this.ar[0], this.ar[1], this.ar[2]);
+	  	    console.log(a);
+	  	    this.ar = [];
+	   }
+}};
+/*
+obQ.f(1);
+obQ.f(2);
+obQ.f(-3);
+setTimeout(() => {
+  obQ.f(4);
+  obQ.f(5);
+  obQ.f(-450);
+},5000); */
+// ***************************************************************
 
 
 
