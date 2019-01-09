@@ -1212,7 +1212,7 @@ var factorsClick8$ = sources.DOM
 var factorsAction8$ = factorsClick8$.map(e => {
   var i = 0;
   m43_ = [];
-  var ob = Bnd4(); 
+  var ob = new Bnd3(); 
   while (i < 25) {
     ob.run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
     i += 1;
@@ -1803,7 +1803,7 @@ foo(9);
 
   oneAction$ = qF1$.map(e => {
       if (e.keyCode === 13) {  
-          obQ(toFloat(e.target.value));
+          obQ.f(toFloat(e.target.value));
           e.target.value = null;
       }
   });
@@ -1834,7 +1834,7 @@ function ann23 () {
 
 var ann27 = ann23();
 
-
+/*
   var qF1x$ = sources.DOM
     .select('#qF1x').events('keypress');
 
@@ -1844,13 +1844,14 @@ var ann27 = ann23();
           e.target.value = null;
       }
   });
+*/
 
   var qF2x$ = sources.DOM
     .select('#qF2x').events('keypress');
 
   threeAction$ = qF2x$.map(e => {
       if (e.keyCode === 13) {  
-          go_6(toFloat(e.target.value));
+          ann27(toFloat(e.target.value));
           e.target.value = null;
       }
   });
@@ -2106,7 +2107,7 @@ var ann27 = ann23();
   // var xoxo = ["this is the head", "cow", "dog", "fireworks"];
   // head(xoxo).concat(tail(xoxo) === xoxo;
   */
-      var calcStream$ = xs.merge( threeAction$, twoAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
+      var calcStream$ = xs.merge( threeAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
         DOM: calcStream$.map(() => {
@@ -2164,9 +2165,29 @@ h('span', ', \"Functional programming is a programming paradigm in which we try 
 h('br'),
 h('br'),
 h('span.tao', {style: {color: "#FF00DD"}}, ' WARNING:' ), 
-h('span', ' Unless you are already proficient at creating functions that use recursion, closures, currying, reactivity, proxies, and sensible composition, trying to conform to the functional-paradigm will stiffle your creativity and slow you progress toward mastering JavaScript. Demonstration 2 discusses easing into using pure functions, and understanding when side effects are appropriate. A later section is titled, "A Lesson On Mindlessly Following Rules".  ' ), 
+h('span', ' Unless you are already proficient at creating functions that use recursion, closures, currying, reactivity, and sensible composition, trying to scrupulously conform to the functional-paradigm will stiffle your creativity and slow you progress toward mastering JavaScript. It\'s good to avoid mutating variables outside of function scope, but trying to make JavaScript functions behave like mathematical functions is a waste of time, and a waste of valuable features of an increasingly powerful programming language. ' ),
+h('p', ' Suppose you want to link functions, promises, and other kinds of values in a chain where functions can readily access the return values of prior functions and resolution values of prior promises. I don\'t think your libraries of frameworks would help you. But instances of Bnd3 (below) do these things. If you are learning to program functionally, you would do well to study the definition of Bnd3() and understand how it works the demonstration below. Otherwise, I hope you enjoy seeing it. ' ),  
 
-h('p', ' The first series of demonstrations (below) address function composition. Consider this:' ),    
+h('pre', `function Bnd3 () {
+    this.ar = [];
+    this.run = x => {
+        if (x instanceof Promise) x.then(y => this.ar.push(y))
+        else this.ar.push(x); 
+        return func => {
+            var p;
+            if (func == 'stop') return this.ar;
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else p = func(x);
+            return this.run(p);
+        };
+    };
+};
+
+var ob = new Bnd3();
+` ),
+
+h('p', ' When data is provided to ob.run, the results go into ob.ar. Here\'s the syntax:' ),    
 
   h('div', styleFunc(["#4dff4d", "3%", "21px", , , ]), [
   h('div', 'ob.run(x)(functiona1)(function2) ... (functionN)(); ')
@@ -2187,7 +2208,7 @@ h('p', ' The first series of demonstrations (below) address function composition
        (or resolution values when promises are returned),
 
 ` ),
-    h('p', ' The first example (below) performs a computation, requests a quasi-random number from the WebSocket server, requests that number\'s prime decomposition from a web worker, and displays the result. The code runs twenty-five times. '),
+    h('p', ' The first example (below) performs a computation, requests a quasi-random number from the WebSocket server, requests that number\'s prime decomposition from a web worker, and displays the result. The code runs twenty-five times each time the button is clicked. '),
                         
 h('br')
 
@@ -2198,104 +2219,8 @@ h('br')
 
                                                                     h('div', {style: {display: "flex" }},  [
 
-                                                                    h('div', {style: {marginRight: "3%" }},   [
+                                                                    h('div', {style: {marginRight: "3%", width: "50%" }},   [
 
-
-h('p', ' Belolw is Cycle.js-specific code. Even if you are unfamiliar with Cycle.js, you can see that a button click event triggers twenty-five calls to "ob.run(145) ..." ' ),
-
-h('pre', `var factorsClick8$ = sources.DOM
-  .select('button#factors_R').events('click'); 
-
-var factorsAction8$ = factorsClick8$.map(e => {
-  var i = 0;
-  m43_ = [];
-  var ob = Bnd
-  while (i < 25) {
-    ob.run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
-    i += 1;
-  }
-});
-
-var clearClick8$ = sources.DOM
-  .select('button.clear_R').events('click')
-  .map(() => {
-    m43_ = [];
-  })  ` ),
-
-h('p', ' Bnd3() and Bnd4 are very similar. Calling "ob = new Bnd3()" creates an object named "ob". Calling "var obj = Bnd4()" creates an object which is essentially the same as "ob", which was created by calling "ob = new Bnd3(). For the first demonstration, we are using Bnd4(). Here are the definitions of Bnd3(), Bnd4(), and MonadItter, which handles asynchronous code related to WebSocket messages coming from  the Haskell server and messages from WorkerH.js. ' ), 
-
-h('pre', `function Bnd3 () {
-
- function Bnd4 () {
-    var ar = [];
-    var ob = {};
-    return obb = {ar: ar, run: x => func => {
-        if (x instanceof Promise) x.then(y => {ar.push(y)})
-        else ar.push(x);
-        var p;
-        if (func == 'stop') return ar;
-        if (typeof func !== "function") p = func;
-        else if (x instanceof Promise) p = x.then(v => func(v));
-        else p = func(x);
-        return obb.run(p);
-    } };
-};
-
- function Bnd3 () {
-    this.ar = [];
-    this.run = x => {
-        if (x instanceof Promise) x.then(y => this.ar.push(y))
-        else this.ar.push(x); 
-        return func => {
-            var p;
-            if (func == 'stop') return this.ar;
-            if (typeof func !== "function") p = func;
-            else if (x instanceof Promise) p = x.then(v => func(v));
-            else p = func(x);
-            return this.run(p);
-        };
-    };
-};
-
-var MonadItter = function MonadItter() {
-  this.p = function () {};
-  this.release = function () {
-    return this.p.apply(this, arguments);
-  };
-  this.bnd = function (func) {
-    return this.p = func;
-  };
-}; ` )
-
-                                                                                     ]),
-
-                                                                                     h('div',  [
-
-  h('br'),
-  h('br'),
-  h('br'),
-
-
-  h('span', ' Click below to begin twenty-five runs of: '),
-  h('br'),
-  h('br'),
-  h('span', styleFunc(["rgb(7, 247, 247)", "12%", "20px", , , , , ]), 'bind(145)(x=>x**3)(it4_c)(it6_c)(it7_c)'),
-  h('br'),
-  h('br'),
-  h('button#factors_R', { style: { fontSize: '15px' }}, 'bind(145)(x=>x**3)( . . . ' ),
-  h('span', "~~"),
-  h('button.clear_R', {
-    style: {
-      fontSize: '15px',
-      marginLeft: "0"
-    }
-  }, 'clear results'),
-  h('br'),
-  h('br'),
-  h('div#demo2', {style: {fontSize: "15px"}},  m43_),
-  h('br'),
-  h('br'),
-  h('br'),
 
 h('span.tao', ' In this demonstration, ob.ar (the array of return and resolution values) isn\'t used, so ob can be defined only once. When, as in demonstration 2, ob.ar is used during concurrent calls to ob.run, "ob = new Bnd()" is called repeatedly to define descrete objects "ob" with unique versions of "ob.ar" to avoid clashes. ' ),
 h('pre', `var it4_b = x => {
@@ -2320,6 +2245,35 @@ it7_b = () => mMZ53.bnd(string => {
     'Elapsed time: ' + (Date.now() - start78) + " ms"
   );
 });  ` ),
+
+
+
+                                              ]),
+                                              h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+
+
+
+  h('span', ' Click below to begin twenty-five runs of: '),
+  h('br'),
+  h('br'),
+  h('span', styleFunc(["rgb(7, 247, 247)", "12%", "20px", , , , , ]), 'bind(145)(x=>x**3)(it4_c)(it6_c)(it7_c)'),
+  h('br'),
+  h('br'),
+  h('button#factors_R', { style: { fontSize: '15px' }}, 'bind(145)(x=>x**3)( . . . ' ),
+  h('span', "~~"),
+  h('button.clear_R', {
+    style: {
+      fontSize: '15px',
+      marginLeft: "0"
+    }
+  }, 'clear results'),
+  h('br'),
+  h('br'),
+  h('div#demo2', {style: {fontSize: "15px"}},  m43_),
+  h('br'),
+  h('br'),
+  h('br'),
 
   ])
   ]),
@@ -2552,9 +2506,9 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
                 h('br'),
 
                 h('div', {style: {color: "#ffbaba" }}, [
-                h('div', Cow1  ),
+                h('div', Cow7  ),
                 h('br'),
-                h('div', Cow2  ),   ]),
+                h('div', Cow8  ),   ]),
                     
                 
 h('h3', 'A Lesson On Mindlessly Following Rules ' ),
@@ -2582,13 +2536,13 @@ h('pre',  `function foo6 (a, b, c) {
     var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
     var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
     if (aa === aa) {
-         Cow7 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
-         Cow8 = \`x = \${aa} and x = \${bb}\`;
+         Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
+         Cow2 = \`x = \${aa} and x = \${bb}\`;
     }
     else {
         console.log("Great Balls of Fire");
-        Cow7 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
-        Cow8 = '';
+        Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
+        Cow2 = '';
     }
     diffRender();
 } ;  ` )
@@ -2596,7 +2550,7 @@ h('pre',  `function foo6 (a, b, c) {
                                                           ]),
   h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
-h('div', `${quadOb.ar.join(', ')}` ),
+// h('div', `${quadOb.ar.join(', ')}` ),
 
 h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third time you press <ENTER>, the answer will appear. ' ),
                 h('input#qF2x', { style: { height: "15px", color: "blue", fontSize: "18px" }}  ),
@@ -2604,9 +2558,9 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
 
                 h('div', {style: {color: "#ffabab"}}, [
                 h('br'),
-                Cow7,
+                Cow1,
                 h('br'),
-                Cow8,
+                Cow2,
                 h('br'),
                 h('br'),   ]),
 
