@@ -3611,7 +3611,7 @@ function foo6 (a, b, c) {
 Cow3 = "Montana";
 Cow4 = "Ivy";
 
-var obQ = {var: [], f: function (x) {
+var obQ = {ar: [], f: function (x) {
            var ar = this.ar
 	   ar.push(x)
 	   if (ar.length === 3) {
