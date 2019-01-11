@@ -3522,6 +3522,21 @@ var quadHandler = {
 
 quadOb = new Proxy (quadOb, quadHandler);
 
+//****************************************** proxy_
+var obR = {ar: []};
+
+obR = new Proxy(obR, {
+    set: (a,b,c) => {
+        a.ar.push(c);
+        if (a.ar.length === 3) {
+            foo7(obR.ar[0], obR.ar[1], obR.ar[2]);
+            a.ar = [];
+        }
+        return Reflect.set(a,b,c);
+    }
+})
+//****************************************** proxy_
+
 function foo7 (a, b, c) {
     var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
     var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);

@@ -1831,7 +1831,7 @@ var ann27 = ann23();
 
   twoAction$ = qF1x$.map(e => {
       if (e.keyCode === 13) {  
-          quadOb.fu(toFloat(e.target.value));
+          obR.a = (toFloat(e.target.value));
           e.target.value = null;
       }
   });
@@ -2582,23 +2582,31 @@ h('pre', `function foo6 (a, b, c) {
 
                                                                     h('div', {style: {marginRight: "3%" }},   [
 
-h('p', ' Proxies and closures provide two ways of remotely manipulating persistent data during multiple function calls. As is the case here, closures are usually the better choice. The proxie algorithm is a convoluted way to asynchronously collect date for the quadratic formuls. ' ),
+h('p', ' Proxies and closures provide two ways of remotely manipulating and monitoring data that persists during multiple function calls. The code in this example might seem magical and mysterious to someone trying to maintain or debug it. "obR.key = value" results in "value" being pushed into obR.ar. It doesn\'t matter what characters are picked for the key. The key does not become an attribute of obR. The proxy handler responds to attempts to set an attribute on obR by pushing the value onto obR.ar and running foo7() each time obR.ar.length === 3 returns true. ' ),
   
-h('pre', `var quadOb = {ar: [], fu: function fu (x) {this.ar.push(x)}};
+h('pre', `  var qF1x$ = sources.DOM
+      .select('#qF1x').events('keypress');
 
-var quadHandler = {
-    get: function(target, bbb, ccc) {
-    console.log("target[bbb]", target[bbb]);
-    if ( Array.isArray(target[bbb]) && target[bbb].length === 3) {
-        foo7 (target[bbb][0], target[bbb][1], target[bbb][2]);
-        target[bbb] = [];
-    }    
-    diffRender();
-    return Reflect.get(target,bbb,ccc);
+  twoAction$ = qF1x$.map(e => {
+      if (e.keyCode === 13) {  
+          obR.a = (toFloat(e.target.value));  
+                     //obR doesn\'t get set
+          e.target.value = null;
+      }
+  });
+
+var obR = {ar: []};
+
+obR = new Proxy(obR, {
+    set: (a,b,c) => {
+        a.ar.push(c);
+        if (a.ar.length === 3) {
+            foo7(obR.ar[0], obR.ar[1], obR.ar[2]);
+            a.ar = [];
+        }
+        return Reflect.set(a,b,c);
     }
-}
-
-quadOb = new Proxy (quadOb, quadHandler); ` )
+}) ` )
 
                                                        ]),
                                                        h('div', {style: {marginRight: "2%", width: "50%" }},   [
@@ -2627,7 +2635,8 @@ h('pre', `function foo7 (a, b, c) {
     var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
     var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
     if (aa === aa) {
-         Cow3 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
+         Cow3 = \`\${a}*x*x + \${b}*x + \${c} = 0 
+                    has the following solutions:\`,
          Cow4 = \`x = \${aa} and x = \${bb}\`;
     }
     else {
