@@ -918,15 +918,7 @@ console.log(" END ************************** h and clone ***************** EBD")
         };
       });
 
-
-
-
-
-
       //*********************** ZULU ********************************* END MATRIX
-
-
-
 
       var rollClick$ = sources.DOM
         .select('#roll').events('click');
@@ -1834,7 +1826,6 @@ function ann23 () {
 
 var ann27 = ann23();
 
-/*
   var qF1x$ = sources.DOM
     .select('#qF1x').events('keypress');
 
@@ -1844,7 +1835,6 @@ var ann27 = ann23();
           e.target.value = null;
       }
   });
-*/
 
   var qF2x$ = sources.DOM
     .select('#qF2x').events('keypress');
@@ -2107,7 +2097,7 @@ var ann27 = ann23();
   // var xoxo = ["this is the head", "cow", "dog", "fireworks"];
   // head(xoxo).concat(tail(xoxo) === xoxo;
   */
-      var calcStream$ = xs.merge( threeAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
+      var calcStream$ = xs.merge( twoAction$, threeAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
         DOM: calcStream$.map(() => {
@@ -2166,7 +2156,7 @@ h('br'),
 h('br'),
 h('span.tao', {style: {color: "#FF00DD"}}, ' WARNING:' ), 
 h('span', ' Unless you are already proficient at creating functions that use recursion, closures, currying, reactivity, and sensible composition, trying to scrupulously conform to the functional-paradigm will stiffle your creativity and slow you progress toward mastering JavaScript. It\'s good to avoid mutating variables outside of function scope, but trying to make JavaScript functions behave like mathematical functions is a waste of time, and a waste of valuable features of an increasingly powerful programming language. ' ),
-h('p', ' Suppose you want to link functions, promises, and other kinds of values in a chain where functions can readily access the return values of prior functions and resolution values of prior promises. I don\'t think your libraries of frameworks would help you. But instances of Bnd3 (below) do these things. If you are learning to program functionally, you would do well to study the definition of Bnd3() and understand how it works the demonstration below. Otherwise, I hope you enjoy seeing it. ' ),  
+h('p', ' Suppose you want to chain computations involving functions, primitive values, and promises where functions can readily access the return values of prior functions, resolution values of promises that were previously entered, and p. I don\'t think your libraries of frameworks would help you. But instances of Bnd3 (below) do these things. If you are learning to program functionally, you would do well to study the definition of Bnd3() and understand how it works in the demonstration below. Otherwise, I hope you enjoy seeing it. ' ),  
 
 h('pre', `function Bnd3 () {
     this.ar = [];
@@ -2257,10 +2247,10 @@ it7_b = () => mMZ53.bnd(string => {
   h('span', ' Click below to begin twenty-five runs of: '),
   h('br'),
   h('br'),
-  h('span', styleFunc(["rgb(7, 247, 247)", "12%", "20px", , , , , ]), 'bind(145)(x=>x**3)(it4_c)(it6_c)(it7_c)'),
+  h('span', styleFunc(["rgb(7, 247, 247)", "12%", "20px", , , , , ]), 'ob.run(145)(x=>x**3)(it4_c)(it6_c)(it7_c)'),
   h('br'),
   h('br'),
-  h('button#factors_R', { style: { fontSize: '15px' }}, 'bind(145)(x=>x**3)( . . . ' ),
+  h('button#factors_R', { style: { fontSize: '15px' }}, 'ob.run(145)(x=>x**3)( . . . ' ),
   h('span', "~~"),
   h('button.clear_R', {
     style: {
@@ -2531,22 +2521,18 @@ h('p', ' A curried quadratic-formula function can evaluate arguments asynchronou
 
   
 
-h('p', ' Demonstration 3\'s functionality can be achieved more simply by calling "obQ.f()" repeatedly, as shown on the right. ' ),
-h('pre',  `function foo6 (a, b, c) {
-    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-    if (aa === aa) {
-         Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
-         Cow2 = \`x = \${aa} and x = \${bb}\`;
+h('p', ' Demonstration 3\'s functionality can be achieved more simply by calling "obQ.f()" repeatedly, as shown below. ' ),
+h('pre',  `var obQ = {var: [], f: function (x) {
+    var ar = this.ar;
+    ar.push(x)
+    if (ar.length === 3) {
+        foo6 (ar[0], ar[1], ar[2]);
+        ar = [];
     }
-    else {
-        console.log("Great Balls of Fire");
-        Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
-        Cow2 = '';
-    }
-    diffRender();
-} ;  ` )
+}};
+` ),
 
+h('p', ' foo6() is shown on the right. ' ),
                                                           ]),
   h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
@@ -2565,17 +2551,22 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
                 h('br'),   ]),
 
 
-h('pre', `
+h('pre', `function foo6 (a, b, c) {
+    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    if (aa === aa) {
+         Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 
+             has the following solutions:\`;
+         Cow2 = \`x = \${aa} and x = \${bb}\`;
+    }
+    else {
+        console.log("Great Balls of Fire");
+        Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
+        Cow2 = '';
+    }
+    diffRender();
+} ; ` ),
 
-var obQ = {ar: [], f: function (x) {
-	   this.ar.push(x)
-	   if (this.ar.length === 3) {
-	  	    foo6 (this.ar[0], this.ar[1], this.ar[2]);
-	  	    this.ar = [];
-	   }
-}}; ` ),
-
-              /*
                
                
 
@@ -2591,39 +2582,23 @@ var obQ = {ar: [], f: function (x) {
 
                                                                     h('div', {style: {marginRight: "3%" }},   [
 
-
-h('pre', `var quadOb = {ar: []};
-quadOb.fu = function fu (x) {this.ar.push(x)};
-
-var Cow1 = "Judy", Cow2 = "Judith";
-var pie = "Peach";
+h('p', ' Proxies and closures provide two ways of remotely manipulating persistent data during multiple function calls. As is the case here, closures are usually the better choice. The proxie algorithm is a convoluted way to asynchronously collect date for the quadratic formuls. ' ),
+  
+h('pre', `var quadOb = {ar: [], fu: function fu (x) {this.ar.push(x)}};
 
 var quadHandler = {
-  get: function(target, bbb, ccc) {
+    get: function(target, bbb, ccc) {
+    console.log("target[bbb]", target[bbb]);
     if ( Array.isArray(target[bbb]) && target[bbb].length === 3) {
-      var a = target[bbb][0];
-      var b = target[bbb][1];  
-      var c = target[bbb][2];  
-      target[bbb] = [];
-      var aa = (-b - Math.sqrt(b*b-4*a*c))/(2*a);
-      var bb = (-b + Math.sqrt(b*b-4*a*c))/(2*a);
-      if (aa === aa) {
-      Cow3 = \`\${a}*x*x + \${b}*x + \${c} = 0 has 
-        the following solutions:\`,
-          Cow4 = \`x = \${aa} and x = \${bb}\`;
-      }
-      if (!(aa === aa)) {
-        Cow3 = \`\${a}*x*x + \${b}*x + \${c} = 0 has 
-                      no solution\`;
-        Cow4 = '';
-      }
-  }    
-  diffRender();
-
-  return Reflect.get(target,bbb,ccc);
-  }
+        foo7 (target[bbb][0], target[bbb][1], target[bbb][2]);
+        target[bbb] = [];
+    }    
+    diffRender();
+    return Reflect.get(target,bbb,ccc);
+    }
 }
-var quadOb = new Proxy (quadOb, quadHandler); ` )
+
+quadOb = new Proxy (quadOb, quadHandler); ` )
 
                                                        ]),
                                                        h('div', {style: {marginRight: "2%", width: "50%" }},   [
@@ -2645,12 +2620,23 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
                 h('br'),   ]),
 
 
-h('p', ' The user experience in this and the previous two demonstrations are identical, but here the three coefficients of the quadratic formula accumulate in a custom object named "quadOb". And here, the quadratic formula computation is done in a proxy handler rather than a function returned by a closure.' ),
 
 h('p', ' quadOb contains an array and a function that populates it with the arguments it encounters. It is also a proxy of itself, making it aware (I hope you\'ll permit me to occasionally pretend that JavaScript objects are sentient) of the size of its array in order to run the quadratic formula on its contents whenever the number grows to three.' ),
 
-h('p', ' quadOb.fu(n1), quadOb.fu(n2), ... can continue indefinitely, evaluating the quadratic formula every third time it is called. Of course it would be simpler to provide three numbers simultaneously to a three-parameter function, but these are demonstrations of ways to deal with asynchronous streams of incoming data. ' )
-*/
+h('pre', `function foo7 (a, b, c) {
+    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    if (aa === aa) {
+         Cow3 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
+         Cow4 = \`x = \${aa} and x = \${bb}\`;
+    }
+    else {
+        console.log("Great Balls of Fire");
+        Cow3 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
+        Cow4 = '';
+    }
+  } ; ` ),
+
                                                        ])
                                                           ]),
 
@@ -3818,7 +3804,7 @@ h('br'),
               h('h3', 'Promises'),
 
               h('p', ' As the definition of MonadItter shows, bnd() saves functions until release() causes them to execute. MonadItter instances are usually used on this webpage where promises, generators, and async/await could also do the job. No transpiling is needed in old browsers; MonadItter is written in ES5. '),
-              h('p', 'Here are the Promises-based functions prm4() and prm6() that can be substituted for it4() and it6() in the expression bind(145)(cubeC)(it4)(it6): '),
+              h('p', 'Here are the Promises-based functions prm4() and prm6() that can be substituted for it4() and it6() in the expression ob.run(145)(cubeC)(it4)(it6): '),
               h('pre', `  const prm4 = x => {
     if (socket.readyState === 1) socket.send(\'BB#\$42,pMgroup,pMname,' + x);
     return new Promise( (resolve, reject) => {
@@ -3832,7 +3818,7 @@ h('br'),
   } `),
 
               h('p', ' Error handling is easy when using MonadItter instances, and is entirely optional. '),
-              h('p', ' After "bind(145)(cubeC)(it4)(it6)(it7) runs, the prime decomposition of the number it recieved arrives from workerG. The workerGDriver (sources.WWG) detects the message and adds it to the workerG$ stream. Here is the definition of workerGDriver:  '),
+              h('p', ' After "ob.run(145)(cubeC)(it4)(it6)(it7) runs, the prime decomposition of the number it recieved arrives from workerG. The workerGDriver (sources.WWG) detects the message and adds it to the workerG$ stream. Here is the definition of workerGDriver:  '),
               h('pre', `  function workerGDriver () {
     return xs.create({
       start: listener => { workerG.onmessage = msg => listener.next(msg)},
@@ -3840,7 +3826,7 @@ h('br'),
     });
   }; `),
               h('p', ' Clicking the "decompose fifteen random numbers" button causes factorsRecursion(0) to execute. Here\'s the code: '),
-              h('pre', blue, `  const factorsRecursion = n => bind(145)(cubeC)(it4)
+              h('pre', blue, `  const factorsRecursion = n => ob.run(145)(cubeC)(it4)
     (it6)(() => { if (n < 15) factorsRecursion(n+1)}); `),
               h('p', 'result778(m.data) is called each time a message from workerG arrives. The definition of result778 is:   '),
               h('pre#defs', blue, `var result778 = x => h('div', [
@@ -3861,7 +3847,7 @@ h('br'),
     m43_ = [];
     var bind = new Bnd3().run; 
     while (i < 25) {
-      bind(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
+      ob.run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
       i += 1;
     }
   });  ` ),
@@ -3926,7 +3912,7 @@ h('br'),
         m43_ = [];  // Clears the display
         var bind = new Bnd3();   //bi.run();
         while (i < 25 {
-          bind(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
+          ob.run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
           i += 1;
         }
     }); ` ),

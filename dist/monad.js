@@ -3369,7 +3369,7 @@ console.log(_state.sum, _state.prod);
         return func => {
             var p;
             if (func == 'stop') return this.ar;
-            else if (typeof func !== "function") p = func;
+          else if (typeof func !== "function") p = func;
             else if (x instanceof Promise) p = x.then(v => func(v));
             else p = func(x);
             return this.run(p);
@@ -3485,7 +3485,8 @@ function ann23 () {
 };
 
 var ann27 = ann23();
-/*
+
+
  function  qfB (a,b,c) {
       var C0 = [];
       var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
@@ -3502,40 +3503,39 @@ var ann27 = ann23();
   }
 
 
-var quadOb = {ar: []};
-quadOb.fu = function fu (x) {this.ar.push(x)};
-
 var Cow1 = "Judy", Cow2 = "Judith";
 var pie = "Peach";
+
+var quadOb = {ar: [], fu: function fu (x) {this.ar.push(x)}};
 
 var quadHandler = {
     get: function(target, bbb, ccc) {
     console.log("target[bbb]", target[bbb]);
-        if ( Array.isArray(target[bbb]) && target[bbb].length === 3) {
-            var a = target[bbb][0];
-            var b = target[bbb][1];  
-            var c = target[bbb][2];  
-            target[bbb] = [];
-            var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-            var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-            if (aa === aa) {
-                Cow3 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
-                Cow4 = `x = ${aa} and x = ${bb}`;
-            }
-            if (!(aa === aa)) {
-            	   console.log("Great Balls of Fire");
-                Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
-                Cow2 = '';
-            }
-        }    
+    if ( Array.isArray(target[bbb]) && target[bbb].length === 3) {
+        foo7 (target[bbb][0], target[bbb][1], target[bbb][2]);
+        target[bbb] = [];
+    }    
     diffRender();
     return Reflect.get(target,bbb,ccc);
     }
 }
 
-// var quadOb = new Proxy (quadOb, quadHandler);
+quadOb = new Proxy (quadOb, quadHandler);
 
-
+function foo7 (a, b, c) {
+    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    if (aa === aa) {
+         Cow3 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+         Cow4 = `x = ${aa} and x = ${bb}`;
+    }
+    else {
+        console.log("Great Balls of Fire");
+        Cow3 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+        Cow4 = '';
+    }
+    diffRender();
+} ;
 
 var trip = function (x, n) {
     var n = n;
@@ -3573,7 +3573,6 @@ go_6(1);
 go_6(2);
 go_6(-3);
 
-*/
 
 
 // ****************************************************************
@@ -3594,12 +3593,15 @@ function foo6 (a, b, c) {
     diffRender();
 } ;
 
-var obQ = {ar: [], f: function (x) {
-	   this.ar.push(x)
-	   if (this.ar.length === 3) {
-	  	    var a = foo6 (this.ar[0], this.ar[1], this.ar[2]);
-	  	    console.log(a);
-	  	    this.ar = [];
+Cow3 = "Montana";
+Cow4 = "Ivy";
+
+var obQ = {var: [], f: function (x) {
+           var ar = this.ar
+	   ar.push(x)
+	   if (ar.length === 3) {
+	  	    foo6 (ar[0], ar[1], ar[2]);
+	  	    ar = [];
 	   }
 }};
 /*
