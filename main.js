@@ -2737,160 +2737,13 @@ h('div', `${foocow_7.join(", ")}`)
     }
   }, 'comments'),
   h('span', ' section near the end of this page. You can email me at pyschalk@gmail.com. '),
-  h('h3', ' The Game '),
-  h('p', ' The demonstrations below include persistent, shared todo lists, text messaging, and a simulated dice game with a traversable history. All group members see other members\' scores decrease or increase as they navigate backwards and forwards. '),
-
-  h('p', ' Visitors to this site are automatically logged in with pseudo-randomly generated numbers as their user names and passwords. The default "group" is the non-group "solo". '),
-  h('p', ' You can select a persistent name and password. These will make it possible for you to return at any time and delete or edit your comments. '),
-  h('p#gameIntro', ' The demonstration section also has a text box where you can create or join a group by entering a group name. Changing groups resets your game score and goal tally to zeros. '),
-  h('span.tao', ' The code is at ' ), 
-  h('a', {props: {href: "http://github.com/dschalk/functional-javascript", target: "_blank"}}, 'Github' ),
-  h('span', ' and ' ),
-  h('a', {props: {href: "#gameCode" }}, "here" ),
-  h('br'),
-  h('h3', 'The Rules'),
-  h('p', 'People who are in the same group, other than the default non-group named "solo", share the same todo list, chat messages, and simulated dice game. '),
-  h('p', ' Data for the traversable game history accumulates until a player scores three goals and wins. The data array is then emptied and the application is ready to start accumulating a new history. '),
-  h('p', ' Your user name for trying out the game, todo list, and chat demonstrations and for leaving comments is a thirteen digit random number. In the game section and in the comments section near the bottom of this page, you can chose your own persistent user name and password. As mentioned above, Knowing your password facilitates revising or removing comments.'),
-
-            ]),
-
-h('h1', 'Game, Todo List, Text Messages'),
-h('div#gameDiv2', {
-  style: {
-    display: mMgameDiv2.x
-  }
-}, [
-  h('div#leftPanel', {
-    style: {
-      display: mMgameDiv2.x
-    }
-  }, [
-    h('p', 'RULES: If clicking two numbers and an operator (in any order) results in 20 or 18, the score increases by 1 or 3, respectively. If the score becomes 0 or is evenly divisible by 5, 5 points are added. A score of 25 results in one goal. That can only be achieved by arriving at a score of 20, which jumps the score to 25. Directly computing 25 results in a score of 30, and no goal. Each time ROLL is clicked, one point is deducted. Three goals wins the game. The code is in an appendix.'),
-    h('p', {
-      style: {
-        color: 'red',
-        fontSize: '20px'
-      }
-    }, mMgoals2.x),
-    buttonNode,
-    h('br'),
-    h('button#4.op', 'add'),
-    h('button#5.op', 'subtract'),
-    h('button#6.op', 'mult'),
-    h('button#7.op', 'div'),
-    h('button#8.op', 'concat'),
-    h('br'),
-    h('br'),
-    h('div#dice', {
-      style: {
-        display: mMdice.x
-      }
-    }, [
-      h('button#roll.tao1', 'ROLL'),
-      h('button#back.tao100', 'BACK'),
-      h('button#ahead.tao1', 'FORWARD'),
-      h('div.tao', `Selected numbers: ${gameMonad.fetch3().join(', ')}`),
-      h('div.tao', `Operator: ${gameMonad.fetch2()} `),
-      h('div.tao', 'Index: ' + gameMonad.s[1]),
-      h('button#clear', 'Clear selected numbers'),
-      h('p', ' When traversing the game history, any time there are two selected numbers and a selected operator, a computation will be performed. You can clear the selected numbers and substitute others, and if you don\'t want a selected operator you can select another one.'),
-      h('p', ' Create a group or join an existing group. If you registered a name below, press the <ENTER> key twice or hold it down for a second or two in order to display any group todo list that might exist. Group t might still have a todo list.'),
-      h('span', 'Change group: '),
-      h('input#group', 'test'),
-      h('p', mMsoloAlert.x),
-      h('p', ' You can change your name by entering a comma-separated name and password below. The combination will go into a persistent file. You can use this combination in the future to edit or delete your saved comments. '),
-      h('span.red', mMregister.x),
-      h('p', {
-        style: {
-          color: "red"
-        }
-      }, nameMess),
-      h('label', {
-        style: {
-          display: mMshowRegister.x
-        }
-      }, 'Register or log in here:'),
-      h('input.register', {
-        style: {
-          display: mMshowRegister.x
-        }
-      }),
-    ])
-  ]),
-  h('div#rightanel', {
-    style: {
-      display: 'block',
-      float: 'right'
-    }
-  }, [
-    h('br'),
-    h('br'),
-    h('br'),
-    h('br'),
-    h('br'),
-    h('br'),
-    h('button#todoButton.cow', 'TOGGLE TODO_LIST'),
-    h('br'),
-    h('br'),
-    h('button#chat2.cow', 'TOGGLE CHAT'),
-    h('br'),
-    h('br'),
-    h('br'),
-    h('div', {
-      style: {
-        fontSize: "14 px"
-      }
-    }, 'Name: ' + pMname.x),
-    h('div', {
-      style: {
-        fontSize: "14 px"
-      }
-    }, 'Group: ' + pMgroup.x),
-    h('br'),
-    h('div', {
-      style: {
-        fontSize: "14 px"
-      }
-    }, gameData),
-    h('br'),
-    h('div#a100', ' _____________________________________ '),
-    h('p.italic', ' Join group "t" if you want to see some previously created tasks. '),
-    h('div', {
-      style: {
-        display: showTodoDiv
-      }
-    }, [
-      h('div', taskMonad.html),
-      h('div', 'Enter author, responsible person, and task here: '),
-      h('input.newTask')
-    ]),
-    h('br'),
-    h('span#alert', mMalert.x),
-    h('br'),
-    h('span#alert2'),
-
-    h('br'),
-    h('div#chatDiv', {
-      style: {
-        display: showChatDiv
-      }
-    }, [
-      h('div#messages', [
-        h('span', 'Message: '),
-        h('input.inputMessage'),
-        h('div', messages),
-        h('br'),
-      ])
-    ])
-  ])
-]),
-h('br'),
+                    ]), 
 h('h1', '___________________________________________________________'),
 h('div.content', [ // 4
           h('div#bind'),
 
           h('br'),
+  h('h3', 'MonadItter' ),
           h('p', ' The asynchronous functions in Demonstration 1 use monadItter instances mMZ40 and mMZ52 instead of Promises. Here\'s the definition of MonadItter: '),
           h('pre', `  var MonadItter = function MonadItter() {
   this.p = function () {};
@@ -2901,7 +2754,185 @@ h('div.content', [ // 4
     return this.p = func;
   };
 }; `),
-          h('p', ' MonadItter instances trap incoming WebSocket messages based on their six-digit prefixes and redirect them according to their intended purposes. No error checking is needed. If a prefix is not recognized, the message falls through and is disregarded. '),
+          h('p', ' MonadItter instances trap incoming WebSocket messages based on their six-digit prefixes and redirect them according to their intended purposes. No error checking is needed. If a prefix is not recognized, the message falls through and is disregarded. This is how incoming WebSocket messages are parsed: '),
+h('pre',   {style: {color: "#aaffff"}}, `        const messages$ = sources.WS.map(e => {
+        var v = e.data.split(',')
+        // console.log("ret(v[0])", ret(v[0]));
+        var group = v[1]
+        var sender = v[2];
+        var extra = v[3];
+        var extra2 = v[4];
+
+        mMZ9.bnd(() => {
+          console.log("sender is", sender);
+          console.log("extra is", extra);
+          console.log("The full message is", e);
+          console.log("v is", v);
+        });
+
+        mMZ10.bnd(() => {
+          if (sender === pMname.x) {
+            gameMonad.run([v[7], v[8], 0, [],
+              [v[3], v[4], v[5], v[6]]
+            ]);
+          } else gameMonad.run([, , , [],
+            [v[3], v[4], v[5], v[6]]
+          ]);
+        });
+
+        mMZ11.bnd(() => {
+          console.log('The message arrived', messages$);
+          var message = v.slice(3, v.length).join(', ');
+          var str = v[2] + ': ' + message;
+          messages.unshift(h('span', str), h('br'));
+          console.log('The message was typeof ar', typeof str);
+        });
+
+        mMZ12.bnd(() => {
+          mMgoals2.ret('The winner is ' + v[2]);
+          setTimeout(function () {
+            mMgoals2.ret('')
+          }, 700);
+        });
+
+        mMZ13.bnd(() => {
+          mMgoals2.ret('A player named ' + v[2] +
+            ' is currently logged in. Page will refresh in 4 seconds.')
+          refresh()
+        });
+
+        mMZ14.bnd(() => {
+          var ar = e.data.split("<$>")[1];
+          console.log("In mZ14.bnd - - ar is", ar);
+          console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzztaskMonad', taskMonad);
+          return taskMonad.init(ar);
+        });
+
+        mMZ15.bnd(() => {
+          var ar = [];
+          var arr = v[3].slice();
+          var arr2 = arr.split("<$!$>");
+          var arr3 = arr2.map(v => {
+            console.log('In mMZ15.bnd ar, arr, arr2, and arr3 are', ar, arr, arr2, arr3),
+              ar.push(v);
+            ar.push(h('br'));
+          });
+          gameData = ar;
+        });
+
+        mMZ16.bnd(() => { // Prefix RR#$42
+          var str = mMcommentStr.x;
+          if (extra2 === "code1") {
+            mMregister.ret('The registered name ' + extra + ' and the associated password were recognized. ');
+            socket.send('GZ#$42,' + pMgroup.x + ',' + pMname.x + ',<@>' + str);
+          }
+          if (extra2 === "code2") {
+            mMregister.ret('The new name ' + extra + ' was registered.');
+            socket.send('GZ#$42,' + pMgroup.x + ',' + pMname.x + ',<@>' + str);
+          }
+          if (extra2 === "code3") {
+            pMname.ret(sender);
+            mMregister.ret('The password you entered is not the password that is registered for ' + tempName + '.');
+            mMshowRegister.ret('inline');
+          }
+        });
+
+        mMZ17.bnd(() => { // Prefix GZ#$42
+          var newStr = extra.substring(0, extra.length - 3);
+          newStr = newStr.replace(/<@><@>/g, "<@>");
+          newStr = newStr.replace(/↵/g, '');
+          if (newStr === "") return;
+          commentMonad.init(newStr);
+        });
+
+        mMZ18.bnd(() => { // Prefix GN#$42  NEW COMMENT
+          commentMonad.append(extra);
+        });
+
+        mMZ19.bnd(() => { // Prefix GE#$42  EDIT A COMMENT
+          commentMonad.edit(extra, extra2);
+          console.log('In mMZ19 to edit a comment. <><><><><><><> extra, extra2:', extra, extra2);
+        });
+
+        mMZ20.bnd(() => { // Prefix GD#$42  DELETE A COMMENT
+          commentMonad.remove(parseInt(extra, 10));
+        });
+        // ******************************************************* TASKS
+        mMZ21.bnd(() => { // add a new a task
+          console.log('ooooooooooooooooooo New task from the server', extra);
+          taskMonad.append(extra);
+        });
+
+        mMZ22.bnd(() => { // edit a task
+          taskMonad.edit(v[3], v[4]);
+        });
+
+        mMZ23.bnd(() => {
+          console.log('In mMZ23 -- v[3] is', v[3]);
+          taskMonad.toggle(v[3]);
+        });
+
+        mMZ24.bnd(() => { //Delete a task
+          taskMonad.delete(v[3]);
+        });
+
+        mMZ25.bnd(() => { // Receive tasks when group changes
+          console.log('QQQQQQ  Bingo! extra is QQQQQQQWWWWWWWWWWQQQQQQQQ in mMZ25.bnd. ', extra);
+          taskMonad.html = taskMonad.init(extra);
+        });
+
+        mMZ27.bnd(() => {
+          console.log("mMZ27 v[3]", v[3]);
+          mMZ38.release(v[3]);
+        });
+
+        mMZ28.bnd(() => {
+          if (playerName === sender) mMZ40.release(v[3]);
+          else console.log('message from sender to BC#$42')
+        });
+
+        mMZ29.bnd(() => {
+          if (playerName === sender) mMZ41.release(v[3]);
+          // else console.log('message from sender to BD#$42')
+        });
+
+        mMZ30.bnd(() => {
+          if (playerName === sender) mMZ42.release(v[3]);
+          else console.log('message from sender to BE#$42')
+        });
+
+
+        ret(v[0])
+          .bnd(next, 'CC#$42', mMZ9)
+          .bnd(next, 'CA#$42', mMZ10) // Dice roll
+          .bnd(next, 'CD#$42', mMZ11)
+          .bnd(next, 'CE#$42', mMZ12)
+          .bnd(next, 'EE#$42', mMZ13)
+          .bnd(next, 'TD#$42', mMZ14)
+          .bnd(next, 'NN#$42', mMZ15)
+          .bnd(next, 'RR#$42', mMZ16)
+          .bnd(next, 'GZ#$42', mMZ17) // Comments automatically arrive after the app loads
+          .bnd(next, 'GN#$42', mMZ18)
+          .bnd(next, 'GE#$42', mMZ19)
+          .bnd(next, 'GD#$42', mMZ20)
+          .bnd(next, 'TA#$42', mMZ21) // Automatic task list load on group change
+          .bnd(next, 'TE#$42', mMZ22) // edit a task
+          .bnd(next, 'TT#$42', mMZ23) // chechbox
+          .bnd(next, 'TX#$42', mMZ24) // delete button
+          .bnd(next, 'TI#$42', mMZ25) // group change
+          .bnd(next, 'BB#$42', mMZ27) // works in conjunction with it4
+          .bnd(next, 'BC#$42', mMZ28) // works in conjunction with it4
+          .bnd(next, 'BD#$42', mMZ29) // works in conjunction with it4_b
+          .bnd(next, 'BE#$42', mMZ30) // works in conjunction with it4_c
+      });
+
+      function next(x, y, instance, z) {
+        if (x == y) {
+          instance.release(z);
+        }
+        return ret(x);
+      }; ` ),
+
 
           h('h3', 'Reactivity In Cycle.js'),
           h('span.tao', ' Reactivity occurs naturally in the Cycle.js framework. Many developers find that Cycle.js has an unusually steep learning curve. It isn\'t so bad if you start with Andrew Staltz\' '),
@@ -3355,35 +3386,8 @@ h('pre', `  const _state = {a: 0, b: 0, sum: 0, prod: 0 }
 
   const _count = new Proxy ({}, handlerUpdate); ` ), 
 
-
-
-
-
 h('p', ' ' ), 
 h('a', {props: {href: "#proxy2"}}, 'Back to the first demonstration' ),
-
-
-
-
-
-
-
-h('h2', ' MonadEr - An Error-Catching Monad '),
-
-h('p', ' THIS IS A FIRST STAB AT MAKING SOMETHING THAT PERFORMS LIKE HASKELL\'S "Maybe" MONAD. THERE IS LOTS OF ROOM FOR IMPROVEMENT.  ' ), 
-h('p', ' Instances of MonadEr function much the same as instances of Monad, but when an instance of MonadEr encounters an error, it ceases to perform any further computations. Instead, it passes through every subsequent stage of a sequence of MonadEr expressions, reporting where it is and repeating the error message. It will continue to do this until it is re-instantiated or until its bnd() method runs on the function clean(). '),
-h('p', 'Functions used as arguments to the MonadEr bnd() method can be placed in quotation marks to prevent the browser engine from throwing reference errors. Arguments can be protected in the same manner. Using MonadEr can prevent the silent proliferation of NaN results in math computations, and can prevent browser crashes due to attempts to evaluate undefined variables. '),
-h('p.tao1b', ' The monad laws hold for MonadEr instances. The following relationships were verified in the Chrome console: '),
-h('pre', `    ret3(0,'t',[])  // t is now an instance of MonadEr with t.x = 0 and t.e = [].
-
-        t.ret(3).bnd(cube3).x === cube(3).x
-        ret3(3).bnd(cube3).x === cube3(3).x
-
-        t.bnd(t.ret) === t
-        t.bnd(ret) === t
-
-        t.ret(0).bnd(add3, 3).bnd(cube3).x ===
-        t.ret(0).bnd(v => add3(v,3).bnd(cube3)).x  `),
 
 h('span#comments'),
 h('br'),
@@ -3503,8 +3507,12 @@ h('pre', `function showFunc (name, name2)
   } `),
               h('a', { props: { href: '#top' }}, 'Back to the top'),
               h('p', ' *************************************************************************************** '),
-
-h('span.tao', ' The ' ),
+  h('h1', 'Snippets, Musing, and Some Old Abandoned Code' ),
+h('h2', 'Most Of This Section Will Be Deleted' ),
+h('span.tao', 'All Current Code Is In The ' ),
+h('a', {props: {href: "https://Github.com/dschalk/functional-javascript" }},  'Github Repository' ),
+h('span', '.' ),
+  h('span.tao', ' The ' ),
 h('a', {props: {href:"https://wiki.haskell.org/Monad_laws", target: "_blank" }}, 'Haskell Monad Laws' ), 
 h('span', ', which aren\'t even mandetory in Haskell, are common sense requirements for robust function composition. If you rely on functions to make programs work, you aren\'t communicating changes of state by mutating global variables. Time travel and undo algorithms naturally use immutable data. Thousands of passes through loops inside the scopes of functions cry out for mutable values, not factories spewing pointers and values into memory. When you program functionally, Things fall into place without enforcing rules. This is doing through inaction, in the spirit of the ' ),
   
