@@ -1831,7 +1831,7 @@ var ann27 = ann23();
 
   twoAction$ = qF1x$.map(e => {
       if (e.keyCode === 13) {  
-          obR.a = (toFloat(e.target.value));
+          obS.key = e.target.value;
           e.target.value = null;
       }
   });
@@ -2522,15 +2522,17 @@ h('p', ' A curried quadratic-formula function can evaluate arguments asynchronou
   
 
 h('p', ' Demonstration 3\'s functionality can be achieved more simply by calling "obQ.f()" repeatedly, as shown below. ' ),
-h('pre',  `var obQ = {var: [], f: function (x) {
-    var ar = this.ar;
-    ar.push(x)
-    if (ar.length === 3) {
-        foo6 (ar[0], ar[1], ar[2]);
-        ar = [];
+h('pre',  `obS = new Proxy(obR, {
+    set: (a,b,c) => {
+      console.log("a,b,c", a,b,c);
+            obQ.ar.push(c);
+            if (obQ.ar.length === 3) {
+                foo7(obQ.ar[0], obQ.ar[1], obQ.ar[2]);
+                obQ.ar = [];
+            }
+        return Reflect.set(a,b,c);
     }
-}};
-` ),
+}) ` ),
 
 h('p', ' foo6() is shown on the right. ' ),
                                                           ]),

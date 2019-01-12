@@ -3510,7 +3510,6 @@ var quadOb = {ar: [], fu: function fu (x) {this.ar.push(x)}};
 
 var quadHandler = {
     get: function(target, bbb, ccc) {
-    console.log("target[bbb]", target[bbb]);
     if ( Array.isArray(target[bbb]) && target[bbb].length === 3) {
         foo7 (target[bbb][0], target[bbb][1], target[bbb][2]);
         target[bbb] = [];
@@ -3523,18 +3522,21 @@ var quadHandler = {
 quadOb = new Proxy (quadOb, quadHandler);
 
 //****************************************** proxy_
-var obR = {ar: []};
 
-obR = new Proxy(obR, {
+var obR = {ar: [], key: 0};
+
+obS = new Proxy(obR, {
     set: (a,b,c) => {
-        a.ar.push(c);
-        if (a.ar.length === 3) {
-            foo7(obR.ar[0], obR.ar[1], obR.ar[2]);
-            a.ar = [];
-        }
+      console.log("a,b,c", a,b,c);
+            obQ.ar.push(c);
+            if (obQ.ar.length === 3) {
+                foo7(obQ.ar[0], obQ.ar[1], obQ.ar[2]);
+                obQ.ar = [];
+            }
         return Reflect.set(a,b,c);
     }
 })
+
 //****************************************** proxy_
 
 function foo7 (a, b, c) {
@@ -3612,11 +3614,11 @@ Cow3 = "Montana";
 Cow4 = "Ivy";
 
 var obQ = {ar: [], f: function (x) {
-           var ar = this.ar
-	   ar.push(x)
-	   if (ar.length === 3) {
+           console.log("obQ.ar is", obQ.ar)
+	   obQ.ar.push(x)
+	   if (obQ.ar.length === 3) {
 	  	    foo6 (ar[0], ar[1], ar[2]);
-	  	    ar = [];
+	  	    obQ.ar = [];
 	   }
 }};
 /*
