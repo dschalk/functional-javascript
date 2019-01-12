@@ -282,11 +282,7 @@ var pigText = 888;
 var _convert_ = a => b => parseInt(b,a);  
 var toInt = _convert_ (10);
 var toHex = _convert_ (6);
-var _conveNt_ = a => b => parseFloat(b,a);
-var toFloat = _conveNt_ (10);
-var _convert_ = a => b => parseInt(b,a);  
-var toInt = _convert_ (10);
-var toHex = _convert_ (6);
+
 var _conveNt_ = a => b => parseFloat(b,a);
 var toFloat = _conveNt_ (10);
 
@@ -3461,25 +3457,14 @@ function test5 (n) {
   function quadFormula(x) {return qfB.run(toFloat(x))(qF9)}; 
 */
 
+
 function ann23 () {
      var ob = new Bnd3()
      return y => {
         ob.run(toFloat(y));
+        console.log("ob is", ob);
         if (ob.ar.length === 3) {
-            var a = ob.ar[0];
-            var b = ob.ar[1];  
-            var c = ob.ar[2];  
-            ob.ar = [];
-            var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-            var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-            if (aa === aa) {
-                Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
-                Cow2 = `x = ${aa} and x = ${bb}`;
-            }
-            else {
-                Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
-                Cow2 = '';
-            }
+            foo6(ob.ar[0], ob.ar[1], ob.ar[2]);
         }
     }
 };
@@ -3523,17 +3508,17 @@ quadOb = new Proxy (quadOb, quadHandler);
 
 //****************************************** proxy_
 
-var obR = {ar: [], key: 0};
+var obR = {ar: []};
 
-obS = new Proxy(obR, {
-    set: (a,b,c) => {
+obR = new Proxy(obR, {
+    get: (a,b,c) => {
       console.log("a,b,c", a,b,c);
-            obQ.ar.push(c);
-            if (obQ.ar.length === 3) {
-                foo7(obQ.ar[0], obQ.ar[1], obQ.ar[2]);
-                obQ.ar = [];
+            a.ar.push(b);
+            if (a.ar.length === 3) {
+                foo7(a.ar[0], a.ar[1], a.ar[2]);
+                obR.ar = [];
             }
-        return Reflect.set(a,b,c);
+       // return Reflect.get(a,b,c);
     }
 })
 
@@ -3547,7 +3532,6 @@ function foo7 (a, b, c) {
          Cow4 = `x = ${aa} and x = ${bb}`;
     }
     else {
-        console.log("Great Balls of Fire");
         Cow3 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
         Cow4 = '';
     }
@@ -3576,7 +3560,6 @@ var foo5 =  (a) =>(b) => (c) => {
          Cow8 = `x = ${aa} and x = ${bb}`;
     }
     else {
-        console.log("Great Balls of Fire");
         Cow3 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
         Cow4 = '';
     }
@@ -3603,7 +3586,6 @@ function foo6 (a, b, c) {
          Cow8 = `x = ${aa} and x = ${bb}`;
     }
     else {
-        console.log("Great Balls of Fire");
         Cow7 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
         Cow8 = '';
     }
@@ -3614,10 +3596,10 @@ Cow3 = "Montana";
 Cow4 = "Ivy";
 
 var obQ = {ar: [], f: function (x) {
-           console.log("obQ.ar is", obQ.ar)
 	   obQ.ar.push(x)
+           console.log("obQ.ar is", obQ.ar)
 	   if (obQ.ar.length === 3) {
-	  	    foo6 (ar[0], ar[1], ar[2]);
+	  	    foo6 (obQ.ar[0], obQ.ar[1], obQ.ar[2]);
 	  	    obQ.ar = [];
 	   }
 }};
@@ -3632,6 +3614,24 @@ setTimeout(() => {
 },5000); */
 // ***************************************************************
 
+
+var  _arQuad = [];
+
+function push3 (ar, x) { return ar.concat(x) } 
+
+push3 = new Proxy(push3, {
+    apply: function(a, b, c) {
+        if (c[0].length === 3) c = [ [], c[1] ]
+        if (c[0].length === 2) {
+            foo7(c[0][0], c[0][1], c[1]);
+        }
+    return Reflect.apply(a,b,c);
+    }
+})
+
+arQuad = push3(_arQuad,1);
+arQuad = push3(_arQuad,2);
+arQuad = push3(_arQuad,-3);
 
 
 

@@ -1831,7 +1831,7 @@ var ann27 = ann23();
 
   twoAction$ = qF1x$.map(e => {
       if (e.keyCode === 13) {  
-          obS.key = e.target.value;
+          _arQuad = push3(_arQuad, e.target.value);
           e.target.value = null;
       }
   });
@@ -2522,17 +2522,24 @@ h('p', ' A curried quadratic-formula function can evaluate arguments asynchronou
   
 
 h('p', ' Demonstration 3\'s functionality can be achieved more simply by calling "obQ.f()" repeatedly, as shown below. ' ),
-h('pre',  `obS = new Proxy(obR, {
-    set: (a,b,c) => {
-      console.log("a,b,c", a,b,c);
-            obQ.ar.push(c);
-            if (obQ.ar.length === 3) {
-                foo7(obQ.ar[0], obQ.ar[1], obQ.ar[2]);
-                obQ.ar = [];
-            }
-        return Reflect.set(a,b,c);
-    }
-}) ` ),
+h('pre',  `var obQ = {ar: [], f: function (x) {
+           console.log("obQ.ar is", obQ.ar)
+	   obQ.ar.push(x)
+	   if (obQ.ar.length === 3) {
+	  	    foo6 (ar[0], ar[1], ar[2]);
+	  	    obQ.ar = [];
+	   }
+}) 
+
+var qF1$ = sources.DOM
+   .select('#qF1').events('keypress');
+
+ oneAction$ = qF1$.map(e => {
+     if (e.keyCode === 13) {  
+         obQ.f(toFloat(e.target.value));
+         e.target.value = null;
+     }
+ }); ` ),
 
 h('p', ' foo6() is shown on the right. ' ),
                                                           ]),
@@ -2584,31 +2591,35 @@ h('pre', `function foo6 (a, b, c) {
 
                                                                     h('div', {style: {marginRight: "3%" }},   [
 
-h('p', ' Proxies and closures provide two ways of remotely manipulating and monitoring data that persists during multiple function calls. The code in this example might seem magical and mysterious to someone trying to maintain or debug it. "obR.key = value" results in "value" being pushed into obR.ar. It doesn\'t matter what characters are picked for the key. The key does not become an attribute of obR. The proxy handler responds to attempts to set an attribute on obR by pushing the value onto obR.ar and running foo7() each time obR.ar.length === 3 returns true. ' ),
+h('p', ' Proxies and closures provide two ways of remotely manipulating and monitoring data that persists during multiple function calls. In this demonstration, push3() is a proxy of itself. It monitors the size of arQuad, running the quadratic formula on its contents and emptying it each time its length reaches 3. ' ),
   
-h('pre', `  var qF1x$ = sources.DOM
-      .select('#qF1x').events('keypress');
+h('pre', `var _arQuad = [];
 
-  twoAction$ = qF1x$.map(e => {
-      if (e.keyCode === 13) {  
-          obR.a = (toFloat(e.target.value));  
-                     //obR doesn\'t get set
-          e.target.value = null;
-      }
-  });
+function push3 (ar, x) { return ar.concat(x) } 
 
-var obR = {ar: []};
-
-obR = new Proxy(obR, {
-    set: (a,b,c) => {
-        a.ar.push(c);
-        if (a.ar.length === 3) {
-            foo7(obR.ar[0], obR.ar[1], obR.ar[2]);
-            a.ar = [];
+push3 = new Proxy(push3, {
+    apply: function(a, b, c) {
+        if (c[0].length === 3) c = [ [], c[1] ]
+        if (c[0].length === 2) {
+            foo7(c[0][0], c[0][1], c[1]);
         }
-        return Reflect.set(a,b,c);
+    return Reflect.apply(a,b,c);
     }
-}) ` )
+})
+
+var qF1x$ = sources.DOM
+  .select('#qF1x').events('keypress');
+
+twoAction$ = qF1x$.map(e => {
+    if (e.keyCode === 13) {  
+        arQuad = push3(arQuad, e.target.value);
+        e.target.value = null;
+    }
+});
+
+
+
+` )
 
                                                        ]),
                                                        h('div', {style: {marginRight: "2%", width: "50%" }},   [
@@ -2642,7 +2653,6 @@ h('pre', `function foo7 (a, b, c) {
          Cow4 = \`x = \${aa} and x = \${bb}\`;
     }
     else {
-        console.log("Great Balls of Fire");
         Cow3 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
         Cow4 = '';
     }
