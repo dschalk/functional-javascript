@@ -3464,12 +3464,26 @@ function ann23 () {
         ob.run(toFloat(y));
         console.log("ob is", ob);
         if (ob.ar.length === 3) {
-            foo6(ob.ar[0], ob.ar[1], ob.ar[2]);
+            foo8(ob.ar[0], ob.ar[1], ob.ar[2]);
         }
     }
 };
 
 var ann27 = ann23();
+
+function foo8 (a, b, c) {
+    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    if (aa === aa) {
+         Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+         Cow2 = `x = ${aa} and x = ${bb}`;
+    }
+    else {
+        Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+        Cow2 = '';
+    }
+    diffRender();
+} ;
 
 
  function  qfB (a,b,c) {

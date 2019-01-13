@@ -1841,7 +1841,7 @@ var ann27 = ann23();
 
   threeAction$ = qF2x$.map(e => {
       if (e.keyCode === 13) {  
-          ann27(toFloat(e.target.value));
+          ann27(e.target.value);
           e.target.value = null;
       }
   });
@@ -2156,7 +2156,7 @@ h('br'),
 h('br'),
 h('span.tao', {style: {color: "#FF00DD"}}, ' WARNING:' ), 
 h('span', ' Unless you are already proficient at creating functions that use recursion, closures, currying, reactivity, and sensible composition, trying to scrupulously conform to the functional-paradigm will stiffle your creativity and slow you progress toward mastering JavaScript. It\'s good to avoid mutating variables outside of function scope, but trying to make JavaScript functions behave like mathematical functions is a waste of time, and a waste of valuable features of an increasingly powerful programming language. ' ),
-h('p', ' Suppose you want to chain computations involving functions, primitive values, and promises where functions can readily access the return values of prior functions, resolution values of promises that were previously entered, and p. I don\'t think your libraries of frameworks would help you. But instances of Bnd3 (below) do these things. If you are learning to program functionally, you would do well to study the definition of Bnd3() and understand how it works in the demonstration below. Otherwise, I hope you enjoy seeing it. ' ),  
+h('p', ' Suppose you want to chain computations involving functions, primitive values, and promises where functions can readily access the return values of prior functions, resolution values of promises that were previously entered, and primitive values (such as pi or the gravetational constant) inserted directly into the sequence. It is highly unlikely that your framework and libraries can help you, but if you are a functional programmer, you can create a higher-order function to suit your needs. Instances of Bnd3 (below) do all of these things. You are welcome to cut and paste it into your project, modify it to suit your needs, or just understand it to fertilize your own creative processes. ' ),  
 
 h('pre', `function Bnd3 () {
     this.ar = [];
@@ -2421,17 +2421,43 @@ h('a#proxy2', {props: {href: "#proxies"}}, 'Fun With Proxies' )
 
                                               ]),
  
+            h('h1', ' Programming For the Web ' ),
 
+h('p', ' If you are writing software to handle funds transfers between customer accounts and between customer accounts and outside entities, it would be of the utmost importance to make sure that all interrupted transactions get rolled all the way back. Haskell would be a good choice for handling that. Pure functions and immutable data help assure that there will be no surprises. ' ),
+h('p', ' When programming in JavaScript for the Web, I don\'t try to make it more like Haskell. This is my time to enjoy the exhillarating freedom of plain Ecmascript 2017. The next three demonstrations feature functions that don\'t return the same result each time they run with the same argument. They asynchronously receive numbers which they use, every third time they run,  as coefficients "A", "B", and "C" for a quadratic equation (Ax**2 + Bx + C) and apply the quadratic formula to find any real number values of "x" that satisfy the equation. ' ),
+h('span.tao', ' So much for mathmatical purity. But that\'s just the beginning. They mutate data and commit the unthinkable affront to general principles of sound programming by causing side effects ' ),
+h('span', {style: {color: "#debbbb", fontStyle: "italic" }}, 'before they complete. ' ),
+h('br'),
+h('p', ' I am showing these rogue functions to demonstrate why I enjoy JavaScript so much, and to convince you that best practices are only suggestions that should be judiciously ignored from time to time. The side effects I mentioned are nothing more than inocuously updating variables in the virtual DOM. Accepting arguments one at a time until there are enough for a computation is a perfectly sensible way to handle asynchronous input. ' ),
+h('p', ' Demonstration 3 uses an instance of Bnd3(). Demonstration 4, the recommended algorithm, uses a simple closure. Demonstration 5 uses a proxy. ' ),            
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 3 '),
 
                                               h('div.content2', [
 
-
 h('div', {style: {display: "flex" }},  [
   h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
+h('pre', `  qF1$ = sources.DOM  // Cycle.js specific code
+    .select('#qF1').events('keypress');
 
+  oneAction$ = qF1$.map(e => {
+      if (e.keyCode === 13) {  
+          ann27(e.target.value); // See ann27 below
+          e.target.value = null;
+      }
+  });
 
+function ann23 () {
+     var ob = new Bnd3()
+     return y => {
+        ob.run(toFloat(y));
+        if (ob.ar.length === 3) {
+            foo8(ob.ar[0], ob.ar[1], ob.ar[2]);
+        }
+    }
+};
+
+var ann27 = ann23(); // User entries are processed by ann23() ` ),
 
 h('span.tao', ' Bnd3() instances can do more than facilitate composition. In this demonstration, "ob = new Bnd3()" defines an object that accumulates numbers by executing ob.run(<number>) until ob.ar.length === 3 is true. When the third number arrives, the ' ), 
 h('a', { props: { href: "https://en.wikipedia.org/wiki/Quadratic_formula", target: "_blank" }}, 'quadratic formula'),
@@ -2441,41 +2467,7 @@ h('p', '  Each time you enter a number "n" in the right column, "ann27(n)" execu
 h('span', ' "ann27()", the function that is called each time a user enters a number, is returned by the closure "ann23()". Demonstration 4 features a proxy doing what the closure ann23 does here.  ' ),
 
 
-h('pre', `  qF1$ = sources.DOM  // Cycle.js specific code
-    .select('#qF1').events('keypress');
 
-  oneAction$ = qF1$.map(e => {
-      if (e.keyCode === 13) {  
-          ann27(e.target.value);
-          e.target.value = null;
-      }
-  });
-
-var ann27 = ann23();
-
-function ann23 () {
-     var ob = new Bnd3()
-     return y => {
-        ob.run(toFloat(y));
-        console.log("In ann23 -- ob is", ob);
-        if (ob.ar.length === 3) {  //  Trigger for the computation
-            var a = ob.ar[0];
-            var b = ob.ar[1];  
-            var c = ob.ar[2];  
-            ob.ar = [];
-            var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-            var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-            if (aa === aa) {
-              Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
-                Cow2 = \`x = \${aa} and x = \${bb}\`;
-            }
-            if (!(aa === aa)) {
-                Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
-                Cow2 = '';
-            }
-        }
-    }
-};  ` )
 
                                                                  ]),
 
@@ -2500,6 +2492,23 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
                 h('br'),
                 h('div', Cow8  ),   ]),
                     
+
+h('pre', `function foo8 (a, b, c) {
+    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    if (aa === aa) {
+         Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has 
+                                    the following solutions:\`,
+         
+         Cow2 = \`x = \${aa} and x = \${bb}\`;
+    }
+    else {
+        Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
+        Cow2 = '';
+    }
+    diffRender();
+} ; ` ),
+
                 
 h('h3', 'A Lesson On Mindlessly Following Rules ' ),
 h('p', ' I find function "ann27()" very pleasing, even elegant in the way it efficiently takes care of business. Bnd3() can do much more than fill an array, but choosing familiar tools makes code easier to read and edit, so it seems appropriate to me. ' ), 
