@@ -1,11 +1,6 @@
 
-var cowShit = '';
-setTimeout(() => {
-cowShit  = h('div', {style: {color: '#000'}}, [
-  h('h1', 'Headline'),
-  h('h3', 'What the fuck do you think you are doing?.' ),
-]);
-}, 1000 );
+
+
 
 var bNode;
 

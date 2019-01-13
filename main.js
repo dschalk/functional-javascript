@@ -2075,28 +2075,7 @@ var ann27 = ann23();
         }
       });
 
-    /*  counter = function counter(n, acc = 0) {
-        var _repeat = true;
-        var _n, _acc;
-        while (_repeat) {
-          _repeat = false;
-
-          if (n === 0) {
-            return acc;
-          } else {
-            _n = n - 1
-            _acc = acc + 1
-            n = _n
-            acc = _acc
-            _repeat = true;
-            continue;
-          }
-        }
-      }
-
-  // var xoxo = ["this is the head", "cow", "dog", "fireworks"];
-  // head(xoxo).concat(tail(xoxo) === xoxo;
-  */
+  
       var calcStream$ = xs.merge( twoAction$, threeAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
@@ -2180,7 +2159,7 @@ var ob = new Bnd3();
 h('p', ' When data is provided to ob.run, the results go into ob.ar. Here\'s the syntax:' ),    
 
   h('div', styleFunc(["#4dff4d", "3%", "21px", , , ]), [
-  h('div', 'ob.run(x)(functiona1)(function2) ... (functionN)(); ')
+  h('div', 'ob.run(x)(functiona1)(function2) ... (functionN)')
   ]), 
   h('p', ' where  ' ),
   h('pre', styleFunc(["#ABDDAB", , "19px", , , ]), `    x can be any value,
@@ -2420,16 +2399,21 @@ h('a#proxy2', {props: {href: "#proxies"}}, 'Fun With Proxies' )
                                          
 
                                               ]),
- 
+                              h('div.content', [
+
             h('h1', ' Programming For the Web ' ),
 
 h('p', ' If you are writing software to handle funds transfers between customer accounts and between customer accounts and outside entities, it would be of the utmost importance to make sure that all interrupted transactions get rolled all the way back. Haskell would be a good choice for handling that. Pure functions and immutable data help assure that there will be no surprises. ' ),
-h('p', ' When programming in JavaScript for the Web, I don\'t try to make it more like Haskell. This is my time to enjoy the exhilarating freedom of plain Ecmascript 2017. The next three demonstrations feature functions that don\'t return the same result each time they run with the same argument. They asynchronously receive numbers which they use, every third time they run,  as coefficients "A", "B", and "C" for a quadratic equation (Ax**2 + Bx + C) and apply the quadratic formula to find any real number values of "x" that satisfy the equation. ' ),
-h('span.tao', ' So much for mathematical purity. But that\'s just the beginning. They mutate data and commit the unthinkable affront to general principles of sound programming by causing side effects ' ),
+h('p', ' When programming in JavaScript for the Web, I don\'t try to make it more like Haskell. This is my time to enjoy the exhilarating freedom of plain Ecmascript 2017. The next three demonstrations feature functions that don\'t return the same result each time they run with the same argument. They asynchronously receive numbers which they use on every third execution as parameters "A", "B", and "C" for the quadratic formula, attempting to find real numbers "x" satisfying the equation "A*x*x + B*x + C = 0)". ' ),
+h('span.tao', ' So much for mathematical purity. But that\'s just the beginning. They also mutate variables and object, and commit the eyebrow-raising affront to general principles of sound programming by causing side effects ' ),
 h('span', {style: {color: "#debbbb", fontStyle: "italic" }}, 'before they complete. ' ),
 h('br'),
-h('p', ' I am showing these rogue functions to demonstrate why I enjoy JavaScript so much, and to convince you that best practices are only suggestions that should be judiciously ignored from time to time. The side effects I mentioned are nothing more than innocuously updating variables in the virtual DOM. Accepting arguments one at a time until there are enough for a computation is a perfectly sensible way to handle asynchronous input. ' ),
+h('p', ' I am showing these rogue functions to demonstrate why I enjoy JavaScript so much, and to convince you that best practices are only suggestions that should be judiciously ignored from time to time. The side effects I mentioned are nothing more than innocuously updating variables in the virtual DOM. I could have the function return an array, they parse the array to assign new values in the virtual DOM. I much prefer the shortcut. ' ), 
+h('p', ' As for identical arguments not resulting in identical return values: accepting arguments one at a time until there are enough for a computation is efficient and harmless. Providing a responsive user interface is not mathematics - or rocket science, for that matter.  ' ),
 h('p', ' Demonstration 3 uses an instance of Bnd3() and a closure. Demonstration 4, the recommended algorithm, shows a simple way to get the job done. Demonstration 5 uses a proxy. ' ),            
+                                   ]),
+
+
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 3 '),
 
                                               h('div.content2', [
@@ -2809,117 +2793,7 @@ h('pre',   {style: {color: "#aaffff"}}, `        const messages$ = sources.WS.ma
             [v[3], v[4], v[5], v[6]]
           ]);
         });
-
-        mMZ11.bnd(() => {
-          console.log('The message arrived', messages$);
-          var message = v.slice(3, v.length).join(', ');
-          var str = v[2] + ': ' + message;
-          messages.unshift(h('span', str), h('br'));
-          console.log('The message was typeof ar', typeof str);
-        });
-
-        mMZ12.bnd(() => {
-          mMgoals2.ret('The winner is ' + v[2]);
-          setTimeout(function () {
-            mMgoals2.ret('')
-          }, 700);
-        });
-
-        mMZ13.bnd(() => {
-          mMgoals2.ret('A player named ' + v[2] +
-            ' is currently logged in. Page will refresh in 4 seconds.')
-          refresh()
-        });
-
-        mMZ14.bnd(() => {
-          var ar = e.data.split("<$>")[1];
-          console.log("In mZ14.bnd - - ar is", ar);
-          console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzztaskMonad', taskMonad);
-          return taskMonad.init(ar);
-        });
-
-        mMZ15.bnd(() => {
-          var ar = [];
-          var arr = v[3].slice();
-          var arr2 = arr.split("<$!$>");
-          var arr3 = arr2.map(v => {
-            console.log('In mMZ15.bnd ar, arr, arr2, and arr3 are', ar, arr, arr2, arr3),
-              ar.push(v);
-            ar.push(h('br'));
-          });
-          gameData = ar;
-        });
-
-        mMZ16.bnd(() => { // Prefix RR#$42
-          var str = mMcommentStr.x;
-          if (extra2 === "code1") {
-            mMregister.ret('The registered name ' + extra + ' and the associated password were recognized. ');
-            socket.send('GZ#$42,' + pMgroup.x + ',' + pMname.x + ',<@>' + str);
-          }
-          if (extra2 === "code2") {
-            mMregister.ret('The new name ' + extra + ' was registered.');
-            socket.send('GZ#$42,' + pMgroup.x + ',' + pMname.x + ',<@>' + str);
-          }
-          if (extra2 === "code3") {
-            pMname.ret(sender);
-            mMregister.ret('The password you entered is not the password that is registered for ' + tempName + '.');
-            mMshowRegister.ret('inline');
-          }
-        });
-
-        mMZ17.bnd(() => { // Prefix GZ#$42
-          var newStr = extra.substring(0, extra.length - 3);
-          newStr = newStr.replace(/<@><@>/g, "<@>");
-          newStr = newStr.replace(/↵/g, '');
-          if (newStr === "") return;
-          commentMonad.init(newStr);
-        });
-
-        mMZ18.bnd(() => { // Prefix GN#$42  NEW COMMENT
-          commentMonad.append(extra);
-        });
-
-        mMZ19.bnd(() => { // Prefix GE#$42  EDIT A COMMENT
-          commentMonad.edit(extra, extra2);
-          console.log('In mMZ19 to edit a comment. <><><><><><><> extra, extra2:', extra, extra2);
-        });
-
-        mMZ20.bnd(() => { // Prefix GD#$42  DELETE A COMMENT
-          commentMonad.remove(parseInt(extra, 10));
-        });
-        // ******************************************************* TASKS
-        mMZ21.bnd(() => { // add a new a task
-          console.log('ooooooooooooooooooo New task from the server', extra);
-          taskMonad.append(extra);
-        });
-
-        mMZ22.bnd(() => { // edit a task
-          taskMonad.edit(v[3], v[4]);
-        });
-
-        mMZ23.bnd(() => {
-          console.log('In mMZ23 -- v[3] is', v[3]);
-          taskMonad.toggle(v[3]);
-        });
-
-        mMZ24.bnd(() => { //Delete a task
-          taskMonad.delete(v[3]);
-        });
-
-        mMZ25.bnd(() => { // Receive tasks when group changes
-          console.log('QQQQQQ  Bingo! extra is QQQQQQQWWWWWWWWWWQQQQQQQQ in mMZ25.bnd. ', extra);
-          taskMonad.html = taskMonad.init(extra);
-        });
-
-        mMZ27.bnd(() => {
-          console.log("mMZ27 v[3]", v[3]);
-          mMZ38.release(v[3]);
-        });
-
-        mMZ28.bnd(() => {
-          if (playerName === sender) mMZ40.release(v[3]);
-          else console.log('message from sender to BC#$42')
-        });
+               . . .
 
         mMZ29.bnd(() => {
           if (playerName === sender) mMZ41.release(v[3]);
@@ -2931,27 +2805,12 @@ h('pre',   {style: {color: "#aaffff"}}, `        const messages$ = sources.WS.ma
           else console.log('message from sender to BE#$42')
         });
 
-
         ret(v[0])
           .bnd(next, 'CC#$42', mMZ9)
           .bnd(next, 'CA#$42', mMZ10) // Dice roll
-          .bnd(next, 'CD#$42', mMZ11)
-          .bnd(next, 'CE#$42', mMZ12)
-          .bnd(next, 'EE#$42', mMZ13)
-          .bnd(next, 'TD#$42', mMZ14)
-          .bnd(next, 'NN#$42', mMZ15)
-          .bnd(next, 'RR#$42', mMZ16)
-          .bnd(next, 'GZ#$42', mMZ17) // Comments automatically arrive after the app loads
-          .bnd(next, 'GN#$42', mMZ18)
-          .bnd(next, 'GE#$42', mMZ19)
-          .bnd(next, 'GD#$42', mMZ20)
-          .bnd(next, 'TA#$42', mMZ21) // Automatic task list load on group change
-          .bnd(next, 'TE#$42', mMZ22) // edit a task
-          .bnd(next, 'TT#$42', mMZ23) // chechbox
-          .bnd(next, 'TX#$42', mMZ24) // delete button
-          .bnd(next, 'TI#$42', mMZ25) // group change
-          .bnd(next, 'BB#$42', mMZ27) // works in conjunction with it4
-          .bnd(next, 'BC#$42', mMZ28) // works in conjunction with it4
+
+               . . .
+
           .bnd(next, 'BD#$42', mMZ29) // works in conjunction with it4_b
           .bnd(next, 'BE#$42', mMZ30) // works in conjunction with it4_c
       });
@@ -2964,8 +2823,8 @@ h('pre',   {style: {color: "#aaffff"}}, `        const messages$ = sources.WS.ma
       }; ` ),
 
 
-          h('h3', 'Reactivity In Cycle.js'),
-          h('span.tao', ' Reactivity occurs naturally in the Cycle.js framework. Many developers find that Cycle.js has an unusually steep learning curve. It isn\'t so bad if you start with Andrew Staltz\' '),
+          h('h3', 'Reactivity'),
+          h('span.tao', ' Reactivity can be achieved in many ways, including: plain JavaScript and HTML event listeners, BaconJs, RxJS,  occurs naturally in the Cycle.js framework. Many developers find that Cycle.js has an unusually steep learning curve. It isn\'t so bad if you start with Andrew Staltz\' '),
           h('a', {props: {
               href: "https://egghead.io/courses/cycle-js-fundamentals",
               target: "_blank"} 
