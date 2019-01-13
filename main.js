@@ -2429,7 +2429,7 @@ h('span.tao', ' So much for mathmatical purity. But that\'s just the beginning. 
 h('span', {style: {color: "#debbbb", fontStyle: "italic" }}, 'before they complete. ' ),
 h('br'),
 h('p', ' I am showing these rogue functions to demonstrate why I enjoy JavaScript so much, and to convince you that best practices are only suggestions that should be judiciously ignored from time to time. The side effects I mentioned are nothing more than inocuously updating variables in the virtual DOM. Accepting arguments one at a time until there are enough for a computation is a perfectly sensible way to handle asynchronous input. ' ),
-h('p', ' Demonstration 3 uses an instance of Bnd3(). Demonstration 4, the recommended algorithm, uses a simple closure. Demonstration 5 uses a proxy. ' ),            
+h('p', ' Demonstration 3 uses an instance of Bnd3() and a closure. Demonstration 4, the recommended algorithm, shoes a simple way to get the job done. Demonstration 5 uses a proxy. ' ),            
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 3 '),
 
                                               h('div.content2', [
