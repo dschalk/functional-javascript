@@ -3438,48 +3438,7 @@ function test5 (n) {
     _B8 = test6(x+8);
 }
 
-  //***************************************************************** DND
-/*
-  var COW = ["pending", "pending"];
-
-  function qF9 () {
-      if (arBind[qfB.key].length > 4) {
-          qFunc("qfB") 
-      }
-      else Cow1 = "coefficients: " + arBind[qfB.key].join(' ')
-  };
-
-  function quadFormula(x) {return qfB.run(toFloat(x))(qF9)}; 
-*/
-
-
-function ann23 () {
-     var ob = new Bnd3()
-     return y => {
-        ob.run(toFloat(y));
-        console.log("ob is", ob);
-        if (ob.ar.length === 3) {
-            foo8(ob.ar[0], ob.ar[1], ob.ar[2]);
-        }
-    }
-};
-
-var ann27 = ann23();
-
-function foo8 (a, b, c) {
-    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-    if (aa === aa) {
-         Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
-         Cow2 = `x = ${aa} and x = ${bb}`;
-    }
-    else {
-        Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
-        Cow2 = '';
-    }
-    diffRender();
-} ;
-
+  
 
  function  qfB (a,b,c) {
       var C0 = [];
@@ -3505,7 +3464,7 @@ var quadOb = {ar: [], fu: function fu (x) {this.ar.push(x)}};
 var quadHandler = {
     get: function(target, bbb, ccc) {
     if ( Array.isArray(target[bbb]) && target[bbb].length === 3) {
-        foo7 (target[bbb][0], target[bbb][1], target[bbb][2]);
+        foo8 (target[bbb][0], target[bbb][1], target[bbb][2], 'Cow1', 'Cow2');
         target[bbb] = [];
     }    
     diffRender();
@@ -3515,136 +3474,78 @@ var quadHandler = {
 
 quadOb = new Proxy (quadOb, quadHandler);
 
-//****************************************** proxy_
 
-var obR = {ar: []};
 
-obR = new Proxy(obR, {
-    get: (a,b,c) => {
-      console.log("a,b,c", a,b,c);
-            a.ar.push(b);
-            if (a.ar.length === 3) {
-                foo7(a.ar[0], a.ar[1], a.ar[2]);
-                obR.ar = [];
-            }
-       // return Reflect.get(a,b,c);
-    }
-})
 
-//****************************************** proxy_
 
-function foo7 (a, b, c) {
+// (((((( *********************************** )))))) >>>->-->--->DEMONSTRATIONS 3, 4, 5
+
+const _qOb_ = {a: '', b: '', c: '', d: '', e: '', f: ''};
+
+
+function foo8 (a, b, c, x, y) {
     var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
     var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
     if (aa === aa) {
-         Cow3 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
-         Cow4 = `x = ${aa} and x = ${bb}`;
+        _qOb_[x] = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+        _qOb_[y] = `x = ${aa} and x = ${bb}`;
     }
     else {
-        Cow3 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
-        Cow4 = '';
+        _qOb_[x] = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+        _qOb_[y] = '';
     }
-    diffRender();
 } ;
 
-var trip = function (x, n) {
-    var n = n;
-    var k = 0;
-    var original_f = x;
-    var f = x;
-    return function g (d) {
-        f = f(d);
-        k+=1;
-        if ( k === n) {
-            f = original_f;
-            k = 0;
-          }     
+// Demonstration 3
+
+
+function ann23 () {
+     var ob = new Bnd3()
+     return y => {
+        ob.run(toFloat(y));
+        if (ob.ar.length === 3) {
+            foo8(ob.ar[0], ob.ar[1], ob.ar[2], 'a', 'b');
+            ob.ar = [];
+        }
     }
-}
-var foo5 =  (a) =>(b) => (c) => {
-    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-    if (aa === aa) {
-         Cow7 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
-         Cow8 = `x = ${aa} and x = ${bb}`;
-    }
-    else {
-        Cow3 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
-        Cow4 = '';
-    }
-    diffRender();
-} ;
+};
 
-var go_6 = trip(foo5, 3)
-
-
-go_6(1);
-go_6(2);
-go_6(-3);
+var ann27 = ann23();
 
 
 
-// ****************************************************************
-Cow7 = "Peaches";
-Cow8 = "Jez";
-function foo6 (a, b, c) {
-    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-    if (aa === aa) {
-         Cow7 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
-         Cow8 = `x = ${aa} and x = ${bb}`;
-    }
-    else {
-        Cow7 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
-        Cow8 = '';
-    }
-    diffRender();
-} ;
+// Demonstration 4 
 
 Cow3 = "Montana";
 Cow4 = "Ivy";
 
 var obQ = {ar: [], f: function (x) {
-	   obQ.ar.push(x)
-           console.log("obQ.ar is", obQ.ar)
-	   if (obQ.ar.length === 3) {
-	  	    foo6 (obQ.ar[0], obQ.ar[1], obQ.ar[2]);
-	  	    obQ.ar = [];
-	   }
+    obQ.ar.push(x)
+    if (obQ.ar.length === 3) {
+        foo8 (obQ.ar[0], obQ.ar[1], obQ.ar[2], 'c', 'd');
+        obQ.ar = [];
+    }
 }};
-/*
-obQ.f(1);
-obQ.f(2);
-obQ.f(-3);
-setTimeout(() => {
-  obQ.f(4);
-  obQ.f(5);
-  obQ.f(-450);
-},5000); */
-// ***************************************************************
 
+
+ 
+// Demonstration 5
 
 var  _arQuad = [];
 
-function push3 (ar, x) { return ar.concat(x) } 
+function push3 (ar, x) { return ar.concat(x) };
 
 push3 = new Proxy(push3, {
     apply: function(a, b, c) {
         if (c[0].length === 3) c = [ [], c[1] ]
         if (c[0].length === 2) {
-            foo7(c[0][0], c[0][1], c[1]);
+            foo8(c[0][0], c[0][1], c[1], 'e', 'f');
+            _arQuad = [];
         }
     return Reflect.apply(a,b,c);
     }
-})
-
-arQuad = push3(_arQuad,1);
-arQuad = push3(_arQuad,2);
-arQuad = push3(_arQuad,-3);
-
-
-
-
+});
+ 
 
 
 

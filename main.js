@@ -1790,58 +1790,32 @@ foo(9);
 
  // **************************************************** START mBnd demo
 
- var qF1$ = sources.DOM
-    .select('#qF1').events('keypress');
+  var dem3$ = sources.DOM
+    .select('#dem3').events('keypress');
 
-  oneAction$ = qF1$.map(e => {
+  oneAction$ = dem3$.map(e => {
+      if (e.keyCode === 13) {  
+          ann27(e.target.value);
+          e.target.value = null;
+      }
+  });
+
+ var dem4$ = sources.DOM
+    .select('#dem4').events('keypress');
+
+  twoAction$ = dem4$.map(e => {
       if (e.keyCode === 13) {  
           obQ.f(toFloat(e.target.value));
           e.target.value = null;
       }
   });
 
-function ann23 () {
-     var ob = new Bnd3()
-     return y => {
-        ob.run(toFloat(y));
-        console.log("In ann23 -- ob is", ob);
-        if (ob.ar.length === 3) {
-            var a = ob.ar[0];
-            var b = ob.ar[1];  
-            var c = ob.ar[2];  
-            ob.ar = [];
-            var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-            var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-            if (aa === aa) {
-              Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
-                Cow2 = `x = ${aa} and x = ${bb}`;
-            }
-            if (!(aa === aa)) {
-                Cow1 = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
-                Cow2 = '';
-            }
-        }
-    }
-};
+  var dem5$ = sources.DOM
+    .select('#dem5').events('keypress');
 
-var ann27 = ann23();
-
-  var qF1x$ = sources.DOM
-    .select('#qF1x').events('keypress');
-
-  twoAction$ = qF1x$.map(e => {
+  threeAction$ = dem5$.map(e => {
       if (e.keyCode === 13) {  
           _arQuad = push3(_arQuad, e.target.value);
-          e.target.value = null;
-      }
-  });
-
-  var qF2x$ = sources.DOM
-    .select('#qF2x').events('keypress');
-
-  threeAction$ = qF2x$.map(e => {
-      if (e.keyCode === 13) {  
-          ann27(e.target.value);
           e.target.value = null;
       }
   });
@@ -2380,38 +2354,49 @@ h('p', ' The arrays named "f.ar" in test4() (where f = new Bnd3()) are confined 
       arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
       return ob;
   }; ` )
-
-
-
-
                                            ])
 
                                            ]),
 
-
-
-
-
 h('span.tao', ' Here\'s three more proxy demos: ' ),                          
 h('a#proxy2', {props: {href: "#proxies"}}, 'Fun With Proxies' )
-
-
-                                         
 
                                               ]),
                               h('div.content', [
 
-            h('h1', ' Programming For the Web ' ),
+            h('h1', {style: {color: "#ccffbb" }}, 'Programming For the Web ' ),
+
 
 h('p', ' If you are writing software to handle funds transfers between customer accounts and between customer accounts and outside entities, it would be of the utmost importance to make sure that all interrupted transactions get rolled all the way back. Haskell would be a good choice for handling that. Pure functions and immutable data help assure that there will be no surprises. ' ),
 h('p', ' When programming in JavaScript for the Web, I don\'t try to make it more like Haskell. This is my time to enjoy the exhilarating freedom of plain Ecmascript 2017. The next three demonstrations feature functions that don\'t return the same result each time they run with the same argument. They asynchronously receive numbers which they use on every third execution as parameters "A", "B", and "C" for the quadratic formula, attempting to find real numbers "x" satisfying the equation "A*x*x + B*x + C = 0)". ' ),
 h('span.tao', ' So much for mathematical purity. But that\'s just the beginning. They also mutate variables and object, and commit the eyebrow-raising affront to general principles of sound programming by causing side effects ' ),
-h('span', {style: {color: "#debbbb", fontStyle: "italic" }}, 'before they complete. ' ),
+h('span', {style: {color: "#eeccaa", fontStyle: "italic" }}, 'before they complete. ' ),
 h('br'),
 h('p', ' I am showing these rogue functions to demonstrate why I enjoy JavaScript so much, and to convince you that best practices are only suggestions that should be judiciously ignored from time to time. The side effects I mentioned are nothing more than innocuously updating variables in the virtual DOM. I could have the function return an array, they parse the array to assign new values in the virtual DOM. I much prefer the shortcut. ' ), 
 h('p', ' As for identical arguments not resulting in identical return values: accepting arguments one at a time until there are enough for a computation is efficient and harmless. Providing a responsive user interface is not mathematics - or rocket science, for that matter.  ' ),
-h('p', ' Demonstration 3 uses an instance of Bnd3() and a closure. Demonstration 4, the recommended algorithm, shows a simple way to get the job done. Demonstration 5 uses a proxy. ' ),            
-                                   ]),
+h('br'),
+
+h('h2', {style: {color: "#ddbbff" }}, 'The Quadratic Formula Demonstrations' ),
+                                
+h('p', ' The next three demonstrations present identical user interfaces. Demonstration 3 uses an instance of Bnd3() and a closure. Demonstration 4, the recommended algorithm, shows a simple way to get the job done. Demonstration 5 uses a proxy. foo8() (below) is used in all three demonstrations. ' ),         
+
+h('pre', {style: {color: "#ffbbcc" }},  `const _qOb_ = {a: '', b: '', c: '', d: '', e: '', f: ''};
+
+function foo8 (a, b, c, x, y) {
+    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    if (aa === aa) {
+        _qOb_[x] = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
+        _qOb_[y] = \`x = \${aa} and x = \${bb}\`;
+    }
+    else {
+        _qOb_[x] = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
+        _qOb_[y] = '';
+    }
+};  ` ),
+h('p', ' _qOb_ is a permanent fixture at six locations in the virtual DOM. As foo8() changes the values of _qOb_\'s six attributes (a,b,c,d,e,and f), Snabbdom updates the DOM to show the result of running the quadratic formula on foo8()\'s first three arguments. ' ),    
+                              
+                              ]),
 
 
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 3 '),
@@ -2432,36 +2417,25 @@ h('pre', `  qF1$ = sources.DOM  // Cycle.js specific code
   });
 
 function ann23 () {
-     var ob = new Bnd3()
-     return y => {
-        ob.run(toFloat(y));
-        if (ob.ar.length === 3) {
-            foo8(ob.ar[0], ob.ar[1], ob.ar[2]);
-        }
+    var ob = new Bnd3()
+    return y => {
+       ob.run(toFloat(y));
+       if (ob.ar.length === 3) {
+           foo8(ob.ar[0], ob.ar[1], ob.ar[2], 'a', 'b');
+       }
     }
 };
 
-var ann27 = ann23(); // User entries are processed by ann23() ` ),
+var ann27 = ann23(); 
+            // User entries are processed by ann23() ` ),
 
-h('span.tao', ' Bnd3() instances can do more than facilitate composition. In this demonstration, "ob = new Bnd3()" defines an object that accumulates numbers by executing ob.run(<number>) until ob.ar.length === 3 is true. When the third number arrives, the ' ), 
-h('a', { props: { href: "https://en.wikipedia.org/wiki/Quadratic_formula", target: "_blank" }}, 'quadratic formula'),
-h('span', ' is applied to the numbers "A", "B", and "C" entered by a user to determine if there exist numbers "x" such that "Ax**2 + Bx + C = 0". ' ),
-  
-h('p', '  Each time you enter a number "n" in the right column, "ann27(n)" executes. If solution exist, they come in pairs; so ann27(n) either mutates only Cow1 in the virtual DOM (the no-solution case) or it mutates C1 and C2. ann27() is rigorously consistent and reliable, yet it is far from being a pure function. JavaScript isn\t mathematics, and constraining it to appear as though it were is folly. Side effects that do nothing but update browser displays are not inappropriate, and neither are all functions that cause such effects every third time they run. ' ),
-h('span', ' "ann27()", the function that is called each time a user enters a number, is returned by the closure "ann23()". Demonstration 4 features a proxy doing what the closure ann23 does here.  ' ),
+                                                              ]),
 
-
-
-
-                                                                 ]),
-
-  h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-
+             h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
 
 h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third time you press <ENTER>, the answer will appear. ' ),
-                h('input#qF1', {
+                h('input#dem3', {
                   style: {
                     height: "15px",
                     color: "blue",
@@ -2472,34 +2446,17 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
                 h('br'),
 
                 h('div', {style: {color: "#ffbaba" }}, [
-                h('div', Cow7  ),
+                h('div', _qOb_.a  ),
                 h('br'),
-                h('div', Cow8  ),   ]),
+                h('div', _qOb_.b  ),   ]),
                     
-
-h('pre', `function foo8 (a, b, c) {
-    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-    if (aa === aa) {
-         Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has 
-                                    the following solutions:\`,
-         
-         Cow2 = \`x = \${aa} and x = \${bb}\`;
-    }
-    else {
-        Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
-        Cow2 = '';
-    }
-    diffRender();
-} ; ` ),
-
-                
-h('h3', 'A Lesson On Mindlessly Following Rules ' ),
-h('p', ' I find function "ann27()" very pleasing, even elegant in the way it efficiently takes care of business. Bnd3() can do much more than fill an array, but choosing familiar tools makes code easier to read and edit, so it seems appropriate to me. ' ), 
-h('p', ' A curried quadratic-formula function can evaluate arguments asynchronously. This is demonstrated in the next example. The convoluted algorithm shown in Demonstration 5 is useless, other than to show a proxy helping out with asynchronous data. Remote manipulation of data is usually better handled with closures than with proxies, as is the case here.  ' ), 
-
-
-// Car pool
+h('br'),
+h('br'),
+h('span.tao', ' Bnd3() instances can do more than facilitate composition. In this demonstration, "ob = new Bnd3()" defines an object that accumulates numbers by executing ob.run(<number>) until ob.ar.length === 3 is true. When the third number arrives, the ' ), 
+h('a', { props: { href: "https://en.wikipedia.org/wiki/Quadratic_formula", target: "_blank" }}, 'quadratic formula'),
+h('span', ' is applied to the numbers "A", "B", and "C" entered by a user to determine if there exist numbers "x" such that "Ax**2 + Bx + C = 0". ' ),
+  
+h('span', ' "ann27()", the function that is called each time a user enters a number, is returned by the closure "ann23()". Demonstration 5 features a proxy doing what the closure ann23 does here.  ' ),
 
 
   ])
@@ -2516,58 +2473,41 @@ h('p', ' A curried quadratic-formula function can evaluate arguments asynchronou
 
 h('p', ' Demonstration 3\'s functionality can be achieved more simply by calling "obQ.f()" repeatedly, as shown below. ' ),
 h('pre',  `var obQ = {ar: [], f: function (x) {
-           console.log("obQ.ar is", obQ.ar)
-	   obQ.ar.push(x)
-	   if (obQ.ar.length === 3) {
-	  	    foo6 (ar[0], ar[1], ar[2]);
-	  	    obQ.ar = [];
-	   }
-}) 
+    obQ.ar.push(x)
+    if (obQ.ar.length === 3) {
+        foo8 (obQ.ar[0], obQ.ar[1], obQ.ar[2], 'c', 'd';
+        obQ.ar = [];
+    }
+}}; ` ), 
+h('p', ' User input initiates a keypress event that is handled in this Cycle.js application as follows: ' ),
+h('pre', `var qF1$ = sources.DOM
+    .select('#dem4').events('keypress');
 
-var qF1$ = sources.DOM
-   .select('#qF1').events('keypress');
-
- oneAction$ = qF1$.map(e => {
-     if (e.keyCode === 13) {  
-         obQ.f(toFloat(e.target.value));
-         e.target.value = null;
-     }
- }); ` ),
-
-h('p', ' foo6() is shown on the right. ' ),
+twoAction$ = qF1$.map(e => {
+    if (e.keyCode === 13) {  
+        obQ.f(toFloat(e.target.value));
+        e.target.value = null;
+    }
+}); ` ),
+h('p', ' Of course there are numerous other ways to handle keypress events. ' ),
                                                           ]),
   h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
 // h('div', `${quadOb.ar.join(', ')}` ),
 
 h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third time you press <ENTER>, the answer will appear. ' ),
-                h('input#qF2x', { style: { height: "15px", color: "blue", fontSize: "18px" }}  ),
+                h('input#dem4', { style: { height: "15px", color: "blue", fontSize: "18px" }}  ),
 
 
                 h('div', {style: {color: "#ffabab"}}, [
                 h('br'),
-                Cow1,
+                _qOb_.c,
                 h('br'),
-                Cow2,
+                _qOb_.d,
                 h('br'),
-                h('br'),   ]),
+                h('br'),   ])
 
 
-h('pre', `function foo6 (a, b, c) {
-    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-    if (aa === aa) {
-         Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 
-             has the following solutions:\`;
-         Cow2 = \`x = \${aa} and x = \${bb}\`;
-    }
-    else {
-        console.log("Great Balls of Fire");
-        Cow1 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
-        Cow2 = '';
-    }
-    diffRender();
-} ; ` ),
 
                
                
@@ -2580,9 +2520,9 @@ h('pre', `function foo6 (a, b, c) {
 
                   h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 5 - A Proxy Instead of a Closure. '  ),   
 
-                                                                    h('div', {style: {display: "flex" }},  [
+                              h('div', {style: {display: "flex" }},  [
 
-                                                                    h('div', {style: {marginRight: "3%" }},   [
+                              h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
 h('p', ' Proxies and closures provide two ways of remotely manipulating and monitoring data that persists during multiple function calls. In this demonstration, push3() is a proxy of itself. It monitors the size of arQuad, running the quadratic formula on its contents and emptying it each time its length reaches 3. ' ),
   
@@ -2590,66 +2530,48 @@ h('pre', `var _arQuad = [];
 
 function push3 (ar, x) { return ar.concat(x) } 
 
-push3 = new Proxy(push3, {
-    apply: function(a, b, c) {
-        if (c[0].length === 3) c = [ [], c[1] ]
-        if (c[0].length === 2) {
-            foo7(c[0][0], c[0][1], c[1]);
-        }
-    return Reflect.apply(a,b,c);
-    }
-})
+var dem5$ = sources.DOM
+  .select('#dem5').events('keypress');
 
-var qF1x$ = sources.DOM
-  .select('#qF1x').events('keypress');
-
-twoAction$ = qF1x$.map(e => {
+threeAction$ = dem5$.map(e => {
     if (e.keyCode === 13) {  
         arQuad = push3(arQuad, e.target.value);
         e.target.value = null;
     }
 });
 
+push3 = new Proxy(push3, {
+    apply: function(a, b, c) {
+        if (c[0].length === 3) c = [ [], c[1] ]
+        if (c[0].length === 2) {
+            foo8(c[0][0], c[0][1], c[1], 'e', 'f');
+            _arQuad = [];
+        }
+    return Reflect.apply(a,b,c);
+    }
+}) ` )
 
-
-` )
-
-                                                       ]),
-                                                       h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-
+                                                    ]),
+                   h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
 
 h('div', `${quadOb.ar.join(', ')}` ),
 
 h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third time you press <ENTER>, the answer will appear. ' ),
-                h('input#qF1x', { style: { height: "15px", color: "blue", fontSize: "18px" }}  ),
+                h('input#dem5', { style: { height: "15px", color: "blue", fontSize: "18px" }}  ),
 
                 h('div', {style: {color: "#ffabab"}}, [
                 h('br'),
-                Cow3,
+                _qOb_.e,
                 h('br'),
-                Cow4,
+                _qOb_.f,
                 h('br'),
                 h('br'),   ]),
 
 
 
-h('p', ' quadOb contains an array and a function that populates it with the arguments it encounters. It is also a proxy of itself, making it aware (I hope you\'ll permit me to occasionally pretend that JavaScript objects are sentient) of the size of its array in order to run the quadratic formula on its contents whenever the number grows to three.' ),
+h('p', ' quadOb contains an array and a function that populates it with the arguments it encounters. It is also a proxy of itself, making it aware (I hope you\'ll permit me to occasionally pretend that JavaScript objects are sentient) of the size of its array in order to run the quadratic formula on its contents whenever the number grows to three.' )
 
-h('pre', `function foo7 (a, b, c) {
-    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-    if (aa === aa) {
-         Cow3 = \`\${a}*x*x + \${b}*x + \${c} = 0 
-                    has the following solutions:\`,
-         Cow4 = \`x = \${aa} and x = \${bb}\`;
-    }
-    else {
-        Cow3 = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
-        Cow4 = '';
-    }
-  } ; ` ),
 
                                                        ])
                                                           ]),
@@ -2805,7 +2727,7 @@ h('pre',   {style: {color: "#aaffff"}}, `        const messages$ = sources.WS.ma
           else console.log('message from sender to BE#$42')
         });
 
-        ret(v[0])
+        ret(v[0])  // "ret(v[0])" puts v[0] in a Monad2 instance 
           .bnd(next, 'CC#$42', mMZ9)
           .bnd(next, 'CA#$42', mMZ10) // Dice roll
 
@@ -2822,6 +2744,22 @@ h('pre',   {style: {color: "#aaffff"}}, `        const messages$ = sources.WS.ma
         return ret(x);
       }; ` ),
 
+h('p', ' I still haven\'t discussed the function "ret()". It is similar to "pure" and "return" in Haskell; it encapsulates a value in an instance of Monad2 (Applicative and Monad in Haskell). Instances of Monad2 are objects "m" with values "m.x" and functions "m.bnd" that operate on functions "f" and return similar object with values m.x\' = f(x). Here\'s the definition of Monad2: ' ),
+      
+h('pre', `  function Monad2(z = 0) {
+      this.x = z;
+  };
+
+  Monad2.prototype.ret = a => new Monad2(a);
+  Monad2.prototype.bnd = function (func, ...args) {
+      return func(this.x, ...args)
+} ` ),
+h('p', ' And here\'s the definition of "ret()": ' ),  
+h('pre', `  function ret (val = 0) {
+      return new Monad2(val);
+  }; ` ),
+
+
 
           h('h3', 'Reactivity'),
           h('span.tao', ' Reactivity can be achieved in many ways, including: plain JavaScript and HTML event listeners, BaconJs, RxJS,  occurs naturally in the Cycle.js framework. Many developers find that Cycle.js has an unusually steep learning curve. It isn\'t so bad if you start with Andrew Staltz\' '),
@@ -2829,24 +2767,20 @@ h('pre',   {style: {color: "#aaffff"}}, `        const messages$ = sources.WS.ma
               href: "https://egghead.io/courses/cycle-js-fundamentals",
               target: "_blank"} 
           }, ' Overview of Cycle.js.'),
-          h('span', ' Its elegance might take your breath away. '),
+          h('span', ' Its elegance of its core concept is breathtaking. '),
           h('br'),
           h('br'),
           h('a.tao', {props: {href: 'https://github.com/snabbdom/snabbdom'}}, ' Snabbdom'),
 
           h('span', ', '),
           h('a', {props: {href: 'http://x-stream.github.io/'}}, ' xstream,'),
-          h('span', ' and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimentation and fun so many of its functions and variable definitions are included in scripts in the index.html page. '),
+          h('span', ' and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimentation and fun so many of its functions and variable definitions are included in scripts in the index.html page. "var" is used instead of "const" in order to facilitate experimentation. '),
           h('br'),
 
           h('p', ' The next interactive demonstration accepts user input and executes the following statement in a web worker: '),
           h('pre', `bind(ar[1])(execF)(fpFunc(ar[0])(x)); `),
           h('span', ' The parameters are defined in the '),
-          h('a', {
-            props: {
-              href: "fp"
-            }
-          }, 'appendix'),
+          h('a', {props: {href: "#fp" }}, 'appendix'),
           h('span', '. '),
           h('br'),
 h('pre', {
