@@ -2367,10 +2367,15 @@ h('a#proxy2', {props: {href: "#proxies"}}, 'Fun With Proxies' )
             h('h1', {style: {color: "#ccffbb" }}, 'Programming For the Web ' ),
 
 
-h('p', ' If you are writing software to handle funds transfers between customer accounts and between customer accounts and outside entities, it would be of the utmost importance to make sure that all interrupted transactions get rolled all the way back. Haskell would be a good choice for handling that. Pure functions and immutable data help assure that there will be no surprises. ' ),
-h('p', ' When programming in JavaScript for the Web, I don\'t try to make it more like Haskell. This is my time to enjoy the exhilarating freedom of plain Ecmascript 2017. The next three demonstrations feature functions that don\'t return the same result each time they run with the same argument. They asynchronously receive numbers which they use on every third execution as parameters "A", "B", and "C" for the quadratic formula, attempting to find real numbers "x" satisfying the equation "A*x*x + B*x + C = 0)". ' ),
-h('span.tao', ' So much for mathematical purity. But that\'s just the beginning. They also mutate variables and object, and commit the eyebrow-raising affront to general principles of sound programming by causing side effects ' ),
-h('span', {style: {color: "#eeccaa", fontStyle: "italic" }}, 'before they complete. ' ),
+h('p', ' If you are writing software to handle funds transfers between customer accounts and between customer accounts and outside entities, it would be of the utmost importance to make sure that all interrupted transactions get rolled all the way back and that completed funds transfers are done correctly with appropriate documentation. Haskell would be a good choice for handling these sorts of things. Pure functions and immutable data would help assure that there will never be any surprises. ' ),
+h('p', ' When programming in JavaScript, I keep everything in the Ecmascript 2017 toolbox at my disposal, often straying from the functional paradigm in order to write functions that efficiently to what needs to be done. ' ),
+h('p', 'The next three demonstrations feature functions that don\'t return the same result each time they run with the same argument. They asynchronously receive numbers which they use on every third execution as parameters "A", "B", and "C" for the quadratic formula, attempting to find real numbers "x" satisfying the equation "A*x*x + B*x + C = 0)". ' ),
+h('span.tao', ' So much for mathematical purity. But there\'s more. They redefine variables ' ), 
+h('span', {style: {color: "#eeccaa", fontStyle: "italic" }},  'while they are executing' ), 
+h('span', ', mutate objects ' ),
+h('span', {style: {color: "#eeccaa", fontStyle: "italic" }},  'while they are executing' ), 
+                                
+h('span', ', and return only undefined. JavaScript\'s functions are dangerous because they are so versatile and powerful. Is it better to dumb them down, or to understand what your your functions are doing? ' ),
 h('br'),
 h('p', ' I am showing these rogue functions to demonstrate why I enjoy JavaScript so much, and to convince you that best practices are only suggestions that should be judiciously ignored from time to time. The side effects I mentioned are nothing more than innocuously updating variables in the virtual DOM. I could have the function return an array, they parse the array to assign new values in the virtual DOM. I much prefer the shortcut. ' ), 
 h('p', ' As for identical arguments not resulting in identical return values: accepting arguments one at a time until there are enough for a computation is efficient and harmless. Providing a responsive user interface is not mathematics - or rocket science, for that matter.  ' ),
