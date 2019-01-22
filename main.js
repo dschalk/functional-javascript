@@ -1,4 +1,4 @@
- 
+
     // onChange = require('on-change');
     // import ws from 'ws';
     // import {makeHTTPDriver} from '@cycle/http';
@@ -300,8 +300,7 @@ console.log(" END ************************** h and clone ***************** EBD")
       console.log('0^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ got to main()');
 
       const messages$ = sources.WS.map(e => {
-        var v = e.data.split(',')
-        // console.log("ret(v[0])", ret(v[0]));
+        var v = e.data.split(',');
         var group = v[1]
         var sender = v[2];
         var extra = v[3];
@@ -1202,6 +1201,7 @@ var factorsClick8$ = sources.DOM
   .select('button#factors_R').events('click'); 
 
 var factorsAction8$ = factorsClick8$.map(e => {
+  console.log("In factorsAction <#><#><#><#><#>#<>#<>#<>#<>#<>#><><><><#><#><#>")
   var i = 0;
   m43_ = [];
   var ob = new Bnd3(); 
@@ -1275,12 +1275,13 @@ var factors3Action$ = factors3Press$.map(function (e) {
   }
 });
 
-
+/*
 workerL$ = sources.WWL.map(m => {
   mMZ53.release(m.data[1]);
   var w = m.data[0][m.data[0].length - 1];
   if (m.data[0].length > primeState.length) primeState = m.data[0];
 });
+*/
 
 workerM$ = sources.WWM.map(m => {
   mMZ53.release(m.data[1]);
@@ -1790,12 +1791,12 @@ foo(9);
 
  // **************************************************** START mBnd demo
 
-  var dem3$ = sources.DOM
+ var dem3$ = sources.DOM
     .select('#dem3').events('keypress');
 
-  oneAction$ = dem3$.map(e => {
+ var oneAction$ = dem3$.map(e => {
       if (e.keyCode === 13) {  
-          ann27(e.target.value);
+          obQ.f(e.target.value);
           e.target.value = null;
       }
   });
@@ -1803,9 +1804,9 @@ foo(9);
  var dem4$ = sources.DOM
     .select('#dem4').events('keypress');
 
-  twoAction$ = dem4$.map(e => {
+  var twoAction$ = dem4$.map(e => {
       if (e.keyCode === 13) {  
-          obQ.f(toFloat(e.target.value));
+          fu_4(e.target.value);
           e.target.value = null;
       }
   });
@@ -1813,13 +1814,34 @@ foo(9);
   var dem5$ = sources.DOM
     .select('#dem5').events('keypress');
 
-  threeAction$ = dem5$.map(e => {
+  var threeAction$ = dem5$.map(e => {
       if (e.keyCode === 13) {  
-          _arQuad = push3(_arQuad, e.target.value);
+          ann27 (e.target.value);
           e.target.value = null;
       }
   });
 
+  var dem6$ = sources.DOM
+    .select('#dem6').events('keypress');
+
+  var fourAction$ = dem6$.map(e => {
+      if (e.keyCode === 13) {  
+          push3 (_arQuad, e.target.value);
+          e.target.value = null;
+      }
+  });
+
+/*
+  var dem6$ = sources.DOM
+    .select('#dem6').events('keypress');
+
+  oneAction$ = dem6$.map(e => {
+      if (e.keyCode === 13) {  
+          ann27(e.target.value);
+          e.target.value = null;
+      }
+  });
+*/
 
 
 
@@ -2050,7 +2072,7 @@ foo(9);
       });
 
   
-      var calcStream$ = xs.merge( twoAction$, threeAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
+      var calcStream$ = xs.merge( twoAction$, threeAction$, fourAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
         DOM: calcStream$.map(() => {
@@ -2091,25 +2113,25 @@ h('span', ' server, each on its own ' ),
 
 h('span', ' droplet. The JavaScript is plain, unrestricted ' ),
   
-                     h('a', {props: {href:"https://www.ecma-international.org/ecma-262/8.0/index.html", target: "_blank" }}, 'ES8 (Ecmascript 2017)' ), 
+                     h('a', {props: {href:"https://tc39.github.io/ecma262/", target: "_blank" }}, 'Ecmascript 2019' ), 
 h('span', ', transpiled with ' ),
-
-                      h('a', {props: {href:"https://webpack.js.org/concepts/", target: "_blank" }}, 'Webpack' ), 
-h('span', ' and ' ),                          
                       h('a', {props: {href:"https://babeljs.io/", target: "_blank" }}, 'Babel' ), 
+
+h('span', ' and bundled by ' ),                          
+                      h('a', {props: {href:"https://webpack.js.org/concepts/", target: "_blank" }}, 'Webpack' ), 
 h('span', '.' ),
 h('br'),
         // index_01  **************************************************** START INTRO
 
 h('br'),
 h('span.tao', ' According to ' ),                       
-h('a', {props: {href: "https://www.geeksforgeeks.org/functional-programming-paradigm/"}}, 'Geeks for Geeks' ),
+h('a', {props: {href: "https://www.geeksforgeeks.org/functional-programming-paradigm/", target: "_blank" }}, 'Geeks for Geeks' ),
 h('span', ', \"Functional programming is a programming paradigm in which we try to bind everything in pure mathematical functions style.\". The article is a good read for coders who are curious about the \"functional programming\" buzz that is humming on the Internet. It discusses pure functions, recursion, referential transparency first-class functions, higher-order functions, and the oxymoronic phrase: \"immutable variables\", with some example code written in JavaScript. ' ), 
 h('br'),
 h('br'),
 h('span.tao', {style: {color: "#FF00DD"}}, ' WARNING:' ), 
-h('span', ' Unless you are already proficient at creating functions that use recursion, closures, currying, reactivity, and sensible composition, trying to scrupulously conform to the functional-paradigm will stiffle your creativity and slow you progress toward mastering JavaScript. It\'s good to avoid mutating variables outside of function scope, but trying to make JavaScript functions behave like mathematical functions is a waste of time, and a waste of valuable features of an increasingly powerful programming language. ' ),
-h('p', ' Suppose you want to chain computations involving functions, primitive values, and promises where functions can readily access the return values of prior functions, resolution values of promises that were previously entered, and primitive values (such as pi or the gravetational constant) inserted directly into the sequence. It is highly unlikely that your framework and libraries can help you, but if you are a functional programmer, you can create a higher-order function to suit your needs. Instances of Bnd3 (below) do all of these things. You are welcome to cut and paste it into your project, modify it to suit your needs, or just understand it to fertilize your own creative processes. ' ),  
+h('span', ' Unless you are already proficient at creating functions that use recursion, closures, currying, reactivity, and sensible composition, trying to scrupulously conform to the functional-paradigm will stifle your creativity and slow you progress toward mastering JavaScript. It\'s good to avoid mutating variables outside of function scope, but trying to make JavaScript functions behave like mathematical functions is a waste of time, and a waste of valuable features of an increasingly powerful programming language. ' ),
+h('p', ' Suppose you want to chain computations involving functions, primitive values, and promises where functions can readily access the return values of prior functions, resolution values of previously returned promises, and primitive values inserted into the sequence instead of functions. It is highly unlikely that your framework and libraries can help you, but if you are a functional programmer, you can create a higher-order function to suit your needs. Instances of Bnd3 (below) do all of these things. You are welcome to cut and paste it into your project, modify it to suit your needs, or just understand it in order to nourish your own subconscious creative processes. ' ),  
 
 h('pre', `function Bnd3 () {
     this.ar = [];
@@ -2165,7 +2187,7 @@ h('br')
                                                                     h('div', {style: {marginRight: "3%", width: "50%" }},   [
 
 
-h('span.tao', ' In this demonstration, ob.ar (the array of return and resolution values) isn\'t used, so ob can be defined only once. When, as in demonstration 2, ob.ar is used during concurrent calls to ob.run, "ob = new Bnd()" is called repeatedly to define descrete objects "ob" with unique versions of "ob.ar" to avoid clashes. ' ),
+h('span.tao', ' In this demonstration, ob.ar (the array of return and resolution values) isn\'t used, so ob can be defined only once. When, as in demonstration 2, ob.ar is used during concurrent calls to ob.run, "ob = new Bnd()" is called repeatedly to define discrete objects "ob" with unique versions of "ob.ar" to avoid clashes. ' ),
 h('pre', `var it4_b = x => {
   if (socket.readyState === 1) 
     socket.send(\`BD#$42,\${pMgroup.x},\${pMname.x},\${x}\`);
@@ -2220,9 +2242,9 @@ it7_b = () => mMZ53.bnd(string => {
 
   ])
   ]),
+            
 
-
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Easing into pure functions. '  ),   
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Bnd3 Stress Test '  ),   
 
 
 
@@ -2232,13 +2254,20 @@ h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Easin
 
 
 
-h('span.tao', ' The user generates "n" (below). _B0, _B1, ... _B8 and _C0, _C1, ... _C8 are permanent fixtures in the virtual DOM. test6() accesses the global constructor Bnd3() and mutates the global symbol table and the global arBind object by adding an attribute to each. It also mutates _B0, _B1, ... and _B8 each time a composed function returns a value.  test4() is closer to being pure, affecting only _C0, _C1, etc before it returns. Demonstration 2 requires test4\'s side effects. _C0, _C1, etc. are for display only. ' ),
 h('br'),
-h('p', ' Side effects that affect only the DOM are unlikely to cause problems, especially if they don\'t trigger events or get fetched into functions. You certainly won\'t see "func(document.getElementById("some_id")" or anything like it on this web page. ' ),
-  
-h('pre', `function test5 (n) {
-    var x = toInt(n);
+h('p', ' To see the demonstration, Click "GO" or enter a number and then re-enter it several times. idP() and squareP() are the identity and square functions delayed in ES6 Promises. ' ),
 
+h('pre', `
+
+function test4 (w) {  
+    var f = new Bnd3(); 
+    return f.run(w)(cubeP)(x=>idP(x+f.ar[0]))
+    (squareP)(() => idP(f.ar[2]**3))
+    (x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))
+};
+
+function test5 (n) {
+    var x = toInt(n);
     _C0 = test4(x+0, Bnd3);
     _C1 = test4(x+1, Bnd3);
     _C2 = test4(x+2, Bnd3);
@@ -2248,47 +2277,11 @@ h('pre', `function test5 (n) {
     _C6 = test4(x+6, Bnd3);
     _C7 = test4(x+7, Bnd3);
     _C8 = test4(x+8, Bnd3);
+} ` ),
 
-    _B0 = test6(x+0);    // This code uses mBnd
-    _B1 = test6(x+1);
-    _B2 = test6(x+2);
-    _B3 = test6(x+3);
-    _B4 = test6(x+4);
-    _B5 = test6(x+5);
-    _B6 = test6(x+6);
-    _B7 = test6(x+7);
-    _B8 = test6(x+8);
-} 
+                                           ]),
+                           h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
-function test4 (w, c) {  
-    var f = new c();  //  Everything happens in local scope
-    return f.run(w)(cubeP)
-      (x=>idP(x+f.ar[0]))(squareP)(() => idP(f.ar[2]**3))
-        (x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')
-};
-
-function test6 (w) {
-    var x = Symbol();         //  Mutates the global Symbol table
-    var run = Bind(x, true);  //  Mutates the global arBind object  
-    var ar = arBind[x];  
-    return run(w)(cubeP)
-      (x=>idP(x+ar[0]))(squareP)(() => idP(ar[2]**3))
-        (x=>idP(x/ar[3]))(x=>idP(x-ar[1]))()
-};
-` ),
-
-
-  ]),
-
-
-                                                                           h('div',   [
-
-
-
-
-
-
-                h('div', styleFunc(["#FffcCC", , "21px", , , ]), 'Using new Bnd3() - The Array Stays In Function Scope.'),
                 h('br'),
 
                 h('div', `${_C0.join(", ")}`),
@@ -2319,47 +2312,13 @@ function test6 (w) {
                 }, 'GO'),
                 h('br'),
                 h('br'),
-                h('br'),
-                h('div', styleFunc(["#FffcCC", , "21px", , , ]), 'Using Bind() and storing data on arBind.'),
-                h('br'),
-                h('div', `${_B0.join(", ")}`),
-                h('div', `${_B1.join(", ")}`),
-                h('div', `${_B2.join(", ")}`),
-                h('div', `${_B3.join(", ")}`),
-                h('div', `${_B4.join(", ")}`),
-                h('div', `${_B5.join(", ")}`),
-                h('div', `${_B6.join(", ")}`),
-                h('div', `${_B7.join(", ")}`),
-                h('div', `${_B8.join(", ")}`),
-
-h('br'),
-h('p', ' The arrays named "f.ar" in test4() (where f = new Bnd3()) are confined to test4()\'s scope. In test6(), the arrays are attributes of arBind with keys hidden in the Symbol table. I think it\'s best to keep things in function scope as much as possible, so I would not use the test6() algorithm in production. ' ),
-    h('pre', `  function autoRefresh(obj) {
-    const handler = {
-        set (obj, prop, value) {
-            diffRender();  // Forces DOM update 
-            return Reflect.set(obj, prop, value);
-        },
-    };
-    return new Proxy(obj, handler);
-  }
-
-  function diffR (obj) {
-      return obj = autoRefresh(obj)
-  };
-
-  function mBnd (bool = false, val = "mBnd") { var x = Symbol(val)  
-                           // "val" can be useful in debugging;
-      var ob = {key: x, run: Bind(x)}; 
-      arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
-      return ob;
-  }; ` )
+h('p', ' It\'s no surprise that simultaneously running instances of Bnd3() don\'t clash or that restarted incomplete sequences don\'t trip over themselves. These features, along with functions using previously returned Promise resolution values, are demonstrated here.  ' ),
+h('p', ' The variables prefixed by "_C" are permanent fixtures of the virtual DOM. The side effect of repeatedly changing their values while test4 executes can\'t cause any mischief. All it does is trigger Snabdom\'s diff and render procedure. ' ),                             
+                h('br')
+        
                                            ])
 
                                            ]),
-
-h('span.tao', ' Here\'s three more proxy demos: ' ),                          
-h('a#proxy2', {props: {href: "#proxies"}}, 'Fun With Proxies' )
 
                                               ]),
                               h('div.content', [
@@ -2368,78 +2327,58 @@ h('a#proxy2', {props: {href: "#proxies"}}, 'Fun With Proxies' )
 
 
 h('p', ' If you are writing software to handle funds transfers between customer accounts and between customer accounts and outside entities, it would be of the utmost importance to make sure that all interrupted transactions get rolled all the way back and that completed funds transfers are done correctly with appropriate documentation. Haskell would be a good choice for handling these sorts of things. Pure functions and immutable data would help assure that there will never be any surprises. ' ),
-h('p', ' When programming in JavaScript, I keep everything in the Ecmascript 2017 toolbox at my disposal, often straying from the functional paradigm in order to write functions that efficiently to what needs to be done. ' ),
-h('p', 'The next three demonstrations feature functions that don\'t return the same result each time they run with the same argument. They asynchronously receive numbers which they use on every third execution as parameters "A", "B", and "C" for the quadratic formula, attempting to find real numbers "x" satisfying the equation "A*x*x + B*x + C = 0)". ' ),
-h('span.tao', ' So much for mathematical purity. But there\'s more. They redefine variables ' ), 
-h('span', {style: {color: "#eeccaa", fontStyle: "italic" }},  'while they are executing' ), 
-h('span', ', mutate objects ' ),
-h('span', {style: {color: "#eeccaa", fontStyle: "italic" }},  'while they are executing' ), 
-                                
-h('span', ', and return only undefined. JavaScript\'s functions are dangerous because they are so versatile and powerful. Is it better to dumb them down, or to understand what your your functions are doing? ' ),
+h('p', ' If you are writing JavaScript code that will run in browsers, your work environment doesn\'t need to be so austere. You don\'t have to empty part of your programming toolbox. ' ),
+h('p', ' There are those who use only designated "good parts" of JavaScript. Some developers restrict JavaScript\'s potential by never redefining variables or mutating objects, never creating functions that cause side effects before they complete, insisting that functions consistently return the same value when given the same argument, and more. Then there are those who take the bull by the horns or, switching metaphores, play JavaScript like a piano, restricted only by their imaginations and the common-sense imperative that code be robust, efficient, and maintainable. ' ),
+
+
+h('span.tao', ' Suppose you want to run the ' ),
+h('a', { props: { href: "https://en.wikipedia.org/wiki/Quadratic_formula", target: "_blank" }}, 'quadratic formula'),
+h('span', ' on asynchronously received numbers. A function like obQ.f() (below), where qf_dem3() does the calculation each time obQ.f() receives three numbers, accomplish this succinctly and transparently. Does it matter that obQ.f() does not return the same value each time it is called on the same argument? I don\'t think so, but true believers in the ' ),
+h('span', {style: {color: "#eeccee", fontStyle: "italic" }}, 'Cult of the Functional Paradigm' ),
+h('span', ' might feel compelled to contrive a pure-function workaround. ' ),
 h('br'),
-h('p', ' I am showing these rogue functions to demonstrate why I enjoy JavaScript so much, and to convince you that best practices are only suggestions that should be judiciously ignored from time to time. The side effects I mentioned are nothing more than innocuously updating variables in the virtual DOM. I could have the function return an array, they parse the array to assign new values in the virtual DOM. I much prefer the shortcut. ' ), 
-h('p', ' As for identical arguments not resulting in identical return values: accepting arguments one at a time until there are enough for a computation is efficient and harmless. Providing a responsive user interface is not mathematics - or rocket science, for that matter.  ' ),
-h('br'),
+h('p', ' quadMaker() returns functions whose results become attributes of the object "_oB_", which is a permanent fixture in several places in the virtual DOM. The results returned by quadMaker() are the real solutions, if any exist, to equations of the form A*x*x + B*x + C = 0, where users provide the coefficients "A", "B", and "C" and the formula finds whatever real values of x satisfy the equation.' ),                    
 
-h('h2', {style: {color: "#ddbbff" }}, 'The Quadratic Formula Demonstrations' ),
-                                
-h('p', ' The next three demonstrations present identical user interfaces. Demonstration 3 uses an instance of Bnd3() and a closure. Demonstration 4, the recommended algorithm, shows a simple way to get the job done. Demonstration 5 uses a proxy. foo8() (below) is used in all three demonstrations. ' ),         
-
-h('pre', {style: {color: "#ffbbcc" }},  `const _qOb_ = {a: '', b: '', c: '', d: '', e: '', f: ''};
-
-function foo8 (a, b, c, x, y) {
-    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-    if (aa === aa) {
-        _qOb_[x] = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`,
-        _qOb_[y] = \`x = \${aa} and x = \${bb}\`;
+h('pre', `function quadMaker (x,y) {
+    return a => b => c => {
+        var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+        var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+        if (aa === aa) {
+            _oB_[x] = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`;
+            _oB_[y] = \`x = \${aa} and x = \${bb}\`;
+        }
+        if (!(aa === aa)) {
+            _oB_[x] = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
+            _oB_[y] = '';
+        }
     }
-    else {
-        _qOb_[x] = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
-        _qOb_[y] = '';
-    }
-};  ` ),
-h('p', ' _qOb_ is a permanent fixture at six locations in the virtual DOM. As foo8() changes the values of _qOb_\'s six attributes (a,b,c,d,e,and f), Snabbdom updates the DOM to show the result of running the quadratic formula on foo8()\'s first three arguments. ' ),    
+} ` ),
                               
                               ]),
+                  h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 3 '  ),   
 
+                              h('div', {style: {display: "flex" }},  [
+                              h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 3 '),
-
-                                              h('div.content2', [
-
-h('div', {style: {display: "flex" }},  [
+h('pre',  `var obQ = {ar: [], f: function (x) {
+    obQ.ar.push(x)
+    if (obQ.ar.length === 3) {
+        quadMaker("a", "b")(obQ.ar[0])(obQ.ar[1])(obQ.ar[2]);
+        obQ.ar = [];
+    }
+}}; ` ), 
+h('p', ' Entering a number initiates a keypress event "e". A listener routes "e.target.value" to obQ.f(). Every third time obQ.f() executes, quadMaker("a", "b") provides the result to _oB_.a and _oB_.b in the virtual DOM. prompting Snabbdom to refresh the DOM. The update might also be facilitated by React, NodeJS, RxJS, Bacon, etc., but this is a Cycle.js application. Here\'s the definition of obQ: ' ), 
+h('span.tao', ' quadMaker("a","b") might cause even more consternation among the functional paradigm crowd. Side effects are triggered in the DOM ' ),
+h('span', {style: {color: "#eeccaa", fontStyle: "italic" }},  'while it is still running.' ),
+h('br'),
+h('p', ' It would be easy enough to return the results in an array "ar" and make _ob_.a and _ob_.b equal to ar[0] and ar[1], Instead of doing that, why not get used to the idea that the Ecmascript 2018-specification provides functions designed to do more than mimic mathematical functions. Among other things, one function can update several parts of a virtual DOM whilee returning nothing but "undefined". ' ),
+       ]),
   h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
-h('pre', `  qF1$ = sources.DOM  // Cycle.js specific code
-    .select('#qF1').events('keypress');
+// h('div', `${quadOb.ar.join(', ')}` ),
 
-  oneAction$ = qF1$.map(e => {
-      if (e.keyCode === 13) {  
-          ann27(e.target.value); // See ann27 below
-          e.target.value = null;
-      }
-  });
+h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. An event listener will call obQ.f on your entries. The third entry will trigger execution of quadMaker("a","b")(x)(y)(z) where "x", "y", and "z" are the numbers you entered. ' ),
 
-function ann23 () {
-    var ob = new Bnd3()
-    return y => {
-       ob.run(toFloat(y));
-       if (ob.ar.length === 3) {
-           foo8(ob.ar[0], ob.ar[1], ob.ar[2], 'a', 'b');
-       }
-    }
-};
-
-var ann27 = ann23(); 
-            // User entries are processed by ann23() ` ),
-
-                                                              ]),
-
-             h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-
-h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third time you press <ENTER>, the answer will appear. ' ),
                 h('input#dem3', {
                   style: {
                     height: "15px",
@@ -2450,72 +2389,22 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
                 h('br'),
                 h('br'),
 
-                h('div', {style: {color: "#ffbaba" }}, [
-                h('div', _qOb_.a  ),
-                h('br'),
-                h('div', _qOb_.b  ),   ]),
-                    
-h('br'),
-h('br'),
-h('span.tao', ' Bnd3() instances can do more than facilitate composition. In this demonstration, "ob = new Bnd3()" defines an object that accumulates numbers by executing ob.run(<number>) until ob.ar.length === 3 is true. When the third number arrives, the ' ), 
-h('a', { props: { href: "https://en.wikipedia.org/wiki/Quadratic_formula", target: "_blank" }}, 'quadratic formula'),
-h('span', ' is applied to the numbers "A", "B", and "C" entered by a user to determine if there exist numbers "x" such that "Ax**2 + Bx + C = 0". ' ),
-  
-h('span', ' "ann27()", the function that is called each time a user enters a number, is returned by the closure "ann23()". Demonstration 5 features a proxy doing what the closure ann23 does here.  ' ),
-
-
-  ])
-
-]),
-
-                  h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 4 '  ),   
-
-                              h('div', {style: {display: "flex" }},  [
-                              h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-
-  
-
-h('p', ' Demonstration 3\'s functionality can be achieved more simply by calling "obQ.f()" repeatedly, as shown below. ' ),
-h('pre',  `var obQ = {ar: [], f: function (x) {
-    obQ.ar.push(x)
-    if (obQ.ar.length === 3) {
-        foo8 (obQ.ar[0], obQ.ar[1], obQ.ar[2], 'c', 'd';
-        obQ.ar = [];
-    }
-}}; ` ), 
-h('p', ' User input initiates a keypress event that is handled in this Cycle.js application as follows: ' ),
-h('pre', `var qF1$ = sources.DOM
-    .select('#dem4').events('keypress');
-
-twoAction$ = qF1$.map(e => {
-    if (e.keyCode === 13) {  
-        obQ.f(toFloat(e.target.value));
-        e.target.value = null;
-    }
-}); ` ),
-h('p', ' Of course there are numerous other ways to handle keypress events. ' ),
-                                                          ]),
-  h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-// h('div', `${quadOb.ar.join(', ')}` ),
-
-h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third time you press <ENTER>, the answer will appear. ' ),
-                h('input#dem4', { style: { height: "15px", color: "blue", fontSize: "18px" }}  ),
-
-
                 h('div', {style: {color: "#ffabab"}}, [
                 h('br'),
-                _qOb_.c,
+                _oB_.a,
                 h('br'),
-                _qOb_.d,
+                _oB_.b,
                 h('br'),
-                h('br'),   ])
+                h('br'),   ]),
 
-
-
-               
-               
+h('span.tao', ' By the way, I am enthusiastic about functional programming, and greatly enjoy tinkering with the Haskell WebSocket server associated with this site. The ' ),
+h('a', {props: {href:"https://github.com/fantasyland/fantasy-land", target: "_blank" }}, 'Fantasyland' ),
+h('span', ' algebraic javascript specification is an admirable achievement. People who are familiar with Haskell can jump right in and start coding with familiar monads and functors borrowed from the Haskell ' ),
+h('a', {props: {href: "http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html", target: "_blank"}}, 'Prelude module' ), 
+h('span', '. The '  ),
+h('a', {props: {href:"https://github.com/origamitower/folktale", target: "_blank" }}, 'Folktale' ),
+h('span', ' library also succeeds in implementing an API similar to the Haskell Prelude module. But when my goal is providing a robust, pleasing user interface for the Web, I like having at my fingertips all the power and possibilities of unrestricted Ecmascript 2018. ' ),
+h('br'),
 
                                                           ])
                                                           ]),
@@ -2523,76 +2412,176 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
 
 
 
-                  h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 5 - A Proxy Instead of a Closure. '  ),   
-
-                              h('div', {style: {display: "flex" }},  [
-
-                              h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-h('p', ' Proxies and closures provide two ways of remotely manipulating and monitoring data that persists during multiple function calls. In this demonstration, push3() is a proxy of itself. It monitors the size of arQuad, running the quadratic formula on its contents and emptying it each time its length reaches 3. ' ),
-  
-h('pre', `var _arQuad = [];
-
-function push3 (ar, x) { return ar.concat(x) } 
-
-var dem5$ = sources.DOM
-  .select('#dem5').events('keypress');
-
-threeAction$ = dem5$.map(e => {
-    if (e.keyCode === 13) {  
-        arQuad = push3(arQuad, e.target.value);
-        e.target.value = null;
-    }
-});
-
-push3 = new Proxy(push3, {
-    apply: function(a, b, c) {
-        if (c[0].length === 3) c = [ [], c[1] ]
-        if (c[0].length === 2) {
-            foo8(c[0][0], c[0][1], c[1], 'e', 'f');
-            _arQuad = [];
-        }
-    return Reflect.apply(a,b,c);
-    }
-}) ` )
-
-                                                    ]),
-                   h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-
-h('div', `${quadOb.ar.join(', ')}` ),
-
-h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third time you press <ENTER>, the answer will appear. ' ),
-                h('input#dem5', { style: { height: "15px", color: "blue", fontSize: "18px" }}  ),
-
-                h('div', {style: {color: "#ffabab"}}, [
-                h('br'),
-                _qOb_.e,
-                h('br'),
-                _qOb_.f,
-                h('br'),
-                h('br'),   ]),
-
-
-
-h('p', ' quadOb contains an array and a function that populates it with the arguments it encounters. It is also a proxy of itself, making it aware (I hope you\'ll permit me to occasionally pretend that JavaScript objects are sentient) of the size of its array in order to run the quadratic formula on its contents whenever the number grows to three.' )
-
-
-                                                       ])
-                                                          ]),
-
-
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 6 '),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 4 '),
 
 
 h('div', {style: {display: "flex" }},  [
   h('div', {style: {marginRight: "2%", width: "50%" }},   [
+h('p', ' curriedAsync facilitates the asynchronous execution of curried functions that do not ultimately return functions. A symple tweak could make it work where the final result is a function. Here\'s the definition: ' ),
+
+h('pre', `var curriedAsync = function curriedAsync (x) {
+    var original_f = x;
+    var f = x;
+    return function g (d) {
+        f = f(d);  // f will be a function the first two times
+        if (typeof f !== "function") f = original_f;
+    }
+}; 
+
+var fu_4 = curriedAsync(qf_dem4); ` ),
+
+                                                              ]),
+                                        h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+
+h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. ' ),
+                h('input#dem4', {
+                  style: {
+                    height: "15px",
+                    color: "blue",
+                    fontSize: "18px"
+                  }
+                }),
+                h('br'),
+
+                h('div', {style: {color: "#ffabab"}}, [
+                h('br'),
+                _oB_.c,
+                h('br'),
+                _oB_.d,
+                h('br'), ])
+
+
+                                     ])
+                                     ]),
 
 
 
 
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 5 '),
+
+                                              h('div.content2', [
+
+h('div', {style: {display: "flex" }},  [
+  h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+h('p', ' Sometimes it is convenient to re-use a tool you already have rather than define a new one. Here Bnd3() provides the object "ob" so ob.run can populate ob.ar until it has three numbers. At that point, quadMaker(\'e\', \'f\') runs on the numbers in ob.ar, then ob.ar is emptied in preparation for receiving new data. ' ),
+
+h('pre', `function ann23 () {
+     var ob = new Bnd3()
+     return func = y => {
+        ob.run(toFloat(y));
+        if (ob.ar.length === 3) {
+            quadMaker("e", "f")(ob.ar[0])(ob.ar[1])(ob.ar[2]);
+            ob.ar = [];
+            diffRender();
+        }
+        return func; 
+    }
+};
+
+var ann27 = ann23(); 
+            // User entries are processed by ann23() ` )
+
+                                                              ]),
+
+             h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
 
+h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third time you press <ENTER>, the answer will appear. ' ),
+                h('input#dem5', {
+                  style: {
+                    height: "15px",
+                    color: "blue",
+                    fontSize: "18px"
+                  }
+                }),
+                h('br'),
+                h('br'),
+
+                h('div', {style: {color: "#ffabab"}}, [
+                h('br'),
+                _oB_.e,
+                h('br'),
+                _oB_.f,
+                h('br'),
+                h('br'),   ]),
+
+                                  
+h('div#proxy2', ' ' ),
+
+                                        ])
+                                        ])
+                                       ]),
+
+
+
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 6 '),
+
+                                              h('div.content2', [
+
+h('div', {style: {display: "flex" }},  [
+  h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+h('p', ' Here\'s a way to use a proxy to asynchronously evaluate numbers with the quadratic formula. push3() is a proxy of itself. When _arQuad acquires a third element, the quadratic formula runs and _arQuad is emptied in preparation for the next three numbers. ' ),
+
+h('pre',  `var  _arQuad = [];
+
+function push3 (ar, x) {ar.push(x);  return ar };
+
+push3 = new Proxy(push3, {
+    apply: function(a, b, c) {
+        if (c[0].length === 3) {console.log('c is',c); c = [ [], c[1] ]}
+        if (c[0].length === 2) {
+          console.log('c is',c); 
+           quadMaker("g", "h")(c[0][0])(c[0][1])(c[1]);
+            _arQuad = [];
+        }
+    return Reflect.apply(a,b,c);
+    }
+}); ` ),
+
+                                                              ]),
+                                      h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+
+h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. Your entries will be routed to push3(). ' ),
+                h('input#dem6', {
+                  style: {
+                    height: "15px",
+                    color: "blue",
+                    fontSize: "18px"
+                  }
+                }),
+                h('br'),
+                h('br'),
+
+                h('div', {style: {color: "#ffabab"}}, [
+                h('br'),
+                _oB_.g,
+                h('br'),
+                _oB_.h,
+                h('br'),
+                h('br'),   ]),
+                                  
+h('br'),
+h('br'),
+h('span', ' More proxy demonstrations are at ' ),
+h('a', {props: {href: "#proxies" }}, 'Fun With Proxies' ),
+h('span', '. ' )
+
+
+                                        ])
+                                        ])
+                                       ]),
+
+
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 7 '),
+
+                                              h('div.content2', [
+
+h('div', {style: {display: "flex" }},  [
+  h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
 h('p', ' Here is another approach to function composition, featuring rapid-fire redefinition of a parameter "v" by functions in an array ("ar"). "v" and "ar" are available to every function in "ar". In the example, we see "v => ar[3](v)" and "y => y - x" where y is the previously computed value and x is the starting value. A more elaborate version could be made to handle asynchronous code. "f_86", "foo", and runFoo are shown below. ' ),
 h('p', ' Enter a number "n" on the right to call "runFoo(n)". ' ),
@@ -2636,7 +2625,6 @@ h('div', `${foocow_7.join(", ")}`)
 
                                                              ])
                                                              ])
-
                                                              ]), 
 
 
@@ -2663,7 +2651,6 @@ h('div', `${foocow_7.join(", ")}`)
   h('span', ', that facilitate simple function composition; i.e., each function\'s argument is the preceding function\'s return value. bind() does this while also giving every linked function along a chain access to the return values of every function, and the resolution values of every promise that precedes it.  '),
   h('br'),
   h('br'),
-
   h('span.tao', 'This project was created by and is actively maintained by David Schalk. The code repository is at '),
   h('a', {
     props: {
@@ -3032,7 +3019,7 @@ h('a', {
               h('p', ' The process is responsive because r83 and r815 are merged in the stream that feeds the virtual DOM; i.e., the stream returned by main() and fed back into main() by run(). Cycle.run(main, sources) is the last line of the front-end code. '),
               h('p#proxies', ' This code undoubtedly deviates from Cycle.js and functional programming recommended practices. After all, rNumsDS and rDataDS are global variables tracking the state of the grid. Cycle.js favors maintaining state in streams and functional aficionados eschew global variables, period. Me, I just like to make things work as neatly and efficiently as I can. Making a state stream would be a hassle and, since this is not a group effort, nobody is going to hijack my variable names. So, for now, grid state will hang out in global scope. '),
 
-h('a', {props: {href: "#proxy2"}}, 'Back to the first demonstration' ),
+h('a', {props: {href: "#proxy2"}}, 'Back to the Demonstration 6' ),
 h('h2', 'FUN WITH PROXIES' ),
 
   
@@ -3360,7 +3347,7 @@ h('span', '. The '  ),
 
 h('a', {props: {href:"https://github.com/origamitower/folktale", target: "_blank" }}, 'Folktale' ),
 
-h('span', ' library also succeeds in reflecting the Haskell Prelude module. The Folktale "Maybe" monad is being evaluated on this page as a way to catch errors. ' ),
+h('span', ' library also succeeds in reflecting the Haskell Prelude module. ' ),
   
 h('br'),
               h('pre', `  var rNumsDS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] `),

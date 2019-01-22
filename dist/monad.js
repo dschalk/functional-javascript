@@ -37,26 +37,51 @@ var observable = (object, onChange) => {
 	return new Proxy(object, handler);
 };
 
-var Monad = function Monad(z = 42, g = 'generic') {
+const Ret = (a=0, b='R') => this[b] = new Monad(a,b);
+
+
+var Monad = function Monad (z = 42, g = 'generic') {
     this.x = z;
     this.id = g;
-    var that = this;
     this.bnd = function (func, ...args) {
         var m;
         if (typeof func === "function") {
             m = func(this.x, ...args)
-            var mon;
-            if (m instanceof Monad) {
-                mon = testPrefix(args,this.id);
-                return window[mon] = new Monad(m.x, mon);
-            };
+            if (m instanceof Monad) m = m.x; 
         }
-        else return m;
+        else m = func;
+        this.x = m;
+        return this;
+       // return window[this.id] = new Monad(m,this.id);
     };
     this.ret = function (a) {
-      return window[this.id] = new Monad(a,this.id);
+        this.x = a;
+        return this;
+    //  return window[this.id] = new Monad(a,this.id);
     };
 };
+/*
+var Monad = function Monad(z = 42, g = 'ID') {
+    this.x = z;
+    this.id = g;
+    this.bnd = function (func, ...args) {
+        var m;
+        var res;
+        if (typeof func === "function") {
+            m = func(this.x, ...args)
+            if (m instanceof Monad) res = m.x 
+            else res = m;
+            console.log("1**************************** res: \n ", res);
+        }
+        else res = func;
+      console.log("2**************************** res: \n ", res);
+        return this[this.id] = new Monad(res, this.id);
+    };
+    this.ret = function (a) {
+      return this[this.id] = new Monad(a,this.id);
+    };
+};
+*/
 
   function testPrefix (x,y) {
     var t = y;
@@ -914,7 +939,6 @@ function barfly (x) {
   }
 
   var it6_c = y => {
-    console.log("In it6_c -- posting to workerN -- y is", y);
     mMZ42.bnd(y => workerN.postMessage([primeState, y]));
 }
 
@@ -3178,54 +3202,6 @@ function runFoo (n) {
 
 runFoo(-4)
 
-console.log('***** Symbol addition (not "simple addition") *****');
-var t = 0; 
-var a = Symbol.for(t); 
-var b = toInt(Symbol.keyFor(a)) + 1; 
-var c = Symbol.for(b); 
-var d = toInt(Symbol.keyFor(c))+1; 
-console.log("a",a); 
-console.log("b",b); 
-console.log("c",c); 
-console.log("d",d);
-console.log('*****      Class Expression        *****');
-
-
-
-class Expression {  
-  constructor(pattern) {
-    this.pattern = pattern;
-  }
-  [Symbol.match](str) {
-    return str.includes(this.pattern);
-  }
-  [Symbol.replace](str, replace) {
-    return str.split(this.pattern).join(replace);
-  }
-  [Symbol.search](str) {
-      return str.indexOf(this.pattern);
-  }
-  [Symbol.split](str) {
-      return str.split(this.pattern);
-  }
-}
-
-let sunExp = new Expression('sun');  
-
-var a = 'sunny day'.match(sunExp);             
-var b = 'rainy day'.match(sunExp);              
-var c = 'sunny day'.replace(sunExp, 'rainy');  
-var d = "It's sunny".search(sunExp);          
-var e = "daysunnight".split(sunExp); 
-
-console.log(a,"\n", b, "\n", c, "\n", d, "\n", e ); 
-
-console.log("<W><W><W><W><W><W><W> Warm and friendly <F><F><F><F><F><F><F>");
-fetch('https://jsonplaceholder.typicode.com/todos/3')
-  .then(response => response.json())
-  .then(json => console.log("https://jsonplaceholder.typicode.com/todos/3",json))
-
-
 // ************************************** Proxy handler apply demo
 console.log("************************************** Proxy handler apply demo");
 var F_17 = '';
@@ -3360,13 +3336,32 @@ console.log(_state.sum, _state.prod);
         return func => {
             var p;
             if (func == 'stop') return this.ar;
-          else if (typeof func !== "function") p = func;
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else if (func.constructor === Monad) p = func.x;
+            else p = func(x);
+            return this.run(p);
+        };
+    };
+};
+
+/*
+ function Bnd3 () {
+    this.ar = [];
+    this.run = x => {
+        if (x instanceof Promise) x.then(y => this.ar.push(y))
+        else this.ar.push(x); 
+        return func => {
+            var p;
+            if (func == 'stop') return this.ar;
+            else if (typeof func !== "function") p = func;
             else if (x instanceof Promise) p = x.then(v => func(v));
             else p = func(x);
             return this.run(p);
         };
     };
 };
+*/
 
 function diffR (obj) {
     return obj = autoRefresh(obj)
@@ -3393,6 +3388,7 @@ var _mBx = (bool) => {
       (x=>idP(x+f.ar[0]))(squareP)(() => idP(f.ar[2]**3))
         (x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')
 };  */
+
 
 function test4 (w, c) {  
     var f = new c();  // f.run and f.ar are in local scope
@@ -3439,6 +3435,7 @@ function test5 (n) {
 }
 
   
+ var _oB_ = {};
 
  function  qfB (a,b,c) {
       var C0 = [];
@@ -3454,6 +3451,35 @@ function test5 (n) {
       }
       return C0;
   }
+
+ var qfC = a => b => c => {
+      var C0 = [];
+      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      if (aa === aa) {
+        C0[0] = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+          C0[1] = `x = ${aa} and x = ${bb}`;
+      }
+      if (!(aa === aa)) {
+          C0[0] = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+          C0[1] = '';
+      }
+      return C0;
+  }
+
+ var qf_dem6 = a => b => c => {
+      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      if (aa === aa) {
+          _oB_.g = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+          _oB_.h = `x = ${aa} and x = ${bb}`;
+      }
+      if (!(aa === aa)) {
+          _oB_.g = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+          _oB_.h = '';
+      }
+  }
+
 
 
 var Cow1 = "Judy", Cow2 = "Judith";
@@ -3496,25 +3522,54 @@ function foo8 (a, b, c, x, y) {
     }
 } ;
 
-// Demonstration 3
 
 
-function ann23 () {
-     var ob = new Bnd3()
-     return y => {
-        ob.run(toFloat(y));
-        if (ob.ar.length === 3) {
-            foo8(ob.ar[0], ob.ar[1], ob.ar[2], 'a', 'b');
-            ob.ar = [];
+
+
+// Demonstration 6
+
+ var qf_dem6 = a => b => c => {
+      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      if (aa === aa) {
+          _oB_.g = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+          _oB_.h = `x = ${aa} and x = ${bb}`;
+      }
+      if (!(aa === aa)) {
+          _oB_.g = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+          _oB_.h = '';
+      }
+  }
+
+function quadMaker (x,y) {
+    return a => b => c => {
+        var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+        var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+        if (aa === aa) {
+            _oB_[x] = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`;
+            _oB_[y] = `x = ${aa} and x = ${bb}`;
+        }
+        if (!(aa === aa)) {
+            _oB_[x] = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+            _oB_[y] = '';
         }
     }
-};
+}
 
-var ann27 = ann23();
+// Demonstration 3 
 
-
-
-// Demonstration 4 
+ var qf_dem3 = a => b => c => {
+      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      if (aa === aa) {
+          _oB_.a = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+          _oB_.b = `x = ${aa} and x = ${bb}`;
+      }
+      if (!(aa === aa)) {
+          _oB_.a = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+          _oB_.b = '';
+      }
+  }
 
 Cow3 = "Montana";
 Cow4 = "Ivy";
@@ -3522,30 +3577,71 @@ Cow4 = "Ivy";
 var obQ = {ar: [], f: function (x) {
     obQ.ar.push(x)
     if (obQ.ar.length === 3) {
-        foo8 (obQ.ar[0], obQ.ar[1], obQ.ar[2], 'c', 'd');
+        quadMaker("a", "b") (obQ.ar[0])(obQ.ar[1])(obQ.ar[2]);
         obQ.ar = [];
     }
 }};
 
+// Demonstration 4
 
- 
+var qf_dem4 = a => b => c => {
+      var C0 = [];
+      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      if (aa === aa) {
+          _oB_.c = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+          _oB_.d = `x = ${aa} and x = ${bb}`;
+      }
+      else if (!(aa === aa)) {
+          _oB_.c = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+          _oB_.d = '';
+      }
+  }
+
+var curriedAsync = function curriedAsync (x) {
+    var original_f = x;
+    var f = x;
+    return function g (d) {
+        f = f(d);  // f will be a functidn the first two times
+        if ( typeof f !== "function" ) f = original_f;
+    }
+}
+
+var fu_4 = curriedAsync(quadMaker("c", "d"));
+
 // Demonstration 5
+
+function ann23 () {
+     var ob = new Bnd3()
+     return func = y => {
+        ob.run(toFloat(y));
+        if (ob.ar.length === 3) {
+            quadMaker("e", "f")(ob.ar[0])(ob.ar[1])(ob.ar[2]);
+            ob.ar = [];
+            // diffRender();
+        }
+        return func; 
+    }
+};
+
+var ann27 = ann23();
+
+// Demonstration 6
 
 var  _arQuad = [];
 
-function push3 (ar, x) { return ar.concat(x) };
+function push3 (ar, x) {ar.push(x);  return ar };
 
 push3 = new Proxy(push3, {
     apply: function(a, b, c) {
-        if (c[0].length === 3) c = [ [], c[1] ]
+        if (c[0].length === 3) {console.log('c is',c); c = [ [], c[1] ]}
         if (c[0].length === 2) {
-            foo8(c[0][0], c[0][1], c[1], 'e', 'f');
+          console.log('c is',c); 
+           quadMaker("g", "h")(c[0][0])(c[0][1])(c[1]);
             _arQuad = [];
         }
     return Reflect.apply(a,b,c);
     }
 });
- 
-
 
 
