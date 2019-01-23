@@ -1796,7 +1796,7 @@ foo(9);
 
  var oneAction$ = dem3$.map(e => {
       if (e.keyCode === 13) {  
-          obQ.f(e.target.value);
+          obQ.push(e.target.value);
           e.target.value = null;
       }
   });
@@ -2333,9 +2333,7 @@ h('p', ' There are those who use only designated "good parts" of JavaScript. Som
 
 h('span.tao', ' Suppose you want to run the ' ),
 h('a', { props: { href: "https://en.wikipedia.org/wiki/Quadratic_formula", target: "_blank" }}, 'quadratic formula'),
-h('span', ' on asynchronously received numbers. A function like obQ.f() (below), where qf_dem3() does the calculation each time obQ.f() receives three numbers, accomplish this succinctly and transparently. Does it matter that obQ.f() does not return the same value each time it is called on the same argument? I don\'t think so, but true believers in the ' ),
-h('span', {style: {color: "#eeccee", fontStyle: "italic" }}, 'Cult of the Functional Paradigm' ),
-h('span', ' might feel compelled to contrive a pure-function workaround. ' ),
+h('p', ' on asynchronously received numbers. A function like obQ.push() (below), where quadMaker("a", "b") (below) does the calculation each time obQ.f() receives three numbers, accomplish this succinctly and transparently. Does it matter that obQ.f() does not return the same value each time it is called on the same argument? I don\'t think so, but those who think JavaScript can be improved by forcing it to adhere to the functional paradign might feel compelled to contrive a pure-function workaround. ' ),
 h('br'),
 h('p', ' quadMaker() returns functions whose results become attributes of the object "_oB_", which is a permanent fixture in several places in the virtual DOM. The results returned by quadMaker() are the real solutions, if any exist, to equations of the form A*x*x + B*x + C = 0, where users provide the coefficients "A", "B", and "C" and the formula finds whatever real values of x satisfy the equation.' ),                    
 
@@ -2360,24 +2358,28 @@ h('pre', `function quadMaker (x,y) {
                               h('div', {style: {display: "flex" }},  [
                               h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
-h('pre',  `var obQ = {ar: [], f: function (x) {
-    obQ.ar.push(x)
-    if (obQ.ar.length === 3) {
-        quadMaker("a", "b")(obQ.ar[0])(obQ.ar[1])(obQ.ar[2]);
-        obQ.ar = [];
+h('p', ' Here\'s the initial definition of obQ along with the definition of its method, obQ.push: ' ),
+h('pre',  `var obQ  = { ar: [] };
+
+obQ.push = x => {
+    var a = obQ.ar
+    a.push(x);
+    if (a.length === 3) {
+        quadMaker('a', 'b')(a[0])(a[1])(a[2]); 
+        a.length = 0
     }
-}}; ` ), 
-h('p', ' Entering a number initiates a keypress event "e". A listener routes "e.target.value" to obQ.f(). Every third time obQ.f() executes, quadMaker("a", "b") provides the result to _oB_.a and _oB_.b in the virtual DOM. prompting Snabbdom to refresh the DOM. The update might also be facilitated by React, NodeJS, RxJS, Bacon, etc., but this is a Cycle.js application. Here\'s the definition of obQ: ' ), 
-h('span.tao', ' quadMaker("a","b") might cause even more consternation among the functional paradigm crowd. Side effects are triggered in the DOM ' ),
+}; ` ), 
+h('p', ' Entering a number initiates a keypress event "e". A listener routes "e.target.value" to obQ.push(). Every third time obQ.push() executes, quadMaker("a","b") provides the result to _oB_.a and _oB_.b in the virtual DOM. prompting Snabbdom to refresh the DOM. The update might also be facilitated by React, NodeJS, RxJS, Bacon, etc., but this is a Cycle.js application. ' ), 
+h('span.tao', ' quadMaker("a","b") might cause even more consternation among functional paradigm purists. Side effects are triggered in the DOM ' ),
 h('span', {style: {color: "#eeccaa", fontStyle: "italic" }},  'while it is still running.' ),
 h('br'),
-h('p', ' It would be easy enough to return the results in an array "ar" and make _ob_.a and _ob_.b equal to ar[0] and ar[1], Instead of doing that, why not get used to the idea that the Ecmascript 2018-specification provides functions designed to do more than mimic mathematical functions. Among other things, one function can update several parts of a virtual DOM whilee returning nothing but "undefined". ' ),
+h('p', ' Asychronously evaluating numbers with the quadratic formula can be accomplished with pure functions. A function returned by quadMaker() returns a two-parameter function when given one argument. That function returns a two-parameter function which returns a one-parameter function. Instead of side effects, a result could be returned which another function could apply to the virtual DOM.  A better approach, at least in my opinion, is to embrace the fact that the Ecmascript 2018-specification provides functions designed to do much more than mimic mathematical functions. For example, one function can update several parts of a virtual DOM and return nothing but "undefined", as seen in this demonstration. ' ),
        ]),
   h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
 // h('div', `${quadOb.ar.join(', ')}` ),
 
-h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. An event listener will call obQ.f on your entries. The third entry will trigger execution of quadMaker("a","b")(x)(y)(z) where "x", "y", and "z" are the numbers you entered. ' ),
+h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. An event listener will call obQ.push on your entries. The third entry will trigger execution of quadMaker("a","b")(x)(y)(z) where "x", "y", and "z" are the numbers you entered. ' ),
 
                 h('input#dem3', {
                   style: {
@@ -2428,13 +2430,13 @@ h('pre', `var curriedAsync = function curriedAsync (x) {
     }
 }; 
 
-var fu_4 = curriedAsync(qf_dem4); ` ),
+var fu_4 = curriedAsync(quadMaker("c", "d")); ` ),
 
                                                               ]),
                                         h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
 
-h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. ' ),
+h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. fu_4 will execute on each of them.' ),
                 h('input#dem4', {
                   style: {
                     height: "15px",

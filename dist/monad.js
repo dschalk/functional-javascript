@@ -3645,3 +3645,24 @@ push3 = new Proxy(push3, {
 });
 
 
+
+
+var obQ  = { ar: [] };
+
+obQ.push = x => {
+    var a = obQ.ar
+    a.push(x);
+    if (a.length === 3) {
+        quadMaker('a', 'b')(a[0])(a[1])(a[2]); 
+        a.length = 0
+    }
+};
+
+
+
+
+
+
+
+
+
