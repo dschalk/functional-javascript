@@ -1204,9 +1204,8 @@ var factorsAction8$ = factorsClick8$.map(e => {
   console.log("In factorsAction <#><#><#><#><#>#<>#<>#<>#<>#<>#><><><><#><#><#>")
   var i = 0;
   m43_ = [];
-  var ob = new Bnd3(); 
   while (i < 25) {
-    ob.run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
+    Compose().run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
     i += 1;
   }
 });
@@ -2133,26 +2132,26 @@ h('span.tao', {style: {color: "#FF00DD"}}, ' WARNING:' ),
 h('span', ' Unless you are already proficient at creating functions that use recursion, closures, currying, reactivity, and sensible composition, trying to scrupulously conform to the functional-paradigm will stifle your creativity and slow you progress toward mastering JavaScript. It\'s good to avoid mutating variables outside of function scope, but trying to make JavaScript functions behave like mathematical functions is a waste of time, and a waste of valuable features of an increasingly powerful programming language. ' ),
 h('p', ' Suppose you want to chain computations involving functions, primitive values, and promises where functions can readily access the return values of prior functions, resolution values of previously returned promises, and primitive values inserted into the sequence instead of functions. It is highly unlikely that your framework and libraries can help you, but if you are a functional programmer, you can create a higher-order function to suit your needs. Instances of Bnd3 (below) do all of these things. You are welcome to cut and paste it into your project, modify it to suit your needs, or just understand it in order to nourish your own subconscious creative processes. ' ),  
 
-h('pre', `function Bnd3 () {
-    this.ar = [];
-    this.run = x => {
-        if (x instanceof Promise) x.then(y => this.ar.push(y))
-        else this.ar.push(x); 
+h('pre', `function Compose () {
+    var ar = [];
+    var run = x => {
+        if (x instanceof Promise) x.then(y => ar.push(y))
+        else ar.push(x); 
         return func => {
             var p;
-            if (func == 'stop') return this.ar;
+            if (func == 'stop') return ar;
             else if (typeof func !== "function") p = func;
             else if (x instanceof Promise) p = x.then(v => func(v));
+            else if (func.constructor === Monad) p = func.x;
             else p = func(x);
-            return this.run(p);
+            return run(p);
         };
     };
+    return {ar: ar, run: run}
 };
 
-var ob = new Bnd3();
-` ),
-
-h('p', ' When data is provided to ob.run, the results go into ob.ar. Here\'s the syntax:' ),    
+var ob = Compose(); ` ),
+h('p', ' When a function is provided to ob.run, its return value is pushed into ob.ar. Pending promises resolve inside of ob.ar and the resolution values become available as possible arguments for subsequent functions.  Here\'s the syntax:' ),    
 
   h('div', styleFunc(["#4dff4d", "3%", "21px", , , ]), [
   h('div', 'ob.run(x)(functiona1)(function2) ... (functionN)')
@@ -2164,10 +2163,6 @@ h('p', ' When data is provided to ob.run, the results go into ob.ar. Here\'s the
     
     there are no restrictions on the functions\' return values
        (they can even return promises),
-
-    hence there are no restrictions on the single-value arguments (primitives, 
-       functions, arrays, etc.) that functions can take since these 
-       are the prior functions\' return values (or resolution values),
 
     functions have built-in access to all prior functions\' return values
        (or resolution values when promises are returned),
@@ -2187,7 +2182,6 @@ h('br')
                                                                     h('div', {style: {marginRight: "3%", width: "50%" }},   [
 
 
-h('span.tao', ' In this demonstration, ob.ar (the array of return and resolution values) isn\'t used, so ob can be defined only once. When, as in demonstration 2, ob.ar is used during concurrent calls to ob.run, "ob = new Bnd()" is called repeatedly to define discrete objects "ob" with unique versions of "ob.ar" to avoid clashes. ' ),
 h('pre', `var it4_b = x => {
   if (socket.readyState === 1) 
     socket.send(\`BD#$42,\${pMgroup.x},\${pMname.x},\${x}\`);
@@ -2260,7 +2254,7 @@ h('p', ' To see the demonstration, Click "GO" or enter a number and then re-ente
 h('pre', `
 
 function test4 (w) {  
-    var f = new Bnd3(); 
+    var f = Compose(); 
     return f.run(w)(cubeP)(x=>idP(x+f.ar[0]))
     (squareP)(() => idP(f.ar[2]**3))
     (x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))
@@ -2268,17 +2262,16 @@ function test4 (w) {
 
 function test5 (n) {
     var x = toInt(n);
-    _C0 = test4(x+0, Bnd3);
-    _C1 = test4(x+1, Bnd3);
-    _C2 = test4(x+2, Bnd3);
-    _C3 = test4(x+3, Bnd3);
-    _C4 = test4(x+4, Bnd3);
-    _C5 = test4(x+5, Bnd3);
-    _C6 = test4(x+6, Bnd3);
-    _C7 = test4(x+7, Bnd3);
-    _C8 = test4(x+8, Bnd3);
+    _C0 = test4(x+0);
+    _C1 = test4(x+1);
+    _C2 = test4(x+2);
+    _C3 = test4(x+3);
+    _C4 = test4(x+4);
+    _C5 = test4(x+5);
+    _C6 = test4(x+6);
+    _C7 = test4(x+7);
+    _C8 = test4(x+8;
 } ` ),
-
                                            ]),
                            h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
@@ -2312,7 +2305,7 @@ function test5 (n) {
                 }, 'GO'),
                 h('br'),
                 h('br'),
-h('p', ' It\'s no surprise that simultaneously running instances of Bnd3() don\'t clash or that restarted incomplete sequences don\'t trip over themselves. These features, along with functions using previously returned Promise resolution values, are demonstrated here.  ' ),
+h('p', ' Compose() returns similar objects, each of which occupies a unique address in memory, so it\'s no surprise that simultaneously running instances of Bnd3() don\'t clash or that restarted incomplete sequences don\'t trip over themselves. These features, along with functions using previously returned Promise resolution values, are demonstrated here.  ' ),
 h('p', ' The variables prefixed by "_C" are permanent fixtures of the virtual DOM. The side effect of repeatedly changing their values while test4 executes can\'t cause any mischief. All it does is trigger Snabdom\'s diff and render procedure. ' ),                             
                 h('br')
         
@@ -2470,7 +2463,7 @@ h('div', {style: {display: "flex" }},  [
 h('p', ' Sometimes it is convenient to re-use a tool you already have rather than define a new one. Here Bnd3() provides the object "ob" so ob.run can populate ob.ar until it has three numbers. At that point, quadMaker(\'e\', \'f\') runs on the numbers in ob.ar, then ob.ar is emptied in preparation for receiving new data. ' ),
 
 h('pre', `function ann23 () {
-     var ob = new Bnd3()
+     var ob = Compose()
      return func = y => {
         ob.run(toFloat(y));
         if (ob.ar.length === 3) {
@@ -3670,7 +3663,7 @@ h('br'),
   var factorsAction8$ = factorsClick8$.map(e => {
     var i = 0;
     m43_ = [];
-    var bind = new Bnd3().run; 
+    var bind = Compose().run; 
     while (i < 25) {
       ob.run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
       i += 1;
@@ -3735,9 +3728,8 @@ h('br'),
     const factorsAction8$ = factorsClick8$.map(e => {
         var i = 0;
         m43_ = [];  // Clears the display
-        var bind = new Bnd3();   //bi.run();
         while (i < 25 {
-          ob.run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
+          Compose().run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
           i += 1;
         }
     }); ` ),

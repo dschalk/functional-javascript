@@ -3345,6 +3345,45 @@ console.log(_state.sum, _state.prod);
     };
 };
 
+function _Pipe () {var o = Object.create(Bnd3); o.__proto__(); return o;}
+
+ function Compose () {
+    var ar = [];
+    var run = x => {
+        if (x instanceof Promise) x.then(y => ar.push(y))
+        else ar.push(x); 
+        return func => {
+            var p;
+            if (func == 'stop') return ar;
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else if (func.constructor === Monad) p = func.x;
+            else p = func(x);
+            return run(p);
+        };
+    };
+    return {ar: ar, run: run}
+};
+
+var o = Compose();
+
+Bnd5 = {
+     ar: [],
+     run: x => {
+        if (x instanceof Promise) x.then(y => ar.push(y))
+        else ar.push(x); 
+        return func => {
+            var p;
+            if (func == 'stop') return ar;
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else if (func.constructor === Monad) p = func.x;
+            else p = func(x);
+            return run(p);
+        };
+    }
+};
+
 /*
  function Bnd3 () {
     this.ar = [];
@@ -3390,8 +3429,8 @@ var _mBx = (bool) => {
 };  */
 
 
-function test4 (w, c) {  
-    var f = new c();  // f.run and f.ar are in local scope
+function test4 (w) {  
+    var f = Compose();  // f.run and f.ar are in local scope
     return f.run(w)(cubeP)
       (x=>idP(x+f.ar[0]))(squareP)(() => idP(f.ar[2]**3))
         (x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')
@@ -3413,15 +3452,15 @@ function test5 (n) {
 
      var x = toInt(n);
 
-    _C0 = test4(x+0, Bnd3);
-    _C1 = test4(x+1, Bnd3);
-    _C2 = test4(x+2, Bnd3);
-    _C3 = test4(x+3, Bnd3);
-    _C4 = test4(x+4, Bnd3);
-    _C5 = test4(x+5, Bnd3);
-    _C6 = test4(x+6, Bnd3);
-    _C7 = test4(x+7, Bnd3);
-    _C8 = test4(x+8, Bnd3);
+    _C0 = test4(x+0);
+    _C1 = test4(x+1);
+    _C2 = test4(x+2);
+    _C3 = test4(x+3);
+    _C4 = test4(x+4);
+    _C5 = test4(x+5);
+    _C6 = test4(x+6);
+    _C7 = test4(x+7);
+    _C8 = test4(x+8);
 
     _B0 = test6(x+0);
     _B1 = test6(x+1);
@@ -3612,7 +3651,7 @@ var fu_4 = curriedAsync(quadMaker("c", "d"));
 // Demonstration 5
 
 function ann23 () {
-     var ob = new Bnd3()
+     var ob = Compose()
      return func = y => {
         ob.run(toFloat(y));
         if (ob.ar.length === 3) {
@@ -3659,6 +3698,92 @@ obQ.push = x => {
 };
 
 
+Bnd5 = {
+     ar: [],
+     run: function (x) {
+        if (x instanceof Promise) x.then(y => this.ar.push(y))
+        else this.ar.push(x); 
+        return func => {
+            var p;
+            if (func == 'stop') return this.ar;
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else if (func.constructor === Monad) p = func.x;
+            else p = func(x);
+            return this.run(p);
+        };
+    }
+};
+
+ Bnd5 = {
+     ar: [],
+     run: function (x) {
+        if (x instanceof Promise) x.then(y => ar.push(y))
+        else this.ar.push(x); 
+        return func => {
+            var p;
+            if (func == 'stop') return this.ar;
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v))
+            else p = func(x);
+            return this.run(p);
+        };
+    }
+};
+
+var ob1 = Object.create(Bnd3); ob1.__proto__();
+var ob2 = Object.create(Bnd3); ob2.__proto__();
+var ob3 = Object.create(Bnd3); ob3.__proto__();
+
+var d = ob1.run(5)(x=>x**4)('stop');
+var e = ob2.run(3)(x=>x**3)(x=>x+ob2.ar[0])('stop');
+ob3.run(2)(x=>x**7);
+console.log(d, e, ob3.ar);
+
+var o1 = Object.create(Bnd5);
+o1.ar = o1.ar.slice();
+var o2 = Object.create(Bnd5);
+o2.ar = o2.ar.slice();
+var o3 = Object.create(Bnd5);
+o3.ar = o3.ar.slice();
+
+
+var dd = o1.run(5)(x=>x**4)('stop');
+var ee = o2.run(3)(x=>x**3)(x=>x+o2.ar[0])('stop');
+o3.run(2)(x=>x**7);
+console.log(dd, ee, o3.ar);
+
+function f1A () {var o = Object.create(Bnd3); o.__proto__(); return o;}
+function Compose() {var o = Object.create(Bnd3); o.__proto__(); return o;}
+function f1B () {var o = Object.create(Bnd5); o.ar = o.ar.slice(); return o;}
+
+var a1 = f1A();
+var a2 = f1A();
+var a3 = f1A();
+var de1 = a1.run(5)(x=>x**4)('stop');
+var de2 = a2.run(3)(x=>x**3)(x=>x+o2.ar[0])('stop');
+a3.run(2)(x=>x**7);
+
+console.log(de1, de2, a3.ar)
+
+var b1 = f1B();
+var b2 = f1B();
+var b3 = f1B();
+var be1 = b1.run(5)(x=>x**4)('stop');
+var be2 = b2.run(3)(x=>x**3)(x=>x+o2.ar[0])('stop');
+b3.run(2)(x=>x**7);
+
+console.log(be1, be2, b3.ar)
+
+var e1 = new Bnd3()
+var e2 = new Bnd3()
+var e3 = new Bnd3()
+
+var de1 = e1.run(5)(x=>x**4)('stop');
+var de2 = e2.run(3)(x=>x**3)(x=>x+o2.ar[0])('stop');
+e3.run(2)(x=>x**7);
+
+console.log(de1, de2, e3.ar)
 
 
 
