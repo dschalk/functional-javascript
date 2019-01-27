@@ -3338,7 +3338,6 @@ console.log(_state.sum, _state.prod);
             if (func == 'stop') return this.ar;
             else if (typeof func !== "function") p = func;
             else if (x instanceof Promise) p = x.then(v => func(v));
-            else if (func.constructor === Monad) p = func.x;
             else p = func(x);
             return this.run(p);
         };
@@ -3357,7 +3356,6 @@ function _Pipe () {var o = Object.create(Bnd3); o.__proto__(); return o;}
             if (func == 'stop') return ar;
             else if (typeof func !== "function") p = func;
             else if (x instanceof Promise) p = x.then(v => func(v));
-            else if (func.constructor === Monad) p = func.x;
             else p = func(x);
             return run(p);
         };
@@ -3754,7 +3752,7 @@ o3.run(2)(x=>x**7);
 console.log(dd, ee, o3.ar);
 
 function f1A () {var o = Object.create(Bnd3); o.__proto__(); return o;}
-function Compose() {var o = Object.create(Bnd3); o.__proto__(); return o;}
+// function Compose() {var o = Object.create(Bnd3); o.__proto__(); return o;}
 function f1B () {var o = Object.create(Bnd5); o.ar = o.ar.slice(); return o;}
 
 var a1 = f1A();

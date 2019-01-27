@@ -1201,7 +1201,6 @@ var factorsClick8$ = sources.DOM
   .select('button#factors_R').events('click'); 
 
 var factorsAction8$ = factorsClick8$.map(e => {
-  console.log("In factorsAction <#><#><#><#><#>#<>#<>#<>#<>#<>#><><><><#><#><#>")
   var i = 0;
   m43_ = [];
   while (i < 25) {
@@ -2142,7 +2141,6 @@ h('pre', `function Compose () {
             if (func == 'stop') return ar;
             else if (typeof func !== "function") p = func;
             else if (x instanceof Promise) p = x.then(v => func(v));
-            else if (func.constructor === Monad) p = func.x;
             else p = func(x);
             return run(p);
         };
@@ -2151,6 +2149,7 @@ h('pre', `function Compose () {
 };
 
 var ob = Compose(); ` ),
+                          
 h('p', ' When a function is provided to ob.run, its return value is pushed into ob.ar. Pending promises resolve inside of ob.ar and the resolution values become available as possible arguments for subsequent functions.  Here\'s the syntax:' ),    
 
   h('div', styleFunc(["#4dff4d", "3%", "21px", , , ]), [
@@ -2159,13 +2158,15 @@ h('p', ' When a function is provided to ob.run, its return value is pushed into 
   h('p', ' where  ' ),
   h('pre', styleFunc(["#ABDDAB", , "19px", , , ]), `    x can be any value,
 
-    the functions operate on "x" from left to right,
-    
-    there are no restrictions on the functions\' return values
-       (they can even return promises),
+    function1, function2, ... need not be functions. There are no type
+       restrictions on the values of the "functions",
 
-    functions have built-in access to all prior functions\' return values
-       (or resolution values when promises are returned),
+    true functions operate from left to right,
+    
+    there are no type restrictions on the functions\' return values,
+
+    functions have built-in access to all prior primitive value entries, function return values,
+       and Promise resolution values.
 
 ` ),
     h('p', ' The first example (below) performs a computation, requests a quasi-random number from the WebSocket server, requests that number\'s prime decomposition from a web worker, and displays the result. The code runs twenty-five times each time the button is clicked. '),
