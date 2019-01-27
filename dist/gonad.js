@@ -37,26 +37,51 @@ var observable = (object, onChange) => {
 	return new Proxy(object, handler);
 };
 
+const Ret = (a=0, b='R') => this[b] = new Monad(a,b);
+
+
 var Monad = function Monad (z = 42, g = 'generic') {
     this.x = z;
     this.id = g;
-    var that = this;
     this.bnd = function (func, ...args) {
         var m;
         if (typeof func === "function") {
             m = func(this.x, ...args)
-            var mon;
-            if (m instanceof Monad) {
-                mon = testPrefix(args,this.id);
-                return window[mon] = new Monad(m.x, mon);
-            };
+            if (m instanceof Monad) m = m.x; 
         }
-        else return m;
+        else m = func;
+        this.x = m;
+        return this;
+       // return window[this.id] = new Monad(m,this.id);
     };
     this.ret = function (a) {
-      return window[this.id] = new Monad(a,this.id);
+        this.x = a;
+        return this;
+    //  return window[this.id] = new Monad(a,this.id);
     };
 };
+/*
+var Monad = function Monad(z = 42, g = 'ID') {
+    this.x = z;
+    this.id = g;
+    this.bnd = function (func, ...args) {
+        var m;
+        var res;
+        if (typeof func === "function") {
+            m = func(this.x, ...args)
+            if (m instanceof Monad) res = m.x 
+            else res = m;
+            console.log("1**************************** res: \n ", res);
+        }
+        else res = func;
+      console.log("2**************************** res: \n ", res);
+        return this[this.id] = new Monad(res, this.id);
+    };
+    this.ret = function (a) {
+      return this[this.id] = new Monad(a,this.id);
+    };
+};
+*/
 
   function testPrefix (x,y) {
     var t = y;
@@ -653,10 +678,14 @@ num9 = 0;
       return t;
     }
 
-    function Monad2(X = 0) {
-        this.x = X;
-        this.bnd = (func, ...args) => new Monad2(func(this.x, ...args));
+    function Monad2(z = 0) {
+      this.x = z;
     };
+
+    Monad2.prototype.ret = a => new Monad2(a);
+    Monad2.prototype.bnd = function (func, ...args) {
+      return func(this.x, ...args)
+    }
 
   var m52 = new Monad2 (52);
   console.log('m52',m52);
@@ -910,7 +939,6 @@ function barfly (x) {
   }
 
   var it6_c = y => {
-    console.log("In it6_c -- posting to workerN -- y is", y);
     mMZ42.bnd(y => workerN.postMessage([primeState, y]));
 }
 
@@ -3174,54 +3202,6 @@ function runFoo (n) {
 
 runFoo(-4)
 
-console.log('***** Symbol addition (not "simple addition") *****');
-var t = 0; 
-var a = Symbol.for(t); 
-var b = toInt(Symbol.keyFor(a)) + 1; 
-var c = Symbol.for(b); 
-var d = toInt(Symbol.keyFor(c))+1; 
-console.log("a",a); 
-console.log("b",b); 
-console.log("c",c); 
-console.log("d",d);
-console.log('*****      Class Expression        *****');
-
-
-
-class Expression {  
-  constructor(pattern) {
-    this.pattern = pattern;
-  }
-  [Symbol.match](str) {
-    return str.includes(this.pattern);
-  }
-  [Symbol.replace](str, replace) {
-    return str.split(this.pattern).join(replace);
-  }
-  [Symbol.search](str) {
-      return str.indexOf(this.pattern);
-  }
-  [Symbol.split](str) {
-      return str.split(this.pattern);
-  }
-}
-
-let sunExp = new Expression('sun');  
-
-var a = 'sunny day'.match(sunExp);             
-var b = 'rainy day'.match(sunExp);              
-var c = 'sunny day'.replace(sunExp, 'rainy');  
-var d = "It's sunny".search(sunExp);          
-var e = "daysunnight".split(sunExp); 
-
-console.log(a,"\n", b, "\n", c, "\n", d, "\n", e ); 
-
-console.log("<W><W><W><W><W><W><W> Warm and friendly <F><F><F><F><F><F><F>");
-fetch('https://jsonplaceholder.typicode.com/todos/3')
-  .then(response => response.json())
-  .then(json => console.log("https://jsonplaceholder.typicode.com/todos/3",json))
-
-
 // ************************************** Proxy handler apply demo
 console.log("************************************** Proxy handler apply demo");
 var F_17 = '';
@@ -3348,21 +3328,22 @@ console.log(_state.sum, _state.prod);
 
 //***************************************************************** mBnd, test4, test5, test6
 
- function Bnd3 () {
-    this.ar = [];
-    this.run = x => {
-        if (x instanceof Promise) x.then(y => this.ar.push(y))
-        else this.ar.push(x); 
+ function Compose () {
+    var ar = [];
+    var run = x => {
+        if (x instanceof Promise) x.then(y => ar.push(y))
+        else ar.push(x); 
         return func => {
             var p;
-            if (func == 'stop') return this.ar;
+            if (func == 'stop') return ar;
             else if (typeof func !== "function") p = func;
             else if (x instanceof Promise) p = x.then(v => func(v));
             else if (func.constructor === Monad) p = func.x;
             else p = func(x);
-            return this.run(p);
+            return run(p);
         };
     };
+    return {ar: ar, run: run}
 };
 
 function diffR (obj) {
@@ -3382,30 +3363,13 @@ var _mBx = (bool) => {
     return ob;
 }; 
 
-
-
-/*  function test4 (w) {  
-    var f = new Bnd3();  // f.run and f.ar are in local scope
-    return f.run(w)(cubeP)
-      (x=>idP(x+f.ar[0]))(squareP)(() => idP(f.ar[2]**3))
-        (x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')
-};  */
-
-function test4 (w, c) {  
-    var f = new c();  // f.run and f.ar are in local scope
+function test4 (w) {  
+    var f = Compose();  // f.run and f.ar are in local scope
     return f.run(w)(cubeP)
       (x=>idP(x+f.ar[0]))(squareP)(() => idP(f.ar[2]**3))
         (x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')
 };
 
-function test6 (w) {
-    var x = Symbol();
-    var run = Bind(x, true);  
-    var ar = arBind[x];  // arBind is an object in global scope
-    return run(w)(cubeP)
-      (x=>idP(x+ar[0]))(squareP)(() => idP(ar[2]**3))
-        (x=>idP(x/ar[3]))(x=>idP(x-ar[1]))()
-};
 var _D0 = _D1 = _E0 = _E1 = ['cow'];
 var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready']; 
 var _C0 = _C1 = _C2 = _C3 = _C4 = _C5 = _C6 = _C7 = _C8 = ['ready']; 
@@ -3414,28 +3378,22 @@ function test5 (n) {
 
      var x = toInt(n);
 
-    _C0 = test4(x+0, Bnd3);
-    _C1 = test4(x+1, Bnd3);
-    _C2 = test4(x+2, Bnd3);
-    _C3 = test4(x+3, Bnd3);
-    _C4 = test4(x+4, Bnd3);
-    _C5 = test4(x+5, Bnd3);
-    _C6 = test4(x+6, Bnd3);
-    _C7 = test4(x+7, Bnd3);
-    _C8 = test4(x+8, Bnd3);
+    _C0 = test4(x+0);
+    _C1 = test4(x+1);
+    _C2 = test4(x+2);
+    _C3 = test4(x+3);
+    _C4 = test4(x+4);
+    _C5 = test4(x+5);
+    _C6 = test4(x+6);
+    _C7 = test4(x+7);
+    _C8 = test4(x+8);
 
-    _B0 = test6(x+0);
-    _B1 = test6(x+1);
-    _B2 = test6(x+2);
-    _B3 = test6(x+3);
-    _B4 = test6(x+4);
-    _B5 = test6(x+5);
-    _B6 = test6(x+6);
-    _B7 = test6(x+7);
-    _B8 = test6(x+8);
+    _B0 = test4(x+0);
+
 }
 
   
+ var _oB_ = {};
 
  function  qfB (a,b,c) {
       var C0 = [];
@@ -3451,6 +3409,35 @@ function test5 (n) {
       }
       return C0;
   }
+
+ var qfC = a => b => c => {
+      var C0 = [];
+      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      if (aa === aa) {
+        C0[0] = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+          C0[1] = `x = ${aa} and x = ${bb}`;
+      }
+      if (!(aa === aa)) {
+          C0[0] = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+          C0[1] = '';
+      }
+      return C0;
+  }
+
+ var qf_dem6 = a => b => c => {
+      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      if (aa === aa) {
+          _oB_.g = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+          _oB_.h = `x = ${aa} and x = ${bb}`;
+      }
+      if (!(aa === aa)) {
+          _oB_.g = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+          _oB_.h = '';
+      }
+  }
+
 
 
 var Cow1 = "Judy", Cow2 = "Judith";
@@ -3481,10 +3468,8 @@ const _qOb_ = {a: '', b: '', c: '', d: '', e: '', f: ''};
 
 
 function foo8 (a, b, c, x, y) {
-    var a = toFloat(a), b = toFloat(b), c = toFloat(c);
-    var d = Math.sqrt(b * b - 4 * a * c) / (2 * a);
-    var aa = -b - d;
-    var bb = -b + d;
+    var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
     if (aa === aa) {
         _qOb_[x] = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
         _qOb_[y] = `x = ${aa} and x = ${bb}`;
@@ -3495,25 +3480,53 @@ function foo8 (a, b, c, x, y) {
     }
 } ;
 
-// Demonstration 3
 
 
-function ann23 () {
-     var ob = new Bnd3()
-     return y => {
-        ob.run(toFloat(y));
-        if (ob.ar.length === 3) {
-            foo8(ob.ar[0], ob.ar[1], ob.ar[2], 'a', 'b');
-            ob.ar = [];
+
+// Demonstration 6
+
+ var qf_dem6 = a => b => c => {
+      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      if (aa === aa) {
+          _oB_.g = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+          _oB_.h = `x = ${aa} and x = ${bb}`;
+      }
+      if (!(aa === aa)) {
+          _oB_.g = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+          _oB_.h = '';
+      }
+  }
+
+function quadMaker (x,y) {
+    return a => b => c => {
+        var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+        var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+        if (aa === aa) {
+            _oB_[x] = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`;
+            _oB_[y] = `x = ${aa} and x = ${bb}`;
+        }
+        if (!(aa === aa)) {
+            _oB_[x] = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+            _oB_[y] = '';
         }
     }
-};
+}
 
-var ann27 = ann23();
+// Demonstration 3 
 
-
-
-// Demonstration 4 
+ var qf_dem3 = a => b => c => {
+      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      if (aa === aa) {
+          _oB_.a = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+          _oB_.b = `x = ${aa} and x = ${bb}`;
+      }
+      if (!(aa === aa)) {
+          _oB_.a = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+          _oB_.b = '';
+      }
+  }
 
 Cow3 = "Montana";
 Cow4 = "Ivy";
@@ -3521,30 +3534,178 @@ Cow4 = "Ivy";
 var obQ = {ar: [], f: function (x) {
     obQ.ar.push(x)
     if (obQ.ar.length === 3) {
-        foo8 (obQ.ar[0], obQ.ar[1], obQ.ar[2], 'c', 'd');
+        quadMaker("a", "b") (obQ.ar[0])(obQ.ar[1])(obQ.ar[2]);
         obQ.ar = [];
     }
 }};
 
+// Demonstration 4
 
- 
+var qf_dem4 = a => b => c => {
+      var C0 = [];
+      var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      if (aa === aa) {
+          _oB_.c = `${a}*x*x + ${b}*x + ${c} = 0 has the following solutions:`,
+          _oB_.d = `x = ${aa} and x = ${bb}`;
+      }
+      else if (!(aa === aa)) {
+          _oB_.c = `${a}*x*x + ${b}*x + ${c} = 0 has no solution`;
+          _oB_.d = '';
+      }
+  }
+
+var curriedAsync = function curriedAsync (x) {
+    var original_f = x;
+    var f = x;
+    return function g (d) {
+        f = f(d);  // f will be a functidn the first two times
+        if ( typeof f !== "function" ) f = original_f;
+    }
+}
+
+var fu_4 = curriedAsync(quadMaker("c", "d"));
+
 // Demonstration 5
+
+function ann23 () {
+     var ob = Compose()
+     return func = y => {
+        ob.run(toFloat(y));
+        if (ob.ar.length === 3) {
+            quadMaker("e", "f")(ob.ar[0])(ob.ar[1])(ob.ar[2]);
+            ob.ar = [];
+            // diffRender();
+        }
+        return func; 
+    }
+};
+
+var ann27 = ann23();
+
+// Demonstration 6
 
 var  _arQuad = [];
 
-function push3 (ar, x) { return ar.concat(x) };
+function push3 (ar, x) {ar.push(x);  return ar };
 
 push3 = new Proxy(push3, {
     apply: function(a, b, c) {
-        if (c[0].length === 3) c = [ [], c[1] ]
+        if (c[0].length === 3) {console.log('c is',c); c = [ [], c[1] ]}
         if (c[0].length === 2) {
-            foo8(c[0][0], c[0][1], c[1], 'e', 'f');
+          console.log('c is',c); 
+           quadMaker("g", "h")(c[0][0])(c[0][1])(c[1]);
             _arQuad = [];
         }
     return Reflect.apply(a,b,c);
     }
 });
- 
+
+
+
+
+var obQ  = { ar: [] };
+
+obQ.push = x => {
+    var a = obQ.ar
+    a.push(x);
+    if (a.length === 3) {
+        quadMaker('a', 'b')(a[0])(a[1])(a[2]); 
+        a.length = 0
+    }
+};
+
+
+Bnd5 = {
+     ar: [],
+     run: function (x) {
+        if (x instanceof Promise) x.then(y => this.ar.push(y))
+        else this.ar.push(x); 
+        return func => {
+            var p;
+            if (func == 'stop') return this.ar;
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else if (func.constructor === Monad) p = func.x;
+            else p = func(x);
+            return this.run(p);
+        };
+    }
+};
+
+ Bnd5 = {
+     ar: [],
+     run: function (x) {
+        if (x instanceof Promise) x.then(y => ar.push(y))
+        else this.ar.push(x); 
+        return func => {
+            var p;
+            if (func == 'stop') return this.ar;
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v))
+            else p = func(x);
+            return this.run(p);
+        };
+    }
+};
+
+var ob1 = Object.create(Bnd3); ob1.__proto__();
+var ob2 = Object.create(Bnd3); ob2.__proto__();
+var ob3 = Object.create(Bnd3); ob3.__proto__();
+
+var d = ob1.run(5)(x=>x**4)('stop');
+var e = ob2.run(3)(x=>x**3)(x=>x+ob2.ar[0])('stop');
+ob3.run(2)(x=>x**7);
+console.log(d, e, ob3.ar);
+
+var o1 = Object.create(Bnd5);
+o1.ar = o1.ar.slice();
+var o2 = Object.create(Bnd5);
+o2.ar = o2.ar.slice();
+var o3 = Object.create(Bnd5);
+o3.ar = o3.ar.slice();
+
+
+var dd = o1.run(5)(x=>x**4)('stop');
+var ee = o2.run(3)(x=>x**3)(x=>x+o2.ar[0])('stop');
+o3.run(2)(x=>x**7);
+console.log(dd, ee, o3.ar);
+
+function f1A () {var o = Object.create(Bnd3); o.__proto__(); return o;}
+function Compose() {var o = Object.create(Bnd3); o.__proto__(); return o;}
+function f1B () {var o = Object.create(Bnd5); o.ar = o.ar.slice(); return o;}
+
+var a1 = f1A();
+var a2 = f1A();
+var a3 = f1A();
+var de1 = a1.run(5)(x=>x**4)('stop');
+var de2 = a2.run(3)(x=>x**3)(x=>x+o2.ar[0])('stop');
+a3.run(2)(x=>x**7);
+
+console.log(de1, de2, a3.ar)
+
+var b1 = f1B();
+var b2 = f1B();
+var b3 = f1B();
+var be1 = b1.run(5)(x=>x**4)('stop');
+var be2 = b2.run(3)(x=>x**3)(x=>x+o2.ar[0])('stop');
+b3.run(2)(x=>x**7);
+
+console.log(be1, be2, b3.ar)
+
+var e1 = new Bnd3()
+var e2 = new Bnd3()
+var e3 = new Bnd3()
+
+var de1 = e1.run(5)(x=>x**4)('stop');
+var de2 = e2.run(3)(x=>x**3)(x=>x+o2.ar[0])('stop');
+e3.run(2)(x=>x**7);
+
+console.log(de1, de2, e3.ar)
+
+
+
+
 
 
 

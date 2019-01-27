@@ -1568,7 +1568,7 @@ pp4 = () => {
 
       // *********************************** pingpong ***************  FINISH
 
-      var fredButton = h('button#fredButton', "fredButton");
+      // var fredButton = h('button#fredButton', "fredButton");
       var diffR = h('button#diffRender', "diffRender");
 
       const fred$ = sources.FD.map(e => {
@@ -1741,9 +1741,9 @@ pp4 = () => {
                   };
                   mMquad4.ret("Solutiions for " + a + ", " + b + " and " + c + " are " + x + " and  " + y)
                   mMquad5.ret(p(a).text + " * " + x + " * " + x + " + " + p(b).text +
-                    " * " + x + " " + p(c).text + " = 0")
+                    " * " + x + " + " + p(c).text + " = 0")
                   mMquad6.ret(p(a).text + " * " + y + " * " + y + " + " + p(b).text +
-                    " * " + y + " " + p(c).text + " = 0")
+                    " * " + y + " + " + p(c).text + " = 0")
                   solve(); // Continuing the endless loop.
                 })
             })
@@ -2129,7 +2129,7 @@ h('br'),
 h('br'),
 h('span.tao', {style: {color: "#FF00DD"}}, ' WARNING:' ), 
 h('span', ' Unless you are already proficient at creating functions that use recursion, closures, currying, reactivity, and sensible composition, trying to scrupulously conform to the functional-paradigm will stifle your creativity and slow you progress toward mastering JavaScript. It\'s good to avoid mutating variables outside of function scope, but trying to make JavaScript functions behave like mathematical functions is a waste of time, and a waste of valuable features of an increasingly powerful programming language. ' ),
-h('p', ' Suppose you want to chain computations involving functions, primitive values, and promises where functions can readily access the return values of prior functions, resolution values of previously returned promises, and primitive values inserted into the sequence instead of functions. It is highly unlikely that your framework and libraries can help you, but if you are a functional programmer, you can create a higher-order function to suit your needs. Instances of Bnd3 (below) do all of these things. You are welcome to cut and paste it into your project, modify it to suit your needs, or just understand it in order to nourish your own subconscious creative processes. ' ),  
+h('p', ' Suppose you want to chain computations involving functions, primitive values, and promises where functions can readily access the return values of prior functions, resolution values of previously returned promises, and primitive values inserted into the sequence instead of functions. It is highly unlikely that your framework and libraries can help you, but if you are a functional programmer, you can create a higher-order function to suit your needs. Instances of Compose() (below) do all of these things. You are welcome to cut and paste it into your project, modify it to suit your needs, or just understand it in order to nourish your own subconscious creative processes. ' ),  
 
 h('pre', `function Compose () {
     var ar = [];
@@ -2239,7 +2239,7 @@ it7_b = () => mMZ53.bnd(string => {
   ]),
             
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Bnd3 Stress Test '  ),   
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Compose() Stress Test '  ),   
 
 
 
@@ -2306,7 +2306,7 @@ function test5 (n) {
                 }, 'GO'),
                 h('br'),
                 h('br'),
-h('p', ' Compose() returns similar objects, each of which occupies a unique address in memory, so it\'s no surprise that simultaneously running instances of Bnd3() don\'t clash or that restarted incomplete sequences don\'t trip over themselves. These features, along with functions using previously returned Promise resolution values, are demonstrated here.  ' ),
+h('p', ' Compose() returns similar objects, each of which occupies a unique address in memory, so it\'s no surprise that simultaneously running instances of Compose() don\'t clash or that restarted incomplete sequences don\'t trip over themselves. These features, along with functions using previously returned Promise resolution values, are demonstrated here.  ' ),
 h('p', ' The variables prefixed by "_C" are permanent fixtures of the virtual DOM. The side effect of repeatedly changing their values while test4 executes can\'t cause any mischief. All it does is trigger Snabdom\'s diff and render procedure. ' ),                             
                 h('br')
         
@@ -2461,7 +2461,7 @@ h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 5 '),
 h('div', {style: {display: "flex" }},  [
   h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
-h('p', ' Sometimes it is convenient to re-use a tool you already have rather than define a new one. Here Bnd3() provides the object "ob" so ob.run can populate ob.ar until it has three numbers. At that point, quadMaker(\'e\', \'f\') runs on the numbers in ob.ar, then ob.ar is emptied in preparation for receiving new data. ' ),
+h('p', ' Sometimes it is convenient to re-use a tool you already have rather than define a new one. Here Compose() provides the object "ob" so ob.run can populate ob.ar until it has three numbers. At that point, quadMaker(\'e\', \'f\') runs on the numbers in ob.ar, then ob.ar is emptied in preparation for receiving new data. ' ),
 
 h('pre', `function ann23 () {
      var ob = Compose()
@@ -2732,7 +2732,7 @@ h('pre',   {style: {color: "#aaffff"}}, `        const messages$ = sources.WS.ma
         return ret(x);
       }; ` ),
 
-h('p', ' I still haven\'t discussed the function "ret()". It is similar to "pure" and "return" in Haskell; it encapsulates a value in an instance of Monad2 (Applicative and Monad in Haskell). Instances of Monad2 are objects "m" with values "m.x" and functions "m.bnd" that operate on functions "f" and return similar object with values m.x\' = f(x). Here\'s the definition of Monad2: ' ),
+h('p', ' I still haven\'t discussed the function "ret()". It is similar to "pure" and "return" in Haskell in that it encapsulates a value in an instance of "Monad2()", an abbreviated version of "Monad()". Instances of Monad2 are objects "m" with values "m.x" and functions "m.bnd" that operate on functions "f" and return similar object with values m.x\' = f(x). Here\'s the definition of Monad2: ' ),
       
 h('pre', `  function Monad2(z = 0) {
       this.x = z;
@@ -2746,7 +2746,7 @@ h('p', ' And here\'s the definition of "ret()": ' ),
 h('pre', `  function ret (val = 0) {
       return new Monad2(val);
   }; ` ),
-
+h('p', ' The names "Monad" and Monad2" were selected during a time when I was toying with the idea of isolating side effects in linked objects. I borrowed some terminology from the Haskell programming language, but similarities between Haskell monads and my JavaScript monads are pretty superficial. Sure, composing my "monads" involves a monad A operating on some function "f" that returns a "monad" B with value f(A.x), but the types of A and B are "object" and the constructors are Monad. Haskell monads encapsulate composed transformations of values to values possibly having different types. ' ), 
 
 
           h('h3', 'Reactivity'),
@@ -3318,568 +3318,6 @@ h('pre', `function showFunc (name, name2)
   } `),
               h('a', { props: { href: '#top' }}, 'Back to the top'),
               h('p', ' *************************************************************************************** '),
-  h('h1', 'Snippets, Musing, and Some Old Abandoned Code' ),
-h('h2', 'Most Of This Section Will Be Deleted' ),
-h('span.tao', 'All Current Code Is In The ' ),
-h('a', {props: {href: "https://Github.com/dschalk/functional-javascript" }},  'Github Repository' ),
-h('span', '.' ),
-  h('span.tao', ' The ' ),
-h('a', {props: {href:"https://wiki.haskell.org/Monad_laws", target: "_blank" }}, 'Haskell Monad Laws' ), 
-h('span', ', which aren\'t even mandetory in Haskell, are common sense requirements for robust function composition. If you rely on functions to make programs work, you aren\'t communicating changes of state by mutating global variables. Time travel and undo algorithms naturally use immutable data. Thousands of passes through loops inside the scopes of functions cry out for mutable values, not factories spewing pointers and values into memory. When you program functionally, Things fall into place without enforcing rules. This is doing through inaction, in the spirit of the ' ),
-  
-                           h('a', {props: {href:"https://en.wikipedia.org/wiki/Tao_Te_Ching", target: "_blank" }}, 'Tao Te Ching' ), 
-h('br'),
-h('br'),
-
-
-h('span.tao', ' The ' ),
-h('a', {props: {href:"https://github.com/fantasyland/fantasy-land", target: "_blank" }}, 'Fantasyland' ),
-h('span', ' algebraic javascript specification is an admirable achievement. People who are familiar with Haskell can jump right in and start coding with familiar monads and functors borrowed from the Haskell ' ),
-
-
-h('a', {props: {href: "http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html", target: "_blank"}}, 'Prelude module' ), 
-
-h('span', '. The '  ),
-
-h('a', {props: {href:"https://github.com/origamitower/folktale", target: "_blank" }}, 'Folktale' ),
-
-h('span', ' library also succeeds in reflecting the Haskell Prelude module. ' ),
-  
-h('br'),
-              h('pre', `  var rNumsDS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] `),
-              h('p', ' feels elegant to me. It is a simple proxy for the sixteen square grid that never needs to be operated upon directly because the placement of its numbers are in one-to-one correspondence with the placement of its (rNumsDS\'s) elements. I could have tucked it away in an object or closure, but I like it so much that I dignified it with the designation "window.rNumsDS". I ignored an important rule. I did it more than once, and it isn\'t the only important rule I ignored. But in every case, there was an advantage (if only in efficiency), and I made sure that no harm could come from my deviations. '),
-              h('p', ' If I were working in a group, or providing something that would be maintained by anyone other than me, I would code by the book. I\'m not getting paid for this work; I\'m just having fun. Dig it! '),
-
-              h('h3', 'Haskell Time'),
-              h('p', ' This page is for front end developers, but in case anyone is interested, here are the server functions responsible for deleting or amending a comment: '),
-              h('pre', `    removeOne _ []                 = []
-    removeOne x (y:ys) | x == y    = ys
-                       | otherwise = y : removeOne x ys
-
-    changeOne :: Text -> Text -> [Text] -> [Text]
-    changeOne _ _ []                 = []
-    changeOne z x (y:ys) | x == y    = z : ys
-                         | otherwise = y : changeOne z x ys `),
-
-              h('a', ' Every message sent to the server is a comma separated string beginning with a prefix, then a group, and then a name. Comma separated items after that are named extra and extra2. '),
-              h('p', ' The code belw is responsible for dealing with comments. As in the browser, WebSocket messages are dealt with according to their six character prefixes. extra and extra2 are the only pertinent data since comments go to all groups '),
-              h('pre', `else if "GZ#$42" \`T.isPrefixOf\` msg
-                    -- FETCH AND BROADCAST ALL COMMENTS ON BROWSER LOAD
-     then
-         do
-             st <- atomically $ readTVar state
-             broadcast ("GZ#$42," \`mappend\` group \`mappend\` ","
-               \`mappend\` sender \`mappend\` "," \`mappend\` comments ) st
-
-  else if "GN#$42" \`T.isPrefixOf\` msg
-                    -- RECEIVE A NEW COMMENT, UPDATE THE FILE AND THE TVAR,
-                    --  AND BROADCAST THE NEW COMMENT
-     then
-         do
-             old <- atomically $ readTVar comms
-             lk <- atomically L.new
-             let c = old \`mappend\` (T.replace (at \`mappend\` at) at extra)
-             let new = T.replace (at \`mappend\` at) at c -- cleanup
-             L.with lk $ TIO.writeFile xcomments new -- lock on writing
-             atomically $ writeTVar comms new
-             st <- atomically $ readTVar state
-             broadcast ("GN#$42," \`mappend\` group \`mappend\` ","
-                 \`mappend\` sender \`mappend\` "," \`mappend\` extra) st
-
-   else if "GD#$42" \`T.isPrefixOf\` msg      -- DELETE A COMMENT
-      then
-          do
-              a <- TIO.readFile xcomments
-              lk <- atomically L.new
-              let b = T.splitOn at a
-              let c = removeOne extra2 b
-              let d = T.intercalate at c
-              L.with lk $ TIO.writeFile xcomments d
-              atomically $ writeTVar comms d
-              st <- atomically $ readTVar state
-              broadcast ("GD#$42," \`mappend\` group \`mappend\` ","
-                \`mappend\` sender \`mappend\` "," \`mappend\` extra) st
-
-   else if "GE#$42" \`T.isPrefixOf\` msg      -- EDIT A COMMENT
-      then
-          do
-              a <- TIO.readFile xcomments
-              lk <- atomically L.new
-              let b = T.splitOn at a
-              let c = changeOne extra3 extra2 b
-              let txt = T.intercalate at c
-              L.with lk $ TIO.writeFile xcomments txt
-              atomically $ writeTVar comms txt
-              st <- atomically $ readTVar state
-              broadcast ("GE#$42," \`mappend\` group \`mappend\` com
-                \`mappend\` sender \`mappend\` com \`mappend\` extra \`mappend\` com
-                   \`mappend\` extra3) st   `),
-       
-              h('div#gameCode', ' '),
-              h('h2', 'Appendix A - The Game Code'),
-              h('pre', `function MonadState(g, state) {
-    this.id = g;
-    this.s = state;
-  };  `),
-              h('a', {
-                props: {
-                  href: '#gameIntro'
-                }
-              }, 'Back to the rules'),
-              h('p'),
-              h('pre', `MonadState.prototype.run = function ([
-    score = this.s[0][this.s[1]][0],
-    goals = this.s[0][this.s[1]][1],
-    operator = this.s[0][this.s[1]][2],
-    picked = this.s[0][this.s[1]][3].slice(),
-    display = this.s[0][this.s[1]][4].slice()
-    playerName = this.s[0][this.s[1]][5] ? this.s[0][this.s[1]][5].slice() : "nobody",
-    playerGroup = this.s[0][this.s[1]][6] ? this.s[0][this.s[1]][6].slice() : "solo",
-  ]) {
-    this.s[1] += 1;
-    var newState = this.s.slice();
-    newState[0].splice(this.s[1], 0, [score, goals, operator, picked, display,playerName,playerGroup])
-     console.log("[score, goals, operator, picked, display]",
-       [score, goals, operator, picked, display,playerName,playerGroup]);
-    this.s = newState;
-    buttonNode = bNode(display);
-    return window['gameMonad'] = new MonadState('gameMonad', newState);
-  }
-
-  var gameMonad = new MonadState('gameMonad', [[[0,0,0,[],[1,2,3,4]],
-        [0,0,0,[],[0,0,0,0]]],1 ]);  `),
-              h('p', ' Here is the code that controls what happens when a player clicks a number or an operator: '),
-              h('pre', `  var numClickAction$ = numClick$.map(e => {
-      if (gameMonad.fetch3().length < 2)  {
-        var a = gameMonad.fetch3();
-        var b = gameMonad.fetch4();
-        a.push(b.splice(e.target.id, 1)[0]);
-        gameMonad.run([,,,a,b,,]);
-        if (a.length === 2 && gameMonad.fetch2() != 0) {
-          updateCalc(a, gameMonad.fetch2())
-        }
-      }
-    }).startWith([0, 0, 0, 0]);
-
-    var opClick$ = sources.DOM
-        .select('.op').events('click');
-
-    var opClickAction$ = opClick$.map(e => {
-      var s3 = gameMonad.fetch3();
-      if (s3.length === 2) {
-        updateCalc(s3, e.target.innerHTML);
-      }
-      else {
-        gameMonad.run([,,e.target.innerHTML,,,,]);
-      }
-    });  `),
-              h('p', ' Notice the empty spaces in the arguments to gameMonad.run(). gameMonad.run()\'s argument is an array to facilitate calling it with default values. In numClickAction$ we are not changing the score, goals, or operator. The default values of these parameters are their current values. In opClickAction$, we are changing only one thing, the operator. Everything else stays as it is. '),
-              h('p', ' When two numbers and an operator have been selected, control passes to updateCalc(). Here\'s the code: '),
-
-
-              h('pre', `function updateCalc(ar, op) {
-    var result = calc(ar[0], op, ar[1]);ar
-    if (result === 18 || result === 20) {
-      score(result);
-    }
-    else {
-      var a = gameMonad.fetch4().slice();
-      a.push(result);
-      gameMonad.run([,,0,[],a,,]);  // Display the result and
-                                  // reset the operator and selected values.
-    }
-  };
-
-  function score(result) {
-      var sc = parseInt(gameMonad.fetch0());
-      var sco = result === 18 ? sc + 3 : sc + 1;
-      var scor = sco % 5 === 0 ? sco + 5 : sco;
-      var goals = gameMonad.fetch1();
-      if (scor === 25 && gameMonad.fetch1() === "2") {  // The player wins.
-          mMindex.ret(0);
-          gameMonad = new MonadState('gameMonad',
-             [[[0,0,0,[],[0,0,0,0]],[0,0,0,[][0,0,0,0]]],0]);
-          socket.send(\`CE#$42,${pMgroup.x},${pMname.x}\`);
-          // Ask the server to announce the winner to the entire group
-          newRoll(0,0);
-      }
-      else if (scor === 25) {
-        newRoll(0, parseInt(goals,10) + 1);
-      }
-      else newRoll(scor, goals);   // No increase in the number of goals.
-  };   `),
-              h('span.tao', ' Additional code is available at'),
-              h('a', {
-                props: {
-                  href: "https://github.com/dschalk/monads-in-JavaScript",
-                  target: "_blank"
-                }
-              }, 'monads-in-JavaScript.'),
-              h('p', '.'),
-              h('p'),
-
-              h('h3', 'Appendix B - Curried Functions Used In Several Demonstrations'),
-
-              h('pre#wait', `    const divCinverse = a => b => ret(e/b);
-    const divC = a => b => ret(b/a);
-    const addC = a => b => ret(a+b);
-    const cubeC = v => ret(v*v*v);
-    const multC = a => b => ret(a*b);
-    const doubleC = a => ret(a+a);
-    const squareC = a => ret(a*a);
-    const sqrtC = a => ret(Math.sqrt(a));
-
-  function wait(ms) {
-    return new Promise(r => setTimeout(r, ms));
-  } h('a#it4', {props: {href: '#top'}}, 'Back to the top'),
-
-  async function cubeP (x) {
-    await wait(2000)
-    return ret(x*x*x);
-  } 
-
-  const addP = x => async y => {
-    await wait(2000)
-    return ret(x + y);
-  }
-
-  async function squareP (x) {
-    await wait(2000)
-    return ret(x*x);
-  }
-
-  const divPinverse = a => async b => {
-    await wait (2000)
-    return ret(a/b);
-  }
-
-  const divP = a => async b => {
-    await wait (2000)
-    return ret(b/a);
-  }
-
-  const sqrtP = async a => {
-    await wait (2000)
-    return ret(Math.sqrt(a));
-  }
-
-  const doubleP = async a => {
-    await wait (2000)
-    return ret(a+a);
-  }
-
-  const multP = x => async y => {
-    await wait(2000)
-    return ret(x * y);
-  }
-
-      `),
-
-              h('p'),
-              h('h3', 'Appendix C - Further Reading '),
-              h('p', ' Here is a good resource: '),
-              h('a', {
-                props: {
-                  href: "https://github.com/getify/You-Dont-Know-JS",
-                  target: "_blank"
-                }
-              }, 'You Don\'t Know JavaScript by Kyle Simpson'),
-              h('span', ' You can support the open-source digital version of this book with Patreon at the above address or purchase hard copies from O\Reily, Amazon, etc. '),
-              h('a', {
-                props: {
-                  href: "https://github.com/getify/You-Dont-Know-JS",
-                  target: "_blank"
-                }
-              }, 'You Don\'t Know JavaScript'),
-              h('span', ' is the thinking developer\'s answer to '),
-              h('a', {
-                props: {
-                  href: "http://shop.oreilly.com/product/9780596517748.do",
-                  target: "_blank"
-                }
-              }, ' "JavaScript: The Good Parts" by Douglas Crockford '),
-              h('p', ' That\'s not to say that Crockford isn\'t a thinking developer. He is a very bright guy. It\'s just that the so called "good parts" are a dumbed down subset of JavaScript that help keep people out of trouble when they don\'t feel inclined understand the JavaScript programming language. '),
-              h('span#cyclet', ', which has long been revered as a "must read" JavaScript book. Kyle Simpson recommends learning to use potentially dangerous code intelligently while Douglas Crockford advocates never using it at all. I think the phrase "eval is evil" stems from Crockford\'s book. I find eval() to be very useful from time to time. Kyle Simpson teaches programmers how to safely tap the full potential of JavaScript. '),
-              h('br'),
-
-              // h('a', {props: {href: '#top'}}, 'Back to the bind discussion.'),
-              h('a', {
-                props: {
-                  href: '#top'
-                }
-              }, 'Back to the top'),
-
-              h('h3', 'MonadItter'),
-              h('p', ' The MonadItter section of the page has a detailed discussion and live demonstrations. This is the definition: '),
-              h('pre', `  var MonadItter = function MonadItter() {
-    this.p = function () {};
-    this.release = function () {
-      return this.p.apply(this, arguments);
-    };
-    this.bnd = function (func) {
-      return this.p = func;
-    };
-  }; `),
-              h('h3', 'Promises'),
-
-              h('p', ' As the definition of MonadItter shows, bnd() saves functions until release() causes them to execute. MonadItter instances are usually used on this webpage where promises, generators, and async/await could also do the job. No transpiling is needed in old browsers; MonadItter is written in ES5. '),
-              h('p', 'Here are the Promises-based functions prm4() and prm6() that can be substituted for it4() and it6() in the expression ob.run(145)(cubeC)(it4)(it6): '),
-              h('pre', `  const prm4 = x => {
-    if (socket.readyState === 1) socket.send(\'BB#\$42,pMgroup,pMname,' + x);
-    return new Promise( (resolve, reject) => {
-       mMZ37.bnd((y) => resolve(ret(y)))
-    })
-  }
-
-  const prm6 = x => {
-    workerG.postMessage([primesMonad.s, [x]]);
-    return "Done"
-  } `),
-
-              h('p', ' Error handling is easy when using MonadItter instances, and is entirely optional. '),
-              h('p', ' After "ob.run(145)(cubeC)(it4)(it6)(it7) runs, the prime decomposition of the number it recieved arrives from workerG. The workerGDriver (sources.WWG) detects the message and adds it to the workerG$ stream. Here is the definition of workerGDriver:  '),
-              h('pre', `  function workerGDriver () {
-    return xs.create({
-      start: listener => { workerG.onmessage = msg => listener.next(msg)},
-      stop: () => { workerG.terminate() }
-    });
-  }; `),
-              h('p', ' Clicking the "decompose fifteen random numbers" button causes factorsRecursion(0) to execute. Here\'s the code: '),
-              h('pre', blue, `  const factorsRecursion = n => ob.run(145)(cubeC)(it4)
-    (it6)(() => { if (n < 15) factorsRecursion(n+1)}); `),
-              h('p', 'result778(m.data) is called each time a message from workerG arrives. The definition of result778 is:   '),
-              h('pre#defs', blue, `var result778 = x => h('div', [
-      m778_RESULT,
-      h('br'),
-      h('span', bigBlue, x[3] ),
-      h('span', bigGreen, x[0] ),
-      h('span', bigBlue, x[4] ),
-      h('span', bigRed, x[5] ),
-  ]); `),
-              h('a', {props: {href: '#demo2'}}, 'Go to Demonstration 1'),
-              h('p', ' This is how Cycle.js handles click events in Demonstrations "1" and "3": '),
-              h('pre', `  var factorsClick8$ = sources.DOM
-    .select('button#factors_R').events('click'); 
-
-  var factorsAction8$ = factorsClick8$.map(e => {
-    var i = 0;
-    m43_ = [];
-    var bind = Compose().run; 
-    while (i < 25) {
-      ob.run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
-      i += 1;
-    }
-  });  ` ),
-            h('p', ' After 145 is cubed, it4 (Demonstration 1) and it4_b (Demonstration 2) request a pseudo-random numbers as follows: '),
-            h('pre', `  var it4 = x => {
-    if (socket.readyState === 1) socket.send(\`BC#$42,${pMgroup.x},${pMname.x},${x}\`);
-  }
-   
-  var it4_b = x => {
-    if (socket.readyState === 1) socket.send(\`BD#$42,${pMgroup.x},${pMname.x},${x}\`);
-  } `),
-            h('p', ' The server complies by generating a pseudo-random number, "z", and broadcasts it to all members of the requestor\'s group. Users can join or create groups in the game section. Here\'s the server code: '),
-            h('pre', `  else if "BC#$42" \`T.isPrefixOf\` msg     -- Generate a random number          
-     then                                          
-         do
-             print "extraNum:"
-             print extraNum
-             z <- Fm.rM extraNum 
-             print z
-             st <- atomically $ readTVar state
-             broadcast ("BC#$42," \`mappend\` group \`mappend\` "," 
-               \`mappend\` sender \`mappend\` "," \`mappend\` (pack $ show z) ) st
-
-  else if "BD#$42" \`T.isPrefixOf\` msg     -- Generate a random number          
-     then                                          
-         do
-             print "extraNum:"
-             print extraNum
-             z <- Fm.rM extraNum 
-             print z
-             st <- atomically $ readTVar state
-             broadcast ("BD#$42," \`mappend\` group \`mappend\` "," 
-               \`mappend\` sender \`mappend\` "," \`mappend\` (pack $ show z) ) st `),
-
-            h('p', ' The Cycle.js front end recieves the WebSocket message, triggering the release of mMZ29 (Demonstration 1) or mMZ29 (Demonstration 3). The "mMZ" prefix is reserved for instances of MonadItter. Here the code that was waiting to be released. '),
-            h('pre', `  mMZ28.bnd( () => {
-    if (playerName === sender) mMZ40.release(v[3]);
-    else console.log('message from sender to BC#$42')
-  });
-
-  mMZ29.bnd( () => {
-    if (playerName === sender) mMZ41.release(v[3]);
-    else console.log('message from sender to BD#$42')
-  }); `),
-            h('p', ' "v(3)" is the random munber recieved from the server. It is given to mMZ40 or mMZ41 when they are released. Here are it6 and it6_b, which contain the the code that is released: '),
-            h('pre', `  var it6 = y => {
-    mMZ40.bnd(y => workerH.postMessage([primeState, y]));
-  }
-
-  var it6_b = y => {
-    mMZ41.bnd(y => workerM.postMessage([primeState, y]));
-  } `),
-            h('p', ' The message posted to workerH (Demonstration 1) or workerM (Demonstration 3) contains all previously generated prime numbers along with y, the randomly generated number obtained from the server. '),
-            h('p', ' When a user clicks the Demonstration 1 button, the event is handled in this Cycle.js application as follows: ' ),
-
-            h('pre', bigGold, `  var factorsClick8$ = sources.DOM
-        .select('button#factors_R').events('click');
-
-            
-    const factorsAction8$ = factorsClick8$.map(e => {
-        var i = 0;
-        m43_ = [];  // Clears the display
-        while (i < 25 {
-          Compose().run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
-          i += 1;
-        }
-    }); ` ),
-            h('br'),
-            h('a', {
-              props: {
-                href: '#top'
-              }
-            }, 'Go to the top'),
-
-
-            h('p#pingmaker', ' '),
-
-            h('a', {
-              props: {
-                href: '#backToDem2'
-              }
-            }, 'Back to Mars' ), 
-            h('br'),
-            h('br'),
-
-  h('pre', `function Monad2(z) {
-  this.x = z;
-};
-
-function ret (v) {
-  return new Monad2(v);
-}
-
-var id = x => ret(x[0], x[1]);
-var cube = x => ret([x[0]*x[0]*x[0], x[1].concat(x[0]*x[0]*x[0])]);
-var square = x => ret([x[0]*x[0], x[1].concat(x[0]*x[0])]);
-var add = a => b => ret([a+b[0], b[1].concat(a+b[0])]);
-
-operator >>= left 11 = (left, right) => {
-  return #\`\${right}(\${left}.x)\`;
-};
-
-var a = (ret([3, []]) >>= cube >>= add(3) >>= square).x[1].reduce( (a,b) => a+b );
-
-var b = ( ret([0, []]) >>= add(3) >>= cube >>= 
-(x => add(x[1][1])([x[1][1],x[1]])) >>=
-(x => add(x[0])([-4 * x[1][0], x[1]]))).x[1]
-
-console.log(a);
-
-console.log(b); `),
-
-            h('span', 'JavaScript'),
-            h('pre', `function Monad2(z_10) {
-  this.x = z_10;
-}
-function ret(v_11) {
-  return new Monad2(v_11);
-}
-var id_0 = x_12 => ret(x_12[0], x_12[1]);
-
-var cube_1 = x_13 => ret([x_13[0] * x_13[0] * x_13[0], x_13[1].concat(x_13[0] * x_13[0] * x_13[0])]);
-
-var square_2 = x_14 => ret([x_14[0] * x_14[0], x_14[1].concat(x_14[0] * x_14[0])]);
-var add_3 = a_15 => b_16 => ret([a_15 + b_16[0], b_16[1].concat(a_15 + b_16[0])]);
-var a_8 = square_2(add_3(3)(cube_1(ret([3, []]).x).x).x).x[1].reduce((a_17, b_18) => a_17 + b_18);
-
-var b_9 = (x_19 => add_3(x_19[0])([-4 * x_19[1][0], x_19[1]]))((x_20 => add_3(x_20[1][1])([x_20[1][1], x_20[1]]))(cube_1(add_3(3)(ret([0, []]).x).x).x).x).x[1];
-
-console.log("a_8);
-
-console.log(b_9);  `),
-h('br'),
-
-h('br'),
-h('p', ' Snabbdom, xstream, and most of the monads and functions presented here are available in browser developer tools consoles and scratch pads. A production site would load these as modules, but this site is for experimention and learning. '),
-h('span.italic', ' Instances of Monad and Monad2 aren\'t Category Theory monads. They are inspired by Haskell monads which, in turn, are inspired by Category Theory. The modified subset of the Haskell Programming Language named "Hask" has true Category Theory monads, but the restrictions on Haskell necessay to make Hask a true Category render it nearly useless. '),
-h('p', ' Taking inspiration from Category Theory and replicating, to the extent feasable, some of its essential features was the stroke of genius that lifted Haskell into the realm of robust enterprise ready programming languages. The reliably concurrent atomic transactions written in Haskell made it the language of choice for several large banks. Mimicking Haskell monads in  '),
-h('a', {
-  props: {
-    href: "http://math.andrej.com/2016/08/06/hask-is-not-a-category/",
-    target: "_blank"
-  }
-}, 'Hask is not a category.'),
-h('span', ' by Andrej Bauer and the '),
-h('a', {
-  props: {
-    href: '#discussion'
-  }
-}, 'Discussion'),
-h('span', ' below. They provide a convenient interface for dealing with uncertainty and side effects in a purely functional manner. Adherence to the monad laws ' ),
-              
-h('span', ' helps instill confidence that the monads are robust, versatile, and reliable tools for isolating and chaining sequences of javascript functions. '),
-            h('h3#symbol', 'More Random Snippits'),
-            h('a', {
-              props: {
-                href: '#top'
-              }
-            }, 'Back to the top'),
-            h('p', '  Libraries and language modifications that impose constraints such as immutability, universal purity of functions, and strict typing can be useful, but this project takes a different approach. The JavaScript used herein is plain, unadorned, unrestricted Ecamascript 2018. '),
-
-h('h3', 'The Symbol-Table Version' ),
-h('p', ' The safest way to muck around in the global space is to use interact with the Symbol table. Here is some of the code involved in the alternate composition method shown in Demonstration 2 ' ),
-h('pre',  `      function autoRefresh(obj) {
-          const handler = {
-              set (obj, prop, value) {
-                  diffRender();  // Forces DOM update 
-                  return Reflect.set(obj, prop, value);
-              },
-          };
-          return new Proxy(obj, handler);
-      }
-
-      function Bind(str, bool = false) {
-          arBind[str] = [];
-          if (bool) arBind[str] = autoRefresh(arBind[str]);
-          var p;
-          var _bind = function _bind(x) {
-              if (x instanceof Promise) x.then(y => {
-                  arBind[str].push(y);
-              })
-              else {
-                  arBind[str].push(x)
-              //    diffRender();
-              }
-              return func => {
-                  if (func == undefined) return arBind[str];
-                  if (typeof func !== "function") p = func;
-                  else if (x instanceof Promise) p = x.then(v => func(v));
-                  else p = func(x);
-                  return _bind(p);
-              };
-          };
-          return _bind;
-      };
-
-      var diffR = function diffR (obj) {
-          return obj = autoRefresh(obj)
-
-      var mBnd = (bool = false, val = "mBnd") => {
-          var x = Symbol(val)      // "val" can be useful in debugging;
-          var ob = {key: x, run: Bind(x)}; 
-          arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
-          return ob;
-      }; ` ),
-h('p', ' This is of little utility, but I like it: ' ),
-h('pre', {style: {color: " #AADDAA",fontSize: "17px"}}, `  var ar = [x=>x, x=>x**3, x=>x+3, x=>x**2,                      
-    x=>x*14, x=>x/1800, x=>x*6];
-
-  var f = v => t => t.map(g=>v=g(v)); // repeatedly mutating "v".
-
-  f(3)(ar)  //   [3, 27, 30, 900, 12600, 7, 42];  `),
-            h('p', ' Objects are cloned so past states remain accessible but they are mutated inside of functions for efficiency and to keep the stack from overflowing. Functions ordinarily don\'t interact with the environments outside of their scopes but methods might cause side effects in the objects that contain them. "Functional programming" in this project is about using all that the language offers to create functions that streamline applications and make them readable, maintainable, and robust. Just be sure to cause side effects, alter the contents of specific addresses in memory, and define global variables with the utmost restraint and care.'),
 
             h('pre', `
 var compose = (...fns) =>
@@ -3896,16 +3334,10 @@ val => { console.log(3, val); return val*=2; }); `),
 
 
 
-            h('button#fredButton', fredButton),
-            h('a', {
-              props: {
-                href: '#top'
-              }
-            }, 'Back to the top'),
             h('br'),
-            h('input#change', diffRend),
+           // h('input#change', diffRend),
             h('br'),
-            h('input#textbox', `${pigText}`),
+           // h('input#textbox', `${pigText}`),
             h('div#changeDisplay', [diffRend]),
             h('button#diffRender', 'diffRender()'),
             h('br'),
