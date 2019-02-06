@@ -2097,7 +2097,7 @@ h('span.tao', ' This is a ' ),
   
                       h('a', {props: {href:"https://cycle.js.org/", target: "_blank" }}, 'Cycle.js' ), 
 
-h('span', ' application working in conjunctions with a '),
+h('span', ' application working in conjunction with a '),
   
                       h('a', {props: {href:"https://www.haskell.org/#step3", target: "_blank" }}, 'Haskell ' ), 
 
@@ -2129,28 +2129,44 @@ h('br'),
 h('br'),
 h('span.tao', {style: {color: "#FF00DD"}}, ' WARNING:' ), 
 h('span', ' Unless you are already proficient at creating functions that use recursion, closures, currying, reactivity, and sensible composition, trying to scrupulously conform to the functional-paradigm will stifle your creativity and slow you progress toward mastering JavaScript. It\'s good to avoid mutating variables outside of function scope, but trying to make JavaScript functions behave like mathematical functions is a waste of time, and a waste of valuable features of an increasingly powerful programming language. ' ),
-h('p', ' Suppose you want to chain computations involving functions, primitive values, and promises where functions can readily access the return values of prior functions, resolution values of previously returned promises, and primitive values inserted into the sequence instead of functions. It is highly unlikely that your framework and libraries can help you, but if you are a functional programmer, you can create a higher-order function to suit your needs. Instances of Compose() (below) do all of these things. You are welcome to cut and paste it into your project, modify it to suit your needs, or just understand it in order to nourish your own subconscious creative processes. ' ),  
-
-h('pre', `function Compose () {
-    var ar = [];
-    var run = x => {
-        if (x instanceof Promise) x.then(y => ar.push(y))
+h('p', ' Suppose you want to chain computations involving functions, primitive values, and promises where functions can readily access the return values of prior functions, resolution values of previously returned promises, and primitive values inserted into the sequence. ' ),
+h('p', ' It is highly unlikely that you working with a framework or library that can help you, but if you are a functional programmer, you can create a higher-order function to suit your needs. Instances of Compose() (below) do all of these things. ' ),  
+                          
+h('pre', `function Compose ( AR = [] )  {
+  var ar = AR.slice();    
+  var x;
+  var ob;
+  if (ar.length) {
+    x = ar[ar.length-1]}; 
+    return  ob = {ar: ar, run:  function run (x) {
+      if (x instanceof Promise) x.then(y => ob.ar.push(y))
         else ar.push(x); 
         return func => {
             var p;
-            if (func == 'stop') return ar;
+            if (func === 'stop') return ar;
             else if (typeof func !== "function") p = func;
             else if (x instanceof Promise) p = x.then(v => func(v));
             else p = func(x);
             return run(p);
         };
-    };
-    return {ar: ar, run: run}
+  } };
 };
 
-var ob = Compose(); ` ),
+function fork (x) {return  x.ar.pop()}; 
+
+var a = Compose([3,27]);  
+var b = Compose(a.ar.slice());  // b forks off of a and starts an independent computation.
+
+var array_b = b.run(fork(b))(x=>x+3)(x=>x*x)('stop');  
+var array_a = a.run(fork(a))(x=>x-13)(x=>x*3)('stop');
+
+console.log('array_a is', array_a); // [3, 27, 14, 42] 
+console.log('array_b is', array_b); // [3, 27, 30, 900] ` ),
                           
-h('p', ' When a function is provided to ob.run, its return value is pushed into ob.ar. Pending promises resolve inside of ob.ar and the resolution values become available as possible arguments for subsequent functions.  Here\'s the syntax:' ),    
+h('p', ' When a function is provided to ob.run, its return value is pushed into ob.ar. Pending promises resolve inside of ob.ar and the resolution values become available as possible arguments for subsequent functions. ' ),    
+
+h('p', ' The object "b" (above) branches off of "a" to compute "900". "a" goes on to compute "42". "a" and "b" can be viewed as final results or partial computations that will complete if they receive additional primitive values and further instructions in the form of functions, or just some additional instructions. Here\'s the basic composition syntax: ' ),                           
+
 
   h('div', styleFunc(["#4dff4d", "3%", "21px", , , ]), [
   h('div', 'ob.run(x)(functiona1)(function2) ... (functionN)')
@@ -2166,7 +2182,13 @@ h('p', ' When a function is provided to ob.run, its return value is pushed into 
     there are no type restrictions on the functions\' return values,
 
     functions have built-in access to all prior primitive value entries, function return values,
-       and Promise resolution values.
+       and Promise resolution values,
+
+    ob can be re-started with the expression "ob.run(fork(ob))". and can launch separate 
+       branches with expressions like "var branch = Compose(ob.ar)",   
+
+    sequences of functions can be run anonymously with statements like
+       "Compose().run(4)(x=>x**4)(x=>x/2**6)('stop');" // [4, 256, 4].
 
 ` ),
     h('p', ' The first example (below) performs a computation, requests a quasi-random number from the WebSocket server, requests that number\'s prime decomposition from a web worker, and displays the result. The code runs twenty-five times each time the button is clicked. '),
@@ -2184,8 +2206,8 @@ h('br')
 
 
 h('pre', `var it4_b = x => {
-  if (socket.readyState === 1) 
-    socket.send(\`BD#$42,\${pMgroup.x},\${pMname.x},\${x}\`);
+  
+  .send(\`BD#$42,\${pMgroup.x},\${pMname.x},\${x}\`);
 }
 
 var mMZ41 = new MonadItter();
@@ -2306,7 +2328,7 @@ function test5 (n) {
                 }, 'GO'),
                 h('br'),
                 h('br'),
-h('p', ' Compose() returns similar objects, each of which occupies a unique address in memory, so it\'s no surprise that simultaneously running instances of Compose() don\'t clash or that restarted incomplete sequences don\'t trip over themselves. These features, along with functions using previously returned Promise resolution values, are demonstrated here.  ' ),
+h('p', ' Compose() returns similar objects, each of which occupies a unique address in memory, so it\'s no surprise that simultaneously called run methods of objects returned by Compose() don\'t clash with one another, or that restarted incomplete sequences don\'t trip over themselves. These features, along with functions using previously returned Promise resolution values, are demonstrated here.  ' ),
 h('p', ' The variables prefixed by "_C" are permanent fixtures of the virtual DOM. The side effect of repeatedly changing their values while test4 executes can\'t cause any mischief. All it does is trigger Snabdom\'s diff and render procedure. ' ),                             
                 h('br')
         
@@ -2367,11 +2389,10 @@ h('p', ' Entering a number initiates a keypress event "e". A listener routes "e.
 h('span.tao', ' quadMaker("a","b") might cause even more consternation among functional paradigm purists. Side effects are triggered in the DOM ' ),
 h('span', {style: {color: "#eeccaa", fontStyle: "italic" }},  'while it is still running.' ),
 h('br'),
-h('p', ' Asychronously evaluating numbers with the quadratic formula can be accomplished with pure functions. A function returned by quadMaker() returns a two-parameter function when given one argument. That function returns a two-parameter function which returns a one-parameter function. Instead of side effects, a result could be returned which another function could apply to the virtual DOM.  A better approach, at least in my opinion, is to embrace the fact that the Ecmascript 2018-specification provides functions designed to do much more than mimic mathematical functions. For example, one function can update several parts of a virtual DOM and return nothing but "undefined", as seen in this demonstration. ' ),
-       ]),
-  h('div', {style: {marginRight: "2%", width: "50%" }},   [
+h('p', ' Asychronously evaluating numbers with the quadratic formula can be accomplished with pure functions. A function returned by quadMaker() returns a two-parameter function when given one argument. That function returns a two-parameter function which returns a one-parameter function. Instead of side effects, a result could be returned which another function could apply to the virtual DOM.  A better approach, at least in my opinion, is to embrace the fact that the Ecmascript 2018-specification provides functions designed to do much more than mimic mathematical functions. For example, one function can update several parts of a virtual DOM and return nothing but "undefined", as seen in this demonstration. ' )
+                                                              ]),
+                                        h('div', {style: {marginLeft: "3%", marginRight: "2%", width: "50%" }},   [
 
-// h('div', `${quadOb.ar.join(', ')}` ),
 
 h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. An event listener will call obQ.push on your entries. The third entry will trigger execution of quadMaker("a","b")(x)(y)(z) where "x", "y", and "z" are the numbers you entered. ' ),
 

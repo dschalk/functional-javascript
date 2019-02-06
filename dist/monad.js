@@ -3346,22 +3346,27 @@ console.log(_state.sum, _state.prod);
 
 function _Pipe () {var o = Object.create(Bnd3); o.__proto__(); return o;}
 
- function Compose () {
-    var ar = [];
-    var run = x => {
-        if (x instanceof Promise) x.then(y => ar.push(y))
+function Compose ( AR = [] )  {
+  var ar = AR.slice();    
+  var x;
+  var ob;
+  if (ar.length) {
+    x = ar[ar.length-1]}; 
+    return  ob = {ar: ar, run:  function run (x) {
+      if (x instanceof Promise) x.then(y => ob.ar.push(y))
         else ar.push(x); 
         return func => {
             var p;
-            if (func == 'stop') return ar;
+            if (func === 'stop') return ar;
             else if (typeof func !== "function") p = func;
             else if (x instanceof Promise) p = x.then(v => func(v));
             else p = func(x);
             return run(p);
         };
-    };
-    return {ar: ar, run: run}
+  } };
 };
+
+function fork (x) {return  x.ar.pop()};
 
 var o = Compose();
 
@@ -3752,7 +3757,6 @@ o3.run(2)(x=>x**7);
 console.log(dd, ee, o3.ar);
 
 function f1A () {var o = Object.create(Bnd3); o.__proto__(); return o;}
-// function Compose() {var o = Object.create(Bnd3); o.__proto__(); return o;}
 function f1B () {var o = Object.create(Bnd5); o.ar = o.ar.slice(); return o;}
 
 var a1 = f1A();

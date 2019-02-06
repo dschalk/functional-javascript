@@ -15,3 +15,4 @@ Serving directory /home/o/TEST/fj/dist on port 3000 with ["index.html","index.ht
 warp: Network.Socket.bind: resource busy (Address already in use)
 "In main"
 Main.hs: Network.Socket.bind: resource busy (Address already in use)
+"In main"
