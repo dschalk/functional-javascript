@@ -1829,6 +1829,16 @@ foo(9);
       }
   });
 
+  var dem8$ = sources.DOM
+    .select('#dem8').events('keypress');
+
+  var eightAction$ = dem8$.map(e => {
+      if (e.keyCode === 13) {  
+          runCompTest(toFloat(e.target.value));
+          // e.target.value = null;
+      }
+  });
+
 /*
   var dem6$ = sources.DOM
     .select('#dem6').events('keypress');
@@ -2070,7 +2080,7 @@ foo(9);
       });
 
   
-      var calcStream$ = xs.merge( twoAction$, threeAction$, fourAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
+      var calcStream$ = xs.merge( twoAction$, threeAction$, eightAction$, fourAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
         DOM: calcStream$.map(() => {
@@ -2133,17 +2143,16 @@ h('p', ' Suppose you want to chain computations involving functions, primitive v
 h('p', ' It is highly unlikely that you working with a framework or library that can help you, but if you are a functional programmer, you can create a higher-order function to suit your needs. Instances of Compose() (below) do all of these things. ' ),  
                           
 h('pre', `function Compose ( AR = [] )  {
-  var ar = AR.slice();    
-  var x;
-  var ob;
-  if (ar.length) {
-    x = ar[ar.length-1]}; 
+  var ar , x, ob, f_ , p ;
+  if (Array.isArray(AR)) ar = AR.slice()
+  else ar = AR;
+  if (ar.length) {x = ar[ar.length-1]}; 
     return  ob = {ar: ar, run:  function run (x) {
-      if (x instanceof Promise) x.then(y => ob.ar.push(y))
-        else ar.push(x); 
-        return func => {
-            var p;
+    if (x instanceof Promise) x.then(y => {if (y != undefined) ob.ar.push(y)})
+        else {if (x != undefined) ar.push(x)}; 
+        return function f_ (func) {
             if (func === 'stop') return ar;
+            
             else if (typeof func !== "function") p = func;
             else if (x instanceof Promise) p = x.then(v => func(v));
             else p = func(x);
@@ -2165,7 +2174,7 @@ console.log('array_b is', array_b); // [3, 27, 30, 900] ` ),
                           
 h('p', ' When a function is provided to ob.run, its return value is pushed into ob.ar. Pending promises resolve inside of ob.ar and the resolution values become available as possible arguments for subsequent functions. ' ),    
 
-h('p', ' The object "b" (above) branches off of "a" to compute "900". "a" goes on to compute "42". "a" and "b" can be viewed as final results or partial computations that will complete if they receive additional primitive values and further instructions in the form of functions, or just some additional instructions. Here\'s the basic composition syntax: ' ),                           
+h('p', ' The object "b" (above) branches off of "a" to compute "900". "a" goes on to compute "42". "a" and "b" can be viewed as final results or partial computations that will complete if they receive additional primitive values and further instructions in the form of functions, or just some additional funcitons. Here\'s the basic composition syntax: ' ),                           
 
 
   h('div', styleFunc(["#4dff4d", "3%", "21px", , , ]), [
@@ -2643,6 +2652,88 @@ h('div', `${foocow_7.join(", ")}`)
                                                              ])
                                                              ])
                                                              ]), 
+
+
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 8 - Branching Sequences'),
+
+                                              h('div.content2', [
+
+h('div', {style: {display: "flex" }},  [
+  h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+h('p', ' Let ob = Compose() and let f1, f2, ... fn be JavaScript values. These f\'s will usually be functions, but they can be anything, including undefined. ob.run(f1)(f2) ... (fn)(\'stop\') produces an array of the f\'s return values, or the resolution values of returned promises. ' ),
+h('p', ' ob can resume pocessing values in multiple branches. ob2 = Compose(ob.ar) and ob3 = Compose(ob.ar) are two such branches. Their transformation do not affect one another, and they do not affect ob. ' ),
+
+
+h('p', ' When someone enters a number n in the box on the right, "runCompTest(n)" executes. Here\'s the definition: ' ),
+h('pre', `function runCompTest (k) {
+
+    A1 = A2 = A3 = A4 = A5 = A6 = A7 = [];
+
+    obbb1 = Compose([k]);
+
+    console.log("obbb1.ar is", obbb1.ar);
+
+    obbb2 = Compose(obbb1.ar);
+    A1 = obbb2.run(k+1)(x=>x*x)('stop');
+      
+    obbb3 = Compose(A1);
+    A2 = obbb3.run(k+2)(x=>x*x)('stop');
+      
+    obbb4 = Compose(A2);
+    A3 = obbb4.run(k+3)(x=>x*x)('stop');
+      
+    obbb5 = Compose(A1);
+    A4 = obbb5.run(k+4)(x=>x*x)('stop');
+      
+    obbb6 = Compose(A1);
+    A5 = obbb5.run(k+5)(squareQ)(x => mMZ56.release(x))(\'stop\');
+      
+    mMZ57.bnd(x => { 
+        diffRender();
+        obbb6 = Compose(A5);
+        A6 = obbb6.run(x+1)(squareQ)(()=>diffRender())(\'stop\')});
+        console.log("A6 is",A6);  
+}  ` ),
+h('p', 'The following code is situated in the virtual DOM. ' ), 
+h('pre', `h('div', A1.join(', ') ),
+h('div', A2.join(', ') ),
+h('div', A3.join(', ') ),
+h('div', A4.join(', ') ),
+h('div', A5.join(', ') ),
+h('div', A6.join(', ') ), ` ),
+
+
+h('h1', 'COW DEMONSTRATION' )
+
+                    
+                                             ]),
+                                    h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+                h('input#dem8', {
+                  style: {
+                    height: "15px",
+                    color: "blue",
+                    fontSize: "18px"
+                  }
+                }),
+                h('br'),
+                h('br'),
+
+
+h('div', A1.join(', ') ),
+h('div', A2.join(', ') ),
+h('div', A3.join(', ') ),
+h('div', A4.join(', ') ),
+h('div', A5.join(', ') ),
+h('div', A6.join(', ') ),
+h('div', A7.join(', ') ),
+                                              
+
+                                    ])
+                                    ])
+                                    ]),
+
 
 
   h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),

@@ -1,6 +1,14 @@
 
 
-
+var obbb1 = Compose([7, 11]);
+var obbb2 = Compose([7, 11]);
+  var obbb3 = Compose([7, 11]);
+  var obbb4 = Compose([7, 11]);
+  var obbb5 = Compose([7, 11]);
+var obbb6 = Compose([7, 11]);
+var obbb7 = Compose([7, 11]);
+var obbb8 = Compose([7, 11]);
+var obbb9 = Compose([7, 11]);
 
 var bNode;
 
@@ -1052,14 +1060,6 @@ var release = t => instance => async param => {
   await wait(t)
   instance.release(param);
 }
-
-var logDelay = async x => {
-  await wait(3000)
-  console.log(x)
-}
-  
-logDelay("Demonstrating logDelay");
-
 
 async function pause (x) {
   await wait(600)
@@ -3346,18 +3346,27 @@ console.log(_state.sum, _state.prod);
 
 function _Pipe () {var o = Object.create(Bnd3); o.__proto__(); return o;}
 
+async function cubeQ (x) {
+  await wait(3000)
+  return x*x*x;
+}
+
+async function squareQ (x) {
+  await wait(3000)
+return x*x;
+}
+
 function Compose ( AR = [] )  {
-  var ar = AR.slice();    
-  var x;
-  var ob;
-  if (ar.length) {
-    x = ar[ar.length-1]}; 
+  var ar , x, ob, f_ , p ;
+  if (Array.isArray(AR)) ar = AR.slice()
+  else ar = AR;
+  if (ar.length) {x = ar[ar.length-1]}; 
     return  ob = {ar: ar, run:  function run (x) {
-      if (x instanceof Promise) x.then(y => ob.ar.push(y))
-        else ar.push(x); 
-        return func => {
-            var p;
+    if (x instanceof Promise) x.then(y => {if (y != undefined && y && y.toString() != "NaN" != NaN) ob.ar.push(y)})
+        else {if (x != undefined && x.toString() != "NaN") ar.push(x)}; 
+        return function f_ (func) {
             if (func === 'stop') return ar;
+            
             else if (typeof func !== "function") p = func;
             else if (x instanceof Promise) p = x.then(v => func(v));
             else p = func(x);
@@ -3366,9 +3375,32 @@ function Compose ( AR = [] )  {
   } };
 };
 
-function fork (x) {return  x.ar.pop()};
+console.log("******************************** Start Compose Tests ******************************");
 
-var o = Compose();
+var incC = x => Math.sqrt(x.ar.pop())+1;
+
+var ob1 = Compose([2,4]);
+ob1.run(fork(ob1))(x=>x*x);
+console.log("ob1.ar is", ob1.ar);
+
+var ob2 = Compose(ob1.ar);
+ob2.run(fork(ob2))(incC(ob2))(x=>x*x);
+console.log("ob2.ar is", ob2.ar)
+
+var ob3 = Compose(ob2.ar);
+ob3.run(fork(ob3))(incC(ob3))(x=>x*x);
+console.log("ob3.ar is", ob3.ar)
+
+var ob4= Compose(ob3.ar);
+ob4.run(fork(ob4))(incC(ob4))(x=>x*x);
+console.log("ob4.ar is", ob4.ar)
+
+var ob5= Compose(ob4.ar);
+ob5.run(fork(ob5))(incC(ob5))(x=>x*x);
+console.log("ob5.ar is", ob5.ar)
+
+console.log("******************************** End Compose Tests ******************************");
+
 
 Bnd5 = {
      ar: [],
@@ -3668,7 +3700,7 @@ function ann23 () {
 
 var ann27 = ann23();
 
-// Demonstration 6
+function push3 (ar, x) {ar.push(x);  return ar };
 
 var  _arQuad = [];
 
@@ -3785,7 +3817,107 @@ var de1 = e1.run(5)(x=>x**4)('stop');
 var de2 = e2.run(3)(x=>x**3)(x=>x+o2.ar[0])('stop');
 e3.run(2)(x=>x**7);
 
-console.log(de1, de2, e3.ar)
+console.log(de1, de2, e3.ar);
+
+async function dRendP (x) {  
+await wait(x)
+diffRender();
+};
+
+async function square3 (x) {
+dRendP(3300);
+await wait(3000)
+return x*x;
+};
+
+function fork (x) {
+var z = x.ar.pop();
+if (z instanceof Promise) z.then(v);
+else return z;
+}
+
+    async function dRendP (x) {  
+      await wait(x)
+      diffRender();
+    };
+
+    async function squareP3 (x) {
+      dRendP(3300);
+      await wait(3000)
+      return x*x;
+    };
+
+    async function cubeP3 (x) {
+      dRendP(3300);
+      await wait(3000);
+      return x*x;
+    };
+
+var A1 = [];
+var A2 = [];
+var A3 = [];
+var A4 = [];
+var A5 = [];
+var A6 = [];
+var A7 = [];
+
+var logDelay = async () => {
+  await wait(5000)
+  diffRender();
+}
+  
+logDelay();
+function fork (x) {
+  console.log('x is', x)
+  var z = x.ar.pop();
+  console.log('z is', z)
+  if (z instanceof Promise) z.then(v);
+  else return z;
+}
+
+var incC = x => Math.sqrt(x.ar.pop())+1
+
+var square3 = x => Math.sqrt(x.ar.pop())+1
+var cubeP3 = x => x.pop()**(1/3)
+
+function runCompTest (k) {
+
+    A1 = A2 = A3 = A4 = A5 = A6 = A7 = [];
+
+    obbb1 = Compose([k]);
+
+    console.log("obbb1.ar is", obbb1.ar);
+
+    obbb2 = Compose(obbb1.ar);
+    A1 = obbb2.run(k+1)(x=>x*x)('stop');
+    console.log("A1 is",A1);
+      
+    obbb3 = Compose(A1);
+    A2 = obbb3.run(k+2)(x=>x*x)('stop');
+    console.log("A2 is",A2);
+      
+    obbb4 = Compose(A2);
+    A3 = obbb4.run(k+3)(x=>x*x)('stop');
+    console.log("A3 is",A3);
+      
+    obbb5 = Compose(A1);
+    A4 =  obbb5.run(k+4)(x=>x*x)('stop');
+    console.log("A4 is",A4);
+      
+    obbb6 = Compose(A1);
+    A5 = obbb6.run(k+5)(squareQ)(x => mMZ56.release(x))('stop');
+    console.log("A5 is",A5);
+      
+    mMZ56.bnd(x => { 
+        diffRender();
+        obbb7 = Compose(A5);
+        A6 = obbb7.run(x+1)(squareQ)(()=>diffRender())(squareQ)(()=>diffRender())(()=>cubeQ(9))(()=>diffRender())('stop')});
+
+        console.log("A6 is",A6);  
+}
+
+runCompTest(0)
+
 
 
 
