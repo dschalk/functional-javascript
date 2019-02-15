@@ -2661,8 +2661,8 @@ h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 8 - Bran
 h('div', {style: {display: "flex" }},  [
   h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
-h('p', ' Let ob = Compose() and let f1, f2, ... fn be JavaScript values. These f\'s will usually be functions, but they can be anything, including undefined. ob.run(f1)(f2) ... (fn)(\'stop\') produces an array of the f\'s return values, or the resolution values of returned promises. ' ),
-h('p', ' ob can resume pocessing values in multiple branches. ob2 = Compose(ob.ar) and ob3 = Compose(ob.ar) are two such branches. Their transformation do not affect one another, and they do not affect ob. ' ),
+h('p', ' Let ob = Compose() and let f1, f2, ... fn be JavaScript values. These f\'s will usually be functions, but they can be anything, including undefined. The statement ob.run(v)(f1)(f2) ... (fn)(\'stop\') produces an array of the f\'s return values, or the resolution values of returned promises. ' ),
+h('p', ' ob can resume pocessing values, and it can do it in multiple branches. ob2 = Compose(ob.ar) and ob3 = Compose(ob.ar) can both independently proceed where ob left off. Their transformation do not affect one another, and they do not affect ob. ' ),
 
 
 h('p', ' When someone enters a number n in the box on the right, "runCompTest(n)" executes. Here\'s the definition: ' ),
@@ -2720,15 +2720,14 @@ h('h1', 'COW DEMONSTRATION' )
                 h('br'),
                 h('br'),
 
+h('div', 'obbb1.ar is [' + obbb1.ar.join(', ') + ']' ), 
+h('div', 'obbb2.ar is [' + obbb2.ar.join(', ') + ']' ), 
+h('div', 'obbb3.ar is [' + obbb3.ar.join(', ') + ']' ), 
+h('div', 'obbb4.ar is [' + obbb4.ar.join(', ') + ']' ), 
+h('div', 'obbb5.ar is [' + obbb5.ar.join(', ') + ']' ), 
+h('div', 'obbb6.ar is [' + obbb6.ar.join(', ') + ']' ), 
+h('div', 'obbb7.ar is [' + obbb7.ar.join(', ') + ']' ), 
 
-h('div', A1.join(', ') ),
-h('div', A2.join(', ') ),
-h('div', A3.join(', ') ),
-h('div', A4.join(', ') ),
-h('div', A5.join(', ') ),
-h('div', A6.join(', ') ),
-h('div', A7.join(', ') ),
-                                              
 
                                     ])
                                     ])
