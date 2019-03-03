@@ -1,6 +1,7 @@
 
     // onChange = require('on-change');
     // import ws from 'ws';
+    import {EventEmitter} from 'events';
     // import {makeHTTPDriver} from '@cycle/http';
     // import {require} from "requirejs";
     // Maybe = require('folktale/maybe');
@@ -18,6 +19,8 @@
     socket = new WebSocket("ws://schalk.net:3055");
     // socket = new WebSocket("ws://schalk.site:3055");
     // ws = new WebSocket("ws://echo.websocket.org");
+
+EventEmitter = EventEmitter;
 
 console.log("************************** h and clone *****************"),
     h = h;   // For use in monad.js
@@ -232,25 +235,35 @@ console.log(" END ************************** h and clone ***************** EBD")
       if (callOrder === 25) m42_.push('Elapsed time: ' + (Date.now() - start77) + " ms");
     });
 
-    it7_b = () => mMZ53.bnd(string => {
-      callOrder2 = callOrder2 > 24 ? 1 : callOrder2 + 1;
-      if (callOrder2 === 1) start78 = Date.now();
-      m43_.push(callOrder2 + "  ");
-      m43_.push(string)
+  it7_b = () => mMZ53.bnd(string => {
+      m43_.push(string);
       m43_.push(h('br'));
-      if (callOrder2 === 25) m43_.push('Elapsed time: ' + (Date.now() - start78) + " ms");
-    });
+  });
 
-    var funcP = () => {
-      var fred = [];
-      bind(1)(addP(2))(cubeC)(addC(3))(multP(2))(multC(3))
-        (addC(30))(multP(1 / 5))(it4)(it6)(it7)().slice(1, 9)
-        .map(v => v.then(q => {
-          fred.push(q.x);
-          freday = fred.join(' ')
-          diffRender()
-        }))
+f23 = () => {
+    var bind = Comp().run;
+    m44_ = m45_ = time = '';
+    for (let n = 1; n < 16; n += 1) {
+        start78 = Date.now();
+        bind(145)(x => x**3)(it4_b)(it6_b); 
+        mMZ53.bnd(string => {
+            m43_.push(string);
+            m43_.push(h('br'));
+            if (n == 15) {
+                time = Date.now() - start78;;
+                m44_ = 'Elapsed time: ' + car + ' ms';
+                m45_ = `The largest cached prime number is ${primeState.slice(-1)}`; 
+            }
+        })
     }
+}
+
+f27 = () => {
+    var bind = Comp().run;
+    [...Array(15).keys()].map(() => { 
+        bind(145)(x => x**3)(it4_b)(it6_b)(it7_b); 
+    })
+}
 
     function websocketsDriver() {
       return xs.create({
@@ -261,7 +274,7 @@ console.log(" END ************************** h and clone ***************** EBD")
           socket.close()
         }
       });
-    };
+    }
 
     socket.onclose = function (event) {
       console.log('<><><> ALERT - socket is closing. <><><> ', event);
@@ -425,25 +438,24 @@ console.log(" END ************************** h and clone ***************** EBD")
         });
 
         mMZ27.bnd(() => {
-          console.log("mMZ27 v[3]", v[3]);
           mMZ38.release(v[3]);
         });
 
         mMZ28.bnd(() => {
-          if (playerName === sender) mMZ40.release(v[3]);
+          if (playerName === sender) {mMZ40.release(v[3]); mMZ57.release(v[3]);}
           else console.log('message from sender to BC#$42')
         });
 
         mMZ29.bnd(() => {
-          if (playerName === sender) mMZ41.release(v[3]);
+          if (playerName === sender) {mMZ41.release(v[3]); mMZ58.release(v[3]) }
           // else console.log('message from sender to BD#$42')
         });
 
         mMZ30.bnd(() => {
-          if (playerName === sender) mMZ42.release(v[3]);
-          else console.log('message from sender to BE#$42')
+          if (playerName === sender) {
+              mMZ42.release(v[3]);
+          } 
         });
-
 
         ret(v[0])
           .bnd(next, 'CC#$42', mMZ9)
@@ -1140,56 +1152,15 @@ workerG$ = sources.WWG.map(m => {
   console.log("Message from workerG", m);
   m778_RESULT = result778(m.data);
   mMZ38.release(m.data);
-  if (m.data) {
-    console.log('GOOD m.data')
-  } else {
-    return "cow"
-  }
-  if (m.target) {
-    console.log('GOOD m.target')
-  } else {
-    return "shit"
-  }
-  if (m.data[1]) {
-    console.log('GOOD m.data[1]')
-  } else {
-    return 'donkey'
-  }
-  if (m.target.ar2) {
-    console.log('GOOD m.data.ar2')
-  } else {
-    return 'dung'
-  }
-
+ 
 });
 
-workerL$ = sources.WWL.map(m => {
-  console.log("Message from workerL$ MMMMMMMMMMMMMMMMMMMMMMMMMM Here it is:", m);
-  m779_RESULT = result779(m.data);
-  console.log("Still in workerL$ -- m779_RESULT is", m779_RESULT);
-  mMZ39.release(m.data);
-  if (m.data) {
-    console.log('GOOD m.data')
-  } else {
-    return "cow"
-  }
-  if (m.target) {
-    console.log('GOOD m.target')
-  } else {
-    return "shit"
-  }
-  if (m.data[1]) {
-    console.log('GOOD m.data[1]')
-  } else {
-    return 'donkey'
-  }
-  if (m.target.ar2) {
-    console.log('GOOD m.data.ar2')
-  } else {
-    return 'dung'
-  }
-
-});
+/*workerL$ = sources.WWM.map(m => {
+  mMZ53.release(m.data[1]);
+  mMZ58.release(m.data[1]);
+  var w = m.data[0][m.data[0].length - 1];
+  if (m.data[0].length > primeState.length) primeState = m.data[0];
+}); */
 
 var clearClick8$ = sources.DOM
   .select('button.clear_R').events('click')
@@ -1201,12 +1172,10 @@ var factorsClick8$ = sources.DOM
   .select('button#factors_R').events('click'); 
 
 var factorsAction8$ = factorsClick8$.map(e => {
-  var i = 0;
-  m43_ = [];
-  while (i < 25) {
-    Compose().run(145)(x => x ** 3)(it4_b)(it6_b)(it7_b)();
-    i += 1;
-  }
+    var i = 0;
+    m43_ = [];
+    m44_ = m45_ = '';
+    f27();
 });
 
 var aplusClick$ = sources.DOM
@@ -1283,7 +1252,15 @@ workerL$ = sources.WWL.map(m => {
 
 workerM$ = sources.WWM.map(m => {
   mMZ53.release(m.data[1]);
+  mMZ58.release(m.data[1]);
   var w = m.data[0][m.data[0].length - 1];
+  if (m.data[0].length > primeState.length) primeState = m.data[0];
+});
+
+workerO$ = sources.WWO.map(m => {
+  console.log("Message from workerO -- m.data -- going to mMZ68.bnd ", m.data );
+  mMZ68.release(m.data[1]);
+  mMZ69.release(m.data[0]);
   if (m.data[0].length > primeState.length) primeState = m.data[0];
 });
 
@@ -1297,13 +1274,16 @@ var factors3Action$ = factors3Press$.map(function (e) {
 });
 
 mMZ40.bnd(v => {
-  console.log("Now <E><E><E><E><E><E><E><Edward the Late>>>>>>>>>>posting to workerH -- v is", v);
   workerH.postMessage([primeState, v])
 });
 
 mMZ41.bnd(v => {
-  console.log("Now <E><E><E><E><E><E><E><Edward the Late>>>>>>>>>>posting to workerL -- v is", v);
   workerL.postMessage([primeState, v])
+});
+
+mMZ42.bnd(v => {
+  console.log('In mMZ42 -- received ', v, ' from the server. Now posting to workerO. ')
+  workerO.postMessage([primeState, v])
 });
 
 const result778 = x => h('div', [
@@ -1833,8 +1813,9 @@ foo(9);
     .select('#dem8').events('keypress');
 
   var eightAction$ = dem8$.map(e => {
+      console.log('In dem8');
       if (e.keyCode === 13) {  
-          runCompTest(toFloat(e.target.value));
+          runT(toInt(e.target.value));
           // e.target.value = null;
       }
   });
@@ -1920,6 +1901,44 @@ foo(9);
 
       // Clicking the checkbox to indicate that a task has been finished.
       var box$ = sources.DOM.select('.box').events('click');
+
+      var boxAction$ = box$.map(e => {
+        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        console.log('In boxAction$ -- e is', e);
+        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        var index = parseInt(e.target.parentElement.id, 10);
+        var task = taskMonad.s[1].slice(index, index + 1)[0];
+        var old = task;
+        var ar = task.split("<$>");
+        ar = ar.filter(v => v !== "");
+        ar[1] = ar[1] === "false" ? "true" : "false"
+        var newTask = ar.join("<$>");
+        socket.send(`TT#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
+      });
+
+      var cbx2$ = sources.DOM.select('.cbx2').events('click');
+
+      var cbx2Action$ = cbx2$.map(e => {
+        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        console.log('In cbxAction$ -- e is', e);
+        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        var index = parseInt(e.target.parentNode.id, 10);
+        var task = taskMonad.s[1].slice(index, index + 1)[0];
+        var old = task;
+        var ar = task.split("<$>");
+        ar = ar.filter(v => v !== "");
+        ar[1] = ar[1] === "false" ? "true" : "false"
+        var newTask = ar.join("<$>");
+        socket.send(`TT#$42,${pMgroup.x},${pMname.x},${index},${old},${newTask}`);
+      });
+
+
+
+
 
       var boxAction$ = box$.map(e => {
         console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
@@ -2075,12 +2094,12 @@ foo(9);
 
       var test7Action$ = test7Press$.map(function (e) {
         if (e.keyCode === 13) {
-          runTestResult = runTest(toInt(e.target.value));
+          runTestResult = runT(toInt(e.target.value));
         }
       });
 
   
-      var calcStream$ = xs.merge( twoAction$, threeAction$, eightAction$, fourAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerL$, workerM$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
+      var calcStream$ = xs.merge( twoAction$, threeAction$, eightAction$, fourAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerM$, workerO$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
         DOM: calcStream$.map(() => {
@@ -2138,30 +2157,12 @@ h('span', ', \"Functional programming is a programming paradigm in which we try 
 h('br'),
 h('br'),
 h('span.tao', {style: {color: "#FF00DD"}}, ' WARNING:' ), 
-h('span', ' Unless you are already proficient at creating functions that use recursion, closures, currying, reactivity, and sensible composition, trying to scrupulously conform to the functional-paradigm will stifle your creativity and slow you progress toward mastering JavaScript. It\'s good to avoid mutating variables outside of function scope, but trying to make JavaScript functions behave like mathematical functions is a waste of time, and a waste of valuable features of an increasingly powerful programming language. ' ),
-h('p', ' Suppose you want to chain computations involving functions, primitive values, and promises where functions can readily access the return values of prior functions, resolution values of previously returned promises, and primitive values inserted into the sequence. ' ),
-h('p', ' It is highly unlikely that you working with a framework or library that can help you, but if you are a functional programmer, you can create a higher-order function to suit your needs. Instances of Compose() (below) do all of these things. ' ),  
+h('span', styleFunc (['#ABFFBA', , ,'italic', , , ,]), ' Unless you are already proficient at creating functions that use recursion, closures, currying, reactivity, and sensible composition, trying to scrupulously conform to the functional paradigm will stifle your creativity and slow your progress toward mastering JavaScript. It\'s good to avoid mutating variables outside of function scope, but trying to make JavaScript functions behave like mathematical functions is a waste of time, and a waste of valuable features of an increasingly powerful programming language. ' ),
+h('p', ' Suppose you want to chain computations involving functions, primitive values, and promises where functions can readily access the return values of all prior functions, resolution values of all previously returned promises, and all primitive values inserted into the sequence. Your frameworks and libraries aren\'t likely to help you, but you can create a function to suit your needs. That\'s what I did. I named my function "Comp". ' ),
+h('h', ' Comp() does everything mentioned in the previous paragraph and more. Every series of computations remains as an entity that can resume activity under its original name, or as one or more independent branches that leave the original computation unchanged. ' ), 
+  
                           
-h('pre', `function Compose ( AR = [] )  {
-  var ar , x, ob, f_ , p ;
-  if (Array.isArray(AR)) ar = AR.slice()
-  else ar = AR;
-  if (ar.length) {x = ar[ar.length-1]}; 
-    return  ob = {ar: ar, run:  function run (x) {
-    if (x instanceof Promise) x.then(y => {if (y != undefined) ob.ar.push(y)})
-        else {if (x != undefined) ar.push(x)}; 
-        return function f_ (func) {
-            if (func === 'stop') return ar;
-            
-            else if (typeof func !== "function") p = func;
-            else if (x instanceof Promise) p = x.then(v => func(v));
-            else p = func(x);
-            return run(p);
-        };
-  } };
-};
-
-function fork (x) {return  x.ar.pop()}; 
+h('pre', `
 
 var a = Compose([3,27]);  
 var b = Compose(a.ar.slice());  // b forks off of a and starts an independent computation.
@@ -2226,9 +2227,7 @@ var it6_b = y => {
   mMZ41.bnd(y => workerM.postMessage([primeState, y]));
 }
 
-it7_b = () => mMZ53.bnd(string => {
-  callOrder2 = callOrder2 > 24 ? 1 : callOrder2 + 1;
-  if (callOrder2 === 1) start78 = Date.now();
+it7_b = () => mMZ53.bnd(string => { callOrder2 = callOrder2 > 24 ? 1 : callOrder2 + 1; if (callOrder2 === 1) start78 = Date.now();
   m43_.push(callOrder2 + "  ");
   m43_.push(string)
   m43_.push(h('br'));
@@ -2236,7 +2235,8 @@ it7_b = () => mMZ53.bnd(string => {
     'Elapsed time: ' + (Date.now() - start78) + " ms"
   );
 });  ` ),
-
+h('br'),
+h('br'),
 
 
                                               ]),
@@ -2261,9 +2261,11 @@ it7_b = () => mMZ53.bnd(string => {
   }, 'clear results'),
   h('br'),
   h('br'),
-  h('div#demo2', {style: {fontSize: "15px"}},  m43_),
+  h('div.demo_1', {style: {fontSize: "15px"}}, m43_), 
   h('br'),
+  h('div.demo_1', {style: {fontSize: "15px"}}, m44_), 
   h('br'),
+  h('div.demo_1', {style: {fontSize: "15px"}}, m45_), 
   h('br'),
 
   ])
@@ -2660,40 +2662,15 @@ h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 8 - Bran
 
 h('div', {style: {display: "flex" }},  [
   h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
+/*
 h('p', ' Let ob = Compose() and let f1, f2, ... fn be JavaScript values. These f\'s will usually be functions, but they can be anything, including undefined. The statement ob.run(v)(f1)(f2) ... (fn)(\'stop\') produces an array of the f\'s return values, or the resolution values of returned promises. ' ),
-h('p', ' ob can resume pocessing values, and it can do it in multiple branches. ob2 = Compose(ob.ar) and ob3 = Compose(ob.ar) can both independently proceed where ob left off. Their transformation do not affect one another, and they do not affect ob. ' ),
+h('p', ' ob can resume pocessing values in two ways. It can continue to lengthen ob.ar by calling "resume(ob)(g1)(g2)... for values (usually functions) g1, g2, etc. Alternatively, ob can remain unchanged while launching one or more independent branchs with statements like "ob_2 = branch(ob); ob_2.run(g1)(g2)...".' ),
 
 
 h('p', ' When someone enters a number n in the box on the right, "runCompTest(n)" executes. Here\'s the definition: ' ),
-h('pre', `function runCompTest (k) {
+h('pre', `
 
-    A1 = A2 = A3 = A4 = A5 = A6 = A7 = [];
 
-    obbb1 = Compose([k]);
-
-    console.log("obbb1.ar is", obbb1.ar);
-
-    obbb2 = Compose(obbb1.ar);
-    A1 = obbb2.run(k+1)(x=>x*x)('stop');
-      
-    obbb3 = Compose(A1);
-    A2 = obbb3.run(k+2)(x=>x*x)('stop');
-      
-    obbb4 = Compose(A2);
-    A3 = obbb4.run(k+3)(x=>x*x)('stop');
-      
-    obbb5 = Compose(A1);
-    A4 = obbb5.run(k+4)(x=>x*x)('stop');
-      
-    obbb6 = Compose(A1);
-    A5 = obbb5.run(k+5)(squareQ)(x => mMZ56.release(x))(\'stop\');
-      
-    mMZ57.bnd(x => { 
-        diffRender();
-        obbb6 = Compose(A5);
-        A6 = obbb6.run(x+1)(squareQ)(()=>diffRender())(\'stop\')});
-        console.log("A6 is",A6);  
 }  ` ),
 h('p', 'The following code is situated in the virtual DOM. ' ), 
 h('pre', `h('div', A1.join(', ') ),
@@ -2706,7 +2683,7 @@ h('div', A6.join(', ') ), ` ),
 
 h('h1', 'COW DEMONSTRATION' )
 
-                    
+                    */
                                              ]),
                                     h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
@@ -2720,13 +2697,16 @@ h('h1', 'COW DEMONSTRATION' )
                 h('br'),
                 h('br'),
 
-h('div', 'obbb1.ar is [' + obbb1.ar.join(', ') + ']' ), 
-h('div', 'obbb2.ar is [' + obbb2.ar.join(', ') + ']' ), 
-h('div', 'obbb3.ar is [' + obbb3.ar.join(', ') + ']' ), 
-h('div', 'obbb4.ar is [' + obbb4.ar.join(', ') + ']' ), 
-h('div', 'obbb5.ar is [' + obbb5.ar.join(', ') + ']' ), 
-h('div', 'obbb6.ar is [' + obbb6.ar.join(', ') + ']' ), 
-h('div', 'obbb7.ar is [' + obbb7.ar.join(', ') + ']' ), 
+h('div', 'orb1.ar is [' + orb1.ar.join(', ') + ']' ), 
+h('div', 'orb2.ar is [' + orb2.ar.join(', ') + ']' ), 
+h('div', 'orb3.ar is [' + orb3.ar.join(', ') + ']' ), 
+h('br'),
+h('div', 'orb4.ar is [' + orb4.ar.join(', ') + ']' ), 
+h('br'),
+h('div', 'orb5.ar is [' + orb5.ar.join(', ') + ']' ), 
+h('br'),                                      
+h('div', 'orb6.ar is [' + orb6.ar.join(', ') + ']' ), 
+
 
 
                                     ])
@@ -3444,13 +3424,17 @@ val => { console.log(3, val); return val*=2; }); `),
 
 
 
+  
+
+
 
             h('br'),
-           // h('input#change', diffRend),
+            h('input#change', ),
             h('br'),
            // h('input#textbox', `${pigText}`),
             h('div#changeDisplay', [diffRend]),
             h('button#diffRender', 'diffRender()'),
+            h('button#bool', 'Cow' ),
             h('br'),
             h('br'),
             h('br')
@@ -3459,6 +3443,7 @@ val => { console.log(3, val); return val*=2; }); `),
       })
     }
   }
+
 
   diffRender = () => document.getElementById('diffRender').click();
   sources.DOM = makeDOMDriver('#main-container');

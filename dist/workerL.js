@@ -12,7 +12,7 @@
 
 function pNums(start, n) {
   var store  = [], i, j, primes = [];
-  for (i = start; i <= n; ++i) {
+  for (i = start; i <= Math.sqrt(n); ++i) {
     if (!store [i]) {
       primes.push(i);
       for (j = i << 1; j <= n; j += i) {
@@ -41,6 +41,7 @@ function pfactors (prms, n) {
     prms.map(p => {
       while (n/p === Math.floor(n/p)) {
         ar.push(p);
+        ar.push(n/p);
         n = n/p;
       };
     })
@@ -63,7 +64,7 @@ var g = p => x => {
 }
   
 onmessage = function(m) {
-  console.log('workerL got the message. m is', m );
+  console.log("********************************KUKUKAMONGA********************************************");
   var a = m.data[0];
   var b = parseInt(m.data[1],10);
   postMessage(g(a)(b));

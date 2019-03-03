@@ -1,28 +1,27 @@
 
+var EventEmitter;
+
 var slice = function slice (ar) {
     return (a,b) => ar.slice(a,b)
 };
+
 var ar = [1,2,3,4,5,6,7,8,9];
 console.log('slice(ar)(3,7)', slice(ar)(3,7));
 
-var resume = function resume (o) { 
-    return o.run(o.ar.pop()) 
+var f_86 = v => t => {
+    var ar97 = [v]; 
+    t.map(g => ar97.push(v=g(v))); 
+    return ar97
 };
-var ob = Compose([3,27]);
-console.log('ob.ar.join(', ') is', ob.ar.join(', '));
-resume(ob)(x=>x+3);
-console.log('ob.resume(ob)(x=>x+3); ob.ar is now', ob.ar);
+
+var foo = x => f_86(x)([v=>v**3, v=>v+x, v=>v**2,v=>ar[3](v),
+  v=>v**(1/4),v=>v-x,v=>Math.round(v**(1/3))]);    
 
 var branch  = function branch (o) { 
     var z = Compose(o.ar);  
     var e = z.ar.pop(); 
     return {ar: z.ar, run: z.run(e)}; 
 };
-var ozo = branch(ob); 
-ozo.run(x => x + 12);
-ozo = branch(ob); 
-ozo.run(x => x + 12); 
-console.log('ozo.ar is', ozo.ar, 'ob.ar is still', ob.ar);
 
 var obbb0 = Compose([7, 11]);
 var obbb1 = Compose([7, 11]);
@@ -33,7 +32,34 @@ var obbb5 = Compose([7, 11]);
 var obbb6 = Compose([7, 11]);
 var obbb7 = Compose([7, 11]);
 var obbb8 = Compose([7, 11]);
+var obbb9 = Compose([7, 11]);
+var obbb10 = Compose([7, 11]);
+var obbb11 = Compose([7, 11]);
+var obbb12 = Compose([7, 11]);
+var obbb13 = Compose([7, 11]);
+var obbb14 = Compose([7, 11]);
+var obbb15 = Compose([7, 11]);
 
+var obb0 = Compose();
+var obb1 = Compose();
+var obb2 = Compose();
+var obb3 = Compose();
+var obb4 = Compose();
+var obb5 = Compose();
+var obb6 = Compose();
+var obb7 = Compose();
+var obb8 = Compose();
+var obb9 = Compose();
+var obb10 = Compose();
+var obb11 = Compose();
+var obb12 = Compose();
+var obb13 = Compose();
+var obb14 = Compose();
+var obb15 = Compose();
+var obb16 = Compose();
+var _m44_ = "ready";
+var it7_bbb = function () {};
+var it7_b = function () {};
 var bNode;
 
 var clone = function deepClone (obj) {
@@ -241,11 +267,10 @@ function cloneOb (o) {return JSON.parse(JSON.stringify(o))};
 var head = function head([ a, ...b ]) { 
   return a;
 }
-var tail = function tail([ a, ...b ]) {
-  return b;
-}
 
-var diffRender = function () {return 8};   ;  // See document.onload in maim
+var diffRender = function () {return 8};   // See document.onload in maim
+
+function change () {return 8};   
 
 var arBind = [];
 
@@ -323,7 +348,7 @@ var ws;
 var bxA1=0, bxA2=0, bxA3=0, bxA4=0, bxA5=0, bxA6=0, bxA7=0, bxA8=0, bxA9=0;
 var tempName = "Jim";
 var mMindexDS = new Monad (0,'mMindexDS');
-var socket;
+var socket = {send: x => x};
 var sock;
 var pName;
 var pigText = 888;
@@ -428,6 +453,8 @@ num9 = 0;
   var workerK = new Worker("workerK.js");
   var workerL = new Worker("workerL.js");
   var workerM = new Worker("workerM.js");
+  var workerN = new Worker("workerN.js");
+  var workerO = new Worker("workerO.js");
 
   var m42_ = ['ready'];
   var m43_ = ['ready'];
@@ -551,6 +578,7 @@ num9 = 0;
   var m42_RESULT7 = "ready"
 
     var runTestResult = [['ready'], 'ready'];
+
     function demoFunc(x) {
       return foo(x)(v=>v+2)(v=>v*v*v)
       (v=>v+3)(v=>v*a.arfoo[1])
@@ -570,6 +598,8 @@ num9 = 0;
   var workerH$;
   var workerL$;
   var workerM$;
+  var workerN$;
+  var workerO$;
 
 
   const orange = {style: {color: "#f98043"}}
@@ -592,9 +622,18 @@ num9 = 0;
   const italicRed = {style: {fontStyle: "italic", color: "#ff5b5b"}}
   const italicYellow = {style: {fontStyle: "italic", color: "#fbfca9"}}
 
-  function styleFunc ([color = '#361B01', marginLeft = '0px',
-    fontSize = '15px', fontStyle = 'normal', width = '100%', 
-    textAlign = 'left', marginRight = '0px', position = 'relative', right = '0%']) {
+
+  function styleFunc ([
+    color = '#361B01', // 1
+    marginLeft = '0px',
+    fontSize = '15px', 
+
+    fontStyle = 'normal', width = '100%', // 4 
+    textAlign = 'left', 
+    marginRight = '0px', 
+
+    position = 'relative', //7
+    right = '0%'  /* 8  */           ]) {
       return {style:{
         color: color,
         marginLeft: marginLeft,
@@ -607,6 +646,8 @@ num9 = 0;
         right: right
       }}
   };
+
+
 
   const italicOrange = {style: {fontStyle: "italic", color: "#96f9ff"}}
 
@@ -957,6 +998,10 @@ function barfly (x) {
     if (socket.readyState === 1) socket.send(`BE#$42,${pMgroup.x},${pMname.x},${x}`);
   }
    
+  var it4_d = x => {
+    if (socket.readyState === 1) socket.send(`BE#$42,${pMgroup.x},${pMname.x},${x}`);
+  }
+   
   var wH$ = sources.WWH();
   var worker$ = sources.WWH();
 
@@ -970,8 +1015,13 @@ function barfly (x) {
     mMZ41.bnd(y => workerM.postMessage([primeState, y]));
   }
 
+  var it6_d = y => {
+  console.log('<$><$><$><$>$$>>> In it6_d sending package to worker O ***** SEE ME!!! ');
+    mMZ61.bnd(y => workerO.postMessage([primeState, y]));
+  }
+
   var it6_c = y => {
-    mMZ42.bnd(y => workerN.postMessage([primeState, y]));
+    mMZ42.bnd(y => workerL.postMessage([primeState, y]));
 }
 
 var callOrder = 0;
@@ -981,7 +1031,10 @@ var start78;
 var start79;
 var m42_;
 var m43_;
-var m44_ = ["ready"];
+var m44_ = "ready";
+var m45_ = "ready";
+var f23 = n => "Howdy Doody";
+var f27 = () => {};
 /*
 var it7 = () => mMZ52.bnd(string => {
   callOrder = callOrder > 24 ? 1 : callOrder + 1;
@@ -1090,6 +1143,16 @@ async function pause (x) {
   return x;
 }
 
+var pauseP = t => async x => {
+  await wait(t*1000)
+  return x;
+}
+
+async function pause (x) {
+  await wait(600)
+  return x;
+}
+
 async function pauseM (x) {
   await wait(600)
   return ret(x);
@@ -1120,7 +1183,7 @@ const sqrtP = async a => {
 }
 
 const doubleP = async a => {
-  await wait (600)
+  await wait (1000)
   return a+a;
 }
 
@@ -1129,14 +1192,13 @@ const addP = x => async y => {
   return toInt(x) + toInt(y);
 }
 
-function shorten (ar) {ar.length = ar.length - 1};
 const addPA = x => async y => {
   await wait(1000)
   return x + y;
 }
 
 const multP = x => async y => {
-  await wait(600)
+  await wait(1200)
   return x * y;
 }
 
@@ -1157,14 +1219,13 @@ async function cubeFormat (x) {
 };
 
 async function idP (x) {
-  await wait(1000)
+  await wait(1200)
   return x;
 }
 
-async function popP (ar) {
-  await wait(1000)
-  ar.pop();
-  return ar;
+var idR = t => async x => {
+  await wait(t*1000)
+  return x;
 }
 
 async function idQ (x) {
@@ -1531,6 +1592,16 @@ var MonadItter = function MonadItter() {
   var mMZ57 = MI();
   var mMZ58 = MI();
   var mMZ59 = MI();
+  var mMZ60 = MI();
+  var mMZ61 = MI();
+  var mMZ62 = MI();
+  var mMZ63 = MI();
+  var mMZ64 = MI();
+  var mMZ65 = MI();
+  var mMZ66 = MI();
+  var mMZ67 = MI();
+  var mMZ68 = MI();
+  var mMZ69 = MI();
   var mMi3terPrime = MI();
   var mMitterPrime4 = MI();
   var mMitterPrime5 = MI();
@@ -1780,7 +1851,8 @@ function unshift(x, y, id) {
   return window[id];
 }
 
-function shorten (ar) {ar.length = ar.length - 1};
+function shorten (ar) {
+  if (ar.length > 0) ar.length = ar.length - 1};
 
 function splice2(x, start, how_many, id) {
     var ar = x.slice();
@@ -3202,15 +3274,6 @@ myIterable[Symbol.iterator] = function* () {
 };
 [...myIterable] 
 
-var f_86 = v => t => {
-    var ar97 = [v]; 
-    t.map(g => ar97.push(v=g(v))); 
-    return ar97
-};
-
-var foo = x => f_86(x)([v=>v**3, v=>v+x, v=>v**2,v=>ar[3](v),
-  v=>v**(1/4),v=>v-x,v=>Math.round(v**(1/3))]);    
-
 var foocow_0 = [];
 var foocow_1 = [];
 var foocow_2 = [];
@@ -3389,32 +3452,10 @@ async function squareQ (x) {
 return x*x;
 }
 
-function Compose ( AR = [] )  {
-  var ar , x, ob, f_ , p ;
-  if (Array.isArray(AR)) ar = AR.slice()
-  else ar = AR;
-  if (ar.length) {x = ar[ar.length-1]}; 
-    return  ob = {ar: ar, run:  function run (x) {
-    if (x instanceof Promise) x.then(y => {if (y != undefined && y && y.toString() != "NaN" != NaN) {
-        ar.push(y);
-        diffRender();
-    }})
-        else {if (x != undefined && x.toString() != "NaN") ar.push(x)}; 
-        return function f_ (func) {
-            if (func === 'stop') return ar;
-            
-            else if (typeof func !== "function") p = func;
-            else if (x instanceof Promise) p = x.then(v => func(v));
-            else p = func(x);
-            return run(p);
-        };
-  } };
-};
-
 console.log("******************************** Start Compose Tests ******************************");
 
 var incC = x => Math.sqrt(x.ar.pop())+1;
-
+/*
 var ob1 = Compose([2,4]);
 ob1.run(fork(ob1))(x=>x*x);
 console.log("ob1.ar is", ob1.ar);
@@ -3434,7 +3475,7 @@ console.log("ob4.ar is", ob4.ar)
 var ob5= Compose(ob4.ar);
 ob5.run(fork(ob5))(incC(ob5))(x=>x*x);
 console.log("ob5.ar is", ob5.ar)
-
+*/
 console.log("******************************** End Compose Tests ******************************");
 
 
@@ -3501,7 +3542,7 @@ var _mBx = (bool) => {
 
 
 function test4 (w) {  
-    var f = Compose();  // f.run and f.ar are in local scope
+    var f = Comp();  // f.run and f.ar are in local scope
     return f.run(w)(cubeP)
       (x=>idP(x+f.ar[0]))(squareP)(() => idP(f.ar[2]**3))
         (x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')
@@ -3856,38 +3897,15 @@ e3.run(2)(x=>x**7);
 console.log(de1, de2, e3.ar);
 
 async function dRendP (x) {  
-await wait(x)
-diffRender();
+  await wait(x)
+  diffRender();
 };
 
-async function squareP3 (x) {
-dRendP(3300);
-await wait(3000)
-return x*x;
+async function cubeP3 (x) {
+  dRendP(3300);
+  await wait(3000);
+  return x*x;
 };
-
-function fork (x) {
-var z = x.ar.pop();
-if (z instanceof Promise) z.then(v);
-else return z;
-}
-
-    async function dRendP (x) {  
-      await wait(x)
-      diffRender();
-    };
-
-    async function squareP3 (x) {
-      dRendP(3300);
-      await wait(3000)
-      return x*x;
-    };
-
-    async function cubeP3 (x) {
-      dRendP(3300);
-      await wait(3000);
-      return x*x;
-    };
 
 var A1 = [];
 var A2 = [];
@@ -3902,73 +3920,169 @@ var logDelay = async () => {
   diffRender();
 }
   
-logDelay();
-function fork (x) {
-  console.log('x is', x)
-  var z = x.ar.pop();
-  console.log('z is', z)
-  if (z instanceof Promise) z.then(v);
-  else return z;
-}
-
 var incC = x => Math.sqrt(x.ar.pop())+1
 
 var squareP3 = x => Math.sqrt(x.ar.pop())+1
 var cubeP3 = x => x.pop()**(1/3)
 
-var go = () => diffRender();
 
-function runCompTest (k) {
+const go = () => diffRender();
 
-   obbb0 = {ar: [0]};
-   obbb1 = {ar: [1]};
-   obbb2 = {ar: [2]};
-   obbb3 = {ar: [3]};
-   obbb4 = {ar: [4]};
-   obbb5 = {ar: [5]};
-   obbb6 = {ar: [6]};
-   obbb7 = {ar: [7]};
- 
-    obbb1 = Compose([k]);
-
-    obbb2 = branch(obbb1);
-    obbb2.run(k+1)(x=>x*x)('stop');
-      
-    obbb3 = branch(obbb1);
-    obbb3.run(k+2)(x=>x*x)('stop');
-    
-    obbb4 = branch(obbb2)
-    obbb4.run(k+3)(x=>x*x)('stop');
-      
-    obbb5 = branch(obbb1);
-    obbb5.run(k+4)(x=>x*x)('stop');
-      
-    obbb6 = branch(obbb1);
-    obbb6.run(k+5)(squareP)(x => send(mMZ56,x))('stop');
-      
-    obbb7 = Compose();
-    mMZ56.bnd(x => obbb7.run(x)(addP(1))(addP(1))(x=>
-        send(mMZ57,x))(()=>popP(obbb7))('stop'));
-
-    mMZ57.bnd(z => {resume(obbb1)(z)(addP(1))(squareP)(x => Math.sqrt(x) +1)(x=>
-            send(mMZ58,x))('stop')});
-
-    mMZ58.bnd(z => {resume(obbb3)(z)(addP(-20))(squareP)(() => shortenP(obbb3.ar))(addP(10))(x=>
-            idP(Math.floor(Math.sqrt(x))))(go())(()=>shortenP(obbb3.ar))(go())(obbb3[2])(cubeP)(obbb3.ar[obbb3.ar.length-2])(cubeP)(cubeP)('stop')});
+async function _dRP (x) {  
+    await wait(x)
+    diffRender();
 };
 
-function send (a,b) {a.release(b)}
+async function squareP3 (x) {
+_dRP(3300);
+await wait(3000)
+return x*x;
+};
 
-const shortenP = async ar => {
+async function popP (ob) {
   await wait(1000)
-  ar.length = ar.length - 1;
-  diffRender();
+  var e = ob.ar.slice().pop();
+  return e;
 }
 
+var _se = t => a => async b => {
+  await wait(t*1000)
+  a.release(b);
+}
+
+var _sen = _se(1);
+
+var _send = _se(1)(mMZ63);
+
+function _wait (f) {return mMZ63.bnd(f)};
+
+var iD = t => async b => {
+  await wait(t*1000)
+  return b;
+}
+
+var _iD = t => async b => {
+  await wait(t*1000)
+  eval(b);
+}
+
+var powP = a => b => async c => {
+  await wait(b*1000)
+  return c**a;
+}
+
+var _pop = t => ar => ar.slice().pop();
+
+var sq = powP(2);
+var cu = powP(3);
+var sqA = x => x*x;
+var cuA = x => x**3;
+var adA = x => y => x + y;
+
+var _delay = t => async a => {
+    await wait(t*1000)
+    return a;
+};
+
+var  popP = t => async ar => {
+    await wait (t * 1000)
+    return ar.slice().pop();
+};
+
+function Compose ( AR = [] )  {
+  var ar , x, ob, f_ , p ;
+  if (Array.isArray(AR)) ar = AR.slice()
+  else ar = AR;
+  if (ar.length) {x = ar[ar.length-1]}; 
+    return  ob = {ar: ar, run:  async function run (x) {
+    if (x instanceof Promise) x.then(y => {if (y != undefined && y && y.toString() != "NaN" != NaN) {
+        ar.push(y);
+        diffRender();
+    }})
+        else {if (x != undefined && x.toString() != "NaN") ar.push(x)}; 
+        return function f_ (func) {
+            if (func === 'stop') return ar;
+            
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else p = func(x);
+            return run(p);
+        };
+  } };
+};
+
+function Comp ( AR = [] )  {
+  var ar , x, ob, f_ , p ;
+  if (Array.isArray(AR)) ar = AR.slice()
+  else ar = AR;
+  if (ar.length) {x = ar[ar.length-1]}; 
+    return  ob = {ar: ar, run: function run (x) {
+    if (x instanceof Promise) x.then(y => 
+      {if (y != undefined && y && y.toString() != "NaN" != NaN && y.name !== "f_" ) {
+        ar.push(y);
+        diffRender()
+    }})
+    else if (x != undefined && x.toString() != "NaN" && x.name !== "f_" ) {
+        ar.push(x);
+        diffRender()
+    };
+    return function f_ (func) {
+        if (func === 'stop') return ar;
+        else if (typeof func !== "function") p = func;
+        else if (x instanceof Promise) p = x.then(v => func(v));
+        else p = func(x);
+        return run(p);
+    };
+    }}
+}  
+
+var fork = ob => string => {
+    window[string] = Comp(ob.ar.slice());
+    return func227 = x => window[string].run(window[string].ar.pop())(x);
+}
+
+function runT (k) {
+
+    orb1 = Comp();
+    orb2 = Comp();
+    orb3 = Comp();
+    orb4 = Comp();
+    orb5 = Comp();
+    orb6 = Comp();
+
+function orbit_1 () { return `In five seconds, orb5 will call orb2.ar.pop(), taking ${orb2.ar.slice(-1)[0]} off of arb2 and then replacing it with the square root of the expropriated element, ${Math.sqrt(orb2.ar.slice(-1)[0])}.`};
+         
+var orbit_2 = () => 'orb6 is about to start with the last three elements of orb2, take the square root of the last element, and proceed with more transformations'
 
 
 
+orb1 = Comp([k]);  
+    fork(orb1)('orb1')(cubeP)(addP(orb1.ar[0]))(() => 
+        fork(orb1)("orb2")
+        (squareP)(multP(1/(orb2.ar[0] * 100)))(addP(1))(powP(4)(1))(() => 
+            fork(orb1)('orb3')(x=>x-3)(x=>x**(1/3))(x=>x+1)(cubeP)(() =>
+                fork(orb1)('orb4')(orbit_1)(iD(8)(orb2.ar.pop()))
+                (powP(1/2)(2))(orb2.run)(() => 
+                    orb5.run(orbit_2)(() =>
+    orb6.run(iD(8)(orb2.ar.slice(-3,-2)[0]))(iD(1)(orb2.ar.slice(-2,-1)[0]))
+    (iD(1)(orb2.ar.slice(-1)[0]))(powP(1/2)(1))(addP(1))(powP(4)(1))
+                    )
+                )
+            )
+        )
+    )
+}
+runT(3);
 
+var foz = f1 => f2 => f3 => x => [f1,f2,f3].reduce((a,b) => b(a),x)
+var fu = foz(x=>x**4)(x=>x)(x=>x+100);
 
+var ab7 = fu(3);  
+
+var abc = [1,2,3,4,5,6,7]
+var ab8 = abc.map(a => fu(a))
+
+console.log('ab7',ab7);
+console.log('ab8',ab8);
 
 

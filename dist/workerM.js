@@ -65,8 +65,7 @@ var g = p => x => {
 onmessage = function(m) {
   var a = m.data[0];
   var b = parseInt(m.data[1],10);
-  var c = g(a)(b);
-  postMessage(c);
+  postMessage(g(a)(b));
 }
 
 

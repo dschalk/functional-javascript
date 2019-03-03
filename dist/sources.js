@@ -115,6 +115,13 @@ function workerDriver () {
   });
 };
 
+function workerODriver () {
+  return xs.create({
+    start: listener => { workerO.onmessage = msg => listener.next(msg)},
+    stop: () => { workerO.terminate() }
+  });
+};
+
 var incF$ = n => xs.of(n);
 
 function pingpongDriver () {
@@ -174,6 +181,7 @@ sources = {
   WWL: workerLDriver,
   WWM: workerMDriver,
   WWN: workerNDriver,
+  WWO: workerODriver,
   WW: workerDriver,
   PP: pingpongDriver,
   FD: fredDriver,

@@ -1,6 +1,38 @@
 
+var slice = function slice (ar) {
+    return (a,b) => ar.slice(a,b)
+};
+var ar = [1,2,3,4,5,6,7,8,9];
+console.log('slice(ar)(3,7)', slice(ar)(3,7));
 
+var resume = function resume (o) { 
+    return o.run(o.ar.pop()) 
+};
+var ob = Compose([3,27]);
+console.log('ob.ar.join(', ') is', ob.ar.join(', '));
+resume(ob)(x=>x+3);
+console.log('ob.resume(ob)(x=>x+3); ob.ar is now', ob.ar);
 
+var branch  = function branch (o) { 
+    var z = Compose(o.ar);  
+    var e = z.ar.pop(); 
+    return {ar: z.ar, run: z.run(e)}; 
+};
+var ozo = branch(ob); 
+ozo.run(x => x + 12);
+ozo = branch(ob); 
+ozo.run(x => x + 12); 
+console.log('ozo.ar is', ozo.ar, 'ob.ar is still', ob.ar);
+
+var obbb0 = Compose([7, 11]);
+var obbb1 = Compose([7, 11]);
+var obbb2 = Compose([7, 11]);
+var obbb3 = Compose([7, 11]);
+var obbb4 = Compose([7, 11]);
+var obbb5 = Compose([7, 11]);
+var obbb6 = Compose([7, 11]);
+var obbb7 = Compose([7, 11]);
+var obbb8 = Compose([7, 11]);
 
 var bNode;
 
@@ -1053,14 +1085,6 @@ var release = t => instance => async param => {
   instance.release(param);
 }
 
-var logDelay = async x => {
-  await wait(3000)
-  console.log(x)
-}
-  
-logDelay("Demonstrating logDelay");
-
-
 async function pause (x) {
   await wait(600)
   return x;
@@ -1076,7 +1100,7 @@ async function pauseX (x) {
 }
 
 async function squareP (x) {
-  await wait(600)
+  await wait(1200)
   return x*x;
 }
 
@@ -1105,8 +1129,9 @@ const addP = x => async y => {
   return toInt(x) + toInt(y);
 }
 
+function shorten (ar) {ar.length = ar.length - 1};
 const addPA = x => async y => {
-  await wait(600)
+  await wait(1000)
   return x + y;
 }
 
@@ -1132,8 +1157,14 @@ async function cubeFormat (x) {
 };
 
 async function idP (x) {
-  await wait(600)
+  await wait(1000)
   return x;
+}
+
+async function popP (ar) {
+  await wait(1000)
+  ar.pop();
+  return ar;
 }
 
 async function idQ (x) {
@@ -1748,6 +1779,8 @@ function unshift(x, y, id) {
   window[id] = new Monad(ar, id);
   return window[id];
 }
+
+function shorten (ar) {ar.length = ar.length - 1};
 
 function splice2(x, start, how_many, id) {
     var ar = x.slice();
@@ -3328,9 +3361,86 @@ console.log(_state.sum, _state.prod);
 
 //***************************************************************** mBnd, test4, test5, test6
 
- function Compose () {
-    var ar = [];
-    var run = x => {
+ function Bnd3 () {
+    this.ar = [];
+    this.run = x => {
+        if (x instanceof Promise) x.then(y => this.ar.push(y))
+        else this.ar.push(x); 
+        return func => {
+            var p;
+            if (func == 'stop') return this.ar;
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else p = func(x);
+            return this.run(p);
+        };
+    };
+};
+
+function _Pipe () {var o = Object.create(Bnd3); o.__proto__(); return o;}
+
+async function cubeQ (x) {
+  await wait(3000)
+  return x*x*x;
+}
+
+async function squareQ (x) {
+  await wait(3000)
+return x*x;
+}
+
+function Compose ( AR = [] )  {
+  var ar , x, ob, f_ , p ;
+  if (Array.isArray(AR)) ar = AR.slice()
+  else ar = AR;
+  if (ar.length) {x = ar[ar.length-1]}; 
+    return  ob = {ar: ar, run:  function run (x) {
+    if (x instanceof Promise) x.then(y => {if (y != undefined && y && y.toString() != "NaN" != NaN) {
+        ar.push(y);
+        diffRender();
+    }})
+        else {if (x != undefined && x.toString() != "NaN") ar.push(x)}; 
+        return function f_ (func) {
+            if (func === 'stop') return ar;
+            
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else p = func(x);
+            return run(p);
+        };
+  } };
+};
+
+console.log("******************************** Start Compose Tests ******************************");
+
+var incC = x => Math.sqrt(x.ar.pop())+1;
+
+var ob1 = Compose([2,4]);
+ob1.run(fork(ob1))(x=>x*x);
+console.log("ob1.ar is", ob1.ar);
+
+var ob2 = Compose(ob1.ar);
+ob2.run(fork(ob2))(incC(ob2))(x=>x*x);
+console.log("ob2.ar is", ob2.ar)
+
+var ob3 = Compose(ob2.ar);
+ob3.run(fork(ob3))(incC(ob3))(x=>x*x);
+console.log("ob3.ar is", ob3.ar)
+
+var ob4= Compose(ob3.ar);
+ob4.run(fork(ob4))(incC(ob4))(x=>x*x);
+console.log("ob4.ar is", ob4.ar)
+
+var ob5= Compose(ob4.ar);
+ob5.run(fork(ob5))(incC(ob5))(x=>x*x);
+console.log("ob5.ar is", ob5.ar)
+
+console.log("******************************** End Compose Tests ******************************");
+
+
+Bnd5 = {
+     ar: [],
+     run: x => {
         if (x instanceof Promise) x.then(y => ar.push(y))
         else ar.push(x); 
         return func => {
@@ -3342,9 +3452,26 @@ console.log(_state.sum, _state.prod);
             else p = func(x);
             return run(p);
         };
-    };
-    return {ar: ar, run: run}
+    }
 };
+
+/*
+ function Bnd3 () {
+    this.ar = [];
+    this.run = x => {
+        if (x instanceof Promise) x.then(y => this.ar.push(y))
+        else this.ar.push(x); 
+        return func => {
+            var p;
+            if (func == 'stop') return this.ar;
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) p = x.then(v => func(v));
+            else p = func(x);
+            return this.run(p);
+        };
+    };
+};
+*/
 
 function diffR (obj) {
     return obj = autoRefresh(obj)
@@ -3363,6 +3490,16 @@ var _mBx = (bool) => {
     return ob;
 }; 
 
+
+
+/*  function test4 (w) {  
+    var f = new Bnd3();  // f.run and f.ar are in local scope
+    return f.run(w)(cubeP)
+      (x=>idP(x+f.ar[0]))(squareP)(() => idP(f.ar[2]**3))
+        (x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')
+};  */
+
+
 function test4 (w) {  
     var f = Compose();  // f.run and f.ar are in local scope
     return f.run(w)(cubeP)
@@ -3370,6 +3507,14 @@ function test4 (w) {
         (x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')
 };
 
+function test6 (w) {
+    var x = Symbol();
+    var run = Bind(x, true);  
+    var ar = arBind[x];  // arBind is an object in global scope
+    return run(w)(cubeP)
+      (x=>idP(x+ar[0]))(squareP)(() => idP(ar[2]**3))
+        (x=>idP(x/ar[3]))(x=>idP(x-ar[1]))()
+};
 var _D0 = _D1 = _E0 = _E1 = ['cow'];
 var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready']; 
 var _C0 = _C1 = _C2 = _C3 = _C4 = _C5 = _C6 = _C7 = _C8 = ['ready']; 
@@ -3388,8 +3533,15 @@ function test5 (n) {
     _C7 = test4(x+7);
     _C8 = test4(x+8);
 
-    _B0 = test4(x+0);
-
+    _B0 = test6(x+0);
+    _B1 = test6(x+1);
+    _B2 = test6(x+2);
+    _B3 = test6(x+3);
+    _B4 = test6(x+4);
+    _B5 = test6(x+5);
+    _B6 = test6(x+6);
+    _B7 = test6(x+7);
+    _B8 = test6(x+8);
 }
 
   
@@ -3479,6 +3631,7 @@ function foo8 (a, b, c, x, y) {
         _qOb_[y] = '';
     }
 } ;
+
 
 
 
@@ -3583,7 +3736,7 @@ function ann23 () {
 
 var ann27 = ann23();
 
-// Demonstration 6
+function push3 (ar, x) {ar.push(x);  return ar };
 
 var  _arQuad = [];
 
@@ -3672,7 +3825,6 @@ o3.run(2)(x=>x**7);
 console.log(dd, ee, o3.ar);
 
 function f1A () {var o = Object.create(Bnd3); o.__proto__(); return o;}
-function Compose() {var o = Object.create(Bnd3); o.__proto__(); return o;}
 function f1B () {var o = Object.create(Bnd5); o.ar = o.ar.slice(); return o;}
 
 var a1 = f1A();
@@ -3701,7 +3853,118 @@ var de1 = e1.run(5)(x=>x**4)('stop');
 var de2 = e2.run(3)(x=>x**3)(x=>x+o2.ar[0])('stop');
 e3.run(2)(x=>x**7);
 
-console.log(de1, de2, e3.ar)
+console.log(de1, de2, e3.ar);
+
+async function dRendP (x) {  
+await wait(x)
+diffRender();
+};
+
+async function squareP3 (x) {
+dRendP(3300);
+await wait(3000)
+return x*x;
+};
+
+function fork (x) {
+var z = x.ar.pop();
+if (z instanceof Promise) z.then(v);
+else return z;
+}
+
+    async function dRendP (x) {  
+      await wait(x)
+      diffRender();
+    };
+
+    async function squareP3 (x) {
+      dRendP(3300);
+      await wait(3000)
+      return x*x;
+    };
+
+    async function cubeP3 (x) {
+      dRendP(3300);
+      await wait(3000);
+      return x*x;
+    };
+
+var A1 = [];
+var A2 = [];
+var A3 = [];
+var A4 = [];
+var A5 = [];
+var A6 = [];
+var A7 = [];
+
+var logDelay = async () => {
+  await wait(5000)
+  diffRender();
+}
+  
+logDelay();
+function fork (x) {
+  console.log('x is', x)
+  var z = x.ar.pop();
+  console.log('z is', z)
+  if (z instanceof Promise) z.then(v);
+  else return z;
+}
+
+var incC = x => Math.sqrt(x.ar.pop())+1
+
+var squareP3 = x => Math.sqrt(x.ar.pop())+1
+var cubeP3 = x => x.pop()**(1/3)
+
+var go = () => diffRender();
+
+function runCompTest (k) {
+
+   obbb0 = {ar: [0]};
+   obbb1 = {ar: [1]};
+   obbb2 = {ar: [2]};
+   obbb3 = {ar: [3]};
+   obbb4 = {ar: [4]};
+   obbb5 = {ar: [5]};
+   obbb6 = {ar: [6]};
+   obbb7 = {ar: [7]};
+ 
+    obbb1 = Compose([k]);
+
+    obbb2 = branch(obbb1);
+    obbb2.run(k+1)(x=>x*x)('stop');
+      
+    obbb3 = branch(obbb1);
+    obbb3.run(k+2)(x=>x*x)('stop');
+    
+    obbb4 = branch(obbb2)
+    obbb4.run(k+3)(x=>x*x)('stop');
+      
+    obbb5 = branch(obbb1);
+    obbb5.run(k+4)(x=>x*x)('stop');
+      
+    obbb6 = branch(obbb1);
+    obbb6.run(k+5)(squareP)(x => send(mMZ56,x))('stop');
+      
+    obbb7 = Compose();
+    mMZ56.bnd(x => obbb7.run(x)(addP(1))(addP(1))(x=>
+        send(mMZ57,x))(()=>popP(obbb7))('stop'));
+
+    mMZ57.bnd(z => {resume(obbb1)(z)(addP(1))(squareP)(x => Math.sqrt(x) +1)(x=>
+            send(mMZ58,x))('stop')});
+
+    mMZ58.bnd(z => {resume(obbb3)(z)(addP(-20))(squareP)(() => shortenP(obbb3.ar))(addP(10))(x=>
+            idP(Math.floor(Math.sqrt(x))))(go())(()=>shortenP(obbb3.ar))(go())(obbb3[2])(cubeP)(obbb3.ar[obbb3.ar.length-2])(cubeP)(cubeP)('stop')});
+};
+
+function send (a,b) {a.release(b)}
+
+const shortenP = async ar => {
+  await wait(1000)
+  ar.length = ar.length - 1;
+  diffRender();
+}
+
 
 
 
