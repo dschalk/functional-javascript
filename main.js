@@ -2299,20 +2299,19 @@ h('div', {style: {display: "flex" }},  [
 
 h('p', ' For a quick reference while you examine how the code corresponds to the action in the right panel, I\'ll repeat the definition of Comp(). ' ),
 
-h('pre', `    
-function Comp ( AR = [] )  {
+h('pre', `function Comp ( AR = [] )  {
   var ar , x, ob, f_ , p ;
   if (Array.isArray(AR)) ar = AR.slice()
   else ar = AR;
   if (ar.length) {x = ar[ar.length-1]}; 
     return  ob = {ar: ar, run: function run (x) {
         if (x instanceof Promise) x.then(y => 
-          {if (y != undefined && y && 
+          {if (y != undefined && y !== false && 
           y.toString() != "NaN" && y.name !== "f_" ) {
             ar.push(y);
             diffRender()
         }})
-        else if (x != undefined && x.toString()
+        else if (x != undefined && x !== false && x.toString()
         != "NaN" && x.name !== "f_" ) {
             ar.push(x);
             diffRender()
@@ -2326,7 +2325,7 @@ function Comp ( AR = [] )  {
             return run(p);
         };
     }}
-} ` ),
+}  ` ),
 
 h('p', ' Entering a number "n" in one of the boxes on the right causes runT(n) to execute. Here are the definitions of fork(), hold(), and runT(): ' ), 
 
@@ -2335,8 +2334,19 @@ h('pre', `var fork = ob => string => {
     return func227 = x => window[string]
       .run(window[string].ar.pop())(x);
 }
+h('br'),
 async function hold (t) {
   await wait(t*1000)
+}
+
+var iD = t => async b => {
+  await wait(t*1000)
+  return b;
+}
+
+var powP = a => b => async c => {
+  await wait(b*1000)
+  return c**a;
 }
 
 function runT (k) {
@@ -2348,14 +2358,15 @@ function runT (k) {
     orb5 = Comp();
     orb6 = Comp();
 
-
-function orbit_1 () { return \`In abpit eight seconds, orb5 will remove the 
-last element from orb2.ar (\${orb2.ar.slice(-1)[0]}) 
-and replace it with its square root, \${Math.sqrt(orb2.ar.slice(-1)[0])}.\`};
-  
+function orbit_1 () { return \`In abpit eight seconds, 
+orb5 will remove the 
+    last element from orb2.ar (\${orb2.ar.slice(-1)[0]}) 
+        and replace it with its square root, 
+            \${Math.sqrt(orb2.ar.slice(-1)[0])}.\`};
+         
 var orbit_2 = () => \`orb6 will soon start with the last three 
 elements of orb2, then take the square root 
-of the last element, and proceed.\`
+of the last element, and proceed. \`
 
 orb1 = Comp([k]);  
     fork(orb1)('orb1')(cubeP)(addP(orb1.ar[0]))(() => 
@@ -2364,9 +2375,11 @@ orb1 = Comp([k]);
             fork(orb1)('orb3')(x=>x-3)(x=>x**(1/3))(x=>x+1)(cubeP)(() =>
                 fork(orb1)('orb4')(orbit_1)(iD(8)(orb2.ar.pop()))
                 (powP(1/2)(2))(orb2.run)(() => 
-                    orb5.run(orbit_2)(hold(7))(() => 
-                        orb6.run(orb2.ar.slice(-3,-2)[0])(iD(4)(orb2.ar.slice(-2,-1)[0]))
-                        (iD(1)(orb2.ar.slice(-1)[0]))(powP(1/2)(1))(addP(1))(powP(4)(1))
+                    orb5.run(orbit_2)(hold(11))(() => 
+                        orb6.run(orb2.ar.slice(-3,-2)[0])
+                        (iD(4)(orb2.ar.slice(-2,-1)[0]))
+                        (iD(1)(orb2.ar.slice(-1)[0]))(powP(1/2)(1))
+                        (addP(1))(powP(4)(1))
                     )
                 )
             )
@@ -2387,6 +2400,8 @@ orb1 = Comp([k]);
                 }),
                 h('br'),
                 h('br'),
+                h('br'),
+                h('br'),
 
 h('div', 'orb1.ar is [' + orb1.ar.join(', ') + ']' ), 
 h('div', 'orb2.ar is [' + orb2.ar.join(', ') + ']' ), 
@@ -2397,6 +2412,20 @@ h('br'),
 h('div', 'orb5.ar is [' + orb5.ar.join(', ') + ']' ), 
 h('br'),                                      
 h('div', 'orb6.ar is [' + orb6.ar.join(', ') + ']' ), 
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
 h('br'),                                      
 h('br'),                                      
 h('br'),                                      
@@ -2428,6 +2457,15 @@ h('div', 'orb5.ar is [' + orb5.ar.join(', ') + ']' ),
 h('br'),                                      
 h('div', 'orb6.ar is [' + orb6.ar.join(', ') + ']' ), 
 
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
 h('br'),                                      
 h('br'),                                      
 h('br'),                                      
