@@ -1815,7 +1815,7 @@ foo(9);
   var eightAction$ = dem8$.map(e => {
       console.log('In dem8');
       if (e.keyCode === 13) {  
-          runT(toInt(e.target.value));
+          runT(toFloat(e.target.value));
           // e.target.value = null;
       }
   });
@@ -2163,15 +2163,30 @@ h('h', ' Comp() does everything mentioned in the previous paragraph and more. Ev
   
                           
 h('pre', `
-
-var a = Compose([3,27]);  
-var b = Compose(a.ar.slice());  // b forks off of a and starts an independent computation.
-
-var array_b = b.run(fork(b))(x=>x+3)(x=>x*x)('stop');  
-var array_a = a.run(fork(a))(x=>x-13)(x=>x*3)('stop');
-
-console.log('array_a is', array_a); // [3, 27, 14, 42] 
-console.log('array_b is', array_b); // [3, 27, 30, 900] ` ),
+function Comp ( AR = [] )  {
+  var ar , x, ob, f_ , p ;
+  if (Array.isArray(AR)) ar = AR.slice()
+  else ar = AR;
+  if (ar.length) {x = ar[ar.length-1]}; 
+    return  ob = {ar: ar, run: function run (x) {
+    if (x instanceof Promise) x.then(y => 
+      {if (y != undefined && y && y.toString() != "NaN" != NaN && y.name !== "f_" ) {
+        ar.push(y);
+        diffRender()
+    }})
+    else if (x != undefined && x.toString() != "NaN" && x.name !== "f_" ) {
+        ar.push(x);
+        diffRender()
+    };
+    return function f_ (func) {
+        if (func === 'stop') return ar;
+        else if (typeof func !== "function") p = func;
+        else if (x instanceof Promise) p = x.then(v => func(v));
+        else p = func(x);
+        return run(p);
+    };
+    }}
+} ` ), 
                           
 h('p', ' When a function is provided to ob.run, its return value is pushed into ob.ar. Pending promises resolve inside of ob.ar and the resolution values become available as possible arguments for subsequent functions. ' ),    
 
@@ -2227,13 +2242,14 @@ var it6_b = y => {
   mMZ41.bnd(y => workerM.postMessage([primeState, y]));
 }
 
-it7_b = () => mMZ53.bnd(string => { callOrder2 = callOrder2 > 24 ? 1 : callOrder2 + 1; if (callOrder2 === 1) start78 = Date.now();
-  m43_.push(callOrder2 + "  ");
-  m43_.push(string)
-  m43_.push(h('br'));
-  if (callOrder2 === 25) m43_.push(
-    'Elapsed time: ' + (Date.now() - start78) + " ms"
-  );
+it7_b = () => mMZ53.bnd(string => { 
+    callOrder2 = callOrder2 > 24 ? 1 : callOrder2 + 1; 
+    if (callOrder2 === 1) start78 = Date.now();
+    m43_.push(callOrder2 + "  ");
+    m43_.push(string)
+    m43_.push(h('br'));
+    if (callOrder2 === 25) m43_.push(
+        'Elapsed time: ' + (Date.now() - start78) + " ms");
 });  ` ),
 h('br'),
 h('br'),
@@ -2244,10 +2260,9 @@ h('br'),
 
 
 
-
-  h('span', ' Click below to begin twenty-five runs of: '),
   h('br'),
   h('br'),
+h('p', ' Sometimes, refreshing the browser speeds up this demonstration. Click below to begin fifteen runs of: '),
   h('span', styleFunc(["rgb(7, 247, 247)", "12%", "20px", , , , , ]), 'ob.run(145)(x=>x**3)(it4_c)(it6_c)(it7_c)'),
   h('br'),
   h('br'),
@@ -2263,24 +2278,203 @@ h('br'),
   h('br'),
   h('div.demo_1', {style: {fontSize: "15px"}}, m43_), 
   h('br'),
-  h('div.demo_1', {style: {fontSize: "15px"}}, m44_), 
+ /* h('div.demo_1', {style: {fontSize: "15px"}}, m44_), 
   h('br'),
   h('div.demo_1', {style: {fontSize: "15px"}}, m45_), 
   h('br'),
+*/
 
-  ])
-  ]),
+                            ])
+                            ]),
             
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Compose() Stress Test '  ),   
 
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 2 - Branching Sequence Acrobatics'),
+
+                                              h('div.content2', [
+
+h('div', {style: {display: "flex" }},  [
+  h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+
+h('p', ' For a quick reference while you examine how the code corresponds to the action in the right panel, I\'ll repeat the definition of Comp(). ' ),
+
+h('pre', `    
+function Comp ( AR = [] )  {
+  var ar , x, ob, f_ , p ;
+  if (Array.isArray(AR)) ar = AR.slice()
+  else ar = AR;
+  if (ar.length) {x = ar[ar.length-1]}; 
+    return  ob = {ar: ar, run: function run (x) {
+        if (x instanceof Promise) x.then(y => 
+          {if (y != undefined && y && 
+          y.toString() != "NaN" && y.name !== "f_" ) {
+            ar.push(y);
+            diffRender()
+        }})
+        else if (x != undefined && x.toString()
+        != "NaN" && x.name !== "f_" ) {
+            ar.push(x);
+            diffRender()
+        };
+        return function f_ (func) {
+            if (func === 'stop') return ar;
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) 
+                p = x.then(v => func(v));
+            else p = func(x);
+            return run(p);
+        };
+    }}
+} ` ),
+
+h('p', ' Entering a number "n" in one of the boxes on the right causes runT(n) to execute. Here are the definitions of fork(), hold(), and runT(): ' ), 
+
+h('pre', `var fork = ob => string => {
+    window[string] = Comp(ob.ar.slice());
+    return func227 = x => window[string]
+      .run(window[string].ar.pop())(x);
+}
+async function hold (t) {
+  await wait(t*1000)
+}
+
+function runT (k) {
+
+    orb1 = Comp();
+    orb2 = Comp();
+    orb3 = Comp();
+    orb4 = Comp();
+    orb5 = Comp();
+    orb6 = Comp();
+
+
+function orbit_1 () { return \`In abpit eight seconds, orb5 will remove the 
+last element from orb2.ar (\${orb2.ar.slice(-1)[0]}) 
+and replace it with its square root, \${Math.sqrt(orb2.ar.slice(-1)[0])}.\`};
+  
+var orbit_2 = () => \`orb6 will soon start with the last three 
+elements of orb2, then take the square root 
+of the last element, and proceed.\`
+
+orb1 = Comp([k]);  
+    fork(orb1)('orb1')(cubeP)(addP(orb1.ar[0]))(() => 
+        fork(orb1)("orb2")
+        (squareP)(multP(1/(orb2.ar[0] * 100)))(addP(1))(powP(4)(1))(() => 
+            fork(orb1)('orb3')(x=>x-3)(x=>x**(1/3))(x=>x+1)(cubeP)(() =>
+                fork(orb1)('orb4')(orbit_1)(iD(8)(orb2.ar.pop()))
+                (powP(1/2)(2))(orb2.run)(() => 
+                    orb5.run(orbit_2)(hold(7))(() => 
+                        orb6.run(orb2.ar.slice(-3,-2)[0])(iD(4)(orb2.ar.slice(-2,-1)[0]))
+                        (iD(1)(orb2.ar.slice(-1)[0]))(powP(1/2)(1))(addP(1))(powP(4)(1))
+                    )
+                )
+            )
+        )
+    )
+} ` ),
+
+
+                                             ]),
+                                    h('div', {style: {marginRight: "2%", width: "45%" }},   [
+
+                h('input#dem8', {
+                  style: {
+                    height: "15px",
+                    color: "blue",
+                    fontSize: "18px"
+                  }
+                }),
+                h('br'),
+                h('br'),
+
+h('div', 'orb1.ar is [' + orb1.ar.join(', ') + ']' ), 
+h('div', 'orb2.ar is [' + orb2.ar.join(', ') + ']' ), 
+h('div', 'orb3.ar is [' + orb3.ar.join(', ') + ']' ), 
+h('br'),
+h('div', 'orb4.ar is [' + orb4.ar.join(', ') + ']' ), 
+h('br'),
+h('div', 'orb5.ar is [' + orb5.ar.join(', ') + ']' ), 
+h('br'),                                      
+h('div', 'orb6.ar is [' + orb6.ar.join(', ') + ']' ), 
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+
+
+
+
+                h('input#dem8', {
+                  style: {
+                    height: "15px",
+                    color: "blue",
+                    fontSize: "18px"
+                  }
+                }),
+                h('br'),
+                h('br'),
+
+h('div', 'orb1.ar is [' + orb1.ar.join(', ') + ']' ), 
+h('div', 'orb2.ar is [' + orb2.ar.join(', ') + ']' ), 
+h('div', 'orb3.ar is [' + orb3.ar.join(', ') + ']' ), 
+h('br'),
+h('div', 'orb4.ar is [' + orb4.ar.join(', ') + ']' ), 
+h('br'),
+h('div', 'orb5.ar is [' + orb5.ar.join(', ') + ']' ), 
+h('br'),                                      
+h('div', 'orb6.ar is [' + orb6.ar.join(', ') + ']' ), 
+
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+
+
+
+                h('input#dem8', {
+                  style: {
+                    height: "15px",
+                    color: "blue",
+                    fontSize: "18px"
+                  }
+                }),
+                h('br'),
+                h('br'),
+
+h('div', 'orb1.ar is [' + orb1.ar.join(', ') + ']' ), 
+h('div', 'orb2.ar is [' + orb2.ar.join(', ') + ']' ), 
+h('div', 'orb3.ar is [' + orb3.ar.join(', ') + ']' ), 
+h('br'),
+h('div', 'orb4.ar is [' + orb4.ar.join(', ') + ']' ), 
+h('br'),
+h('div', 'orb5.ar is [' + orb5.ar.join(', ') + ']' ), 
+h('br'),                                      
+h('div', 'orb6.ar is [' + orb6.ar.join(', ') + ']' ), 
+
+
+
+
+
+
+                                    ])
+                                    ])
+                                    ]),
+
+
+
+
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 3 - Compose() Stress Test '  ),   
 
 
                                                              h('div', {style: {display: "flex" }},  [
                                                              h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-
-
 
 h('br'),
 h('p', ' To see the demonstration, Click "GO" or enter a number and then re-enter it several times. idP() and squareP() are the identity and square functions delayed in ES6 Promises. ' ),
@@ -2344,10 +2538,11 @@ h('p', ' The variables prefixed by "_C" are permanent fixtures of the virtual DO
                 h('br')
         
                                            ])
-
+                                           ]),
                                            ]),
 
-                                              ]),
+
+
                               h('div.content', [
 
             h('h1', {style: {color: "#ccffbb" }}, 'Programming For the Web ' ),
@@ -2360,7 +2555,7 @@ h('p', ' There are those who use only designated "good parts" of JavaScript. Som
 
 h('span.tao', ' Suppose you want to run the ' ),
 h('a', { props: { href: "https://en.wikipedia.org/wiki/Quadratic_formula", target: "_blank" }}, 'quadratic formula'),
-h('p', ' on asynchronously received numbers. A function like obQ.push() (below), where quadMaker("a", "b") (below) does the calculation each time obQ.f() receives three numbers, accomplish this succinctly and transparently. Does it matter that obQ.f() does not return the same value each time it is called on the same argument? I don\'t think so, but those who think JavaScript can be improved by forcing it to adhere to the functional paradign might feel compelled to contrive a pure-function workaround. ' ),
+h('span', ' on asynchronously received numbers. A function like obQ.push() (below), where quadMaker("a", "b") (below) does the calculation each time obQ.f() receives three numbers, accomplish this succinctly and transparently. Does it matter that obQ.f() does not return the same value each time it is called on the same argument? I don\'t think so, but those who think JavaScript can be improved by forcing it to adhere to the functional paradign might feel compelled to contrive a pure-function workaround. ' ),
 h('br'),
 h('p', ' quadMaker() returns functions whose results become attributes of the object "_oB_", which is a permanent fixture in several places in the virtual DOM. The results returned by quadMaker() are the real solutions, if any exist, to equations of the form A*x*x + B*x + C = 0, where users provide the coefficients "A", "B", and "C" and the formula finds whatever real values of x satisfy the equation.' ),                    
 
@@ -2636,6 +2831,7 @@ h('pre', `    function runFoo (n) {
 
                                            ]),
                                            h('div',  [ 
+h('br'),
 
 h('div', 'Enter a number "n" below to see the result of "runFoo" executing on nine numbers' ),
   h('br'),
@@ -2654,66 +2850,6 @@ h('div', `${foocow_7.join(", ")}`)
                                                              ])
                                                              ])
                                                              ]), 
-
-
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 8 - Branching Sequences'),
-
-                                              h('div.content2', [
-
-h('div', {style: {display: "flex" }},  [
-  h('div', {style: {marginRight: "2%", width: "50%" }},   [
-/*
-h('p', ' Let ob = Compose() and let f1, f2, ... fn be JavaScript values. These f\'s will usually be functions, but they can be anything, including undefined. The statement ob.run(v)(f1)(f2) ... (fn)(\'stop\') produces an array of the f\'s return values, or the resolution values of returned promises. ' ),
-h('p', ' ob can resume pocessing values in two ways. It can continue to lengthen ob.ar by calling "resume(ob)(g1)(g2)... for values (usually functions) g1, g2, etc. Alternatively, ob can remain unchanged while launching one or more independent branchs with statements like "ob_2 = branch(ob); ob_2.run(g1)(g2)...".' ),
-
-
-h('p', ' When someone enters a number n in the box on the right, "runCompTest(n)" executes. Here\'s the definition: ' ),
-h('pre', `
-
-
-}  ` ),
-h('p', 'The following code is situated in the virtual DOM. ' ), 
-h('pre', `h('div', A1.join(', ') ),
-h('div', A2.join(', ') ),
-h('div', A3.join(', ') ),
-h('div', A4.join(', ') ),
-h('div', A5.join(', ') ),
-h('div', A6.join(', ') ), ` ),
-
-
-h('h1', 'COW DEMONSTRATION' )
-
-                    */
-                                             ]),
-                                    h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-                h('input#dem8', {
-                  style: {
-                    height: "15px",
-                    color: "blue",
-                    fontSize: "18px"
-                  }
-                }),
-                h('br'),
-                h('br'),
-
-h('div', 'orb1.ar is [' + orb1.ar.join(', ') + ']' ), 
-h('div', 'orb2.ar is [' + orb2.ar.join(', ') + ']' ), 
-h('div', 'orb3.ar is [' + orb3.ar.join(', ') + ']' ), 
-h('br'),
-h('div', 'orb4.ar is [' + orb4.ar.join(', ') + ']' ), 
-h('br'),
-h('div', 'orb5.ar is [' + orb5.ar.join(', ') + ']' ), 
-h('br'),                                      
-h('div', 'orb6.ar is [' + orb6.ar.join(', ') + ']' ), 
-
-
-
-                                    ])
-                                    ])
-                                    ]),
-
-
 
   h('div', styleFunc(["#361B01", , , , "90%", "center"]), '**************************************************************************************************************'),
 
@@ -2995,7 +3131,7 @@ h('a', {
               h('span', 'Please enter an integer here: '),
               h('input#testW'),
               h('p', ' cube() is defined in the Monad section (above). If you click "mMZ1.release(1)" several times, the code (above) will run several times, each time with v === 1. The result, mMt3.x, is shown below the button. mMZ1.p (bnd()\'s argument) remains constant while mMZ1.release(1) is repeatedly called, incrementing the number being cubed each time. '),
-              h('p', ' Here is another example. It demonstrates lambda expressions passing values to a remote location for use in a computation. If you enter three numbers consecutively below, call them a, b, and c, then the quadratic equation will be used to find solutions for a*x**2 + b*x + c = 0. The a, b, and c you select might not have a solution. If a and b are positive numbers, you are likely to see solutions if c is a negative number. For example, 12, 12, and -24 yields the solutions 1 and -2. '),
+              h('p', ' Here is another example. It demonstrates lambda expressions passing values to a remote location for use in a computation. If you enter three numbers consecutively below, call them a, b, and c, then the quadratic formula will be used to find solutions for a*x**2 + b*x + c = 0. The a, b, and c you select might not have a solution. If a and b are positive numbers, you are likely to see solutions if c is a negative number. For example, 12, 12, and -24 yields the solutions 1 and -2. '),
               h('p#quad4.red2', mMquad4.x),
               h('p#quad5.red2', mMquad5.x),
               h('p#quad6.red2', mMquad6.x),

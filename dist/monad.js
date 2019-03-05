@@ -4017,28 +4017,34 @@ function Comp ( AR = [] )  {
   else ar = AR;
   if (ar.length) {x = ar[ar.length-1]}; 
     return  ob = {ar: ar, run: function run (x) {
-    if (x instanceof Promise) x.then(y => 
-      {if (y != undefined && y && y.toString() != "NaN" != NaN && y.name !== "f_" ) {
-        ar.push(y);
-        diffRender()
-    }})
-    else if (x != undefined && x.toString() != "NaN" && x.name !== "f_" ) {
-        ar.push(x);
-        diffRender()
-    };
-    return function f_ (func) {
-        if (func === 'stop') return ar;
-        else if (typeof func !== "function") p = func;
-        else if (x instanceof Promise) p = x.then(v => func(v));
-        else p = func(x);
-        return run(p);
-    };
+        if (x instanceof Promise) x.then(y => 
+          {if (y != undefined && y && 
+          y.toString() != "NaN" && y.name !== "f_" ) {
+            ar.push(y);
+            diffRender()
+        }})
+        else if (x != undefined && x.toString()
+        != "NaN" && x.name !== "f_" ) {
+            ar.push(x);
+            diffRender()
+        };
+        return function f_ (func) {
+            if (func === 'stop') return ar;
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) 
+                p = x.then(v => func(v));
+            else p = func(x);
+            return run(p);
+        };
     }}
 }  
 
 var fork = ob => string => {
     window[string] = Comp(ob.ar.slice());
     return func227 = x => window[string].run(window[string].ar.pop())(x);
+}
+async function hold (t) {
+  await wait(t*1000)
 }
 
 function runT (k) {
@@ -4050,11 +4056,13 @@ function runT (k) {
     orb5 = Comp();
     orb6 = Comp();
 
-function orbit_1 () { return `In five seconds, orb5 will call orb2.ar.pop(), taking ${orb2.ar.slice(-1)[0]} off of arb2 and then replacing it with the square root of the expropriated element, ${Math.sqrt(orb2.ar.slice(-1)[0])}.`};
+function orbit_1 () { return `In abpit eight seconds, orb5 will remove the 
+last element from orb2.ar (${orb2.ar.slice(-1)[0]}) 
+and replace it with its square root, ${Math.sqrt(orb2.ar.slice(-1)[0])}.`};
          
-var orbit_2 = () => 'orb6 is about to start with the last three elements of orb2, take the square root of the last element, and proceed with more transformations'
-
-
+var orbit_2 = () => `orb6 will soon start with the last three 
+elements of orb2, then take the square root 
+of the last element, and proceed.r`
 
 orb1 = Comp([k]);  
     fork(orb1)('orb1')(cubeP)(addP(orb1.ar[0]))(() => 
@@ -4063,9 +4071,9 @@ orb1 = Comp([k]);
             fork(orb1)('orb3')(x=>x-3)(x=>x**(1/3))(x=>x+1)(cubeP)(() =>
                 fork(orb1)('orb4')(orbit_1)(iD(8)(orb2.ar.pop()))
                 (powP(1/2)(2))(orb2.run)(() => 
-                    orb5.run(orbit_2)(() =>
-    orb6.run(iD(8)(orb2.ar.slice(-3,-2)[0]))(iD(1)(orb2.ar.slice(-2,-1)[0]))
-    (iD(1)(orb2.ar.slice(-1)[0]))(powP(1/2)(1))(addP(1))(powP(4)(1))
+                    orb5.run(orbit_2)(hold(7))(() => 
+                        orb6.run(orb2.ar.slice(-3,-2)[0])(iD(4)(orb2.ar.slice(-2,-1)[0]))
+                        (iD(1)(orb2.ar.slice(-1)[0]))(powP(1/2)(1))(addP(1))(powP(4)(1))
                     )
                 )
             )
@@ -4084,5 +4092,29 @@ var ab8 = abc.map(a => fu(a))
 
 console.log('ab7',ab7);
 console.log('ab8',ab8);
+
+
+// ->   ************************************************ transduce tduce
+var arf =  [x=>x*10,  x=>x*x, x=>x+x];
+var arn = [1,2,3,4,5,6,7]
+
+var ff1 = ar => ar.reduceRight((a,b) => b(a))
+var ark = ar => x => ar.concat(x);
+
+var tduce = ar1 => ar2  => ar2.map(v => (ff1)(ark(ar1)(v)))
+console.log(tduce(arf)(arn))
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
