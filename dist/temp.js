@@ -1,3 +1,0 @@
-var qfB = mBnd(true);    
-
-

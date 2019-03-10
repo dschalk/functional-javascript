@@ -1,6 +1,13 @@
 var webpack = require('webpack');
 var path = require('path');
 var htmlWebpackPlugin = require( "html-webpack-plugin" );
+console.log("******************************************************");
+console.log("******************************************************");
+console.log("******************************************************");
+console.log('__dirname',  __dirname);
+console.log("******************************************************");
+console.log("******************************************************");
+console.log("******************************************************");
 
 module.exports = {
   context: __dirname + "/",

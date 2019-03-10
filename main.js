@@ -2049,17 +2049,17 @@ foo(9);
           } else diffRend = 0;
         });
 
-
-      var diffRendChange$ = sources.DOM
-        .select('input#change').events('onChange')
-        .map(e => {
-          console.log('diffRend changed <C><C>< Change ><C><C> --> --> e is', e);
-        })
-
       var diffRendClick$ = sources.DOM
         .select('input#change').events('click')
         .map(e => {
           console.log('diffRend changed <C><C>< Click Click Click ><C><C> --> --> e is', e);
+        })
+
+
+      var diffRendChange$ = sources.DOM
+        .select('input#chang').events('onChange')
+        .map(e => {
+          console.log('__cow__ changed <C><C>< Change ><C><C> --> --> e.target.value is', e.target.value);
         })
 
       var res8$ = result_8$.map(() => {
@@ -2162,29 +2162,31 @@ h('p', ' Suppose you want to chain computations involving functions, primitive v
 h('h', ' Comp() does everything mentioned in the previous paragraph and more. Every series of computations remains as an entity that can resume activity under its original name, or as one or more independent branches that leave the original computation unchanged. ' ), 
   
                           
-h('pre', `
-function Comp ( AR = [] )  {
+h('pre', `function Comp ( AR = [] )  {
   var ar , x, ob, f_ , p ;
   if (Array.isArray(AR)) ar = AR.slice()
   else ar = AR;
   if (ar.length) {x = ar[ar.length-1]}; 
     return  ob = {ar: ar, run: function run (x) {
-    if (x instanceof Promise) x.then(y => 
-      {if (y != undefined && y && y.toString() != "NaN" != NaN && y.name !== "f_" ) {
-        ar.push(y);
-        diffRender()
-    }})
-    else if (x != undefined && x.toString() != "NaN" && x.name !== "f_" ) {
-        ar.push(x);
-        diffRender()
-    };
-    return function f_ (func) {
-        if (func === 'stop') return ar;
-        else if (typeof func !== "function") p = func;
-        else if (x instanceof Promise) p = x.then(v => func(v));
-        else p = func(x);
-        return run(p);
-    };
+        if (x instanceof Promise) x.then(y => 
+          {if (y != undefined && y !== false && 
+          y.toString() != "NaN" && y.name !== "f_" ) {
+            ar.push(y);
+            diffRender()
+        }})
+        else if (x != undefined && x !== false && 
+        x.toString() != "NaN" && x.name !== "f_" ) {
+            ar.push(x);
+            diffRender()
+        };
+        return function f_ (func) {
+            if (func === 'stop') return ar;
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) 
+                p = x.then(v => func(v));
+            else p = func(x);
+            return run(p);
+        };
     }}
 } ` ), 
                           
@@ -2297,47 +2299,21 @@ h('div', {style: {display: "flex" }},  [
   h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
 
-h('p', ' For a quick reference while you examine how the code corresponds to the action in the right panel, I\'ll repeat the definition of Comp(). ' ),
-
-h('pre', `function Comp ( AR = [] )  {
-  var ar , x, ob, f_ , p ;
-  if (Array.isArray(AR)) ar = AR.slice()
-  else ar = AR;
-  if (ar.length) {x = ar[ar.length-1]}; 
-    return  ob = {ar: ar, run: function run (x) {
-        if (x instanceof Promise) x.then(y => 
-          {if (y != undefined && y !== false && 
-          y.toString() != "NaN" && y.name !== "f_" ) {
-            ar.push(y);
-            diffRender()
-        }})
-        else if (x != undefined && x !== false && x.toString()
-        != "NaN" && x.name !== "f_" ) {
-            ar.push(x);
-            diffRender()
-        };
-        return function f_ (func) {
-            if (func === 'stop') return ar;
-            else if (typeof func !== "function") p = func;
-            else if (x instanceof Promise) 
-                p = x.then(v => func(v));
-            else p = func(x);
-            return run(p);
-        };
-    }}
-}  ` ),
+h('p', '  ' ),
 
 h('p', ' Entering a number "n" in one of the boxes on the right causes runT(n) to execute. Here are the definitions of fork(), hold(), and runT(): ' ), 
 
 h('pre', `var fork = ob => string => {
     window[string] = Comp(ob.ar.slice());
-    return func227 = x => window[string]
-      .run(window[string].ar.pop())(x);
+    return window[string]
+      .run(window[string].ar.pop());
+      // This removes a value v = 
+      // ob.ar[ob.ar.length - 1] from
+      // ob.ar. ob.run(v)(f1)(f2) ... 
+      // (fN) executes, replacing v and
+      // adding new values to ob.ar.
 }
 h('br'),
-async function hold (t) {
-  await wait(t*1000)
-}
 
 var iD = t => async b => {
   await wait(t*1000)
@@ -2349,7 +2325,7 @@ var powP = a => b => async c => {
   return c**a;
 }
 
-function runT (k) {
+function runT (k) { // The user provides "k".
 
     orb1 = Comp();
     orb2 = Comp();
@@ -2375,21 +2351,58 @@ orb1 = Comp([k]);
             fork(orb1)('orb3')(x=>x-3)(x=>x**(1/3))(x=>x+1)(cubeP)(() =>
                 fork(orb1)('orb4')(orbit_1)(iD(8)(orb2.ar.pop()))
                 (powP(1/2)(2))(orb2.run)(() => 
-                    orb5.run(orbit_2)(hold(11))(() => 
+                    orb5.run(orbit_2)(iD(7))(() => 
                         orb6.run(orb2.ar.slice(-3,-2)[0])
                         (iD(4)(orb2.ar.slice(-2,-1)[0]))
                         (iD(1)(orb2.ar.slice(-1)[0]))(powP(1/2)(1))
-                        (addP(1))(powP(4)(1))
+                        (addP(1))(powP(4)(1))(() => "THE END")
                     )
                 )
             )
         )
     )
 } ` ),
+h('p', ' Here again is a Comp() with "diffRender" inserted to force DOM updates whenever ob.run() is called. : ' ),
+
+h('pre', `function Comp ( AR = [] )  {
+  var ar , x, ob, f_ , p ;
+  if (Array.isArray(AR)) ar = AR.slice()
+  else ar = AR;
+  if (ar.length) {x = ar[ar.length-1]}; 
+    return  ob = {ar: ar, run: function run (x) {
+        if (x instanceof Promise) x.then(y => 
+          {if (y != undefined && y !== false && 
+          y.toString() != "NaN" && y.name !== "f_" ) {
+            ar.push(y);
+            diffRender()
+        }})
+        else if (x != undefined && x !== false && 
+        x.toString() != "NaN" && x.name !== "f_" ) {
+            ar.push(x);
+            diffRender()
+        };
+        return function f_ (func) {
+            if (func === 'stop') return ar;
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise) 
+                p = x.then(v => func(v));
+            else p = func(x);
+            return run(p);
+        };
+    }}
+}  ` ),
 
 
                                              ]),
                                     h('div', {style: {marginRight: "2%", width: "45%" }},   [
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
+h('br'),                                      
 
                 h('input#dem8', {
                   style: {
@@ -2424,88 +2437,11 @@ h('br'),
 h('br'),                                      
 h('br'),                                      
 h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-
-
-
-
-                h('input#dem8', {
-                  style: {
-                    height: "15px",
-                    color: "blue",
-                    fontSize: "18px"
-                  }
-                }),
-                h('br'),
-                h('br'),
-
-h('div', 'orb1.ar is [' + orb1.ar.join(', ') + ']' ), 
-h('div', 'orb2.ar is [' + orb2.ar.join(', ') + ']' ), 
-h('div', 'orb3.ar is [' + orb3.ar.join(', ') + ']' ), 
-h('br'),
-h('div', 'orb4.ar is [' + orb4.ar.join(', ') + ']' ), 
-h('br'),
-h('div', 'orb5.ar is [' + orb5.ar.join(', ') + ']' ), 
-h('br'),                                      
-h('div', 'orb6.ar is [' + orb6.ar.join(', ') + ']' ), 
-
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-h('br'),                                      
-
-
-
-                h('input#dem8', {
-                  style: {
-                    height: "15px",
-                    color: "blue",
-                    fontSize: "18px"
-                  }
-                }),
-                h('br'),
-                h('br'),
-
-h('div', 'orb1.ar is [' + orb1.ar.join(', ') + ']' ), 
-h('div', 'orb2.ar is [' + orb2.ar.join(', ') + ']' ), 
-h('div', 'orb3.ar is [' + orb3.ar.join(', ') + ']' ), 
-h('br'),
-h('div', 'orb4.ar is [' + orb4.ar.join(', ') + ']' ), 
-h('br'),
-h('div', 'orb5.ar is [' + orb5.ar.join(', ') + ']' ), 
-h('br'),                                      
-h('div', 'orb6.ar is [' + orb6.ar.join(', ') + ']' ), 
-
-
-
-
-
+h('br')                                      
 
                                     ])
                                     ])
                                     ]),
-
-
 
 
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 3 - Compose() Stress Test '  ),   
@@ -2613,7 +2549,7 @@ h('pre', `function quadMaker (x,y) {
 } ` ),
                               
                               ]),
-                  h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 3 '  ),   
+                  h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 4 '  ),   
 
                               h('div', {style: {display: "flex" }},  [
                               h('div', {style: {marginRight: "2%", width: "50%" }},   [
@@ -2673,7 +2609,7 @@ h('br'),
 
 
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 4 '),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 5 '),
 
 
 h('div', {style: {display: "flex" }},  [
@@ -2719,7 +2655,7 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
 
 
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 5 '),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 6 '),
 
                                               h('div.content2', [
 
@@ -2777,7 +2713,7 @@ h('div#proxy2', ' ' ),
 
 
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 6 '),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 7 '),
 
                                               h('div.content2', [
 
@@ -2837,7 +2773,7 @@ h('span', '. ' )
                                        ]),
 
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 7 '),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 8'),
 
                                               h('div.content2', [
 
@@ -3603,7 +3539,7 @@ val => { console.log(3, val); return val*=2; }); `),
 
 
             h('br'),
-            h('input#change', ),
+            h('input#chang', __cow__ ),
             h('br'),
            // h('input#textbox', `${pigText}`),
             h('div#changeDisplay', [diffRend]),

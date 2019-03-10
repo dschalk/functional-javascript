@@ -31,3 +31,14 @@ Serving directory /home/o/TEST/fj/dist on port 3000 with ["index.html","index.ht
 warp: Network.Socket.bind: resource busy (Address already in use)
 "In main"
 Main.hs: Network.Socket.bind: resource busy (Address already in use)
+"In main"
+Main.hs: Main.hs: signal: 1
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+[26219:26238:0309/145047.240028:ERROR:browser_process_sub_thread.cc(209)] Waited 3 ms for network service
+Opening in existing browser session.
+[29308:29308:0309/160258.940222:ERROR:sandbox_linux.cc(364)] InitializeSandbox() called with multiple threads in process gpu-process.
+[29862:29881:0309/160742.965201:ERROR:browser_process_sub_thread.cc(209)] Waited 3 ms for network service
+Opening in existing browser session.
+[29268:29268:0309/175519.854303:ERROR:CONSOLE(4597)] "Connection is closed, can't dispatch pending call", source: chrome-devtools://devtools/bundled/shell.js (4597)

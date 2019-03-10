@@ -1,5 +1,7 @@
 
-var EventEmitter;
+var EventEmitter, pipeline, hold;
+
+var __cow__ = 0;  
 
 var slice = function slice (ar) {
     return (a,b) => ar.slice(a,b)
@@ -3979,11 +3981,6 @@ var sqA = x => x*x;
 var cuA = x => x**3;
 var adA = x => y => x + y;
 
-var _delay = t => async a => {
-    await wait(t*1000)
-    return a;
-};
-
 var  popP = t => async ar => {
     await wait (t * 1000)
     return ar.slice().pop();
@@ -4023,8 +4020,8 @@ function Comp ( AR = [] )  {
             ar.push(y);
             diffRender()
         }})
-        else if (x != undefined && x !== false && x.toString()
-        != "NaN" && x.name !== "f_" ) {
+        else if (x != undefined && x !== false && 
+        x.toString() != "NaN" && x.name !== "f_" ) {
             ar.push(x);
             diffRender()
         };
@@ -4041,11 +4038,7 @@ function Comp ( AR = [] )  {
 
 var fork = ob => string => {
     window[string] = Comp(ob.ar.slice());
-    return func227 = x => window[string]
-    .run(window[string].ar.pop())(x);
-}
-async function hold (t) {
-  await wait(t*1000)
+    return window[string].run(window[string].ar.pop());
 }
 
 function runT (k) {
@@ -4074,11 +4067,11 @@ orb1 = Comp([k]);
             fork(orb1)('orb3')(x=>x-3)(x=>x**(1/3))(x=>x+1)(cubeP)(() =>
                 fork(orb1)('orb4')(orbit_1)(iD(8)(orb2.ar.pop()))
                 (powP(1/2)(2))(orb2.run)(() => 
-                    orb5.run(orbit_2)(hold(11))(() => 
+                    orb5.run(orbit_2)(iD(7)(false))(() => 
                         orb6.run(orb2.ar.slice(-3,-2)[0])
-                        (iD(4)(orb2.ar.slice(-2,-1)[0]))
+                        (iD(1)(orb2.ar.slice(-2,-1)[0]))
                         (iD(1)(orb2.ar.slice(-1)[0]))(powP(1/2)(1))
-                        (addP(1))(powP(4)(1))
+                        (addP(1))(powP(3)(1))(iD(4)("THE END"))
                     )
                 )
             )
