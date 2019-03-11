@@ -1,5 +1,6 @@
-src/node_modules
-src/bower_components
+node_modules
+bower_components
 .stack-work
 .git
-bundle.nomin.js
+.vim
+dist/bundle.nomin.js

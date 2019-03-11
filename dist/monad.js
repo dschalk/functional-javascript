@@ -1,7 +1,7 @@
 
 var EventEmitter, pipeline, hold;
 
-var __cow__ = 0;  
+var __cow__ = 0;
 
 var slice = function slice (ar) {
     return (a,b) => ar.slice(a,b)
@@ -11,18 +11,18 @@ var ar = [1,2,3,4,5,6,7,8,9];
 console.log('slice(ar)(3,7)', slice(ar)(3,7));
 
 var f_86 = v => t => {
-    var ar97 = [v]; 
-    t.map(g => ar97.push(v=g(v))); 
+    var ar97 = [v];
+    t.map(g => ar97.push(v=g(v)));
     return ar97
 };
 
 var foo = x => f_86(x)([v=>v**3, v=>v+x, v=>v**2,v=>ar[3](v),
-  v=>v**(1/4),v=>v-x,v=>Math.round(v**(1/3))]);    
+  v=>v**(1/4),v=>v-x,v=>Math.round(v**(1/3))]);
 
-var branch  = function branch (o) { 
-    var z = Compose(o.ar);  
-    var e = z.ar.pop(); 
-    return {ar: z.ar, run: z.run(e)}; 
+var branch  = function branch (o) {
+    var z = Compose(o.ar);
+    var e = z.ar.pop();
+    return {ar: z.ar, run: z.run(e)};
 };
 
 var obbb0 = Compose([7, 11]);
@@ -107,7 +107,7 @@ var Monad = function Monad (z = 42, g = 'generic') {
         var m;
         if (typeof func === "function") {
             m = func(this.x, ...args)
-            if (m instanceof Monad) m = m.x; 
+            if (m instanceof Monad) m = m.x;
         }
         else m = func;
         this.x = m;
@@ -129,7 +129,7 @@ var Monad = function Monad(z = 42, g = 'ID') {
         var res;
         if (typeof func === "function") {
             m = func(this.x, ...args)
-            if (m instanceof Monad) res = m.x 
+            if (m instanceof Monad) res = m.x
             else res = m;
             console.log("1**************************** res: \n ", res);
         }
@@ -154,7 +154,7 @@ var Monad = function Monad(z = 42, g = 'ID') {
       })
     }
     return t;
-  }  
+  }
 
 
 var h = console.log;
@@ -168,7 +168,7 @@ var window = {};
 function autoRefresh(obj) {
     const handler = {
         set (obj, prop, value) {
-            diffRender();  // Forces DOM update 
+            diffRender();  // Forces DOM update
             return Reflect.set(obj, prop, value);
         },
     };
@@ -238,12 +238,12 @@ function Bind3() {
  Bind3()(idP(7))(cubeP)(x=>idP(1*x+arB[0]))(squareP)(() => idP(arB[2]**3))(x=>idP(x/arB[3]))(x=>idP(x-arB[1]))('stop')
 
 
- 
+
 function Bind(str) {
     arBind[str] = [];
     var p;
     var _bind = function _bind(x) {
-        if (x instanceof Promise) x.then(y => arBind[str].push(y); 
+        if (x instanceof Promise) x.then(y => arBind[str].push(y);
         else arBind[str].push(x);
         return func => {
             if (func == undefined) return arBind[str];
@@ -254,7 +254,7 @@ function Bind(str) {
         };
     };
     return _bind;
-}; 
+};
 */
 
 console.log('Cow1', Cow1);
@@ -263,16 +263,16 @@ console.log('Cow2', Cow2);
 var factorial = function(n) {
     if(n >1)  return n * factorial(n - 1);
 }
- 
+
 function cloneOb (o) {return JSON.parse(JSON.stringify(o))};
 
-var head = function head([ a, ...b ]) { 
+var head = function head([ a, ...b ]) {
   return a;
 }
 
 var diffRender = function () {return 8};   // See document.onload in maim
 
-function change () {return 8};   
+function change () {return 8};
 
 var arBind = [];
 
@@ -284,17 +284,17 @@ function getX () {
     return x;
 }
 
-var makeBind = () => { 
+var makeBind = () => {
     var x = 1;
     while (arBind[x] != undefined) {x+=1};
-    return {a:x, b:Bind(x)}; 
-}  
+    return {a:x, b:Bind(x)};
+}
 
 var mkBind = () => {
   var x = 1;
   while (arBind[x] != undefined) {x+=1};
   var f = Bind(x);
-  return {ar:arBind[x], run:f};  
+  return {ar:arBind[x], run:f};
 };
 
 // *****************************************************************
@@ -307,9 +307,9 @@ const _bd = x => {
         else _bd(func(x));
     }
 };
-   
+
 function getAr (o) {return arBind[o.a]};
-   
+
 function mapToInt (ar) {ar.map(e => toInt(e))};
 
 
@@ -358,7 +358,7 @@ var pigText = 888;
 
 
 // ******************************************** Number parsing and list generation START
-var _convert_ = a => b => parseInt(b,a);  
+var _convert_ = a => b => parseInt(b,a);
 var toInt = _convert_ (10);
 var toHex = _convert_ (6);
 
@@ -396,7 +396,7 @@ num9 = 0;
   var roadAr = [];
 
   function intersect (array1, array2)  {
-    var intersection = array1.filter(n => array2.indexOf(n) !== -1) 
+    var intersection = array1.filter(n => array2.indexOf(n) !== -1)
   };
 
 
@@ -408,7 +408,7 @@ num9 = 0;
 
   var primeState = [2];
   var primeState2 = [2];
-  var fibState = [0,1]; 
+  var fibState = [0,1];
   var prFibState = [2];
 
   var wolf = 223;
@@ -420,7 +420,7 @@ num9 = 0;
 
   var S7;
   var store;
-  var cow19 = 0 
+  var cow19 = 0
 
 
   var counter;
@@ -497,8 +497,8 @@ num9 = 0;
   var buttonNode;
   var stat;
   var solo = "solo";
-  var RESULT_BINDA = []; 
-  var RESULT_BIND = []; 
+  var RESULT_BINDA = [];
+  var RESULT_BIND = [];
   var gameData = "nobody 0 | 0 \njudy 0 | 0"
   var O = {ar: []};
 
@@ -589,9 +589,9 @@ num9 = 0;
 
     function runTest(x) {
       a.arfoo = [];
-      var u = demoFunc(x); 
+      var u = demoFunc(x);
       return [u, u === a.arfoo]
-    } 
+    }
 
   function add3 (a,b,c) {return a+b+c};
   function mult2 (a,b) {return a*b};
@@ -628,11 +628,11 @@ num9 = 0;
   function styleFunc ([
     color = '#361B01', // 1
     marginLeft = '0px',
-    fontSize = '15px', 
+    fontSize = '15px',
 
-    fontStyle = 'normal', width = '100%', // 4 
-    textAlign = 'left', 
-    marginRight = '0px', 
+    fontStyle = 'normal', width = '100%', // 4
+    textAlign = 'left',
+    marginRight = '0px',
 
     position = 'relative', //7
     right = '0%'  /* 8  */           ]) {
@@ -667,7 +667,7 @@ num9 = 0;
       var res8_Style = res8_SHOW;
 
   var format = b => {b instanceof Promise ?
-    b.then(c => {console.log(c); return c}) : console.log(b); return b   }; 
+    b.then(c => {console.log(c); return c}) : console.log(b); return b   };
 
   var format2 = b => { var a = new Date(); (b.then) ?
     b.then(c => (new Date() - a) + ': ' + c): (Date() - a) + ": " + b};
@@ -805,7 +805,7 @@ num9 = 0;
   var O_003 = {ar: []};
   var O_004 = {ar: []};
 
-    
+
   /*function bind (x, ar=[]) {
     var ar = ar;
     if (ar.length === 0) ar = [x];
@@ -837,7 +837,7 @@ num9 = 0;
         _bind(p);
      };
 
-    var bnD = Bd(); 
+    var bnD = Bd();
 console.log("bnD is", bnD);
   /*
   function makeBind (x)  {
@@ -848,7 +848,7 @@ console.log("bnD is", bnD);
       }
     window["B"+x] = {a:this.x, b:Bind("B"+x)};
     return window["B"+x];
-  }  
+  }
 
   function makeBind (x)  {
     if (arBind[x] !== undefined) {
@@ -856,13 +856,13 @@ console.log("bnD is", bnD);
       }
     return {a:x, b: Bind(x)};
   }
- 
+
   // var xyz = {a:7, b:function (d) {return d}};
 
   var c = makeBind();
   var h = c.b(4)(x=>x**3)(x=>x+arBind[c.a][0])(cubeP)()
   console.log("h is", h)
- 
+
   var bind$ = n => xs.of(n);
 
   function bindDriver () {
@@ -894,13 +894,13 @@ var bBind = [];
 var cBind = [];
 var dBind = [];
 
-function barfly (x) { 
-  var foo = x; 
-  return function farfly () { 
-    foo+=1; 
-    if (foo < 5) return barfly(foo); else console.log('foo is',foo)  
-  } 
-}      
+function barfly (x) {
+  var foo = x;
+  return function farfly () {
+    foo+=1;
+    if (foo < 5) return barfly(foo); else console.log('foo is',foo)
+  }
+}
 /*
   var makeBind = name => x => {
     var x = x;
@@ -991,19 +991,19 @@ function barfly (x) {
   var it4 = x => {
     if (socket.readyState === 1) socket.send(`BC#$42,${pMgroup.x},${pMname.x},${x}`);
   }
-   
+
   var it4_b = x => {
     if (socket.readyState === 1) socket.send(`BD#$42,${pMgroup.x},${pMname.x},${x}`);
   }
-   
+
   var it4_c = x => {
     if (socket.readyState === 1) socket.send(`BE#$42,${pMgroup.x},${pMname.x},${x}`);
   }
-   
+
   var it4_d = x => {
     if (socket.readyState === 1) socket.send(`BE#$42,${pMgroup.x},${pMname.x},${x}`);
   }
-   
+
   var wH$ = sources.WWH();
   var worker$ = sources.WWH();
 
@@ -1040,7 +1040,7 @@ var f27 = () => {};
 /*
 var it7 = () => mMZ52.bnd(string => {
   callOrder = callOrder > 24 ? 1 : callOrder + 1;
-  if (callOrder === 1) start77 = Date.now(); 
+  if (callOrder === 1) start77 = Date.now();
   m42_.push(callOrder + "  ");
   m42_.push(string)
   m42_.push(h('br'));
@@ -1054,7 +1054,7 @@ var it8 = x => {
 }
 
 //var m42_RESULT3 = [];
-//m42_RESULT3 = m42_RESULT3.concat(h('div', [h('p', orange, RESULT_7.text).concat(h('br'))] 
+//m42_RESULT3 = m42_RESULT3.concat(h('div', [h('p', orange, RESULT_7.text).concat(h('br'))]
 
 var RESULT_6 = ""
 var ar7 = [];
@@ -1215,8 +1215,8 @@ async function rootP (x, t = 600) {
 }
 
 async function cubeFormat (x) {
-  var a; 
-  await cubeP(x).then(v => a = v); 
+  var a;
+  await cubeP(x).then(v => a = v);
   return x + " cubed is " + a;
 };
 
@@ -2012,7 +2012,7 @@ function rang(n, m) {
 
 var ranOdd = n => m => {
   return Array.from(new Array((Math.floor(m/2 + 2)) - n), function (x, i) { return 2*i + n; });
-}   
+}
 
 var rangOdd = ranOdd(1);
 
@@ -2602,8 +2602,8 @@ var fill2Monad = new Monad('blue', 'fill2Monad');
 var stroke3Monad = new Monad('green', 'stroke3Monad');
 var fill3Monad = new Monad('blue', 'fill3Monad');
 
-var gri, grid, grid1, grid2, grid3, grid4; 
-  
+var gri, grid, grid1, grid2, grid3, grid4;
+
 var f0 = "1";
 var f1 = "2";
 var f2 = "3";
@@ -2684,7 +2684,7 @@ function makeRDS (arr) {
   var r = arr.slice();
   return [
     h('button#r0', r[0] ), h('button#r1', r[1] ),
-    h('button#r2', r[2] ), h('button#r3', r[3] ) 
+    h('button#r2', r[2] ), h('button#r3', r[3] )
   ];
 };
 
@@ -2779,11 +2779,11 @@ MonadState.prototype.fetch4 = function () {
 }
 
 MonadState.prototype.fetch5 = function () {
-  return this.s[0][this.s[1]][5] 
+  return this.s[0][this.s[1]][5]
 }
 
 MonadState.prototype.fetch6 = function () {
-  return this.s[0][this.s[1]][6] 
+  return this.s[0][this.s[1]][6]
 }
 
 function send (a,b) {
@@ -3032,7 +3032,7 @@ function pfactors (primes, n) {
 */
 class Addable {
   [Symbol.for('+')] (other) {
-    return // some computation which uses this and other 
+    return // some computation which uses this and other
   }
 }
 /*
@@ -3057,22 +3057,22 @@ var ArrDS = [ [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] ];
 function makeRDS (arr) {
   var r = arr;
   return [
-    h('button#mR0.mR', r[0] ), 
+    h('button#mR0.mR', r[0] ),
     h('button#mR1.mR', r[1] ),
-    h('button#mR2.mR', r[2] ), 
-    h('button#mR3.mR', r[3] ), 
-    h('button#mR4.mR', r[4] ), 
+    h('button#mR2.mR', r[2] ),
+    h('button#mR3.mR', r[3] ),
+    h('button#mR4.mR', r[4] ),
     h('button#mR5.mR', r[5] ),
-    h('button#mR6.mR', r[6] ), 
-    h('button#mR7.mR', r[7] ), 
-    h('button#mR8.mR', r[8] ), 
+    h('button#mR6.mR', r[6] ),
+    h('button#mR7.mR', r[7] ),
+    h('button#mR8.mR', r[8] ),
     h('button#mR9.mR', r[9] ),
-    h('button#mR10.mR', r[10] ), 
-    h('button#mR11.mR', r[11] ), 
-    h('button#mR12.mR', r[12] ), 
+    h('button#mR10.mR', r[10] ),
+    h('button#mR11.mR', r[11] ),
+    h('button#mR12.mR', r[12] ),
     h('button#mR13.mR', r[13] ),
-    h('button#mR14.mR', r[14] ), 
-    h('button#mR15.mR', r[15] ) 
+    h('button#mR14.mR', r[14] ),
+    h('button#mR15.mR', r[15] )
   ];
 };
 
@@ -3105,9 +3105,9 @@ function rExchange (j, k, rN=rNumsDS, AR=ArrDS, rD = rDataDS, i = mMindexDS) {
   var g = r.slice();
   AR.splice(i.x, 0, g);
   console.log(AR)
-  rD = makeRDS(r); 
+  rD = makeRDS(r);
   return rD;
-} 
+}
 
 var horseDS = rDataDS;
 //****************************************************************** END MATRIX
@@ -3124,7 +3124,7 @@ function gridDriver () {
 
 //  Highest possible number: 17.3
 //  rNumsDS: 6, 9, 4, 11, 8, 7, 10, 5, 2, 13, 0, 15, 12, 3, 14, 1
-//    rMatrixF(rNumsDS: 17.3160677686392   
+//    rMatrixF(rNumsDS: 17.3160677686392
 
 function rExDS ([, rN=rNumsDS, AR=ArrDS, rD = rDataDS, i = mMindexDS]) {
   console.log("In rExchange i is", i);
@@ -3138,9 +3138,9 @@ function rExDS ([, rN=rNumsDS, AR=ArrDS, rD = rDataDS, i = mMindexDS]) {
   var g = r.slice();
   AR.splice(i.x, 0, g);
   console.log(AR)
-  rD = makeRDS(r); 
+  rD = makeRDS(r);
   return rD;
-} 
+}
 
 
 function rClick () {document.getElementById('rNums').click()};
@@ -3166,7 +3166,7 @@ console.log(Math.random()*100000000000000000);
 
 // var s = new Set();
 
-   
+
 function pr66 (x,p) {
   var ar = [];
   var primes = p.filter(p => (p < x));
@@ -3175,9 +3175,9 @@ function pr66 (x,p) {
     if ((p + e) == x && p < (x/2 + 1)) {ar.push([p,e])};
       })
   })
-  return ar;  
+  return ar;
 }
- 
+
 console.log(pr66(30,[2,3,5,7,11,13,17,19,23,29]).reverse().join("  "))
 
               var ar = [x=>x, x=>x**3, x=>x+3, x=>x**2, x=>x/300,x=>x*14]
@@ -3233,7 +3233,7 @@ var view = new Proxy({
 });
 
 
-// test6(3); 
+// test6(3);
 // console.log("arBind.a11", arBind.a11, "_______________________-----__--------------------- digit");
 
 // ************* CLOSURE Saves cache of Fibonacci numbers
@@ -3246,11 +3246,11 @@ function fibb () {
 	var b = 1;
 	function f (n) {
   		if (a > n) {
-  		    console.log("a > n"); 
+  		    console.log("a > n");
   		    return fibs.filter(v => v <= n)
-  	 }; 
+  	 };
 		  while (a < n) {
-	       fibs.push(a);		
+	       fibs.push(a);
     	   d = a;
     	   a = b;
         b = d + b;
@@ -3274,7 +3274,7 @@ myIterable[Symbol.iterator] = function* () {
     yield 2;
     yield 3;
 };
-[...myIterable] 
+[...myIterable]
 
 var foocow_0 = [];
 var foocow_1 = [];
@@ -3296,7 +3296,7 @@ function runFoo (n) {
     foocow_6 = foo(n+6);
     foocow_7 = foo(n+7);
     foocow_8 = foo(n+8);
-} 
+}
 
 runFoo(-4)
 
@@ -3333,7 +3333,7 @@ var fibHandler = {
             var prms = primeNums(c[0]);
             var prmFibs = prms.filter(v => arr.includes(v));
             return `The prime Fibonacci numbers up to ${c[0]} are ${prmFibs.join(', ')}`;
-        }    
+        }
     return `The Fibonacci numbers up to ${ax[0]} are ${arr.join(', ')}`
     }
 }
@@ -3411,7 +3411,7 @@ var handlerUpdate = {
         else if (b === "subtract_b") subtract_b.apply(_state)
         else if (b === "resetState") resetState.apply(_state)
         else if (b === "resetState") resetState.apply(_state)
-        sum.apply(_state);  
+        sum.apply(_state);
         prod.apply(_state);
         diffRender();
     }
@@ -3430,7 +3430,7 @@ console.log(_state.sum, _state.prod);
     this.ar = [];
     this.run = x => {
         if (x instanceof Promise) x.then(y => this.ar.push(y))
-        else this.ar.push(x); 
+        else this.ar.push(x);
         return func => {
             var p;
             if (func == 'stop') return this.ar;
@@ -3485,7 +3485,7 @@ Bnd5 = {
      ar: [],
      run: x => {
         if (x instanceof Promise) x.then(y => ar.push(y))
-        else ar.push(x); 
+        else ar.push(x);
         return func => {
             var p;
             if (func == 'stop') return ar;
@@ -3503,7 +3503,7 @@ Bnd5 = {
     this.ar = [];
     this.run = x => {
         if (x instanceof Promise) x.then(y => this.ar.push(y))
-        else this.ar.push(x); 
+        else this.ar.push(x);
         return func => {
             var p;
             if (func == 'stop') return this.ar;
@@ -3522,20 +3522,20 @@ function diffR (obj) {
 
 var mBnd = (bool = false, val = "mBnd") => {
     var x = Symbol(val)      // "val" can be useful in debugging;
-    var ob = {key: x, run: Bind(x)}; 
-    arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key]; 
+    var ob = {key: x, run: Bind(x)};
+    arBind[ob.key] = (bool) ? diffR(arBind[ob.key]) : arBind[ob.key];
     return ob;
-}; 
+};
 
 var _mBx = (bool) => {
     var ob = new Bnd3();
     ob.ar = (bool) ? autoRefresh(ob.ar) : ob.ar;
     return ob;
-}; 
+};
 
 
 
-/*  function test4 (w) {  
+/*  function test4 (w) {
     var f = new Bnd3();  // f.run and f.ar are in local scope
     return f.run(w)(cubeP)
       (x=>idP(x+f.ar[0]))(squareP)(() => idP(f.ar[2]**3))
@@ -3543,7 +3543,7 @@ var _mBx = (bool) => {
 };  */
 
 
-function test4 (w) {  
+function test4 (w) {
     var f = Comp();  // f.run and f.ar are in local scope
     return f.run(w)(cubeP)
       (x=>idP(x+f.ar[0]))(squareP)(() => idP(f.ar[2]**3))
@@ -3552,15 +3552,15 @@ function test4 (w) {
 
 function test6 (w) {
     var x = Symbol();
-    var run = Bind(x, true);  
+    var run = Bind(x, true);
     var ar = arBind[x];  // arBind is an object in global scope
     return run(w)(cubeP)
       (x=>idP(x+ar[0]))(squareP)(() => idP(ar[2]**3))
         (x=>idP(x/ar[3]))(x=>idP(x-ar[1]))()
 };
 var _D0 = _D1 = _E0 = _E1 = ['cow'];
-var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready']; 
-var _C0 = _C1 = _C2 = _C3 = _C4 = _C5 = _C6 = _C7 = _C8 = ['ready']; 
+var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready'];
+var _C0 = _C1 = _C2 = _C3 = _C4 = _C5 = _C6 = _C7 = _C8 = ['ready'];
 
 function test5 (n) {
 
@@ -3587,7 +3587,7 @@ function test5 (n) {
     _B8 = test6(x+8);
 }
 
-  
+
  var _oB_ = {};
 
  function  qfB (a,b,c) {
@@ -3645,7 +3645,7 @@ var quadHandler = {
     if ( Array.isArray(target[bbb]) && target[bbb].length === 3) {
         foo8 (target[bbb][0], target[bbb][1], target[bbb][2], 'Cow1', 'Cow2');
         target[bbb] = [];
-    }    
+    }
     diffRender();
     return Reflect.get(target,bbb,ccc);
     }
@@ -3709,7 +3709,7 @@ function quadMaker (x,y) {
     }
 }
 
-// Demonstration 3 
+// Demonstration 3
 
  var qf_dem3 = a => b => c => {
       var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
@@ -3773,7 +3773,7 @@ function ann23 () {
             ob.ar = [];
             // diffRender();
         }
-        return func; 
+        return func;
     }
 };
 
@@ -3789,7 +3789,7 @@ push3 = new Proxy(push3, {
     apply: function(a, b, c) {
         if (c[0].length === 3) {console.log('c is',c); c = [ [], c[1] ]}
         if (c[0].length === 2) {
-          console.log('c is',c); 
+          console.log('c is',c);
            quadMaker("g", "h")(c[0][0])(c[0][1])(c[1]);
             _arQuad = [];
         }
@@ -3806,7 +3806,7 @@ obQ.push = x => {
     var a = obQ.ar
     a.push(x);
     if (a.length === 3) {
-        quadMaker('a', 'b')(a[0])(a[1])(a[2]); 
+        quadMaker('a', 'b')(a[0])(a[1])(a[2]);
         a.length = 0
     }
 };
@@ -3816,7 +3816,7 @@ Bnd5 = {
      ar: [],
      run: function (x) {
         if (x instanceof Promise) x.then(y => this.ar.push(y))
-        else this.ar.push(x); 
+        else this.ar.push(x);
         return func => {
             var p;
             if (func == 'stop') return this.ar;
@@ -3833,7 +3833,7 @@ Bnd5 = {
      ar: [],
      run: function (x) {
         if (x instanceof Promise) x.then(y => ar.push(y))
-        else this.ar.push(x); 
+        else this.ar.push(x);
         return func => {
             var p;
             if (func == 'stop') return this.ar;
@@ -3898,7 +3898,7 @@ e3.run(2)(x=>x**7);
 
 console.log(de1, de2, e3.ar);
 
-async function dRendP (x) {  
+async function dRendP (x) {
   await wait(x)
   diffRender();
 };
@@ -3921,7 +3921,7 @@ var logDelay = async () => {
   await wait(5000)
   diffRender();
 }
-  
+
 var incC = x => Math.sqrt(x.ar.pop())+1
 
 var squareP3 = x => Math.sqrt(x.ar.pop())+1
@@ -3930,7 +3930,7 @@ var cubeP3 = x => x.pop()**(1/3)
 
 const go = () => diffRender();
 
-async function _dRP (x) {  
+async function _dRP (x) {
     await wait(x)
     diffRender();
 };
@@ -3990,16 +3990,16 @@ function Compose ( AR = [] )  {
   var ar , x, ob, f_ , p ;
   if (Array.isArray(AR)) ar = AR.slice()
   else ar = AR;
-  if (ar.length) {x = ar[ar.length-1]}; 
+  if (ar.length) {x = ar[ar.length-1]};
     return  ob = {ar: ar, run:  async function run (x) {
     if (x instanceof Promise) x.then(y => {if (y != undefined && y && y.toString() != "NaN" != NaN) {
         ar.push(y);
         diffRender();
     }})
-        else {if (x != undefined && x.toString() != "NaN") ar.push(x)}; 
+        else {if (x != undefined && x.toString() != "NaN") ar.push(x)};
         return function f_ (func) {
             if (func === 'stop') return ar;
-            
+
             else if (typeof func !== "function") p = func;
             else if (x instanceof Promise) p = x.then(v => func(v));
             else p = func(x);
@@ -4012,15 +4012,15 @@ function Comp ( AR = [] )  {
   var ar , x, ob, f_ , p ;
   if (Array.isArray(AR)) ar = AR.slice()
   else ar = AR;
-  if (ar.length) {x = ar[ar.length-1]}; 
+  if (ar.length) {x = ar[ar.length-1]};
     return  ob = {ar: ar, run: function run (x) {
-        if (x instanceof Promise) x.then(y => 
-          {if (y != undefined && y !== false && 
+        if (x instanceof Promise) x.then(y =>
+          {if (y != undefined && y !== false && y !== NaN &&
           y.toString() != "NaN" && y.name !== "f_" ) {
             ar.push(y);
             diffRender()
         }})
-        else if (x != undefined && x !== false && 
+        else if (x != undefined && x !== false &&
         x.toString() != "NaN" && x.name !== "f_" ) {
             ar.push(x);
             diffRender()
@@ -4028,70 +4028,54 @@ function Comp ( AR = [] )  {
         return function f_ (func) {
             if (func === 'stop') return ar;
             else if (typeof func !== "function") p = func;
-            else if (x instanceof Promise) 
+            else if (x instanceof Promise)
                 p = x.then(v => func(v));
             else p = func(x);
             return run(p);
         };
     }}
-}  
+}
 
 var fork = ob => string => {
     window[string] = Comp(ob.ar.slice());
     return window[string].run(window[string].ar.pop());
 }
+    var orb1 = Comp();
+    var orb2 = Comp();
+    var orb3 = Comp();
+    var orb4 = Comp();
+    var orb5 = Comp();
+    var orb6 = Comp();
+    var orb7 = Comp();
+    var orb8 = Comp();
 
 function runT (k) {
 
-    orb1 = Comp();
-    orb2 = Comp();
-    orb3 = Comp();
-    orb4 = Comp();
-    orb5 = Comp();
-    orb6 = Comp();
+var orbit_1 = "In about eight seconds, orb5 will do something shocking. It will remove the last element from orb2.ar and replace it with its square root. Oh well, it's all inside of runT(). "
 
-function orbit_1 () { return `In abpit eight seconds, 
-orb5 will remove the 
-    last element from orb2.ar (${orb2.ar.slice(-1)[0]}) 
-        and replace it with its square root, 
-            ${Math.sqrt(orb2.ar.slice(-1)[0])}.`};
-         
-var orbit_2 = () => `orb6 will soon start with the last three 
-elements of orb2, then take the square root 
-of the last element, and proceed.`
+var orbit_2 = 'Soon, orb6 will obtain copies of the last three elements of orb2 and perform some computations. Then it will display "THE END". '
 
-orb1 = Comp([k]);  
-    fork(orb1)('orb1')(cubeP)(addP(orb1.ar[0]))(() => 
+orb1 = Comp([k]);
+    fork(orb1)('orb1')(cubeP)(addP(orb1.ar[0]))(() =>
         fork(orb1)("orb2")
-        (squareP)(multP(1/(orb2.ar[0] * 100)))(addP(1))(powP(4)(1))(() => 
+        (squareP)(multP(1/(orb2.ar[0] * 100)))(addP(1))(powP(4)(1))(() =>
             fork(orb1)('orb3')(x=>x-3)(x=>x**(1/3))(x=>x+1)(cubeP)(() =>
-                fork(orb1)('orb4')(orbit_1)(iD(8)(orb2.ar.pop()))
-                (powP(1/2)(2))(orb2.run)(() => 
-                    orb5.run(orbit_2)(iD(7)(false))(() => 
-                        orb6.run(orb2.ar.slice(-3,-2)[0])
-                        (iD(1)(orb2.ar.slice(-2,-1)[0]))
-                        (iD(1)(orb2.ar.slice(-1)[0]))(powP(1/2)(1))
-                        (addP(1))(powP(3)(1))(iD(4)("THE END"))
+                orb4.run(orbit_1)(() => iD(7)(false))(() =>
+                    orb5.run(orb2.ar.pop())(powP(1/2)(3))(x =>
+                    orb2.ar.push(x))(() =>
+                        orb6.run(orbit_2)(iD(7)(false))(() =>
+                            orb7.run(orb2.ar.slice(-3,-2)[0])
+                            (iD(1)(orb2.ar.slice(-2,-1)[0]))
+                            (iD(1)(orb2.ar.slice(-1)[0]))(powP(1/2)(1))
+                            (addP(1))(powP(3)(1))(iD(4)("THE END"))
+                        )
                     )
                 )
             )
         )
     )
-}
+};
 runT(3);
-
-var foz = f1 => f2 => f3 => x => [f1,f2,f3].reduce((a,b) => b(a),x)
-var fu = foz(x=>x**4)(x=>x)(x=>x+100);
-
-var ab7 = fu(3);  
-
-var abc = [1,2,3,4,5,6,7]
-var ab8 = abc.map(a => fu(a))
-
-console.log('ab7',ab7);
-console.log('ab8',ab8);
-
-
 // ->   ************************************************ transduce tduce
 var arf =  [x=>x*10,  x=>x*x, x=>x+x];
 var arn = [1,2,3,4,5,6,7]
@@ -4103,16 +4087,24 @@ var tduce = ar1 => ar2  => ar2.map(v => (ff1)(ark(ar1)(v)))
 console.log(tduce(arf)(arn))
 
 
+  var tdF = arF => arA => {var ob, result = []; arA.map(v => {
+      result.push(arF.reduce((a,b) => b(a),v))
+      })
+      return result;
+  }
+
+  var dd = tdF([x=>x**3, x=>x+3, x=>x*x])([1,2,3,4,5])
+  console.log("dd is", dd);
 
 
+  var f77F = bee => arN => {
+      var res = [];
+      var os;
+      arN.map(x => {
+          os = Comp([x]);
+          res.push(eval("fork(os)('os')" + bee))});
+      return res;
+  };
 
-
-
-
-
-
-
-
-
-
-
+var zee = f77F("(x=>x**3)(x=>x+3)(x=>x*x)('stop').pop()")([1,2,3,4,5])
+console.log("zee is",zee)

@@ -42,3 +42,33 @@ Opening in existing browser session.
 [29862:29881:0309/160742.965201:ERROR:browser_process_sub_thread.cc(209)] Waited 3 ms for network service
 Opening in existing browser session.
 [29268:29268:0309/175519.854303:ERROR:CONSOLE(4597)] "Connection is closed, can't dispatch pending call", source: chrome-devtools://devtools/bundled/shell.js (4597)
+[29268:29268:0310/032931.247609:ERROR:prefix_selector.cc(163)] Not implemented reached in virtual bool views::PrefixSelector::ShouldDoLearning()
+[29268:29268:0310/034856.669884:ERROR:media_internals.cc(112)] Cannot get RenderProcessHost
+[29312:29366:0310/130400.201599:ERROR:ssl_client_socket_impl.cc(964)] handshake failed; returned -1, SSL error code 1, net_error -100
+[29312:29366:0310/130400.694770:ERROR:ssl_client_socket_impl.cc(964)] handshake failed; returned -1, SSL error code 1, net_error -101
+[29268:29268:0310/202849.575105:ERROR:textfield.cc(1777)] Not implemented reached in virtual bool views::Textfield::ShouldDoLearning()
+[1:1:0310/212044.293968:ERROR:audio_context.cc(52)] Create
+[1:1:0310/212044.294234:ERROR:audio_context.cc(130)] AudioContext
+[1:1:0310/212044.294443:ERROR:audio_context.cc(146)] document user activation
+[1:1:0310/212044.296479:ERROR:audio_context.cc(436)] IsAllowedToStart
+Gtk-Message: 22:39:31.423: GtkDialog mapped without a transient parent. This is discouraged.
+[29268:29268:0311/004435.458316:ERROR:CONSOLE(4597)] "Connection is closed, can't dispatch pending call", source: chrome-devtools://devtools/bundled/shell.js (4597)
+[29268:29268:0311/004435.458458:ERROR:CONSOLE(4597)] "Connection is closed, can't dispatch pending call", source: chrome-devtools://devtools/bundled/shell.js (4597)
+[29268:29268:0311/004435.458732:ERROR:CONSOLE(4597)] "Connection is closed, can't dispatch pending call", source: chrome-devtools://devtools/bundled/shell.js (4597)
+[29268:29268:0311/004435.459006:ERROR:CONSOLE(4597)] "Connection is closed, can't dispatch pending call", source: chrome-devtools://devtools/bundled/shell.js (4597)
+[29268:29268:0311/004435.459296:ERROR:CONSOLE(4597)] "Connection is closed, can't dispatch pending call", source: chrome-devtools://devtools/bundled/shell.js (4597)
+[29268:29268:0311/004435.459560:ERROR:CONSOLE(4597)] "Connection is closed, can't dispatch pending call", source: chrome-devtools://devtools/bundled/shell.js (4597)
+[1:1:0311/022337.499999:ERROR:audio_context.cc(52)] Create
+[1:1:0311/022337.500127:ERROR:audio_context.cc(130)] AudioContext
+[1:1:0311/022337.500278:ERROR:audio_context.cc(146)] document user activation
+[1:1:0311/022337.502082:ERROR:audio_context.cc(436)] IsAllowedToStart
+[1:1:0311/022337.502258:ERROR:audio_context.cc(93)] starting
+[29308:29382:0311/022456.227602:ERROR:latency_info.cc(147)] Surface::TakeLatencyInfoFromFrame, LatencyInfo vector size 102 is too big.
+[29308:29382:0311/022457.292984:ERROR:latency_info.cc(147)] Surface::TakeLatencyInfoFromFrame, LatencyInfo vector size 102 is too big.
+[29308:29382:0311/022458.194274:ERROR:latency_info.cc(147)] Surface::TakeLatencyInfoFromFrame, LatencyInfo vector size 102 is too big.
+[29308:29382:0311/022459.194931:ERROR:latency_info.cc(147)] Surface::TakeLatencyInfoFromFrame, LatencyInfo vector size 102 is too big.
+[29308:29382:0311/022500.144412:ERROR:latency_info.cc(147)] Surface::TakeLatencyInfoFromFrame, LatencyInfo vector size 102 is too big.
+[29308:29382:0311/022500.994054:ERROR:latency_info.cc(147)] Surface::TakeLatencyInfoFromFrame, LatencyInfo vector size 102 is too big.
+[29308:29382:0311/022502.610548:ERROR:latency_info.cc(147)] Surface::TakeLatencyInfoFromFrame, LatencyInfo vector size 102 is too big.
+[29268:29268:0311/085400.175170:ERROR:http_bridge.cc(126)] Not implemented reached in virtual void syncer::HttpBridgeFactory::OnSignalReceived()
+[29268:29287:0311/085400.502321:ERROR:browser_process_sub_thread.cc(209)] Waited 224 ms for network service
