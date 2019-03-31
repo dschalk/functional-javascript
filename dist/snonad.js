@@ -2672,7 +2672,7 @@ function score(result) {
     var goals = gameMonad.fetch1();
     if (scor === 25 && gameMonad.fetch1() === "2") {
         mMindex.ret(0);
-        gameMonad = new MonadState('gameMonad', [[[0,0,0,[],[0,0,0,0],,],[0,0,0,[][0,0,0,0],,]],0]);
+        gameMonad = new MonadState('gameMonad', [[[0,0,0,[],[0,0,0,0],,],[0,0,0,[][(0, 0, 0, 0)],,]],0]);
         socket.send(`CE#$42,${pMgroup.x},${pMname.x}`);
         newRoll(0,0);
     }

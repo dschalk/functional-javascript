@@ -72,3 +72,51 @@ Gtk-Message: 22:39:31.423: GtkDialog mapped without a transient parent. This is 
 [29308:29382:0311/022502.610548:ERROR:latency_info.cc(147)] Surface::TakeLatencyInfoFromFrame, LatencyInfo vector size 102 is too big.
 [29268:29268:0311/085400.175170:ERROR:http_bridge.cc(126)] Not implemented reached in virtual void syncer::HttpBridgeFactory::OnSignalReceived()
 [29268:29287:0311/085400.502321:ERROR:browser_process_sub_thread.cc(209)] Waited 224 ms for network service
+Serving directory /home/x/TEST/fun/dist on port 3000 with ["index.html","index.htm"] index files.
+warp: Network.Socket.bind: resource busy (Address already in use)
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Serving directory /home/x/TEST/fun/dist on port 3000 with ["index.html","index.htm"] index files.
+warp: Network.Socket.bind: resource busy (Address already in use)
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Serving directory /home/x/TEST/fun/dist on port 3000 with ["index.html","index.htm"] index files.
+warp: Network.Socket.bind: resource busy (Address already in use)
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""

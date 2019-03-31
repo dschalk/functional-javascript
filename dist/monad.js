@@ -1,6 +1,95 @@
 
-var EventEmitter, pipeline, hold;
 
+
+function add1(v) { return v + 1; };
+function isOdd(v) { return v % 2 == 1; };
+function sum(total,v) { return total + v; };
+function cube(v) { return v**3; };
+
+function compose2(...fns) {
+  const n = fns.length;
+
+  return function $compose(...args) {
+    let $args = args;
+
+    for (let i = n - 1; i >= 0; i -= 1) {
+      $args = [fns[i].call(null, ...$args)]; // Say what?
+    }
+
+    return $args[0];
+  };
+}
+
+var compose = (...fns) =>
+fns.reduceRight((prevFn, nextFn) =>
+  (...args) => nextFn(prevFn(...args)),
+  value => value
+);
+
+
+function mapping(f) {
+  return function(rf) {
+    return (acc, val) => {
+      return rf(acc, f(val));
+    }
+  }
+}
+
+var ar74 = [0,1,2,3,4,5,6,7,8,9];
+
+var mapWRf = mapping(cube);
+mapRes = ar74.reduce(mapWRf(concat), []);
+console.log("mapRes is", mapRes);
+
+function filtering(p) {
+  return function(rf) {
+    return (acc, val) => {
+      return p(val) ? rf(acc, val) : acc;
+    };
+  };
+};
+var add = (a,b) => a + b;
+
+
+
+var filterWRf = filtering(isOdd);
+var filterRes = ar74.reduce(filterWRf(concat), []);
+console.log(filterRes);
+
+var transformFR = compose(filtering(isOdd), mapping(cube));
+var transformFRRes = ar74.reduce(transformFR(concat), []);
+console.log("transformFRRes", transformFRRes);
+var abc = ar74.reduce(transformFR(add));
+console.log("abc", abc);
+
+var isEven = x => x % 2 === 0;
+var not = x => !x;
+var isOdd2 = compose(not, isEven);
+
+function curry(fn) {
+  var arity = fn.length;
+  return function $curry(...args) {
+    if (args.length < arity) {
+      return $curry.bind(null, ...args);
+    }
+    return fn.call(null, ...args);
+  };
+}
+
+var map = f => ar => ar.map(v=>f(v));
+var filter = p => ar => ar.filter(p);
+var reduce = f => ar => v => ar.reduce(f,v)
+function apply(x, f) {return f(x);}
+function concat(xs, val) {return xs.concat(val);}
+
+/* var transduce = curry((step, initial, xform, foldable) =>
+  foldable.reduce(xform(step), initial)
+); */
+
+
+
+var EventEmitter, pipeline, hold;
+var ASQ;
 var __cow__ = 0;
 
 var slice = function slice (ar) {
@@ -1522,15 +1611,21 @@ const largest = x => ( () => x + " is the largest prime factor of " + ar[0]);
 
 const factorsF = x => ( () => "the prime factors of " + ar[1] + " are " + x);
 
-var MonadItter = function MonadItter() {
-  this.p = function () {};
-  this.release = function () {
-    return this.p.apply(this, arguments);
-  };
-  this.bnd = function (func) {
-    return this.p = func;
-  };
-};
+const Chan = {};
+
+function makeChan (e) {
+    window[e] = {
+        p: function () {},
+        release: function () {
+            return this.p.apply(this, arguments);
+        },
+        bnd: function (func) {
+            return this.p = func;
+        },
+        ar: []
+    };
+    return window[e]
+  }
 
   var MI = function MI() {
     return new MonadItter();
@@ -2172,11 +2267,6 @@ var toFloat2 = function toFloat2(x) {
       return ret(ar);
   };
 
-  var concat = function concat(x, v, id = "concatDefault") {
-      var a = x.slice();
-      var a2 = a.concat(v);
-      return ret(a2, id);
-  };
   var sliceFront = function sliceFront(x, n) {
       var ar = x.slice(n);
       return ret(ar);
@@ -2746,7 +2836,7 @@ function score(result) {
     var goals = gameMonad.fetch1();
     if (scor === 25 && gameMonad.fetch1() === "2") {
         mMindex.ret(0);
-        gameMonad = new MonadState('gameMonad', [[[0,0,0,[],[0,0,0,0],,],[0,0,0,[][0,0,0,0],,]],0]);
+        gameMonad = new MonadState('gameMonad', [[[0,0,0,[],[0,0,0,0],,],[0,0,0,[][(0, 0, 0, 0)],,]],0]);
         socket.send(`CE#$42,${pMgroup.x},${pMname.x}`);
         newRoll(0,0);
     }
@@ -2933,7 +3023,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function curry(func) {
+/*function curry(func) {
   return function curried(...args) {
     if (args.length >= func.length) {
       return func.apply(this, args);
@@ -2943,7 +3033,7 @@ function curry(func) {
       }
     }
   };
-}
+}  */
 
 function curryReverse(func) {
   return function curried(...args) {
@@ -3992,11 +4082,16 @@ function Compose ( AR = [] )  {
   else ar = AR;
   if (ar.length) {x = ar[ar.length-1]};
     return  ob = {ar: ar, run:  async function run (x) {
-    if (x instanceof Promise) x.then(y => {if (y != undefined && y && y.toString() != "NaN" != NaN) {
-        ar.push(y);
-        diffRender();
-    }})
-        else {if (x != undefined && x.toString() != "NaN") ar.push(x)};
+    if (x instanceof Promise) {
+        x.then(y => {
+            if (y != undefined && y && y.toString() != "NaN" != NaN) {
+                ar.push(y);
+                console.log("dog shit _____________________cow ")
+                diffRender();
+            }
+        })
+    }
+    else {if (x != undefined && x.toString() != "NaN") ar.push(x)};
         return function f_ (func) {
             if (func === 'stop') return ar;
 
@@ -4048,8 +4143,28 @@ var fork = ob => string => {
     var orb6 = Comp();
     var orb7 = Comp();
     var orb8 = Comp();
+    var orb9 = Comp();
+    var orb10 = Comp();
+    var orb11 = Comp();
+    var orb12 = Comp();
+    var orb13 = Comp();
+    var orb14 = Comp();
+    var orb15 = Comp();
+    var orb16 = Comp();
+    var orb17 = Comp();
+    var orb18 = Comp();
+    var orb19 = Comp();
 
 function runT (k) {
+
+    orb1 = Comp();
+    orb2 = Comp();
+    orb3 = Comp();
+    orb4 = Comp();
+    orb5 = Comp();
+    orb6 = Comp();
+    orb7 = Comp();
+    orb8 = Comp();
 
 var orbit_1 = "In about eight seconds, orb5 will do something shocking. It will remove the last element from orb2.ar and replace it with its square root. Oh well, it's all inside of runT(). "
 
@@ -4108,3 +4223,206 @@ console.log(tduce(arf)(arn))
 
 var zee = f77F("(x=>x**3)(x=>x+3)(x=>x*x)('stop').pop()")([1,2,3,4,5])
 console.log("zee is",zee)
+
+console.log("[...Array(5).keys()]", [...Array(5).keys()])
+
+
+
+
+var tduce = ar1 => ar2  => ar2.map(v => (ff1)(ark(ar1)(v)))
+console.log(tduce(arf)(arn))
+
+
+var arF = [x=>x**3, x=>x+3, x=>x*x];
+var arA = [1,2,3,4,5];
+
+function CompAr ( AR = [], funcAr, argsAr )  {
+    var ar = AR, x, ob, f_ , p ;
+    var result = [];
+    var funcAr = funcAr;
+    var argsAr = argsAr;
+    var fs = funcAr.slice();
+    var args = argsAr.slice();
+    console.log("Before recurse. ar is", ar);
+    var recurse =  () => {
+        console.log("In recurse() -- args.length is", args.length);
+        x = args.pop();
+        let xx = x;
+        ar = [x];
+        fs.map(func => {
+            console.log("1 func, xx, and func(x)", func, xx, func(xx))
+            if (!(func instanceof Function)) {
+                console.log("2 func, xx and func(x)", func, xx, func(xx))
+            }
+            else if (func instanceof Promise) x.then(y => {
+                if (y != undefined && y !== false && y !== NaN &&
+                y.toString() != "NaN" && y.name !== "f_" ) {
+                console.log("3 func, xx, and func(x)", func, xx, func(xx))
+                    xx = func(y);
+                }
+            })
+            else if (func != undefined && x !== false &&
+            x.toString() != "NaN" && x.name !== "f_" ) {
+                console.log("4 func, xx, and func(x)", func, xx, func(xx))
+                xx = func(x);
+            };
+            ar.push(xx);
+            console.log("ar is", ar)
+            x = xx;
+        })
+        result.splice(0,0,x);
+        console.log("Still in recurse() result is", result);
+    }
+    while (args.length > 0) recurse()
+    return ["Cowgirl", result];
+}
+
+var adP = t => a => async b => {
+    await wait(t*1000)
+    return a + b;
+}
+
+console.log("CompAr([], arF, arA) returned:")
+console.log(CompAr([],arF,arA));
+var arF = [x=>x**3, x=>x+3, x=>x*x];
+var arf = [cubeP, addP(3), squareP];
+var arrf = [powP(3)(6), adP(3)(3), powP(2)(1)]
+var ara = [1,2,3,4,5];
+console.log("CompAr([], arrf, ara) returned:")
+CompAr([],arF,arA).map(v => console.log(v));
+console.log("<*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*>");
+var ff = fu => x => {
+    var ob = Comp([x]);
+    fu.map(f => {
+        ob.run(ob.ar.pop())(f)
+    })
+   return ob;
+}
+
+function fg (fs) {
+    var fs = fs;
+    return function foam (x) {
+        var o = {
+            ob: Comp([x]),
+            fu: fs.map(f => {
+                o.ob.run(o.ob.ar.pop())(f)
+            })
+        }
+    }
+}
+
+var td = f => async a => a.map(x => ff(f)(x))
+var trd = (td(arrf));
+var b = trd(ara);
+console.log(b)
+
+var CompTd = funcs => {
+  var ob = {
+    fs: funcs,
+    a: [],
+    f: x => {
+      ob.a.push(ob.fs.reduce((a,b) => b(a),x));
+      return ob;
+    }
+  }
+  return ob;
+}
+
+var ob3 = CompTd(arF);
+
+ob3.f(3)
+ob3.f(4)
+ob3.f(5)
+ara.map(v => ob3.f(v))
+console.log(ob3);
+
+var ee = makeChan('ee');
+console.log("ob3.f(7)", ob3.f(7).f(8).a)
+function fu () {ee.bnd(() => {console.log("Hello"); ee.bnd(()=>{console.log("World");
+ee.bnd(()=>{console.log("Hello Mars"); ee.bnd(() => fu())()})})})};
+fu();
+ee.release();
+ee.release();
+ee.release();
+ee.release();
+ee.release();
+ee.release();
+ee.release();
+ee.release();
+
+
+
+function apply(x, f) {
+  return f(x);
+}
+
+function concat(xs, val) {
+  return xs.concat(val);
+}
+
+var nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// transformations
+var add1 = x => x + 1;
+var doubleIt = x => x * 2;
+var add = (x, y) => x + y;
+
+// predicates
+var isEven = x => x % 2 === 0;
+var isOdd = x => !isEven(x);
+
+function mapping(f) {
+  return function(rf) {
+    // this takes 2 things and makes them 1
+    return (acc, val) => {
+      return rf(acc, f(val)); // <-- rf replaces 'concat'
+    };
+  };
+}
+
+var mapWithRf = mapping(add1);
+var mappingResult = nums.reduce(mapWithRf(concat), []);
+console.log(mappingResult);
+
+// generalize the 'filtering' concept, without the concat...
+function filtering(p) {
+  return function(rf) {
+    // this takes 2 things and makes them 1
+    return (acc, val) => {
+      return p(val) ? rf(acc, val) : acc; // <-- rf replaces 'concat'
+    };
+  };
+}
+
+var filterWithRf = filtering(isOdd);
+var filteringResult = nums.reduce(filterWithRf(concat), []);
+console.log(filteringResult);
+
+// rf takes 2 things and makes them into 1 thing
+// mapping(fn) returns a function expecting an rf
+// filtering(p) returns a function expecting an rf
+// mapping(fn)(rf) returns an rf
+// filtering(p)(rf) returns an rf
+
+// so... mapping(fn) can receive as its rf, the returned rf from filtering(p)(rf)
+// and vice-versa
+
+// these are transducers
+// they expect an rf and return an rf
+// allowing them to be composed together
+
+// this was the goal
+// var transformFilterReduce2 = compose(map(add1), filter(isEven), reduce(add));
+var transformFilterReduce2 = compose(mapping(add1), filtering(isEven));
+var transformFilterReduceResult1 = nums.reduce(
+  transformFilterReduce2(concat), // <-- concat is an rf... so is add
+  [], // concat returns an array -- this is the init value for an array
+);
+// notice output is even numbers, meaning filtering was applied second
+console.log(transformFilterReduceResult1); // [ 2, 4, 6, 8, 10 ]
+
+var transformFilterReduceResult2 = nums.reduce(
+  transformFilterReduce2(add),
+  0, // add returns a number -- this is the init value for a number
+);
+console.log(transformFilterReduceResult2);

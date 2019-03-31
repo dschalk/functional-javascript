@@ -2,6 +2,8 @@
     // onChange = require('on-change');
     // import ws from 'ws';
     import {EventEmitter} from 'events';
+    import ASQ from 'asynquence';
+
     // import {makeHTTPDriver} from '@cycle/http';
     // import {require} from "requirejs";
     // Maybe = require('folktale/maybe');
@@ -21,7 +23,7 @@
     // ws = new WebSocket("ws://echo.websocket.org");
 
 EventEmitter = EventEmitter;
-
+ASQ = ASQ;
 console.log("************************** h and clone *****************"),
     h = h;   // For use in monad.js
 
@@ -2161,7 +2163,6 @@ h('span', styleFunc (['#ABFFBA', , ,'italic', , , ,]), ' Unless you are already 
 h('p', ' Suppose you want to chain computations involving functions, primitive values, and promises where functions can readily access the return values of all prior functions, resolution values of all previously returned promises, and all primitive values inserted into the sequence. Your frameworks and libraries aren\'t likely to help you, but you can create a function to suit your needs. That\'s what I did. I named my function "Comp". ' ),
 h('h', ' Comp() does everything mentioned in the previous paragraph and more. Every series of computations remains as an entity that can resume activity under its original name, or as one or more independent branches that leave the original computation unchanged. ' ),
 
-
 h('pre', `function Comp ( AR = [] )  {
   var ar , x, ob, f_ , p ;
   if (Array.isArray(AR)) ar = AR.slice()
@@ -2169,15 +2170,13 @@ h('pre', `function Comp ( AR = [] )  {
   if (ar.length) {x = ar[ar.length-1]};
     return  ob = {ar: ar, run: function run (x) {
         if (x instanceof Promise) x.then(y =>
-          {if (y != undefined && y !== false &&
+          {if (y != undefined && y !== false && y !== NaN &&
           y.toString() != "NaN" && y.name !== "f_" ) {
             ar.push(y);
-            diffRender()
         }})
-        else if (x != undefined && x !== false &&
+        else if (x != undefined && x !== false && y !== NaN &&
         x.toString() != "NaN" && x.name !== "f_" ) {
             ar.push(x);
-            diffRender()
         };
         return function f_ (func) {
             if (func === 'stop') return ar;
@@ -2365,12 +2364,12 @@ h('pre', `function Comp ( AR = [] )  {
   if (ar.length) {x = ar[ar.length-1]};
     return  ob = {ar: ar, run: function run (x) {
         if (x instanceof Promise) x.then(y =>
-          {if (y != undefined && y !== false &&
+          {if (y != undefined && y !== false && y !== NaN &&
           y.toString() != "NaN" && y.name !== "f_" ) {
             ar.push(y);
-            diffRender()
+            diffRender() // Causes Snabdom to update the DOM
         }})
-        else if (x != undefined && x !== false &&
+        else if (x != undefined && x !== false && y !== Nan &&
         x.toString() != "NaN" && x.name !== "f_" ) {
             ar.push(x);
             diffRender()
@@ -2519,12 +2518,12 @@ h('p', ' The variables prefixed by "_C" are permanent fixtures of the virtual DO
 
 h('p', ' If you are writing software to handle funds transfers between customer accounts and between customer accounts and outside entities, it would be of the utmost importance to make sure that all interrupted transactions get rolled all the way back and that completed funds transfers are done correctly with appropriate documentation. Haskell would be a good choice for handling these sorts of things. Pure functions and immutable data would help assure that there will never be any surprises. ' ),
 h('p', ' If you are writing JavaScript code that will run in browsers, your work environment doesn\'t need to be so austere. You don\'t have to empty part of your programming toolbox. ' ),
-h('p', ' There are those who use only designated "good parts" of JavaScript. Some developers restrict JavaScript\'s potential by never redefining variables or mutating objects, never creating functions that cause side effects before they complete, insisting that functions consistently return the same value when given the same argument, and more. Then there are those who take the bull by the horns or, switching metaphores, play JavaScript like a piano, restricted only by their imaginations and the common-sense imperative that code be robust, efficient, and maintainable. ' ),
+h('p', ' There are those who use only designated "good parts" of JavaScript. Some developers restrict JavaScript\'s potential by never redefining variables or mutating objects, never creating functions that cause side effects before they complete, insisting that functions consistently return the same value when given the same argument, and more. Then there are those who take the bull by the horns or, switching metaphors, play JavaScript like a piano, restricted only by their imaginations and the common-sense imperative that code be robust, efficient, and maintainable. ' ),
 
 
 h('span.tao', ' Suppose you want to run the ' ),
 h('a', { props: { href: "https://en.wikipedia.org/wiki/Quadratic_formula", target: "_blank" }}, 'quadratic formula'),
-h('span', ' on asynchronously received numbers. A function like obQ.push() (below), where quadMaker("a", "b") (below) does the calculation each time obQ.f() receives three numbers, accomplish this succinctly and transparently. Does it matter that obQ.f() does not return the same value each time it is called on the same argument? I don\'t think so, but those who think JavaScript can be improved by forcing it to adhere to the functional paradign might feel compelled to contrive a pure-function workaround. ' ),
+h('span', ' on asynchronously received numbers. A function like obQ.push() (below), where quadMaker("a", "b") (below) does the calculation each time obQ.f() receives three numbers, accomplish this succinctly and transparently. Does it matter that obQ.f() does not return the same value each time it is called on the same argument? I don\'t think so, but those who think JavaScript can be improved by forcing it to adhere to the functional paradigm might feel compelled to contrive a pure-function workaround. ' ),
 h('br'),
 h('p', ' quadMaker() returns functions whose results become attributes of the object "_oB_", which is a permanent fixture in several places in the virtual DOM. The results returned by quadMaker() are the real solutions, if any exist, to equations of the form A*x*x + B*x + C = 0, where users provide the coefficients "A", "B", and "C" and the formula finds whatever real values of x satisfy the equation.' ),
 
@@ -2560,11 +2559,11 @@ obQ.push = x => {
         a.length = 0
     }
 }; ` ),
-h('p', ' Entering a number initiates a keypress event "e". A listener routes "e.target.value" to obQ.push(). Every third time obQ.push() executes, quadMaker("a","b") provides the result to _oB_.a and _oB_.b in the virtual DOM. prompting Snabbdom to refresh the DOM. The update might also be facilitated by React, NodeJS, RxJS, Bacon, etc., but this is a Cycle.js application. ' ),
+h('p', ' Entering a number initiates a keypress event "e". A listener routes "e.target.value" to obQ.push(). Every third time that obQ.push() executes, quadMaker("a","b") provides the result to _oB_.a and _oB_.b in the virtual DOM. prompting Snabbdom to refresh the DOM. The update might also be facilitated by React, NodeJS, RxJS, Bacon, etc., but this is a Cycle.js application. ' ),
 h('span.tao', ' quadMaker("a","b") might cause even more consternation among functional paradigm purists. Side effects are triggered in the DOM ' ),
 h('span', {style: {color: "#eeccaa", fontStyle: "italic" }},  'while it is still running.' ),
 h('br'),
-h('p', ' Asychronously evaluating numbers with the quadratic formula can be accomplished with pure functions. A function returned by quadMaker() returns a two-parameter function when given one argument. That function returns a two-parameter function which returns a one-parameter function. Instead of side effects, a result could be returned which another function could apply to the virtual DOM.  A better approach, at least in my opinion, is to embrace the fact that the Ecmascript 2018-specification provides functions designed to do much more than mimic mathematical functions. For example, one function can update several parts of a virtual DOM and return nothing but "undefined", as seen in this demonstration. ' )
+h('p', ' Asynchronously evaluating numbers with the quadratic formula can be accomplished with pure functions. A function returned by quadMaker() returns a two-parameter function when given one argument. That function returns a two-parameter function which returns a one-parameter function. Instead of side effects, a result could be returned which another function could apply to the virtual DOM.  A better approach, at least in my opinion, is to embrace the fact that the Ecmascript 2018-specification provides functions designed to do much more than mimic mathematical functions. For example, one function can update several parts of a virtual DOM and return nothing but "undefined", as seen in this demonstration. ' )
                                                               ]),
                                         h('div', {style: {marginLeft: "3%", marginRight: "2%", width: "50%" }},   [
 
@@ -2589,7 +2588,7 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
                 h('br'),
                 h('br'),   ]),
 
-h('span.tao', ' By the way, I am enthusiastic about functional programming, and greatly enjoy tinkering with the Haskell WebSocket server associated with this site. The ' ),
+h('span.tao', ' By the way, I am enthusiastic about functional programming and greatly enjoy tinkering with the Haskell WebSocket server associated with this site. The ' ),
 h('a', {props: {href:"https://github.com/fantasyland/fantasy-land", target: "_blank" }}, 'Fantasyland' ),
 h('span', ' algebraic javascript specification is an admirable achievement. People who are familiar with Haskell can jump right in and start coding with familiar monads and functors borrowed from the Haskell ' ),
 h('a', {props: {href: "http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html", target: "_blank"}}, 'Prelude module' ),
@@ -3532,7 +3531,7 @@ val => { console.log(3, val); return val*=2; }); `),
 
 
 
-
+h('h1', 'DOG SHIT'),
             h('br'),
             h('input#chang', __cow__ ),
             h('br'),
