@@ -1,5 +1,15 @@
 
 
+function ints (n) {return [...Array(n).keys()]}
+
+function Fux (p) {this.p = p; this.fux = function fux (x) {return p(x)}};
+
+function* integers() {
+  let i = 0;
+  while (true) {
+    yield i++;
+  }
+}
 
 function add1(v) { return v + 1; };
 function isOdd(v) { return v % 2 == 1; };
@@ -49,8 +59,6 @@ function filtering(p) {
   };
 };
 var add = (a,b) => a + b;
-
-
 
 var filterWRf = filtering(isOdd);
 var filterRes = ar74.reduce(filterWRf(concat), []);
@@ -105,7 +113,7 @@ var f_86 = v => t => {
     return ar97
 };
 
-var foo = x => f_86(x)([v=>v**3, v=>v+x, v=>v**2,v=>ar[3](v),
+var foo = x => f_86(x)([v=>v**3, v=>v+x, v=>v**2,
   v=>v**(1/4),v=>v-x,v=>Math.round(v**(1/3))]);
 
 var branch  = function branch (o) {
@@ -718,11 +726,10 @@ num9 = 0;
     color = '#361B01', // 1
     marginLeft = '0px',
     fontSize = '15px',
-
-    fontStyle = 'normal', width = '100%', // 4
+    fontStyle = 'normal',
+    width = '100%', // 4
     textAlign = 'left',
     marginRight = '0px',
-
     position = 'relative', //7
     right = '0%'  /* 8  */           ]) {
       return {style:{
@@ -1579,8 +1586,8 @@ var m0 = new Monad (0, "m0")
   var mMchange3 = new Monad(0, 'mMchange3')
   var backupMonad = new Monad('', 'backupMonad')
   var mMshowRegister = new Monad('inline', 'mMshowRegister')
-  var mMfoo = new Monad([], 'mMfoo')
-  var mMbar = new Monad([], 'mMbar')
+  var mMfoo = new Monad([], 'mMfoo');
+  var mMbar = new Monad([], 'mMbar');
 
 function prm () {
   return new Promise( (resolve, reject) => {
@@ -2558,22 +2565,6 @@ function execD(listState, primeState, n) {
     })
   }
   return [ds, primesState];
-}
-
-function fact(v) {
-  var ar = [];
-  while (v2 != 1) {
-    for (let p of v[1]) {
-      if (v2 / p === Math.floor(v2 / p)) {
-        ar.push(p);
-        v2 = v2/p;
-      };
-    }
-  }
-  ar.sort(function(a, b) {
-    return a - b;
-  });
-  return ret(ar);
 }
 
 function fact2(s, b) {
@@ -4109,18 +4100,23 @@ function Comp ( AR = [] )  {
   else ar = AR;
   if (ar.length) {x = ar[ar.length-1]};
     return  ob = {ar: ar, run: function run (x) {
+
+      if (x instanceof Fux) {var z = ob.ar.pop();
+          if (x.fux(z)) x = z;
+      };
+
         if (x instanceof Promise) x.then(y =>
-          {if (y != undefined && y !== false && y !== NaN &&
+          {if (y != undefined && y !== false && y !== NaN && (!(x instanceof Fux)) &&
           y.toString() != "NaN" && y.name !== "f_" ) {
             ar.push(y);
             diffRender()
         }})
-        else if (x != undefined && x !== false &&
+        else if (x != undefined && x !== false && (!(x instanceof Fux)) &&
         x.toString() != "NaN" && x.name !== "f_" ) {
             ar.push(x);
             diffRender()
         };
-        return function f_ (func) {
+        function f_ (func) {
             if (func === 'stop') return ar;
             else if (typeof func !== "function") p = func;
             else if (x instanceof Promise)
@@ -4128,6 +4124,7 @@ function Comp ( AR = [] )  {
             else p = func(x);
             return run(p);
         };
+        return f_;
     }}
 }
 
@@ -4371,58 +4368,75 @@ var add = (x, y) => x + y;
 var isEven = x => x % 2 === 0;
 var isOdd = x => !isEven(x);
 
-function mapping(f) {
+function Map(f) {
   return function(rf) {
-    // this takes 2 things and makes them 1
-    return (acc, val) => {
-      return rf(acc, f(val)); // <-- rf replaces 'concat'
-    };
-  };
+    return (acc, v) => {
+      return rf(acc, f(v));
+    }
+  }
 }
 
-var mapWithRf = mapping(add1);
-var mappingResult = nums.reduce(mapWithRf(concat), []);
-console.log(mappingResult);
-
-// generalize the 'filtering' concept, without the concat...
-function filtering(p) {
+function Filter(p) {
   return function(rf) {
-    // this takes 2 things and makes them 1
-    return (acc, val) => {
-      return p(val) ? rf(acc, val) : acc; // <-- rf replaces 'concat'
+    return (acc, v) => {
+      return p(v) ?
+       rf(acc, v) : acc;
     };
   };
+};
+
+var ar = [0,1,2,3,4,5,6,7,8,9];
+
+mapRes = ar.reduce(Map(cube)(concat), []);
+console.log("mapRes is", mapRes);
+
+var filterRes = ar.reduce(Filter(isOdd)(concat), []);
+console.log(filterRes);
+
+var add = (a,b) => a + b;
+var transformFR = compose(Filter(isOdd), Map(cube));
+var transformFRRes = ar.reduce(transformFR(concat), []);
+console.log("transformFRRes", transformFRRes);
+var abc = ar.reduce(transformFR(add));
+console.log("abc", abc);
+
+function trd(xf, rf, init, xs) {
+  return xs.reduce(xf(rf), init)
 }
 
-var filterWithRf = filtering(isOdd);
-var filteringResult = nums.reduce(filterWithRf(concat), []);
-console.log(filteringResult);
-
-// rf takes 2 things and makes them into 1 thing
-// mapping(fn) returns a function expecting an rf
-// filtering(p) returns a function expecting an rf
-// mapping(fn)(rf) returns an rf
-// filtering(p)(rf) returns an rf
-
-// so... mapping(fn) can receive as its rf, the returned rf from filtering(p)(rf)
-// and vice-versa
-
-// these are transducers
-// they expect an rf and return an rf
-// allowing them to be composed together
-
-// this was the goal
-// var transformFilterReduce2 = compose(map(add1), filter(isEven), reduce(add));
-var transformFilterReduce2 = compose(mapping(add1), filtering(isEven));
-var transformFilterReduceResult1 = nums.reduce(
-  transformFilterReduce2(concat), // <-- concat is an rf... so is add
-  [], // concat returns an array -- this is the init value for an array
+var xform = compose(
+  Map(x=>x*x),
+  Filter(isEven),
+  Map(x=>x+x),
+  Map(x=>x+1),
 );
-// notice output is even numbers, meaning filtering was applied second
-console.log(transformFilterReduceResult1); // [ 2, 4, 6, 8, 10 ]
 
-var transformFilterReduceResult2 = nums.reduce(
-  transformFilterReduce2(add),
-  0, // add returns a number -- this is the init value for a number
-);
-console.log(transformFilterReduceResult2);
+var ob2 = Comp();
+// ob2.run([1,2,3,4,5,6,7,8,9])(x=>x.reduce(xform(concat),[]));
+var ob3 = Comp();
+[0,1,2,3,4,5,6,7].map(v => ob3.run(v)(x=>xform(concat,[])(x)));
+
+console.log("[0,1,2,3,4].reduce(transformFR(concat),[])",[0,1,2,3,4].reduce(transformFR(concat),[]))
+
+var zza = Comp(ar); var zzt = zza.run(zza.ar)(x=>x.reduce(Map(x=>x**3)
+ (Filter(x=>x%2===0)(Map(x=>x+10000)
+   (concat))),[]))('stop').pop();
+console.log("zzt is", zzt);
+
+var zzb = Comp(ar); var zzu = zzb.run(zzb.ar)(x=>x.reduce(Map(x=>x**3)
+ (Filter(x=>x%2===0)(Map(x=>x+10000)
+   ((a,b)=>a+b))),0))('stop').pop();
+
+console.log("zzu is", zzu);
+
+sue = [1,2,3,4,5].reduce(Map(x=>x**3)(concat),[])
+console.log(sue);
+
+function Fux (p) {this.p = p; this.fux = function fux (x) {return p(x)}};
+
+var fox = new Fux(x=>x%2 === 0);
+
+var cox = new Fux(x=>x>1200);
+
+var o23 = Comp();
+[...Array(25).keys()].map(v => o23.run(v)(fox)(x=>x*x)(x=>x+1000)(cox)); console.log("o23.ar is", o23.ar)

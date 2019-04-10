@@ -120,3 +120,45 @@ AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_
 Downloading lts-11.15 build plan ...
 Downloaded lts-11.15 build plan.
 AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Serving directory /home/x/TEST/fun/dist on port 3000 with ["index.html","index.htm"] index files.
+warp: Network.Socket.bind: resource busy (Address already in use)
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Serving directory /home/x/TEST/fun/dist on port 3000 with ["index.html","index.htm"] index files.
+warp: Network.Socket.bind: resource busy (Address already in use)
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Serving directory /home/x/TEST/fun/dist on port 3000 with ["index.html","index.htm"] index files.
+warp: Network.Socket.bind: resource busy (Address already in use)
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Serving directory /home/x/TEST/fun/dist on port 3000 with ["index.html","index.htm"] index files.
+warp: Network.Socket.bind: resource busy (Address already in use)
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Serving directory /home/x/TEST/fun/dist on port 3000 with ["index.html","index.htm"] index files.
+warp: Network.Socket.bind: resource busy (Address already in use)
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Serving directory /home/x/TEST/fun/dist on port 3000 with ["index.html","index.htm"] index files.
+warp: Network.Socket.bind: resource busy (Address already in use)
+Downloading lts-11.15 build plan ...
+Downloaded lts-11.15 build plan.
+AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""

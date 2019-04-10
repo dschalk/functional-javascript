@@ -2194,29 +2194,27 @@ h('p', ' When a function is provided to ob.run, its return value is pushed into 
 h('p', ' The object "b" (above) branches off of "a" to compute "900". "a" goes on to compute "42". "a" and "b" can be viewed as final results or partial computations that will complete if they receive additional primitive values and further instructions in the form of functions, or just some additional funcitons. Here\'s the basic composition syntax: ' ),
 
 
-  h('div', styleFunc(["#4dff4d", "3%", "21px", , , ]), [
+  h('div', styleFunc(["#ffcccc", "4%", "20px",,,,,,]), [
   h('div', 'ob.run(x)(functiona1)(function2) ... (functionN)')
   ]),
-  h('p', ' where  ' ),
-  h('pre', styleFunc(["#ABDDAB", , "19px", , , ]), `    x can be any value,
+  h('p', {style: {fontSize: "19px"}}, ' where  ' ),
+  h('div', styleFunc(["#ffccee", "4%", "23px",,,,,,]), [
+    h('div', 'x can be any value,'),
+    h('br'),
+    h('div', 'function1, function2, ... need not be functions. There are no type restrictions on the values of the "functions",' ),
+    h('br'),
+    h('div', 'functions operate from left to right,' ),
+    h('br'),
+    h('div', 'there are no type restrictions on the functions\' return values,' ),
+    h('br'),
+    h('div', 'functions have built-in access to all prior primitive value entries, function return values, and Promise resolution values,' ),
+    h('br'),
+    h('div', 'ob can be re-started with the expression "ob.run(fork(ob))". and can launch separate branches with expressions like "var branch = Comp.ar)",' ),
+    h('br'),
+    h('div', 'sequences of functions can be run anonymously with statements like "Comp().run(4)(x=>x**4)(x=>x/2**4)(\'stop\'); // [4, 256,16]".' ),
 
-    function1, function2, ... need not be functions. There are no type
-       restrictions on the values of the "functions",
+                                                   ]),
 
-    true functions operate from left to right,
-
-    there are no type restrictions on the functions\' return values,
-
-    functions have built-in access to all prior primitive value entries, function return values,
-       and Promise resolution values,
-
-    ob can be re-started with the expression "ob.run(fork(ob))". and can launch separate
-       branches with expressions like "var branch = Compose(ob.ar)",
-
-    sequences of functions can be run anonymously with statements like
-       "Compose().run(4)(x=>x**4)(x=>x/2**6)('stop');" // [4, 256, 4].
-
-` ),
     h('p', ' The first example (below) performs a computation, requests a quasi-random number from the WebSocket server, requests that number\'s prime decomposition from a web worker, and displays the result. The code runs twenty-five times each time the button is clicked. '),
 
 h('br')
@@ -2722,7 +2720,7 @@ function push3 (ar, x) {ar.push(x);  return ar };
 
 push3 = new Proxy(push3, {
     apply: function(a, b, c) {
-        if (c[0].length === 3) {console.log('c is',c); c = [ [], c[1] ]}
+        if (c[0].length === 3)
         if (c[0].length === 2) {
           console.log('c is',c);
            quadMaker("g", "h")(c[0][0])(c[0][1])(c[1]);
@@ -2766,8 +2764,67 @@ h('span', '. ' )
                                         ])
                                        ]),
 
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 8 - Array Transformations'),
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 8'),
+                                              h('div.content2', [
+
+h('div', {style: {display: "flex" }},  [
+  h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+h('span.tao', ' Nathan Calvank\'s video presentation, ' ),
+h('a', {props: {href: "https://www.youtube.com/watch?v=SJjOp0X_MVA", target: "blank" }}, 'Transducers Explained' ),
+h('span', ' is an excellent introduction to transducers. He shows the Array.prototype operations on arrays, as well as others, can be expressed as Array.prototype.reduce operations and composed. ' ),
+
+h('p', ' "rf" in mapping(func) or filtering(predicate) can be concat, reduce, mapping(f)(rf), or filtering(f)(rf). In the right column, we show this working inside of objects created by Comp().  '),
+
+
+h('pre', `function mapping(f) {
+  return function(rf) {
+    return (acc, val) => {
+      return rf(acc, f(val));
+    };
+  };
+}
+
+function filtering(p) {
+  return function(rf) {
+    return (acc, val) => {
+      return p(val) ? rf(acc, val) : acc;
+    };
+  };
+} `),
+
+h('p', ' This is the code running in the right column:' ),
+
+h('pre', `var arr = [0,1,2,3,4,5,6,7,8,9];
+
+var zza = Comp(arr); var zzt = zza.run(zza.ar)(x=>x.reduce(mapping(x=>x**3)
+ (filtering(x=>x%2===0)(mapping(x=>x+10000)
+   (concat))),[]))('stop').pop();
+console.log("zzt is", zzt);
+
+var zzb = Comp(arr); var zzu = zzb.run(zzb.ar)(x=>x.reduce(mapping(x=>x**3)
+ (filtering(x=>x%2===0)(mapping(x=>x+10000)
+   ((a,b)=>a+b))),0))('stop').pop();
+console.log("zzu is", zzu); ` ),
+
+
+
+                                      ]),
+                                      h('div', {style: {marginRight: "2%", width: "50%" }},   [
+h('br'),
+
+
+
+
+
+
+
+                                                             ])
+                                                             ])
+                                                             ]),
+
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 9'),
 
                                               h('div.content2', [
 
