@@ -162,3 +162,32 @@ warp: Network.Socket.bind: resource busy (Address already in use)
 Downloading lts-11.15 build plan ...
 Downloaded lts-11.15 build plan.
 AesonException "Error in $.packages.cassava.constraints.flags['bytestring--lt-0_10_4']: Invalid flag name: \"bytestring--lt-0_10_4\""
+Serving directory /home/b/TEST/fun/dist on port 3000 with ["index.html","index.htm"] index files.
+warp: Network.Socket.bind: resource busy (Address already in use)
+"In main"
+"App is fired up"
+1
+"*********** Incoming message ***********"
+"GZ#$42,solo,8409975570284"
+"GZ#$42,solo,8409975570284"
+"*********** Incoming message ***********"
+"8409975570284 is leaving"
+"Here are the names which are currently being served BEFORE"
+"8409975570284"
+"<@><#><$><#><@>"
+"Here are the names which are currently being AFTER"
+"8409975570284"
+"<@><#><$><#><@>"
+"Message being broadcast: NN#$42,,Major malfunction. I am Mr. Nobody<br>"
+NN#$42,,Major malfunction. I am Mr. Nobody<br>
+namesFile: openFile: does not exist (No such file or directory)
+Warning: /home/b/TEST/fun/stack.yaml: Unrecognized field in ProjectAndConfigMonoid: deps
+Unable to load custom resolver lts-13-18 from local file:
+  /home/b/TEST/fun/lts-13-18
+Exception: InvalidYaml (Just (YamlException "Yaml file not found: /home/b/TEST/fun/lts-13-18"))
+Serving directory /home/b/TEST/fun/dist on port 3000 with ["index.html","index.htm"] index files.
+warp: Network.Socket.bind: resource busy (Address already in use)
+Warning: /home/b/TEST/fun/stack.yaml: Unrecognized field in ProjectAndConfigMonoid: deps
+Unable to load custom resolver lts-13-18 from local file:
+  /home/b/TEST/fun/lts-13-18
+Exception: InvalidYaml (Just (YamlException "Yaml file not found: /home/b/TEST/fun/lts-13-18"))

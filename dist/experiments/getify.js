@@ -1,9 +1,45 @@
+#!/usr/bin/env js
+
 var window = {};
 
 var fi = function fi (p) {return function fil(x) {var a = p(x) ? x : undefined; return a;} };
 var filt = fi(x => x%2 === 0);
+var x = "blank";
+
+function Comp ( AR = [] )  {
+  var ar , x, ob, f_ , p ;
+  if (Array.isArray(AR)) ar = AR.slice()
+  else ar = AR;
+  if (ar.length) {x = ar[ar.length-1]};
+    return  ob = {ar: ar, run: function run (x) {
+
+      if (x instanceof Fux) {var z = ob.ar.pop();
+          if (x.fux(z)) x = z;
+      };
+
+        if (x instanceof Promise) x.then(y =>
+          {if (y != undefined && y !== false && y !== NaN && (!(x instanceof Fux)) &&
+          y.toString() != "NaN" && y.name !== "f_" ) {
+            ar.push(y);
+        }})
+        else if (x != undefined && x !== false && (!(x instanceof Fux)) &&
+        x.toString() != "NaN" && x.name !== "f_" ) {
+            ar.push(x);
+        };
+        function f_ (func) {
+            if (func === 'stop') return ar;
+            else if (typeof func !== "function") p = func;
+            else if (x instanceof Promise)
+                p = x.then(v => func(v));
+            else p = func(x);
+            return run(p);
+        };
+        return f_;
+    }}
+}
 
 
+/*
 function Comp ( AR = [] )  {
   var ar , x, ob, f_ , p ;
   if (Array.isArray(AR)) ar = AR.slice()
@@ -30,6 +66,7 @@ function Comp ( AR = [] )  {
         };
     }}
 }
+*/
 
 var fork = ob => string => {
     window[string] = Comp(ob.ar.slice());
@@ -214,17 +251,36 @@ function* integers() {
   }
 }
 
-var ob2 = Comp([0,1,2,3,4,5]);
-var ot = ob2.run(ob2.ar)(ar => ar.reduce(Map(x=>x**3)(concat),[]))(()=>ob2.ar)('stop');
-console.log("ot is", ot);
+var ob2 = Comp();
+ob2.run([1,2,3,4,5])(arr => arr.reduce(Map(x=>x**3)(concat),[]));
+var mule = ob2.ar.pop();
 
-console.log(filt(1),
+console.log("mule is", mule);
+
+console.log("filt 1 through 5", filt(1),
 filt(2),
 filt(3),
 filt(4),
 filt(5));
-
+var fi = function fi (p) {return function fil(x) {var a = p(x) ? x : undefined; return a;} };
 var o = Comp([1])
 var artt = [1,2,3,4,5,6,7,8,9];
-artt.map(v => o.run(v)(filt)(x=>x**3));
-console.log("o.ar is", o.ar);
+// artt.map(v => o.run(v)(filt)(x=>x**3));
+// console.log("o.ar is", o.ar);
+
+function Fux (p) {this.p = p; this.fux = function fux (x) {return p(x)}; var f = this.fux; return f};
+
+var fox = new Fux(x=>x%2 === 0);
+
+var cox = new Fux(x=>x>1200);
+console.log("fox and cox instanceof Fux", fox instanceof Fux, cox instanceof Fux);
+console.log("cox.prototype, cox.__proto__, and Fux.prototype", cox.prototype, cox.__proto__, Fux.prototype);
+
+var o23 = Comp();
+function fox88 (n) {let x = [...Array(n).keys()]
+.map(v => o23
+    .run(v)(fox)(x=>x*x)(x=>x+1000)
+    (cox)('stop')) ; return x} ;
+console.log("fox88(5).pop() is", fox88(5).pop());
+
+console.log("fox instanceof Fux", fox instanceof Fux);

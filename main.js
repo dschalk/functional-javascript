@@ -2,7 +2,7 @@
     // onChange = require('on-change');
     // import ws from 'ws';
     import {EventEmitter} from 'events';
-    import ASQ from 'asynquence';
+    // import ASQ from 'asynquence';
 
     // import {makeHTTPDriver} from '@cycle/http';
     // import {require} from "requirejs";
@@ -15,7 +15,7 @@
     import code from './code.js';
     import {run} from './cycle-run.js';
 
-    //  socket = new WebSocket("ws://localhost:3055");
+    // socket = new WebSocket("ws://localhost:3055");
 
     // socket = new WebSocket("ws://142.93.205.167:3055");
     socket = new WebSocket("ws://schalk.net:3055");

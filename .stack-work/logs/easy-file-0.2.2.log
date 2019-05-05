@@ -1,7 +1,7 @@
 Configuring easy-file-0.2.2...
 Preprocessing library for easy-file-0.2.2..
 Building library for easy-file-0.2.2..
-[1 of 4] Compiling System.EasyFile.Directory ( System/EasyFile/Directory.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/System/EasyFile/Directory.o )
+[1 of 4] Compiling System.EasyFile.Directory ( System/EasyFile/Directory.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/System/EasyFile/Directory.o )
 
 [;1mSystem/EasyFile/Directory.hs:37:1: [;1m[35mwarning:[0m[0m[;1m [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
     The import of ‘Control.Applicative’ is redundant
@@ -10,8 +10,8 @@ Building library for easy-file-0.2.2..
 [;1m[34m   |[0m[0m
 [;1m[34m37 |[0m[0m [;1m[35mimport Control.Applicative[0m[0m
 [;1m[34m   |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
-[0m[0m[0m[2 of 4] Compiling System.EasyFile.FilePath ( System/EasyFile/FilePath.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/System/EasyFile/FilePath.o )
-[3 of 4] Compiling System.EasyFile.Missing ( System/EasyFile/Missing.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/System/EasyFile/Missing.o )
+[0m[0m[0m[2 of 4] Compiling System.EasyFile.FilePath ( System/EasyFile/FilePath.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/System/EasyFile/FilePath.o )
+[3 of 4] Compiling System.EasyFile.Missing ( System/EasyFile/Missing.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/System/EasyFile/Missing.o )
 
 [;1mSystem/EasyFile/Missing.hs:7:1: [;1m[35mwarning:[0m[0m[;1m [[;1m[35m-Wunused-imports[0m[0m[;1m][0m[0m[;1m
     The import of ‘Control.Applicative’ is redundant
@@ -20,6 +20,6 @@ Building library for easy-file-0.2.2..
 [;1m[34m  |[0m[0m
 [;1m[34m7 |[0m[0m [;1m[35mimport Control.Applicative[0m[0m
 [;1m[34m  |[0m[0m[;1m[35m ^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
-[0m[0m[0m[4 of 4] Compiling System.EasyFile  ( System/EasyFile.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/System/EasyFile.o )
-Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/easy-file-0.2.2-ACg7EfD6Bid72bXoAqasoR
+[0m[0m[0m[4 of 4] Compiling System.EasyFile  ( System/EasyFile.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/System/EasyFile.o )
+Installing library in /home/b/.stack/snapshots/x86_64-linux-tinfo6/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/easy-file-0.2.2-ACg7EfD6Bid72bXoAqasoR
 Registering library for easy-file-0.2.2..

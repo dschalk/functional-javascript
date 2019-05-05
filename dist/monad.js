@@ -462,8 +462,8 @@ var toHex = _convert_ (6);
 var _conveNt_ = a => b => parseFloat(b,a);
 var toFloat = _conveNt_ (10);
 
-function intArray (x) {
-  return Object.keys(Array.apply(0, Array(x))).map(toInt)
+function intArray (n) {
+  return [...Array(n).keys()];
 }
 
 console.log(intArray(7))   // [1,2,3,4,5,6,7]
@@ -4094,6 +4094,32 @@ function Compose ( AR = [] )  {
   } };
 };
 
+/* function Comp ( AR = '' )  {
+    var ar , x, ob, f_ , p, z;
+    if (Array.isArray(AR)) ar = AR.slice()
+    else ar = AR;
+    if (Array.isArray(ar) && ar.length) x = ar.slice(1)
+    else x = ar;
+    return  ob = {ar: ar, run: function run (x) {
+        if (x != undefined && x !== false && x !== NaN && (!(x instanceof Fux)) &&
+        x.toString() != "NaN" && x.name !== "f_" ) {
+            if (Array.isArray(ob.ar)) ob.ar.push(x)
+            else ob.ar = p;
+        if (x instanceof Fux) {var z = ob.ar.pop();
+            if (x.fux(z)) x = z;
+        };
+        if (x instanceof Promise) x.then(y => z = y);
+        else z = x;
+        return function f_ (func) {
+            if (func === 'stop') return ar;
+            else if (typeof func !== "function") p = func;
+            else if (z instanceof Promise) p = z.then(v => func(v));
+            else p = func(z);
+            return run(p);
+        };
+    }}}
+}; */
+
 function Comp ( AR = [] )  {
   var ar , x, ob, f_ , p ;
   if (Array.isArray(AR)) ar = AR.slice()
@@ -4439,4 +4465,6 @@ var fox = new Fux(x=>x%2 === 0);
 var cox = new Fux(x=>x>1200);
 
 var o23 = Comp();
-[...Array(25).keys()].map(v => o23.run(v)(fox)(x=>x*x)(x=>x+1000)(cox)); console.log("o23.ar is", o23.ar)
+[...Array(25).keys()]
+.map(v => o23.run(v)(fox)(x=>x*x)(x=>x+1000)(cox));
+console.log("o23.ar is", o23.ar)

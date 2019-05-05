@@ -1,13 +1,13 @@
 Configuring concurrent-extra-0.7.0.12...
 Preprocessing library for concurrent-extra-0.7.0.12..
 Building library for concurrent-extra-0.7.0.12..
-[1 of 8] Compiling Utils            ( Utils.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Utils.o )
-[2 of 8] Compiling Control.Concurrent.STM.Lock ( Control/Concurrent/STM/Lock.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Control/Concurrent/STM/Lock.o )
-[3 of 8] Compiling Control.Concurrent.Lock ( Control/Concurrent/Lock.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Control/Concurrent/Lock.o )
-[4 of 8] Compiling Control.Concurrent.ReadWriteLock ( Control/Concurrent/ReadWriteLock.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Control/Concurrent/ReadWriteLock.o )
-[5 of 8] Compiling Control.Concurrent.ReadWriteVar ( Control/Concurrent/ReadWriteVar.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Control/Concurrent/ReadWriteVar.o )
-[6 of 8] Compiling Control.Concurrent.RLock ( Control/Concurrent/RLock.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Control/Concurrent/RLock.o )
-[7 of 8] Compiling Control.Concurrent.Broadcast ( Control/Concurrent/Broadcast.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Control/Concurrent/Broadcast.o )
-[8 of 8] Compiling Control.Concurrent.Event ( Control/Concurrent/Event.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Control/Concurrent/Event.o )
-Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/concurrent-extra-0.7.0.12-C3371OTCXP5H4LDA3tFIux
+[1 of 8] Compiling Utils            ( Utils.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Utils.o )
+[2 of 8] Compiling Control.Concurrent.STM.Lock ( Control/Concurrent/STM/Lock.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Control/Concurrent/STM/Lock.o )
+[3 of 8] Compiling Control.Concurrent.Lock ( Control/Concurrent/Lock.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Control/Concurrent/Lock.o )
+[4 of 8] Compiling Control.Concurrent.ReadWriteLock ( Control/Concurrent/ReadWriteLock.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Control/Concurrent/ReadWriteLock.o )
+[5 of 8] Compiling Control.Concurrent.ReadWriteVar ( Control/Concurrent/ReadWriteVar.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Control/Concurrent/ReadWriteVar.o )
+[6 of 8] Compiling Control.Concurrent.RLock ( Control/Concurrent/RLock.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Control/Concurrent/RLock.o )
+[7 of 8] Compiling Control.Concurrent.Broadcast ( Control/Concurrent/Broadcast.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Control/Concurrent/Broadcast.o )
+[8 of 8] Compiling Control.Concurrent.Event ( Control/Concurrent/Event.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Control/Concurrent/Event.o )
+Installing library in /home/b/.stack/snapshots/x86_64-linux-tinfo6/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/concurrent-extra-0.7.0.12-C3371OTCXP5H4LDA3tFIux
 Registering library for concurrent-extra-0.7.0.12..

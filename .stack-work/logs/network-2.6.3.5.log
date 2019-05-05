@@ -1,6 +1,6 @@
-[1 of 2] Compiling Main             ( /tmp/stack13808/network-2.6.3.5/Setup.hs, /tmp/stack13808/network-2.6.3.5/.stack-work/dist/x86_64-linux/Cabal-2.0.1.0/setup/Main.o )
-[2 of 2] Compiling StackSetupShim   ( /home/o/.stack/setup-exe-src/setup-shim-mPHDZzAJ.hs, /tmp/stack13808/network-2.6.3.5/.stack-work/dist/x86_64-linux/Cabal-2.0.1.0/setup/StackSetupShim.o )
-Linking /tmp/stack13808/network-2.6.3.5/.stack-work/dist/x86_64-linux/Cabal-2.0.1.0/setup/setup ...
+[1 of 2] Compiling Main             ( /tmp/stack27739/network-2.6.3.5/Setup.hs, /tmp/stack27739/network-2.6.3.5/.stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/setup/Main.o )
+[2 of 2] Compiling StackSetupShim   ( /home/b/.stack/setup-exe-src/setup-shim-mPHDZzAJ.hs, /tmp/stack27739/network-2.6.3.5/.stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/setup/StackSetupShim.o )
+Linking /tmp/stack27739/network-2.6.3.5/.stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/setup/setup ...
 Configuring network-2.6.3.5...
 configure: WARNING: unrecognized options: --with-compiler
 checking build system type... x86_64-pc-linux-gnu
@@ -16,8 +16,8 @@ checking whether /usr/bin/gcc accepts -g... yes
 checking for /usr/bin/gcc option to accept ISO C89... none needed
 checking for an ANSI C-conforming const... yes
 checking how to run the C preprocessor... /usr/bin/gcc -E
-checking for grep that handles long lines and -e... /bin/grep
-checking for egrep... /bin/grep -E
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
 checking for ANSI C header files... yes
 checking for sys/types.h... yes
 checking for sys/stat.h... yes
@@ -103,10 +103,10 @@ config.status: creating include/HsNetworkConfig.h
 configure: WARNING: unrecognized options: --with-compiler
 Preprocessing library for network-2.6.3.5..
 Building library for network-2.6.3.5..
-[ 1 of 11] Compiling Network.Socket.ByteString.IOVec ( .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Socket/ByteString/IOVec.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Socket/ByteString/IOVec.o )
-[ 2 of 11] Compiling Network.Socket.Types ( .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Socket/Types.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Socket/Types.o )
-[ 3 of 11] Compiling Network.Socket.Internal ( .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Socket/Internal.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Socket/Internal.o )
-[ 4 of 11] Compiling Network.Socket   ( .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Socket.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Socket.o )
+[ 1 of 11] Compiling Network.Socket.ByteString.IOVec ( .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/Socket/ByteString/IOVec.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/Socket/ByteString/IOVec.o )
+[ 2 of 11] Compiling Network.Socket.Types ( .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/Socket/Types.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/Socket/Types.o )
+[ 3 of 11] Compiling Network.Socket.Internal ( .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/Socket/Internal.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/Socket/Internal.o )
+[ 4 of 11] Compiling Network.Socket   ( .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/Socket.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/Socket.o )
 
 [;1mNetwork/Socket.hsc:381:16: [;1m[35mwarning:[0m[0m[;1m [[;1m[35m-Wdeprecations[0m[0m[;1m][0m[0m[;1m
     In the use of data constructor ‘SockAddrCan’
@@ -121,12 +121,12 @@ Building library for network-2.6.3.5..
 [;1m[34m    |[0m[0m
 [;1m[34m581 |[0m[0m accept [;1m[35msock[0m[0m@(MkSocket s family stype protocol status) = withMVar status $ \currentStatus -> do
 [;1m[34m    |[0m[0m[;1m[35m        ^^^^[0m[0m
-[0m[0m[0m[ 5 of 11] Compiling Network.Socket.ByteString.MsgHdr ( .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Socket/ByteString/MsgHdr.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Socket/ByteString/MsgHdr.o )
-[ 6 of 11] Compiling Network.Socket.ByteString.Internal ( Network/Socket/ByteString/Internal.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Socket/ByteString/Internal.o )
-[ 7 of 11] Compiling Network.Socket.ByteString.Lazy.Posix ( Network/Socket/ByteString/Lazy/Posix.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Socket/ByteString/Lazy/Posix.o )
-[ 8 of 11] Compiling Network.Socket.ByteString ( .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Socket/ByteString.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Socket/ByteString.o )
-[ 9 of 11] Compiling Network.Socket.ByteString.Lazy ( Network/Socket/ByteString/Lazy.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/Socket/ByteString/Lazy.o )
-[10 of 11] Compiling Network.BSD      ( .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/BSD.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network/BSD.o )
-[11 of 11] Compiling Network          ( Network.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Network.o )
-Installing library in /home/o/.stack/snapshots/x86_64-linux/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/network-2.6.3.5-7QeClNawG4zBUywSiaHaqa
+[0m[0m[0m[ 5 of 11] Compiling Network.Socket.ByteString.MsgHdr ( .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/Socket/ByteString/MsgHdr.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/Socket/ByteString/MsgHdr.o )
+[ 6 of 11] Compiling Network.Socket.ByteString.Internal ( Network/Socket/ByteString/Internal.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/Socket/ByteString/Internal.o )
+[ 7 of 11] Compiling Network.Socket.ByteString.Lazy.Posix ( Network/Socket/ByteString/Lazy/Posix.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/Socket/ByteString/Lazy/Posix.o )
+[ 8 of 11] Compiling Network.Socket.ByteString ( .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/Socket/ByteString.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/Socket/ByteString.o )
+[ 9 of 11] Compiling Network.Socket.ByteString.Lazy ( Network/Socket/ByteString/Lazy.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/Socket/ByteString/Lazy.o )
+[10 of 11] Compiling Network.BSD      ( .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/BSD.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network/BSD.o )
+[11 of 11] Compiling Network          ( Network.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Network.o )
+Installing library in /home/b/.stack/snapshots/x86_64-linux-tinfo6/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/network-2.6.3.5-7QeClNawG4zBUywSiaHaqa
 Registering library for network-2.6.3.5..
