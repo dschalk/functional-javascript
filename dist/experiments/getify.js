@@ -13,10 +13,17 @@ function Comp ( AR = [] )  {
   if (ar.length) {x = ar[ar.length-1]};
     return  ob = {ar: ar, run: function run (x) {
 
-      if (x instanceof Fux) {var z = ob.ar.pop();
+/*      if (x instanceof Fux) {var z = ob.ar.pop();
           if (x.fux(z)) x = z;
-      };
+      }; */
 
+       if (x instanceof Fux) {
+          var z = ob.ar.slice(-2,-1)
+          if (!x.fux(z[0])) {
+             ar = ob.ar.splice(-2);
+             return;
+          }
+       }
         if (x instanceof Promise) x.then(y =>
           {if (y != undefined && y !== false && y !== NaN && (!(x instanceof Fux)) &&
           y.toString() != "NaN" && y.name !== "f_" ) {
@@ -37,6 +44,40 @@ function Comp ( AR = [] )  {
         return f_;
     }}
 }
+
+
+function Comp2 ( AR = [] )  {
+    var ar , x, ob, f_ , p, z;
+    if (Array.isArray(AR)) ar = AR.slice()
+    else ar = AR;
+    if (Array.isArray(ar) && ar.length) x = ar.slice(1)
+    else x = ar;
+    return  ob = {ar: ar, run: function run (x) {
+        if (x != undefined && x !== false && x !== NaN && (!(x instanceof Fux)) &&
+        x.toString() != "NaN" && x.name !== "f_" ) {
+            if (Array.isArray(ob.ar)) ob.ar.push(x)
+            else ob.ar = p;
+            console.log("ob.ar, p", ob.ar, p);
+
+        if (x instanceof Fux) {var z = ob.ar.pop();
+            if (x.fux(z)) x = z;
+        };
+        if (x instanceof Promise) x.then(y => z = y);
+        else z = x;
+        return function f_ (func) {
+            if (func === 'stop') return ob.ar;
+            else if (typeof func !== "function") p = func;
+            else if (z instanceof Promise) p = z.then(v => func(v));
+            else p = func(z);
+
+            console.log("At the end of Comp -- p is", p );
+            return run(p);
+        };
+    }}}
+};
+
+var zee = [1,2,3,4,5].map(v => Comp2().run(v)(x=>x**3)(x=>x+3)(x=>x*x)('stop').pop());
+console.log('zee is', zee);
 
 
 /*
@@ -186,7 +227,7 @@ var xform = compose(
   Map(x=>x*x),
   Filter(isEven),
   Map(x=>x+x),
-  Map(x=>x+1),
+  Map(x=>x+5),
 );
 
 var xform2 = compose(
@@ -270,17 +311,27 @@ var artt = [1,2,3,4,5,6,7,8,9];
 
 function Fux (p) {this.p = p; this.fux = function fux (x) {return p(x)}; var f = this.fux; return f};
 
-var fox = new Fux(x=>x%2 === 0);
-
-var cox = new Fux(x=>x>1200);
-console.log("fox and cox instanceof Fux", fox instanceof Fux, cox instanceof Fux);
-console.log("cox.prototype, cox.__proto__, and Fux.prototype", cox.prototype, cox.__proto__, Fux.prototype);
+var fox = new Fux(x=>x%2 === 1);
+var sox = new Fux(x=>x<3000)
+var cox = new Fux(x=>x>1000);
+//console.log("fox and cox instanceof Fux", fox instanceof Fux, cox instanceof Fux);
+//console.log("cox.prototype, cox.__proto__, and Fux.prototype", cox.prototype, cox.__proto__, Fux.prototype);
 
 var o23 = Comp();
 function fox88 (n) {let x = [...Array(n).keys()]
-.map(v => o23
-    .run(v)(fox)(x=>x*x)(x=>x+1000)
+.map(v => o23.run(v)(fox)(x=>x*x)(x=>x+1000)
     (cox)('stop')) ; return x} ;
-console.log("fox88(5).pop() is", fox88(5).pop());
+//console.log("fox88(5).pop() is", fox88(5).pop());
 
-console.log("fox instanceof Fux", fox instanceof Fux);
+//console.log("fox instanceof Fux", fox instanceof Fux);
+
+//console.log("fox88(7)", fox88(4))
+var ob = Comp()
+ob.run(3)(fox)(x=>x**3)(x=>x+3)(x=>x*x)('stop')
+console.log("ob.ar", ob.ar);
+
+ob = Comp(); ob.run(3)(x=>x**3)(x=>x+3)(fox)(x=>x*x)('stop')
+console.log("ob.ar", ob.ar);
+
+
+//end

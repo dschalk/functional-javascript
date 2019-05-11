@@ -36,7 +36,7 @@ function primeNums (p,x) {
   var q = p[p.length - 1];
   if (q > x) return small(p,x)
   else {
-    var arr = pNums(q,x,p); 
+    var arr = pNums(q,x,p);
     return p.concat(arr);
   }
 };
@@ -66,17 +66,10 @@ var g = p => x => {
   else z = x + " is a prime number"
   return [primes, z];
 }
-  
+
 onmessage = function(m) {
   var a = m.data[0];
   var b = parseInt(m.data[1],10);
   var c = g(a)(b);
-  console.log("In workerO -- sending the result: ", c);
   postMessage(c);
 }
-
-
-
-
-
-

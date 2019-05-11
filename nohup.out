@@ -191,3 +191,17 @@ Warning: /home/b/TEST/fun/stack.yaml: Unrecognized field in ProjectAndConfigMono
 Unable to load custom resolver lts-13-18 from local file:
   /home/b/TEST/fun/lts-13-18
 Exception: InvalidYaml (Just (YamlException "Yaml file not found: /home/b/TEST/fun/lts-13-18"))
+Warning: /home/b/TEST/fun/stack.yaml: Unrecognized field in ProjectAndConfigMonoid: deps
+Unable to load custom resolver lts-13-18 from local file:
+  /home/b/TEST/fun/lts-13-18
+Exception: InvalidYaml (Just (YamlException "Yaml file not found: /home/b/TEST/fun/lts-13-18"))
+Warning: /home/b/TEST/fun/stack.yaml: Unrecognized field in ProjectAndConfigMonoid: deps
+Unable to load custom resolver lts-13-18 from local file:
+  /home/b/TEST/fun/lts-13-18
+Exception: InvalidYaml (Just (YamlException "Yaml file not found: /home/b/TEST/fun/lts-13-18"))
+Serving directory /home/b/TEST/fun/dist on port 3000 with ["index.html","index.htm"] index files.
+warp: Network.Socket.bind: resource busy (Address already in use)
+Warning: /home/b/TEST/fun/stack.yaml: Unrecognized field in ProjectAndConfigMonoid: deps
+Unable to load custom resolver lts-13-18 from local file:
+  /home/b/TEST/fun/lts-13-18
+Exception: InvalidYaml (Just (YamlException "Yaml file not found: /home/b/TEST/fun/lts-13-18"))

@@ -23,7 +23,7 @@
     // ws = new WebSocket("ws://echo.websocket.org");
 
 EventEmitter = EventEmitter;
-ASQ = ASQ;
+// ?ASQ = ASQ;
 console.log("************************** h and clone *****************"),
     h = h;   // For use in monad.js
 
@@ -242,6 +242,15 @@ console.log(" END ************************** h and clone ***************** EBD")
       m43_.push(h('br'));
   });
 
+  mMZ60.bnd(string => {
+      m43_.push(string);
+      m43_.push(h('br'));
+  });
+
+
+
+
+
 f23 = () => {
     var bind = Comp().run;
     m44_ = m45_ = time = '';
@@ -260,7 +269,7 @@ f23 = () => {
     }
 }
 
-f27 = () => {
+ f27 = () => {
     var bind = Comp().run;
     [...Array(15).keys()].map(() => {
         bind(145)(x => x**3)(it4_b)(it6_b)(it7_b);
@@ -455,6 +464,7 @@ f27 = () => {
 
         mMZ30.bnd(() => {
           if (playerName === sender) {
+              console.log(v[3], " arrived from the server")
               mMZ42.release(v[3]);
           }
         });
@@ -1175,9 +1185,26 @@ var factorsClick8$ = sources.DOM
 
 var factorsAction8$ = factorsClick8$.map(e => {
     var i = 0;
+    console.log("walapoluza!")
     m43_ = [];
     m44_ = m45_ = '';
-    f27();
+    it4_d(100000);
+    it4_d(10000);
+    it4_d(1000);
+    it4_d(10000);
+    it4_d(100000);
+    it4_d(1000000);
+    it4_d(100000);
+    it4_d(10000);
+    it4_d(1000);
+    it4_d(10000);
+    it4_d(100000);
+    it4_d(1000000);
+    it4_d(100000);
+    it4_d(10000);
+    it4_d(1000);
+
+console.log('zee is', zee);
 });
 
 var aplusClick$ = sources.DOM
@@ -1261,7 +1288,7 @@ workerM$ = sources.WWM.map(m => {
 
 workerO$ = sources.WWO.map(m => {
   console.log("Message from workerO -- m.data -- going to mMZ68.bnd ", m.data );
-  mMZ68.release(m.data[1]);
+  mMZ60.release(m.data[1]);
   mMZ69.release(m.data[0]);
   if (m.data[0].length > primeState.length) primeState = m.data[0];
 });
@@ -2142,7 +2169,7 @@ h('span', ' server, each on its own ' ),
 
 h('span', ' droplet. The JavaScript is plain, unrestricted ' ),
 
-                     h('a', {props: {href:"https://tc39.github.io/ecma262/", target: "_blank" }}, 'Ecmascript 2019' ),
+                     h('a', {props: {href:"https://tc39.github.io/ecma262/", target: "_blank" }}, 'Ecmascript 2018' ),
 h('span', ', transpiled with ' ),
                       h('a', {props: {href:"https://babeljs.io/", target: "_blank" }}, 'Babel' ),
 
@@ -2155,50 +2182,59 @@ h('br'),
 h('br'),
 h('span.tao', ' According to ' ),
 h('a', {props: {href: "https://www.geeksforgeeks.org/functional-programming-paradigm/", target: "_blank" }}, 'Geeks for Geeks' ),
-h('span', ', \"Functional programming is a programming paradigm in which we try to bind everything in pure mathematical functions style.\". The article is a good read for coders who are curious about the \"functional programming\" buzz that is humming on the Internet. It discusses pure functions, recursion, referential transparency first-class functions, higher-order functions, and the oxymoronic phrase: \"immutable variables\", with some example code written in JavaScript. ' ),
+h('span', ' \"Functional programming is a programming paradigm in which we try to bind everything in pure mathematical functions style.\". The article is a good read for coders who are curious about the \"functional programming\" buzz that is humming on the Internet. It discusses pure functions, recursion, referential transparency first-class functions, higher-order functions, and the oxymoronic phrase: \"immutable variables\", with some example code written in JavaScript. ' ),
 h('br'),
 h('br'),
 h('span.tao', {style: {color: "#FF00DD"}}, ' WARNING:' ),
-h('span', styleFunc (['#ABFFBA', , ,'italic', , , ,]), ' Unless you are already proficient at creating functions that use recursion, closures, currying, reactivity, and sensible composition, trying to scrupulously conform to the functional paradigm will stifle your creativity and slow your progress toward mastering JavaScript. It\'s good to avoid mutating variables outside of function scope, but trying to make JavaScript functions behave like mathematical functions is a waste of time, and a waste of valuable features of an increasingly powerful programming language. ' ),
-h('p', ' Suppose you want to chain computations involving functions, primitive values, and promises where functions can readily access the return values of all prior functions, resolution values of all previously returned promises, and all primitive values inserted into the sequence. Your frameworks and libraries aren\'t likely to help you, but you can create a function to suit your needs. That\'s what I did. I named my function "Comp". ' ),
-h('h', ' Comp() does everything mentioned in the previous paragraph and more. Every series of computations remains as an entity that can resume activity under its original name, or as one or more independent branches that leave the original computation unchanged. ' ),
+h('span', styleFunc (['#ABFFBA', , ,'italic', , , ,]), " Trying to scrupulously conform to the functional paradigm might stifle your creativity and slow your progress toward mastering JavaScript. " ),
+
+h('p', 'In this presentation, I try to avoid mutating anything outside of function scope. Information comes comes from and goes to browsers, web workers, and a remote WebSockets server. Caches of prime numbers and positions on a grid are maintained for efficiency and backtracking. User names, passwords, and comments are maintained by the Haskell server.  ' ),
+h('p', ' From my perspective, libraries are largely black boxes with limited usefulness. If you take the time to study and understand the function "Comp()" (below) you might feel that you have acquired a potentially useful tool. Beyond that, I hope you will feel empowered to add and remove features and to fashion specialized tools for your projects. ' ),
+h('p', ' My code isn\'t important. When the non-essential aspects fall away, what remains is recursion, partial application, closures, ... the essence of functional Javascript. Here\'s Comp(): ' ),
 
 h('pre', `function Comp ( AR = [] )  {
   var ar , x, ob, f_ , p ;
   if (Array.isArray(AR)) ar = AR.slice()
   else ar = AR;
   if (ar.length) {x = ar[ar.length-1]};
-    return  ob = {ar: ar, run: function run (x) {
-        if (x instanceof Promise) x.then(y =>
-          {if (y != undefined && y !== false && y !== NaN &&
-          y.toString() != "NaN" && y.name !== "f_" ) {
-            ar.push(y);
-        }})
-        else if (x != undefined && x !== false && y !== NaN &&
-        x.toString() != "NaN" && x.name !== "f_" ) {
-            ar.push(x);
-        };
-        return function f_ (func) {
-            if (func === 'stop') return ar;
-            else if (typeof func !== "function") p = func;
-            else if (x instanceof Promise)
-                p = x.then(v => func(v));
-            else p = func(x);
-            return run(p);
-        };
-    }}
+  return  ob = {ar: ar, run: function run (x) {
+
+    if (x instanceof Filt) {
+      var z = ob.ar.pop();
+      if (x.filt(z)) {x = z}
+      else {
+        ar = [];
+        f_('stop');
+       }
+    };
+
+    if (x instanceof Promise) x.then(y =>
+      {if (y != undefined && y !== false && y !== NaN && (!(x instanceof Filt)) &&
+      y.toString() != "NaN" && y.name !== "f_" ) {
+      ar.push(y);
+        diffRender()
+    }})
+    else if (x != undefined && x !== false && (!(x instanceof Filt)) &&
+      x.toString() != "NaN" && x.name !== "f_" ) {
+      ar.push(x);
+      diffRender()
+    };
+    function f_ (func) {
+      if (func === 'stop') return ar;
+      else if (typeof func !== "function") p = func;
+      else if (x instanceof Promise) p = x.then(v => func(v));
+      else p = func(x);
+      return run(p);
+    };
+    return f_;
+  }}
 } ` ),
 
-h('p', ' When a function is provided to ob.run, its return value is pushed into ob.ar. Pending promises resolve inside of ob.ar and the resolution values become available as possible arguments for subsequent functions. ' ),
-
-h('p', ' The object "b" (above) branches off of "a" to compute "900". "a" goes on to compute "42". "a" and "b" can be viewed as final results or partial computations that will complete if they receive additional primitive values and further instructions in the form of functions, or just some additional funcitons. Here\'s the basic composition syntax: ' ),
-
-
-  h('div', styleFunc(["#ffcccc", "4%", "20px",,,,,,]), [
+  h('div', styleFunc(["#bcccff", "4%", "20px",,,,,,]), [
   h('div', 'ob.run(x)(functiona1)(function2) ... (functionN)')
   ]),
   h('p', {style: {fontSize: "19px"}}, ' where  ' ),
-  h('div', styleFunc(["#ffccee", "4%", "23px",,,,,,]), [
+  h('div', styleFunc(["#bcccff", "4%", "23px",,,,,,]), [
     h('div', 'x can be any value,'),
     h('br'),
     h('div', 'function1, function2, ... need not be functions. There are no type restrictions on the values of the "functions",' ),
@@ -2209,92 +2245,186 @@ h('p', ' The object "b" (above) branches off of "a" to compute "900". "a" goes o
     h('br'),
     h('div', 'functions have built-in access to all prior primitive value entries, function return values, and Promise resolution values,' ),
     h('br'),
-    h('div', 'ob can be re-started with the expression "ob.run(fork(ob))". and can launch separate branches with expressions like "var branch = Comp.ar)",' ),
+    h('div', 'ob can be re-started with the expression "ob.run(fork(ob))". and can launch separate branches with expressions like "var branch = Comp(ob.ar).' ),
     h('br'),
-    h('div', 'sequences of functions can be run anonymously with statements like "Comp().run(4)(x=>x**4)(x=>x/2**4)(\'stop\'); // [4, 256,16]".' ),
+    h('div', 'sequences of functions can be run anonymously with statements like "Comp().run(4)(x=>x**4)(x=>x/2**4)(\'stop\'); // [4, 256,16]".' )
 
-                                                   ]),
+                                    ])
 
-    h('p', ' The first example (below) performs a computation, requests a quasi-random number from the WebSocket server, requests that number\'s prime decomposition from a web worker, and displays the result. The code runs twenty-five times each time the button is clicked. '),
+                                ]),
 
-h('br')
 
-                        ]),
+
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 1 - Emulated Transducer'),
+
             h('div.content2',  [
+            h('div', {style: {display: "flex" }},  [
+            h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
-  h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 1 '),
+h('p', ' Transducers facilitate the composition of operations on collections, thereby eliminating the need to traverse them more than once. For large collections, the performance advantage can be significant. In this demonstration, we traverse a short list four times using dot notation with the Array prototype functions map and filter. ' ),
 
-                                                                    h('div', {style: {display: "flex" }},  [
+h('p', ' Here is how filtOdd and filtEven are defined: ' ),
 
-                                                                    h('div', {style: {marginRight: "3%", width: "50%" }},   [
-
-
-h('pre', `var it4_b = x => {
-
-  .send(\`BD#$42,\${pMgroup.x},\${pMname.x},\${x}\`);
-}
-
-var mMZ41 = new MonadItter();
-var mMZ53 = new MonadItter();
-
-var it6_b = y => {
-  mMZ41.bnd(y => workerM.postMessage([primeState, y]));
-}
-
-it7_b = () => mMZ53.bnd(string => {
-    callOrder2 = callOrder2 > 24 ? 1 : callOrder2 + 1;
-    if (callOrder2 === 1) start78 = Date.now();
-    m43_.push(callOrder2 + "  ");
-    m43_.push(string)
-    m43_.push(h('br'));
-    if (callOrder2 === 25) m43_.push(
-        'Elapsed time: ' + (Date.now() - start78) + " ms");
-});  ` ),
-h('br'),
-h('br'),
-
-
-                                              ]),
-                                              h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-
-
-  h('br'),
-  h('br'),
-h('p', ' Sometimes, refreshing the browser speeds up this demonstration. Click below to begin fifteen runs of: '),
-  h('span', styleFunc(["rgb(7, 247, 247)", "12%", "20px", , , , , ]), 'ob.run(145)(x=>x**3)(it4_c)(it6_c)(it7_c)'),
-  h('br'),
-  h('br'),
-  h('button#factors_R', { style: { fontSize: '15px' }}, 'ob.run(145)(x=>x**3)( . . . ' ),
-  h('span', "~~"),
-  h('button.clear_R', {
-    style: {
-      fontSize: '15px',
-      marginLeft: "0"
+h('pre', `
+function Filt (p) {
+    this.p = p;
+    this.filt = function filt (x) {
+        return p(x)
     }
-  }, 'clear results'),
-  h('br'),
-  h('br'),
-  h('div.demo_1', {style: {fontSize: "15px"}}, m43_),
-  h('br'),
- /* h('div.demo_1', {style: {fontSize: "15px"}}, m44_),
-  h('br'),
-  h('div.demo_1', {style: {fontSize: "15px"}}, m45_),
-  h('br'),
-*/
+};
 
-                            ])
-                            ]),
+function filtP (p) {return new Filt(p)};
+
+var filtOdd = filtP(x=>x%2 === 1);
+var filtEven = filtP(x=>x%2 === 0); ` ),
+
+h('pre', `var ace1 = [1,2,3,4,5]
+.filter(v => v%2 === 1)
+.map(v => v**3)
+.map(v=>v+3)
+.map(v=>v*v)
+
+var ace2 = [1,2,3,4,5]
+.map(v => v**3)
+.map(v=>v+3)
+.filter(v => v%2 === 1)
+.map(v=>v*v)
+
+var ace3 = [1,2,3,4,5]
+.filter(v => v%2 === 0)
+.map(v => v**3)
+.map(v=>v+3)
+.map(v=>v*v)
+
+var ace4 = [1,2,3,4,5]
+.map(v => v**3)
+.map(v=>v+3)
+.filter(v => v%2 === 0)
+.map(v=>v*v)
+pvar testAr1 = [];
+var testAr2 = [];
+var testAr3 = [];
+var testAr4 = [];
+var testAr5 = [];
+var test7 = [1,2,3,4,5].map(k => {
+
+ob = Comp();
+duce = ob.run(k)(filtOdd)(x=>x**3)
+    (x=>x+3)(x=>x*x)('stop').pop()
+if (duce !== undefined) {
+    testAr1.push(duce);
+}
+
+ob = Comp();
+duce = ob.run(k)(x=>x**3)(x=>x+3)
+  (filtOdd)(x=>x*x)('stop').pop()
+if (duce !== undefined) {
+    testAr2.push(duce);
+}
+
+ob = Comp();
+duce = ob.run(k)(filtEven)(x=>x**3)
+     (x=>x+3)(x=>x*x)('stop').pop()
+if (duce !== undefined) {
+    testAr3.push(duce);
+}
+
+ob = Comp();
+duce = ob.run(k)(x=>x**3)(x=>x+3)
+ (filtEven)(x=>x*x)('stop').pop()
+if (duce !== undefined) {
+    testAr4.push(duce);
+}); ` ),
 
 
+h('p', ' Here is how filtOdd and filtEven are defined: ' ),
+
+h('pre', `function Filt (p) {
+    this.p = p;
+    this.filt = function filt (x) {
+        return p(x)
+    }
+};
+
+function filtP (p) {return new Filt(p)};
+
+var filtOdd = filtP(x=>x%2 === 1);
+var filtEven = filtP(x=>x%2 === 0); ` )
+
+                                   ]),
+
+h('div', {style: {marginRight: "2%", width: "45%" }},   [
+
+
+
+
+h('pre', {style: {color: "#eebcbb" }}, `
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+` ),
+
+h('p', ' Both methods give the expected results. The next step would be to trim unused features frem Comp() and assign it another name.  ' ),
+
+h('pre', {style: {color: "#eebcbb" }}, `
+
+ace1 is [ 16, 900, 16384 ]
+ace2 is [ 121, 4489 ]
+ace3 is [ 121, 4489 ]
+ace4 is [ 16, 900, 16384 ]
+
+
+
+
+
+
+
+
+
+
+testAr1 [ 16, 900, 16384 ]
+testAr2 [ 121, 4489 ]
+testAr3 [ 121, 4489 ]
+testAr4 [ 16, 900, 16384 ]  ` ),
+
+
+
+
+                              ])
+                              ]),
 
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 2 - Branching Sequence Acrobatics'),
 
-                                              h('div.content2', [
-
 h('div', {style: {display: "flex" }},  [
   h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
 
 h('p', '  ' ),
 
@@ -2353,35 +2483,6 @@ orb1 = Comp([k]);
     )
 } ` ),
 
-h('p', ' Here again is a Comp(), this time with "diffRender" inserted to force DOM updates in Cycle.js whenever ob.run() is called. : ' ),
-
-h('pre', `function Comp ( AR = [] )  {
-  var ar , x, ob, f_ , p ;
-  if (Array.isArray(AR)) ar = AR.slice()
-  else ar = AR;
-  if (ar.length) {x = ar[ar.length-1]};
-    return  ob = {ar: ar, run: function run (x) {
-        if (x instanceof Promise) x.then(y =>
-          {if (y != undefined && y !== false && y !== NaN &&
-          y.toString() != "NaN" && y.name !== "f_" ) {
-            ar.push(y);
-            diffRender() // Causes Snabdom to update the DOM
-        }})
-        else if (x != undefined && x !== false && y !== Nan &&
-        x.toString() != "NaN" && x.name !== "f_" ) {
-            ar.push(x);
-            diffRender()
-        };
-        return function f_ (func) {
-            if (func === 'stop') return ar;
-            else if (typeof func !== "function") p = func;
-            else if (x instanceof Promise)
-                p = x.then(v => func(v));
-            else p = func(x);
-            return run(p);
-        };
-    }}
-}  ` ),
 
 
                                              ]),
@@ -2431,7 +2532,6 @@ h('br'),
 h('br'),
 h('br')
 
-                                    ])
                                     ])
                                     ]),
 
@@ -3168,6 +3268,65 @@ h('a', {
               code.quad2,
               h('p', ' fmap (above) facilitated using qS4 in a monadic sequence. qS4 returns an array, not an instance of Monad, but fmap lifts qS4 into the monadic sequence. '),
               h('p', ' The function solve() is recursive. It invokes itself after release() executes three times. The expression "solve()" resets solve to the top, where mMZ3.p becomes a function containing two nested occurrences of mMZ3.bnd. After mMZ3.release() executes, mMZ3.p becomes the function that is the argument to the next occurrence of mMZ3.bnd. That function contains yet another occurrence of mMZ3.bnd. MonadItter is syntactic sugar for nested callbacks. '),
+
+
+
+
+
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Server and Worker '),
+
+
+h('pre', `var it4_b = x => {
+
+  .send(\`BD#$42,\${pMgroup.x},\${pMname.x},\${x}\`);
+}
+
+var mMZ41 = new MonadItter();
+var mMZ53 = new MonadItter();
+
+var it6_b = y => {
+  mMZ41.bnd(y => workerM.postMessage([primeState, y]));
+}
+
+it7_b = () => mMZ53.bnd(string => {
+    callOrder2 = callOrder2 > 24 ? 1 : callOrder2 + 1;
+    if (callOrder2 === 1) start78 = Date.now();
+    m43_.push(callOrder2 + "  ");
+    m43_.push(string)
+    m43_.push(h('br'));
+    if (callOrder2 === 25) m43_.push(
+        'Elapsed time: ' + (Date.now() - start78) + " ms");
+});  ` ),
+
+  h('br'),
+  h('br'),
+h('p', ' Sometimes, refreshing the browser speeds up this demonstration. Click below to begin fifteen runs of: '),
+  h('span', styleFunc(["rgb(7, 247, 247)", "12%", "20px", , , , , ]), 'ob.run(145)(x=>x**3)(it4_c)(it6_c)(it7_c)'),
+  h('br'),
+  h('br'),
+  h('button#factors_R', { style: { fontSize: '15px' }}, 'ob.run(145)(x=>x**3)( . . . ' ),
+  h('span', "~~"),
+  h('button.clear_R', {
+    style: {
+      fontSize: '15px',
+      marginLeft: "0"
+    }
+  }, 'clear results'),
+  h('br'),
+  h('br'),
+  h('div.demo_1', {style: {fontSize: "15px"}}, m43_),
+  h('br'),
+ /* h('div.demo_1', {style: {fontSize: "15px"}}, m44_),
+  h('br'),
+  h('div.demo_1', {style: {fontSize: "15px"}}, m45_),
+  h('br'),
+*/
+
+
+
+
+
+
 
               h('h3', ' Preserve Archives By Avoiding Mutation '),
               h('p', ' When you assign a variable to an array, for example "var arr = [1,2,3]", arr points to a location in memory. Suppose you want to preserve a record of previous values of arr. You can\'t do it with an array such as b below: '),

@@ -11,6 +11,12 @@ function* integers() {
   }
 }
 
+function Filt (p) {this.p = p; this.filt = function filt (x) {return p(x)}};
+function filtP (p) {return new Filt(p)};
+
+var filtOdd = filtP(x=>x%2 === 1);
+var filtEven = filtP(x=>x%2 === 0);
+
 function add1(v) { return v + 1; };
 function isOdd(v) { return v % 2 == 1; };
 function sum(total,v) { return total + v; };
@@ -1132,7 +1138,7 @@ var m43_;
 var m44_ = "ready";
 var m45_ = "ready";
 var f23 = n => "Howdy Doody";
-var f27 = () => {};
+var f27;
 /*
 var it7 = () => mMZ52.bnd(string => {
   callOrder = callOrder > 24 ? 1 : callOrder + 1;
@@ -4125,6 +4131,44 @@ function Comp ( AR = [] )  {
   if (Array.isArray(AR)) ar = AR.slice()
   else ar = AR;
   if (ar.length) {x = ar[ar.length-1]};
+  return  ob = {ar: ar, run: function run (x) {
+
+    if (x instanceof Filt) {
+      var z = ob.ar.pop();
+      if (x.filt(z)) {x = z}
+      else {
+        ar = [];
+        f_('stop');
+       }
+    };
+
+    if (x instanceof Promise) x.then(y =>
+      {if (y != undefined && y !== false && y !== NaN && (!(x instanceof Filt)) &&
+      y.toString() != "NaN" && y.name !== "f_" ) {
+      ar.push(y);
+        diffRender()
+    }})
+    else if (x != undefined && x !== false && (!(x instanceof Filt)) &&
+      x.toString() != "NaN" && x.name !== "f_" ) {
+      ar.push(x);
+      diffRender()
+    };
+    function f_ (func) {
+      if (func === 'stop') return ar;
+      else if (typeof func !== "function") p = func;
+      else if (x instanceof Promise) p = x.then(v => func(v));
+      else p = func(x);
+      return run(p);
+    };
+    return f_;
+  }}
+}
+/*
+function Comp ( AR = [] )  {
+  var ar , x, ob, f_ , p ;
+  if (Array.isArray(AR)) ar = AR.slice()
+  else ar = AR;
+  if (ar.length) {x = ar[ar.length-1]};
     return  ob = {ar: ar, run: function run (x) {
 
       if (x instanceof Fux) {var z = ob.ar.pop();
@@ -4152,7 +4196,7 @@ function Comp ( AR = [] )  {
         };
         return f_;
     }}
-}
+}  */
 
 var fork = ob => string => {
     window[string] = Comp(ob.ar.slice());
@@ -4468,3 +4512,41 @@ var o23 = Comp();
 [...Array(25).keys()]
 .map(v => o23.run(v)(fox)(x=>x*x)(x=>x+1000)(cox));
 console.log("o23.ar is", o23.ar)
+
+
+function Comp2 ( AR = [] )  {
+    var ar , x, ob, f_ , p, z;
+    if (Array.isArray(AR)) ar = AR.slice()
+    else ar = AR;
+    if (Array.isArray(ar) && ar.length) x = ar.slice(1)
+    else x = ar;
+    return  ob = {ar: ar, run: function run (x) {
+        if (x != undefined && x !== false && x !== NaN && (!(x instanceof Fux)) &&
+        x.toString() != "NaN" && x.name !== "f_" ) {
+            if (Array.isArray(ob.ar)) ob.ar.push(x)
+            else ob.ar = p;
+            console.log("ob.ar, p", ob.ar, p);
+        if (x instanceof Fux) {var z = ob.ar.pop();
+            if (x.fux(z)) x = z;
+        };
+        if (x instanceof Promise) x.then(y => z = y);
+        else z = x;
+        return function f_ (func) {
+            if (func === 'stop') return ob.ar;
+            else if (typeof func !== "function") p = func;
+            else if (z instanceof Promise) p = z.then(v => func(v));
+            else p = func(z);
+
+            console.log("At the end of Comp -- p is", p );
+            return run(p);
+        };
+    }}}
+};
+
+var zee = [1,2,3,4,5].map(v => Comp2().run(v)(x=>x**3)(x=>x+3)(x=>x*x)('stop').pop());
+console.log('zee is', zee);
+
+
+
+
+// end
