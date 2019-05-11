@@ -1203,8 +1203,6 @@ var factorsAction8$ = factorsClick8$.map(e => {
     it4_d(100000);
     it4_d(10000);
     it4_d(1000);
-
-console.log('zee is', zee);
 });
 
 var aplusClick$ = sources.DOM
@@ -2163,7 +2161,7 @@ h('a.a2', {props: {href: "http://hackage.haskell.org/package/wai-websockets-3.0.
 
 h('span', ' server, each on its own ' ),
 
-                      h('a', {props: {href:"https://lists.ubuntu.com/archives/ubuntu-announce/2018-April/000231.html", target: "_blank" }}, 'Ubuntu 18.04' ),
+                      h('a', {props: {href:"https://lists.ubuntu.com/archives/ubuntu-announce/2018-April/000231.html", target: "_blank" }}, 'Ubuntu 19.04' ),
 
                       h('a.a2', {props: {href: "https://www.digitalocean.com/", target: "_blank" }}, ' Digital Ocean' ),
 
@@ -2188,9 +2186,9 @@ h('br'),
 h('span.tao', {style: {color: "#FF00DD"}}, ' WARNING:' ),
 h('span', styleFunc (['#ABFFBA', , ,'italic', , , ,]), " Trying to scrupulously conform to the functional paradigm might stifle your creativity and slow your progress toward mastering JavaScript. " ),
 
-h('p', 'In this presentation, I try to avoid mutating anything outside of function scope. Information comes comes from and goes to browsers, web workers, and a remote WebSockets server. Caches of prime numbers and positions on a grid are maintained for efficiency and backtracking. User names, passwords, and comments are maintained by the Haskell server.  ' ),
-h('p', ' From my perspective, libraries are largely black boxes with limited usefulness. If you take the time to study and understand the function "Comp()" (below) you might feel that you have acquired a potentially useful tool. Beyond that, I hope you will feel empowered to add and remove features and to fashion specialized tools for your projects. ' ),
-h('p', ' My code isn\'t important. When the non-essential aspects fall away, what remains is recursion, partial application, closures, ... the essence of functional Javascript. Here\'s Comp(): ' ),
+h('p', 'In this presentation, I try to avoid mutating anything outside of function scope. Information comes from and goes to browsers, web workers, and a remote WebSockets server. Caches of prime numbers and positions on a grid are maintained for efficiency and backtracking. User names, passwords, and comments are maintained by the Haskell server.  ' ),
+h('p', ' From my perspective, libraries are largely black boxes with limited usefulness. If you take the time to study and understand the function "Comp()" (below) you might feel that you have acquired a potentially useful tool. I hope you will tweak it, add and remove features, not be too reluctant to fashion specialized tools for your projects. ' ),
+h('p', ' My code isn\'t important. The interesting things lie beneath the surface. They are the closures, recursive functions, partially applied function, ... the essence of functional Javascript. Here\'s Comp(): ' ),
 
 h('pre', `function Comp ( AR = [] )  {
   var ar , x, ob, f_ , p ;
@@ -2199,7 +2197,7 @@ h('pre', `function Comp ( AR = [] )  {
   if (ar.length) {x = ar[ar.length-1]};
   return  ob = {ar: ar, run: function run (x) {
 
-    if (x instanceof Filt) {
+    if (x instanceof Filt) {  // Used when filtering streams
       var z = ob.ar.pop();
       if (x.filt(z)) {x = z}
       else {
@@ -2212,7 +2210,7 @@ h('pre', `function Comp ( AR = [] )  {
       {if (y != undefined && y !== false && y !== NaN && (!(x instanceof Filt)) &&
       y.toString() != "NaN" && y.name !== "f_" ) {
       ar.push(y);
-        diffRender()
+      diffRender()  // Triggers the Snabbdom diff/render routine
     }})
     else if (x != undefined && x !== false && (!(x instanceof Filt)) &&
       x.toString() != "NaN" && x.name !== "f_" ) {
@@ -2221,6 +2219,7 @@ h('pre', `function Comp ( AR = [] )  {
     };
     function f_ (func) {
       if (func === 'stop') return ar;
+      if (func === 'end') return ob;
       else if (typeof func !== "function") p = func;
       else if (x instanceof Promise) p = x.then(v => func(v));
       else p = func(x);
@@ -2508,17 +2507,17 @@ h('br'),
                 h('br'),
                 h('br'),
 
-h('div', 'orb1.ar is [' + orb1.ar.join(', ') + ']' ),
-h('div', 'orb2.ar is [' + orb2.ar.join(', ') + ']' ),
-h('div', 'orb3.ar is [' + orb3.ar.join(', ') + ']' ),
+h('div', 'orb1.ar is [' + orb1('stop').join(', ') + ']' ),
+h('div', 'orb2.ar is [' + orb2('stop').join(', ') + ']' ),
+h('div', 'orb3.ar is [' + orb3('stop').join(', ') + ']' ),
 h('br'),
-h('div', orb4.ar.join(', ')),
+h('div', orb4('stop').join(', ')),
 h('br'),
-h('div', 'orb5.ar is [' + orb5.ar.join(', ') + ']' ),
+h('div', 'orb5.ar is [' + orb5('stop').join(', ') + ']' ),
 h('br'),
-h('div', orb6.ar.join(', ')),
+h('div', orb6('stop').join(', ')),
 h('br'),
-h('div', 'orb7.ar is [' + orb7.ar.join(', ') + '  ]' ),
+h('div', 'orb7.ar is [' + orb7('stop').join(', ') + '  ]' ),
 h('br'),
 h('br'),
 h('br'),

@@ -486,7 +486,7 @@ num9 = 0;
 
   function bindTest  () {
   test5(-4);
-  setTimeout(() => {test5(-4)},3200)
+  setTimeout(() => {test5(-4)},6000)
 };
 
   function rett (x, id="default") {return new Monad(x,id)};
@@ -3620,31 +3620,21 @@ var _mBx = (bool) => {
     return ob;
 };
 
-
-
-/*  function test4 (w) {
-    var f = new Bnd3();  // f.run and f.ar are in local scope
-    return f.run(w)(cubeP)
-      (x=>idP(x+f.ar[0]))(squareP)(() => idP(f.ar[2]**3))
-        (x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')
-};  */
-
-
 function test4 (w) {
-    var f = Comp();  // f.run and f.ar are in local scope
-    return f.run(w)(cubeP)
-      (x=>idP(x+f.ar[0]))(squareP)(() => idP(f.ar[2]**3))
-        (x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))('stop')
+    var f = Comp([w]);
+    return f(cubeP)
+      (x=>idP(x+f('stop')[0]))(squareP)(() => idP(f('stop')[2]**3))
+        (x=>idP(x/f('stop')[3]))(x=>idP(x-f('stop')[1]))('stop')
 };
 
-function test6 (w) {
+/*function test6 (w) {
     var x = Symbol();
     var run = Bind(x, true);
     var ar = arBind[x];  // arBind is an object in global scope
     return run(w)(cubeP)
       (x=>idP(x+ar[0]))(squareP)(() => idP(ar[2]**3))
         (x=>idP(x/ar[3]))(x=>idP(x-ar[1]))()
-};
+};*/
 var _D0 = _D1 = _E0 = _E1 = ['cow'];
 var _B0 = _B1 = _B2 = _B3 = _B4 = _B5 = _B6 = _B7 = _B8 = ['ready'];
 var _C0 = _C1 = _C2 = _C3 = _C4 = _C5 = _C6 = _C7 = _C8 = ['ready'];
@@ -3662,16 +3652,6 @@ function test5 (n) {
     _C6 = test4(x+6);
     _C7 = test4(x+7);
     _C8 = test4(x+8);
-
-    _B0 = test6(x+0);
-    _B1 = test6(x+1);
-    _B2 = test6(x+2);
-    _B3 = test6(x+3);
-    _B4 = test6(x+4);
-    _B5 = test6(x+5);
-    _B6 = test6(x+6);
-    _B7 = test6(x+7);
-    _B8 = test6(x+8);
 }
 
 
@@ -3850,7 +3830,7 @@ var curriedAsync = function curriedAsync (x) {
 var fu_4 = curriedAsync(quadMaker("c", "d"));
 
 // Demonstration 5
-
+/*
 function ann23 () {
      var ob = Compose()
      return func = y => {
@@ -3984,7 +3964,7 @@ var de2 = e2.run(3)(x=>x**3)(x=>x+o2.ar[0])('stop');
 e3.run(2)(x=>x**7);
 
 console.log(de1, de2, e3.ar);
-
+*/
 async function dRendP (x) {
   await wait(x)
   diffRender();
@@ -4124,10 +4104,10 @@ function Compose ( AR = [] )  {
             return run(p);
         };
     }}}
-}; */
+};
 
 function Comp ( AR = [] )  {
-  var ar , x, ob, f_ , p ;
+  var ar , ob, f_ , p, x;
   if (Array.isArray(AR)) ar = AR.slice()
   else ar = AR;
   if (ar.length) {x = ar[ar.length-1]};
@@ -4155,6 +4135,7 @@ function Comp ( AR = [] )  {
     };
     function f_ (func) {
       if (func === 'stop') return ar;
+      if (func === 'end') return ob;
       else if (typeof func !== "function") p = func;
       else if (x instanceof Promise) p = x.then(v => func(v));
       else p = func(x);
@@ -4162,45 +4143,47 @@ function Comp ( AR = [] )  {
     };
     return f_;
   }}
-}
-/*
-function Comp ( AR = [] )  {
-  var ar , x, ob, f_ , p ;
-  if (Array.isArray(AR)) ar = AR.slice()
-  else ar = AR;
-  if (ar.length) {x = ar[ar.length-1]};
-    return  ob = {ar: ar, run: function run (x) {
-
-      if (x instanceof Fux) {var z = ob.ar.pop();
-          if (x.fux(z)) x = z;
-      };
-
-        if (x instanceof Promise) x.then(y =>
-          {if (y != undefined && y !== false && y !== NaN && (!(x instanceof Fux)) &&
-          y.toString() != "NaN" && y.name !== "f_" ) {
-            ar.push(y);
-            diffRender()
-        }})
-        else if (x != undefined && x !== false && (!(x instanceof Fux)) &&
-        x.toString() != "NaN" && x.name !== "f_" ) {
-            ar.push(x);
-            diffRender()
-        };
-        function f_ (func) {
-            if (func === 'stop') return ar;
-            else if (typeof func !== "function") p = func;
-            else if (x instanceof Promise)
-                p = x.then(v => func(v));
-            else p = func(x);
-            return run(p);
-        };
-        return f_;
-    }}
 }  */
 
+function Comp ( AR = [] )  {
+  var f_, p, run;
+  var ar = AR.slice();
+  var x = ar.pop();
+  return run = (function run (x) {
+
+    if (x instanceof Filt) {
+      var z = ob.ar.pop();
+      if (x.filt(z)) {x = z}
+      else {
+        ar = [];
+        f_('stop');
+       }
+    };
+
+    if (x instanceof Promise) x.then(y =>
+      {if (y != undefined && y !== false && y !== NaN && (!(x instanceof Filt)) &&
+      y.toString() != "NaN" && y.name !== "f_" && y.name !== "stop" ) {
+      ar.push(y);
+      diffRender()
+    }})
+    else if (x != undefined && x !== false && (!(x instanceof Filt)) &&
+      x.toString() != "NaN" && x.name !== "f_" && x.name !== "stop" ) {
+      ar.push(x);
+      diffRender()
+    };
+    function f_ (func) {
+      if (func === 'stop') return ar;
+      else if (typeof func !== "function") p = func;
+      else if (x instanceof Promise) p = x.then(v => func(v));
+      else p = func(x);
+      return run(p);
+    };
+    return f_;
+  })(x)
+}
+
 var fork = ob => string => {
-    window[string] = Comp(ob.ar.slice());
-    return window[string].run(window[string].ar.pop());
+    return window[string] = Comp(ob('stop'));
 }
     var orb1 = Comp();
     var orb2 = Comp();
@@ -4237,18 +4220,17 @@ var orbit_1 = "In about eight seconds, orb5 will do something shocking. It will 
 
 var orbit_2 = 'Soon, orb6 will obtain copies of the last three elements of orb2 and perform some computations. Then it will display "THE END". '
 
-orb1 = Comp([k]);
-    fork(orb1)('orb1')(cubeP)(addP(orb1.ar[0]))(() =>
+orb1 = Comp([k])(cubeP)(addP(orb1('stop')[0]))(() =>
         fork(orb1)("orb2")
-        (squareP)(multP(1/(orb2.ar[0] * 100)))(addP(1))(powP(4)(1))(() =>
+        (squareP)(multP(1/(orb2('stop')[0] * 100)))(addP(1))(powP(4)(1))(() =>
             fork(orb1)('orb3')(x=>x-3)(x=>x**(1/3))(x=>x+1)(cubeP)(() =>
-                orb4.run(orbit_1)(() => iD(7)(false))(() =>
-                    orb5.run(orb2.ar.pop())(powP(1/2)(3))(x =>
-                    orb2.ar.push(x))(() =>
-                        orb6.run(orbit_2)(iD(7)(false))(() =>
-                            orb7.run(orb2.ar.slice(-3,-2)[0])
-                            (iD(1)(orb2.ar.slice(-2,-1)[0]))
-                            (iD(1)(orb2.ar.slice(-1)[0]))(powP(1/2)(1))
+                orb4(orbit_1)(() => iD(7)(false))(() =>
+                    orb5(orb2('stop').pop())(powP(1/2)(3))(x =>
+                    orb2(x))(() =>
+                        orb6(orbit_2)(iD(7)(false))(() =>
+                            orb7(orb2('stop').slice(-3,-2)[0])
+                            (iD(1)(orb2('stop').slice(-2,-1)[0]))
+                            (iD(1)(orb2('stop').slice(-1)[0]))(powP(1/2)(1))
                             (addP(1))(powP(3)(1))(iD(4)("THE END"))
                         )
                     )
@@ -4257,7 +4239,10 @@ orb1 = Comp([k]);
         )
     )
 };
+
 runT(3);
+
+/*
 // ->   ************************************************ transduce tduce
 var arf =  [x=>x*10,  x=>x*x, x=>x+x];
 var arn = [1,2,3,4,5,6,7]
@@ -4455,6 +4440,7 @@ function Filter(p) {
   };
 };
 
+/*
 var ar = [0,1,2,3,4,5,6,7,8,9];
 
 mapRes = ar.reduce(Map(cube)(concat), []);
@@ -4508,12 +4494,6 @@ var fox = new Fux(x=>x%2 === 0);
 
 var cox = new Fux(x=>x>1200);
 
-var o23 = Comp();
-[...Array(25).keys()]
-.map(v => o23.run(v)(fox)(x=>x*x)(x=>x+1000)(cox));
-console.log("o23.ar is", o23.ar)
-
-
 function Comp2 ( AR = [] )  {
     var ar , x, ob, f_ , p, z;
     if (Array.isArray(AR)) ar = AR.slice()
@@ -4546,7 +4526,7 @@ function Comp2 ( AR = [] )  {
 var zee = [1,2,3,4,5].map(v => Comp2().run(v)(x=>x**3)(x=>x+3)(x=>x*x)('stop').pop());
 console.log('zee is', zee);
 
-
+*/
 
 
 // end
