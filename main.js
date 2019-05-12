@@ -2184,75 +2184,63 @@ h('span', ' \"Functional programming is a programming paradigm in which we try t
 h('br'),
 h('br'),
 h('span.tao', {style: {color: "#FF00DD"}}, ' WARNING:' ),
-h('span', styleFunc (['#ABFFBA', , ,'italic', , , ,]), " Trying to scrupulously conform to the functional paradigm might stifle your creativity and slow your progress toward mastering JavaScript. " ),
+h('span', styleFunc (['#ABFFBA', , ,'italic', , , ,]), " Trying to scrupulously conform to the functional paradigm can stifle your creativity and slow your progress toward mastering JavaScript. " ),
 
 h('p', 'In this presentation, I try to avoid mutating anything outside of function scope. Information comes from and goes to browsers, web workers, and a remote WebSockets server. Caches of prime numbers and positions on a grid are maintained for efficiency and backtracking. User names, passwords, and comments are maintained by the Haskell server.  ' ),
-h('p', ' From my perspective, libraries are largely black boxes with limited usefulness. If you take the time to study and understand the function "Comp()" (below) you might feel that you have acquired a potentially useful tool. I hope you will tweak it, add and remove features, not be too reluctant to fashion specialized tools for your projects. ' ),
+h('p', ' From my perspective, libraries are largely black boxes with limited usefulness. If you take the time to study and understand the function "Comp()" (below) you might feel that you have acquired a potentially useful tool. I hope you will tweak it, add and remove features, and be emboldened to fashion specialized tools that target your specific projects rather than rely on libraries.  ' ),
 h('p', ' My code isn\'t important. The interesting things lie beneath the surface. They are the closures, recursive functions, partially applied function, ... the essence of functional Javascript. Here\'s Comp(): ' ),
 
 h('pre', `function Comp ( AR = [] )  {
-  var ar , x, ob, f_ , p ;
-  if (Array.isArray(AR)) ar = AR.slice()
-  else ar = AR;
-  if (ar.length) {x = ar[ar.length-1]};
-  return  ob = {ar: ar, run: function run (x) {
-
-    if (x instanceof Filt) {  // Used when filtering streams
-      var z = ob.ar.pop();
-      if (x.filt(z)) {x = z}
-      else {
-        ar = [];
-        f_('stop');
-       }
-    };
-
-    if (x instanceof Promise) x.then(y =>
+  var f_, p, run;
+  var ar = AR.slice();
+  var x = ar.pop();
+  return run = (function run (x) {
+    if (x instanceof Filt) {
+      var z = ar.pop();
+      if (x.filt(z)) x = z; else ar = [];
+    }
+    else if (x instanceof Promise) x.then(y =>
       {if (y != undefined && y !== false && y !== NaN && (!(x instanceof Filt)) &&
-      y.toString() != "NaN" && y.name !== "f_" ) {
+      y.toString() != "NaN" && y.name !== "f_" && y.name !== "stop" ) {
       ar.push(y);
-      diffRender()  // Triggers the Snabbdom diff/render routine
+      diffRender()
     }})
     else if (x != undefined && x !== false && (!(x instanceof Filt)) &&
-      x.toString() != "NaN" && x.name !== "f_" ) {
+      x.toString() != "NaN" && x.name !== "f_" && x.name !== "stop" ) {
       ar.push(x);
       diffRender()
     };
     function f_ (func) {
       if (func === 'stop') return ar;
-      if (func === 'end') return ob;
       else if (typeof func !== "function") p = func;
       else if (x instanceof Promise) p = x.then(v => func(v));
       else p = func(x);
       return run(p);
     };
     return f_;
-  }}
+  })(x)
 } ` ),
-
-  h('div', styleFunc(["#bcccff", "4%", "20px",,,,,,]), [
-  h('div', 'ob.run(x)(functiona1)(function2) ... (functionN)')
+  h('p', ' Comp() can run anonymously, but if you name it, you can access prior value entries, return values, and resolution values of Promises. Let "v" be any JavaScript value and let f = Comp(v). then:  '),
+  h('div', styleFunc(["#ffccaa", "4%", "20px",,,,,,]), [
+  h('div', 'f(func1)(func2) ... (funcN)')
   ]),
-  h('p', {style: {fontSize: "19px"}}, ' where  ' ),
-  h('div', styleFunc(["#bcccff", "4%", "23px",,,,,,]), [
-    h('div', 'x can be any value,'),
+  h('p', {style: {fontSize: "19px"}}, ' has the following features:  ' ),
+  h('div', styleFunc(["#ffccaa", "4%", "23px",,,,,,]), [
+    h('div', 'func1, func2, ... need not be functions. There are no type restrictions on the values of the "functions",' ),
     h('br'),
-    h('div', 'function1, function2, ... need not be functions. There are no type restrictions on the values of the "functions",' ),
-    h('br'),
-    h('div', 'functions operate from left to right,' ),
+    h('div', 'func entries that are functions operate on previously computed values from left to right,' ),
     h('br'),
     h('div', 'there are no type restrictions on the functions\' return values,' ),
     h('br'),
-    h('div', 'functions have built-in access to all prior primitive value entries, function return values, and Promise resolution values,' ),
+    h('div', 'functions have access to all prior primitive value entries, function return values, and Promise resolution values. The expression f(\'stop\')[n] points to the nth entry in the array held by the instance of Comp() in "f = Comp(v)" (above),       ' ),
     h('br'),
-    h('div', 'ob can be re-started with the expression "ob.run(fork(ob))". and can launch separate branches with expressions like "var branch = Comp(ob.ar).' ),
+    h('div', 'f can be re-started after resting ' ),
+    h('div', ' f and can spawn separate independent branches with expressions like "g = Comp(f(\'stop\'))". ' ),
     h('br'),
-    h('div', 'sequences of functions can be run anonymously with statements like "Comp().run(4)(x=>x**4)(x=>x/2**4)(\'stop\'); // [4, 256,16]".' )
+    h('div', 'sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" or "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' )
 
                                     ])
-
-                                ]),
-
-
+                                    ]),
 
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 1 - Emulated Transducer'),
 
@@ -2299,42 +2287,46 @@ var ace4 = [1,2,3,4,5]
 .map(v => v**3)
 .map(v=>v+3)
 .filter(v => v%2 === 0)
-.map(v=>v*v)
-pvar testAr1 = [];
-var testAr2 = [];
-var testAr3 = [];
-var testAr4 = [];
-var testAr5 = [];
-var test7 = [1,2,3,4,5].map(k => {
+.map(v=>v*v) ` ),
+h('pre', {style: {color: "#eebcbb" }}, `
+ace1 is [ 16, 900, 16384 ]
+ace2 is [ 121, 4489 ]
+ace3 is [ 121, 4489 ]
+ace4 is [ 16, 900, 16384 ] ` ),
 
-ob = Comp();
-duce = ob.run(k)(filtOdd)(x=>x**3)
-    (x=>x+3)(x=>x*x)('stop').pop()
-if (duce !== undefined) {
-    testAr1.push(duce);
-}
+                                   ]),
 
-ob = Comp();
-duce = ob.run(k)(x=>x**3)(x=>x+3)
-  (filtOdd)(x=>x*x)('stop').pop()
-if (duce !== undefined) {
-    testAr2.push(duce);
-}
+h('div', {style: {marginRight: "2%", width: "45%" }},   [
 
-ob = Comp();
-duce = ob.run(k)(filtEven)(x=>x**3)
-     (x=>x+3)(x=>x*x)('stop').pop()
-if (duce !== undefined) {
-    testAr3.push(duce);
-}
+h('p', ' [1,2,3,4,5] was traversed twenty times using dot composition. Next, we traverse ar = [1,2,3,4,5] one time using Comp() and the result is identical. If we test with a million-member array rather than the five-member array used for this proof of concept demonstration, I predict that the Comp() method would drastically outperform the dot method, and I suspect the Comp() method\'s performance would be close to that of the most efficient transducers. A slimmed down modified Comp() might really shine. Stay tuned for benchmark results whenever I can get arount to it. ' ),
+h('pre', `var testAr1 = [];
+  var testAr2 = [];
+  var testAr3 = [];
+  var testAr4 = [];
+  var a1, ob, duce;
+  var arr = [1,2,3,4,5]
+  arr.map(k => {
+  a1 = Comp([k])(filtOdd)(x=>x**3)
+      (x=>x+3)(x=>x*x)('stop').pop()
+  if (a1 !== undefined) testAr1.push(a1)
 
-ob = Comp();
-duce = ob.run(k)(x=>x**3)(x=>x+3)
- (filtEven)(x=>x*x)('stop').pop()
-if (duce !== undefined) {
-    testAr4.push(duce);
-}); ` ),
+  a1 = Comp([k])(x=>x**3)
+      (x=>x+3)(filtOdd)(x=>x*x)('stop').pop()
+  if (a1 !== undefined) testAr2.push(a1)
 
+  a1 = Comp([k])(filtEven)(x=>x**3)
+      (x=>x+3)(x=>x*x)('stop').pop()
+  if (a1 !== undefined) testAr3.push(a1)
+
+  a1 = Comp([k])(x=>x**3)
+      (x=>x+3)(filtEven)(x=>x*x)('stop').pop()
+  if (a1 !== undefined) testAr4.push(a1)
+  })
+
+  console.log("testAr1", testAr1);
+  console.log("testAr2", testAr2);
+  console.log("testAr3", testAr3);
+  console.log("testAr4", testAr4); ` ),
 
 h('p', ' Here is how filtOdd and filtEven are defined: ' ),
 
@@ -2348,74 +2340,13 @@ h('pre', `function Filt (p) {
 function filtP (p) {return new Filt(p)};
 
 var filtOdd = filtP(x=>x%2 === 1);
-var filtEven = filtP(x=>x%2 === 0); ` )
-
-                                   ]),
-
-h('div', {style: {marginRight: "2%", width: "45%" }},   [
-
-
-
+var filtEven = filtP(x=>x%2 === 0); ` ),
 
 h('pre', {style: {color: "#eebcbb" }}, `
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-` ),
-
-h('p', ' Both methods give the expected results. The next step would be to trim unused features frem Comp() and assign it another name.  ' ),
-
-h('pre', {style: {color: "#eebcbb" }}, `
-
-ace1 is [ 16, 900, 16384 ]
-ace2 is [ 121, 4489 ]
-ace3 is [ 121, 4489 ]
-ace4 is [ 16, 900, 16384 ]
-
-
-
-
-
-
-
-
-
-
 testAr1 [ 16, 900, 16384 ]
 testAr2 [ 121, 4489 ]
 testAr3 [ 121, 4489 ]
 testAr4 [ 16, 900, 16384 ]  ` ),
-
-
-
 
                               ])
                               ]),
@@ -2429,18 +2360,11 @@ h('p', '  ' ),
 
 h('p', ' Entering a number "n" in one of the boxes on the right causes runT(n) to execute. Here are the definitions of fork(), hold(), and runT(): ' ),
 
-h('pre', `var fork = ob => string => {
-    window[string] = Comp(ob.ar.slice());
-    return window[string]
-      .run(window[string].ar.pop());
-      // This removes a value v =
-      // ob.ar[ob.ar.length - 1] from
-      // ob.ar. ob.run(v)(f1)(f2) ...
-      // (fN) executes, replacing v and
-      // adding new values to ob.ar.
-}
-h('br'),
+h('pre', {style: {color: "#eebcbb" }}, `
 
+var fork = f => string => {
+    return window[string] = Comp(f('stop'));
+}
 var iD = t => async b => {
   await wait(t*1000)
   return b;
@@ -2449,38 +2373,35 @@ var iD = t => async b => {
 var powP = a => b => async c => {
   await wait(b*1000)
   return c**a;
-}
-
-function runT (k) {
-
-var orbit_1 = "In about eight seconds, orb5 will do
-something shocking. It will remove the last element
-from orb2.ar and replace it with its square root.
-Oh well, it's all inside of runT(). "
-
-var orbit_2 = 'Soon, orb6 will obtain copies of the
-last three elements of orb2 and perform some computations.
-Then it will display "THE END". '
-
-orb1 = Comp([k]);
-    fork(orb1)('orb1')(cubeP)(addP(orb1.ar[0]))(() =>
-        fork(orb1)("orb2")
-        (squareP)(multP(1/(orb2.ar[0] * 100)))(addP(1))(powP(4)(1))(() =>
-            fork(orb1)('orb3')(x=>x-3)(x=>x**(1/3))(x=>x+1)(cubeP)(() =>
-                orb4.run(orbit_1)(() => iD(7)(false))(() =>
-                    orb5.run(orb2.ar.pop())(powP(1/2)(2))(() =>
-                        orb6.run(orbit_2)(iD(7)(false))(() =>
-                            orb7.run(orb2.ar.slice(-3,-2)[0])
-                            (iD(1)(orb2.ar.slice(-2,-1)[0]))
-                            (iD(1)(orb2.ar.slice(-1)[0]))(powP(1/2)(1))
-                            (addP(1))(powP(3)(1))(iD(4)("THE END"))
-                        )
-                    )
-                )
-            )
-        )
-    )
 } ` ),
+h('br'),
+h('p', {style: {color: "#aaccee" }}, 'var orbit_1 = "In about eight seconds, orb5 will do something shocking. It will remove the last element from orb2.ar and replace it with its square root. Oh well, it\'s all inside of runT()." ' ),
+
+h('p', {style: {color: "#aaccee" }}, ' var orbit_2 = "Soon, orb6 will obtain copies of the last three elements of orb2 and perform some computations. Then it will display \"THE END\". ' ),
+
+h('pre', {style: {color: "#aaccee" }}, `orb1 = Comp([k])(cubeP)(addP(orb1('stop')[0]))(() =>
+      fork(orb1)("orb2")
+      (squareP)(multP(1/(orb2('stop')[0] * 100)))(addP(1))(powP(4)(1))(() =>
+          fork(orb1)('orb3')(x=>x-3)(x=>x**(1/3))(x=>x+1)(cubeP)(() =>
+              orb4(orbit_1)(() => iD(7)(false))(() =>
+                  orb5(orb2('stop').pop())(powP(1/2)(3))(x =>
+                      orb2(x))(() =>
+                          orb6(orbit_2)(iD(7)(false))(() =>
+                              orb7(orb2('stop').slice(-3,-2)[0])
+                              (iD(1)(orb2('stop').slice(-2,-1)[0]))
+                              (iD(1)(orb2('stop').slice(-1)[0]))(powP(1/2)(1))
+                              (addP(1))(powP(3)(1))(iD(4)("THE END"))
+                          )
+                      )
+                  )
+              )
+          )
+      )
+  };
+  runT(3); ` ),
+
+
+
 
 
 
@@ -2547,13 +2468,15 @@ h('p', ' To see the demonstration, Click "GO" or enter a number and then re-ente
 h('pre', `
 
 function test4 (w) {
-    var f = Compose();
-    return f.run(w)(cubeP)(x=>idP(x+f.ar[0]))
-    (squareP)(() => idP(f.ar[2]**3))
-    (x=>idP(x/f.ar[3]))(x=>idP(x-f.ar[1]))
-};
-
-function test5 (n) {
+    var f = Comp([w]);
+    return f(cubeP)
+    (x=>idP(x+f('stop')[0]))(squareP)
+    (() => idP(f('stop')[2]**3))
+    (x=>idP(x/f('stop')[3]))
+    (x=>idP(x-f('stop')[1]))('stop')
+}; `),
+h('p', ' In test4 (above), "f (\'stop\')" refers to the current state of the array held in the Comp() closure that returned "f" ' ),
+h('pre', `function test5 (n) {
     var x = toInt(n);
     _C0 = test4(x+0);
     _C1 = test4(x+1);
@@ -2598,8 +2521,7 @@ function test5 (n) {
                 }, 'GO'),
                 h('br'),
                 h('br'),
-h('p', ' Compose() returns similar objects, each of which occupies a unique address in memory, so it\'s no surprise that simultaneously called run methods of objects returned by Compose() don\'t clash with one another, or that restarted incomplete sequences don\'t trip over themselves. These features, along with functions using previously returned Promise resolution values, are demonstrated here.  ' ),
-h('p', ' The variables prefixed by "_C" are permanent fixtures of the virtual DOM. The side effect of repeatedly changing their values while test4 executes can\'t cause any mischief. All it does is trigger Snabdom\'s diff and render procedure. ' ),
+h('p', ' In test4, Comp() returns arrays at un-allocated addresses in memory, so it\'s no surprise that nearly simultaneous calls to tes4 don\'t clash with one another, or that restarted incomplete sequences don\'t trip over themselves. The variables prefixed by "_C" are permanent fixtures of the virtual DOM. The side effect of repeatedly changing their values while test4 executes can\'t cause any mischief because the mutations occur in the virtual DOM returned by main(). The mutations do nothing but trigger Snabdom\'s diff and render routine. Functional programming and Cycle.js are a good match. ' ),
                 h('br')
 
                                            ])

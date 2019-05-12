@@ -4150,17 +4150,11 @@ function Comp ( AR = [] )  {
   var ar = AR.slice();
   var x = ar.pop();
   return run = (function run (x) {
-
     if (x instanceof Filt) {
-      var z = ob.ar.pop();
-      if (x.filt(z)) {x = z}
-      else {
-        ar = [];
-        f_('stop');
-       }
-    };
-
-    if (x instanceof Promise) x.then(y =>
+      var z = ar.pop();
+      if (x.filt(z)) x = z; else ar = [];
+    }
+    else if (x instanceof Promise) x.then(y =>
       {if (y != undefined && y !== false && y !== NaN && (!(x instanceof Filt)) &&
       y.toString() != "NaN" && y.name !== "f_" && y.name !== "stop" ) {
       ar.push(y);
