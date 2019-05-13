@@ -1801,7 +1801,7 @@ foo(9);
 
  var oneAction$ = dem3$.map(e => {
       if (e.keyCode === 13) {
-          obQ.push(e.target.value);
+          obR.push(e.target.value);
           e.target.value = null;
       }
   });
@@ -2196,7 +2196,7 @@ h('pre', `function Comp ( AR = [] )  {
   var x = ar.pop();
   return run = (function run (x) {
     if (x instanceof Filt) {
-      var z = ar.pop();
+      var z = ar.pop(); // z will be tested and replaced if the filter returns true.
       if (x.filt(z)) x = z; else ar = [];
     }
     else if (x instanceof Promise) x.then(y =>
@@ -2288,6 +2288,20 @@ var ace4 = [1,2,3,4,5]
 .map(v=>v+3)
 .filter(v => v%2 === 0)
 .map(v=>v*v) ` ),
+h('p', ' Here is how filtOdd and filtEven are defined: ' ),
+
+h('pre', `function Filt (p) {
+    this.p = p;
+    this.filt = function filt (x) {
+        return p(x)
+    }
+};
+
+function filtP (p) {return new Filt(p)};
+
+var filtOdd = filtP(x=>x%2 === 1);
+var filtEven = filtP(x=>x%2 === 0); ` ),
+
 h('pre', {style: {color: "#eebcbb" }}, `
 ace1 is [ 16, 900, 16384 ]
 ace2 is [ 121, 4489 ]
@@ -2298,7 +2312,29 @@ ace4 is [ 16, 900, 16384 ] ` ),
 
 h('div', {style: {marginRight: "2%", width: "45%" }},   [
 
-h('p', ' [1,2,3,4,5] was traversed twenty times using dot composition. Next, we traverse ar = [1,2,3,4,5] one time using Comp() and the result is identical. If we test with a million-member array rather than the five-member array used for this proof of concept demonstration, I predict that the Comp() method would drastically outperform the dot method, and I suspect the Comp() method\'s performance would be close to that of the most efficient transducers. A slimmed down modified Comp() might really shine. Stay tuned for benchmark results whenever I can get arount to it. ' ),
+h('p', ' [1,2,3,4,5] was traversed twenty times using dot composition. Next, we traverse ar = [1,2,3,4,5] one time using Comp() and the result is identical. If we test with a million-member array, I predict that the Comp() method will drastically outperform the dot method, and I suspect the Comp() method\'s performance will be close to that of the most efficient transducers. A streamlined version of Comp() might really shine. In fact, Comp3() (below) returns the same results as Comp()' ),
+h('pre', `function Comp3 ( AR = [] )  {
+  var f_, p, run;
+  var ar = AR.slice();
+  var x = ar.pop();
+  return run = (function run (x) {
+     if (x instanceof Filt) {
+     var z = ar.pop();
+     if (x.filt(z)) x = z; else ar = [];
+    }
+    else if (x === x) ar.push(x);
+    function f_ (func) {
+         console.log("x and x === x", x, x == x, x === x);
+      if (func === 'stop') return ar;
+      else if (typeof func !== "function") p = func;
+      else if (x instanceof Promise) p = x.then(v => func(v));
+      else p = func(x);
+      return run(p);
+    };
+    return f_;
+  })(x)
+} `),
+
 h('pre', `var testAr1 = [];
   var testAr2 = [];
   var testAr3 = [];
@@ -2327,20 +2363,6 @@ h('pre', `var testAr1 = [];
   console.log("testAr2", testAr2);
   console.log("testAr3", testAr3);
   console.log("testAr4", testAr4); ` ),
-
-h('p', ' Here is how filtOdd and filtEven are defined: ' ),
-
-h('pre', `function Filt (p) {
-    this.p = p;
-    this.filt = function filt (x) {
-        return p(x)
-    }
-};
-
-function filtP (p) {return new Filt(p)};
-
-var filtOdd = filtP(x=>x%2 === 1);
-var filtEven = filtP(x=>x%2 === 0); ` ),
 
 h('pre', {style: {color: "#eebcbb" }}, `
 testAr1 [ 16, 900, 16384 ]
@@ -2399,11 +2421,6 @@ h('pre', {style: {color: "#aaccee" }}, `orb1 = Comp([k])(cubeP)(addP(orb1('stop'
       )
   };
   runT(3); ` ),
-
-
-
-
-
 
                                              ]),
                                     h('div', {style: {marginRight: "2%", width: "45%" }},   [
@@ -2532,34 +2549,6 @@ h('p', ' In test4, Comp() returns arrays at un-allocated addresses in memory, so
 
                               h('div.content', [
 
-            h('h1', {style: {color: "#ccffbb" }}, 'Programming For the Web ' ),
-
-
-h('p', ' If you are writing software to handle funds transfers between customer accounts and between customer accounts and outside entities, it would be of the utmost importance to make sure that all interrupted transactions get rolled all the way back and that completed funds transfers are done correctly with appropriate documentation. Haskell would be a good choice for handling these sorts of things. Pure functions and immutable data would help assure that there will never be any surprises. ' ),
-h('p', ' If you are writing JavaScript code that will run in browsers, your work environment doesn\'t need to be so austere. You don\'t have to empty part of your programming toolbox. ' ),
-h('p', ' There are those who use only designated "good parts" of JavaScript. Some developers restrict JavaScript\'s potential by never redefining variables or mutating objects, never creating functions that cause side effects before they complete, insisting that functions consistently return the same value when given the same argument, and more. Then there are those who take the bull by the horns or, switching metaphors, play JavaScript like a piano, restricted only by their imaginations and the common-sense imperative that code be robust, efficient, and maintainable. ' ),
-
-
-h('span.tao', ' Suppose you want to run the ' ),
-h('a', { props: { href: "https://en.wikipedia.org/wiki/Quadratic_formula", target: "_blank" }}, 'quadratic formula'),
-h('span', ' on asynchronously received numbers. A function like obQ.push() (below), where quadMaker("a", "b") (below) does the calculation each time obQ.f() receives three numbers, accomplish this succinctly and transparently. Does it matter that obQ.f() does not return the same value each time it is called on the same argument? I don\'t think so, but those who think JavaScript can be improved by forcing it to adhere to the functional paradigm might feel compelled to contrive a pure-function workaround. ' ),
-h('br'),
-h('p', ' quadMaker() returns functions whose results become attributes of the object "_oB_", which is a permanent fixture in several places in the virtual DOM. The results returned by quadMaker() are the real solutions, if any exist, to equations of the form A*x*x + B*x + C = 0, where users provide the coefficients "A", "B", and "C" and the formula finds whatever real values of x satisfy the equation.' ),
-
-h('pre', `function quadMaker (x,y) {
-    return a => b => c => {
-        var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-        var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-        if (aa === aa) {
-            _oB_[x] = \`\${a}*x*x + \${b}*x + \${c} = 0 has the following solutions:\`;
-            _oB_[y] = \`x = \${aa} and x = \${bb}\`;
-        }
-        if (!(aa === aa)) {
-            _oB_[x] = \`\${a}*x*x + \${b}*x + \${c} = 0 has no solution\`;
-            _oB_[y] = '';
-        }
-    }
-} ` ),
 
                               ]),
                   h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 4 '  ),
@@ -2567,27 +2556,59 @@ h('pre', `function quadMaker (x,y) {
                               h('div', {style: {display: "flex" }},  [
                               h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
-h('p', ' Here\'s the initial definition of obQ along with the definition of its method, obQ.push: ' ),
-h('pre',  `var obQ  = { ar: [] };
+h('p', ' An object named "ob@" handles user input. Notice that ob@.f() is by no means a pure, mathematical function. It lacks referential transparency. Every third time it is called, it causes a side effect which depends on the arguments it recieved on the previous two calls. The only concern I might have about this sort of thing, in some other project, would be interference with browser engine optimization ' ),
 
-obQ.push = x => {
-    var a = obQ.ar
+
+h('p', ' Here comes a glimpse of how Cycle.js handles user input. The input box in the DOM with ID "dem3" does not reach into main() to call a callback. I keep main() strictly off-limits to the DOM so I safely cause side effects there. This is the Cycle.js convention. ' ),
+h('p', ' main() listens for DOM events. When there is a keypress in a box with ID "dem3", the event (named "e") is mapped into the "oneAction$" stream. If the key is the <ENTER> key, obQ.f (e.target.value) executes. Here\'s the code:     ' ),
+h('pre',  `ar dem3$ = sources.DOM
+   .select(\'#dem3\').events(\'keypress\');
+
+var oneAction$ = dem3$.map(e => {
+     if (e.keyCode === 13) {
+         obR.push(e.target.value);
+         e.target.value = null;
+     }
+ }); ` ),
+
+
+h('p', ' Every third time obQ is called, it gives its accumulated numbers to quadMaker() (right column). ' ),
+
+h('pre', `var obR  = { ar: [] };
+
+obR.push = x => {
+    var a = obR.ar
     a.push(x);
     if (a.length === 3) {
         quadMaker('a', 'b')(a[0])(a[1])(a[2]);
         a.length = 0
     }
 }; ` ),
-h('p', ' Entering a number initiates a keypress event "e". A listener routes "e.target.value" to obQ.push(). Every third time that obQ.push() executes, quadMaker("a","b") provides the result to _oB_.a and _oB_.b in the virtual DOM. prompting Snabbdom to refresh the DOM. The update might also be facilitated by React, NodeJS, RxJS, Bacon, etc., but this is a Cycle.js application. ' ),
-h('span.tao', ' quadMaker("a","b") might cause even more consternation among functional paradigm purists. Side effects are triggered in the DOM ' ),
-h('span', {style: {color: "#eeccaa", fontStyle: "italic" }},  'while it is still running.' ),
-h('br'),
-h('p', ' Asynchronously evaluating numbers with the quadratic formula can be accomplished with pure functions. A function returned by quadMaker() returns a two-parameter function when given one argument. That function returns a two-parameter function which returns a one-parameter function. Instead of side effects, a result could be returned which another function could apply to the virtual DOM.  A better approach, at least in my opinion, is to embrace the fact that the Ecmascript 2018-specification provides functions designed to do much more than mimic mathematical functions. For example, one function can update several parts of a virtual DOM and return nothing but "undefined", as seen in this demonstration. ' )
+
+h('p', ' We essentially added functionality to the "push" method not with a proxy, not by altering Array.prototype.push, but by adding a push() method to an object containing the array of interest. ' ),
+
                                                               ]),
                                         h('div', {style: {marginLeft: "3%", marginRight: "2%", width: "50%" }},   [
 
 
-h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. An event listener will call obQ.push on your entries. The third entry will trigger execution of quadMaker("a","b")(x)(y)(z) where "x", "y", and "z" are the numbers you entered. ' ),
+h('pre', `function quadMaker (x,y) {
+    return a => b => c => {
+        var aa = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+        var bb = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+        if (aa === aa) {
+            _oB_[x] = \`\${a}*x*x + \${b}*x + \${c} = 0 /
+               has the following solutions:\`;
+            _oB_[y] = \`x = \${aa} and x = \${bb}\`;
+         }
+         if (!(aa === aa)) {
+             _oB_[x] = \`\${a}*x*x + \${b}*x + \${c} = 0 has /
+               no real solutions\`;
+               _oB_[y] = '';
+         }
+     }
+  } ` ),
+
+h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third entry will trigger execution of quadMaker on your selections. To see some solutions, enter "1" then "3" then "2" or "1" then "2" then "-3". ' ),
 
                 h('input#dem3', {
                   style: {
@@ -2607,7 +2628,7 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
                 h('br'),
                 h('br'),   ]),
 
-h('span.tao', ' By the way, I am enthusiastic about functional programming and greatly enjoy tinkering with the Haskell WebSocket server associated with this site. The ' ),
+h('span.tao', ' By the way, I am enthusiastic about functional programming and greatly enjoy working on the Haskell WebSocket server associated with this site. The ' ),
 h('a', {props: {href:"https://github.com/fantasyland/fantasy-land", target: "_blank" }}, 'Fantasyland' ),
 h('span', ' algebraic javascript specification is an admirable achievement. People who are familiar with Haskell can jump right in and start coding with familiar monads and functors borrowed from the Haskell ' ),
 h('a', {props: {href: "http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html", target: "_blank"}}, 'Prelude module' ),
