@@ -3866,6 +3866,14 @@ push3 = new Proxy(push3, {
 
 var obR  = { ar: [] };
 
+obR.push = function (x) {
+  this.ar.push(x);
+  if (this.ar.length > 2) {
+    quadMaker('a', 'b')(a[0])(a[1])(a[2]);
+    this.ar = [];
+  }
+};
+
 obR.push = x => {
     var a = obR.ar
     a.push(x);
@@ -3873,11 +3881,7 @@ obR.push = x => {
         quadMaker('a', 'b')(a[0])(a[1])(a[2]);
         a.length = 0
     }
-};
-
-
-
-
+}
 /*
 Bnd5 = {
      ar: [],
@@ -4214,25 +4218,10 @@ var orbit_1 = "In about eight seconds, orb5 will do something shocking. It will 
 
 var orbit_2 = 'Soon, orb6 will obtain copies of the last three elements of orb2 and perform some computations. Then it will display "THE END". '
 
-function runT (k) {
-
-    orb1 = Comp();
-    orb2 = Comp();
-    orb3 = Comp();
-    orb4 = Comp();
-    orb5 = Comp();
-    orb6 = Comp();
-    orb7 = Comp();
-    orb8 = Comp();
-
-var orbit_1 = "In about eight seconds, orb5 will do something shocking. It will remove the last element from orb2.ar and replace it with its square root. Oh well, it's all inside of runT(). "
-
-var orbit_2 = 'Soon, orb6 will obtain copies of the last three elements of orb2 and perform some computations. Then it will display "THE END". '
-
 orb1 = Comp([k])(cubeP)(addP(orb1('stop')[0]))(() =>
-    fork(orb1)("orb2")
+    fork(orb1)("orb2")(x=>x+k)
     (squareP)(multP(1/(orb2('stop')[0] * 100)))(addP(1))(powP(4)(1))(() =>
-        fork(orb1)('orb3')(x=>x-3)(x=>x**(1/3))(x=>x+1)(cubeP)(() =>
+        fork(orb1)('orb3')(x=>x+k)(x=>x/10)(x=>x+1)(cubeP)(() =>
             orb4(orbit_1)(() => iD(7)(false))(() =>
                 orb5(orb2('stop').pop())(powP(1/2)(3))(x =>
                     orb2(x))(() =>
@@ -4247,7 +4236,7 @@ orb1 = Comp([k])(cubeP)(addP(orb1('stop')[0]))(() =>
             )
         )
     )
-} };
+};
 runT(3);
 
 /*

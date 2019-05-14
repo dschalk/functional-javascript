@@ -2405,7 +2405,7 @@ h('pre', {style: {color: "#aaccee" }}, `orb1 = Comp([k])(cubeP)(addP(orb1('stop'
       fork(orb1)("orb2")
       (squareP)(multP(1/(orb2('stop')[0] * 100)))(addP(1))(powP(4)(1))(() =>
           fork(orb1)('orb3')(x=>x-3)(x=>x**(1/3))(x=>x+1)(cubeP)(() =>
-              orb4(orbit_1)(() => iD(7)(false))(() =>
+              orb4()(( iD(7)(false))(() =>
                   orb5(orb2('stop').pop())(powP(1/2)(3))(x =>
                       orb2(x))(() =>
                           orb6(orbit_2)(iD(7)(false))(() =>
@@ -2417,7 +2417,7 @@ h('pre', {style: {color: "#aaccee" }}, `orb1 = Comp([k])(cubeP)(addP(orb1('stop'
                       )
                   )
               )
-          )
+
       )
   };
   runT(3); ` ),
@@ -2576,14 +2576,14 @@ h('p', ' Every third time obQ is called, it gives its accumulated numbers to qua
 
 h('pre', `var obR  = { ar: [] };
 
-obR.push = x => {
-    var a = obR.ar
-    a.push(x);
-    if (a.length === 3) {
-        quadMaker('a', 'b')(a[0])(a[1])(a[2]);
-        a.length = 0
-    }
-}; ` ),
+obR.push = function (x) {
+  var temp;
+  this.ar.push(x);
+  if (this.ar.length > 2) {
+    quadMaker('a', 'b')(a[0])(a[1])(a[2]);
+    this.ar = [];
+  }
+};  ` ),
 
 h('p', ' We essentially added functionality to the "push" method not with a proxy, not by altering Array.prototype.push, but by adding a push() method to an object containing the array of interest. ' ),
 
@@ -2806,67 +2806,7 @@ h('span', '. ' )
                                         ])
                                        ]),
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 8 - Array Transformations'),
-
-                                              h('div.content2', [
-
-h('div', {style: {display: "flex" }},  [
-  h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-h('span.tao', ' Nathan Calvank\'s video presentation, ' ),
-h('a', {props: {href: "https://www.youtube.com/watch?v=SJjOp0X_MVA", target: "blank" }}, 'Transducers Explained' ),
-h('span', ' is an excellent introduction to transducers. He shows the Array.prototype operations on arrays, as well as others, can be expressed as Array.prototype.reduce operations and composed. ' ),
-
-h('p', ' "rf" in mapping(func) or filtering(predicate) can be concat, reduce, mapping(f)(rf), or filtering(f)(rf). In the right column, we show this working inside of objects created by Comp().  '),
-
-
-h('pre', `function mapping(f) {
-  return function(rf) {
-    return (acc, val) => {
-      return rf(acc, f(val));
-    };
-  };
-}
-
-function filtering(p) {
-  return function(rf) {
-    return (acc, val) => {
-      return p(val) ? rf(acc, val) : acc;
-    };
-  };
-} `),
-
-h('p', ' This is the code running in the right column:' ),
-
-h('pre', `var arr = [0,1,2,3,4,5,6,7,8,9];
-
-var zza = Comp(arr); var zzt = zza.run(zza.ar)(x=>x.reduce(mapping(x=>x**3)
- (filtering(x=>x%2===0)(mapping(x=>x+10000)
-   (concat))),[]))('stop').pop();
-console.log("zzt is", zzt);
-
-var zzb = Comp(arr); var zzu = zzb.run(zzb.ar)(x=>x.reduce(mapping(x=>x**3)
- (filtering(x=>x%2===0)(mapping(x=>x+10000)
-   ((a,b)=>a+b))),0))('stop').pop();
-console.log("zzu is", zzu); ` ),
-
-
-
-                                      ]),
-                                      h('div', {style: {marginRight: "2%", width: "50%" }},   [
-h('br'),
-
-
-
-
-
-
-
-                                                             ])
-                                                             ])
-                                                             ]),
-
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 9'),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 8'),
 
                                               h('div.content2', [
 
@@ -2925,20 +2865,12 @@ h('div', `${foocow_7.join(", ")}`)
 
 
 
-  h('span.tao', ' There are library functions, for example Lodash/fp\'s '),
-  h('br'),
+  h('span.tao', ' If I had to compose using library functions, I would choose '),
+  h('a', {props: {href: "https://ramdajs.com/docs/#pipe",}}, "Ramda pipe"),
+  h('span', ' and '),
   h('a', {
-    props: {
-      href: "https://lodash.com/docs/4.17.4#flow"
-    }
-  }, "  .flow"),
-  h('span', ' and Ramda\'s '),
-  h('a', {
-    props: {
-      href: "http://ramdajs.com/docs/#compose"
-    }
-  }, 'R.compose'),
-  h('span', ', that facilitate simple function composition; i.e., each function\'s argument is the preceding function\'s return value. bind() does this while also giving every linked function along a chain access to the return values of every function, and the resolution values of every promise that precedes it.  '),
+    props: {href: "https://ramdajs.com/docs/#compose"}}, 'Ramda compose' ),
+  h('span', '. But so far, I haven\'t needed them. I prefer functions that are easy to tweak for the specific purposes at hand.   '),
   h('br'),
   h('br'),
   h('span.tao', 'This project was created by and is actively maintained by David Schalk. The code repository is at '),
