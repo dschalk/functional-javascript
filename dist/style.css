@@ -5,6 +5,7 @@
 
   body {
     width: 84%;
+    font-family: monospace;
     margin-left: auto;
     margin-right: auto;
     border-radius: 35px;
@@ -17,7 +18,7 @@
     box-shadow:         inset 0px 0px 20px 0px rgb(0,0,0);
     padding: 3px 0px 3px 3px;
   }
-  
+
 .flex-container {
   display: flex;
   flex-direction: row;
@@ -116,7 +117,7 @@ a:hover {
   }
 
   pre {
-    color: #FFD700;
+    color: #;
   }
 
   p {
@@ -393,7 +394,8 @@ a:hover {
 
 .content {
   width: 50%;
-  font-size: 18px;
+  font-family: monospace;
+  font-size: 22px;
   margin-left: auto;
   margin-right: auto;
   display: block;
@@ -407,10 +409,19 @@ a:hover {
 }
 
 .content2{ width: 90%;
-  font-size: 18px;
+  font-size: 22px;
+  font-family: monospace;
   margin-left: auto;
   margin-right: auto;
   display: block;
+  text-indent 1.6%;
+}
+.content3{ width: 90%;
+  font-size: 22px;
+  color: #BBFFDD;
+  margin-left: 5%;
+  margin-right: auto;
+  display: bl?ock;
   text-indent 1.6%;
 }
 .ortho {
@@ -691,7 +702,7 @@ h3 {
   font-size:20px;
 }
 .green33 {
-  color: #bdfb78; 
+  color: #bdfb78;
 }
 
 .red0 {

@@ -224,11 +224,11 @@ var orbit_1 = "In about eight seconds, orb5 will do something shocking. It will 
 var orbit_2 = 'Soon, orb6 will obtain copies of the last three elements of orb2 and perform some computations. Then it will display "THE END". '
 
 orb1 = Comp([k])(cubeP)(addP(orb1('stop')[0]))(() =>
-        fork(orb1)("orb2")
-        (squareP)(multP(1/(orb2('stop')[0] * 100)))(addP(1))(powP(4)(1))(() =>
-            fork(orb1)('orb3')(x=>x-3)(x=>x**(1/3))(x=>x+1)(cubeP)(() =>
-                orb4(orbit_1)(() => iD(7)(false))(() =>
-                    orb5(orb2('stop').pop())(powP(1/2)(3))(x =>
+    fork(orb1)("orb2")
+    (squareP)(multP(1/(orb2('stop')[0] * 100)))(addP(1))(powP(4)(1))(() =>
+        fork(orb1)('orb3')(x=>x-3)(x=>x**(1/3))(x=>x+1)(cubeP)(() =>
+            orb4(orbit_1)(() => iD(7)(false))(() =>
+                orb5(orb2('stop').pop())(powP(1/2)(3))(x =>
                     orb2(x))(() =>
                         orb6(orbit_2)(iD(7)(false))(() =>
                             orb7(orb2('stop').slice(-3,-2)[0])

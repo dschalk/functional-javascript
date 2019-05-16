@@ -2220,158 +2220,38 @@ h('pre', `function Comp ( AR = [] )  {
     return f_;
   })(x)
 } ` ),
-  h('p', ' Comp() can run anonymously, but if you name it, you can access prior value entries, return values, and resolution values of Promises. Let "v" be any JavaScript value and let f = Comp(v). then:  '),
-  h('div', styleFunc(["#ffccaa", "4%", "20px",,,,,,]), [
-  h('div', 'f(func1)(func2) ... (funcN)')
-  ]),
-  h('p', {style: {fontSize: "19px"}}, ' has the following features:  ' ),
-  h('div', styleFunc(["#ffccaa", "4%", "23px",,,,,,]), [
-    h('div', 'func1, func2, ... need not be functions. There are no type restrictions on the values of the "functions",' ),
-    h('br'),
-    h('div', 'func entries that are functions operate on previously computed values from left to right,' ),
-    h('br'),
-    h('div', 'there are no type restrictions on the functions\' return values,' ),
-    h('br'),
-    h('div', 'functions have access to all prior primitive value entries, function return values, and Promise resolution values. The expression f(\'stop\')[n] points to the nth entry in the array held by the instance of Comp() in "f = Comp(v)" (above),       ' ),
-    h('br'),
-    h('div', 'f can be re-started after resting ' ),
-    h('div', ' f and can spawn separate independent branches with expressions like "g = Comp(f(\'stop\'))". ' ),
-    h('br'),
-    h('div', 'sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" or "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' )
 
-                                    ])
-                                    ]),
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 1 - Emulated Transducer'),
 
-            h('div.content2',  [
-            h('div', {style: {display: "flex" }},  [
-            h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
-h('p', ' Transducers facilitate the composition of operations on collections, thereby eliminating the need to traverse them more than once. For large collections, the performance advantage can be significant. In this demonstration, we traverse a short list four times using dot notation with the Array prototype functions map and filter. ' ),
+    h('p', ' Let "v1, v2, ... vN" be any JavaScript values. Then foo = Comp(v1)(v2) ... vN has the following properties:  ' ),
 
-h('p', ' Here is how filtOdd and filtEven are defined: ' ),
 
-h('pre', `
-function Filt (p) {
-    this.p = p;
-    this.filt = function filt (x) {
-        return p(x)
-    }
-};
+                                    h('div', {style: {color: "#ddddaa" }}, [
 
-function filtP (p) {return new Filt(p)};
+      h('div', 'There are no type restrictions on v1, v2, ... vN. If a value v is a function, there are no restrictions on the type of its argument or the type of its return value.  return values of "func1, func2, etc. ",' ),
+      h('br'),
+      h('div', 'func<n> entries that are functions operate on previously returned values from left to right,' ),
+      h('br'),
+      h('div', 'functions have access to all prior primitive value entries, function return values, and Promise resolution values. The expression f(\'stop\')[n] points to the nth entry in the array held by the instance of Comp() in "f_ = Comp(v)" (above),       ' ),
+      h('br'),
+      h('div', 'f_ can resume where it left off whenever it gets one or more additional arguments. ' ),
+      h('br'),
+      h('div', 'f_ can spawn separate independent branches with expressions such as "g = Comp(f(\'stop\'))". ' ),
+      h('br'),
+      h('div', 'sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" or "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' ),
+      h('br'),
+      h('div', 'The expression "Comp(x)(v1)(v2)...(vN)(\'stop\').pop())" can handle asynchronous streams of data and can act as a transducer on enumerable collections C, traversing C ONLY ONCE to perform an arbitrary number of transformations on it. An example would look like "result = array.map(x => Comp(x)(v1)(v2)...(vN)(\'stop\').pop())" ' ),
+      h('pre', ` function Filt (p) {
+          this.p = p;
+          this.filt = function filt (x) {
+              return p(x)
+          }
+      }; ` ),
+      h('div', ' "var b = new Filt(p)" is the functional equivalent of Array.prototype.filter(p) in' ),
+      h('pre', ` Comp(v1)(v2)...(b)(vk1)(vk2)...(vN) `)
 
-var filtOdd = filtP(x=>x%2 === 1);
-var filtEven = filtP(x=>x%2 === 0); ` ),
-
-h('pre', `var ace1 = [1,2,3,4,5]
-.filter(v => v%2 === 1)
-.map(v => v**3)
-.map(v=>v+3)
-.map(v=>v*v)
-
-var ace2 = [1,2,3,4,5]
-.map(v => v**3)
-.map(v=>v+3)
-.filter(v => v%2 === 1)
-.map(v=>v*v)
-
-var ace3 = [1,2,3,4,5]
-.filter(v => v%2 === 0)
-.map(v => v**3)
-.map(v=>v+3)
-.map(v=>v*v)
-
-var ace4 = [1,2,3,4,5]
-.map(v => v**3)
-.map(v=>v+3)
-.filter(v => v%2 === 0)
-.map(v=>v*v) ` ),
-h('p', ' Here is how filtOdd and filtEven are defined: ' ),
-
-h('pre', `function Filt (p) {
-    this.p = p;
-    this.filt = function filt (x) {
-        return p(x)
-    }
-};
-
-function filtP (p) {return new Filt(p)};
-
-var filtOdd = filtP(x=>x%2 === 1);
-var filtEven = filtP(x=>x%2 === 0); ` ),
-
-h('pre', {style: {color: "#eebcbb" }}, `
-ace1 is [ 16, 900, 16384 ]
-ace2 is [ 121, 4489 ]
-ace3 is [ 121, 4489 ]
-ace4 is [ 16, 900, 16384 ] ` ),
-
-                                   ]),
-
-h('div', {style: {marginRight: "2%", width: "45%" }},   [
-
-h('p', ' [1,2,3,4,5] was traversed twenty times using dot composition. Next, we traverse ar = [1,2,3,4,5] one time using Comp() and the result is identical. If we test with a million-member array, I predict that the Comp() method will drastically outperform the dot method, and I suspect the Comp() method\'s performance will be close to that of the most efficient transducers. A streamlined version of Comp() might really shine. In fact, Comp3() (below) returns the same results as Comp()' ),
-h('pre', `function Comp3 ( AR = [] )  {
-  var f_, p, run;
-  var ar = AR.slice();
-  var x = ar.pop();
-  return run = (function run (x) {
-     if (x instanceof Filt) {
-     var z = ar.pop();
-     if (x.filt(z)) x = z; else ar = [];
-    }
-    else if (x === x) ar.push(x);
-    function f_ (func) {
-         console.log("x and x === x", x, x == x, x === x);
-      if (func === 'stop') return ar;
-      else if (typeof func !== "function") p = func;
-      else if (x instanceof Promise) p = x.then(v => func(v));
-      else p = func(x);
-      return run(p);
-    };
-    return f_;
-  })(x)
-} `),
-
-h('pre', `var testAr1 = [];
-  var testAr2 = [];
-  var testAr3 = [];
-  var testAr4 = [];
-  var a1, ob, duce;
-  var arr = [1,2,3,4,5]
-  arr.map(k => {
-  a1 = Comp([k])(filtOdd)(x=>x**3)
-      (x=>x+3)(x=>x*x)('stop').pop()
-  if (a1 !== undefined) testAr1.push(a1)
-
-  a1 = Comp([k])(x=>x**3)
-      (x=>x+3)(filtOdd)(x=>x*x)('stop').pop()
-  if (a1 !== undefined) testAr2.push(a1)
-
-  a1 = Comp([k])(filtEven)(x=>x**3)
-      (x=>x+3)(x=>x*x)('stop').pop()
-  if (a1 !== undefined) testAr3.push(a1)
-
-  a1 = Comp([k])(x=>x**3)
-      (x=>x+3)(filtEven)(x=>x*x)('stop').pop()
-  if (a1 !== undefined) testAr4.push(a1)
-  })
-
-  console.log("testAr1", testAr1);
-  console.log("testAr2", testAr2);
-  console.log("testAr3", testAr3);
-  console.log("testAr4", testAr4); ` ),
-
-h('pre', {style: {color: "#eebcbb" }}, `
-testAr1 [ 16, 900, 16384 ]
-testAr2 [ 121, 4489 ]
-testAr3 [ 121, 4489 ]
-testAr4 [ 16, 900, 16384 ]  ` ),
-
-                              ])
-                              ]),
+                                                 ]),
 
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 2 - Branching Sequence Acrobatics'),
 
