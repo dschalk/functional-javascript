@@ -1,9 +1,23 @@
 #!/usr/bin/env js
 function diffRender () {};
+
 var window = {};
 
-function Filt (p) {this.p = p; this.filt = function filt (x) {return p(x)}};
+function Filt (p) {
+  this.p = p;
+  this.filt = function filt (x) {
+    return p(x)
+  }
+};
+
+
+var less_than = x => new Filt (y => y < x);
+
 function filtP (p) {return new Filt(p)};
+
+
+
+
 
 var fi = function fi (p) {return function fil(x) {var a = p(x) ? x : undefined; return a;} };
 var filt = fi(x => x%2 === 0);
@@ -16,7 +30,11 @@ function Comp ( AR = [] )  {
   return run = (function run (x) {
     if (x instanceof Filt) {
       var z = ar.pop();
-      if (x.filt(z)) x = z; else ar = [];
+      if (x.filt(z)) {x = z}
+      else {
+        ar = []
+        x = x.filt;
+      }
     }
     else if (x instanceof Promise) x.then(y =>
       {if (y != undefined && y !== false && y === y &&
@@ -43,35 +61,6 @@ function Comp ( AR = [] )  {
 var fork = f => string => {
     return window[string] = Comp(f('stop'));
 }
-
-/*
-function Comp ( AR = [] )  {
-  var ar , x, ob, f_ , p ;
-  if (Array.isArray(AR)) ar = AR.slice()
-  else ar = AR;
-  if (ar.length) {x = ar[ar.length-1]};
-    return  ob = {ar: ar, run: function run (x) {
-        if (x.name!== "undefined" && x.name === "filt") {x = filt(x)};
-        if (x instanceof Promise) x.then(y =>
-          {if (y != undefined && y !== false && y !== NaN &&
-          y.toString() != "NaN" && y.name !== "f_" ) {
-            ar.push(y);
-        }})
-        else if (x != undefined && x !== false &&
-        x.toString() != "NaN" && x.name !== "f_" ) {
-            ar.push(x);
-        };
-        return function f_ (func) {
-            if (func === 'stop') return ar;
-            else if (typeof func !== "function") p = func;
-            else if (x instanceof Promise)
-                p = x.then(v => func(v));
-            else p = func(x);
-            return run(p);
-        };
-    }}
-}
-*/
 
 var ob1 = Comp();
 var ob2 = Comp();
@@ -202,16 +191,8 @@ var ob3 = Comp();
 
 console.log("[0,1,2,3,4].reduce(transformFR(concat),[])",[0,1,2,3,4].reduce(transformFR(concat),[]))
 
-var zza = Comp(ar); var zzt = zza(zza.ar)(x=>x.reduce(Map(x=>x**3)
- (Filter(x=>x%2===0)(Map(x=>x+10000)
-   (concat))),[]))('stop').pop();
-console.log("zzt is", zzt);
 
-var zzb = Comp(ar); var zzu = zzb(zzb.ar)(x=>x.reduce(Map(x=>x**3)
- (Filter(x=>x%2===0)(Map(x=>x+10000)
-   ((a,b)=>a+b))),0))('stop').pop();
 
-console.log("zzu is", zzu);
 
 sue = [1,2,3,4,5].reduce(Map(x=>x**3)(append),[])
 console.log(sue);
@@ -251,12 +232,6 @@ function* integers() {
   }
 }
 
-var ob2 = Comp();
-ob2([1,2,3,4,5])(arr => arr.reduce(Map(x=>x**3)(concat),[]));
-var mule = ob2.ar.pop();
-
-console.log("mule is", mule);
-
 console.log("filt 1 through 5", filt(1),
 filt(2),
 filt(3),
@@ -291,6 +266,21 @@ ob(3)(fox)(x=>x**3)(x=>x+3)(x=>x*x)('stop')
 
 ob = Comp(); ob(3)(x=>x**3)(x=>x+3)(fox)(x=>x*x)('stop')
 // console.log("ob.ar", ob.ar);
+console.log(" **********************************************************");
+function less_than (x) {return Filt (y => y < x)};
+var td_0 = w => Comp([w])(v=>v**4)(v=>v+3)(v=>(v-3)/w*w)('stop').pop();
+var td_1 = x => Comp([x])(v=>v**4)(v=>v+3)(v=>(v-3)/x*x)('stop').pop();
+var td_2 = y => Comp([y])(v=>v)(v=>v*v)(v=>v+1000)('stop').pop();
+var td_3 = z => Comp([z])(td_1)(td_2)('stop').pop();
+
+var res0 = [1,2,3,4,5,6,7,8].map(w => td_0(w)).join(' ');
+var res1 = [1,2,3,4,5,6,7,8].map(x => td_1(x)).join(' ');
+var res2 = [1, 16, 81, 256].map(y => td_2(y)).join(' ');
+var res3 = [1,2,3,4,5,6,7,8].map(z => td_3(z)).join(' ');
+console.log("res0 is", res0);
+console.log("res1 is", res1);
+console.log("res2 is", res2);
+console.log("res3 is", res3);
 
 
 //end

@@ -266,7 +266,6 @@ var a;
 var qfB_proxy;
 var Maybe;
 var compose;
-var window = {};
 
 function autoRefresh(obj) {
     const handler = {
@@ -373,7 +372,7 @@ var head = function head([ a, ...b ]) {
   return a;
 }
 
-var diffRender = function () {return 8};   // See document.onload in maim
+var diffRender = function diffRender() {return 8};   // See document.onload in maim
 
 function change () {return 8};
 
@@ -3265,13 +3264,6 @@ function pr66 (x,p) {
   return ar;
 }
 
-console.log(pr66(30,[2,3,5,7,11,13,17,19,23,29]).reverse().join("  "))
-
-              var ar = [x=>x, x=>x**3, x=>x+3, x=>x**2, x=>x/300,x=>x*14]
-               var f = v => t => t.map(g=>v=g(v))
-
-               f(3)(ar)  //   [3, 27, 30, 900, 3, 42]
-
 function extend(sup, base) {
   var descriptor = Object.getOwnPropertyDescriptor(
     base.prototype, 'constructor'
@@ -4154,6 +4146,7 @@ function Comp ( AR = [] )  {
   var ar = AR.slice();
   var x = ar.pop();
   return run = (function run (x) {
+    if (x === null || x === NaN || x === undefined) x = f_('stop').pop();
     if (x instanceof Filt) {
       var z = ar.pop();
       if (x.filt(z)) x = z; else ar = [];
@@ -4162,12 +4155,12 @@ function Comp ( AR = [] )  {
       {if (y != undefined && y !== false && y === y &&
       y.name !== "f_" && y.name !== "stop" ) {
       ar.push(y);
-      diffRender()
+      diffRender();
     }})
     else if (x != undefined && x !== false && x === x &&
       x.name !== "f_" && x.name !== "stop" ) {
       ar.push(x);
-      diffRender()
+      diffRender();
     };
     function f_ (func) {
       if (func === 'stop') return ar;
@@ -4180,9 +4173,18 @@ function Comp ( AR = [] )  {
   })(x)
 }
 
-var fork = f => string => {
-    return window[string] = Comp(f('stop'));
-}
+var f = Comp();
+var g = Comp()
+var h = Comp();
+
+var rr = f(3)(x=>x**3)(x=>x+3)(x=>x*x)('stop');
+
+function fork (g,f) {return g(f('stop').slice(-1)[0] )}
+
+var rt = fork(h,f)(x=>x/100)(x=>x*x)('stop');
+console.log("rr is", rr);
+console.log("rt is",rt)
+
     var orb1 = Comp();
     var orb2 = Comp();
     var orb3 = Comp();
@@ -4218,10 +4220,9 @@ var orbit_1 = "In about eight seconds, orb5 will do something shocking. It will 
 
 var orbit_2 = 'Soon, orb6 will obtain copies of the last three elements of orb2 and perform some computations. Then it will display "THE END". '
 
-orb1 = Comp([k])(cubeP)(addP(orb1('stop')[0]))(() =>
-    fork(orb1)("orb2")(x=>x+k)
-    (squareP)(multP(1/(orb2('stop')[0] * 100)))(addP(1))(powP(4)(1))(() =>
-        fork(orb1)('orb3')(x=>x+k)(x=>x/10)(x=>x+1)(cubeP)(() =>
+orb1 = Comp([k])(cubeP)(() =>
+    fork(orb2,orb1)()(x=>x+k)(squareP)(multP(1/100))(addP(1))(powP(4)(1))(() =>
+        fork(orb3,orb1)(x=>x+k)(x=>x/10)(x=>x+1)(cubeP)(() =>
             orb4(orbit_1)(() => iD(7)(false))(() =>
                 orb5(orb2('stop').pop())(powP(1/2)(3))(x =>
                     orb2(x))(() =>
@@ -4238,6 +4239,13 @@ orb1 = Comp([k])(cubeP)(addP(orb1('stop')[0]))(() =>
     )
 };
 runT(3);
+
+function f(x) {
+    return Comp([x])(x=>x**3)(x=>x+3)(x=>x*x)
+};
+
+var wwd = [1,2,3,4,5].map(v=>f(v)('stop').pop())
+console.log("Mapping a stream into Comp([x])(x=>x**3)(x=>x+3)(x=>x*x) -- wwd is", wwd)
 
 /*
 // ->   ************************************************ transduce tduce

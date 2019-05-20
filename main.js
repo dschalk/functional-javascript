@@ -247,10 +247,6 @@ console.log(" END ************************** h and clone ***************** EBD")
       m43_.push(h('br'));
   });
 
-
-
-
-
 f23 = () => {
     var bind = Comp().run;
     m44_ = m45_ = time = '';
@@ -463,8 +459,7 @@ f23 = () => {
         });
 
         mMZ30.bnd(() => {
-          if (playerName === sender) {
-              console.log(v[3], " arrived from the server")
+          if (playerName === v[2]) {
               mMZ42.release(v[3]);
           }
         });
@@ -493,9 +488,9 @@ f23 = () => {
           .bnd(next, 'BE#$42', mMZ30) // works in conjunction with it4_c
       });
 
-      function next(x, y, instance, z) {
+      function next(x, y, instance) {
         if (x == y) {
-          instance.release(z);
+          instance.release();
         }
         return ret(x);
       };
@@ -1194,15 +1189,29 @@ var factorsAction8$ = factorsClick8$.map(e => {
     it4_d(10000);
     it4_d(100000);
     it4_d(1000000);
-    it4_d(100000);
-    it4_d(10000);
-    it4_d(1000);
-    it4_d(10000);
-    it4_d(100000);
+    it4_d(1000000);
     it4_d(1000000);
     it4_d(100000);
     it4_d(10000);
-    it4_d(1000);
+    it4_d(100000);
+    it4_d(1000000);
+    it4_d(1000000);
+    it4_d(1000000);
+    it4_d(100000);
+    it4_d(10000);
+    it4_d(100000);
+    it4_d(1000000);
+    it4_d(1000000);
+    it4_d(1000000);
+    it4_d(100000);
+    it4_d(10000);
+    it4_d(100000);
+    it4_d(1000000);
+    it4_d(1000000);
+    it4_d(1000000);
+    it4_d(100000);
+    it4_d(10000);
+    it4_d(100000);
 });
 
 var aplusClick$ = sources.DOM
@@ -1285,7 +1294,6 @@ workerM$ = sources.WWM.map(m => {
 });
 
 workerO$ = sources.WWO.map(m => {
-  console.log("Message from workerO -- m.data -- going to mMZ68.bnd ", m.data );
   mMZ60.release(m.data[1]);
   mMZ69.release(m.data[0]);
   if (m.data[0].length > primeState.length) primeState = m.data[0];
@@ -1309,7 +1317,6 @@ mMZ41.bnd(v => {
 });
 
 mMZ42.bnd(v => {
-  console.log('In mMZ42 -- received ', v, ' from the server. Now posting to workerO. ')
   workerO.postMessage([primeState, v])
 });
 
@@ -2223,25 +2230,16 @@ h('pre', `function Comp ( AR = [] )  {
 
 
 
-
-    h('p', ' Let "v1, v2, ... vN" be any JavaScript values. Then foo = Comp(v1)(v2) ... vN has the following properties:  ' ),
-
-
+    h('p', ' Let "val1, val2, ..." be any JavaScript values. Then foo = Comp(val1)(val2) ... (valN) has the following properties:  ' ),
                                     h('div', {style: {color: "#ddddaa" }}, [
 
-      h('div', 'There are no type restrictions on v1, v2, ... vN. If a value v is a function, there are no restrictions on the type of its argument or the type of its return value.  return values of "func1, func2, etc. ",' ),
-      h('br'),
-      h('div', 'func<n> entries that are functions operate on previously returned values from left to right,' ),
-      h('br'),
-      h('div', 'functions have access to all prior primitive value entries, function return values, and Promise resolution values. The expression f(\'stop\')[n] points to the nth entry in the array held by the instance of Comp() in "f_ = Comp(v)" (above),       ' ),
-      h('br'),
-      h('div', 'f_ can resume where it left off whenever it gets one or more additional arguments. ' ),
-      h('br'),
-      h('div', 'f_ can spawn separate independent branches with expressions such as "g = Comp(f(\'stop\'))". ' ),
-      h('br'),
-      h('div', 'sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" or "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' ),
-      h('br'),
-      h('div', 'The expression "Comp(x)(v1)(v2)...(vN)(\'stop\').pop())" can handle asynchronous streams of data and can act as a transducer on enumerable collections C, traversing C ONLY ONCE to perform an arbitrary number of transformations on it. An example would look like "result = array.map(x => Comp(x)(v1)(v2)...(vN)(\'stop\').pop())" ' ),
+      h('p', 'There are no default type restrictions on val1, val2, ... valN ("the vals"). If a value v is a function, there are no default restrictions on the type of v\'s argument or the type of v\'s return value. Enforcing type constraints is optional. '),
+      h('p', ' entries that are functions operate on previously returned values (or the resolution values of returned Promises) from left to right,' ),
+      h('p', 'functions have access to all preceding vals or, for vals that are functions, their return values or the resolution values of their returned Promises. The expression "foo(\'stop\')" returns the the array "ar" that is held in the closure that returned foo (above), so foo(\'stop\')[M] for some M < K in the expression "foo = (val1(val2)...(valK = foo(\'stop\')[M]),...(valN)" is a reference ar[M] in the closure. ' ),
+      h('p', 'foo (above) resumes where it left off whenever it receives an additional argument. foo can handle a perpetual stream of data. ' ),
+      h('p', 'foo forks independent (orthoganal, having their own addresses in memory) branches with expressions such as "var goo = Comp(foo(\'stop\'))".  ' ),
+      h('p', 'sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" and "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' ),
+      h('p', 'The expression "foo(\'stop\').pop())" can act as a transducer on any enumerable collection C. C is traversed ONLY ONCE while an arbitrary number of transformations are performed on it. For example, "[a1,a2,...,aJ].map(x => Comp(x)(val1)(val2)...(valN) (\'stop\').pop())" would return the result of multiple transformations on [a1,a2,...,aJ].' ),
       h('pre', ` function Filt (p) {
           this.p = p;
           this.filt = function filt (x) {
@@ -2249,11 +2247,15 @@ h('pre', `function Comp ( AR = [] )  {
           }
       }; ` ),
       h('div', ' "var b = new Filt(p)" is the functional equivalent of Array.prototype.filter(p) in' ),
-      h('pre', ` Comp(v1)(v2)...(b)(vk1)(vk2)...(vN) `)
+      h('pre', ` Comp(v1)(v2)...(b)(vk1)(vk2)...(vN). `)
 
+                                                 ])
                                                  ]),
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 2 - Branching Sequence Acrobatics'),
+                              h('div.content2', [
+
+
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 1 - Branching Sequence Acrobatics'),
 
 h('div', {style: {display: "flex" }},  [
   h('div', {style: {marginRight: "2%", width: "50%" }},   [
@@ -2353,7 +2355,48 @@ h('br')
                                     ]),
 
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 3 - Compose() Stress Test '  ),
+
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Transducer Composition '  ),
+
+
+                                                             h('div', {style: {display: "flex" }},  [
+                                                             h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+h('br'),
+h('p', ' We called expressions of the form "Comp(v1, v2, ...)(\'stop\').pop()" tranducers because enumerable collections and indeterminate streams go through multiple transformations, yet collections are traversed only once. Now we demonstrate another property of transducers: they compose. When the code below runs, the console displays what you see on the right.' ),
+h('pre', `function less_than (x) {return Filt (y => y < x)};
+var td_0 = w => Comp([w])(v=>v**4)(v=>v+3)(v=>(v-3)/w*w)('stop').pop();
+var td_1 = x => Comp([x])(v=>v**4)(v=>v+3)(v=>(v-3)/x*x)(less_than(300))('stop').pop();
+var td_2 = y => Comp([y])(v=>v)(v=>v*v)(v=>v+1000)('stop').pop();
+var td_3 = z => Comp([z])(td_1)(td_2)('stop').pop();
+
+var res0 = [1,2,3,4,5,6,7,8].map(w => td_0(w)).join(' ');
+var res1 = [1,2,3,4,5,6,7,8].map(x => td_1(x)).join(' ');
+var res2 = [1, 16, 81, 256].map(y => td_2(y)).join(' ');
+var res3 = [1,2,3,4,5,6,7,8].map(z => td_3(z)).join(' ');
+console.log("res0 is", res0);
+console.log("res1 is", res1);
+console.log("res2 is", res2);
+console.log("res3 is", res3); ` ),
+
+                                           ]),
+                           h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+                h('br'),
+h('p', ' ' ),
+h('pre', `res0 is 1 16 81 256 625 1296 2401 4096
+res1 is 4 19 84 259
+res2 is 1001 1256 7561 66536
+res3 is 1016 1361 8056 68081` ),
+
+h('p', ' As you see, running the result of td_1 through td_2 gives the result as  ' ),                                    ])
+                                    ]),
+
+
+
+
+
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Compose() Stress Test '  ),
 
 
                                                              h('div', {style: {display: "flex" }},  [
@@ -2418,41 +2461,25 @@ h('pre', `function test5 (n) {
                 }, 'GO'),
                 h('br'),
                 h('br'),
-h('p', ' In test4, Comp() returns arrays at un-allocated addresses in memory, so it\'s no surprise that nearly simultaneous calls to tes4 don\'t clash with one another, or that restarted incomplete sequences don\'t trip over themselves. The variables prefixed by "_C" are permanent fixtures of the virtual DOM. The side effect of repeatedly changing their values while test4 executes can\'t cause any mischief because the mutations occur in the virtual DOM returned by main(). The mutations do nothing but trigger Snabdom\'s diff and render routine. Functional programming and Cycle.js are a good match. ' ),
+h('p', ' In test4, Comp() returns arrays located in separate addresses in memory, so it\'s no surprise that nearly simultaneous calls to tes4 don\'t clash with one another, or that restarted incomplete sequences don\'t trip over themselves. ' ),
+h('p', ' The variables prefixed by "_C" are permanent fixtures of the virtual DOM. The side effect of repeatedly changing their values while test4 executes can\'t cause any mischief because the mutations occur in the virtual DOM. The mutations do nothing but trigger Snabdom\'s diff and render routine. Functional programming and Cycle.js are a good match, especially when (as is the case here) there are no callback functions in the virtual DOM.  ' ),
                 h('br')
 
                                            ])
                                            ]),
-                                           ]),
 
 
 
-                              h('div.content', [
 
 
-                              ]),
-                  h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 4 '  ),
+h('h1', 'METAPROGRAMMING WITHOUT PROXIES '),
+
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 3 '  ),
 
                               h('div', {style: {display: "flex" }},  [
                               h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
-h('p', ' An object named "ob@" handles user input. Notice that ob@.f() is by no means a pure, mathematical function. It lacks referential transparency. Every third time it is called, it causes a side effect which depends on the arguments it recieved on the previous two calls. The only concern I might have about this sort of thing, in some other project, would be interference with browser engine optimization ' ),
-
-
-h('p', ' Here comes a glimpse of how Cycle.js handles user input. The input box in the DOM with ID "dem3" does not reach into main() to call a callback. I keep main() strictly off-limits to the DOM so I safely cause side effects there. This is the Cycle.js convention. ' ),
-h('p', ' main() listens for DOM events. When there is a keypress in a box with ID "dem3", the event (named "e") is mapped into the "oneAction$" stream. If the key is the <ENTER> key, obQ.f (e.target.value) executes. Here\'s the code:     ' ),
-h('pre',  `ar dem3$ = sources.DOM
-   .select(\'#dem3\').events(\'keypress\');
-
-var oneAction$ = dem3$.map(e => {
-     if (e.keyCode === 13) {
-         obR.push(e.target.value);
-         e.target.value = null;
-     }
- }); ` ),
-
-
-h('p', ' Every third time obQ is called, it gives its accumulated numbers to quadMaker() (right column). ' ),
+h('p', ' It is easy to add functionality to the array method "push" without altering Array.prototype.push or using a proxy. The quadratic formula runs on accumulated numbers every third time obR.push() is called. Here\'s the code:  ' ),
 
 h('pre', `var obR  = { ar: [] };
 
@@ -2465,11 +2492,7 @@ obR.push = function (x) {
   }
 };  ` ),
 
-h('p', ' We essentially added functionality to the "push" method not with a proxy, not by altering Array.prototype.push, but by adding a push() method to an object containing the array of interest. ' ),
-
-                                                              ]),
-                                        h('div', {style: {marginLeft: "3%", marginRight: "2%", width: "50%" }},   [
-
+h('p', ' obR.push(n) executes when a user enters a number "n". ' ),
 
 h('pre', `function quadMaker (x,y) {
     return a => b => c => {
@@ -2488,7 +2511,13 @@ h('pre', `function quadMaker (x,y) {
      }
   } ` ),
 
-h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third entry will trigger execution of quadMaker on your selections. To see some solutions, enter "1" then "3" then "2" or "1" then "2" then "-3". ' ),
+
+                                                              ]),
+                                        h('div', {style: {marginLeft: "3%", marginRight: "2%", width: "50%" }},   [
+
+
+
+h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. obR() executes on each number you enter. The third entry will trigger execution of quadMaker on your selections. To see some solutions, enter "1" then "3" then "2" or "1" then "2" then "-3". ' ),
 
                 h('input#dem3', {
                   style: {
@@ -2508,133 +2537,22 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
                 h('br'),
                 h('br'),   ]),
 
-h('span.tao', ' By the way, I am enthusiastic about functional programming and greatly enjoy working on the Haskell WebSocket server associated with this site. The ' ),
-h('a', {props: {href:"https://github.com/fantasyland/fantasy-land", target: "_blank" }}, 'Fantasyland' ),
-h('span', ' algebraic javascript specification is an admirable achievement. People who are familiar with Haskell can jump right in and start coding with familiar monads and functors borrowed from the Haskell ' ),
-h('a', {props: {href: "http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html", target: "_blank"}}, 'Prelude module' ),
-h('span', '. The '  ),
-h('a', {props: {href:"https://github.com/origamitower/folktale", target: "_blank" }}, 'Folktale' ),
-h('span', ' library also succeeds in implementing an API similar to the Haskell Prelude module. But when my goal is providing a robust, pleasing user interface for the Web, I like having at my fingertips all the power and possibilities of unrestricted Ecmascript 2018. ' ),
-h('br'),
-
                                                           ])
                                                           ]),
 
 
 
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 5 '),
+
+
+
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 4 '),
 
 
 h('div', {style: {display: "flex" }},  [
   h('div', {style: {marginRight: "2%", width: "50%" }},   [
-h('p', ' curriedAsync facilitates the asynchronous execution of curried functions that do not ultimately return functions. A symple tweak could make it work where the final result is a function. Here\'s the definition: ' ),
 
-h('pre', `var curriedAsync = function curriedAsync (x) {
-    var original_f = x;
-    var f = x;
-    return function g (d) {
-        f = f(d);  // f will be a function the first two times
-        if (typeof f !== "function") f = original_f;
-    }
-};
-
-var fu_4 = curriedAsync(quadMaker("c", "d")); ` ),
-
-                                                              ]),
-                                        h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-
-h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. fu_4 will execute on each of them.' ),
-                h('input#dem4', {
-                  style: {
-                    height: "15px",
-                    color: "blue",
-                    fontSize: "18px"
-                  }
-                }),
-                h('br'),
-
-                h('div', {style: {color: "#ffabab"}}, [
-                h('br'),
-                _oB_.c,
-                h('br'),
-                _oB_.d,
-                h('br'), ])
-
-
-                                     ])
-                                     ]),
-
-
-
-
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 6 '),
-
-                                              h('div.content2', [
-
-h('div', {style: {display: "flex" }},  [
-  h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-h('p', ' Sometimes it is convenient to re-use a tool you already have rather than define a new one. Here Compose() provides the object "ob" so ob.run can populate ob.ar until it has three numbers. At that point, quadMaker(\'e\', \'f\') runs on the numbers in ob.ar, then ob.ar is emptied in preparation for receiving new data. ' ),
-
-h('pre', `function ann23 () {
-     var ob = Compose()
-     return func = y => {
-        ob.run(toFloat(y));
-        if (ob.ar.length === 3) {
-            quadMaker("e", "f")(ob.ar[0])(ob.ar[1])(ob.ar[2]);
-            ob.ar = [];
-            diffRender();
-        }
-        return func;
-    }
-};
-
-var ann27 = ann23();
-            // User entries are processed by ann23() ` )
-
-                                                              ]),
-
-             h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-
-h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME. The third time you press <ENTER>, the answer will appear. ' ),
-                h('input#dem5', {
-                  style: {
-                    height: "15px",
-                    color: "blue",
-                    fontSize: "18px"
-                  }
-                }),
-                h('br'),
-                h('br'),
-
-                h('div', {style: {color: "#ffabab"}}, [
-                h('br'),
-                _oB_.e,
-                h('br'),
-                _oB_.f,
-                h('br'),
-                h('br'),   ]),
-
-
-h('div#proxy2', ' ' ),
-
-                                        ])
-                                        ])
-                                       ]),
-
-
-
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 7 '),
-
-                                              h('div.content2', [
-
-h('div', {style: {display: "flex" }},  [
-  h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-h('p', ' Here\'s a way to use a proxy to asynchronously evaluate numbers with the quadratic formula. push3() is a proxy of itself. When _arQuad acquires a third element, the quadratic formula runs and _arQuad is emptied in preparation for the next three numbers. ' ),
+h('p', ' Of course, a proxy works too, only less efficiently and less transparently with more lines of code.    ' ),
 
 h('pre',  `var  _arQuad = [];
 
@@ -2686,7 +2604,7 @@ h('span', '. ' )
                                         ])
                                        ]),
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 8'),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 5'),
 
                                               h('div.content2', [
 
@@ -2744,8 +2662,20 @@ h('div', `${foocow_7.join(", ")}`)
                                                             h('div.content', [
 
 
+h('span.tao', ' This website demonstrates the awesome potential of unconstrained JavaScript. Programming with enforced types, enforced purity of functions, enforced immutability, and the routing of all side effects to the virtual DOM seems akin to joining a Catholic religeous order and taking a vow of poverty, chastity, and obedience. So it might surprise you to know that I am enthusiastic about functional programming and greatly enjoy working on the Haskell WebSocket server associated with this site. The ' ),
+h('a', {props: {href:"https://github.com/fantasyland/fantasy-land", target: "_blank" }}, 'Fantasyland' ),
+h('span', ' algebraic javascript specification is an admirable achievement. People who are familiar with Haskell can jump right in and start coding with familiar monads and functors borrowed from the Haskell ' ),
+h('a', {props: {href: "http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html", target: "_blank"}}, 'Prelude module' ),
+h('span', '. The '  ),
+h('a', {props: {href:"https://github.com/origamitower/folktale", target: "_blank" }}, 'Folktale' ),
+h('span', ' library also succeeds in implementing an API similar to the Haskell Prelude module. But when my goal is providing a robust, pleasing user interface for the Web, I like having all the power and possibilities of unrestricted Ecmascript 2018 at my disposal. I use ' ),
+h('a', {props: {href: "https://www.typescriptlang.org/", target: "_blank" }}, 'Typescript' ),
+h('span', ' because it lets me program in JavaScript and assign types to some functions but not others.' ),
+h('br'),
+h('br'),
 
-  h('span.tao', ' If I had to compose using library functions, I would choose '),
+
+  h('span.tao', ' If I had to compose functions using library functions, I would choose '),
   h('a', {props: {href: "https://ramdajs.com/docs/#pipe",}}, "Ramda pipe"),
   h('span', ' and '),
   h('a', {
@@ -2766,24 +2696,63 @@ h('div', `${foocow_7.join(", ")}`)
       href: "#comments"
     }
   }, 'comments'),
-  h('span', ' section near the end of this page. You can email me at pyschalk@gmail.com. '),
+  h('span', ' section near the end of this page. You can email me at fpschalk@gmail.com. '),
                     ]),
 h('h1', '___________________________________________________________'),
 h('div.content', [ // 4
-          h('div#bind'),
+h('div#bind'),
 
-          h('br'),
-  h('h3', 'MonadItter' ),
-          h('p', ' The asynchronous functions in Demonstration 1 use monadItter instances mMZ40 and mMZ52 instead of Promises. Here\'s the definition of MonadItter: '),
-          h('pre', `  var MonadItter = function MonadItter() {
-  this.p = function () {};
-  this.release = function () {
-    return this.p.apply(this, arguments);
-  };
-  this.bnd = function (func) {
-    return this.p = func;
-  };
+h('br'),
+h('h3', 'MonadItter' ),
+
+h('pre', `var MonadItter = function MonadItter() {
+    this.p = function () {};
+    this.release = function () {
+        return this.p.apply(this, arguments);
+    };
+    this.bnd = function (func) {
+        return this.p = func;
+};
 }; `),
+h('p', ' MonadItter instances provide a simple, reliable way of responding to events. In this application, incoming WebSockets messages have unique six-character prefixes. When a comma separated message "e" arrives from the server, "v = e.data.split(\',\')" splits the payload into an array named "v". v[0] determines which MonadItter instance is released. For example, when a message with v[0] === \'BE#$42\' arrives, mMZ30.release is called on: ' ),
+
+h('pre', `mMZ30.bnd(() => {
+    if (playerName === v[2]) {
+        mMZ42.release(v[3]);
+    }
+}); ` ),
+  h('p', ' v[2] is the playerName of the user who initiated the interaction with the server. If the person who initiated the interaction receives the message, "mMZ42.release(v[3])" is called, sending the pseudo-random number received from the server to a web worker that sends back the number\'s prime decomposition. Here\'s the result: ' ),
+
+h('p', ' Sometimes, refreshing the browser speeds up this demonstration. Click below to send the server twenty-nine requests for pseudo-random numbers. That will initiate a chain reaction culminating in what you see below. '),
+  h('br'),
+  h('br'),
+  h('button#factors_R', { style: { fontSize: '20px' }}, ' .   GO   . ' ),
+  h('span', "~~"),
+  h('button.clear_R', {
+    style: {
+      fontSize: '20px',
+      marginLeft: "0"
+    }
+  }, 'clear results'),
+  h('br'),
+  h('br'),
+  h('div.demo_1', {style: {fontSize: "20px", color: "#ffffbb"}}, m43_),
+  h('br'),
+ /* h('div.demo_1', {style: {fontSize: "15px"}}, m44_),
+  h('br'),
+  h('div.demo_1', {style: {fontSize: "15px"}}, m45_),
+  h('br'),
+*/
+
+
+
+
+
+
+
+
+
+
           h('p', ' MonadItter instances trap incoming WebSocket messages based on their six-digit prefixes and redirect them according to their intended purposes. No error checking is needed. If a prefix is not recognized, the message falls through and is disregarded. This is how incoming WebSocket messages are parsed: '),
 h('pre',   {style: {color: "#aaffff"}}, `        const messages$ = sources.WS.map(e => {
         var v = e.data.split(',')
@@ -3054,28 +3023,6 @@ it7_b = () => mMZ53.bnd(string => {
 
   h('br'),
   h('br'),
-h('p', ' Sometimes, refreshing the browser speeds up this demonstration. Click below to begin fifteen runs of: '),
-  h('span', styleFunc(["rgb(7, 247, 247)", "12%", "20px", , , , , ]), 'ob.run(145)(x=>x**3)(it4_c)(it6_c)(it7_c)'),
-  h('br'),
-  h('br'),
-  h('button#factors_R', { style: { fontSize: '15px' }}, 'ob.run(145)(x=>x**3)( . . . ' ),
-  h('span', "~~"),
-  h('button.clear_R', {
-    style: {
-      fontSize: '15px',
-      marginLeft: "0"
-    }
-  }, 'clear results'),
-  h('br'),
-  h('br'),
-  h('div.demo_1', {style: {fontSize: "15px"}}, m43_),
-  h('br'),
- /* h('div.demo_1', {style: {fontSize: "15px"}}, m44_),
-  h('br'),
-  h('div.demo_1', {style: {fontSize: "15px"}}, m45_),
-  h('br'),
-*/
-
 
 
 
