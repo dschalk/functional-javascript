@@ -2357,43 +2357,6 @@ h('br')
 
 
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Transducer Composition '  ),
-
-
-                                                             h('div', {style: {display: "flex" }},  [
-                                                             h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-h('br'),
-h('p', ' We called expressions of the form "Comp(v1, v2, ...)(\'stop\').pop()" tranducers because enumerable collections and indeterminate streams go through multiple transformations, yet collections are traversed only once. Now we demonstrate another property of transducers: they compose. When the code below runs, the console displays what you see on the right.' ),
-h('pre', `function less_than (x) {return Filt (y => y < x)};
-var td_0 = w => Comp([w])(v=>v**4)(v=>v+3)(v=>(v-3)/w*w)('stop').pop();
-var td_1 = x => Comp([x])(v=>v**4)(v=>v+3)(v=>(v-3)/x*x)(less_than(300))('stop').pop();
-var td_2 = y => Comp([y])(v=>v)(v=>v*v)(v=>v+1000)('stop').pop();
-var td_3 = z => Comp([z])(td_1)(td_2)('stop').pop();
-
-var res0 = [1,2,3,4,5,6,7,8].map(w => td_0(w)).join(' ');
-var res1 = [1,2,3,4,5,6,7,8].map(x => td_1(x)).join(' ');
-var res2 = [1, 16, 81, 256].map(y => td_2(y)).join(' ');
-var res3 = [1,2,3,4,5,6,7,8].map(z => td_3(z)).join(' ');
-console.log("res0 is", res0);
-console.log("res1 is", res1);
-console.log("res2 is", res2);
-console.log("res3 is", res3); ` ),
-
-                                           ]),
-                           h('div', {style: {marginRight: "2%", width: "50%" }},   [
-
-                h('br'),
-h('p', ' ' ),
-h('pre', `res0 is 1 16 81 256 625 1296 2401 4096
-res1 is 4 19 84 259
-res2 is 1001 1256 7561 66536
-res3 is 1016 1361 8056 68081` ),
-
-h('p', ' As you see, running the result of td_1 through td_2 gives the result as  ' ),                                    ])
-                                    ]),
-
-
 
 
 

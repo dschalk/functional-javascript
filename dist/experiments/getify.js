@@ -275,7 +275,7 @@ var td_3 = z => Comp([z])(td_1)(td_2)('stop').pop();
 
 var res0 = [1,2,3,4,5,6,7,8].map(w => td_0(w)).join(' ');
 var res1 = [1,2,3,4,5,6,7,8].map(x => td_1(x)).join(' ');
-var res2 = [1, 16, 81, 256].map(y => td_2(y)).join(' ');
+var res2 = [4,19,84,259].map(y => td_2(y)).join(' ');
 var res3 = [1,2,3,4,5,6,7,8].map(z => td_3(z)).join(' ');
 console.log("res0 is", res0);
 console.log("res1 is", res1);

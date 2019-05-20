@@ -16,6 +16,7 @@ function filtP (p) {return new Filt(p)};
 
 var filtOdd = filtP(x=>x%2 === 1);
 var filtEven = filtP(x=>x%2 === 0);
+var less_than = function less_than(x) {return new Filt(v=>v<x)};
 
 function add1(v) { return v + 1; };
 function isOdd(v) { return v % 2 == 1; };
