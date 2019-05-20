@@ -2202,20 +2202,21 @@ h('pre', `function Comp ( AR = [] )  {
   var ar = AR.slice();
   var x = ar.pop();
   return run = (function run (x) {
+    if (x === null || x === NaN || x === undefined) x = f_('stop').pop();
     if (x instanceof Filt) {
-      var z = ar.pop(); // z will be tested and replaced if the filter returns true.
+      var z = ar.pop();
       if (x.filt(z)) x = z; else ar = [];
     }
     else if (x instanceof Promise) x.then(y =>
-      {if (y != undefined && y !== false && y !== NaN && (!(x instanceof Filt)) &&
-      y.toString() != "NaN" && y.name !== "f_" && y.name !== "stop" ) {
+      {if (y != undefined && y !== false && y === y &&
+      y.name !== "f_" && y.name !== "stop" ) {
       ar.push(y);
-      diffRender()
+      diffRender();
     }})
-    else if (x != undefined && x !== false && (!(x instanceof Filt)) &&
-      x.toString() != "NaN" && x.name !== "f_" && x.name !== "stop" ) {
+    else if (x != undefined && x !== false && x === x &&
+      x.name !== "f_" && x.name !== "stop" ) {
       ar.push(x);
-      diffRender()
+      diffRender();
     };
     function f_ (func) {
       if (func === 'stop') return ar;
@@ -2226,7 +2227,9 @@ h('pre', `function Comp ( AR = [] )  {
     };
     return f_;
   })(x)
-} ` ),
+}
+
+function fork (g,f) {return g(f('stop').slice(-1)[0] )} ` ),
 
 
 
@@ -2283,26 +2286,24 @@ h('p', {style: {color: "#aaccee" }}, 'var orbit_1 = "In about eight seconds, orb
 
 h('p', {style: {color: "#aaccee" }}, ' var orbit_2 = "Soon, orb6 will obtain copies of the last three elements of orb2 and perform some computations. Then it will display \"THE END\". ' ),
 
-h('pre', {style: {color: "#aaccee" }}, `orb1 = Comp([k])(cubeP)(addP(orb1('stop')[0]))(() =>
-      fork(orb1)("orb2")
-      (squareP)(multP(1/(orb2('stop')[0] * 100)))(addP(1))(powP(4)(1))(() =>
-          fork(orb1)('orb3')(x=>x-3)(x=>x**(1/3))(x=>x+1)(cubeP)(() =>
-              orb4()(( iD(7)(false))(() =>
-                  orb5(orb2('stop').pop())(powP(1/2)(3))(x =>
-                      orb2(x))(() =>
-                          orb6(orbit_2)(iD(7)(false))(() =>
-                              orb7(orb2('stop').slice(-3,-2)[0])
-                              (iD(1)(orb2('stop').slice(-2,-1)[0]))
-                              (iD(1)(orb2('stop').slice(-1)[0]))(powP(1/2)(1))
-                              (addP(1))(powP(3)(1))(iD(4)("THE END"))
-                          )
-                      )
-                  )
-              )
-
-      )
-  };
-  runT(3); ` ),
+h('pre', {style: {color: "#aaccee" }}, `orb1 = Comp([k])(cubeP)(() =>
+    fork(orb2,orb1)()(x=>x+k)(squareP)(multP(1/100))(addP(1))(powP(4)(1))(() =>
+        fork(orb3,orb1)(x=>x+k)(x=>x/10)(x=>x+1)(cubeP)(() =>
+            orb4(orbit_1)(() => iD(7)(false))(() =>
+                orb5(orb2('stop').pop())(powP(1/2)(3))(x =>
+                    orb2(x))(() =>
+                        orb6(orbit_2)(iD(7)(false))(() =>
+                            orb7(orb2('stop').slice(-3,-2)[0])
+                            (iD(1)(orb2('stop').slice(-2,-1)[0]))
+                            (iD(1)(orb2('stop').slice(-1)[0]))(powP(1/2)(1))
+                            (addP(1))(powP(3)(1))(iD(4)("THE END"))
+                        )
+                    )
+                )
+            )
+        )
+    )
+}; ` ),
 
                                              ]),
                                     h('div', {style: {marginRight: "2%", width: "45%" }},   [
