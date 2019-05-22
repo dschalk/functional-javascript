@@ -1,5 +1,11 @@
 
-
+var diff;
+function diff () {};
+var diffRender = function diffRender() {};   // See document.onload in maim
+var vnode7;
+var vnode9 = 0;
+var vnode6;
+var time = 0;
 function ints (n) {return [...Array(n).keys()]}
 
 function Fux (p) {this.p = p; this.fux = function fux (x) {return p(x)}};
@@ -372,8 +378,6 @@ function cloneOb (o) {return JSON.parse(JSON.stringify(o))};
 var head = function head([ a, ...b ]) {
   return a;
 }
-
-var diffRender = function diffRender() {return 8};   // See document.onload in maim
 
 function change () {return 8};
 
@@ -4221,6 +4225,8 @@ var orbit_1 = "In about eight seconds, orb5 will do something shocking. It will 
 
 var orbit_2 = 'Soon, orb6 will obtain copies of the last three elements of orb2 and perform some computations. Then it will display "THE END". '
 
+console.log("diffRender is", diffRender);
+
 orb1 = Comp([k])(cubeP)(() =>
     fork(orb2,orb1)()(x=>x+k)(squareP)(multP(1/100))(addP(1))(powP(4)(1))(() =>
         fork(orb3,orb1)(x=>x+k)(x=>x/10)(x=>x+1)(cubeP)(() =>
@@ -4245,10 +4251,11 @@ function f(x) {
     return Comp([x])(x=>x**3)(x=>x+3)(x=>x*x)
 };
 
+
+/*
 var wwd = [1,2,3,4,5].map(v=>f(v)('stop').pop())
 console.log("Mapping a stream into Comp([x])(x=>x**3)(x=>x+3)(x=>x*x) -- wwd is", wwd)
 
-/*
 // ->   ************************************************ transduce tduce
 var arf =  [x=>x*10,  x=>x*x, x=>x+x];
 var arn = [1,2,3,4,5,6,7]

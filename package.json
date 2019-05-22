@@ -4,6 +4,7 @@
   "description": "",
   "main": "./main.js",
   "dependencies": {
+    "@babel/core": "^7.4.5",
     "@cycle/base": "^4.3.0",
     "@cycle/dom": "^12.2.8",
     "@cycle/run": "^4.1.0",
@@ -51,6 +52,7 @@
     "require": "^2.4.20",
     "requirejs": "^2.3.6",
     "schema-utils": "^0.4.5",
+    "snabbmitt": "file:snabbmitt",
     "trine": "0.1.1",
     "typescript": "^2.5.3",
     "unminified-webpack-plugin": "^2.0.0",

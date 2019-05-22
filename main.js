@@ -14,7 +14,14 @@
     import Cycle from '@cycle/xstream-run';
     import code from './code.js';
     import {run} from './cycle-run.js';
+import snabbdom from 'snabbdom';
 
+const patch = snabbdom.init([                   // Init patch function with choosen modules
+  require('snabbdom/modules/class'),          // makes it easy to toggle classes
+  require('snabbdom/modules/props'),          // for setting properties on DOM elements
+  require('snabbdom/modules/style'),          // handles styling on elements with support for animations
+  require('snabbdom/modules/eventlisteners'), // attaches event listeners
+]);
     // socket = new WebSocket("ws://localhost:3055");
 
     // socket = new WebSocket("ws://142.93.205.167:3055");
@@ -57,7 +64,6 @@ console.log(" END ************************** h and clone ***************** EBD")
       ]);
       return node;
     };
-
 
     MonadState.prototype.dec = function () {
       this.s[1] -= 1;
@@ -2083,12 +2089,19 @@ foo(9);
           } else diffRend = 0;
         });
 
+      var diffR2$ = sources.DOM
+        .select('#diff').events('click')
+        .map(() => {
+          if (diffRend < 50) {
+            diffRend += 1
+          } else diffRend = 0;
+        });
+
       var diffRendClick$ = sources.DOM
         .select('input#change').events('click')
         .map(e => {
           console.log('diffRend changed <C><C>< Click Click Click ><C><C> --> --> e is', e);
         })
-
 
       var diffRendChange$ = sources.DOM
         .select('input#chang').events('onChange')
@@ -2132,8 +2145,17 @@ foo(9);
         }
       });
 
+      vnode9 = h('button#vnode9', "vnode9");
+      vnode6 = h('div#vnode6', time);
 
-      var calcStream$ = xs.merge( twoAction$, threeAction$, eightAction$, fourAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerM$, workerO$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
+      var vnode9$ = sources.DOM.select('#vnode9')
+      .events('click').map(e => {
+          time = Date.now();
+      });
+
+      diffRender = function diffRender () { vnode9.elm.click() };
+
+      var calcStream$ = xs.merge( vnode9$, twoAction$, threeAction$, eightAction$, fourAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, diffR2$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerM$, workerO$, clearADSction$, factorsAction$, factorsAction8$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
         DOM: calcStream$.map(() => {
@@ -2250,10 +2272,17 @@ function fork (g,f) {return g(f('stop').slice(-1)[0] )} ` ),
           }
       }; ` ),
       h('div', ' "var b = new Filt(p)" is the functional equivalent of Array.prototype.filter(p) in' ),
-      h('pre', ` Comp(v1)(v2)...(b)(vk1)(vk2)...(vN). `)
+      h('pre', ` Comp(v1)(v2)...(b)(vk1)(vk2)...(vN). `),
 
-                                                 ])
+
                                                  ]),
+                                                 ]),
+h('div#vn9', [
+vnode9,
+h('br'),
+h('br'),
+h('div', time),
+]),
 
                               h('div.content2', [
 
@@ -2354,9 +2383,48 @@ h('br')
 
                                     ])
                                     ]),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Compose() Stress Test '  ),
+
+
+                                                             h('div', {style: {display: "flex" }},  [
+                                                             h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+h('br'),
+
+h('pre', `var f = Comp();
+f(3)(x=>x**3)(x=>x+3)(x=>x*x);
+console.log(f('stop'))
+// [3, 27, 30, 900]
+
+var h = Comp();
+fork(h,f)(x=>x/100)(x=>x*x)('stop');
+console.log(h('stop'));
+// [900, 9, 81]
+
+h()(x=>x/27)(x=>x**4)(x=>x+1000)
+console.log(h('stop'));
+// [900, 9, 81, 3, 81, 1081]
+
+h(h('stop')[2])(x=>x/27)(x=>x**4)(x=>x+5000)
+console.log(h('stop'));
+// [900, 9, 81, 3, 81, 1081, 81, 3, 81, 5081]
+
+var g = Comp();
+fork(g,h)(x=>x-5000)(x=>x**(1/4))(x=>x*9)
+console.log(g('stop'))
+// [5081, 81, 3, 27]  `),
+
+                                           ]),
+                           h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+                h('br'),
 
 
 
+
+
+                                                          ])
+                                                          ]),
 
 
 
@@ -2639,12 +2707,11 @@ h('br'),
 h('br'),
 
 
-  h('span.tao', ' If I had to compose functions using library functions, I would choose '),
+  h('span.tao', ' If I had to compose functions using library functions, perhaps in some team project, I would choose '),
   h('a', {props: {href: "https://ramdajs.com/docs/#pipe",}}, "Ramda pipe"),
   h('span', ' and '),
-  h('a', {
-    props: {href: "https://ramdajs.com/docs/#compose"}}, 'Ramda compose' ),
-  h('span', '. But so far, I haven\'t needed them. I prefer functions that are easy to tweak for the specific purposes at hand.   '),
+  h('a', {props: {href: "https://ramdajs.com/docs/#compose"}}, 'Ramda compose' ),
+  h('span', '. I feel more solidly in control using Comp() and variations with different names. The variations might have fewer features, more features, or Comp() with a minor tweak. It took time to get to this point, but it was time well spent. ' ),
   h('br'),
   h('br'),
   h('span.tao', 'This project was created by and is actively maintained by David Schalk. The code repository is at '),
@@ -2654,12 +2721,7 @@ h('br'),
       target: "_blank"
     }
   }, 'functional-javascript'),
-  h('span', '. Please leave a comment in the '),
-  h('a', {
-    props: {
-      href: "#comments"
-    }
-  }, 'comments'),
+  h('span', '. The Comments section hasn\'t function ever since I removed the section with a game, shared todo list, and text messaging section. Users could create or sign into an existing group and choose usernames and passwords. I functioned flawlessly, but I want to consider refactoring it using Comp() rather than Monad instances. '),
   h('span', ' section near the end of this page. You can email me at fpschalk@gmail.com. '),
                     ]),
 h('h1', '___________________________________________________________'),
@@ -3407,12 +3469,8 @@ val => { console.log(1, val); return val**2; },
 val => { console.log(2, val); return val+=4; },
 val => { console.log(3, val); return val*=2; }); `),
 
-
-
-
-
-
-h('h1', 'DOG SHIT'),
+/*
+h('h1', 'Angela'),
             h('br'),
             h('input#chang', __cow__ ),
             h('br'),
@@ -3422,15 +3480,12 @@ h('h1', 'DOG SHIT'),
             h('button#bool', 'Cow' ),
             h('br'),
             h('br'),
-            h('br')
+            h('br') */
           ])
         ])
       })
     }
   }
-
-
-  diffRender = () => document.getElementById('diffRender').click();
   sources.DOM = makeDOMDriver('#main-container');
   sources.WS = websocketsDriver;
   sources.GD = gridDriver;

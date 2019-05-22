@@ -142,7 +142,7 @@ function fredDriver () {
 };
 
 var RESULT_bind = [];
- 
+
 var bind$ = n => xs.of(n);
 
 function bindDriver () {
@@ -187,21 +187,3 @@ sources = {
   FD: fredDriver,
   BD: bindDriver
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
