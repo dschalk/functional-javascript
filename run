@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# cat /dev/null > nohup.out && ./wp && nohup warp -d dist &
-stack runghc Main.hs && cp /dev/null nohup.out && ./wp && nohup warp -d dist &

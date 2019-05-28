@@ -1,7 +1,0 @@
-Configuring th-abstraction-0.2.7.0...
-Preprocessing library for th-abstraction-0.2.7.0..
-Building library for th-abstraction-0.2.7.0..
-[1 of 2] Compiling Language.Haskell.TH.Datatype.Internal ( src/Language/Haskell/TH/Datatype/Internal.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Language/Haskell/TH/Datatype/Internal.o )
-[2 of 2] Compiling Language.Haskell.TH.Datatype ( src/Language/Haskell/TH/Datatype.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Language/Haskell/TH/Datatype.o )
-Installing library in /home/b/.stack/snapshots/x86_64-linux-tinfo6/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/th-abstraction-0.2.7.0-qBjtZiH1SuB1K32B3q9qx
-Registering library for th-abstraction-0.2.7.0..

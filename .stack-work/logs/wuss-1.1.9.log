@@ -1,7 +1,0 @@
-Configuring wuss-1.1.9...
-Preprocessing library for wuss-1.1.9..
-Building library for wuss-1.1.9..
-[1 of 2] Compiling Paths_wuss       ( .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/autogen/Paths_wuss.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Paths_wuss.o )
-[2 of 2] Compiling Wuss             ( library/Wuss.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Wuss.o )
-Installing library in /home/b/.stack/snapshots/x86_64-linux-tinfo6/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/wuss-1.1.9-82yW1FM2MnxAKuIZ4nqFub
-Registering library for wuss-1.1.9..

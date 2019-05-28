@@ -1,6 +1,0 @@
-Configuring file-embed-0.0.10.1...
-Preprocessing library for file-embed-0.0.10.1..
-Building library for file-embed-0.0.10.1..
-[1 of 1] Compiling Data.FileEmbed   ( Data/FileEmbed.hs, .stack-work/dist/x86_64-linux-tinfo6/Cabal-2.0.1.0/build/Data/FileEmbed.o )
-Installing library in /home/b/.stack/snapshots/x86_64-linux-tinfo6/lts-11.15/8.2.2/lib/x86_64-linux-ghc-8.2.2/file-embed-0.0.10.1-dHJWrXRvu59h2yyMVhlwG
-Registering library for file-embed-0.0.10.1..

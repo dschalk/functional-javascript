@@ -25,7 +25,7 @@ module Main where
   import qualified Data.Text                      as T
   import qualified Data.Text.IO                   as TIO
   import           Fm                             (rText, truck)
-  import qualified Fm                             as Fm 
+  import qualified Fm                             as Fm
   import qualified Network.Wai
   import qualified Network.Wai.Application.Static as Static
   import qualified Network.Wai.Handler.Warp       as Warp
@@ -184,7 +184,7 @@ module Main where
   extractTail _ = pack "Error. ExtractTail is being applied to something other than a two item list of Text"
 
   newName :: Text -> Text -> Client -> Client
-  newName name1 name2 (a, b, c, d, e, f, g, h) | name1 == a  = upd1 name2 (a, b, c, d, e, f, g, h) 
+  newName name1 name2 (a, b, c, d, e, f, g, h) | name1 == a  = upd1 name2 (a, b, c, d, e, f, g, h)
                                                | otherwise = (a, b, c, d, e, f, g, h)
 
   changeName :: Text -> Text -> ServerState -> ServerState
@@ -265,7 +265,7 @@ module Main where
          Warp.defaultSettings) $
            WaiWS.websocketsOr WS.defaultConnectionOptions (application state) staticApp
   staticApp :: Network.Wai.Application
-  staticApp = Static.staticApp $ Static.embeddedSettings $(embedDir "./cow")
+  staticApp = Static.staticApp $ Static.embeddedSettings $(embedDir "./")
   application :: TVar ServerState -> WS.ServerApp
   application state pending = do
     print $!  "App is fired up"
@@ -310,7 +310,7 @@ module Main where
                     mapM_ print $!  names
                     print $!  "<@><#><$><#><@>"
                     atomically $ writeTVar state $ filter (\v -> ((sel7 v) /= id)) sta
-                    sta' <- atomically $ readTVar state  
+                    sta' <- atomically $ readTVar state
                     let names = [a | (a,_,_,_,_,_,_,_) <- st]
                     print $!  "Here are the names which are currently being AFTER"
                     mapM_ print $!  names
@@ -319,7 +319,7 @@ module Main where
                     let subSt = subState name grp sta'
                     broadcast ("NN#$42," `mappend` grp `mappend` ",Major malfunction. I am Mr. Nobody"
                       `mappend` (pack "<br>") `mappend`
-                        T.concat (intersperse "<br>" (textState subSt))) subSt   
+                        T.concat (intersperse "<br>" (textState subSt))) subSt
 
   talk :: WS.Connection -> TVar ServerState -> Client -> IO ()
   talk conn state client = forever $ do
@@ -340,7 +340,7 @@ module Main where
     let extra3 = msgArray !! 5
     let extraNum = read (mArr !! 3) :: Int
     let extraNum2 = read (mArr !! 4) :: Int
-    let mes = "<><><><><> Outgoing message from Main.hs " 
+    let mes = "<><><><><> Outgoing message from Main.hs "
     st <- atomically $ readTVar state
     let currentState = [a `mappend` dash `mappend` (pack.show $ b)  `mappend` dash `mappend`  (pack.show $ c)  `mappend` dash `mappend` d  `mappend` dash `mappend` (pack.show $ g) | (a,b,c,d,_,_,g,_) <- st]
     let tsks = (T.unpack group) :: FilePath
@@ -350,15 +350,15 @@ module Main where
     comms <- atomically $ newTVar cos
     commens <- atomically $ readTVar comms
     let comments = T.replace (pack "\n") mempty commens
-    TIO.writeFile xcomments comments 
+    TIO.writeFile xcomments comments
     ns <- TIO.readFile namesFile
     taskTVar <- atomically $ newTVar tks
     taskFile <- atomically $ readTVar taskTVar
     print "<><><> - 2"
-    if taskFile == mempty 
-      then atomically $ writeTVar taskTVar emptyText 
+    if taskFile == mempty
+      then atomically $ writeTVar taskTVar emptyText
       else atomically $ writeTVar taskTVar taskFile
-       
+
     if "CA#$42" `T.isPrefixOf` msg
        then
            do
@@ -380,11 +380,11 @@ module Main where
           then                                           -- PERFORM ON LOAD
               do
                   st <- atomically $ readTVar state
-                  broadcast ("GZ#$42," `mappend` group `mappend` "," 
+                  broadcast ("GZ#$42," `mappend` group `mappend` ","
                     `mappend` sender `mappend` "," `mappend` comments ) st
 
-       else if "BB#$42" `T.isPrefixOf` msg     -- Generate a random number          
-          then                                          
+       else if "BB#$42" `T.isPrefixOf` msg     -- Generate a random number
+          then
               do
                   let eNum = read (mArr !! 3) :: Integer;
                   print "eNum:"
@@ -393,49 +393,49 @@ module Main where
                   print "z is: "
                   print z
                   st <- atomically $ readTVar state
-                  broadcast ("BB#$42," `mappend` group `mappend` "," 
+                  broadcast ("BB#$42," `mappend` group `mappend` ","
                     `mappend` sender `mappend` "," `mappend` (pack $ show z) ) st
 
-       else if "BC#$42" `T.isPrefixOf` msg     -- Generate a random number          
-          then                                          
+       else if "BC#$42" `T.isPrefixOf` msg     -- Generate a random number
+          then
               do
                   print "extraNum:"
                   print extraNum
-                  z <- Fm.rM extraNum 
+                  z <- Fm.rM extraNum
                   print z
                   st <- atomically $ readTVar state
-                  broadcast ("BC#$42," `mappend` group `mappend` "," 
+                  broadcast ("BC#$42," `mappend` group `mappend` ","
                     `mappend` sender `mappend` "," `mappend` (pack $ show z) ) st
 
-       else if "BD#$42" `T.isPrefixOf` msg     -- Generate a random number          
-          then                                          
+       else if "BD#$42" `T.isPrefixOf` msg     -- Generate a random number
+          then
               do
                   print "extraNum:"
                   print extraNum
-                  z <- Fm.rM extraNum 
+                  z <- Fm.rM extraNum
                   print z
                   st <- atomically $ readTVar state
-                  broadcast ("BD#$42," `mappend` group `mappend` "," 
+                  broadcast ("BD#$42," `mappend` group `mappend` ","
                     `mappend` sender `mappend` "," `mappend` (pack $ show z) ) st
 
-       else if "BE#$42" `T.isPrefixOf` msg     -- Generate a random number          
-          then                                          
+       else if "BE#$42" `T.isPrefixOf` msg     -- Generate a random number
+          then
               do
                   print "extraNum:"
                   print extraNum
-                  z <- Fm.rM extraNum 
+                  z <- Fm.rM extraNum
                   print z
                   st <- atomically $ readTVar state
-                  broadcast ("BE#$42," `mappend` group `mappend` "," 
+                  broadcast ("BE#$42," `mappend` group `mappend` ","
                     `mappend` sender `mappend` "," `mappend` (pack $ show z) ) st
 
        else if "GN#$42" `T.isPrefixOf` msg -- RECEIVE A NEW COMMENT, UPDATE THE FILE AND THE TVAR,
-                                           --  AND BROADCAST THE NEW COMMENT 
+                                           --  AND BROADCAST THE NEW COMMENT
           then
               do
                   old <- atomically $ readTVar comms
                   lk <- atomically L.new
-                  let c = old `mappend` (T.replace (at `mappend` at) at extra) 
+                  let c = old `mappend` (T.replace (at `mappend` at) at extra)
                   let new = T.replace (at `mappend` at) at c -- cleanup
                   L.with lk $ TIO.writeFile xcomments new -- lock on writing
                   atomically $ writeTVar comms new
@@ -456,7 +456,7 @@ module Main where
                   st <- atomically $ readTVar state
                   broadcast ("GD#$42," `mappend` group `mappend` ","
                     `mappend` sender `mappend` "," `mappend` extra) st
-                      
+
        else if "GE#$42" `T.isPrefixOf` msg              -- EDIT A COMMENT
           then
               do
@@ -479,7 +479,7 @@ module Main where
                     `mappend` sender `mappend` com `mappend` extra `mappend` com
                        `mappend` extra3) st
   -- ********************** Comments are maintained in a file and in a TVar ****** END
-     
+
        else if "RR#$42" `T.isPrefixOf` msg              -- Name and password change
          then
            do
@@ -497,12 +497,12 @@ module Main where
              let res_1 = show (extra `elem` namses)
              let nmAr = map (T.splitOn (T.pack "<o>")) namses
              let namesAr = map head2 nmAr
-            -- let namAr = filter (/= (T.pack "\n")) namesAr 
-             let namAr = filter (/= (T.pack "\n")) (concat nmAr) 
+            -- let namAr = filter (/= (T.pack "\n")) namesAr
+             let namAr = filter (/= (T.pack "\n")) (concat nmAr)
              let res_2 = show (nm `elem` namesAr)
-             print "res_1  res_2" 
+             print "res_1  res_2"
              print res_1
-             print res_2 
+             print res_2
              st <- atomically $ readTVar state
              let names = [a | (a,_,_,_,_,_,_,_) <- st]
              print "In RR before the if blocks --- names are"
@@ -517,7 +517,7 @@ module Main where
                    print names
                    s <- atomically $ readTVar state
                    let (a,b,c,d,e,f,g,h) = head (getClient sender s)
-                   let new = (nm,b,c,d,e,pw,g,h):s 
+                   let new = (nm,b,c,d,e,pw,g,h):s
                    st <- atomically $ readTVar state
                    atomically $ writeTVar state new
                    st' <- atomically $ readTVar state
@@ -547,7 +547,7 @@ module Main where
                    TIO.writeFile namesFile (names `mappend` extra `mappend` (T.pack "<&>"))
                    s <- atomically $ readTVar state
                    let (a,b,c,d,e,f,g,h) = head (getClient sender s)
-                   let new = (nm,b,c,d,e,pw,g,h):s 
+                   let new = (nm,b,c,d,e,pw,g,h):s
                    st <- atomically $ readTVar state
                    atomically $ writeTVar state new
                    print $ length st
@@ -556,14 +556,14 @@ module Main where
                    print $ length st
                   {- old <- atomically $ readTVar stater
                    let new = changeName sender nm pw old
-                   atomically $ writeTVar state new 
+                   atomically $ writeTVar state new
 
                    let subSt = subState nm group new
-                   broadcast ("NN#$42," `mappend` group `mappend` "," `mappend` sender `mappend` "," `mappend` 
+                   broadcast ("NN#$42," `mappend` group `mappend` "," `mappend` sender `mappend` "," `mappend`
                     (T.pack "<br>") `mappend` T.concat (intersperse "<br>" (textState subSt))) subSt
                    print "False False in RR#$42. New username:"
                    print nm   -}
-                   
+
                    st <- atomically $ readTVar state
                    let names = [a | (a,_,_,_,_,_,_,_) <- st]
                    print "In RR --- names are"
@@ -578,7 +578,7 @@ module Main where
                    let names = [a | (a,_,_,_,_,_,_,_) <- st]
                    broadcast ("RR#$42," `mappend` group `mappend` "," `mappend` nm
                     `mappend` "," `mappend` nm `mappend` "," `mappend` (T.pack "code2")) subSt
-               else print "The name is already taken"      
+               else print "The name is already taken"
              if (res_1 == "False" && res_2 == "True")                 -- A new name will be registered
                then
                   do
@@ -593,13 +593,13 @@ module Main where
                      `mappend` "," `mappend` sender `mappend` "," `mappend` (T.pack "code3")) subSt
                else print "Confirming False False"
 
-                      
+
 
 
 
 
   -- ******************************** Comments are maintained in a file and in a TVar ****** START
-   
+
        else if "CE#$42" `T.isPrefixOf` msg ||
           "CH#$42" `T.isPrefixOf` msg || "XY#$42" `T.isPrefixOf` msg ||
           "DE#$42" `T.isPrefixOf` msg || "EQ#$42" `T.isPrefixOf` msg ||
@@ -693,9 +693,9 @@ module Main where
                   atomically $ writeTVar taskTVar txt
                   let subSt = subState sender group st
                   broadcast ("TE#$42," `mappend` group `mappend` com
-                    `mappend` sender `mappend` com `mappend` extra `mappend` com 
+                    `mappend` sender `mappend` com `mappend` extra `mappend` com
                         `mappend` extra3) subSt
-               
+
        else if "TX#$42" `T.isPrefixOf` msg  -- Delete a task
           then
               do
@@ -708,13 +708,13 @@ module Main where
                   broadcast ("TX#$42," `mappend` group `mappend` com
                     `mappend` sender `mappend` com `mappend` extra) subSt
 
-       else if "TT#$42" `T.isPrefixOf` msg  
+       else if "TT#$42" `T.isPrefixOf` msg
           then
               do
                   st <- atomically $ readTVar state
                   let txt = T.replace extra2 extra3 taskFile
                   lk <- atomically L.new
-                  L.with lk $ TIO.writeFile tsks txt 
+                  L.with lk $ TIO.writeFile tsks txt
                   atomically $ writeTVar taskTVar txt
                   let subSt = subState sender group st
                   broadcast ("TT#$42," `mappend` group `mappend` com
@@ -737,4 +737,3 @@ module Main where
           let new = old
           atomically $ writeTVar state new
           print $!  "*********************************************************"
-
