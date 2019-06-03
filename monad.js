@@ -1,7 +1,8 @@
 /*import {h, pre} from '@cycle/dom';
 var cowNode = h('p', "cowNode");
 console.log("cowNode  &%&^%&^%&^%&^%&%&%&^% cowNode is", cowNode); */
-
+// var Sum, Product, Max, Min, Any, All, Pair, Fn;
+// function monoidFunc () {console.log( "Sum, Product, Max, Min, Any, All, Pair, Fn", Sum, Product, Max, Min, Any, All, Pair, Fn)};
 var factorsRes = [];
 var diff;
 function diff () {};
@@ -28,6 +29,8 @@ var E15 = '';
 var time = 0;
 var h;
 function ints (n) {return [...Array(n).keys()]}
+
+function cleanF (ar) {return ar.filter(a => a === 0 || a).reduce((a,b)=>a.concat(b),[])};
 
 function Fux (p) {this.p = p; this.fux = function fux (x) {return p(x)}};
 
@@ -4580,6 +4583,6 @@ var zee = [1,2,3,4,5].map(v => Comp2().run(v)(x=>x**3)(x=>x+3)(x=>x*x)('stop').p
 console.log('zee is', zee);
 
 */
-
+function cleanCommas (ar)  {return ar.reduce((a,b) => a.concat(b),[])};
 
 // end

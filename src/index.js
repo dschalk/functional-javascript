@@ -6,7 +6,8 @@
     import {clone} from 'ramda';
     import {run} from '@cycle/xstream-run';
     import code from '../code.js';
-    h = h;
+    // import { Sum, Product, Max, Min, Any, All, Pair, Fn } from "../monoid";
+
     // import ASQ from 'asynquence';
     // import {makeHTTPDriver} from '@cycle/http';
     // import {require} from "requirejs";
@@ -2230,12 +2231,11 @@ h('a', {props: {href: "https://www.geeksforgeeks.org/functional-programming-para
 h('span', ' \"Functional programming is a programming paradigm in which we try to bind everything in pure mathematical functions style.\". The article is a good read for coders who are curious about the \"functional programming\" buzz that is humming on the Internet. It discusses pure functions, recursion, referential transparency first-class functions, higher-order functions, and the oxymoronic phrase: \"immutable variables\", with some example code written in JavaScript. ' ),
 h('br'),
 h('br'),
-h('span.tao', {style: {color: "#FF00DD"}}, ' WARNING:' ),
+h('span.tao', {style: {color: "#FF00DD"}}, ' CAUTION:' ),
 h('span', styleFunc (['#ABFFBA', , ,'italic', , , ,]), " Trying to scrupulously conform to the functional paradigm can stifle your creativity and slow your progress toward mastering JavaScript. " ),
-
+h('p', ' My advice to anyone who wants to write JavaScript code in a functional style is to experiment with JavaScript\'s first class functions. Maintain some state in closures. Wrap your head around transducers. Try some metaprogramming with and without proxies. Inside of functions, mutate variables to avoid pumping debris into memory. That is using functions to protect global space.  ' ),
 h('p', 'In this presentation, I try to avoid mutating anything outside of function scope. Information comes from and goes to browsers, web workers, and a remote WebSockets server. Caches of prime numbers and positions on a grid are maintained for efficiency and backtracking. User names, passwords, and comments are maintained by the Haskell server.  ' ),
-h('p', ' From my perspective, libraries are largely black boxes with limited usefulness. If you take the time to study and understand the function "Comp()" (below) you might feel that you have acquired a potentially useful tool. I hope you will tweak it, add and remove features, and be emboldened to fashion specialized tools that target your specific projects rather than rely on libraries.  ' ),
-h('p', ' My code isn\'t important. The interesting things lie beneath the surface. They are the closures, recursive functions, partially applied function, ... the essence of functional Javascript. Here\'s Comp(): ' ),
+h('p', ' Libraries can provide optimized, well-tested code for production, but for learning they often remain mysterious black boxes. The examples presented below are not intended as library functions. They are demonstrations of closures, recursive functions, partially applied functions, ... the essential ingredients of functional Javascript code. Here\'s one named \"Comp\": ' ),
 
 h('pre', `function Comp ( AR = [] )  {
   var f_, p, run;
@@ -2708,7 +2708,6 @@ h('div', `${foocow_7.join(", ")}`)
                                                              ])
                                                              ]),
 
-
                                                             h('div.content', [
 
 
@@ -2783,6 +2782,7 @@ h('div.content3', [
   h('button#factors_R4', { style: { fontSize: '20px' }}, ' .   100,000   . ' ),
   h('br'),
   h('button#factors_R5', { style: { fontSize: '20px' }}, ' .   1,000,000   . ' ),
+  h('br'),
   h('br'),
   E1,
   h('br'),
@@ -3044,40 +3044,6 @@ h('a', {
 
 
 
-
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Server and Worker '),
-
-
-h('pre', `var it4_b = x => {
-
-  .send(\`BD#$42,\${pMgroup.x},\${pMname.x},\${x}\`);
-}
-
-var mMZ41 = new MonadItter();
-var mMZ53 = new MonadItter();
-
-var it6_b = y => {
-  mMZ41.bnd(y => workerM.postMessage([primeState, y]));
-}
-
-it7_b = () => mMZ53.bnd(string => {
-    callOrder2 = callOrder2 > 24 ? 1 : callOrder2 + 1;
-    if (callOrder2 === 1) start78 = Date.now();
-    m43_.push(callOrder2 + "  ");
-    m43_.push(string)
-    m43_.push(h('br'));
-    if (callOrder2 === 25) m43_.push(
-        'Elapsed time: ' + (Date.now() - start78) + " ms");
-});  ` ),
-
-  h('br'),
-  h('br'),
-
-
-
-
-
-
               h('h3', ' Preserve Archives By Avoiding Mutation '),
               h('p', ' When you assign a variable to an array, for example "var arr = [1,2,3]", arr points to a location in memory. Suppose you want to preserve a record of previous values of arr. You can\'t do it with an array such as b below: '),
               h('pre', `    var arr = [1,2,3];
@@ -3201,96 +3167,11 @@ h('br'),
 h('button#pr4', {style: {fontSize: "18px"}}, "count.primes" ),
 h('button#pr5', {style: {fontSize: "18px"}}, "count.ints" ),
 
-h('p', ' The following code shows why count behaves as though it had methods and an attribute: ' ),
-h('pre', `    function addOne () {this.attribute = this.attribute + 1}
-    function takeOne () {this.attribute = this.attribute - 1}
-
-    function primeNums(n) {
-      var store  = [], i, j, primes = [];
-      for (i = 2; i <= n; ++i) {
-        if (!store [i]) {
-          primes.push(i);
-          for (j = i << 1; j <= n; j += i) {
-            store[j] = true;
-          }
-        }
-      }
-      return primes.join('. ');
-    }
 
 
-    function intArray (n) {
-         return [...Array(n+1).keys()].join(', ');
-    }
 
-    var factorial = n =>
-        n <= 1 ? n : n * factorial(n - 1);
 
-    var _state_ = {attribute: 0}
-
-    var handlerGet = {
-        get: (a, b, c) => {
-            if (b === "next") {addOne.apply(_state_); return _state_.attribute}
-            else if (b === "previous") {takeOne.apply(_state_); return _state_.attribute}
-            else if (b === "factorial") {return factorial(_state_.attribute)}
-            else if (b === "primes") {return primeNums(_state_.attribute)}
-            else if (b === "ints") {return intArray(_state_.attribute)}
-        }
-    }
-
-    count = new Proxy (count, handlerGet); ` ),
-h('br'),
-h('span.tao', ' "count" is a proxy of itself. Trying to get a value from it invokes "handlerGet", overriding the default behavior (throwing a ReferenceError). NOTE: In order to avoid future name clashes and reduce siliness in production code, I changed the definition of count to: ' ),
-h('span', {style: {color: "#ee00bb"}}, '\"const count = new Proxy ({}, handlerGet);\"' ),
-h('span', '. Mutating \"count = {}\" into a proxy of itself was for demonstration purposes only. Both versions function alike. '),
-h('br'),
-h('h3', {style: {color: "#bbee00"}}, 'Function Call Trap' ),
-h('p', ' The behavior of functions can be modified with the "apply" trap. While "get: (a,b,c) =>" in a handler is "get: (target object, key, value) =>", "apply: (a,b,c) =>" is "apply: (target function, single argument, argument list) =>" ' ),
-h('p', ' As initially defined, f17() does nothing more than this: f17(a,b,c,d) -> [a,c,b+c,d]. Re-defined as a proxy of itself, f17 generates arrays of Fibonacci numbers. The default values of b, c, and d are 0, 1, and false respectively, so f17(n) is equivalent to f17(n,0,1,false), returning the Fibonacci numbers under "n". f17(n,0,1,true) returns an array of prime Fibonacci numbers under n. Here\'s the code: ' ),
-h('div', {style: {color: "#FFAABB"}}, "f17(x): " + F_17  ),
-
-h('br'),
-h('div', {style: {color: "#ffaabb"}}, "f17(x,0,1,true): " + F_18 ),
-h('br'),
-h('span', 'Enter a number "x" here: ' ),
-h('input#fibNum', ),
-h('div', ' The floor of the absolute value will be used. ' ),
-h('p', ' Here\'s the code: ' ),
-h('pre', {style: {color: "#00DDDD"}}, `    function primeNums(n) {
-      var store  = [], i, j, primes = [];
-      for (i = 2; i <= n; ++i) {
-        if (!store [i]) {
-          primes.push(i);
-          for (j = i << 1; j <= n; j += i) {
-            store[j] = true;
-          }
-        }
-      }
-      return primes;
-    }
-
-    function f17 (c, a=0, b=1, d=false) {return [c, b, a+b,d]};
-
-    var fibHandler = {
-        apply: function(a, b, c) {
-             var ax = a(...c)
-             var arr = [0];
-            while (ax[2] < ax[0]) {
-                ax = a(...ax);
-                arr.push(ax[1]);
-            }
-            if (c[3]) {
-                var prms = primeNums(c[0]);
-                var prmFibs = prms.filter(v => arr.includes(v));
-                return \`The prime Fibonacci numbers up to \${c[0]} are \${prmFibs.join(', ')}\`;
-            }
-            else return \`The Fibonacci numbers up to \${ax[0]} are \${arr}\`
-        }
-    }
-
-    f17 = new Proxy(f17, fibHandler)  ` ),
-
-h('h3', {style: {color: "#bbee00"}}, 'Spreadsheet-like Behavior' ),
+  h('h3', {style: {color: "#bbee00"}}, 'Spreadsheet-like Behavior' ),
 h('p', ' In spreadsheets, such as Microsoft\'s Excell, when a + b = c, changing a or b automatically changes c. Such behavior is easy to implement with proxies. ' ),
 
 h('table', {style: {color: '#ffaa00', fontSize: '22px'}}, [
