@@ -27,38 +27,33 @@ function cleanF (ar) {return ar.filter(a => a === 0 || a).reduce((a,b)=>a.concat
 
 function Comp ( AR = [] )  {
   var f_, p, run;
-  var flag = false;
   var ar = AR.slice();
   var x = ar.pop();
   return run = (function run (x) {
-    if (flag) {ar = []}
+
     if (x instanceof Filt) {
       var z = ar.pop();
       if (!(x.filt(z))) {
-        ar = []
-        flag = true;
-        return run();
+        x = "ZYX_543";
       }
       else x = z;
     }
-    else if (x instanceof Promise) x.then(y =>
+    if (x instanceof Promise) x.then(y =>
       {if (y != undefined && y !== false && y === y &&
       y.name !== "f_" && y.name !== "stop" ) {
       ar.push(y);
       diffRender()
     }})
-    else if (x != undefined && x !== false && x === x &&
-      x.name !== "f_" && x.name !== "stop" ) {
+    else if (!(x instanceof Filt) && x !== "ZYX_543" && x != undefined && x !== false && x === x && x.name !== "f_" && x.name !== "stop" ) {
       ar.push(x);
       diffRender()
     };
     function f_ (func) {
-      if (func === 'stop') return ar
-      else if (flag) {ar === []; p === undefined}
+      if (func === 'stop') return ar;
+      else if (x === "ZYX_543") {ar = []; return run("ZYX_543")}
       else if (typeof func !== "function") p = func
       else if (x instanceof Promise) p = x.then(v => func(v))
-      else p = func(x)
-      return run(p);
+      else return run(func(x))
     };
     return f_;
   })(x)
@@ -67,7 +62,6 @@ function Comp ( AR = [] )  {
 var fork = f => string => {
     return window[string] = Comp(f('stop'));
 }
-
 var ob1 = Comp();
 var ob2 = Comp();
 var ob3 = Comp();
@@ -167,7 +161,7 @@ console.log("abc", abc);
 function trd(xf, rf, init, xs) {
   return xs.reduce(xf(rf), init)
 }
-*/
+
 var xform = compose(
   Filter(isOdd),
   Filter(x=>x<4 || x > 8),
@@ -282,25 +276,94 @@ ob = Comp(); ob(3)(x=>x**3)(x=>x+3)(fox)(x=>x*x)('stop')
 console.log(" **********************************************************");
 function less_than (x) {return Filt (y => y < x)};
 
+mapRes = ar.reduce(Map(cube)(concat), []);
+console.log("mapRes is", mapRes);
+
+var filterRes = ar.reduce(Filter(x=>x%2===1)(concat), []) ;
+console.log("filterRes is", filterRes);
+
+
+
+*/
+
 function isOdd (x) {return new Filt(v => v % 2 === 1)};
-var td_1 = x => Comp([x])(isOdd)(v=>v**4)(v=>v+3)(v=>(v-3)/x*x)
-var td_2 = y => Comp([y])(v=>v*v)(v=>v+1000)
 
-var res1 = [1,2,3,4,5,6,7,8].map(x => td_1(x)('stop').pop());
-var res2 = [ 1, 81, 625, 2401 ].map(y => td_2(y)('stop').pop());
-var res3 = [1,2,3,4,5,6,7,8].map(z => td_2(td_1(z)('stop').pop())('stop').pop()) ;
+var ar = [0,1,2,3,4,5,6,7,8,9];
 
-console.log("res1 is", cleanF(res1));
+
+function Map(f) {
+  return function(rf) {
+    return (acc, v) => {
+      return rf(acc, f(v));
+    }
+  }
+}
+
+function Filter(p) {
+  return function(rf) {
+    return (acc, v) => {
+      return p(v) ?
+       rf(acc, v) : acc;
+    };
+  };
+};
+
+var add = (a,b) => a + b;
+var transformFR = compose(Filter(isOdd), Map(cube));
+var transformFRRes = ar.reduce(transformFR(concat), []);
+// console.log("transformFRRes", transformFRRes);
+
+var ar7b = [1,2,3,4,5,6,7,8]
+
+function trd(xf, rf, init, xs) {
+  return xs.reduce(xf(rf), init)
+}
+var xform = compose(
+  Filter(x=>x%2===1),
+  Map(x => x**4),
+  Map(x => x+3),
+  Map(x => x-3),
+  Map(x => Math.sqrt(x))
+)
+
+var xform2 = compose(
+  Map(x=>x*x),
+  Map(x=>x+1000)
+);
+var res4 = ar7b
+.filter(v => (v % 2 === 1))
+.map(x => x**4)
+.map(x => x+3)
+.map(x => x-3)
+.map(x => Math.sqrt(x))
+console.log("res4 is", res4);
+var res5 = res4
+.map(v=>v*v)
+.map(v=>v+1000)
+console.log("res5 is", res5);
+var td1 = x => Comp([x])(isOdd)(v=>v**4)(v=>v+3)(v=>(v-3)/Math.sqrt(v-3))('stop').pop()
+var td2 = y => Comp([y])(v=>v*v)(v=>v+1000)('stop').pop()
+
+var res1 = ar7b.map(x => td1(x));
+var res2 = [ 1, 9, 25, 49].map(y => td2(y));
+var res3 = ar7b.map(z => td2(td1(z)));
+
+console.log("cleanF(res1) is", cleanF(res1));
 console.log("res2 is", res2);
-console.log("res3 is", cleanF(res3));
+console.log("cleanF(res3) is", cleanF(res3));
+
+var s0 = ar7b.reduce(xform(xform2(concat)),[] );
+console.log("s0 is", s0);
 
 
 
+
+/*
 function cleanCommas (ar)  {return ar.reduce((a,b) => a.concat(b),[])};
 
 console.log(" --- xform ---", [1,2,3,4,5].reduce(xform(concat),[]));
 console.log("ob2('stop').slice(-1) is", ob2('stop').slice(-1));
 console.log("ob2('stop') is", ob2('stop'));
-
+*/
 
 //end

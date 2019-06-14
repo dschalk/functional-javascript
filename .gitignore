@@ -1,0 +1,7 @@
+node_modules
+snabbmitt
+bower_components
+.stack-work
+.git
+.vim
+dist/bundle.nomin.js

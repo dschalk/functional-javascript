@@ -7,6 +7,8 @@
     import {run} from '@cycle/xstream-run';
     import code from '../code.js';
     // import { Sum, Product, Max, Min, Any, All, Pair, Fn } from "../monoid";
+          diffRender = () => document.getElementById('diffRender').click();
+
 
     // import ASQ from 'asynquence';
     // import {makeHTTPDriver} from '@cycle/http';
@@ -1733,10 +1735,44 @@ f23 = () => {
           }
         });
 
+function Comp ( AR = [] )  {
+  var f_, p, run;
+  var ar = AR.slice();
+  var x = ar.pop();
+  return run = (function run (x) {
+    if (x === null || x === NaN || x === undefined) x = f_('stop').pop();
+    if (x instanceof Filt) {
+      var z = ar.pop();
+      if (x.filt(z)) x = z; else ar = [];
+    }
+    else if (x instanceof Promise) x.then(y =>
+      {if (y != undefined && y !== false && y === y &&
+      y.name !== "f_" && y.name !== "stop" ) {
+      ar.push(y);
+      diffRender();
+    }})
+    else if (x != undefined && x !== false && x === x &&
+      x.name !== "f_" && x.name !== "stop" ) {
+      ar.push(x);
+      diffRender();
+    };
+    function f_ (func) {
+      if (func === 'stop') return ar;
+      else if (typeof func !== "function") p = func;
+      else if (x instanceof Promise) p = x.then(v => func(v));
+      else p = func(x);
+      return run(p);
+    };
+    return f_;
+  })(x)
+}
+
+
         // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ENDOM prime factors END
         // ?<>>><>><><><><>>>><><><  traversal  ><><><><><><>>><><><><><><><><><><><>< START traversal
         document.onload = function (event) {
           console.log('onload event: ', event);
+          diffRender = () => document.getElementById('diffRender').click();
           mMitterfib5.release(200);
         }
 
@@ -2164,17 +2200,7 @@ f23 = () => {
           }
         });
 
-        vnode9 = h('button#vnode9', "vnode9");
-        vnode6 = h('div#vnode6', time);
-
-        var vnode9$ = sources.DOM.select('#vnode9')
-        .events('click').map(e => {
-            time = Date.now();
-        });
-
-        diffRender = function diffRender () { vnode9.elm.click() };
-
-        var calcStream$ = xs.merge( vnode9$, twoAction$, threeAction$, eightAction$, fourAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, diffR2$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerO$, clearADSction$, factorsAction$, factorsAction8$, factorsAction82$, factorsAction83$, factorsAction84$, factorsAction85$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
+        var calcStream$ = xs.merge( twoAction$, threeAction$, eightAction$, fourAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, diffR2$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerO$, clearADSction$, factorsAction$, factorsAction8$, factorsAction82$, factorsAction83$, factorsAction84$, factorsAction85$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
         DOM: calcStream$.map(() => {
@@ -2232,10 +2258,10 @@ h('span', ' \"Functional programming is a programming paradigm in which we try t
 h('br'),
 h('br'),
 h('span.tao', {style: {color: "#FF00DD"}}, ' CAUTION:' ),
-h('span', styleFunc (['#ABFFBA', , ,'italic', , , ,]), " Trying to scrupulously conform to the functional paradigm can stifle your creativity and slow your progress toward mastering JavaScript. " ),
+h('span', styleFunc (['#ABFFBA', , ,'italic', , , ,]), " Trying to scrupulously conform to the functional paradigm can stifle your creativity and slow your progress toward mastering JavaScript. Don't let mutations affect anything outside the scopes of the functions in which they occur and, in frontend development, try to direct all side effects to the DOM or virtual DOM. When you have an object that holds persistent state, there should be only one function that updates it and one function that fetches from it.  " ),
 h('p', ' My advice to anyone who wants to write JavaScript code in a functional style is to experiment with JavaScript\'s first class functions. Maintain some state in closures. Wrap your head around transducers. Try some metaprogramming with and without proxies. Inside of functions, mutate variables to avoid pumping debris into memory. That is using functions to protect global space.  ' ),
 h('p', 'In this presentation, I try to avoid mutating anything outside of function scope. Information comes from and goes to browsers, web workers, and a remote WebSockets server. Caches of prime numbers and positions on a grid are maintained for efficiency and backtracking. User names, passwords, and comments are maintained by the Haskell server.  ' ),
-h('p', ' Libraries can provide optimized, well-tested code for production, but for learning they often remain mysterious black boxes. The examples presented below are not intended as library functions. They are demonstrations of closures, recursive functions, partially applied functions, ... the essential ingredients of functional Javascript code. Here\'s one named \"Comp\": ' ),
+h('p', ' Libraries can provide optimized, well-tested code that helps assure that projects are ready for release into production. Taken too far, this can deprive coders of the satisfaction of creating specialized code targeting the projects they are taking to completion. Constructing solutions with pieces pulled out of cans turns work into drudgery.  The examples presented below are not intended as library functions. They are demonstrations of closures, recursive functions, partially applied functions, ... the essential ingredients of functional Javascript. Of course you are welcome to use them any way you like, but they are intended as examples of the kinds of things you can do that go beyond the generic tools that frameworks and libraries provide. For example,here is closure named \"Comp\": ' ),
 
 h('pre', `function Comp ( AR = [] )  {
   var f_, p, run;
@@ -2280,9 +2306,11 @@ function fork (g,f) {return g(f('stop').slice(-1)[0] )} ` ),
       h('p', ' entries that are functions operate on previously returned values (or the resolution values of returned Promises) from left to right,' ),
       h('p', 'functions have access to all preceding vals or, for vals that are functions, their return values or the resolution values of their returned Promises. The expression "foo(\'stop\')" returns the the array "ar" that is held in the closure that returned foo (above), so foo(\'stop\')[M] for some M < K in the expression "foo = (val1(val2)...(valK = foo(\'stop\')[M]),...(valN)" is a reference ar[M] in the closure. ' ),
       h('p', 'foo (above) resumes where it left off whenever it receives an additional argument. foo can handle a perpetual stream of data. ' ),
-      h('p', 'foo forks independent (orthoganal, having their own addresses in memory) branches with expressions such as "var goo = Comp(foo(\'stop\'))".  ' ),
+      h('p', 'foo forks independent (orthoganal, having their own addresses in memory) branches with expressions such as "var fu = Comp(foo(\'stop\'))".  ' ),
       h('p', 'sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" and "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' ),
-      h('p', 'The expression "foo(\'stop\').pop())" can act as a transducer on any enumerable collection C. C is traversed ONLY ONCE while an arbitrary number of transformations are performed on it. For example, "[a1,a2,...,aJ].map(x => Comp(x)(val1)(val2)...(valN) (\'stop\').pop())" would return the result of multiple transformations on [a1,a2,...,aJ].' ),
+      h('span', 'The expression "var res1 = Col.map(v => Comp([v])(f1,f2,... fN)(\'stop\').pop())" can act as a transducer on any enumerable collection Col with a "map" method in that multiple transformations are performed on Col while Col is traversed only once. res1 cannot be composed with transducers from libraries such as ' ),
+  h('a', {props: {href: "https://ramdajs.com/docs/#transduce",}}, "Ramda transduce"),
+
       h('pre', ` function Filt (p) {
           this.p = p;
           this.filt = function filt (x) {
@@ -2290,17 +2318,11 @@ function fork (g,f) {return g(f('stop').slice(-1)[0] )} ` ),
           }
       }; ` ),
       h('div', ' "var b = new Filt(p)" is the functional equivalent of Array.prototype.filter(p) in' ),
-      h('pre', ` Comp(v1)(v2)...(b)(vk1)(vk2)...(vN). `),
+      h('pre', ` Comp(v1)(v2)...(b)(vk1)(vk2)...(vN). `)
 
 
                                                  ]),
-                                                 ]),
-h('div#vn9', [
-vnode9,
-h('br'),
-h('br'),
-h('div', time),
-]),
+                                               ]),
 
                               h('div.content2', [
 
@@ -2362,6 +2384,10 @@ h('br'),
 h('br'),
 h('br'),
 h('br'),
+h('br'),
+h('br'),
+h('br'),
+h('br'),
 
                 h('input#dem8', {
                   style: {
@@ -2370,8 +2396,6 @@ h('br'),
                     fontSize: "18px"
                   }
                 }),
-                h('br'),
-                h('br'),
                 h('br'),
                 h('br'),
 
@@ -2725,7 +2749,6 @@ h('br'),
 
   h('span.tao', ' If I had to use a library for function composition, perhaps in some team project, I would choose '),
   h('a', {props: {href: "https://ramdajs.com/docs/#pipe",}}, "Ramda pipe"),
-  h('span', ' and '),
   h('a', {props: {href: "https://ramdajs.com/docs/#compose"}}, 'Ramda compose' ),
   h('span', '. I feel more solidly in control using Comp() and variations with different names. The variations might have fewer features, more features, or Comp() with a tweak or two for testing. It took time to achieve this modest level of control over unrestricted JavaScript, but I think it was time well spent. I prefer being a JavaScript whisperer over ignoring its so-called "bad parts" and stifling its dynamic potential. . ' ),
   h('br'),
@@ -3373,7 +3396,6 @@ val => { console.log(1, val); return val**2; },
 val => { console.log(2, val); return val+=4; },
 val => { console.log(3, val); return val*=2; }); `),
 
-/*
 h('h1', 'Angela'),
             h('br'),
             h('input#chang', __cow__ ),
@@ -3384,12 +3406,14 @@ h('h1', 'Angela'),
             h('button#bool', 'Cow' ),
             h('br'),
             h('br'),
-            h('br') */
+            h('br') 
           ])
         ])
       })
     }
   }
+
+
   sources.DOM = makeDOMDriver('#main-container');
   sources.WS = websocketsDriver;
   sources.GD = gridDriver;

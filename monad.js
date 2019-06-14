@@ -6,10 +6,10 @@ console.log("cowNode  &%&^%&^%&^%&^%&%&%&^% cowNode is", cowNode); */
 var factorsRes = [];
 var diff;
 function diff () {};
-var diffRender = function diffRender() {};   // See document.onload in maim
+var diffRender = function diffRender () {};  // See document.onload in maim
 var vnode7;
 var vnode9 = 0;
-var vnode6;
+var vnode6 = 12;
 var vnodeFRes;
 var E1 = '';
 var E2 = '';
@@ -4189,6 +4189,42 @@ function Comp ( AR = [] )  {
   }}
 }  */
 
+/*
+function Comp ( AR = [] )  {
+  var f_, p, run;
+  var ar = AR.slice();
+  var x = ar.pop();
+  return run = (function run (x) {
+
+    if (x instanceof Filt) {
+      var z = ar.pop();
+      if (!(x.filt(z))) {
+        x = "ZYX_543";
+      }
+      else x = z;
+    }
+    if (x instanceof Promise) x.then(y =>
+      {if (y != undefined && y !== false && y === y &&
+      y.name !== "f_" && y.name !== "stop" ) {
+      ar.push(y);
+      diffRender()
+    }})
+    else if (!(x instanceof Filt) && x !== "ZYX_543" && x != undefined && x !== false && x === x && x.name !== "f_" && x.name !== "stop" ) {
+      ar.push(x);
+      diffRender()
+    };
+    function f_ (func) {
+      if (func === 'stop') return ar;
+      else if (x === "ZYX_543") {ar = []; return run("ZYX_543")}
+      else if (typeof func !== "function") p = func
+      else if (x instanceof Promise) p = x.then(v => func(v))
+      else return run(func(x))
+    };
+    return f_;
+  })(x)
+}
+*/
+
 function Comp ( AR = [] )  {
   var f_, p, run;
   var ar = AR.slice();
@@ -4203,12 +4239,12 @@ function Comp ( AR = [] )  {
       {if (y != undefined && y !== false && y === y &&
       y.name !== "f_" && y.name !== "stop" ) {
       ar.push(y);
-      diffRender();
+      diffRender()
     }})
     else if (x != undefined && x !== false && x === x &&
       x.name !== "f_" && x.name !== "stop" ) {
       ar.push(x);
-      diffRender();
+      diffRender()
     };
     function f_ (func) {
       if (func === 'stop') return ar;
@@ -4220,6 +4256,7 @@ function Comp ( AR = [] )  {
     return f_;
   })(x)
 }
+
 
 var f = Comp();
 var g = Comp()
