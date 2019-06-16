@@ -2311,7 +2311,7 @@ function fork (g,f) {return g(f('stop').slice(-1)[0] )} ` ),
       h('span', 'The expression "var res1 = Col.map(v => Comp([v])(f1,f2,... fN)(\'stop\').pop())" can act as a transducer on any enumerable collection Col with a "map" method in that multiple transformations are performed on Col while Col is traversed only once. res1 cannot be composed with transducers from libraries such as ' ),
   h('a', {props: {href: "https://ramdajs.com/docs/#transduce",}}, "Ramda transduce."),
 
-h('h3', {style: {fontSize: "24px"}}, 'Elementary Examples: resume and fork'),
+h('h3', {style: {fontSize: "24px"}}, 'Example: resume and fork'),
 
 h('pre', ` function resume (g) {return g(g(\'stop\').pop())};
         // Avoids duplication by removing and replacing the last item in ar.
@@ -2325,9 +2325,88 @@ h('pre', ` function resume (g) {return g(g(\'stop\').pop())};
  console.log("ee's ar value is now", ee('stop'));  // [30, 900, 9]  ` ),
 
 
+h('h3', {style: {fontSize: "24px"}}, 'Example: transduce without reduce'),
+h('p.tao', {style: {color: "#bbffff"}}, ' Comp() "transducers" are not interchangeable with typical transducers, the ones that more or less adhere to the Clojure transducer protocol. For one thing, they are not interchengeable with the other transducers and under the hood, they don\'t rely on folds or functions that behave like Array.protocol.reduce(). ' ),
+h('p', ' Comp() transducers do facilitate unlimited array transformation with only one array tranversal,  and they do compose.  They are a bit of a hack, but it wouldn\'t surprise me if they turned out to be more efficient than standard transducers in modern browsers. '),
+h('p', ' Here is some example code:  ' ),
+h('pre', ` function isOdd (x) {return new Filt(v => v % 2 === 1)};
+var ar = [0,1,2,3,4,5,6,7,8,9];
+
+function Map(f) {
+  return function(rf) {
+    return (acc, v) => {
+      return rf(acc, f(v));
+    }
+  }
+}
+
+function Filter(p) {
+  return function(rf) {
+    return (acc, v) => {
+      return p(v) ?
+       rf(acc, v) : acc;
+    };
+  };
+};
 
 
+function compose(...funcs) {
+  return x => funcs.reduceRight(apply, x);
+};
 
+var ar7b = [1,2,3,4,5,6,7,8]
+function trd(xf, rf, init, xs) {
+  return xs.reduce(xf(rf), init)
+}
+var xform = compose(
+  Filter(x=>x%2===1),
+  Map(x => x**4),
+  Map(x => x+3),
+  Map(x => x-3),
+  Map(x => Math.sqrt(x))
+)
+
+var xform2 = compose(
+  Map(x=>x*x),
+  Map(x=>x+1000)
+);
+
+var res4 = ar7b
+.filter(v => (v % 2 === 1))
+.map(x => x**4)
+.map(x => x+3)
+.map(x => x-3)
+.map(x => Math.sqrt(x))
+console.log("res4 is", res4);
+var res5 = res4
+.map(v=>v*v)
+.map(v=>v+1000)
+console.log("res5 is", res5);
+var td1 = x => Comp([x])(isOdd)(v=>v**4)(v=>v+3)(v=>(v-3)/Math.sqrt(v-3))('stop').pop()
+var td2 = y => Comp([y])(v=>v*v)(v=>v+1000)('stop').pop()
+
+var res1 = ar7b.map(x => td1(x));
+var res2 = [ 1, 9, 25, 49].map(y => td2(y));
+var res3 = ar7b.map(z => td2(td1(z)));
+
+function cleanF (ar) {
+  return ar.filter(a => a === 0 || a)
+  .reduce((a,b)=>a.concat(b),[])
+};
+console.log("cleanF(res1) is", cleanF(res1));
+console.log("res2 is", res2);
+console.log("cleanF(res3) is", cleanF(res3));
+
+var s0 = ar7b.reduce(xform(xform2(concat)),[] );
+console.log("s0 is", s0); ` ),
+h('p', {style: {color: "#dedede"}}, ' Here are the results: ' ),
+h('pre', {style: {color: "#ffbbff"}}, ` es4 is [ 1, 9, 25, 49 ]
+ res5 is [ 1001, 1081, 1625, 3401 ]
+ cleanF(res1) is [ 1, 9, 25, 49 ]
+ res2 is [ 1001, 1081, 1625, 3401 ]
+ cleanF(res3) is [ 1001, 1081, 1625, 3401 ]
+ s0 is [ 1001, 1081, 1625, 3401 ] ` ),
+h('p', {style: {color: "#ffffcc"}},  ' As you see, the results are identical. The traditional dot approach, transversing an array for each transformation, would be inefficient for very large arrays. Which of the other two approaches is generally more readable and maintainabl I don\'t know. I prefer the Comp() approach for handling never-ending streams. ' ),
 
                                                  ]),
                                                ]),
