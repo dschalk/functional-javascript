@@ -25,39 +25,40 @@ var x = "blank";
 
 function cleanF (ar) {return ar.filter(a => a === 0 || a).reduce((a,b)=>a.concat(b),[])};
 
+
 function Comp ( AR = [] )  {
   var f_, p, run;
   var ar = AR.slice();
   var x = ar.pop();
   return run = (function run (x) {
-
+    if (x === null || x === NaN || x === undefined) x = f_('stop').pop();
     if (x instanceof Filt) {
       var z = ar.pop();
-      if (!(x.filt(z))) {
-        x = "ZYX_543";
-      }
-      else x = z;
+      if (x.filt(z)) x = z; else ar = [];
     }
-    if (x instanceof Promise) x.then(y =>
+    else if (x instanceof Promise) x.then(y =>
       {if (y != undefined && y !== false && y === y &&
       y.name !== "f_" && y.name !== "stop" ) {
       ar.push(y);
       diffRender()
     }})
-    else if (!(x instanceof Filt) && x !== "ZYX_543" && x != undefined && x !== false && x === x && x.name !== "f_" && x.name !== "stop" ) {
+    else if (x != undefined && x !== false && x === x &&
+      x.name !== "f_" && x.name !== "stop" ) {
       ar.push(x);
       diffRender()
     };
     function f_ (func) {
       if (func === 'stop') return ar;
-      else if (x === "ZYX_543") {ar = []; return run("ZYX_543")}
-      else if (typeof func !== "function") p = func
-      else if (x instanceof Promise) p = x.then(v => func(v))
-      else return run(func(x))
+      else if (typeof func !== "function") p = func;
+      else if (x instanceof Promise) p = x.then(v => func(v));
+      else p = func(x);
+      return run(p);
     };
     return f_;
   })(x)
 }
+
+
 
 var fork = f => string => {
     return window[string] = Comp(f('stop'));

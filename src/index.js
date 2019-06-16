@@ -2300,29 +2300,38 @@ function fork (g,f) {return g(f('stop').slice(-1)[0] )} ` ),
 
 
     h('p', ' Let "val1, val2, ..." be any JavaScript values. Then foo = Comp(val1)(val2) ... (valN) has the following properties:  ' ),
-                                    h('div', {style: {color: "#ddddaa" }}, [
+                                    h('div', {style: {color: "#ffbbbb" }}, [
 
-      h('p', 'There are no default type restrictions on val1, val2, ... valN ("the vals"). If a value v is a function, there are no default restrictions on the type of v\'s argument or the type of v\'s return value. Enforcing type constraints is optional. '),
-      h('p', ' entries that are functions operate on previously returned values (or the resolution values of returned Promises) from left to right,' ),
-      h('p', 'functions have access to all preceding vals or, for vals that are functions, their return values or the resolution values of their returned Promises. The expression "foo(\'stop\')" returns the the array "ar" that is held in the closure that returned foo (above), so foo(\'stop\')[M] for some M < K in the expression "foo = (val1(val2)...(valK = foo(\'stop\')[M]),...(valN)" is a reference ar[M] in the closure. ' ),
-      h('p', 'foo (above) resumes where it left off whenever it receives an additional argument. foo can handle a perpetual stream of data. ' ),
-      h('p', 'foo forks independent (orthoganal, having their own addresses in memory) branches with expressions such as "var fu = Comp(foo(\'stop\'))".  ' ),
-      h('p', 'sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" and "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' ),
+      h('p', '(1) There are no default type restrictions on val1, val2, ... valN ("the vals"), If a value v is a function, there are no default restrictions on the type of v\'s argument or the type of v\'s return value. Enforcing type constraints is optional. '),
+      h('p', '(2) Entries that are functions operate on previously returned values (or the resolution values of returned Promises) from left to right,' ),
+      h('p', '(3) Functions have access to all preceding vals or, for vals that are functions, their return values or the resolution values of their returned Promises. The expression "foo(\'stop\')" returns the the array "ar" that is held in the closure that returned foo (above), so foo(\'stop\')[M] for some M < K in the expression "foo = (val1(val2)...(valK = foo(\'stop\')[M]),...(valN)" is a reference ar[M] in the closure. ' ),
+      h('p', '(4) Foo (above) resumes where it left off whenever it receives an additional argument. foo can handle a perpetual stream of data. ' ),
+      h('p', 'Foo forks independent (orthoganal, having their own addresses in memory) branches with expressions such as "var fu = Comp(foo(\'stop\'))".  ' ),
+      h('p', '(5) Sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" and "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' ),
       h('span', 'The expression "var res1 = Col.map(v => Comp([v])(f1,f2,... fN)(\'stop\').pop())" can act as a transducer on any enumerable collection Col with a "map" method in that multiple transformations are performed on Col while Col is traversed only once. res1 cannot be composed with transducers from libraries such as ' ),
-  h('a', {props: {href: "https://ramdajs.com/docs/#transduce",}}, "Ramda transduce"),
+  h('a', {props: {href: "https://ramdajs.com/docs/#transduce",}}, "Ramda transduce."),
 
-      h('pre', ` function Filt (p) {
-          this.p = p;
-          this.filt = function filt (x) {
-              return p(x)
-          }
-      }; ` ),
-      h('div', ' "var b = new Filt(p)" is the functional equivalent of Array.prototype.filter(p) in' ),
-      h('pre', ` Comp(v1)(v2)...(b)(vk1)(vk2)...(vN). `)
+h('h3', {style: {fontSize: "24px"}}, 'Elementary Examples: resume and fork'),
+
+h('pre', ` function resume (g) {return g(g(\'stop\').pop())};
+        // Avoids duplication by removing and replacing the last item in ar.
+ function fork (g,f) {return g(f(\'stop\').slice().pop())};
+        // Copies without mutation.
+
+ var dd = Comp(); var ee = Comp();
+ dd(2)(v=>v+=1)(v=>v**3); resume(dd)(x=>x+3);
+ fork(ee,dd)(x=>x*x)(x=>x/100);
+ console.log("dd's ar value is now", dd('stop')); // [2, 3, 27, 30]
+ console.log("ee's ar value is now", ee('stop'));  // [30, 900, 9]  ` ),
+
+
+
+
 
 
                                                  ]),
                                                ]),
+
 
                               h('div.content2', [
 
@@ -2356,23 +2365,18 @@ h('p', {style: {color: "#aaccee" }}, 'var orbit_1 = "In about eight seconds, orb
 h('p', {style: {color: "#aaccee" }}, ' var orbit_2 = "Soon, orb6 will obtain copies of the last three elements of orb2 and perform some computations. Then it will display \"THE END\". ' ),
 
 h('pre', {style: {color: "#aaccee" }}, `orb1 = Comp([k])(cubeP)(() =>
-    fork(orb2,orb1)()(x=>x+k)(squareP)(multP(1/100))(addP(1))(powP(4)(1))(() =>
-        fork(orb3,orb1)(x=>x+k)(x=>x/10)(x=>x+1)(cubeP)(() =>
-            orb4(orbit_1)(() => iD(7)(false))(() =>
-                orb5(orb2('stop').pop())(powP(1/2)(3))(x =>
-                    orb2(x))(() =>
-                        orb6(orbit_2)(iD(7)(false))(() =>
-                            orb7(orb2('stop').slice(-3,-2)[0])
-                            (iD(1)(orb2('stop').slice(-2,-1)[0]))
-                            (iD(1)(orb2('stop').slice(-1)[0]))(powP(1/2)(1))
-                            (addP(1))(powP(3)(1))(iD(4)("THE END"))
-                        )
-                    )
-                )
-            )
-        )
-    )
+  fork(orb2,orb1)()(x=>x+k)(squareP)(multP(1/100))(addP(1))(powP(4)(1))(() =>
+    fork(orb3,orb1)(x=>x+k)(x=>x/10)(x=>x+1)(cubeP)(() =>
+      orb4(orbit_1)(() => iD(7)(false))(() =>
+        orb5(orb2('stop').pop())(powP(1/2)(3))(x =>
+          orb2(x))(() =>
+            orb6(orbit_2)(iD(7)(false))(() =>
+              orb7(orb2('stop').slice(-3,-2)[0])
+              (iD(1)(orb2('stop').slice(-2,-1)[0]))
+              (iD(1)(orb2('stop').slice(-1)[0]))(powP(1/2)(1))
+              (addP(1))(powP(3)(1))(iD(4)("THE END"))))))))
 }; ` ),
+h('p', ' The nesting isn\'t necessary, but it is a convenient way to set the delays. Othersise, the delays would be times from the start, rather than times from the previous arrows. '),
 
                                              ]),
                                     h('div', {style: {marginRight: "2%", width: "45%" }},   [
@@ -2428,33 +2432,82 @@ h('br')
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Compose() Stress Test '  ),
 
 
-                                                             h('div', {style: {display: "flex" }},  [
-                                                             h('div', {style: {marginRight: "2%", width: "50%" }},   [
+
+
+                       h('div', {style: {display: "flex" }}, [
+                        h('div', {style: {marginRight: "2%", width: "50%" }}, [
+
+
+h('pre', `function isOdd (x) {return new Filt(v => v % 2 === 1)};
+
+var ar = [0,1,2,3,4,5,6,7,8,9];
+
+function Map(f) {
+  return function(rf) {
+    return (acc, v) => {
+      return rf(acc, f(v));
+    }
+  }
+}
+
+function Filter(p) {
+  return function(rf) {
+    return (acc, v) => {
+      return p(v) ?
+       rf(acc, v) : acc;
+    };
+  };
+};
+
+var add = (a,b) => a + b;
+var transformFR = compose(Filter(isOdd), Map(cube));
+var transformFRRes = ar.reduce(transformFR(concat), []);
+// console.log("transformFRRes", transformFRRes);
+
+var ar7b = [1,2,3,4,5,6,7,8]
+
+function trd(xf, rf, init, xs) {
+  return xs.reduce(xf(rf), init)
+}
+var xform = compose(
+  Filter(x=>x%2===1),
+  Map(x => x**4),
+  Map(x => x+3),
+  Map(x => x-3),
+  Map(x => Math.sqrt(x))
+)
+
+var xform2 = compose(
+  Map(x=>x*x),
+  Map(x=>x+1000)
+);
+var res4 = ar7b
+.filter(v => (v % 2 === 1))
+.map(x => x**4)
+.map(x => x+3)
+.map(x => x-3)
+.map(x => Math.sqrt(x))
+console.log("res4 is", res4);
+var res5 = res4
+.map(v=>v*v)
+.map(v=>v+1000)
+console.log("res5 is", res5);
+var td1 = x => Comp([x])(isOdd)(v=>v**4)(v=>v+3)(v=>(v-3)/Math.sqrt(v-3))('stop').pop()
+var td2 = y => Comp([y])(v=>v*v)(v=>v+1000)('stop').pop()
+
+var res1 = ar7b.map(x => td1(x));
+var res2 = [ 1, 9, 25, 49].map(y => td2(y));
+var res3 = ar7b.map(z => td2(td1(z)));
+
+console.log("cleanF(res1) is", cleanF(res1));
+console.log("res2 is", res2);
+console.log("cleanF(res3) is", cleanF(res3));
+
+var s0 = ar7b.reduce(xform(xform2(concat)),[] );
+console.log("s0 is", s0); ` ),
 
 h('br'),
 
-h('pre', `var f = Comp();
-f(3)(x=>x**3)(x=>x+3)(x=>x*x);
-console.log(f('stop'))
-// [3, 27, 30, 900]
-
-var h = Comp();
-fork(h,f)(x=>x/100)(x=>x*x)('stop');
-console.log(h('stop'));
-// [900, 9, 81]
-
-h()(x=>x/27)(x=>x**4)(x=>x+1000)
-console.log(h('stop'));
-// [900, 9, 81, 3, 81, 1081]
-
-h(h('stop')[2])(x=>x/27)(x=>x**4)(x=>x+5000)
-console.log(h('stop'));
-// [900, 9, 81, 3, 81, 1081, 81, 3, 81, 5081]
-
-var g = Comp();
-fork(g,h)(x=>x-5000)(x=>x**(1/4))(x=>x*9)
-console.log(g('stop'))
-// [5081, 81, 3, 27]  `),
 
                                            ]),
                            h('div', {style: {marginRight: "2%", width: "50%" }},   [
@@ -2470,11 +2523,11 @@ console.log(g('stop'))
 
 
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Compose() Stress Test '  ),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 3 - Compose() Stress Test '  ),
 
 
-                                                             h('div', {style: {display: "flex" }},  [
-                                                             h('div', {style: {marginRight: "2%", width: "50%" }},   [
+                       h('div', {style: {display: "flex" }}, [
+                        h('div', {style: {marginRight: "2%", width: "50%" }}, [
 
 h('br'),
 h('p', ' To see the demonstration, Click "GO" or enter a number and then re-enter it several times. idP() and squareP() are the identity and square functions delayed in ES6 Promises. ' ),
@@ -3406,7 +3459,7 @@ h('h1', 'Angela'),
             h('button#bool', 'Cow' ),
             h('br'),
             h('br'),
-            h('br') 
+            h('br')
           ])
         ])
       })

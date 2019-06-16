@@ -6,7 +6,7 @@ console.log("cowNode  &%&^%&^%&^%&^%&%&%&^% cowNode is", cowNode); */
 var factorsRes = [];
 var diff;
 function diff () {};
-var diffRender = function diffRender () {};  // See document.onload in maim
+var diffRender = function diffRender () {};   // See document.onload in maim
 var vnode7;
 var vnode9 = 0;
 var vnode6 = 12;
@@ -4115,7 +4115,6 @@ function Compose ( AR = [] )  {
     else {if (x != undefined && x.toString() != "NaN") ar.push(x)};
         return function f_ (func) {
             if (func === 'stop') return ar;
-
             else if (typeof func !== "function") p = func;
             else if (x instanceof Promise) p = x.then(v => func(v));
             else p = func(x);
@@ -4264,7 +4263,8 @@ var h = Comp();
 
 var rr = f(3)(x=>x**3)(x=>x+3)(x=>x*x)('stop');
 
-function fork (g,f) {return g(f('stop').slice(-1)[0] )}
+function resume (g) {return g(g('stop').pop())}; // Removes and replaces item.
+function fork (g,f) {return g(f('stop').slice().pop())}; // Copies without mutation.
 
 var rt = fork(h,f)(x=>x/100)(x=>x*x)('stop');
 console.log("rr is", rr);
