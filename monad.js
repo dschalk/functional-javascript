@@ -30,7 +30,11 @@ var time = 0;
 var h;
 function ints (n) {return [...Array(n).keys()]}
 
-function cleanF (ar) {return ar.filter(a => a === 0 || a).reduce((a,b)=>a.concat(b),[])};
+function cleanF (ar) {
+  return ar.filter(
+    a => a === 0 || a && typeof a !== "boolean" //
+  ).reduce((a,b)=>a.concat(b),[])
+};
 
 function Fux (p) {this.p = p; this.fux = function fux (x) {return p(x)}};
 

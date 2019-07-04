@@ -2217,8 +2217,7 @@ h('div', { style: { textAlign: "center", fontWeight: "bold" }}, [
     style: { fontSize: "32px", color: "rgb(130,170,18", textAlign: "center" }}, 'THE ESSENCE OF FUNCTIONAL JAVASCRIPT'),
 ]),
 h('br'),
-h('div', styleFunc(["rgb(180,180,56)",, "23px", "italic", ,"center" ]), 'Small, reusable functions' ),
-h('div', styleFunc(["rgb(180,180,56)",, "23px", "italic", ,"center" ]), 'directed by program-specific functions' ),
+h('div', styleFunc(["rgb(180,180,56)",, "27px", "italic", ,"center" ]), 'Javascript\'s Powerful Functions ' ),
 h('br'),
 
                         h('div.content', [ // 2 brackets  main -> content ->
@@ -2254,15 +2253,13 @@ h('br'),
 h('br'),
 h('span.tao', ' According to ' ),
 h('a', {props: {href: "https://www.geeksforgeeks.org/functional-programming-paradigm/", target: "_blank" }}, 'Geeks for Geeks' ),
-h('span', ' \"Functional programming is a programming paradigm in which we try to bind everything in pure mathematical functions style.\". The article is a good read for coders who are curious about the \"functional programming\" buzz that is humming on the Internet. It discusses pure functions, recursion, referential transparency first-class functions, higher-order functions, and the oxymoronic phrase: \"immutable variables\", with some example code written in JavaScript. ' ),
+h('span', ' \"Functional programming is a programming paradigm in which we try to bind everything in pure mathematical functions style.\". The article is a good read for coders who are curious about the functional programming. It discusses pure functions, recursion, referential transparency first-class functions, higher-order functions, and the oxymoronic phrase: \"immutable variables\", with some example code written in JavaScript. ' ),
 h('br'),
 h('br'),
 h('span.tao', {style: {color: "#FF00DD"}}, ' CAUTION:' ),
-h('span', styleFunc (['#ABFFBA', , ,'italic', , , ,]), " Trying to scrupulously conform to the functional paradigm can stifle your creativity and slow your progress toward mastering JavaScript. Don't let mutations affect anything outside the scopes of the functions in which they occur and, in frontend development, try to direct all side effects to the DOM or virtual DOM. When you have an object that holds persistent state, there should be only one function that updates it and one function that fetches from it.  " ),
-h('p', ' My advice to anyone who wants to write JavaScript code in a functional style is to experiment with JavaScript\'s first class functions. Maintain some state in closures. Wrap your head around transducers. Try some metaprogramming with and without proxies. Inside of functions, mutate variables to avoid pumping debris into memory. That is using functions to protect global space.  ' ),
-h('p', 'In this presentation, I try to avoid mutating anything outside of function scope. Information comes from and goes to browsers, web workers, and a remote WebSockets server. Caches of prime numbers and positions on a grid are maintained for efficiency and backtracking. User names, passwords, and comments are maintained by the Haskell server.  ' ),
-h('p', ' Libraries can provide optimized, well-tested code that helps assure that projects are ready for release into production. Taken too far, this can deprive coders of the satisfaction of creating specialized code targeting the projects they are taking to completion. Constructing solutions with pieces pulled out of cans turns work into drudgery.  The examples presented below are not intended as library functions. They are demonstrations of closures, recursive functions, partially applied functions, ... the essential ingredients of functional Javascript. Of course you are welcome to use them any way you like, but they are intended as examples of the kinds of things you can do that go beyond the generic tools that frameworks and libraries provide. For example,here is closure named \"Comp\": ' ),
-
+h('span', styleFunc (['#ABFFBA', , ,'italic', , , ,]), " Scrupulously conforming to the functional paradigm can stifle your creativity, slow your progress toward mastering JavaScript, and result in inefficient code. Common sense should caution you to avoid mutating variables and objects outside the scopes of functions. Another way to avoid bugs is to direct side effects away from the main body of you application. In frontend development that would be the DOM or virtual DOM. Consider maintaining Persistent state in a database, or possibly in a closure that allows only one function at a time to access its data.  " ),
+h('h3', 'Comp() A Conveniently Tweakable Template'),
+h('p', ' "Comp" (below) facilitates the composition of functions which might include promises or filters. I offer it to you as a tweakable template. If your enumerable collections or asynchronous streams don\t include promises or filters, you can easily remove those features and, perhaps, replace them with code to suit your needs  ' ),
 h('pre', `function Comp ( AR = [] )  {
   var f_, p, run;
   var ar = AR.slice();
@@ -2300,7 +2297,7 @@ function fork (g,f) {return g(f('stop').slice(-1)[0] )} ` ),
 
 
     h('p', ' Let "val1, val2, ..." be any JavaScript values. Then foo = Comp(val1)(val2) ... (valN) has the following properties:  ' ),
-                                    h('div', {style: {color: "#ffbbbb" }}, [
+                                    h('div', {style: {color: "#ddffff" }}, [
 
       h('p', '(1) There are no default type restrictions on val1, val2, ... valN ("the vals"), If a value v is a function, there are no default restrictions on the type of v\'s argument or the type of v\'s return value. Enforcing type constraints is optional. '),
       h('p', '(2) Entries that are functions operate on previously returned values (or the resolution values of returned Promises) from left to right,' ),
@@ -2308,107 +2305,32 @@ function fork (g,f) {return g(f('stop').slice(-1)[0] )} ` ),
       h('p', '(4) Foo (above) resumes where it left off whenever it receives an additional argument. foo can handle a perpetual stream of data. ' ),
       h('p', 'Foo forks independent (orthoganal, having their own addresses in memory) branches with expressions such as "var fu = Comp(foo(\'stop\'))".  ' ),
       h('p', '(5) Sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" and "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' ),
-      h('span', 'The expression "var res1 = Col.map(v => Comp([v])(f1,f2,... fN)(\'stop\').pop())" can act as a transducer on any enumerable collection Col with a "map" method in that multiple transformations are performed on Col while Col is traversed only once. res1 cannot be composed with transducers from libraries such as ' ),
+      h('span', 'The expression "var res1 = Col.map(v => Comp([v])(f1,f2,... fN)(\'stop\').pop())" acts as a transducer on enumerable collections Col with a "map" method in that multiple transformations are performed on Col while Col is traversed only once. res1 cannot be composed with transducers from libraries such as ' ),
   h('a', {props: {href: "https://ramdajs.com/docs/#transduce",}}, "Ramda transduce."),
 
 h('h3', {style: {fontSize: "24px"}}, 'Example: resume and fork'),
 
 h('pre', ` function resume (g) {return g(g(\'stop\').pop())};
-        // Avoids duplication by removing and replacing the last item in ar.
+        // f re-starts with the value it most recently acquired.
  function fork (g,f) {return g(f(\'stop\').slice().pop())};
-        // Copies without mutation.
-
+        // g starts with the last item in f.
  var dd = Comp(); var ee = Comp();
  dd(2)(v=>v+=1)(v=>v**3); resume(dd)(x=>x+3);
  fork(ee,dd)(x=>x*x)(x=>x/100);
  console.log("dd's ar value is now", dd('stop')); // [2, 3, 27, 30]
  console.log("ee's ar value is now", ee('stop'));  // [30, 900, 9]  ` ),
 
-
-h('h3', {style: {fontSize: "24px"}}, 'Example: transduce without reduce'),
-h('p.tao', {style: {color: "#bbffff"}}, ' Comp() "transducers" are not interchangeable with typical transducers, the ones that more or less adhere to the Clojure transducer protocol. For one thing, they are not interchengeable with the other transducers and under the hood, they don\'t rely on folds or functions that behave like Array.protocol.reduce(). ' ),
-h('p', ' Comp() transducers do facilitate unlimited array transformation with only one array tranversal,  and they do compose.  They are a bit of a hack, but it wouldn\'t surprise me if they turned out to be more efficient than standard transducers in modern browsers. '),
-h('p', ' Here is some example code:  ' ),
-h('pre', ` function isOdd (x) {return new Filt(v => v % 2 === 1)};
-var ar = [0,1,2,3,4,5,6,7,8,9];
-
-function Map(f) {
-  return function(rf) {
-    return (acc, v) => {
-      return rf(acc, f(v));
-    }
-  }
-}
-
-function Filter(p) {
-  return function(rf) {
-    return (acc, v) => {
-      return p(v) ?
-       rf(acc, v) : acc;
-    };
-  };
-};
+h('h3', {style: {fontSize: "24px"}}, 'Example: '),
+h('p', ' Comp() facilitate an unlimited number of array transformations, including filter, with only one array tranversal. The results of using Comp() in this way can be composed. The implementation is a bit of a hack, but it won\'t surprise me if it turn out to be more efficient than standard transducers. Here are tests verifying that Comp() returns the expected result:'),
+h('pre', `  ` ),
 
 
-function compose(...funcs) {
-  return x => funcs.reduceRight(apply, x);
-};
 
-var ar7b = [1,2,3,4,5,6,7,8]
-function trd(xf, rf, init, xs) {
-  return xs.reduce(xf(rf), init)
-}
-var xform = compose(
-  Filter(x=>x%2===1),
-  Map(x => x**4),
-  Map(x => x+3),
-  Map(x => x-3),
-  Map(x => Math.sqrt(x))
-)
 
-var xform2 = compose(
-  Map(x=>x*x),
-  Map(x=>x+1000)
-);
 
-var res4 = ar7b
-.filter(v => (v % 2 === 1))
-.map(x => x**4)
-.map(x => x+3)
-.map(x => x-3)
-.map(x => Math.sqrt(x))
-console.log("res4 is", res4);
-var res5 = res4
-.map(v=>v*v)
-.map(v=>v+1000)
-console.log("res5 is", res5);
-var td1 = x => Comp([x])(isOdd)(v=>v**4)(v=>v+3)(v=>(v-3)/Math.sqrt(v-3))('stop').pop()
-var td2 = y => Comp([y])(v=>v*v)(v=>v+1000)('stop').pop()
-
-var res1 = ar7b.map(x => td1(x));
-var res2 = [ 1, 9, 25, 49].map(y => td2(y));
-var res3 = ar7b.map(z => td2(td1(z)));
-
-function cleanF (ar) {
-  return ar.filter(a => a === 0 || a)
-  .reduce((a,b)=>a.concat(b),[])
-};
-console.log("cleanF(res1) is", cleanF(res1));
-console.log("res2 is", res2);
-console.log("cleanF(res3) is", cleanF(res3));
-
-var s0 = ar7b.reduce(xform(xform2(concat)),[] );
-console.log("s0 is", s0); ` ),
 h('p', {style: {color: "#dedede"}}, ' Here are the results: ' ),
-h('pre', {style: {color: "#ffbbff"}}, ` es4 is [ 1, 9, 25, 49 ]
- res5 is [ 1001, 1081, 1625, 3401 ]
- cleanF(res1) is [ 1, 9, 25, 49 ]
- res2 is [ 1001, 1081, 1625, 3401 ]
- cleanF(res3) is [ 1001, 1081, 1625, 3401 ]
- s0 is [ 1001, 1081, 1625, 3401 ] ` ),
-h('p', {style: {color: "#ffffcc"}},  ' As you see, the results are identical. The traditional dot approach, transversing an array for each transformation, would be inefficient for very large arrays. Which of the other two approaches is generally more readable and maintainabl I don\'t know. I prefer the Comp() approach for handling never-ending streams. ' ),
-
-                                                 ]),
+h('pre', {style: {color: "#ffbbff"}}, `  ` )
+                                                 ])
                                                ]),
 
 
@@ -2422,7 +2344,7 @@ h('div', {style: {display: "flex" }},  [
 
 h('p', '  ' ),
 
-h('p', ' Entering a number "n" in one of the boxes on the right causes runT(n) to execute. Here are the definitions of fork(), hold(), and runT(): ' ),
+h('p', ' Entering a number "n" in one of the boxes on the right causes runT(n) to execute. Here are the definitions of fork(), id(), powP, and runT(): ' ),
 
 h('pre', {style: {color: "#eebcbb" }}, `
 
@@ -2439,22 +2361,31 @@ var powP = a => b => async c => {
   return c**a;
 } ` ),
 h('br'),
-h('p', {style: {color: "#aaccee" }}, 'var orbit_1 = "In about eight seconds, orb5 will do something shocking. It will remove the last element from orb2.ar and replace it with its square root. Oh well, it\'s all inside of runT()." ' ),
+h('pre', {style: {color: "#aaccee" }}, `function runT (k) {
+orb1 = Comp();
+orb2 = Comp();
+orb3 = Comp();
+orb4 = Comp();
+orb5 = Comp();
+orb6 = Comp();
+orb7 = Comp();
+orb8 = Comp();
+var orbit_1 = "In about eight seconds, orb5 will do something shocking. It will remove the last element from orb2.ar and replace it with its square root. Oh well, it\'s all inside of runT()." ' ),
 
-h('p', {style: {color: "#aaccee" }}, ' var orbit_2 = "Soon, orb6 will obtain copies of the last three elements of orb2 and perform some computations. Then it will display \"THE END\". ' ),
+h('p', {style: {color: "#aaccee" }}, ' var orbit_2 = "Soon, orb6 will obtain copies of the last three elements of orb2 and perform some computations. Then it will display \"THE END\". `  ),
 
-h('pre', {style: {color: "#aaccee" }}, `orb1 = Comp([k])(cubeP)(() =>
+h('pre', `orb1 = Comp([k])(cubeP)(() =>
   fork(orb2,orb1)()(x=>x+k)(squareP)(multP(1/100))(addP(1))(powP(4)(1))(() =>
     fork(orb3,orb1)(x=>x+k)(x=>x/10)(x=>x+1)(cubeP)(() =>
       orb4(orbit_1)(() => iD(7)(false))(() =>
-        orb5(orb2('stop').pop())(powP(1/2)(3))(x =>
+        orb5(orb2(\'stop\').pop())(powP(1/2)(3))(x =>
           orb2(x))(() =>
             orb6(orbit_2)(iD(7)(false))(() =>
-              orb7(orb2('stop').slice(-3,-2)[0])
-              (iD(1)(orb2('stop').slice(-2,-1)[0]))
-              (iD(1)(orb2('stop').slice(-1)[0]))(powP(1/2)(1))
+              orb7(orb2(\'stop\').slice(-3,-2)[0])
+              (iD(1)(orb2(\'stop\').slice(-2,-1)[0]))
+              (iD(1)(orb2(\'stop\').slice(-1)[0]))(powP(1/2)(1))
               (addP(1))(powP(3)(1))(iD(4)("THE END"))))))))
-}; ` ),
+}; `   ),
 h('p', ' The nesting isn\'t necessary, but it is a convenient way to set the delays. Othersise, the delays would be times from the start, rather than times from the previous arrows. '),
 
                                              ]),

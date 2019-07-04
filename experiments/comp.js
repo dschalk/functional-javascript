@@ -223,25 +223,25 @@ function fork (g,f) {return g(f()('stop').slice(-1)[0] )}
 
 var f = Comp();
 f(3)(x=>x**3)(x=>x+3)(x=>x*x);
-console.log(f('stop'))
+console.log("f('stop') is", f('stop'))
 // [3, 27, 30, 900]
 
 var h = Comp();
 fork(h,f)(x=>x/100)(x=>x*x)('stop');
-console.log(h('stop'));
+console.log("h('stop') is", h('stop'));
 // [900, 9, 81]
 
 h(h('stop').pop())(x=>x/27)(x=>x**4)(x=>x+1000)
-console.log(h('stop'));
+console.log("h('stop') now is",  h('stop'));
 // [900, 9, 81, 3, 81, 1081]
 
 h(h('stop')[2])(x=>x/27)(x=>x**4)(x=>x+5000)
-console.log(h('stop'));
+console.log("and now h('stop') is", h('stop'));
 // [900, 9, 81, 3, 81, 1081, 81, 3, 81, 5081]
 
 var g = Comp();
 fork(g,h)(x=>x-5000)(x=>x**(1/4))(x=>x*9)
-console.log(g('stop'))
+console.log("g('stop') is", g('stop'))
 // [5081, 81, 3, 27]
 
 // console.log("ace6 is", ace6);
