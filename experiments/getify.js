@@ -3,6 +3,7 @@ function diffRender () {};
 
 var window = {};
 
+function isOdd (x) {return new Filt(v => v % 2 === 1)};
 
 /* var ar = [0,1,2,3,4,5,6,7,8,9];
 
@@ -174,6 +175,8 @@ function Comp ( AR = [] )  {
   return run = (function run (x) {
     if (x === null || x === NaN || x === undefined) x = f_('stop').pop();
     if (x instanceof Filt) {
+      console.log('x instanceof Filt', x instanceof Filt);
+      console.log("Kolabzula", x.name, x);
       var z = ar.pop();
       if (x.filt(z)) x = z; else ar = [];
     }
@@ -267,6 +270,15 @@ var resMap = ar.reduce(mapWR(x=>x**3), []);
 
 // console.log("resMap and resFilter",resMap, resFilter)
 
+
+function Reduce(base) {
+  return function(rf) {
+    return (acc, v) => {
+      return rf(acc, f(v));
+    }
+  }
+}
+
 function Map(f) {
   return function(rf) {
     return (acc, v) => {
@@ -286,10 +298,10 @@ function Filter(p) {
 
 var ar = [0,1,2,3,4,5,6,7,8,9];
 
-function tdReduce(base) {
+function tdReduce (a) {
   return function(reducingFunction) {
     return (accumulator, value) => {
-      return reducingFunction(accumulator, func(v));
+      return reducingFunction(accumulator, a);
     }
   }
 }
@@ -316,41 +328,33 @@ var transformFR = compose(Filter(isOdd), Map(cube));
 var transformFRRes = ar.reduce(transformFR(concat), []);
 // console.log("transformFRRes", transformFRRes);
 
-var ar7b = [...Array(25).keys()];
+
 function trd(xf, rf, init, xs) {
   return xs.reduce(xf(rf), init)
 }
-var xform = compose(
-  Filter(x=>x%2===1),
-  Map(x => x**4),
-  Map(x => x+3),
-  Map(x => x-3),
-  Map(x => Math.sqrt(x))
-)
+function isOdd (x) {return new Filt(v => v % 2 === 1)};
+var lessThan = x => y => new Filt(x => y < x);
+var ltTest = lessThan();
 
-var xform2 = compose(
-  Map(x=>x*x),
-  Map(x=>x+1000),
-  Filter(x => x < 4000)
-);
+
+function compTest3 (k = 4, n = 25) {
+
+var test9 = ltTest(k*1000).filt
+var ar7b = [...Array(n).keys()];
+
 var res4 = ar7b
 .filter(v => (v % 2 === 1))
 .map(x => x**4)
 .map(x => x+3)
 .map(x => x-3)
 .map(x => Math.sqrt(x))
-console.log("res4 is", res4);
+// console.log("res4 is", res4);
 
-var res5 = res4
+var dotResult = res4
 .map(v=>v*v)
 .map(v=>v+1000)
-.filter(v => v < 4000);
-console.log("res5 is", res5);
-
-function isOdd (x) {return new Filt(v => v % 2 === 1)};
-var lessThan = x => y => new Filt(x => y < x);
-var ltTest = lessThan();
-var test9 = ltTest(4000).filt
+.filter(v => v < k*1000);
+console.log("dotResult is", dotResult);
 
 var td1 = x => Comp([x])(isOdd)(v=>v**4)(v=>v+3)(v=>(v-3)/Math.sqrt(v-3))('stop').pop()
 var td2 = y => Comp([y])(v=>v*v)(v=>v+1000)(test9)('stop').pop()
@@ -359,22 +363,32 @@ var res1 = ar7b.map(x => td1(x));
 var res2 = res1.map(y => td2(y));
 var res3 = ar7b.map(z => td2(td1(z)));
 
-console.log("res1 is", res1);
 console.log("cleanF(res2) is", cleanF(res2));
 console.log("cleanF(res3) is", cleanF(res3));
 
-var s0 = ar7b.reduce(xform(xform2(concat)),[] );
-console.log("s0 is", s0);
+var xform = compose(
+  tdFilter(x=>x%2===1),
+  tdMap(x => x**4),
+  tdMap(x => x+3),
+  tdMap(x => x-3),
+  tdMap(x => Math.sqrt(x))
+)
+var xform2 = compose(
+  tdMap(x=>x*x),
+  tdMap(x=>x+1000),
+  tdFilter(x => x < k*1000))
+
+var xform3 = compose(
+  tdMap(x=>x*x),
+  tdMap(x=>x+1000),
+  tdFilter(x => x < k*1000),
+  tdReduce((a,b) => a+b))
 
 
-
-
-/*
-function cleanCommas (ar)  {return ar.reduce((a,b) => a.concat(b),[])};
-
-console.log(" --- xform ---", [1,2,3,4,5].reduce(xform(concat),[]));
-console.log("ob2('stop').slice(-1) is", ob2('stop').slice(-1));
-console.log("ob2('stop') is", ob2('stop'));
-*/
-
-//end
+var tr1 = ar7b.reduce(xform(xform2(concat)),[] );
+var tr2 = ar7b.reduce(xform(xform3(reduce)), 0);
+console.log("tr1 is", tr1);
+console.log("tr2 is", tr2);
+console.log("test9 instanceof Filt", test9 instanceof Filt)
+}
+compTest3(20,10)

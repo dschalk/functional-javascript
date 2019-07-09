@@ -4,6 +4,8 @@ console.log("cowNode  &%&^%&^%&^%&^%&%&%&^% cowNode is", cowNode); */
 // var Sum, Product, Max, Min, Any, All, Pair, Fn;
 // function monoidFunc () {console.log( "Sum, Product, Max, Min, Any, All, Pair, Fn", Sum, Product, Max, Min, Any, All, Pair, Fn)};
 var factorsRes = [];
+var h;
+var node99 = "cow";
 var diff;
 function diff () {};
 var diffRender = function diffRender () {};   // See document.onload in maim
@@ -29,6 +31,35 @@ var E15 = '';
 var time = 0;
 var h;
 function ints (n) {return [...Array(n).keys()]}
+
+function isOdd (x) {return new Filt(v => v % 2 === 1)};
+var lessThan = x => y => new Filt(x => y < x);
+var ltTest = lessThan();
+
+function tdReduce(base) {
+  return function(reducingFunction) {
+    return (accumulator, value) => {
+      return reducingFunction(accumulator, func(v));
+    }
+  }
+}
+
+function tdMap(func) {
+  return function(reducingFunction) {
+    return (accumulator, v) => {
+      return reducingFunction(accumulator, func(v));
+    }
+  }
+}
+
+function tdFilter(test) {
+  return function(reducingFunction) {
+    return (accumulator, v) => {
+      return test(v) ?
+       reducingFunction(accumulator, v) : accumulator;
+    };
+  };
+};
 
 function cleanF (ar) {
   return ar.filter(
@@ -68,7 +99,7 @@ var filtEven = filtP(x=>x%2 === 0);
 var less_than = function less_than(x) {return new Filt(v=>v<x)};
 
 function add1(v) { return v + 1; };
-function isOdd(v) { return v % 2 == 1; };
+function isOdd (x) {return new Filt(v => v % 2 === 1)};
 function sum(total,v) { return total + v; };
 function cube(v) { return v**3; };
 
@@ -4239,6 +4270,39 @@ function Comp ( AR = [] )  {
       if (x.filt(z)) x = z; else ar = [];
     }
     else if (x instanceof Promise) x.then(y =>
+      {if (y != undefined && typeof y !== "boolean" && y === y &&
+      y.name !== "f_" && y.name !== "stop" ) {
+      ar.push(y);
+      diffRender()
+    }})
+    else if (x != undefined && x === x  && x !== false
+      && x.name !== "f_" && x.name !== "stop" ) {
+      ar.push(x);
+      diffRender()
+    };
+    function f_ (func) {
+      if (func === 'stop') return ar;
+      else if (typeof func !== "function") p = func;
+      else if (x instanceof Promise) p = x.then(v => func(v));
+      else p = func(x);
+      return run(p);
+    };
+    return f_;
+  })(x)
+}
+
+/*
+function Comp ( AR = [] )  {
+  var f_, p, run;
+  var ar = AR.slice();
+  var x = ar.pop();
+  return run = (function run (x) {
+    if (x === null || x === NaN || x === undefined) x = f_('stop').pop();
+    if (x instanceof Filt) {
+      var z = ar.pop();
+      if (x.filt(z)) x = z; else ar = [];
+    }
+    else if (x instanceof Promise) x.then(y =>
       {if (y != undefined && y !== false && y === y &&
       y.name !== "f_" && y.name !== "stop" ) {
       ar.push(y);
@@ -4259,7 +4323,7 @@ function Comp ( AR = [] )  {
     return f_;
   })(x)
 }
-
+*/
 
 var f = Comp();
 var g = Comp()
@@ -4335,8 +4399,6 @@ function f(x) {
     return Comp([x])(x=>x**3)(x=>x+3)(x=>x*x)
 };
 
-
-/*
 var wwd = [1,2,3,4,5].map(v=>f(v)('stop').pop())
 console.log("Mapping a stream into Comp([x])(x=>x**3)(x=>x+3)(x=>x*x) -- wwd is", wwd)
 
@@ -4361,22 +4423,6 @@ console.log(tduce(arf)(arn))
   console.log("dd is", dd);
 
 
-  var f77F = bee => arN => {
-      var res = [];
-      var os;
-      arN.map(x => {
-          os = Comp([x]);
-          res.push(eval("fork(os)('os')" + bee))});
-      return res;
-  };
-
-var zee = f77F("(x=>x**3)(x=>x+3)(x=>x*x)('stop').pop()")([1,2,3,4,5])
-console.log("zee is",zee)
-
-console.log("[...Array(5).keys()]", [...Array(5).keys()])
-
-
-
 
 var tduce = ar1 => ar2  => ar2.map(v => (ff1)(ark(ar1)(v)))
 console.log(tduce(arf)(arn))
@@ -4384,122 +4430,6 @@ console.log(tduce(arf)(arn))
 
 var arF = [x=>x**3, x=>x+3, x=>x*x];
 var arA = [1,2,3,4,5];
-
-function CompAr ( AR = [], funcAr, argsAr )  {
-    var ar = AR, x, ob, f_ , p ;
-    var result = [];
-    var funcAr = funcAr;
-    var argsAr = argsAr;
-    var fs = funcAr.slice();
-    var args = argsAr.slice();
-    console.log("Before recurse. ar is", ar);
-    var recurse =  () => {
-        console.log("In recurse() -- args.length is", args.length);
-        x = args.pop();
-        let xx = x;
-        ar = [x];
-        fs.map(func => {
-            console.log("1 func, xx, and func(x)", func, xx, func(xx))
-            if (!(func instanceof Function)) {
-                console.log("2 func, xx and func(x)", func, xx, func(xx))
-            }
-            else if (func instanceof Promise) x.then(y => {
-                if (y != undefined && y !== false && y !== NaN &&
-                y.toString() != "NaN" && y.name !== "f_" ) {
-                console.log("3 func, xx, and func(x)", func, xx, func(xx))
-                    xx = func(y);
-                }
-            })
-            else if (func != undefined && x !== false &&
-            x.toString() != "NaN" && x.name !== "f_" ) {
-                console.log("4 func, xx, and func(x)", func, xx, func(xx))
-                xx = func(x);
-            };
-            ar.push(xx);
-            console.log("ar is", ar)
-            x = xx;
-        })
-        result.splice(0,0,x);
-        console.log("Still in recurse() result is", result);
-    }
-    while (args.length > 0) recurse()
-    return ["Cowgirl", result];
-}
-
-var adP = t => a => async b => {
-    await wait(t*1000)
-    return a + b;
-}
-
-console.log("CompAr([], arF, arA) returned:")
-console.log(CompAr([],arF,arA));
-var arF = [x=>x**3, x=>x+3, x=>x*x];
-var arf = [cubeP, addP(3), squareP];
-var arrf = [powP(3)(6), adP(3)(3), powP(2)(1)]
-var ara = [1,2,3,4,5];
-console.log("CompAr([], arrf, ara) returned:")
-CompAr([],arF,arA).map(v => console.log(v));
-console.log("<*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*>");
-var ff = fu => x => {
-    var ob = Comp([x]);
-    fu.map(f => {
-        ob.run(ob.ar.pop())(f)
-    })
-   return ob;
-}
-
-function fg (fs) {
-    var fs = fs;
-    return function foam (x) {
-        var o = {
-            ob: Comp([x]),
-            fu: fs.map(f => {
-                o.ob.run(o.ob.ar.pop())(f)
-            })
-        }
-    }
-}
-
-var td = f => async a => a.map(x => ff(f)(x))
-var trd = (td(arrf));
-var b = trd(ara);
-console.log(b)
-
-var CompTd = funcs => {
-  var ob = {
-    fs: funcs,
-    a: [],
-    f: x => {
-      ob.a.push(ob.fs.reduce((a,b) => b(a),x));
-      return ob;
-    }
-  }
-  return ob;
-}
-
-var ob3 = CompTd(arF);
-
-ob3.f(3)
-ob3.f(4)
-ob3.f(5)
-ara.map(v => ob3.f(v))
-console.log(ob3);
-
-var ee = makeChan('ee');
-console.log("ob3.f(7)", ob3.f(7).f(8).a)
-function fu () {ee.bnd(() => {console.log("Hello"); ee.bnd(()=>{console.log("World");
-ee.bnd(()=>{console.log("Hello Mars"); ee.bnd(() => fu())()})})})};
-fu();
-ee.release();
-ee.release();
-ee.release();
-ee.release();
-ee.release();
-ee.release();
-ee.release();
-ee.release();
-
-
 
 function apply(x, f) {
   return f(x);
@@ -4516,114 +4446,75 @@ var add1 = x => x + 1;
 var doubleIt = x => x * 2;
 var add = (x, y) => x + y;
 
-// predicates
-var isEven = x => x % 2 === 0;
-var isOdd = x => !isEven(x);
+// ********************************************************** conpTest3
 
-function Map(f) {
-  return function(rf) {
-    return (acc, v) => {
-      return rf(acc, f(v));
-    }
+
+var A_A = [1,2,3].join( );
+var B_B = [1,2,3].join( );
+var C_C = [1,2,3].join( );
+var D_D = [1,2,3].join( );
+var E_E = "Specify an array length: ";
+
+var obS  = { ar: [] };
+
+obS.push = function (x) {
+  this.ar.push(x);
+  if (this.ar.length === 1) E_E = "Now specify an upper bound. The number you enter will be multiplied by 1000."
+  if (this.ar.length === 2) {
+    compTest3(this.ar[0], this.ar[1]);
+    this.ar.length = 0;
+    E_E = "Specify an array length: ";
   }
-}
-
-function Filter(p) {
-  return function(rf) {
-    return (acc, v) => {
-      return p(v) ?
-       rf(acc, v) : acc;
-    };
-  };
 };
 
-/*
-var ar = [0,1,2,3,4,5,6,7,8,9];
+function compTest3 (k, n) {
 
-mapRes = ar.reduce(Map(cube)(concat), []);
-console.log("mapRes is", mapRes);
+var test9 = ltTest(k*1000).filt
+var ar7b = [...Array(Math.abs(n)).keys()];
 
-var filterRes = ar.reduce(Filter(isOdd)(concat), []);
-console.log(filterRes);
+var res4 = ar7b
+.filter(v => (v % 2 === 1))
+.map(x => x**4)
+.map(x => x+3)
+.map(x => x-3)
+.map(x => Math.sqrt(x))
+// console.log("res4 is", res4);
 
-var add = (a,b) => a + b;
-var transformFR = compose(Filter(isOdd), Map(cube));
-var transformFRRes = ar.reduce(transformFR(concat), []);
-console.log("transformFRRes", transformFRRes);
-var abc = ar.reduce(transformFR(add));
-console.log("abc", abc);
+var dotResult = res4
+.map(v=>v*v)
+.map(v=>v+1000)
+.filter(v => v < k*1000);
+console.log("dotResult is", dotResult);
 
-function trd(xf, rf, init, xs) {
-  return xs.reduce(xf(rf), init)
-}
+var td1 = x => Comp([x])(isOdd)(v=>v**4)(v=>v+3)(v=>(v-3)/Math.sqrt(v-3))('stop').pop()
+var td2 = y => Comp([y])(v=>v*v)(v=>v+1000)(test9)('stop').pop()
+
+var res1 = ar7b.map(x => td1(x));
+var res2 = res1.map(y => td2(y));
+var res3 = ar7b.map(z => td2(td1(z)));
+
+console.log("cleanF(res2) is", cleanF(res2));
+console.log("cleanF(res3) is", cleanF(res3));
 
 var xform = compose(
-  Map(x=>x*x),
-  Filter(isEven),
-  Map(x=>x+x),
-  Map(x=>x+1),
+  tdFilter(x=>x%2===1),
+  tdMap(x => x**4),
+  tdMap(x => x+3),
+  tdMap(x => x-3),
+  tdMap(x => Math.sqrt(x))
+)
+var xform2 = compose(
+  tdMap(x=>x*x),
+  tdMap(x=>x+1000),
+  tdFilter(x => x < k*1000)
 );
 
-var ob2 = Comp();
-// ob2.run([1,2,3,4,5,6,7,8,9])(x=>x.reduce(xform(concat),[]));
-var ob3 = Comp();
-[0,1,2,3,4,5,6,7].map(v => ob3.run(v)(x=>xform(concat,[])(x)));
+var transducerResult = ar7b.reduce(xform(xform2(concat)),[] );
+console.log("transducerResult is", transducerResult);
 
-console.log("[0,1,2,3,4].reduce(transformFR(concat),[])",[0,1,2,3,4].reduce(transformFR(concat),[]))
-
-var zza = Comp(ar); var zzt = zza.run(zza.ar)(x=>x.reduce(Map(x=>x**3)
- (Filter(x=>x%2===0)(Map(x=>x+10000)
-   (concat))),[]))('stop').pop();
-console.log("zzt is", zzt);
-
-var zzb = Comp(ar); var zzu = zzb.run(zzb.ar)(x=>x.reduce(Map(x=>x**3)
- (Filter(x=>x%2===0)(Map(x=>x+10000)
-   ((a,b)=>a+b))),0))('stop').pop();
-
-console.log("zzu is", zzu);
-
-sue = [1,2,3,4,5].reduce(Map(x=>x**3)(concat),[])
-console.log(sue);
-
-function Fux (p) {this.p = p; this.fux = function fux (x) {return p(x)}};
-
-var fox = new Fux(x=>x%2 === 0);
-
-var cox = new Fux(x=>x>1200);
-
-function Comp2 ( AR = [] )  {
-    var ar , x, ob, f_ , p, z;
-    if (Array.isArray(AR)) ar = AR.slice()
-    else ar = AR;
-    if (Array.isArray(ar) && ar.length) x = ar.slice(1)
-    else x = ar;
-    return  ob = {ar: ar, run: function run (x) {
-        if (x != undefined && x !== false && x !== NaN && (!(x instanceof Fux)) &&
-        x.toString() != "NaN" && x.name !== "f_" ) {
-            if (Array.isArray(ob.ar)) ob.ar.push(x)
-            else ob.ar = p;
-            console.log("ob.ar, p", ob.ar, p);
-        if (x instanceof Fux) {var z = ob.ar.pop();
-            if (x.fux(z)) x = z;
-        };
-        if (x instanceof Promise) x.then(y => z = y);
-        else z = x;
-        return function f_ (func) {
-            if (func === 'stop') return ob.ar;
-            else if (typeof func !== "function") p = func;
-            else if (z instanceof Promise) p = z.then(v => func(v));
-            else p = func(z);
-
-            console.log("At the end of Comp -- p is", p );
-            return run(p);
-        };
-    }}}
-};
-
-var zee = [1,2,3,4,5].map(v => Comp2().run(v)(x=>x**3)(x=>x+3)(x=>x*x)('stop').pop());
-console.log('zee is', zee);
-
-*/
-function cleanCommas (ar)  {return ar.reduce((a,b) => a.concat(b),[])};
-
-// end
+  A_A = dotResult.join( );
+  B_B = cleanF(res2).join( );
+  C_C = cleanF(res3).join( );
+  D_D = cleanF(transducerResult).join( );
+}
+compTest3(20,10)

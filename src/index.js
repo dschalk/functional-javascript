@@ -1894,6 +1894,17 @@ function Comp ( AR = [] )  {
         }
     });
 
+    var dem0$ = sources.DOM
+      .select('#dem0').events('keypress');
+
+    var zeroAction$ = dem0$.map(e => {
+        if (e.keyCode === 13) {
+            console.log("dem0 is providing", e.target.value, "to obS");
+            obS.push(e.target.value);
+            e.target.value = null;
+        }
+    });
+
     var dem6$ = sources.DOM
       .select('#dem6').events('keypress');
 
@@ -1926,8 +1937,6 @@ function Comp ( AR = [] )  {
         }
     });
   */
-
-
 
    // ******************************************BEGIN TODO LIST
 
@@ -2200,7 +2209,9 @@ function Comp ( AR = [] )  {
           }
         });
 
-        var calcStream$ = xs.merge( twoAction$, threeAction$, eightAction$, fourAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, diffR2$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerO$, clearADSction$, factorsAction$, factorsAction8$, factorsAction82$, factorsAction83$, factorsAction84$, factorsAction85$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
+
+
+        var calcStream$ = xs.merge(  zeroAction$,twoAction$, threeAction$, eightAction$, fourAction$, setStateA$, setStateB$, aplusClick$, aminusClick$, bplusClick$, bminusClick$, resetStateClick$, fibNums$, nextInt$, prevInt$, primeInts$, factorialInt$, allInts$, fooAction$, oneAction$, mBindAction$, gridCh$, fAction$, bAction$, m80$, m81$, m82$, m83$, m84$, m85$, m86$, m87$, m88$, m89$, m810$, m811$, m812$, m813$, m814$, m815$, pingpong$, test5Action$, test7Action$, diffRendChange$, diffRendClick$, demo2Action$, bindBD$, doubleAction$, itterADSction$, fredGo$, fredAction$, diffR$, diffR2$, res8$, m80Action$, commentAction$, boxAction$, cbx2Action$, messagePressAction$, fA_c$, forwardAction$, backAction$, prADSction$, fA$, factorsP$, fA_b$, factorsP_b$, clearprimes$, workerB$, workerC$, workerD$, workerE$, workerF$, workerI$, clearClick$, clearClick8$, workerG$, workerH$, workerO$, clearADSction$, factorsAction$, factorsAction8$, factorsAction82$, factorsAction83$, factorsAction84$, factorsAction85$, factors2Action$, factors3Action$, primeFib$, fibPressAction$, quadAction$, editAction$, editBAction$, testWAction$, testZAction$, testQAction$, deleteAction$, deleteAction2$, newTaskAction$, chatClick$, gameClickAction$, todoClick$, captionClickAction$, groupPressAction$, rollClickAction$, registerPressAction$, messages$, numClickAction$, opClickAction$)
 
       return {
         DOM: calcStream$.map(() => {
@@ -2214,10 +2225,10 @@ h('div.image_3', [
 h('div', { style: { textAlign: "center", fontWeight: "bold" }}, [
   h('br'),
   h('div', {
-    style: { fontSize: "32px", color: "rgb(130,170,18", textAlign: "center" }}, 'THE ESSENCE OF FUNCTIONAL JAVASCRIPT'),
+    style: { fontSize: "32px", color: "rgb(130,170,18", textAlign: "center" }}, 'JAVASCRIPT And FUNCTIONAL PROGRAMMING'),
 ]),
 h('br'),
-h('div', styleFunc(["rgb(180,180,56)",, "27px", "italic", ,"center" ]), 'Javascript\'s Powerful Functions ' ),
+h('div', styleFunc(["rgb(180,180,56)",, "27px", "italic", ,"center" ]), 'Harness vs. Limit the Power of Functions' ),
 h('br'),
 
                         h('div.content', [ // 2 brackets  main -> content ->
@@ -2253,11 +2264,13 @@ h('br'),
 h('br'),
 h('span.tao', ' According to ' ),
 h('a', {props: {href: "https://www.geeksforgeeks.org/functional-programming-paradigm/", target: "_blank" }}, 'Geeks for Geeks' ),
-h('span', ' \"Functional programming is a programming paradigm in which we try to bind everything in pure mathematical functions style.\". The article is a good read for coders who are curious about the functional programming. It discusses pure functions, recursion, referential transparency first-class functions, higher-order functions, and the oxymoronic phrase: \"immutable variables\", with some example code written in JavaScript. ' ),
+h('span', ' \"Functional programming is a programming paradigm in which we try to bind everything in pure mathematical functions style.\". The article is a good read for coders who are curious about functional programming. It discusses pure functions, recursion, referential transparency first-class functions, higher-order functions, and the oxymoronic phrase: \"immutable variables\", with some example code written in JavaScript. ' ),
 h('br'),
-h('br'),
-h('span.tao', {style: {color: "#FF00DD"}}, ' CAUTION:' ),
-h('span', styleFunc (['#ABFFBA', , ,'italic', , , ,]), " Scrupulously conforming to the functional paradigm can stifle your creativity, slow your progress toward mastering JavaScript, and result in inefficient code. Common sense should caution you to avoid mutating variables and objects outside the scopes of functions. Another way to avoid bugs is to direct side effects away from the main body of you application. In frontend development that would be the DOM or virtual DOM. Consider maintaining Persistent state in a database, or possibly in a closure that allows only one function at a time to access its data.  " ),
+
+h('p', ' If you are considering eliminating mutations, using only pure function, and so on, you might want to consider what you would losing. This article scratches the surface of what unconstained JavaScript functions can do.  It might disuade you from getting too dogmatic and austere about the functional paradign. '),
+
+h('p', ' Common sense bug prevention and the functional paradigm have much in common, including: functions should receive data only through arguments; functions should avoid mutating data shared with other functions; side effects should be directed away from the main body of a program (to the DOM,for example). '  ),
+
 h('h3', 'Comp() A Conveniently Tweakable Template'),
 h('p', ' "Comp" (below) facilitates the composition of functions which might include promises or filters. I offer it to you as a tweakable template. If your enumerable collections or asynchronous streams don\t include promises or filters, you can easily remove those features and, perhaps, replace them with code to suit your needs  ' ),
 h('pre', `function Comp ( AR = [] )  {
@@ -2303,9 +2316,9 @@ function fork (g,f) {return g(f('stop').slice(-1)[0] )} ` ),
       h('p', '(2) Entries that are functions operate on previously returned values (or the resolution values of returned Promises) from left to right,' ),
       h('p', '(3) Functions have access to all preceding vals or, for vals that are functions, their return values or the resolution values of their returned Promises. The expression "foo(\'stop\')" returns the the array "ar" that is held in the closure that returned foo (above), so foo(\'stop\')[M] for some M < K in the expression "foo = (val1(val2)...(valK = foo(\'stop\')[M]),...(valN)" is a reference ar[M] in the closure. ' ),
       h('p', '(4) Foo (above) resumes where it left off whenever it receives an additional argument. foo can handle a perpetual stream of data. ' ),
-      h('p', 'Foo forks independent (orthoganal, having their own addresses in memory) branches with expressions such as "var fu = Comp(foo(\'stop\'))".  ' ),
-      h('p', '(5) Sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" and "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' ),
-      h('span', 'The expression "var res1 = Col.map(v => Comp([v])(f1,f2,... fN)(\'stop\').pop())" acts as a transducer on enumerable collections Col with a "map" method in that multiple transformations are performed on Col while Col is traversed only once. res1 cannot be composed with transducers from libraries such as ' ),
+      h('p', '(5) Foo forks independent (orthoganal, having their own addresses in memory) branches with expressions such as "var fu = Comp(foo(\'stop\'))".  ' ),
+      h('p', '(6) Sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" and "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' ),
+      h('span', '(7) The value "newArr" in "newArr = arr.map(v => Comp([v])(f1,f2,... fN)(\'stop\').pop())" is the result of multiple transformations of some array "arr" achieved  without traversing intermediary arrays. Transducers have this feature but linking Array methods with dot notation requires multiple array traversals. See Demonstration 2. ' ),
   h('a', {props: {href: "https://ramdajs.com/docs/#transduce",}}, "Ramda transduce."),
 
 h('h3', {style: {fontSize: "24px"}}, 'Example: resume and fork'),
@@ -2319,13 +2332,6 @@ h('pre', ` function resume (g) {return g(g(\'stop\').pop())};
  fork(ee,dd)(x=>x*x)(x=>x/100);
  console.log("dd's ar value is now", dd('stop')); // [2, 3, 27, 30]
  console.log("ee's ar value is now", ee('stop'));  // [30, 900, 9]  ` ),
-
-h('h3', {style: {fontSize: "24px"}}, 'Example: '),
-h('p', ' Comp() facilitate an unlimited number of array transformations, including filter, with only one array tranversal. The results of using Comp() in this way can be composed. The implementation is a bit of a hack, but it won\'t surprise me if it turn out to be more efficient than standard transducers. Here are tests verifying that Comp() returns the expected result:'),
-h('pre', `  ` ),
-
-
-
 
 
 h('p', {style: {color: "#dedede"}}, ' Here are the results: ' ),
@@ -2437,97 +2443,120 @@ h('br'),
 h('br'),
 h('br')
 
-                                    ])
-                                    ]),
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Compose() Stress Test '  ),
+                                  ])
+                                  ]),
+
+
+
+      h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 2 - Efficient Array Transformations' ),
 
 
 
 
-                       h('div', {style: {display: "flex" }}, [
+                        h('div', {style: {display: "flex" }}, [
                         h('div', {style: {marginRight: "2%", width: "50%" }}, [
 
+h('p', 'The demonstration on the right shows the results of processing an array through multiple calls to its map and filter methods, using Comp(), or using a transducer. The results are identical, but Comp() and transducers need to traverse only the initial array only one time. The Array map and filter methods return new arrays each time they are called. This can be a performance problem where very large arrays are involved.   ' ),
 
-h('pre', `function isOdd (x) {return new Filt(v => v % 2 === 1)};
+h('p', ' Entering a number "j" on the right causes obS.map(j) to execute. Entering a second number "k" calls obS.map(k) which calls "compTest3(j,k)". The code is hown below. '),
+h('pre', `
 
-var ar = [0,1,2,3,4,5,6,7,8,9];
+var obS  = { ar: [] };
 
-function Map(f) {
-  return function(rf) {
-    return (acc, v) => {
-      return rf(acc, f(v));
-    }
+obS.push = function (x) {
+  this.ar.push(x);
+  if (this.ar.length === 1) E_E = "Now specify an upper bound. The number you enter will be multiplied by 1000."
+  if (this.ar.length === 2) {
+    compTest3(this.ar[0], this.ar[1]);
+    this.ar.length = 0;
+    E_E = "Specify an array length: ";
   }
-}
-
-function Filter(p) {
-  return function(rf) {
-    return (acc, v) => {
-      return p(v) ?
-       rf(acc, v) : acc;
-    };
-  };
 };
 
-var add = (a,b) => a + b;
-var transformFR = compose(Filter(isOdd), Map(cube));
-var transformFRRes = ar.reduce(transformFR(concat), []);
-// console.log("transformFRRes", transformFRRes);
+function compTest3 (k, n) {
 
-var ar7b = [1,2,3,4,5,6,7,8]
+var test9 = ltTest(k*1000).filt
+var ar7b = [...Array(Math.abs(n)).keys()];
 
-function trd(xf, rf, init, xs) {
-  return xs.reduce(xf(rf), init)
-}
-var xform = compose(
-  Filter(x=>x%2===1),
-  Map(x => x**4),
-  Map(x => x+3),
-  Map(x => x-3),
-  Map(x => Math.sqrt(x))
-)
-
-var xform2 = compose(
-  Map(x=>x*x),
-  Map(x=>x+1000)
-);
 var res4 = ar7b
 .filter(v => (v % 2 === 1))
 .map(x => x**4)
 .map(x => x+3)
 .map(x => x-3)
 .map(x => Math.sqrt(x))
-console.log("res4 is", res4);
-var res5 = res4
+// console.log("res4 is", res4);
+
+var dotResult = res4
 .map(v=>v*v)
 .map(v=>v+1000)
-console.log("res5 is", res5);
+.filter(v => v < k*1000);
+console.log("dotResult is", dotResult);
+
 var td1 = x => Comp([x])(isOdd)(v=>v**4)(v=>v+3)(v=>(v-3)/Math.sqrt(v-3))('stop').pop()
-var td2 = y => Comp([y])(v=>v*v)(v=>v+1000)('stop').pop()
+var td2 = y => Comp([y])(v=>v*v)(v=>v+1000)(test9)('stop').pop()
 
 var res1 = ar7b.map(x => td1(x));
-var res2 = [ 1, 9, 25, 49].map(y => td2(y));
+var res2 = res1.map(y => td2(y));
 var res3 = ar7b.map(z => td2(td1(z)));
 
-console.log("cleanF(res1) is", cleanF(res1));
-console.log("res2 is", res2);
+console.log("cleanF(res2) is", cleanF(res2));
 console.log("cleanF(res3) is", cleanF(res3));
 
-var s0 = ar7b.reduce(xform(xform2(concat)),[] );
-console.log("s0 is", s0); ` ),
+var xform = compose(
+  tdFilter(x=>x%2===1),
+  tdMap(x => x**4),
+  tdMap(x => x+3),
+  tdMap(x => x-3),
+  tdMap(x => Math.sqrt(x))
+)
+var xform2 = compose(
+  tdMap(x=>x*x),
+  tdMap(x=>x+1000),
+  tdFilter(x => x < k*1000)
+);
 
-h('br'),
+var transducerResult = ar7b.reduce(xform(xform2(concat)),[] );
+console.log("transducerResult is", transducerResult);
+
+  A_A = dotResult.join( );
+  B_B = cleanF(res2).join( );
+  C_C = cleanF(res3).join( );
+  D_D = cleanF(transducerResult).join( );
+}, `),
 
 
                                            ]),
                            h('div', {style: {marginRight: "2%", width: "50%" }},   [
 
                 h('br'),
+E_E,
+                                h('input#dem0', {
+                                  style: {
+                                    height: "15px",
+                                    color: "blue",
+                                    fontSize: "18px"
+                                  }
+                                }),
+                                h('br'),
+                                h('br'),
 
-
-
-
-
+h('br'),
+h('div', {style:{fontSize: "17px", color: "#ffccff" }}, [
+h('h3', 'Using the Array Prototype Dot Method:' ),
+A_A,
+h('br'),
+h('br'),
+h('h3', 'Using Comp() With Two Array Traversals: ' ),
+B_B,
+h('br'),
+h('br'),
+h('h3', 'Using Comp() With Only One Array Traversal: ' ),
+C_C,
+h('br'),
+h('br'),
+h('h3', 'Using a Transducer: ' ),
+D_D,
+]),
                                                           ])
                                                           ]),
 
@@ -2611,7 +2640,7 @@ h('p', ' The variables prefixed by "_C" are permanent fixtures of the virtual DO
 
 h('h1', 'METAPROGRAMMING WITHOUT PROXIES '),
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 3 '  ),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 4 '  ),
 
                               h('div', {style: {display: "flex" }},  [
                               h('div', {style: {marginRight: "2%", width: "50%" }},   [
@@ -2681,7 +2710,7 @@ h('p', ' Enter three coefficients for a quadratic equation, ONE NUMBER AT A TIME
 
 
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 4 '),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 5 '),
 
 
 h('div', {style: {display: "flex" }},  [

@@ -1,4 +1,11 @@
 
+A local filename could not be decoded.
+Please make sure the LC_CTYPE (or LC_ALL) environment variable is set correctly.
+Unless you fix this problem, files might be missing in the file listings.
+No further warning will be displayed this session.
+
+
+
 h('div#vn9', [
 vnode9,
 h('br'),
