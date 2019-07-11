@@ -2310,15 +2310,32 @@ function fork (g,f) {return g(f('stop').slice(-1)[0] )} ` ),
 
 
     h('p', ' Let "val1, val2, ..." be any JavaScript values. Then foo = Comp(val1)(val2) ... (valN) has the following properties:  ' ),
-                                    h('div', {style: {color: "#ddffff" }}, [
+                                    h('div', {style: {color: "#eeeeff" }}, [
 
       h('p', '(1) There are no default type restrictions on val1, val2, ... valN ("the vals"), If a value v is a function, there are no default restrictions on the type of v\'s argument or the type of v\'s return value. Enforcing type constraints is optional. '),
       h('p', '(2) Entries that are functions operate on previously returned values (or the resolution values of returned Promises) from left to right,' ),
-      h('p', '(3) Functions have access to all preceding vals or, for vals that are functions, their return values or the resolution values of their returned Promises. The expression "foo(\'stop\')" returns the the array "ar" that is held in the closure that returned foo (above), so foo(\'stop\')[M] for some M < K in the expression "foo = (val1(val2)...(valK = foo(\'stop\')[M]),...(valN)" is a reference ar[M] in the closure. ' ),
-      h('p', '(4) Foo (above) resumes where it left off whenever it receives an additional argument. foo can handle a perpetual stream of data. ' ),
-      h('p', '(5) Foo forks independent (orthoganal, having their own addresses in memory) branches with expressions such as "var fu = Comp(foo(\'stop\'))".  ' ),
-      h('p', '(6) Sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" and "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' ),
-      h('span', '(7) The value "newArr" in "newArr = arr.map(v => Comp([v])(f1,f2,... fN)(\'stop\').pop())" is the result of multiple transformations of some array "arr" achieved  without traversing intermediary arrays. Transducers have this feature but linking Array methods with dot notation requires multiple array traversals. See Demonstration 2. ' ),
+      h('p', '(3) Functions have access to every preceding values in the array "ar". Usually, val1 (above) will be an argument followed by a series of functions. The closure Comp() maintains the array named "ar" seen in the definition of Comp(). Usually, this will be an initial substrate followed by function return values or promise resolution values. ' ),
+h('p', '(4)Let foo be a computation Comp(v1,v2,...vN) where v1 is a some value, v2,v3,... vN1 are funcionts, and vN is either "stop" or "finish". Then "foo" is a value with the following properties: ' ),
+
+h('pre', {style: {color: "#ffffdd" }}, `  (A)  \"foo\" can resume computing.
+  (B) foo can spawn forks that are independent from foo.
+  (C) foo("stop") and foo("finish") both point to the array
+    (named "ar") maintained by foo\'s constructor Comp().
+  (D) foo("finish") freezes ar; foo("stop") doesn\'t affect it.
+` ),
+h('p', ' Here\'s some examples:  ' ),
+h('pre',`  var foo = Comp();
+  resume(foo)(3)(x=>x**3);
+  resume(foo)(x=>x+3)(x=>x**2)("finish");
+  var fu = Comp();
+  fork(fu,foo)(x=>x/100)(x=>x*3);
+  foo("stop");  // [3, 27, 30, 900']  FROZEN.
+  fu("stop");   // [900, 9]  picks up where foo left off.` ),
+
+
+
+      h('p', '(5) Sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" and "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' ),
+      h('span', '(6)  With only one traversal, arrays can undergo multiple transformations including filters. They also compose.  ' ),
   h('a', {props: {href: "https://ramdajs.com/docs/#transduce",}}, "Ramda transduce."),
 
 h('h3', {style: {fontSize: "24px"}}, 'Example: resume and fork'),
@@ -2343,7 +2360,7 @@ h('pre', {style: {color: "#ffbbff"}}, `  ` )
                               h('div.content2', [
 
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), ' Demonstration 1 - Branching Sequence Acrobatics'),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), '   Demonstration 1 - Branching Sequence Acrobatics'),
 
 h('div', {style: {display: "flex" }},  [
   h('div', {style: {marginRight: "2%", width: "50%" }},   [
@@ -2355,7 +2372,9 @@ h('p', ' Entering a number "n" in one of the boxes on the right causes runT(n) t
 h('pre', {style: {color: "#eebcbb" }}, `
 
 var fork = f => string => {
-    return window[string] = Comp(f('stop'));
+    return window[string] = Comp(f(
+      'stop')
+    );
 }
 var iD = t => async b => {
   await wait(t*1000)
@@ -2376,9 +2395,13 @@ orb5 = Comp();
 orb6 = Comp();
 orb7 = Comp();
 orb8 = Comp();
-var orbit_1 = "In about eight seconds, orb5 will do something shocking. It will remove the last element from orb2.ar and replace it with its square root. Oh well, it\'s all inside of runT()." ' ),
+var orbit_1 = "In about eight seconds, orb5 will do something shocking.
+It will remove the last element from orb2.ar and replace it with
+its square root. Oh well, it\'s all inside of runT()." ' ),
 
-h('p', {style: {color: "#aaccee" }}, ' var orbit_2 = "Soon, orb6 will obtain copies of the last three elements of orb2 and perform some computations. Then it will display \"THE END\". `  ),
+h('p', {style: {color: "#aaccee" }}, ' var orbit_2 = "Soon, orb6 will
+obtain copies of the last three elements of orb2 and perform
+some computations. Then it will display \"THE END\". `  ),
 
 h('pre', `orb1 = Comp([k])(cubeP)(() =>
   fork(orb2,orb1)()(x=>x+k)(squareP)(multP(1/100))(addP(1))(powP(4)(1))(() =>
@@ -2397,16 +2420,7 @@ h('p', ' The nesting isn\'t necessary, but it is a convenient way to set the del
                                              ]),
                                     h('div', {style: {marginRight: "2%", width: "45%" }},   [
 h('br'),
-h('br'),
-h('br'),
-h('br'),
-h('br'),
-h('br'),
-h('br'),
-h('br'),
-h('br'),
-h('br'),
-h('br'),
+
 h('br'),
 
                 h('input#dem8', {
@@ -2827,7 +2841,7 @@ h('div', `${foocow_7.join(", ")}`)
                                                             h('div.content', [
 
 
-h('p', ' This website demonstrates the awesome potential of unconstrained JavaScript. Programming with enforced types, enforced purity of functions, enforced immutability, and the routing of all side effects to the virtual DOM seems akin to joining a Catholic religious order and taking a vow of poverty, chastity, and obedience. So it might surprise you to know that I am enthusiastic about functional programming and greatly enjoy working on the Haskell WebSocket server associated with this site.' ),
+h('p', ' This website demonstrates the tremendous potential of unconstrained JavaScript. Programming with enforced types, enforced purity of functions, enforced immutability, and the routing of all side effects to the virtual DOM seems akin to joining a Catholic religious order and taking a vow of poverty, chastity, and obedience. So it might surprise you to know that I am enthusiastic about functional programming and greatly enjoy working on the Haskell WebSocket server associated with this site.' ),
 h('span.tao', ' The ' ),
 h('a', {props: {href:"https://github.com/fantasyland/fantasy-land", target: "_blank" }}, 'Fantasyland' ),
 h('span', ' algebraic javascript specification is an admirable achievement. People who are familiar with Haskell can jump right in and start coding with familiar monads and functors borrowed from the Haskell ' ),

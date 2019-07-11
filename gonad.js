@@ -5,7 +5,6 @@ console.log("cowNode  &%&^%&^%&^%&^%&%&%&^% cowNode is", cowNode); */
 // function monoidFunc () {console.log( "Sum, Product, Max, Min, Any, All, Pair, Fn", Sum, Product, Max, Min, Any, All, Pair, Fn)};
 var factorsRes = [];
 var h;
-var node99 = "cow";
 var diff;
 function diff () {};
 var diffRender = function diffRender () {};   // See document.onload in maim
@@ -4158,6 +4157,107 @@ function Compose ( AR = [] )  {
   } };
 };
 
+/* function Comp ( AR = '' )  {
+    var ar , x, ob, f_ , p, z;
+    if (Array.isArray(AR)) ar = AR.slice()
+    else ar = AR;
+    if (Array.isArray(ar) && ar.length) x = ar.slice(1)
+    else x = ar;
+    return  ob = {ar: ar, run: function run (x) {
+        if (x != undefined && x !== false && x !== NaN && (!(x instanceof Fux)) &&
+        x.toString() != "NaN" && x.name !== "f_" ) {
+            if (Array.isArray(ob.ar)) ob.ar.push(x)
+            else ob.ar = p;
+        if (x instanceof Fux) {var z = ob.ar.pop();
+            if (x.fux(z)) x = z;
+        };
+        if (x instanceof Promise) x.then(y => z = y);
+        else z = x;
+        return function f_ (func) {
+            if (func === 'stop') return ar;
+            else if (typeof func !== "function") p = func;
+            else if (z instanceof Promise) p = z.then(v => func(v));
+            else p = func(z);
+            return run(p);
+        };
+    }}}
+};
+
+function Comp ( AR = [] )  {
+  var ar , ob, f_ , p, x;
+  if (Array.isArray(AR)) ar = AR.slice()
+  else ar = AR;
+  if (ar.length) {x = ar[ar.length-1]};
+  return  ob = {ar: ar, run: function run (x) {
+
+    if (x instanceof Filt) {
+      var z = ob.ar.pop();
+      if (x.filt(z)) {x = z}
+      else {
+        ar = [];
+        f_('stop');
+       }
+    };
+
+    if (x instanceof Promise) x.then(y =>
+      {if (y != undefined && y !== false && y !== NaN && (!(x instanceof Filt)) &&
+      y.toString() != "NaN" && y.name !== "f_" ) {
+      ar.push(y);
+        diffRender()
+    }})
+    else if (x != undefined && x !== false && (!(x instanceof Filt)) &&
+      x.toString() != "NaN" && x.name !== "f_" ) {
+      ar.push(x);
+      diffRender()
+    };
+    function f_ (func) {
+      if (func === 'stop') return ar;
+      if (func === 'end') return ob;
+      else if (typeof func !== "function") p = func;
+      else if (x instanceof Promise) p = x.then(v => func(v));
+      else p = func(x);
+      return run(p);
+    };
+    return f_;
+  }}
+}  */
+
+/*
+function Comp ( AR = [] )  {
+  var f_, p, run;
+  var ar = AR.slice();
+  var x = ar.pop();
+  return run = (function run (x) {
+
+    if (x instanceof Filt) {
+      var z = ar.pop();
+      if (!(x.filt(z))) {
+        x = "ZYX_543";
+      }
+      else x = z;
+    }
+    if (x instanceof Promise) x.then(y =>
+      {if (y != undefined && y !== false && y === y &&
+      y.name !== "f_" && y.name !== "stop" ) {
+      ar.push(y);
+      diffRender()
+    }})
+    else if (!(x instanceof Filt) && x !== "ZYX_543" && x != undefined && x !== false && x === x && x.name !== "f_" && x.name !== "stop" ) {
+      ar.push(x);
+      diffRender()
+    };
+    function f_ (func) {
+      if (func === 'stop') return ar;
+      else if (x === "ZYX_543") {ar = []; return run("ZYX_543")}
+      else if (typeof func !== "function") p = func
+      else if (x instanceof Promise) p = x.then(v => func(v))
+      else return run(func(x))
+    };
+    return f_;
+  })(x)
+}
+*/
+
 function Comp ( AR = [] )  {
   var f_, p, run;
   var ar = AR.slice();
@@ -4180,8 +4280,7 @@ function Comp ( AR = [] )  {
       diffRender()
     };
     function f_ (func) {
-      if (func === 'stop' || func === 'S') return ar;
-      if (func === 'finish' || func === 'F') return Object.freeze(ar);
+      if (func === 'stop') return ar;
       else if (typeof func !== "function") p = func;
       else if (x instanceof Promise) p = x.then(v => func(v));
       else p = func(x);
@@ -4191,6 +4290,39 @@ function Comp ( AR = [] )  {
   })(x)
 }
 
+/*
+function Comp ( AR = [] )  {
+  var f_, p, run;
+  var ar = AR.slice();
+  var x = ar.pop();
+  return run = (function run (x) {
+    if (x === null || x === NaN || x === undefined) x = f_('stop').pop();
+    if (x instanceof Filt) {
+      var z = ar.pop();
+      if (x.filt(z)) x = z; else ar = [];
+    }
+    else if (x instanceof Promise) x.then(y =>
+      {if (y != undefined && y !== false && y === y &&
+      y.name !== "f_" && y.name !== "stop" ) {
+      ar.push(y);
+      diffRender()
+    }})
+    else if (x != undefined && x !== false && x === x &&
+      x.name !== "f_" && x.name !== "stop" ) {
+      ar.push(x);
+      diffRender()
+    };
+    function f_ (func) {
+      if (func === 'stop') return ar;
+      else if (typeof func !== "function") p = func;
+      else if (x instanceof Promise) p = x.then(v => func(v));
+      else p = func(x);
+      return run(p);
+    };
+    return f_;
+  })(x)
+}
+*/
 
 var f = Comp();
 var g = Comp()
@@ -4316,23 +4448,16 @@ var add = (x, y) => x + y;
 // ********************************************************** conpTest3
 
 
-var A_A = [1,2,3].join( );
-var B_B = [1,2,3].join( );
-var C_C = [1,2,3].join( );
-var D_D = [1,2,3].join( );
-var E_E = "Specify an array length: ";
-
 var obS  = { ar: [] };
 
 obS.push = function (x) {
   this.ar.push(x);
-  if (this.ar.length === 1) E_E = "Now specify an upper bound. The number you enter will be multiplied by 1000."
-  if (this.ar.length === 2) {
-    compTest3(this.ar[0], this.ar[1]);
-    this.ar.length = 0;
-    E_E = "Specify an array length: ";
+  if (this.ar.length > 1) {
+    compTest3(ar[0], ar[1]);
   }
 };
+
+
 
 function compTest3 (k, n) {
 
@@ -4379,9 +4504,17 @@ var xform2 = compose(
 var transducerResult = ar7b.reduce(xform(xform2(concat)),[] );
 console.log("transducerResult is", transducerResult);
 
-  A_A = dotResult.join( );
-  B_B = cleanF(res2).join( );
-  C_C = cleanF(res3).join( );
-  D_D = cleanF(transducerResult).join( );
+node99 = h('div', [
+  h('p',  dotResult.join( ) ),
+  h('p',  cleanF(res2).join( )),
+  h('p',  cleanF(res3).join( )),
+  h('p',  cleanF(transducerResult).join( ))
+]);
+return node99;
 }
 compTest3(20,10)
+
+var A_A = [1,2,3].join( );
+var B_B = [1,2,3].join( );
+var C_C = [1,2,3].join( );
+var D_D = [1,2,3].join( );

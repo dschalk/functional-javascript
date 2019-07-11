@@ -420,6 +420,16 @@ a:hover {
   display: block;
   text-indent 1.6%;
 }
+
+.content4 { width: 3%;
+  font-size: 22px;
+  font-family: monospace;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-indent 1.6%;
+}
+
 .content3{ width: 90%;
   font-size: 22px;
   color: #BBFFDD;
