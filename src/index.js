@@ -2305,53 +2305,39 @@ h('pre', `function Comp ( AR = [] )  {
   })(x)
 }
 
+function resume (g) {return g(g('stop').pop())};
+   // Removes and replaces the last item in "ar".
+
 function fork (g,f) {return g(f('stop').slice(-1)[0] )} ` ),
 
 
-
-    h('p', ' Let "val1, val2, ..." be any JavaScript values. Then foo = Comp(val1)(val2) ... (valN) has the following properties:  ' ),
+    h('p', ' Let "val1, val2, ..., valN" be any JavaScript values, although usually "val2, val3, ..., valN-1" will be functions operating on val1. Then foo = Comp(val1)(val2) ... (valN) has the following properties:  ' ),
                                     h('div', {style: {color: "#eeeeff" }}, [
 
-      h('p', '(1) There are no default type restrictions on val1, val2, ... valN ("the vals"), If a value v is a function, there are no default restrictions on the type of v\'s argument or the type of v\'s return value. Enforcing type constraints is optional. '),
+      h('p', '(1) foo\'s constructor is f_(). The closure Comp() is up the prototype chain from foo, giving foo access to the array "ar" as long as foo exists. ' ),
       h('p', '(2) Entries that are functions operate on previously returned values (or the resolution values of returned Promises) from left to right,' ),
-      h('p', '(3) Functions have access to every preceding values in the array "ar". Usually, val1 (above) will be an argument followed by a series of functions. The closure Comp() maintains the array named "ar" seen in the definition of Comp(). Usually, this will be an initial substrate followed by function return values or promise resolution values. ' ),
-h('p', '(4)Let foo be a computation Comp(v1,v2,...vN) where v1 is a some value, v2,v3,... vN1 are funcionts, and vN is either "stop" or "finish". Then "foo" is a value with the following properties: ' ),
-
-h('pre', {style: {color: "#ffffdd" }}, `  (A)  \"foo\" can resume computing.
-  (B) foo can spawn forks that are independent from foo.
-  (C) foo("stop") and foo("finish") both point to the array
-    (named "ar") maintained by foo\'s constructor Comp().
-  (D) foo("finish") freezes ar; foo("stop") doesn\'t affect it.
-` ),
-h('p', ' Here\'s some examples:  ' ),
-h('pre',`  var foo = Comp();
+      h('p', '(3) There are no default type restrictions on val1, val2, ... valN ("the vals"), If a value v is a function, there are no default restrictions on the type of v\'s argument or the type of v\'s return value. Type constraints can easily be enforced with a few lines of additional code. '),
+      h('p', '(4) foo\'s arguments have access to the return values, resolution values of returned promises, and everything else in the array "ar". ' ),
+      h('p', '(5) Let const bar = Comp(foo(\'stop\')). Then bar inherits foo\'s "ar". bar\'s "ar" can grow without affecting foo\'s "ar". The expression "const bar = Comp(\'final\')) assures that nothing can ever mutate foo\'s "ar". ' ),
+      h('p', ' (6) CAUTION: The expression "foo(\'final\')" freezes foo\'s "ar". After that, foo\'s "ar" can still be augmented by creating functions as shown in example "4" or using the function "fork".  ' ),
+      h('span', '(7) Unless it is frozen, foo can accept new arguments with the expression "resume(foo)". This is one way foo() can process ' ),
+      h('span', {style: {color: "#ffaaff" }}, ' asynchronous streams. ' ),
+      h('br'),
+h('p', ' Here are some examples of resume() and fork():  ' ),
+h('pre',  {style: {color: "#ffffdd" }},  `  var foo = Comp();
   resume(foo)(3)(x=>x**3);
   resume(foo)(x=>x+3)(x=>x**2)("finish");
-  var fu = Comp();
-  fork(fu,foo)(x=>x/100)(x=>x*3);
-  foo("stop");  // [3, 27, 30, 900']  FROZEN.
-  fu("stop");   // [900, 9]  picks up where foo left off.` ),
-
-
-
-      h('p', '(5) Sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" and "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' ),
-      h('span', '(6)  With only one traversal, arrays can undergo multiple transformations including filters. They also compose.  ' ),
+  var bar = Comp();
+  fork(bar,foo)(x=>x/100)(x=>x*3);
+  foo("stop");  // [3, 27, 30, 900']  frozen.
+  bar("stop");  // [900, 9, 27]  picked up where foo left off.` ),
+h('h3', 'Anonymous Computations' ),
+      h('span', ' Sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" and "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' ),
+      h('h3', 'Transducer-like Computations '),
+      h('span', '(9)  Arays can undergo multiple transformations, including filters, with only one traversal and no intermediate arrays (see Demonstration 2). The algorithm bears little resemblance to mainstream transducers, such as ' ),
   h('a', {props: {href: "https://ramdajs.com/docs/#transduce",}}, "Ramda transduce."),
+  h('span', ' The Comp() algorithm doesn\'t rely on reducing functions like Array.prototype.reduce. ' ),
 
-h('h3', {style: {fontSize: "24px"}}, 'Example: resume and fork'),
-
-h('pre', ` function resume (g) {return g(g(\'stop\').pop())};
-        // f re-starts with the value it most recently acquired.
- function fork (g,f) {return g(f(\'stop\').slice().pop())};
-        // g starts with the last item in f.
- var dd = Comp(); var ee = Comp();
- dd(2)(v=>v+=1)(v=>v**3); resume(dd)(x=>x+3);
- fork(ee,dd)(x=>x*x)(x=>x/100);
- console.log("dd's ar value is now", dd('stop')); // [2, 3, 27, 30]
- console.log("ee's ar value is now", ee('stop'));  // [30, 900, 9]  ` ),
-
-
-h('p', {style: {color: "#dedede"}}, ' Here are the results: ' ),
 h('pre', {style: {color: "#ffbbff"}}, `  ` )
                                                  ])
                                                ]),
@@ -2652,9 +2638,8 @@ h('p', ' The variables prefixed by "_C" are permanent fixtures of the virtual DO
 
 
 
-h('h1', 'METAPROGRAMMING WITHOUT PROXIES '),
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 4 '  ),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 4 - Metaprograming'  ),
 
                               h('div', {style: {display: "flex" }},  [
                               h('div', {style: {marginRight: "2%", width: "50%" }},   [
