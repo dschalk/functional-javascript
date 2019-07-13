@@ -2225,10 +2225,10 @@ h('div.image_3', [
 h('div', { style: { textAlign: "center", fontWeight: "bold" }}, [
   h('br'),
   h('div', {
-    style: { fontSize: "32px", color: "rgb(130,170,18", textAlign: "center" }}, 'JAVASCRIPT And FUNCTIONAL PROGRAMMING'),
+    style: { fontSize: "36px", color: "rgb(130,170,18", textAlign: "center" }}, 'JAVASCRIPT And FUNCTIONAL PROGRAMMING'),
 ]),
 h('br'),
-h('div', styleFunc(["rgb(180,180,56)",, "27px", "italic", ,"center" ]), 'Harness vs. Limit the Power of Functions' ),
+h('div', styleFunc(["rgb(180,180,56)",, "27px", "italic", ,"center" ]), 'The Magic of First-Class Functions With Closures' ),
 h('br'),
 
                         h('div.content', [ // 2 brackets  main -> content ->
@@ -2267,12 +2267,12 @@ h('a', {props: {href: "https://www.geeksforgeeks.org/functional-programming-para
 h('span', ' \"Functional programming is a programming paradigm in which we try to bind everything in pure mathematical functions style.\". The article is a good read for coders who are curious about functional programming. It discusses pure functions, recursion, referential transparency first-class functions, higher-order functions, and the oxymoronic phrase: \"immutable variables\", with some example code written in JavaScript. ' ),
 h('br'),
 
-h('p', ' If you are considering eliminating mutations, using only pure function, and so on, you might want to consider what you would losing. This article scratches the surface of what unconstained JavaScript functions can do.  It might disuade you from getting too dogmatic and austere about the functional paradign. '),
+h('p', ' If you are considering eliminating mutations and side-effects, using only pure function, and so on, you should weigh what you would sacrifice against what you stand to gain. Javascript without these features is always less flexible and is sometimes less performant. '),
 
-h('p', ' Common sense bug prevention and the functional paradigm have much in common, including: functions should receive data only through arguments; functions should avoid mutating data shared with other functions; side effects should be directed away from the main body of a program (to the DOM,for example). '  ),
+h('p', ' Common sense bug prevention and the functional paradigm have much in common. Functions should usually receive data only through arguments. Functions should generally avoid mutating data shared with other functions. Side effects are best directed away from the main body of a program (to the DOM,for example). I could go on. ' ),
 
 h('h3', 'Comp() A Conveniently Tweakable Template'),
-h('p', ' "Comp" (below) facilitates the composition of functions which might include promises or filters. I offer it to you as a tweakable template. If your enumerable collections or asynchronous streams don\t include promises or filters, you can easily remove those features and, perhaps, replace them with code to suit your needs  ' ),
+h('p', ' "Comp" (below) facilitates the composition of functions, even if they include promises or filters. I offer it to you as a tweakable template. Remove features that aren\'t relevant to your current project and add whatever helps.  ' ),
 h('pre', `function Comp ( AR = [] )  {
   var f_, p, run;
   var ar = AR.slice();
@@ -2334,16 +2334,16 @@ h('pre',  {style: {color: "#ffffdd" }},  `  var foo = Comp();
 h('h3', 'Anonymous Computations' ),
       h('span', ' Sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" and "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' ),
       h('h3', 'Transducer-like Computations '),
-      h('span', '(9)  Arays can undergo multiple transformations, including filters, with only one traversal and no intermediate arrays (see Demonstration 2). The algorithm bears little resemblance to mainstream transducers, such as ' ),
+      h('span', '(9)  Arays can undergo multiple transformations, including filters, with only one traversal and the creation of no intermediate arrays (see Demonstration 2). The algorithm bears little resemblance to mainstream transducers, such as ' ),
   h('a', {props: {href: "https://ramdajs.com/docs/#transduce",}}, "Ramda transduce."),
-  h('span', ' The Comp() algorithm doesn\'t rely on reducing functions like Array.prototype.reduce. ' ),
+  h('span', ' The Comp() algorithm for efficiently processing large arrays doesn\'t rely on reducing functions such as Array.prototype.reduce. ' ),
 
 h('pre', {style: {color: "#ffbbff"}}, `  ` )
                                                  ])
                                                ]),
 
 
-                              h('div.content2', [
+                           h('div.content2', [
 
 
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), '   Demonstration 1 - Branching Sequence Acrobatics'),
