@@ -3929,11 +3929,9 @@ var _oC_ = ['ready'];
 
 push3 = new Proxy(push3, {
     apply: function(a, b, c) {
-        if (c[0].length === 3) {console.log('c is',c); c = [ [], c[1] ]}
         if (c[0].length === 2) {
-          console.log('c is',c);
            _oC_ = quadF(c[0][0])(c[0][1])(c[1]);
-            _arQuad = [];
+           _arQuad = [];
         }
     return Reflect.apply(a,b,c);
     }
@@ -4131,6 +4129,23 @@ var  popP = t => async ar => {
     await wait (t * 1000)
     return ar.slice().pop();
 };
+
+function showFunc (name, name2) {return name == name2 ? 'inline-block' : 'none'}
+var result444;
+
+var MonadState3 = function MonadState3(g, state) {
+  this.id = g;
+  this.s = state;
+  this.bnd = (func, ...args) => func(this.s, ...args);
+  this.ret = function (a) {
+    return window[this.id] = new MonadState(this.id, a);
+  };
+};
+
+MonadState3.prototype.html = [];
+
+var commentMonad = new MonadState3('commentMonad',   [ '', [] ]);
+
 
 function Compose ( AR = [] )  {
   var ar , x, ob, f_ , p ;
