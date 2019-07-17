@@ -2225,10 +2225,10 @@ h('div.image_3', [
 h('div', { style: { textAlign: "center", fontWeight: "bold" }}, [
   h('br'),
   h('div', {
-    style: { fontSize: "36px", color: "rgb(130,170,18", textAlign: "center" }}, 'JAVASCRIPT And FUNCTIONAL PROGRAMMING'),
+    style: { fontSize: "32px", color: "rgb(130,170,18", textAlign: "center" }}, 'JAVASCRIPT And FUNCTIONAL PROGRAMMING'),
 ]),
 h('br'),
-h('div', styleFunc(["rgb(180,180,56)",, "27px", "italic", ,"center" ]), 'The Magic of First-Class Functions With Closures' ),
+h('div', styleFunc(["rgb(180,180,56)",, "27px", "italic", ,"center" ]), 'Harness vs. Limit the Power of Functions' ),
 h('br'),
 
                         h('div.content', [ // 2 brackets  main -> content ->
@@ -2237,7 +2237,7 @@ h('span.tao', ' This is a ' ),
 
                       h('a', {props: {href:"https://cycle.js.org/", target: "_blank" }}, 'Cycle.js' ),
 
-h('span', ' application working in conjunction with a '),
+h('span', ' application working in conjunction with a modified '),
 
                       h('a', {props: {href:"https://www.haskell.org/#step3", target: "_blank" }}, 'Haskell ' ),
 
@@ -2245,14 +2245,14 @@ h('a.a2', {props: {href: "http://hackage.haskell.org/package/wai-websockets-3.0.
 
 h('span', ' server, each on its own ' ),
 
-                      h('a', {props: {href:"https://lists.ubuntu.com/archives/ubuntu-announce/2018-April/000231.html", target: "_blank" }}, 'Ubuntu 19.04' ),
+                      h('a', {props: {href:"https://lists.ubuntu.com/archives/ubuntu-announce/2018-April/000231.html", target: "_blank" }}, 'Ubuntu 18.04' ),
 
                       h('a.a2', {props: {href: "https://www.digitalocean.com/", target: "_blank" }}, ' Digital Ocean' ),
 
 h('span', ' droplet. The JavaScript is plain, unrestricted ' ),
 
-                     h('a', {props: {href:"https://tc39.github.io/ecma262/", target: "_blank" }}, 'ECMAScript 2018' ),
-h('span', ', transpiled with ' ),
+                     h('a', {props: {href:"https://www.ecma-international.org/ecma-262/", target: "_blank" }}, 'ECMAScript 2019' ),
+h('span', ' transpiled with ' ),
                       h('a', {props: {href:"https://babeljs.io/", target: "_blank" }}, 'Babel' ),
 
 h('span', ' and bundled by ' ),
@@ -2264,38 +2264,45 @@ h('br'),
 h('br'),
 h('span.tao', ' According to ' ),
 h('a', {props: {href: "https://www.geeksforgeeks.org/functional-programming-paradigm/", target: "_blank" }}, 'Geeks for Geeks' ),
-h('span', ' \"Functional programming is a programming paradigm in which we try to bind everything in pure mathematical functions style.\". The article is a good read for coders who are curious about functional programming. It discusses pure functions, recursion, referential transparency first-class functions, higher-order functions, and the oxymoronic phrase: \"immutable variables\", with some example code written in JavaScript. ' ),
+
+h('span', ' \"Functional programming is a programming paradigm in which we try to bind everything in pure mathematical functions style.\" Some of the example code is written in JavaScript. The article is a good-enough primer on the functional programming paradigm. As for "we try to bind everything in pure mathematical funcions style", in the case of JavaScrip I would add: "But don\'t try too hard". '),
 h('br'),
-
-h('p', ' If you are considering eliminating mutations and side-effects, using only pure function, and so on, you should weigh what you would sacrifice against what you stand to gain. Javascript without these features is always less flexible and is sometimes less performant. '),
-
-h('p', ' Common sense bug prevention and the functional paradigm have much in common. Functions should usually receive data only through arguments. Functions should generally avoid mutating data shared with other functions. Side effects are best directed away from the main body of a program (to the DOM,for example). I could go on. ' ),
-
+h('h3', 'Functional Programming And Common Sense'),
+h('p', ' The easiest functions to comprehend, debug, and maintain depend ONLY on their arguments and do nothing other than: (1) return values and (2) cause side effects external to the programs they inhabit. Keeping things simple in this manner happens to resemble the purity and referential transparency of strictly functional languages like Haskell.  ' ),
+h('h3', 'There\'s No Need To Impose The Entire Functional Programming Paradigm On Javascript' ),
+h('span.tao', ' Mutating values inside of functions promotes efficiency by not leaving dead clones for the garbage collector or building elaborate treis cluttered with trash that the garbage collector can\'t reach. Type checks can be added on an ad hoc basis with if-then statements or ' ),
+h('a',{props: {href: "https://www.typescriptlang.org/", target: "_blank" }}, 'Typescript' ),
+h('span', ' wherever you find them useful. Screening user input in web applications is a good example. You can write maintainable, bug-free code without sacrificing any of the breath-taking possibilities incipient in plain ' ),
+                     h('a', {props: {href:"https://www.ecma-international.org/ecma-262/", target: "_blank" }}, 'ECMAScript 2019' ),
+h('br'),
 h('h3', 'Comp() A Conveniently Tweakable Template'),
-h('p', ' "Comp" (below) facilitates the composition of functions, even if they include promises or filters. I offer it to you as a tweakable template. Remove features that aren\'t relevant to your current project and add whatever helps.  ' ),
-h('pre', `function Comp ( AR = [] )  {
+h('p', ' "Comp" (below) facilitates the composition of functions which might include promises or filters. I offer it to you as a tweakable template. If your enumerable collections or asynchronous streams don\'t include promises or filters, you can easily remove those features and, perhaps, replace them with code to suit your needs. And, of course, you might devise a better way to do what Comp() does. I encourage you to share your thoughts with me at >>  dev3216@protonmail.com  <<. Your suggestions, experiences, and thoughts will be appreciated.  ' ),
+
+h('pre',  `function Comp ( AR = [] )  {
   var f_, p, run;
   var ar = AR.slice();
   var x = ar.pop();
   return run = (function run (x) {
-    if (x === null || x === NaN || x === undefined) x = f_('stop').pop();
+    if (x === null || x === NaN ||
+      x === undefined) x = f_('stop').pop();
     if (x instanceof Filt) {
       var z = ar.pop();
       if (x.filt(z)) x = z; else ar = [];
     }
     else if (x instanceof Promise) x.then(y =>
-      {if (y != undefined && y !== false && y === y &&
-      y.name !== "f_" && y.name !== "stop" ) {
+      {if (y != undefined && typeof y !== "boolean"
+        && y === y && y.name !== "f_" && y.name !== "stop" ) {
       ar.push(y);
-      diffRender();
+      diffRender()
     }})
-    else if (x != undefined && x !== false && x === x &&
-      x.name !== "f_" && x.name !== "stop" ) {
+    else if (x != undefined && x === x && x !== false
+      && x.name !== "f_" && x.name !== "stop" ) {
       ar.push(x);
-      diffRender();
+      diffRender()
     };
     function f_ (func) {
-      if (func === 'stop') return ar;
+      if (func === 'stop' || func === 'S') return ar;
+      else if (func === 'finish' || func === 'F') return Object.freeze(ar);
       else if (typeof func !== "function") p = func;
       else if (x instanceof Promise) p = x.then(v => func(v));
       else p = func(x);
@@ -2303,47 +2310,70 @@ h('pre', `function Comp ( AR = [] )  {
     };
     return f_;
   })(x)
-}
+} ` ),
+h('pre', `funct
 
-function resume (g) {return g(g('stop').pop())};
+function resume (f) {return f(f('stop').pop())}
    // Removes and replaces the last item in "ar".
 
-function fork (g,f) {return g(f('stop').slice(-1)[0] )} ` ),
+function fork (g,f) {return g(f('stop').slice(-1)[0] )}
+   // Doesn\t affect f but picks up where f left off
 
+function shortFork (g,f) {
+    if (g.constructor !== String) {
+        console.log("The first parameter of shortFork must be a string but it is:",g);
+        return "Type Error: The first parameter of shortFork must be a string"
+    }
+    this[g] = Comp(f('stop').slice(-1));
+    return this[g];
+   }
 
-    h('p', ' Let "val1, val2, ..., valN" be any JavaScript values, although usually "val2, val3, ..., valN-1" will be functions operating on val1. Then foo = Comp(val1)(val2) ... (valN) has the following properties:  ' ),
+function longFork (g,f) {
+    if (g.constructor !== String) {
+        console.log("The first parameter of longFork must be a string but it is:",g);
+        return "Type Error: The first parameter of longFork must be a string"
+    }
+     this[g] = Comp(f('stop').slice());
+     return this[g];
+} ` ),
+
+    h('p', ' Let "val1, val2, ..., valN" be any JavaScript values ("val2, val3, ..., valN-1" will usually be functions operating on val1). Then foo = Comp(val1)(val2) ... (valN) has the following properties:  ' ),
                                     h('div', {style: {color: "#eeeeff" }}, [
 
       h('p', '(1) foo\'s constructor is f_(). The closure Comp() is up the prototype chain from foo, giving foo access to the array "ar" as long as foo exists. ' ),
       h('p', '(2) Entries that are functions operate on previously returned values (or the resolution values of returned Promises) from left to right,' ),
-      h('p', '(3) There are no default type restrictions on val1, val2, ... valN ("the vals"), If a value v is a function, there are no default restrictions on the type of v\'s argument or the type of v\'s return value. Type constraints can easily be enforced with a few lines of additional code. '),
+      h('p', '(3) There are no default type restrictions on val1, val2, ... valN. If a value v is a function, there are no default restrictions on the type of v\'s argument or the type of v\'s return value. Type constraints can easily be enforced with a few lines of additional code. '),
       h('p', '(4) foo\'s arguments have access to the return values, resolution values of returned promises, and everything else in the array "ar". ' ),
-      h('p', '(5) Let const bar = Comp(foo(\'stop\')). Then bar inherits foo\'s "ar". bar\'s "ar" can grow without affecting foo\'s "ar". The expression "const bar = Comp(\'final\')) assures that nothing can ever mutate foo\'s "ar". ' ),
-      h('p', ' (6) CAUTION: The expression "foo(\'final\')" freezes foo\'s "ar". After that, foo\'s "ar" can still be augmented by creating functions as shown in example "4" or using the function "fork".  ' ),
+      h('p', '(5) Let const bar = Comp(foo(\'stop\')). Then bar inherits foo\'s "ar". bar\'s "ar" can grow without affecting foo\'s "ar". The expression "const bar = Comp(\'finish\')) assures that nothing can ever mutate foo\'s "ar". ' ),
+      h('p', ' (6) CAUTION: The exprnession "foo(\'finish\')" freezes foo\'s "ar". After that, foo\'s "ar" can still be augmented by creating functions as shown in example "4" or using the function "fork".  ' ),
       h('span', '(7) Unless it is frozen, foo can accept new arguments with the expression "resume(foo)". This is one way foo() can process ' ),
       h('span', {style: {color: "#ffaaff" }}, ' asynchronous streams. ' ),
       h('br'),
-h('p', ' Here are some examples of resume() and fork():  ' ),
-h('pre',  {style: {color: "#ffffdd" }},  `  var foo = Comp();
-  resume(foo)(3)(x=>x**3);
-  resume(foo)(x=>x+3)(x=>x**2)("finish");
-  var bar = Comp();
-  fork(bar,foo)(x=>x/100)(x=>x*3);
-  foo("stop");  // [3, 27, 30, 900']  frozen.
-  bar("stop");  // [900, 9, 27]  picked up where foo left off.` ),
+h('p', ' Here are some examples of resuming and forking:  ' ),
+h('pre',  `var foo = Comp();
+resume(foo)(3)(x=>x**3);
+resume(foo)(x=>x+3)(x=>x**2)("finish");
+var bar = Comp();
+fork(bar,foo)(x=>x/100)(x=>x*3);
+bar('stop'); // [900, 9, 27
+longFork('bar',foo);
+bar('stop'); // Now bar is [3, 27, 30, 900]
+shortFork("star",foo); // star was not defined
+star("stop"); // [900] star was defined in shortFork
+foo("stop");  // [3, 27, 30, 900]  frozen.  ` ),
 h('h3', 'Anonymous Computations' ),
       h('span', ' Sequences of functions can be run anonymously. For example, these expressions: "Comp()(4)(x=>x**4)(x=>x/2**4)(\'stop\')" and "Comp([4])(x=>x**4)(x=>x/2**4)(\'stop\')" both return "[4, 256, 16]". ' ),
       h('h3', 'Transducer-like Computations '),
-      h('span', '(9)  Arays can undergo multiple transformations, including filters, with only one traversal and the creation of no intermediate arrays (see Demonstration 2). The algorithm bears little resemblance to mainstream transducers, such as ' ),
+      h('span', '(9)  Arays can undergo multiple transformations, including filters, with only one traversal and no intermediate arrays (see Demonstration 2). The algorithm bears little resemblance to mainstream transducers, such as ' ),
   h('a', {props: {href: "https://ramdajs.com/docs/#transduce",}}, "Ramda transduce."),
-  h('span', ' The Comp() algorithm for efficiently processing large arrays doesn\'t rely on reducing functions such as Array.prototype.reduce. ' ),
+  h('span', ' The Comp() algorithm doesn\'t rely on reducing functions like Array.prototype.reduce. ' ),
 
 h('pre', {style: {color: "#ffbbff"}}, `  ` )
                                                  ])
                                                ]),
 
 
-                           h('div.content2', [
+                              h('div.content2', [
 
 
 h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), '   Demonstration 1 - Branching Sequence Acrobatics'),
@@ -2401,7 +2431,7 @@ h('pre', `orb1 = Comp([k])(cubeP)(() =>
               (iD(1)(orb2(\'stop\').slice(-1)[0]))(powP(1/2)(1))
               (addP(1))(powP(3)(1))(iD(4)("THE END"))))))))
 }; `   ),
-h('p', ' The nesting isn\'t necessary, but it is a convenient way to set the delays. Othersise, the delays would be times from the start, rather than times from the previous arrows. '),
+h('p', ' The nesting isn\'t necessary, but it is a convenient way to set the delays. Othersise, all of the delays would have to begin when runT is called.  '),
 
                                              ]),
                                     h('div', {style: {marginRight: "2%", width: "45%" }},   [
@@ -2458,10 +2488,18 @@ h('br')
 
 h('p', 'The demonstration on the right shows the results of processing an array through multiple calls to its map and filter methods, using Comp(), or using a transducer. The results are identical, but Comp() and transducers need to traverse only the initial array only one time. The Array map and filter methods return new arrays each time they are called. This can be a performance problem where very large arrays are involved.   ' ),
 
-h('p', ' Entering a number "j" on the right causes obS.map(j) to execute. Entering a second number "k" calls obS.map(k) which calls "compTest3(j,k)". The code is hown below. '),
-h('pre', `
+h('p', ' obS does what proxies do, only more directly and efficiently. obS.push always returns "undefined", without the quotation marks, but when called on some number there might be no side-effects, Called on the same number again the same number again and the DOM gets refreshed with the results of four computations. The following is cut and pasted from the Chrome Console:  ' ),
+h('pre', `obS.push(27)
+undefined
 
-var obS  = { ar: [] };
+obS.push(27)
+monad.js:4354 dotResult is (6) [1001, 1081, 1625, 3401, 7561, 15641]
+monad.js:4363 cleanF(res2) is (6) [1001, 1081, 1625, 3401, 7561, 15641]
+monad.js:4364 cleanF(res3) is (6) [1001, 1081, 1625, 3401, 7561, 15641]
+monad.js:4380 transducerResult is (6) [1001, 1081, 1625, 3401, 7561, 15641]
+undefined ` ),
+h('p', ' You can try it on the right. Here\'s the definition: ' ),
+h('pre', `var obS  = { ar: [] };
 
 obS.push = function (x) {
   this.ar.push(x);
@@ -2526,9 +2564,12 @@ console.log("transducerResult is", transducerResult);
 
 
                                            ]),
-                           h('div', {style: {marginRight: "2%", width: "50%" }},   [
+    h('div', {style: {marginRight: "2%", width: "50%", fontSize: "18px" }},   [
 
-                h('br'),
+      h('br'),
+      h('span', {style: {color: "#aaffff"}}, 'Enter numbers under 300 for fast results'),
+      h('br'),
+      h('br'),
 E_E,
                                 h('input#dem0', {
                                   style: {
@@ -2541,24 +2582,23 @@ E_E,
                                 h('br'),
 
 h('br'),
-h('div', {style:{fontSize: "17px", color: "#ffccff" }}, [
-h('h3', 'Using the Array Prototype Dot Method:' ),
-A_A,
+h('span.dex', 'Using the Array Prototype Dot Method:' ),
+h('span', {style: {color: "#ffabab"}}, A_A ),
 h('br'),
 h('br'),
-h('h3', 'Using Comp() With Two Array Traversals: ' ),
-B_B,
+h('span.dex', 'Using Comp() With Two Array Traversals: ' ),
+h('span', {style: {color: "#ffabab"}}, B_B ),
 h('br'),
 h('br'),
-h('h3', 'Using Comp() With Only One Array Traversal: ' ),
-C_C,
+h('span.dex', 'Using Comp() With Only One Array Traversal: ' ),
+h('span', {style: {color: "#ffabab"}}, C_C ),
 h('br'),
 h('br'),
-h('h3', 'Using a Transducer: ' ),
-D_D,
+h('span.dex', 'Using a Transducer: ' ),
+h('span', {style: {color: "#ffabab"}}, D_D ),
 ]),
-                                                          ])
-                                                          ]),
+h('br'),
+]),
 
 
 
@@ -2639,7 +2679,7 @@ h('p', ' The variables prefixed by "_C" are permanent fixtures of the virtual DO
 
 
 
-h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 4 - Metaprograming'  ),
+h('h3', styleFunc(["#8ffc95", , "23px", , , "center"]), 'Demonstration 4 '  ),
 
                               h('div', {style: {display: "flex" }},  [
                               h('div', {style: {marginRight: "2%", width: "50%" }},   [

@@ -124,6 +124,15 @@ a:hover {
     color: #bbddff;
   }
 
+  .dex {
+    font-size: "17px";
+  }
+
+  .kex {
+    font-size: "17px";
+    color: "#ddffff";
+  }
+
   p {
     text-indent: 3%;
   }

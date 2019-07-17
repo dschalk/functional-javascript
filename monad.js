@@ -4163,7 +4163,8 @@ function Comp ( AR = [] )  {
   var ar = AR.slice();
   var x = ar.pop();
   return run = (function run (x) {
-    if (x === null || x === NaN || x === undefined) x = f_('stop').pop();
+    if (x === null || x === NaN ||
+      x === undefined) x = f_('stop').pop();
     if (x instanceof Filt) {
       var z = ar.pop();
       if (x.filt(z)) x = z; else ar = [];
@@ -4181,7 +4182,7 @@ function Comp ( AR = [] )  {
     };
     function f_ (func) {
       if (func === 'stop' || func === 'S') return ar;
-      if (func === 'finish' || func === 'F') return Object.freeze(ar);
+      else if (func === 'finish' || func === 'F') return Object.freeze(ar);
       else if (typeof func !== "function") p = func;
       else if (x instanceof Promise) p = x.then(v => func(v));
       else p = func(x);
@@ -4200,6 +4201,27 @@ var rr = f(3)(x=>x**3)(x=>x+3)(x=>x*x)('stop');
 
 function resume (g) {return g(g('stop').pop())}; // Removes and replaces item.
 function fork (g,f) {return g(f('stop').slice().pop())}; // Copies without mutation.
+function shortFork (g,f) {
+    if (g.constructor !== String) {
+        console.log("The first parameter of shortFork must be a string but it is:",g);
+        return "Type Error: The first parameter of shortFork must be a string"
+    }
+    this[g] = Comp(f('stop').slice(-1));
+    return this[g];
+}
+
+function longFork (g,f) {
+    if (g.constructor !== String) {
+        console.log("The first parameter of longFork must be a string but it is:",g);
+        return "Type Error: The first parameter of longFork must be a string"
+    }
+    this[g] = Comp(f('stop').slice());
+    return this[g];
+}
+/*function forkAll (g,f) {
+    this[g] = Comp(f('stop').slice());
+    return this[g];
+} */
 
 var rt = fork(h,f)(x=>x/100)(x=>x*x)('stop');
 console.log("rr is", rr);
@@ -4320,21 +4342,21 @@ var A_A = [1,2,3].join( );
 var B_B = [1,2,3].join( );
 var C_C = [1,2,3].join( );
 var D_D = [1,2,3].join( );
-var E_E = "Specify an array length: ";
+var E_E = "Sspecify an upper bound. The number you enter will be multiplied by 1000.";
 
 var obS  = { ar: [] };
 
 obS.push = function (x) {
   this.ar.push(x);
-  if (this.ar.length === 1) E_E = "Now specify an upper bound. The number you enter will be multiplied by 1000."
+  if (this.ar.length === 1) E_E = "Now specify an array length."
   if (this.ar.length === 2) {
     compTest3(this.ar[0], this.ar[1]);
     this.ar.length = 0;
-    E_E = "Specify an array length: ";
+    E_E = "Sspecify an upper bound. The number you enter will be multiplied by 1000.";
   }
 };
 
-function compTest3 (k, n) {
+function compTest3 (k,n) {
 
 var test9 = ltTest(k*1000).filt
 var ar7b = [...Array(Math.abs(n)).keys()];
@@ -4379,9 +4401,9 @@ var xform2 = compose(
 var transducerResult = ar7b.reduce(xform(xform2(concat)),[] );
 console.log("transducerResult is", transducerResult);
 
-  A_A = dotResult.join( );
-  B_B = cleanF(res2).join( );
-  C_C = cleanF(res3).join( );
-  D_D = cleanF(transducerResult).join( );
+  A_A = dotResult.map(v => v.toString() + ", ");
+  B_B = cleanF(res2).map(v => v.toString() + ", ");
+  C_C = cleanF(res3).map(v => v.toString() + ", ");
+  D_D = cleanF(transducerResult).map(v => v.toString() + ", ");
 }
 compTest3(20,10)
