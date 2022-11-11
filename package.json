@@ -19,7 +19,7 @@
   "homepage": "https://github.com/dschalk/functional-javascript#readme",
   "devDependencies": {
     "webpack": "^4.35.2",
-    "webpack-cli": "^3.3.5"
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "@cycle/dom": "^22.3.0",
